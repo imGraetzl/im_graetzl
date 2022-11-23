@@ -1,5 +1,5 @@
 ActiveAdmin.register SubscriptionPlan do
-  menu parent: 'Users'
+  menu parent: 'Subscriptions'
 
   index { render 'index', context: self }
   show { render 'show', context: self }

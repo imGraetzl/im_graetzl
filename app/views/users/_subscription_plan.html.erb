@@ -7,7 +7,7 @@
       <%= image_tag("info/cardbox-abo#{subscription_plan.image_url}.jpg", class: 'coverImg') %>
     </div>
     <div class="categoryicon">
-      <%= subscription_plan %>
+      <%= subscription_plan.short_name %>
     </div>
   </div>
 
@@ -18,7 +18,12 @@
     <ul class="pricing-summary">
       <li>
         <div class="cost"><%= number_to_currency(subscription_plan.amount, unit: "€") %></div>
-        <div class="costname"><%= t("activerecord.attributes.subscription_plan.per_interval.#{subscription_plan.interval}") %></div>
+        <div class="costname">
+          <%= t("activerecord.attributes.subscription_plan.per_interval.#{subscription_plan.interval}") %>
+          <% if subscription_plan.interval == 'year' %>
+          <br><small>(entspricht <%= number_to_currency(subscription_plan.equals_monthly_price, unit: "€") %> pro Monat)</small>
+          <% end %>
+        </div>
       </li>
 
         <% if @subscription.on_grace_period? %>
@@ -35,12 +40,11 @@
 
     <% if @subscription.on_grace_period? %>
 
-      <%= link_to "Mitgliedschaft fortsetzen", resume_subscription_path(@subscription), method: :patch, class: 'btn-primary' %>
       <%= link_to 'Zuckerl einlösen', new_zuckerl_path, class: 'btn-primary -mint' if @subscription.open_zuckerl? %>
+      <%= link_to "Mitgliedschaft fortsetzen", resume_subscription_path(@subscription), method: :patch, class: 'btn-primary' %>
 
     <% elsif @subscription.active? %>
 
-      <%= link_to "Mitgliedschaft ändern", subscription_plans_path, class: 'btn-primary -mint' %>
       <%= link_to 'Zuckerl einlösen', new_zuckerl_path, class: 'btn-primary -mint' if @subscription.open_zuckerl? %>
       <%= link_to "Mitgliedschaft stornieren", subscription_path(@subscription), method: :delete, data: { confirm: "Bist du sicher?" }, class: 'btn-primary -grey' if !@subscription.on_grace_period? %>
 

@@ -44,7 +44,7 @@
         Dein Team von <%= t("region.#{@subscription.region_id}.domain_full") %>
       </p>
 
-      <%= render 'mailers/shared/button', title: "Fördermitgliedschaft verwalten", url: subscription_user_url(host: @subscription.region.host) %>
+      <%= render 'mailers/shared/button', title: "Rechnung downloaden", url: @subscription.subscription_invoices.last.invoice_pdf %>
     </td>
   </tr>
 </table>

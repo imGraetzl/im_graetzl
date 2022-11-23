@@ -5,7 +5,7 @@
       <%= image_tag("info/cardbox-abo#{@plan.image_url}.jpg", class: 'coverImg') %>
     </div>
     <div class="categoryicon">
-      <strong><%= @plan.short_name %></strong>
+      <%= @plan.short_name %>
     </div>
   </div>
 
@@ -16,7 +16,12 @@
     <ul class="pricing-summary">
       <li>
         <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
-        <div class="costname"><%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %></div>
+        <div class="costname">
+          <%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %>
+          <% if @plan.interval == 'year' %>
+          <br><small>(entspricht <%= number_to_currency(@plan.equals_monthly_price, unit: "€") %> pro Monat)</small>
+          <% end %>
+        </div>
       </li>
       <li class="sum">
         <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>

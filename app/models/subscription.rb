@@ -1,7 +1,7 @@
 class Subscription < ApplicationRecord
   include Trackable
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :subscription_plan
   has_many :subscription_invoices
   has_many :zuckerls
@@ -98,11 +98,13 @@ class Subscription < ApplicationRecord
   def cancel
     sub = Stripe::Subscription.update(stripe_id, { cancel_at_period_end: true })
     update(status: 'canceled', ends_at: Time.at(sub.cancel_at))
+    self.destroy_activity_and_notifications
   end
 
   def cancel_now!
     sub = Stripe::Subscription.delete(stripe_id)
     update(status: 'canceled', ends_at: Time.at(sub.ended_at))
+    self.destroy_activity_and_notifications
   end
 
   def resume
