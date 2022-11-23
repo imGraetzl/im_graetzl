@@ -13,7 +13,7 @@
       <% end %>
     </div>
     <div class="categoryicon">
-      <strong><%= subscription_plan.short_name %></strong>
+      <%= subscription_plan.short_name %>
     </div>
   </div>
 
@@ -34,16 +34,21 @@
     <ul class="pricing-summary">
       <li>
         <div class="cost"><%= number_to_currency(subscription_plan.amount, unit: "€") %></div>
-        <div class="costname"><%= t("activerecord.attributes.subscription_plan.per_interval.#{subscription_plan.interval}") %></div>
+        <div class="costname">
+          <%= t("activerecord.attributes.subscription_plan.per_interval.#{subscription_plan.interval}") %>
+          <% if subscription_plan.interval == 'year' %>
+          <br><small>(entspricht <%= number_to_currency(subscription_plan.equals_monthly_price, unit: "€") %> pro Monat)</small>
+          <% end %>
+        </div>
       </li>
     </ul>
 
     <% if actual_plan %>
-      <%= link_to "Deine aktuelle Mitgliedschaft", subscription_user_path, class: "btn-primary -grey" %>
-    <% elsif current_user&.subscribed? && !current_user.payment_card_last4? %>
-      <%= link_to "Auf diese Mitgliedschaft wechseln", new_subscription_path(subscription_plan_id: subscription_plan.id), class: 'btn-primary' %>
+      <%= link_to "Deine aktuelle Mitgliedschaft", subscription_user_path, class: "btn-primary" %>
     <% elsif current_user&.subscribed? %>
-      <%= link_to "Auf diese Mitgliedschaft wechseln", subscription_path(current_user.subscription, subscription_plan_id: subscription_plan.id), method: :patch, class: "btn-primary", data: { confirm: "Bist du sicher, dass du auf diese Mitgliedschaft wechseln möchtest?" } %>
+      <%= link_to "Jetzt unterstützen", new_subscription_path(subscription_plan_id: subscription_plan.id), class: "btn-primary" %>
+      <!-- Option for changing Subscription - Not used Now -->
+      <!-- <%= link_to "Auf diese Mitgliedschaft wechseln", subscription_path(current_user.subscription, subscription_plan_id: subscription_plan.id), method: :patch, class: "btn-primary", data: { confirm: "Bist du sicher, dass du auf diese Mitgliedschaft wechseln möchtest?" } %> -->
     <% else %>
       <%= link_to "Jetzt unterstützen", new_subscription_path(subscription_plan_id: subscription_plan.id), class: "btn-primary" %>
     <% end %>

@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hallo #{@subscription.user.first_name}") %>
-<% content_for(:title, "Herzlichen Dank für deine Fördermitgliedschaft!") %>
+<% content_for(:title, "Herzlichen Dank für deine #{t("region.#{@subscription.region_id}.domain_short")} Fördermitgliedschaft! Du ermöglichst damit den Betrieb von #{t("region.#{@subscription.region_id}.domain_full")}") %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -44,7 +44,7 @@
       <% if @subscription.subscription_plan.interval == 'month' %>
         <p>Deine Fördermitglidschaft wird monatlich verlängert und ist jederzeit kündbar. Die nächste Verlängerung ist am <%= I18n.localize(@subscription.next_invoice_date, format:'%d. %B %Y') %>.</p>
       <% elsif @subscription.subscription_plan.interval == 'year' %>
-        <p>Deine Fördermitglidschaft wird jährlich verlängert und ist jederzeit kündbar. Die nächste Verlängerung ist am <%= I18n.localize(@subscription.next_invoice_date, format:'%d. %B %Y') %>.</p>
+        <p><strong>Deine Fördermitgliedschaft wird jährlich verlängert, die Verlängerung ist jederzeit kündbar, indem du auf stornieren klickst.</strong> (Eingeloggt unter <%= link_to 'Fördermitgliedschaft verwalten', subscription_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>). Die nächste Verlängerung ist am <%= I18n.localize(@subscription.next_invoice_date, format:'%d. %B %Y') %>.</p>
       <% end %>
 
       <p>

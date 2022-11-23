@@ -11,6 +11,10 @@ class SubscriptionPlan < ApplicationRecord
     "#{helper.number_to_currency(amount, unit: "€")} / #{I18n.t("activerecord.attributes.subscription_plan.intervals.#{interval}")}"
   end
 
+  def equals_monthly_price
+    amount / 12
+  end
+
   private
 
   def helper

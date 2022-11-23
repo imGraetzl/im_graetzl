@@ -22,7 +22,6 @@ class SubscriptionMailer < ApplicationMailer
       subject: "Deine #{@region.host_domain_name} Fördermitgliedschaft wurde bezahlt, anbei deine Rechnung",
       from: platform_email('no-reply'),
       to: @user.email,
-      bcc: 'michael@imgraetzl.at',
     )
   end
 

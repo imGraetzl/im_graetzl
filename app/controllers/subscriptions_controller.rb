@@ -10,6 +10,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def new
+    redirect_to subscription_plans_path, notice: "Du hast bereits eine Mitgliedschaft." and return if current_user.subscribed?
+
     @plan = SubscriptionPlan.find_by(id: params[:subscription_plan_id])
     @subscription = current_user.subscriptions.build(initial_params)
   end

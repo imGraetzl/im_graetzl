@@ -1,9 +1,10 @@
 context.instance_eval do
+  selectable_column
   id_column
   column :user
   column(:status){|r| status_tag(r.status)}
-  column :subscription_plan
-  column :region
+  column :invoice_number
+  column(:invoice_pdf){|u| link_to 'Rechnung', u.invoice_pdf }
   column :created_at
   actions
 end

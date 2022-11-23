@@ -1,12 +1,13 @@
 ActiveAdmin.register Subscription do
-  menu parent: 'Users'
+  menu label: "Abos", priority: 3
+
   actions :all, except: [:destroy, :edit]
 
-  scope :all, default: true
-  scope :incomplete
+  scope :initialized, default: true
   scope :active
   scope :canceled
   scope :past_due
+  scope :all
 
   index { render 'index', context: self }
 
