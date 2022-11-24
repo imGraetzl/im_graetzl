@@ -1,7 +1,7 @@
 class UsersMailerPreview < ActionMailer::Preview
 
   def welcome_email
-    UsersMailer.welcome_email(User.first)
+    UsersMailer.welcome_email(User.last)
   end
 
   def user_confirmation_reminder

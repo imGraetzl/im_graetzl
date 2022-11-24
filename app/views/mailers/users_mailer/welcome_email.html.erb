@@ -11,44 +11,49 @@
 
         <strong>1.)</strong>
         <em>
-          <strong>Richte dir dein virtuelles Schaufenster ein,</strong> um mit deinem Tun und Angebot in der Umgebung sichtbar zu werden. Zum Einrichten deines virtuellen Schaufensters (kostenlos):<br>
-          <%= link_to locations_user_url(host: @user.region.host), locations_user_url(host: @user.region.host), target: '_blank' %>
+          <strong>Mehr digitale Sichtbarkeit für dich und dein Tun - </strong>Richte dir dein virtuelles Schaufenster ein (kostenlos): <%= link_to 'Zu den Schaufenstern', region_locations_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>2.)</strong>
         <em>
-          <strong>Du möchtest deine Gewerbefläche teilen, oder suchst Raum zum Andocken?</strong> Dann stelle jetzt dein Raumteilergesuch beim Raumteiler ein. Zum Raumteiler (kostenlos): <br>
-          <%= link_to region_rooms_url(host: @user.region.host), region_rooms_url(host: @user.region.host), target: '_blank' %>
+          <strong>Du möchtest deine Gewerbefläche teilen, oder suchst Raum zum Andocken?</strong> Dann stelle jetzt dein Raumteilergesuch beim Raumteiler ein. (kostenlos): <%= link_to 'Zum Raumteiler', region_rooms_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>3.)</strong>
         <em>
-          <strong>Du hast Arbeitsequipment und Geräte, die du nicht rund um die Uhr nutzt?</strong> Dann vermiete sie im <strong>Geräteteiler</strong> an andere Macher*innen und verdiene damit etwas dazu. Du benötigst temporär ein Gerät für ein Projekt? Dann schau im Geräteteiler rein, ob du es dir günstig ausleihen kannst.<br>
-          <%= link_to region_tools_url(host: @user.region.host), region_tools_url(host: @user.region.host), target: '_blank' %>
+          <strong>Du kannst deine Workshops, Veranstaltungen und Kurse über die Eventfunktion bekannt machen.</strong> Die Events werden nicht nur auf <%= t("region.#{@user.region.id}.domain_full") %>, sondern auch im Newsletter ausgespielt (kostenlos).
+          <%= link_to 'Zu den Treffen', region_meetings_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>4.)</strong>
         <em>
-          <strong>Du kannst deine Workshops, Veranstaltungen und Kurse über die Eventfunktion bekannt machen.</strong> Die Events werden nicht nur auf <%= t("region.#{@user.region.id}.domain_full") %>, sondern auch im Newsletter ausgespielt (kostenlos).<br>
-          <%= link_to new_meeting_url(host: @user.region.host), new_meeting_url(host: @user.region.host), target: '_blank' %>
+          <strong>Du kannst dich im Coop & Share Bereich mit Gleichgesinnten vernetzen.</strong> Finde Kooperationen, Projektpartner*innen, entdecke Initiativen und Vereine oder stelle Schnuppersessions und Tauschgeschäfte rein (kostenlos).
+          <%= link_to 'Zum Coop & Share Bereich', region_coop_demands_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>5.)</strong>
         <em>
-          <strong>Du kannst dich im Coop & Share Marktplatz mit Gleichgesinnten vernetzen.</strong> Finde Kooperationen, Projektpartner*innen, entdecke Initiativen und Vereine oder stelle Schnuppersessions und Tauschgeschäfte rein (kostenlos).<br>
-          <%= link_to new_coop_demand_url(host: @user.region.host), new_coop_demand_url(host: @user.region.host), target: '_blank' %>
+          <strong>Du hast ein Vorhaben, das du in die Umsetzung bringen möchtest?</strong> Dann schau dir die <%= t("region.#{@user.region.id}.domain_short") %> Crowdfunding Tools an.
+          <%= link_to 'Zum Crowdfunding Bereich', region_crowd_campaigns_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
+        <em>
+          Wir haben außerdem noch den <%= link_to 'Geräteteiler', region_tools_url(host: @user.region.host), target: '_blank' %>, immer wieder <%= @user.region.use_districts? ? (link_to 'Vernetzungsaktionen', good_morning_dates_url(host: @user.region.host), target: '_blank') : 'Vernetzungsaktionen' %> und jede Menge mehr. Am meisten hast du von <%= t("region.#{@user.region.id}.domain_short") %>, wenn du es aktiv nutzt!
+        </em>
+
+        <br><br>
+
+        <!--
         <strong>6.)</strong>
         <em>
           <% if @user.region.use_districts? %>
@@ -59,18 +64,10 @@
             <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
           <% end %>
         </em>
-
         <br><br>
+        -->
 
-        <strong>7.)</strong>
-        <em>
-          <strong>Du hast ein Vorhaben, das du in die Umsetzung bringen möchtest?</strong> Dann schau dir die <%= t("region.#{@user.region.id}.domain_short") %> Crowdfunding Tools an. Du kannst dein Vorhaben damit sichtbarer machen und für die Umsetzung Geld, Zeit-, Raum- & Sachspenden sammeln (nur bei einer erfolgreichen Kampagne fällt eine Service-Fee an)<br>
-          <%= link_to region_crowd_campaigns_url(host: @user.region.host), region_crowd_campaigns_url(host: @user.region.host), target: '_blank' %>
-        </em>
-
-        <br><br>
-
-        <p>Viel Freude mit <%= t("region.#{@user.region.id}.domain_full") %> und wenn du Fragen hast, dann melde dich einfach bei mir.</p>
+        <p>Viel Freude mit <%= t("region.#{@user.region.id}.domain_full") %> und wenn du Fragen hast, dann melde dich einfach bei mir. Wenn dir <%= t("region.#{@user.region.id}.domain_short") %> gefällt, erzähle es weiter. Danke!</p>
 
         Liebe Grüße,<br>
         Mirjam<br><br>
