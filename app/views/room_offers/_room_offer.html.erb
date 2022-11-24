@@ -35,7 +35,7 @@
     </div>
 
     <div class="txt">
-      <p><%= truncate room_offer.room_description, length: 100 %></p>
+      <p><%= strip_tags(room_offer.room_description.bbcode_to_html.html_safe).truncate(100) %></p>
     </div>
 
     <% if room_offer.rental_enabled? %>

@@ -117,7 +117,7 @@
           <ul class="pricing-list">
             <% @room_offer.room_offer_prices.each do |price| %>
               <li>
-                <div class="cost"><%= "%g €" % price.amount %></div>
+                <div class="cost"><%= price.amount ? "%g €" % price.amount : '' %></div>
                 <div class="costname"><%= price.name %></div>
               </li>
             <% end %>

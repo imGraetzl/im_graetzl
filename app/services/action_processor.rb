@@ -68,7 +68,7 @@ class ActionProcessor
 
     when [Meeting, :comment]
       if subject.public?
-        Activity.add_public(subject, child, to: subject.online_meeting? ? :entire_region : subject.graetzl)
+        Activity.add_public(subject, child, to: subject.graetzl)
       end
       notify_comment(subject, child)
 

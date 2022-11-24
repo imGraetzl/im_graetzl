@@ -24,12 +24,34 @@ class SubscriptionsController < ApplicationController
         region_id: current_user.region_id,
       )
     )
+
+    valid_coupon = false
+    if subscription_params[:coupon].present? && !SubscriptionService.new.valid_coupon?(subscription_params[:coupon])
+      redirect_to new_subscription_path(subscription_plan_id: @plan.id), notice: "Der eingegebene Gutscheincode ist ungültig" and return
+    else
+      valid_coupon = true
+    end
+
+
     if @subscription.save
       current_user.update(user_params) if params[:user].present?
-      subscription = SubscriptionService.new.create(@subscription) # Create Stripe Subscription
+
+      # Create Stripe Subscription
+      if valid_coupon
+        subscription = SubscriptionService.new.create(@subscription, coupon: subscription_params[:coupon])
+      else
+        subscription = SubscriptionService.new.create(@subscription)
+      end
+
       if subscription.latest_invoice.payment_intent
         redirect_to [:choose_payment, @subscription, client_secret: subscription.latest_invoice.payment_intent.client_secret]
       else
+
+        # Maybe outsource this
+        Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
+        ActionProcessor.track(@subscription, :create)
+        SubscriptionMailer.created(@subscription).deliver_later
+
         redirect_to [:summary, @subscription]
       end
     else
@@ -124,7 +146,8 @@ class SubscriptionsController < ApplicationController
   def subscription_params
     params.require(:subscription).permit(
       :stripe_plan,
-      :subscription_plan_id
+      :subscription_plan_id,
+      :coupon
     )
   end
 
