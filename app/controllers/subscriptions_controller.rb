@@ -26,7 +26,7 @@ class SubscriptionsController < ApplicationController
     )
 
     valid_coupon = false
-    if subscription_params[:coupon].present? && !SubscriptionService.new.valid_coupon?(subscription_params[:coupon])
+    if subscription_params[:coupon].present? && subscription_params[:coupon] != @plan.coupon
       redirect_to new_subscription_path(subscription_plan_id: @plan.id), notice: "Der eingegebene Gutscheincode ist ungültig" and return
     else
       valid_coupon = true

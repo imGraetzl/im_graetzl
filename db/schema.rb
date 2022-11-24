@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_23_144735) do
+ActiveRecord::Schema.define(version: 2022_11_24_112745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1014,6 +1014,7 @@ ActiveRecord::Schema.define(version: 2022_11_23_144735) do
     t.integer "free_region_zuckerl_monthly_interval", default: 0
     t.integer "free_graetzl_zuckerl_monthly_interval", default: 0
     t.string "image_url"
+    t.string "coupon"
   end
 
   create_table "subscriptions", force: :cascade do |t|
