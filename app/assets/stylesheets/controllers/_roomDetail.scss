@@ -498,9 +498,10 @@ section.roomDetail {
       div.cost {
         display:table;
         color: $color-ambient-mint-dark;
-        min-width: 30px;
+        min-width: 40px;
         white-space: nowrap;
-        margin-right:9px;
+        margin-right:10px;
+        text-align: right;
       }
       div.costname {
       }

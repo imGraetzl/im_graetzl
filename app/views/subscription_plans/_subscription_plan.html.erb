@@ -6,8 +6,6 @@
     <div class="coverImgWrapper">
       <% if actual_plan %>
         <%= link_to image_tag("info/cardbox-abo#{subscription_plan.image_url}.jpg", class: 'coverImg'), subscription_user_path %>
-      <% elsif current_user&.subscribed? %>
-        <%= link_to image_tag("info/cardbox-abo#{subscription_plan.image_url}.jpg", class: 'coverImg'), subscription_path(current_user.subscription, subscription_plan_id: subscription_plan.id), method: :patch, data: { confirm: "Bist du sicher, dass du auf diese Mitgliedschaft wechseln möchtest?" } %>
       <% else %>
         <%= link_to image_tag("info/cardbox-abo#{subscription_plan.image_url}.jpg", class: 'coverImg'), new_subscription_path(subscription_plan_id: subscription_plan.id) %>
       <% end %>

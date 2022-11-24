@@ -23,6 +23,7 @@ class SubscriptionService
       stripe_id: sub.id,
       status: sub.status,
       ends_at: nil,
+      coupon: sub&.discount&.coupon&.id,
     )
 
     sub
@@ -35,7 +36,6 @@ class SubscriptionService
     end
 
     UserService.new.update_payment_method(subscription.user, payment_intent.payment_method.id)
-    #subscription.update(status: 'active') # Update via Webhook
 
     true
   end
@@ -47,7 +47,6 @@ class SubscriptionService
     end
 
     UserService.new.update_payment_method(subscription.user, payment_intent.payment_method.id)
-    #subscription.update(status: 'active') # Update via Webhook
 
     true
   end
@@ -90,6 +89,14 @@ class SubscriptionService
       invoice_pdf: object.invoice_pdf,
       invoice_number: object.number,
     )
+  end
+
+  def valid_coupon?(coupon)
+    return false unless coupon.present?
+    coupon_retrieved = Stripe::Coupon.retrieve(coupon)
+    coupon_retrieved.valid == true
+  rescue => error
+    false
   end
 
   private

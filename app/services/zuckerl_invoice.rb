@@ -60,7 +60,7 @@ class ZuckerlInvoice
     end
   end
 
-  def format_price(amount)
+  def format_price(amount.to_i)
     "#{'%.2f' % amount} €"
   end
 

@@ -7,6 +7,7 @@ ActiveAdmin.register Subscription do
   scope :active
   scope :canceled
   scope :past_due
+  scope :coupon
   scope :all
 
   index { render 'index', context: self }

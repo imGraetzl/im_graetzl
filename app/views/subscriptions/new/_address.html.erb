@@ -3,7 +3,7 @@
   <div class="hl-subtext">
     <h1>Deine Daten</h1>
     <p>
-      Gib hier deine Rechnungsanschrift bekannt.
+      Gib hier deine Rechnungsanschrift bekannt.<br>
     </p>
   </div>
 
@@ -78,7 +78,18 @@
 
   <% end %>
 
+  <% if current_user.beta_user? %>
+    <p class="coupon">Hast du einen Gutscheincode zum Einlösen?</p>
 
-    <%= submit_tag "Weiter", class: 'btn-primary' %>
+    <div class="input-field">
+      <%= f.label :coupon do %>
+        <%= icon_tag "sale-label" %>
+        <span>Gutschein</span>
+      <% end %>
+      <%= f.text_field :coupon, placeholder: 'Dein Gutscheincode' %>
+    </div>
+  <% end %>
+
+  <%= submit_tag "Weiter", class: 'btn-primary' %>
   <% end %>
 </div>

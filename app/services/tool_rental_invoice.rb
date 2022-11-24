@@ -105,7 +105,7 @@ class ToolRentalInvoice
     pdf.text "#{I18n.t("region.#{region.id}.contact_email")}"
   end
 
-  def format_price(amount)
+  def format_price(amount.to_i)
     "#{'%.2f' % amount} €"
   end
 

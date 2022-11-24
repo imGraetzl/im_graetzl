@@ -38,7 +38,7 @@
     <div class="introtxt">
       <h3><%= @room_offer.slogan %></h3>
     </div>
-    <div class="txt"><%= @room_offer.room_description %></div>
+    <div class="bbcode"><%= @room_offer.room_description.bbcode_to_html.html_safe %></div>
 
     <div class="entryImgUploads -grid">
       <%= link_to image_tag(@room_offer.cover_photo_url(:thumb)), @room_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
@@ -82,7 +82,8 @@
         <%= icon_tag "users" %>
         <div class="txt">Mein idealer Raumpartner</div>
       </div>
-      <div class="txt"><%= @room_offer.tenant_description %></div>
+      <div class="bbcode"><%= @room_offer.tenant_description.bbcode_to_html.html_safe %></div>
+
     </section>
 
     <section class="owner">
@@ -94,7 +95,7 @@
         <% end %>
         <div class="txt">Über mich</div>
       </div>
-      <div class="txt"><%= @room_offer.owner_description %></div>
+      <div class="bbcode"><%= @room_offer.owner_description.bbcode_to_html.html_safe %></div>
     </section>
 
     <section>

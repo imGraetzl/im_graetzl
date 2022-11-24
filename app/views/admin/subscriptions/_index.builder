@@ -3,7 +3,10 @@ context.instance_eval do
   column :user
   column(:status){|r| status_tag(r.status)}
   column :subscription_plan
+  column :coupon
   column :region
+  #column(:subscribed){|r| status_tag(r.user.subscribed?)}
+  column('Auslaufend'){|r| status_tag(r.on_grace_period?)}
   column :created_at
   actions
 end

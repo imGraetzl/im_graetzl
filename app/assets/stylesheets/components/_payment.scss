@@ -186,6 +186,13 @@
       display: inline-flex;
     }
   }
+  .coupon {
+    margin-top:10px;
+    text-align: center;
+    padding-bottom: 10px;
+    font-weight: bold;
+    color: $color-ambient-mint-dark;
+  }
 }
 
 .zuckerl-page.createzuckerl {

@@ -88,7 +88,7 @@ class CrowdCampaignInvoice
     pdf.text "#{format_price(campaign.crowd_pledges_payout)}", align: :right, style: :bold
   end
 
-  def format_price(amount)
+  def format_price(amount.to_i)
     "#{'%.2f' % amount} €"
   end
 
