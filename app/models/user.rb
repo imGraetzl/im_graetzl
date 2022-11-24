@@ -78,7 +78,7 @@ class User < ApplicationRecord
   after_update :mailchimp_user_update, if: -> { saved_change_to_newsletter? || saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
   after_update :update_user_graetzls, if: -> { saved_change_to_graetzl_id? }
   before_destroy :mailchimp_user_delete
-  before_destroy :cancel_subscription, if: -> { subscribed? }
+  before_destroy :cancel_subscription
 
   scope :business, -> { where(business: true) }
   scope :confirmed, -> { where("confirmed_at IS NOT NULL") }
@@ -273,7 +273,7 @@ class User < ApplicationRecord
   end
 
   def cancel_subscription
-    self.subscriptions.active.last.cancel_now!
+    self.subscriptions.active.last.cancel_now! if self.subscribed?
   end
 
 end

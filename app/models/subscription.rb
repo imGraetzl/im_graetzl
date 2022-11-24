@@ -5,8 +5,6 @@ class Subscription < ApplicationRecord
   belongs_to :subscription_plan
   has_many :subscription_invoices
   has_many :zuckerls
-  #after_update :update_user, if: -> { saved_change_to_status? }
-
   string_enum status: ["incomplete", "active", "canceled", "past_due"]
 
   scope :initialized, -> { where.not(status: :incomplete) }
@@ -141,13 +139,5 @@ class Subscription < ApplicationRecord
   def stripe_subscription
     Stripe::Subscription.retrieve(stripe_id)
   end
-
-  #def update_user
-  #  if user && active?
-  #    user.update(subscribed: true)
-  #  elsif user
-  #    user.update(subscribed: false)
-  #  end
-  #end
 
 end
