@@ -9,7 +9,7 @@ Rails.application.configure do
   ]
 
   # Taxrates for Stripe
-  config.stripe_default_tax_rates = "txr_1M4kSpESnSu3ZRERpdKtMkh5"
+  config.stripe_default_tax_rates = "txr_1M7ePZESnSu3ZRERzwu2VRdq"
 
   # Settings specified here will take precedence over those in config/application.rb.
   config.imgraetzl_host = "imgraetzl.at"
