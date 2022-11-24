@@ -4,10 +4,10 @@ Rails.application.default_url_options = { port: 3000 }
 Rails.application.configure do
 
   # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
-  config.middleware.use Rack::Prerender, whitelist: [
-    '^/region/', '/category/',
-    '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$'
-  ]
+  #config.middleware.use Rack::Prerender, whitelist: [
+  #  '^/region/', '/category/',
+  #  '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$'
+  #]
 
   # Taxrates for Stripe
   config.stripe_default_tax_rates = "txr_1M4kSpESnSu3ZRERpdKtMkh5"

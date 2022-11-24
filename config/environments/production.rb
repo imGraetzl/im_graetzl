@@ -3,13 +3,16 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
 
   # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
+  # Get Greatzl Array in Console:
+  # Graetzl.where.not(region_id:'wien').map{|s| "^/#{s.slug}$"}
   config.middleware.use Rack::Prerender, whitelist: [
+    '^/frantschach-st-gertraud$', '^/pregarten$', '^/neumarkt-im-muhlkreis$', '^/leopoldschlag$', '^/waldburg$', '^/griffen$', '^/unterweitersdorf$', '^/bad-st-leonhard$', '^/gutau$', '^/windhaag-bei-freistadt$', '^/hagenberg-im-muhlkreis$', '^/lasberg$', '^/hirschbach-im-muhlkreis$', '^/tragwein$', '^/grunbach$', '^/st-oswald-bei-freistadt$', '^/moosburg$', '^/sandl$', '^/st-andra$', '^/kefermarkt$', '^/rainbach-im-muhlkreis$', '^/freistadt$', '^/volkermarkt$',
     '^/region/', '/category/',
-    '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$'
+    '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$',
   ]
 
   # Taxrates for Stripe
-  config.stripe_default_tax_rates = "txr_1M4kSpESnSu3ZRERpdKtMkh5"
+  config.stripe_default_tax_rates = "txr_1M7ePZESnSu3ZRERzwu2VRdq"
 
   # Settings specified here will take precedence over those in config/application.rb.
   config.imgraetzl_host = "imgraetzl.at"
