@@ -3,6 +3,7 @@ context.instance_eval do
   id_column
   column :name
   column :amount
+  column :coupon
   column :interval
   column :stripe_id
   column :created_at

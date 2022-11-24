@@ -3,6 +3,7 @@ context.instance_eval do
     row :id
     row :name
     row :amount
+    row :coupon
     row :interval
     row :stripe_id
     row :short_name

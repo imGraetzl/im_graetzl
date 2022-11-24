@@ -25,6 +25,15 @@ class SubscriptionsController < ApplicationController
       )
     )
 
+    # Valid Coupon used?
+    if subscription_params[:coupon].present? && subscription_params[:coupon] != @plan.coupon
+      redirect_to new_subscription_path(subscription_plan_id: @plan.id), notice: "Der eingegebene Gutscheincode ist ungültig" and return
+    elsif subscription_params[:coupon].present? && subscription_params[:coupon] == @plan.coupon
+      valid_coupon = true
+    else
+      valid_coupon = false
+    end
+
     if @subscription.save
       current_user.update(user_params) if params[:user].present?
 
@@ -34,6 +43,12 @@ class SubscriptionsController < ApplicationController
       if subscription.latest_invoice.payment_intent
         redirect_to [:choose_payment, @subscription, client_secret: subscription.latest_invoice.payment_intent.client_secret]
       else
+
+        # May improve and outsource this or other trigger place
+        Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
+        ActionProcessor.track(@subscription, :create)
+        SubscriptionMailer.created(@subscription).deliver_later
+
         redirect_to [:summary, @subscription]
       end
     else
