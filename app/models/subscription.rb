@@ -8,6 +8,7 @@ class Subscription < ApplicationRecord
   string_enum status: ["incomplete", "active", "canceled", "past_due"]
 
   scope :initialized, -> { where.not(status: :incomplete) }
+  scope :coupon, -> { where.not(coupon: nil) }
 
   NEXT_GOAL = 75
 
