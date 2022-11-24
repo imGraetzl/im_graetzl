@@ -29,7 +29,6 @@ section.homeRegion {
     max-width: 550px;
     margin:auto;
     width:60%;
-
   }
 
   .region-logos {
@@ -235,9 +234,44 @@ section.homeRegion {
 }
 
 .region-kaernten {
-  .stage .badge {
-    @include respond-to(">=medium") {
-      left:100px;
+  section.homeRegion {
+    .stage .badge {
+      @include respond-to(">=medium") {
+        left:70px;
+        top: 110px;
+        scale:0.9;
+      }
+    }
+    .graetzl-switch-wrapper {
+      .input-select {
+        width:55%;
+      }
+      .region-logos {
+        width:40%;
+      }
+      @include respond-to("<=medium") {
+        .input-select, .region-logos {
+          width:100%;
+        }
+      }
+    }
+    .activeArea {
+      top:10%;
+      width:45%; // MAP-AREA
+      @include respond-to(">=medium") {
+        top:0%;
+        width:60%; // MAP-AREA
+      }
+    }
+    #area-map {
+      &::before {
+        width: 70%; // White Transparent Layer over Map
+      }
+      @include respond-to(">=medium") {
+        &::before {
+          width: 45%; // White Transparent Layer over Map
+        }
+      }
     }
   }
 }

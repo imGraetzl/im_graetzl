@@ -14,11 +14,6 @@ namespace :scheduled do
       CrowdCampaignMailer.keep_up(campaign).deliver_later
     end
 
-    # Send email to draft campaign after 30 days
-    CrowdCampaign.draft.where(startdate: 30.days.ago).find_each do |campaign|
-      CrowdCampaignMailer.draft(campaign).deliver_later
-    end
-
     # Complete expired
     campaign_end = Date.today.in_time_zone("Vienna").end_of_day.utc
 

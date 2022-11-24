@@ -14,7 +14,7 @@
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">
-    <h1>Entdecke <span>Toolteiler</span></h1>
+    <h1>Entdecke <span>Geräteteiler</span></h1>
     <p>Arbeitsequipment leihen & Geräte am Standort nutzen <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
   </div>
 
@@ -23,7 +23,7 @@
   <%= form_tag tools_path, method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>
     <div class="filter-selection-text-jbox">
-      Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
+      Zeige mir Geräteteiler aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       <% if @graetzl.id == current_user&.graetzl_id %>
         in <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
       <% else %>

@@ -180,7 +180,7 @@ class User < ApplicationRecord
     MailchimpUserSubscribeJob.perform_later(self)
 
     # Default favorite graetzls
-    self.favorite_graetzls = (region.use_districts? ? district.graetzls : region.graetzls) - [self.graetzl]
+    self.favorite_graetzls = self.graetzl.neighbour_graetzls
 
     # Default groups
     Group.in(region).default_joined.includes(:graetzls).each do |group|

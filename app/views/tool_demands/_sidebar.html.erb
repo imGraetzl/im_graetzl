@@ -74,8 +74,8 @@
   <% end %>
 
   <% if @tool_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @tool_demand.user.id), rel: 'nofollow', class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Toolteiler", label: "Toolsuche" } %>
+    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @tool_demand.user.id), rel: 'nofollow', class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Geräteteiler", label: "Gerätesuche" } %>
   <% end %>
 
-  <%= link_to "Alle Toolteiler", region_tools_path, class: 'btn-primary -grey' %>
+  <%= link_to "Alle Geräteteiler", region_tools_path, class: 'btn-primary -grey' %>
 </aside>

@@ -6,7 +6,7 @@ Rails.application.configure do
   # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
   #config.middleware.use Rack::Prerender, whitelist: [
   #  '^/region/', '/category/',
-  #  '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/zuckerl$'
+  #  '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$'
   #]
 
   # Taxrates for Stripe

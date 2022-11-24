@@ -130,15 +130,22 @@ APP.components.areaMap = (function() {
       }
     });
 
-    //map.addLayer(favoritesLayer, true);
     map.addLayer(areaLayer, true);
-    map.fitBounds(favoritesLayer.getBounds());
+    if ($('body').data('region') == 'wien') {
+      map.fitBounds(favoritesLayer.getBounds());
+    } else {
+      map.fitBounds(areaLayer.getBounds());
+    }
   }
 
   // STANDARD MAPS ------------------
 
   function init(mapElement, options) {
     options = options || {};
+
+    if (options.mapLayer) {
+      mainLayer.options.id = options.mapLayer;
+    }
 
     var map = L.map(mapElement.attr('id'), {
         layers: [mainLayer],

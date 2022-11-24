@@ -21,5 +21,5 @@ ActiveAdmin.register Graetzl do
       end
   end
 
-  permit_params :name, :slug, :area, :zip, :region_id
+  permit_params :name, :slug, :area, :zip, :region_id, :neighborless
 end

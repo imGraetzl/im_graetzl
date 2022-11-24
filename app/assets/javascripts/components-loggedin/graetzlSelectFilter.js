@@ -36,6 +36,11 @@ APP.components.graetzlSelectFilter = (function() {
       locale: ['Übernehmen', 'Abbrechen']
     });
 
+    // Init Districts of Selected Graetzls (michael)
+    showGraetzlDistricts($graetzlSelect.find(':selected').map(function() {
+      if ($(this).data('districtId')) return $(this).data('districtId').toString();
+    }));
+
     $districtSelect.on('change', function() {
       var districtIds = $districtSelect.val();
       showDistrictGraetzls(districtIds);
@@ -64,6 +69,14 @@ APP.components.graetzlSelectFilter = (function() {
       $graetzlSelect.find('option').each(function() {
         var inSelectedDistrict = districtIds && districtIds.indexOf($(this).data('districtId').toString()) > -1;
         $(this).prop('disabled', !inSelectedDistrict);
+      });
+    }
+
+    // select districts function (Michael)
+    function showGraetzlDistricts(districtIds) {
+      var districtIds = Array.from(districtIds);
+      $.each(districtIds, function( index, value ) {
+        $districtSelect[0].sumo.selectItem(value);
       });
     }
 

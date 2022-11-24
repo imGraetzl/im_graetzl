@@ -52,6 +52,9 @@ de:
       group_join_request:
         one: Gruppen Beitrittsanfrage
         other: Gruppen Beitrittsanfragen
+      going_to:
+        one: Teilnehmer
+        other: Teilnehmer
       image:
         one: Bild
         other: Bilder
@@ -77,11 +80,11 @@ de:
         one: Coop & Share Angebot
         other: Coop & Share Angebote
       tool_offer:
-        one: Toolteiler
-        other: Toolteiler
+        one: Geräteteiler
+        other: Geräteteiler
       tool_demand:
-        one: Toolsuche
-        other: Toolsuche
+        one: Gerätesuche
+        other: Gerätesuche
       room_offer:
         one: Raumangebot
         other: Raumangebote
@@ -303,8 +306,8 @@ de:
           enabled: Aktiv
           disabled: Inaktiv
         status_message:
-          enabled: Deine Toolsuche ist nun aktiv und sichtbar.
-          disabled: Deine Toolsuche ist nun deaktiviert und scheint nicht mehr im Bereich Toolteiler auf.
+          enabled: Deine Gerätesuche ist nun aktiv und sichtbar.
+          disabled: Deine Gerätesuche ist nun deaktiviert und scheint nicht mehr im Bereich Geräteteiler auf.
 
       tool_rental:
         rental_statuses:

@@ -239,6 +239,10 @@ section.location-page {
     }
   }
 
+  .descriptionBlock .txt {
+    white-space: pre-wrap;
+  }
+
   #requestLocationBtn {
     margin-bottom: 40px;
   }

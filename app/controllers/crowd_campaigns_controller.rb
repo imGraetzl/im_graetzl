@@ -1,5 +1,17 @@
 class CrowdCampaignsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :supporters, :posts, :comments, :start]
+  before_action :authenticate_user!, except: [:redirect, :index, :show, :supporters, :posts, :comments, :start]
+
+  def redirect
+    # Take Location Slug and Redirect to CrowdCampaign if there is any
+    @location = Location.in(current_region).where(slug: params[:id]).last
+    if @location.user.crowd_campaigns.funding.any?
+      @crowd_campaign = @location.user.crowd_campaigns.funding.last
+      redirect_to crowd_campaign_path(@crowd_campaign)
+    else
+      @crowd_campaign = @location.user.crowd_campaigns.last
+      redirect_to crowd_campaign_path(@crowd_campaign)
+    end
+  end
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -283,7 +295,7 @@ class CrowdCampaignsController < ApplicationController
     crowd_category_ids = params.dig(:filter, :crowd_category_ids)
 
     if crowd_category_ids.present? && crowd_category_ids.any?(&:present?)
-      collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids}).distinct
+      collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids})
     end
 
     # Always show ALL Crowd Campaigns

@@ -22,7 +22,7 @@
     <%= nav_menu_item("coop-and-share", 'Neues Coop & Share Angebot', new_coop_demand_path) %>
     <%= nav_menu_item("crowd", 'Neue Crowdfunding Kampagne', start_crowd_campaigns_path) %>
     <%= nav_menu_item("raumteiler", 'Raumteiler erstellen', select_room_offers_path) %>
-    <%= nav_menu_item("tacker", 'Toolteiler erstellen', select_tool_offers_path) %>
+    <%= nav_menu_item("tacker", 'Geräteteiler erstellen', select_tool_offers_path) %>
     <%= nav_menu_item("shopping-bag", 'Zuckerl buchen', new_zuckerl_path) %>
 
     <% if current_user.admin? %>
@@ -56,7 +56,7 @@
       <%= nav_submenu_link("calendar-2", 'Meine Treffen', 'nav-submenu-user-meetings',
           badge: current_user.attended_meetings.in(current_region).upcoming.size) %>
       <%= nav_submenu_link("raumteiler", 'Meine Raumteiler', 'nav-submenu-user-rooms') %>
-      <%= nav_submenu_link("tacker", 'Meine Toolteiler', 'nav-submenu-user-tools') %>
+      <%= nav_submenu_link("tacker", 'Meine Geräteteiler', 'nav-submenu-user-tools') %>
       <%= nav_submenu_link("crowd", 'Crowdfunding Kampagnen', 'nav-submenu-user-crowd_campaigns') %>
       <%= nav_submenu_link("coop-and-share", 'Coop & Share Marktplatz', 'nav-submenu-user-coop-shares') %>
       <%= nav_submenu_link("speech-bubble", 'Gruppen', 'nav-submenu-user-groups') %>
@@ -113,7 +113,7 @@
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-tools">
       <%= nav_submenu_back('nav-submenu-user-main') %>
-      <%= nav_menu_item("tacker", 'Toolteiler verwalten', tools_user_path) %>
+      <%= nav_menu_item("tacker", 'Geräteteiler verwalten', tools_user_path) %>
       <%= nav_menu_item("speech-bubbles", 'Anfragen Messenger', messenger_path(filter: "tool_rental")) %>
       <%= nav_menu_item("archive-storage", 'Buchungsarchiv', tools_user_path(target: "tab-buchungsarchiv")) %>
       <%= nav_lazy_load_form('tools') %>

@@ -17,6 +17,7 @@ class Region
     @name = data[:name]
     @area_coordinates = data[:area]
     @bound_coordinates = data[:bounds]
+    @proximity = data[:proximity]
     @use_districts = data[:use_districts]
     @zuckerl_graetzl_price = data[:zuckerl_graetzl_price]
     @zuckerl_entire_region_price = data[:zuckerl_entire_region_price]
@@ -31,14 +32,11 @@ class Region
   end
 
   def area
-    {
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": { "coordinates": @area_coordinates, "type": "Polygon" },
-        }
-      ]
-    }
+    @area_coordinates
+  end
+
+  def proximity
+    @proximity
   end
 
   def bounds

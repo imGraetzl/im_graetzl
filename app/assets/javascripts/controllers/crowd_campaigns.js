@@ -68,6 +68,7 @@ APP.controllers.crowd_campaigns = (function() {
         if($("#tab-info").is(":hidden")){
           APP.components.tabs.openTab('info');
         }
+        $('.mob .-toggable').removeClass('-open'); // Close Blocks on Mobile
         $('html, body').animate({
           scrollTop: $('.-supportBox').offset().top
         }, 600);

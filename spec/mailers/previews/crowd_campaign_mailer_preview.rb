@@ -1,9 +1,5 @@
 class CrowdCampaignMailerPreview < ActionMailer::Preview
 
-  def draft
-    CrowdCampaignMailer.draft(CrowdCampaign.last)
-  end
-
   def pending
     CrowdCampaignMailer.pending(CrowdCampaign.last)
   end

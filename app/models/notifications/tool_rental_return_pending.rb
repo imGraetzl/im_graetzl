@@ -1,7 +1,7 @@
 class Notifications::ToolRentalReturnPending < Notifications::PlatformNotification
 
   def self.description
-    'Toolteiler Rückgabe Bestätigung'
+    'Geräteteiler Rückgabe Bestätigung'
   end
 
   def tool_rental

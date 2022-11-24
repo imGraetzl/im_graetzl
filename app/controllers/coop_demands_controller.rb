@@ -16,6 +16,7 @@ class CoopDemandsController < ApplicationController
   def new
     @coop_demand = CoopDemand.new
     @coop_demand.assign_attributes(current_user.slice(:first_name, :last_name, :email, :website))
+    @coop_demand.graetzls = [user_home_graetzl] + user_home_graetzl.neighbour_graetzls if !current_region.use_districts?
   end
 
   def create

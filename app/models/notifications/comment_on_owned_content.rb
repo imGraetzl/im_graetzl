@@ -47,7 +47,7 @@ class Notifications::CommentOnOwnedContent < Notification
     when 'RoomOffer', 'RoomDemand'
       'Raumteiler'
     when 'ToolOffer', 'ToolDemand'
-      'Toolteiler'
+      'Geräteteiler'
     when 'CoopDemand'
       'Coop & Share Angebot'
     when 'CrowdCampaign'

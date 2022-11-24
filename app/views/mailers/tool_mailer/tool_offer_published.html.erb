@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Gute Neuigkeiten #{@tool_offer.user.first_name},") %>
-<% content_for(:title, "Dein Toolteiler ist online!") %>
+<% content_for(:title, "Dein Geräteteiler ist online!") %>
 
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
   <tr>
@@ -8,7 +8,7 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        Dein Toolteiler
+        Dein Geräteteiler
       </h4>
     </td>
   </tr>
@@ -55,7 +55,7 @@
 
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Toolteiler ansehen", url: tool_offer_url(@tool_offer, host: @tool_offer.region.host), style: "width:100%;" %>
+        <%= render 'mailers/shared/button', title: "Geräteteiler ansehen", url: tool_offer_url(@tool_offer, host: @tool_offer.region.host), style: "width:100%;" %>
       </td>
     </tr>
 

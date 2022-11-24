@@ -1200,4 +1200,135 @@ section.info {
     }
 
   }
+  // ----- BALKONSOLAR PAGE ------ //
+  &.balkonsolar-page {
+    padding-bottom: 0px;
+    margin-bottom: -80px;
+    .imgHeader h1 {
+      margin-top:40px;
+      @include respond-to(">=medium") {
+        margin-top:70px;
+      }
+    }
+    .catimg {
+      margin-top:20px;
+      width:80px;
+      height:80px;
+      @include respond-to(">=medium") {
+        width:130px;
+        height:130px;
+      }
+    }
+    .imgHeader::after {
+      background-image: url(image_path('info/header-balkonsolar.jpg'));
+    }
+    .paperCard.-top {
+      margin-bottom:70px;
+      p {
+        @include font-size-primaryFont('larger');
+      }
+    }
+    ul {
+      padding-bottom: 15px;
+      li {
+        margin-bottom:7px;
+        @include font-size-primaryFont('large');
+        background: url(image_path('svg/icon-arrow-right-blinky-mint-dark.svg')) no-repeat left center;
+        padding-left: 45px;
+        list-style: none;
+      }
+      li:hover {
+        background: url(image_path('svg/icon-arrow-right-blinky-rosa-dark.svg')) no-repeat left center;
+      }
+    }
+    .content-wide, .content {
+      p {
+        padding-bottom:20px;
+      }
+      h3 {
+        margin-top:25px;
+      }
+    }
+    .content {
+      margin-bottom: 30px;
+    }
+    .content-wide {
+      padding-top:35px;
+      padding-bottom:50px;
+
+      position: relative;
+      background-color: #eaf2f4;
+      width: 100vw;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+
+      .inner {
+        max-width: 930px;
+        position: relative;
+        margin: 0 auto;
+        padding-left: 18px;
+        padding-right: 18px;
+
+        @include respond-to(">=medium") {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+        @include respond-to(">=large") {
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+      }
+    }
+    .card-grid-container {
+      margin-bottom: 30px;
+    }
+    .persons {
+      display: flex;
+      justify-content: center;
+      .person {
+        width:50%;
+        float:left;
+        @include respond-to(">=medium") {
+          width:33%;
+        }
+        @include respond-to(">=large") {
+          width:20%;
+        }
+      }
+    }
+    // Single Mentor Card
+    .person {
+      h4, p.title {
+        display: block;
+        text-align: center;
+      }
+      a:hover {
+        img {
+          transition: transform .3s; /* Animation */
+          transform: scale(1.05);
+        }
+      }
+      .img-round {
+        display: block;
+        margin: auto;
+        margin-bottom:5px;
+        width:80%;
+        height: auto;
+        @include respond-to("<=medium") {
+          width:60%;
+          height: auto;
+        }
+      }
+    }
+    .patner {
+      img {
+        width:100px;
+        height:auto;
+        float:left;
+        margin-right:20px;
+      }
+    }
+  }
 }
