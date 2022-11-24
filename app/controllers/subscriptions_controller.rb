@@ -38,7 +38,11 @@ class SubscriptionsController < ApplicationController
       current_user.update(user_params) if params[:user].present?
 
       # Create Stripe Subscription
-      subscription = SubscriptionService.new.create(@subscription)
+      if valid_coupon
+        subscription = SubscriptionService.new.create(@subscription, coupon: subscription_params[:coupon])
+      else
+        subscription = SubscriptionService.new.create(@subscription)
+      end
 
       if subscription.latest_invoice.payment_intent
         redirect_to [:choose_payment, @subscription, client_secret: subscription.latest_invoice.payment_intent.client_secret]
