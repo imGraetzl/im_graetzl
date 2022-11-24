@@ -23,7 +23,6 @@ class SubscriptionService
       stripe_id: sub.id,
       status: sub.status,
       ends_at: nil,
-      coupon: sub&.discount&.coupon&.id,
     )
 
     sub
@@ -89,14 +88,6 @@ class SubscriptionService
       invoice_pdf: object.invoice_pdf,
       invoice_number: object.number,
     )
-  end
-
-  def valid_coupon?(coupon)
-    return false unless coupon.present?
-    coupon_retrieved = Stripe::Coupon.retrieve(coupon)
-    coupon_retrieved.valid == true
-  rescue => error
-    false
   end
 
   private
