@@ -3,7 +3,14 @@ module ImageHelper
   def avatar_image(object, size: nil, **options)
 
     if options[:class] && options[:class].include?('show-badge')
-      abo = (object.is_a?(User) || object.is_a?(Location)) && object.subscribed? ? 'abo' : ''
+      #abo = (object.is_a?(User) || object.is_a?(Location)) && object.subscribed? ? 'abo' : ''
+      if object.is_a?(User) && object.subscribed?
+        abo = 'abo'
+      elsif (object.is_a?(Location) || object.is_a?(RoomOffer)) && object.subscribed?
+        abo = 'abo square'
+      else
+        abo = ''
+      end
     end
 
     content_tag(:picture, nil, class: abo) do

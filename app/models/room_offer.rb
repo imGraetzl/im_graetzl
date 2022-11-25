@@ -85,6 +85,10 @@ class RoomOffer < ApplicationRecord
     self.district ||= value.district if value.present?
   end
 
+  def subscribed?
+    user_id.present? && user.subscribed?
+  end
+
   private
 
   def has_one_category_at_least

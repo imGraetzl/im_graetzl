@@ -19,6 +19,12 @@
     position: absolute;
     z-index: 9;
   }
+  &.square {
+    &::before {
+      top: -12px;
+      right: -12px;
+    }
+  }
 }
 
 .portraitCollection {
