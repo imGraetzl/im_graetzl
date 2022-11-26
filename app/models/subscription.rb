@@ -9,6 +9,7 @@ class Subscription < ApplicationRecord
 
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :coupon, -> { where.not(coupon: nil) }
+  scope :paid, -> { where(coupon: nil) }
 
   NEXT_GOAL = 75
 

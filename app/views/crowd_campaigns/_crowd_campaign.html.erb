@@ -16,7 +16,7 @@
 
   <div class="cardBoxContent">
     <%= link_to crowd_campaign.user, class: 'initiator', rel: 'nofollow' do %>
-      <%= avatar_image crowd_campaign, size: :thumb, class: 'img-round' %>
+      <%= avatar_image crowd_campaign, size: :thumb, class: 'img-round show-badge' %>
       <span><%= crowd_campaign.user.username %></span>
     <% end %>
     <div class="txt">

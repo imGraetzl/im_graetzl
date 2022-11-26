@@ -288,7 +288,7 @@ Rails.application.routes.draw do
   get 'info/impressum', to: 'static_pages#impressum'
   get 'info/zuckerl', to: 'static_pages#zuckerl'
   get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
-  get 'info/danke', to: 'static_pages#supporter'
+  get 'info/danke' => redirect('foerdermitgliedschaft')
   get 'info/ueber-uns', to: 'static_pages#about_us'
   get 'info/meilensteine', to: 'static_pages#milestones'
   get 'info/presse', to: 'static_pages#press'

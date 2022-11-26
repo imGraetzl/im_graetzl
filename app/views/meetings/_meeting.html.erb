@@ -45,7 +45,7 @@
   <div class="cardBoxContent">
     <% if meeting.location&.owned_by?(meeting.user) %>
       <%= link_to [Graetzl.memoized(meeting.location.graetzl_id), meeting.location], class: 'initiator' do %>
-        <%= avatar_image_with_tooltip meeting.location, size: :thumb, class: 'img-square' %>
+        <%= avatar_image_with_tooltip meeting.location, size: :thumb, class: 'img-square show-badge' %>
         <span><%= meeting.location.name %></span>
       <% end %>
     <% elsif meeting.user %>

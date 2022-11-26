@@ -217,6 +217,10 @@ class CrowdCampaign < ApplicationRecord
     self.district ||= value.district if value.present?
   end
 
+  def subscribed?
+    user_id.present? && user.subscribed?
+  end
+
   private
 
   def can_destroy?
