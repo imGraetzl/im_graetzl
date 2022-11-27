@@ -88,7 +88,7 @@ class Location < ApplicationRecord
   end
 
   def subscribed?
-    user_id.present? && user.subscribed?
+    user&.subscribed?
   end
 
   private
