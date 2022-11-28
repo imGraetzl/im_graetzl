@@ -49,8 +49,8 @@ class SubscriptionsController < ApplicationController
       else
 
         # May improve and outsource this or other trigger place
-        Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
-        ActionProcessor.track(@subscription, :create)
+        # Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
+        # ActionProcessor.track(@subscription, :create)
         SubscriptionMailer.created(@subscription).deliver_later
 
         redirect_to [:summary, @subscription]
@@ -84,8 +84,8 @@ class SubscriptionsController < ApplicationController
       end
       ### END
 
-      Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
-      ActionProcessor.track(@subscription, :create)
+      # Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
+      # ActionProcessor.track(@subscription, :create)
       SubscriptionMailer.created(@subscription).deliver_later
 
       redirect_to [:summary, @subscription]

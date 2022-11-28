@@ -170,8 +170,8 @@ APP.components.cardBoxFilter = (function() {
           showSpinner();
         },
         success: function(){
-          addActionCard();
           addFeaturedCard();
+          addActionCard();
           removeDuplicateCards();
           adjustNewCards();
         }
@@ -350,13 +350,22 @@ APP.components.cardBoxFilter = (function() {
     }
   }
 
-
+  // Insert Featured Card
   function addFeaturedCard() {
     if ($('.featuredCard').exists()) {
       var featuredCard = $('.featuredCard').clone().removeClass('-hidden');
-      if (cardGrid.children(':eq(2)').exists()) {
-        cardGrid.children(':eq(2)').after(featuredCard);
+      if ($(".action-card-container").exists()) {
+        // Logged Out on Second Position
+        if (cardGrid.children(':eq(0)').exists()) {
+          cardGrid.children(':eq(0)').after(featuredCard);
+        }
+      } else {
+        // Logged In on Third Position
+        if (cardGrid.children(':eq(1)').exists()) {
+          cardGrid.children(':eq(1)').after(featuredCard);
+        }
       }
+
     }
   }
 

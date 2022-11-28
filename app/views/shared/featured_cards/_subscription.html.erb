@@ -1,0 +1,36 @@
+<div class="cardBox -subscription featuredCard -hidden" data-behavior="masonry-card" data-card-id="subscription-<%= subscription.id %>">
+
+  <div class="cardBoxHeader">
+    <%= link_to subscription_plans_path do %>
+      <div class="coverImgWrapper">
+        <%= image_tag('info/cardbox-abo.jpg', class: 'coverImg') %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= icon_tag "abo" %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+
+    <div class="userEntry txt">
+      <%= link_to subscription.user, rel: 'nofollow' do %>
+        <%= avatar_image_with_tooltip subscription.user, size: :thumb, class: 'img-round show-badge' %>
+      <% end %>
+      <span class="userAndType">
+        <%= link_to subscription.user.username, subscription.user, rel: 'nofollow' %>
+        <span>unterstützt <%= t("region.#{current_region.id}.domain_short") %> mit einer Fördermitgliedschaft</span>
+      </span>
+    </div>
+
+    <div class="slogan">
+      <strong><%= Subscription.in(current_region).active.count %></strong>  Menschen unterstützen imGrätzl bereits mit einer Fördermitgliedschaft.
+      <br>
+      <strong>Unser nächstes Ziel: <%= Subscription::NEXT_GOAL %> Förder*innen.</strong>
+    </div>
+
+    <%= link_to 'Hier kannst du unterstützen', subscription_plans_path, class: 'btn-primary' %>
+
+  </div>
+
+</div>

@@ -6,6 +6,8 @@
 <% end %>
 <% content_for(:subtitle, "#{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} & #{t("region.#{@region.id}.favorite_graetzls")}") %>
 
+<%= render 'featured/subscription' if @region.id == 'wien' && @period == 'weekly' %>
+
 <% current_position = 0 %>
 <% zuckerl_position = NotificationMailer::ZUCKERL_BLOCK_POSITION %>
 
