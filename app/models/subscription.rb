@@ -33,19 +33,6 @@ class Subscription < ApplicationRecord
     ["past_due", "incomplete"].include?(status)
   end
 
-  def last_invoice_date
-    subscription_invoices && subscription_invoices.last.created_at.to_date
-  end
-
-  def next_invoice_date
-    # Maybe get Infos from Stripe to be more exactly ?!
-    if subscription_invoices && subscription_plan.interval == 'year'
-      subscription_invoices.last.created_at.to_date + 1.year + 1.day
-    elsif subscription_invoices && subscription_plan.interval == 'month'
-      subscription_invoices.last.created_at.to_date + 1.month + 1.day
-    end
-  end
-
   def region_zuckerl_included?
     subscription_plan.free_region_zuckerl.to_i > 0
   end
@@ -59,19 +46,19 @@ class Subscription < ApplicationRecord
   end
 
   def current_region_zuckerl_period
-    last_invoice_date..last_invoice_date + (subscription_plan.free_region_zuckerl_monthly_interval.to_i.months)
+    current_period_start..current_period_start + (subscription_plan.free_region_zuckerl_monthly_interval.to_i.months)
   end
 
   def current_region_zuckerl_period_end
-    last_invoice_date + (subscription_plan.free_region_zuckerl_monthly_interval.to_i.months)
+    current_period_start + (subscription_plan.free_region_zuckerl_monthly_interval.to_i.months)
   end
 
   def current_graetzl_zuckerl_period
-    last_invoice_date..last_invoice_date + (subscription_plan.free_graetzl_zuckerl_monthly_interval.to_i.months)
+    current_period_start..current_period_start + (subscription_plan.free_graetzl_zuckerl_monthly_interval.to_i.months)
   end
 
   def current_graetzl_zuckerl_period_end
-    last_invoice_date + (subscription_plan.free_graetzl_zuckerl_monthly_interval.to_i.months)
+    current_period_start + (subscription_plan.free_graetzl_zuckerl_monthly_interval.to_i.months)
   end
 
   def open_zuckerl?

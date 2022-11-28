@@ -23,6 +23,8 @@ class SubscriptionService
       stripe_id: sub.id,
       status: sub.status,
       ends_at: nil,
+      current_period_start: Time.at(sub.current_period_start),
+      current_period_end: Time.at(sub.current_period_end),
       coupon: sub&.discount&.coupon&.id,
     )
 
@@ -59,6 +61,8 @@ class SubscriptionService
     end
 
     subscription.status = object.status
+    subscription.current_period_start = Time.at(object.current_period_start)
+    subscription.current_period_end = Time.at(object.current_period_end)
 
     if object.ended_at
       subscription.ends_at = Time.at(object.ended_at)
@@ -72,7 +76,9 @@ class SubscriptionService
   def delete_subscription(subscription, object)
     subscription.update(
       status: object.status,
-      ends_at: Time.at(object.ended_at)
+      ends_at: Time.at(object.ended_at),
+      current_period_start: Time.at(object.current_period_start),
+      current_period_end: Time.at(object.current_period_end),
     ) if object.ended_at.present?
   end
 
