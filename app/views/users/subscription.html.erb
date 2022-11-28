@@ -31,7 +31,7 @@
           <% if @subscription.on_grace_period? %>
             <li>Deine Fördermitglidschaft läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>.</li>
           <% else %>
-            <li>Deine Fördermitglidschaft wird <%= @subscription.subscription_plan.interval == 'month' ? 'monatlich' : 'jährlich' %> verlängert und ist jederzeit kündbar. Nächste Verlängerung am <%= I18n.localize(@subscription.current_period_start, format:'%d. %B %Y') %>.</li>
+            <li>Deine Fördermitglidschaft wird <%= @subscription.subscription_plan.interval == 'month' ? 'monatlich' : 'jährlich' %> verlängert und ist jederzeit kündbar. Nächste Verlängerung am <%= I18n.localize(@subscription.current_period_end, format:'%d. %B %Y') %>.</li>
           <% end %>
           <li>Deine hinterlegte Zahlungsmethode kannst du <%= link_to 'hier', payment_method_user_path %> anpassen.</li>
           <li>Deine Rechnungsanschrift kannst du <%= link_to 'hier', billing_address_user_path %> ändern.</li>

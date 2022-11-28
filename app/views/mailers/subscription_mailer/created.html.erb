@@ -44,6 +44,7 @@
       <p>
         <strong>Deine Fördermitglidschaft wird <%= @subscription.subscription_plan.interval == 'month' ? 'monatlich' : 'jährlich' %> verlängert,
         die Verlängerung ist jederzeit kündbar, indem du auf stornieren klickst.</strong> (Eingeloggt unter <%= link_to 'Fördermitgliedschaft verwalten', subscription_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>).
+        <br>Die nächste Verlängerung ist am <%= I18n.localize(@subscription.current_period_end, format:'%d. %B %Y') %>
       </p>
 
       <p>
