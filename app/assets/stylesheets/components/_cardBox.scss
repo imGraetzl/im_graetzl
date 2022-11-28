@@ -490,7 +490,8 @@
 
 }
 .cardBoxContent .initiator {
-  margin: -47px 0 15px 0;
+  margin: -57px 0 15px 0;
+  padding-top:10px;
   text-decoration: none;
   display: block;
   overflow: hidden;
@@ -503,7 +504,7 @@
     bottom: 0;
     left: 0;
   }
-  .img-square {
+  .square {
     margin-right: 4px;
   }
   span {

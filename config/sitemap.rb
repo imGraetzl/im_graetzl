@@ -152,9 +152,12 @@ Region.all.each do |region|
       add group_path(group), changefreq: 'weekly', priority: 0.5
     end
 
-    # Static Pages
-    add good_morning_dates_path, changefreq: 'daily', priority: 0.9
-    add balkonsolar_path, changefreq: 'daily', priority: 0.9
+    # Static Vienna Pages
+    if region.id == 'wien'
+      add good_morning_dates_path, changefreq: 'daily', priority: 0.9
+      add balkonsolar_path, changefreq: 'daily', priority: 0.9
+      add subscription_plans_path, changefreq: 'daily', priority: 0.9
+    end
 
     # Info Help Pages
     add info_path, changefreq: 'monthly', priority: 0.4

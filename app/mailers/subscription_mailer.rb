@@ -9,7 +9,6 @@ class SubscriptionMailer < ApplicationMailer
       subject: "Danke für deine #{@region.host_domain_name} Fördermitgliedschaft",
       from: platform_email('no-reply'),
       to: @user.email,
-      bcc: 'michael@imgraetzl.at',
     )
   end
 

@@ -392,6 +392,7 @@ section.info {
       }
       .user-tooltip-wrp {
         display: flex;
+        justify-content: flex-start;
         max-width: unset;
         flex-wrap: nowrap;
         width:100%;

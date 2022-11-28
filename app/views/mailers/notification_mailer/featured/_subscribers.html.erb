@@ -8,8 +8,7 @@
     </tr>
 </table>
 
-<!-- Maybe change to .all.sample(4) instead of showing always the latest -->
-<%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.order(created_at: :desc), as: :subscription %>
+<%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.paid.sample(4), as: :subscription %>
 
 <table border="0" cellpadding="0" cellspacing="0" style="width:100%; box-sizing: border-box; margin-bottom:20px;" class="mcnTextContentContainer">
   <tbody>
