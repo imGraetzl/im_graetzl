@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_28_094041) do
+ActiveRecord::Schema.define(version: 2022_11_28_164030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1285,6 +1285,7 @@ ActiveRecord::Schema.define(version: 2022_11_28_094041) do
     t.boolean "guest", default: false
     t.integer "free_region_zuckerl", default: 0
     t.integer "free_graetzl_zuckerl", default: 0
+    t.boolean "subscribed", default: false
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"

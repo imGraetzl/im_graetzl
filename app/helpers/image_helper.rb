@@ -6,7 +6,7 @@ module ImageHelper
       #abo = (object.is_a?(User) || object.is_a?(Location)) && object.subscribed? ? 'abo' : ''
       if (object.is_a?(User) || object.is_a?(CrowdCampaign)) && object.subscribed?
         abo = 'abo'
-      elsif (object.is_a?(Location) || object.is_a?(RoomOffer)) && object.subscribed?
+      elsif object.is_a?(Location) && object.subscribed?
         abo = 'abo square'
       else
         abo = ''

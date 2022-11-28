@@ -11,11 +11,14 @@ class Subscription < ApplicationRecord
   scope :coupon, -> { where.not(coupon: nil) }
   scope :paid, -> { where(coupon: nil) }
 
+  after_update :update_user, if: -> { saved_change_to_status? }
+
   NEXT_GOAL = 75
 
-  def active?
-    ["active"].include?(status) && ends_at.nil? || on_grace_period?
-  end
+  # For better Performance use "active?" from status and not def below:
+  # def active?
+  #  ["active"].include?(status) && ends_at.nil? || on_grace_period?
+  # end
 
   def on_grace_period?
     canceled? && Time.zone.now < ends_at
@@ -126,6 +129,14 @@ class Subscription < ApplicationRecord
 
   def stripe_subscription
     Stripe::Subscription.retrieve(stripe_id)
+  end
+
+  def update_user
+    if user && active?
+      user.update_attribute(:subscribed, true)
+    elsif user
+      user.update_attribute(:subscribed, false)
+    end
   end
 
 end

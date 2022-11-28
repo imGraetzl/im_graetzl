@@ -107,9 +107,10 @@ class User < ApplicationRecord
     free_region_zuckerl.to_i > 0 || free_graetzl_zuckerl.to_i > 0
   end
 
-  def subscribed?
-    subscription && subscription.active?
-  end
+  # For better Performance store Subscription State direct in User Mdoel and Update Boolean from Subscriptions
+  # def subscribed?
+  #  subscription && subscription.active?
+  # end
 
   def subscription
     subscriptions.last
