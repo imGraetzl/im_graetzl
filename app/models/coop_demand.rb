@@ -24,7 +24,6 @@ class CoopDemand < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
-  scope :reactivated, -> { enabled.where("last_activated_at > created_at").where("created_at < ?", LIFETIME_MONTHS.months.ago) }
 
   LIFETIME_MONTHS = 6
 
@@ -47,7 +46,7 @@ class CoopDemand < ApplicationRecord
   end
 
   def refresh_activity
-    if enabled? && last_activated_at < 1.month.ago
+    if enabled? && last_activated_at < 15.days.ago
       update(last_activated_at: Time.now)
     end
   end

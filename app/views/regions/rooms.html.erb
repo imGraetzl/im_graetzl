@@ -53,7 +53,7 @@
       <%= render 'rooms/action_card' %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/subscription', subscription: Subscription.active.last if current_region.id == 'wien' %>
+    <%= render 'shared/featured_cards/subscription', subscription: Subscription.active.sample if current_region.id == 'wien' %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' }, rel: 'nofollow' %>
   </div>

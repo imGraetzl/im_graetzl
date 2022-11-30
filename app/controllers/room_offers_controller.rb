@@ -1,5 +1,5 @@
 class RoomOffersController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :activate, :calculate_price, :available_hours]
+  before_action :authenticate_user!, except: [:show, :reactivate, :calculate_price, :available_hours]
 
   def show
     @room_offer = RoomOffer.in(current_region).find(params[:id])
@@ -39,7 +39,6 @@ class RoomOffersController < ApplicationController
 
   def update
     @room_offer = current_user.room_offers.find(params[:id])
-
     if @room_offer.update(room_offer_params)
       current_user.update(user_params) if params[:user].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
@@ -61,11 +60,12 @@ class RoomOffersController < ApplicationController
 
   def reactivate
     @room_offer = RoomOffer.find(params[:id])
-    if params[:activation_code].to_i == @room_offer.activation_code
-      @room_offer.status = :enabled
-      @room_offer.last_activated_at = Time.now
-      @room_offer.save
+    if @room_offer.disabled? && params[:activation_code].to_i == @room_offer.activation_code
+      @room_offer.update(status: :enabled)
+      ActionProcessor.track(@room_offer, :update) if @room_offer.refresh_activity
       flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
+    elsif @room_offer.enabled?
+      flash[:notice] = "Dein Raumteiler ist bereits aktiv."
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
     end

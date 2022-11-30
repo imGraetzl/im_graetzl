@@ -4,12 +4,12 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     # Delete Expired and already sent Notifications
-    Notification.where('notify_at < ?', 3.weeks.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).destroy_all
-    Notification.where('notify_at < ?', 3.weeks.ago).where(sent: true).destroy_all
+    Notification.where('notify_at < ?', 15.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).destroy_all
+    Notification.where('notify_at < ?', 15.days.ago).where(sent: true).destroy_all
 
-    # Delete WeLocally Activities after 6 Months and Vienna Activities after 2 Months
+    # Delete WeLocally Activities after 6 Months and Vienna Activities after 4 Months
     Activity.where('created_at < ?', 12.months.ago).destroy_all
-    Activity.where('region_id = ?', 'wien').where('created_at < ?', 2.months.ago).destroy_all
+    Activity.where('region_id = ?', 'wien').where('created_at < ?', 4.months.ago).destroy_all
 
     Activity.where(subject_type: 'Meeting').find_each do |activity|
       if activity.subject.ends_at_date
@@ -17,27 +17,6 @@ namespace :db do
       else
         activity.destroy if activity.subject.starts_at_date < Date.yesterday
       end
-    end
-
-    RoomOffer.where(status: :disabled).find_each do |room_offer|
-      Activity.where(subject: room_offer).destroy_all
-      Notification.where(subject: room_offer).destroy_all
-    end
-    RoomDemand.where(status: :disabled).find_each do |room_demand|
-      Activity.where(subject: room_demand).destroy_all
-      Notification.where(subject: room_demand).destroy_all
-    end
-    CoopDemand.where(status: :disabled).find_each do |coop_demand|
-      Activity.where(subject: coop_demand).destroy_all
-      Notification.where(subject: coop_demand).destroy_all
-    end
-    ToolOffer.where(status: :disabled).find_each do |tool_offer|
-      Activity.where(subject: tool_offer).destroy_all
-      Notification.where(subject: tool_offer).destroy_all
-    end
-    ToolDemand.where(status: :disabled).find_each do |tool_demand|
-      Activity.where(subject: tool_demand).destroy_all
-      Notification.where(subject: tool_demand).destroy_all
     end
 
     # Delete going_tos from deleted meeting

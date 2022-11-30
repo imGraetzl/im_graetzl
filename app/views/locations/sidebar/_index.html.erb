@@ -41,6 +41,13 @@
         <% end %>
       <% end %>
 
+      <% if @location.user.subscribed? %>
+        <%= link_to subscription_plans_path, class: 'icontxt' do %>
+          <%= icon_tag "abo" %>
+          <span>imGrätzl Fördermitglied</span>
+        <% end %>
+      <% end %>
+
       <% if @location.online_shop_url.present? %>
         <%= link_to @location.online_shop_url, class: 'icontxt onlineshop', target: '_blank', rel: 'noopener' do %>
           <%= icon_tag "onlineshop" %>

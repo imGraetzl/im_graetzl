@@ -4,6 +4,10 @@ class ToolMailerPreview < ActionMailer::Preview
     ToolMailer.tool_offer_published(ToolOffer.last)
   end
 
+  def tool_demand_activate_reminder
+    ToolMailer.tool_demand_activate_reminder(ToolDemand.last)
+  end
+
   def new_rental_request
     ToolMailer.new_rental_request(ToolRental.last)
   end

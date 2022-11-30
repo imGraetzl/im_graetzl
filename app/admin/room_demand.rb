@@ -5,7 +5,6 @@ ActiveAdmin.register RoomDemand do
   actions :all, except: [:new, :create]
 
   scope :enabled, default: true
-  scope :reactivated
   scope :disabled
   scope :all
 
