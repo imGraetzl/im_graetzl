@@ -38,7 +38,7 @@
       <%= render 'regions/action_card' if !user_signed_in? %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/subscription', subscription: Subscription.active.last if current_region.id == 'wien' %>
+    <%= render 'shared/featured_cards/subscription', subscription: Subscription.active.sample if current_region.id == 'wien' %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
   </div>

@@ -23,7 +23,6 @@ class RoomDemand < ApplicationRecord
   include AvatarUploader::Attachment(:avatar)
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
-  scope :reactivated, -> { enabled.where("last_activated_at > room_demands.created_at") }
 
   validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email
   validate :has_one_category_at_least
@@ -49,7 +48,7 @@ class RoomDemand < ApplicationRecord
   end
 
   def refresh_activity
-    if enabled? && last_activated_at < 1.month.ago
+    if enabled? && last_activated_at < 15.days.ago
       update(last_activated_at: Time.now)
     end
   end

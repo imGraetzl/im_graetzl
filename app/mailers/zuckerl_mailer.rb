@@ -21,7 +21,6 @@ class ZuckerlMailer < ApplicationMailer
       subject: "Dein Zuckerl wurde bezhalt, anbei deine Rechnung.",
       from: platform_email("no-reply"),
       to: @zuckerl.user.email,
-      bcc: 'michael@imgraetzl.at',
     )
   end
 

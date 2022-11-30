@@ -19,7 +19,7 @@
     position: absolute;
     z-index: 9;
   }
-  &.square {
+  &.location {
     &::before {
       top: -15%;
       right: -15%;
@@ -51,7 +51,7 @@
   }
 }
 
-.user-tooltip-wrp {
+.user-tooltip-wrp, .subscriber-wrp {
   display:flex;
   flex-wrap: wrap;
   max-width: 280px;

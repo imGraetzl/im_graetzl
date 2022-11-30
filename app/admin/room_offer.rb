@@ -6,7 +6,6 @@ ActiveAdmin.register RoomOffer do
 
   scope :enabled, default: true
   scope :rentable
-  scope :reactivated
   scope :disabled
   scope :occupied
   scope :all
@@ -21,7 +20,6 @@ ActiveAdmin.register RoomOffer do
   filter :slogan
   filter :created_at
   filter :updated_at
-  filter :last_activated_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }

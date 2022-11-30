@@ -1,5 +1,5 @@
 class CoopDemandsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :activate]
+  before_action :authenticate_user!, except: [:index, :show, :reactivate]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -59,11 +59,12 @@ class CoopDemandsController < ApplicationController
 
   def reactivate
     @coop_demand = CoopDemand.find(params[:id])
-    if params[:activation_code].to_i == @coop_demand.activation_code
-      @coop_demand.status = :enabled
-      @coop_demand.last_activated_at = Time.now
-      @coop_demand.save
+    if @coop_demand.disabled? && params[:activation_code].to_i == @coop_demand.activation_code
+      @coop_demand.update(status: :enabled)
+      ActionProcessor.track(@coop_demand, :update) if @coop_demand.refresh_activity
       flash[:notice] = "Dein Coop & Share Angebot wurde erfolgreich verlängert!"
+    elsif @coop_demand.enabled?
+      flash[:notice] = "Dein Coop & Share Angebot ist bereits aktiv."
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um dein Coop & Share Angebot zu aktivieren."
     end

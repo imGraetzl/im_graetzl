@@ -127,8 +127,12 @@ class Zuckerl < ApplicationRecord
     end
   end
 
+  def starts_at
+    self.created_at.end_of_month+1.day
+  end
+
   def runtime
-    I18n.localize self.created_at.end_of_month+1.day, format: '%B %Y'
+    I18n.localize starts_at, format: '%B %Y'
   end
 
   def zuckerl_invoice

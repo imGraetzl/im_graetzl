@@ -64,7 +64,7 @@
 
     <div class="ico-row userPortraitName">
       <% if @meeting.location&.owned_by?(@meeting.user) %>
-        <%= avatar_image_with_tooltip @meeting.location, size: :thumb, class: 'img-square' %>
+        <%= avatar_image_with_tooltip @meeting.location, size: :thumb, class: 'img-square show-badge' %>
         <div class="infotxt">
           <em class="info">Erstellt von:</em><br>
           <%= link_to @meeting.location.name, [Graetzl.memoized(@meeting.location.graetzl_id), @meeting.location], class: 'infolink' %>
