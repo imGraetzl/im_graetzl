@@ -7,6 +7,7 @@ APP.controllers_loggedin.coop_demands = (function() {
   function initCoopDemandForm() {
     APP.components.graetzlSelectFilter.init($('#area-select'));
     APP.components.search.userAutocomplete();
+    APP.components.formHelper.savingBtn();
     $('#custom-keywords').tagsInput({'defaultText':'Eigene Stichwörter (mit Komma getrennt) ...'});
 
     $('.coop-category-switch').on("change", function() {

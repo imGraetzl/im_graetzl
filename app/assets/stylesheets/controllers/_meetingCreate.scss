@@ -35,6 +35,7 @@
       margin-bottom: 5.0rem;
     }
   }
+
   .meet-when {
     margin-bottom: 20px;
   }
@@ -49,8 +50,30 @@
     min-width: 190px;
   }
 
-  .btn-primary {
-    float: right;
+  .input-button {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    a {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+    }
+    .btn-primary, .btn-secondary {
+      margin-bottom:15px;
+      //width:31%;
+      margin-left: 1%;
+      margin-right: 1%;
+    }
+    @include respond-to("<=medium") {
+      justify-content: center;
+      .btn-primary, .btn-secondary {
+        margin-left:0px;
+        width:100%;
+      }
+    }
+    padding-top: 20px;
+    border-top: 1px dotted $color-ambient-mint-dark;
   }
 
   .date-fields {

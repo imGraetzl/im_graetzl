@@ -52,7 +52,12 @@ class ZuckerlsController < ApplicationController
 
     elsif params[:edit_zuckerl].present?
       @zuckerl.update zuckerl_params_edit
-      redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde aktualisiert'
+
+      if @zuckerl.save
+        redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde aktualisiert'
+      else
+        render :edit
+      end
 
     elsif @zuckerl.update zuckerl_address_params
       redirect_to [:choose_payment, @zuckerl]

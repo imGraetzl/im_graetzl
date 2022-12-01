@@ -46,6 +46,7 @@ class RoomOffer < ApplicationRecord
   validates_presence_of :room_rental_price, if: :rental_enabled?
   validate :has_one_category_at_least
 
+  before_validation :smart_add_url_protocol
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
@@ -89,6 +90,12 @@ class RoomOffer < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol
+    unless website[/\Ahttp:\/\//] || website[/\Ahttps:\/\//]
+      self.website = "https://#{website}"
+    end
+  end
 
   def has_one_category_at_least
     if room_categories.empty?

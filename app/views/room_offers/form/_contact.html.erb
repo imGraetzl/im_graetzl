@@ -55,7 +55,7 @@
       <%= icon_tag "globe" %>
       <span>Website</span>
     <% end %>
-    <%= f.url_field :website, placeholder: 'http:// oder https://', class: '-validate' %><em></em>
+    <%= f.text_field :website, placeholder: 'http:// oder https://' %><em></em>
   </div>
   <div class="input-field">
     <%= f.label :phone do %>
@@ -74,7 +74,8 @@
 
   <div class="input-button">
     <%= button_tag "Zurück", type: 'button', class: 'btn-secondary prev-screen', data: { tab: 'tab-facts' } %>
-    <%= button_tag "Weiter", type: 'button', class: 'btn-primary next-screen', data: { tab: 'tab-packages' } %>
+    <%= button_tag "Speichern", data: { disable_with: 'speichert...' }, class: 'btn-primary -saving', name: 'tab', value: 'contact' if !f.object.new_record? %>
+    <%= button_tag "Weiter", type: 'button', class: "#{f.object.new_record? ? 'btn-primary' : 'btn-secondary'} next-screen", data: { tab: 'tab-packages' } %>
   </div>
 
 </div>

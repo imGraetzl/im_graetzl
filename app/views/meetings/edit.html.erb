@@ -4,8 +4,4 @@
 
   <%= render 'form', disable_fields: @meeting.location && @meeting.location.user != current_user %>
 
-  <%= button_to 'Treffen löschen', @meeting,
-                method: :delete,
-                data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich unwiderruflich löschen?" },
-                class: 'btn-secondary -grey -small' %>
 </section>

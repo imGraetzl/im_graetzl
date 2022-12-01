@@ -49,6 +49,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       APP.components.tabs.initTabs(".tabs-ctrl");
       APP.components.formHelper.bbCodeHelp();
       APP.components.formHelper.maxChars();
+      APP.components.formHelper.savingBtn();
 
       $('.crowdfunding-form').find(':disabled').closest("div[class^='input-']").addClass('disabled');
 
@@ -157,19 +158,6 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
               previewModal.open();
             }
         });
-      });
-
-      // Safari Fix - Disable Sumbit Button onClick (rails disable_with not working)
-      $('.-saving').on('click', function(){
-        var $btn = $(this);
-        var btnOriginalText = $btn.text();
-        var btnDisabledText = $btn.data('disable-with');
-        $btn.addClass('-disabled');
-        $btn.text(btnDisabledText);
-        setTimeout(function(){
-          $btn.removeClass('-disabled');
-          $btn.text(btnOriginalText);
-        }, 500);
       });
 
       // PreviewModal and ModalPreviewSize
