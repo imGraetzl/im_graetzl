@@ -1,5 +1,20 @@
 APP.components.formHelper = (function() {
 
+  // Safari Fix - Disable Sumbit Button onClick (rails disable_with not working)
+  function savingBtn() {
+    $('.-saving').on('click', function(){
+      var $btn = $(this);
+      var btnOriginalText = $btn.text();
+      var btnDisabledText = $btn.data('disable-with');
+      $btn.addClass('-disabled');
+      $btn.text(btnDisabledText);
+      setTimeout(function(){
+        $btn.removeClass('-disabled');
+        $btn.text(btnOriginalText);
+      }, 500);
+    });
+  }
+
   function maxCategories(container, max) {
     if (container.find("input:checked").length >= max) {
       container.find("input:not(:checked)").each(function() {
@@ -67,6 +82,7 @@ APP.components.formHelper = (function() {
     maxCategories: maxCategories,
     maxChars: maxChars,
     bbCodeHelp: bbCodeHelp,
+    savingBtn: savingBtn,
   };
 
 })();

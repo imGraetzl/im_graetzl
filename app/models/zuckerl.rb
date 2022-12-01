@@ -14,9 +14,7 @@ class Zuckerl < ApplicationRecord
   belongs_to :subscription, optional: true
   has_one :graetzl, through: :location
 
-  validates :title, length: { in: 10..80 }
-  validates :description, length: { in: 10..160 }
-  validates :cover_photo, presence: true
+  validates_presence_of :title, :description, :cover_photo
   validates :amount, presence: true, on: :create
 
   string_enum payment_status: ["free", "authorized", "processing", "debited", "failed"]

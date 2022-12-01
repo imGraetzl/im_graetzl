@@ -9,6 +9,13 @@ APP.controllers_loggedin.room_offers = (function() {
     APP.components.addressInput();
     APP.components.formValidation.init();
     APP.components.search.userAutocomplete();
+    APP.components.formHelper.savingBtn();
+
+    // Init Tab for Saving Single Tabs
+    var initTab = APP.controllers.application.getUrlVars()["initTab"];
+    if (typeof initTab !== "undefined") {
+      APP.components.tabs.openTab(initTab);
+    }
 
     $(".next-screen, .prev-screen").on("click", function() {
       $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));

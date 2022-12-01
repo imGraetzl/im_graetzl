@@ -86,7 +86,8 @@
   </div>
 
   <div class="input-button">
-    <%= button_tag "Weiter", type: 'button', class: 'btn-primary next-screen', data: { tab: 'tab-address' } %>
+    <%= button_tag "Speichern", data: { disable_with: 'speichert...' }, class: 'btn-primary -saving', name: 'tab', value: 'basic' if !f.object.new_record? %>
+    <%= button_tag "Weiter", type: 'button', class: "#{f.object.new_record? ? 'btn-primary' : 'btn-secondary'} next-screen", data: { tab: 'tab-address' } %>
   </div>
 
 </div>

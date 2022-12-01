@@ -37,7 +37,12 @@ class ToolOffersController < ApplicationController
     @tool_offer.assign_attributes(tool_offer_params)
 
     if @tool_offer.save
-      redirect_to @tool_offer
+      if params[:tab].present?
+        flash[:notice] = "Deine Änderungen wurden gespeichert. #{view_context.link_to 'Geräteteiler ansehen', @tool_offer}"
+        redirect_to edit_tool_offer_path(@tool_offer, :initTab => params[:tab])
+      else
+        redirect_to @tool_offer
+      end
     else
       render 'edit'
     end
