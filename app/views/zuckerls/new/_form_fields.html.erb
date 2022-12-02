@@ -9,7 +9,7 @@
   <%= f.text_field :title,
     placeholder: 'Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)',
     id: 'zuckerl_title',
-    data: { behavior: 'titleinput' }, data: { max_chars: 80 }, maxlength:80 %>
+    data: { behavior: 'titleinput', max_chars: 80 }, maxlength:80 %>
   <span class="charCountContainer charsLeft"></span>
 </div>
 
@@ -21,7 +21,7 @@
   <%= f.text_area :description,
     placeholder: 'Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)',
     id: 'zuckerl_description',
-    data: { behavior: 'descriptioninput'}, data: { max_chars: 160 }, maxlength:160 %>
+    data: { behavior: 'descriptioninput', max_chars: 160 }, maxlength:160 %>
   <span class="charCountContainer charsLeft"></span>
 </div>
 

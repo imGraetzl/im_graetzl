@@ -7,6 +7,13 @@ APP.controllers_loggedin.tool_offers = (function() {
     function initToolOfferForm() {
       APP.components.tabs.initTabs(".tabs-ctrl");
       APP.components.addressInput();
+      APP.components.formHelper.savingBtn();
+
+      // Init Tab for Saving Single Tabs
+      var initTab = APP.controllers.application.getUrlVars()["initTab"];
+      if (typeof initTab !== "undefined") {
+        APP.components.tabs.openTab(initTab);
+      }
 
       $(".next-screen, .prev-screen").on("click", function() {
         $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
@@ -33,7 +40,7 @@ APP.controllers_loggedin.tool_offers = (function() {
           $('#deposit-fields').slideDown();
         } else if (!depositEnabled){
           $('#deposit-fields input').val('');
-          $('#deposit-fields').slideUp();
+          $('#deposit-fields').hide();
         }
       }).change();
 

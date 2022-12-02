@@ -1,24 +1,14 @@
-<table border="0" cellpadding="0" cellspacing="0" style="width:25%; float:left; box-sizing: border-box; margin-bottom:10px;" class="mcnTextContentContainer">
-  <tbody>
-    <tr>
-      <td valign="top" align="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px; padding-top:0; padding-bottom:18px; text-align:center;">
-
-        <table border="0" cellpadding="0" cellspacing="0" style="margin:auto;">
-          <tr>
-            <td height="100" style="height:100px;">
-              <%= link_to subscription.user do %>
-                <%= avatar_image subscription.user, size: :thumb, style: "width: 100px; height: 100px; border-radius: 50px;" %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="mcnTextContent" style="height:40px; line-height:16px; vertical-valign:center; text-align:center;">
-              <%= link_to subscription.user.full_name, subscription.user, target:'_blank', style: "color:#ec776a;" %>
-            </td>
-          </tr>
-        </table>
-
-      </td>
-    </tr>
-  </tbody>
+<table border="0" cellpadding="0" cellspacing="0" style="width:94px !important; float:left; box-sizing: border-box; margin-bottom:10px;">
+  <tr>
+    <td style="height:50px;">
+      <%= link_to subscription.user do %>
+        <%= avatar_image subscription.user, size: :thumb, style: "width:50px; height:50px; border-radius:25px;" %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td style="height:40px; line-height:16px; vertical-valign:center; text-align:center; font-size:12px;">
+      <%= link_to subscription.user.full_name, subscription.user, target:'_blank', style: "color:#ec776a;" %>
+    </td>
+  </tr>
 </table>

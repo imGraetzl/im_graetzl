@@ -43,7 +43,14 @@ class RoomOffersController < ApplicationController
       current_user.update(user_params) if params[:user].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
       ActionProcessor.track(@room_offer, :update) if @room_offer.refresh_activity
-      redirect_to @room_offer
+
+      if params[:tab].present?
+        flash[:notice] = "Deine Änderungen wurden gespeichert. #{view_context.link_to 'Raumteiler ansehen', @room_offer}"
+        redirect_to edit_room_offer_path(@room_offer, :initTab => params[:tab])
+      else
+        redirect_to @room_offer
+      end
+
     else
       render 'edit'
     end

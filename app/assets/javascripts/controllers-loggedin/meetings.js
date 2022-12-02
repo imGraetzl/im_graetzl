@@ -5,6 +5,7 @@ APP.controllers_loggedin.meetings = (function() {
       if ($("section.create-meeting").exists()) {
         initCreateMeeting();
         APP.components.search.userAutocomplete();
+        APP.components.formHelper.savingBtn();
       }
 
       if ($("section.meetings-compose-mail").exists()) {

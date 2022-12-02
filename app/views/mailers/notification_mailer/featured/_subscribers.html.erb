@@ -1,14 +1,29 @@
-<%= render 'summary/block_header', title: "Danke an alle imGrätzl Fördermitglieder!" %>
+<%= render 'summary/block_header', title: "Danke an alle imGrätzl Förder*innen!" %>
 
 <table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer">
     <tr>
-      <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px; text-align:center;">
-        Um unsere Arbeit an imGrätzl nachhaltig zu finanzieren, brauchen wir vor allem eines: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!
+      <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
+        <strong>imGrätzl ist mittlerweile zu groß, als dass wir alles alleine stemmen können.</strong>
+        Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen.
+        <br>
+        Wenn <strong>mind. 75 Förder*innen</strong> mithelfen, können wir imGrätzl in Wien auch im kommenden Jahr erhalten.
+        Wir freuen uns über jede und jeden einzelnen, die und der uns über die neue <%= link_to 'imGrätzl Fördermitgliedschaft', subscription_plans_url, target: '_blank', style: 'color:#ec776a;' %> unterstützt.
       </td>
     </tr>
 </table>
 
-<%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.paid.sample(4), as: :subscription %>
+<table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" align="center" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-right:18px; padding-bottom:18px; text-align:center; display: flex; flex-wrap: wrap; justify-content:center;">
+
+        <%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.paid.sample(6), as: :subscription %>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 <table border="0" cellpadding="0" cellspacing="0" style="width:100%; box-sizing: border-box; margin-bottom:20px;" class="mcnTextContentContainer">
   <tbody>

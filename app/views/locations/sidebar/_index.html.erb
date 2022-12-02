@@ -41,7 +41,7 @@
         <% end %>
       <% end %>
 
-      <% if @location.user.subscribed? %>
+      <% if @location.user&.subscribed? %>
         <%= link_to subscription_plans_path, class: 'icontxt' do %>
           <%= icon_tag "abo" %>
           <span>imGrätzl Fördermitglied</span>

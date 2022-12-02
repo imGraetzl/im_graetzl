@@ -7,6 +7,7 @@ APP.controllers_loggedin.tool_demands = (function() {
   function initToolDemandForm() {
     APP.components.graetzlSelectFilter.init($('#area-select'));
     APP.components.search.userAutocomplete();
+    APP.components.formHelper.savingBtn();
     $('#custom-keywords').tagsInput({'defaultText':'Eigene Stichwörter (mit Komma getrennt) ...'});
 
     $('.period-switch').on('change', function() {
