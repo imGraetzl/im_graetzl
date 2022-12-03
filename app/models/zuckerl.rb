@@ -126,7 +126,13 @@ class Zuckerl < ApplicationRecord
   end
 
   def starts_at
-    self.created_at.end_of_month+1.day
+    if self.live?
+      Time.now # If Zuckerl was manual set to live
+    elsif self.created_at
+      self.created_at.end_of_month+1.day # Normal Zuckerl
+    else
+      Time.now.end_of_month+1.day # For Zuckerl Preview on Create
+    end
   end
 
   def runtime
