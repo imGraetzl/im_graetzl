@@ -231,10 +231,10 @@
 
 .textEditor {
   margin-top: -4px;
-  margin-left: 1rem;
   position: relative;
   width: 100%;
   @include respond-to(">=medium") {
+    margin-left: 1rem;
     &:before {
       @include triangleSingle($direction: "left", $color: $color-ambient-mint-light, $size: 8px);
       content: '';

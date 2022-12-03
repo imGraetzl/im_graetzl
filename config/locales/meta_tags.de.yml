@@ -302,6 +302,8 @@ de:
       title: 'Zuckerl Buchung - Zahlungsart ändern'
     summary:
       title: 'Zuckerl Buchung - Zusammenfassung'
+    edit:
+      title: 'Zuckerl Buchung - Bearbeiten'
 
   subscriptions:
     new:
