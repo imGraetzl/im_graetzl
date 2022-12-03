@@ -6,13 +6,14 @@ namespace :scheduled do
     UserMessageThread.includes(user_messages: :user, user_message_thread_members: :user).where(last_message_at: time_range).find_each do |thread|
       thread.user_message_thread_members.each do |user_thread|
         unseen_messages = thread.user_messages.select{ |m| m.id > user_thread.last_message_seen_id }
-        puts "last message seen: #{user_thread.last_message_seen_id}"
+        p "---------"
+        p "last message seen: #{user_thread.last_message_seen_id}"
         next if unseen_messages.empty?
         #p "#{user_thread.user.email} #{unseen_messages.count} unseen messages."
-        puts "#{user_thread.user.email} #{unseen_messages.count} unseen messages."
-        puts "last: #{unseen_messages.last.id}"
+        p "#{user_thread.user.email} #{unseen_messages.count} unseen messages."
+        p "last: #{unseen_messages.last.id}"
         unseen_messages.each do |m|
-          puts "message: #{m.id} created_at: #{m.created_at}"
+          p "message: #{m.id} created_at: #{m.created_at}"
         end
         MessengerMailer.unseen_messages(user_thread.user, unseen_messages).deliver_now
         user_thread.update(last_message_seen_id: unseen_messages.last.id)
