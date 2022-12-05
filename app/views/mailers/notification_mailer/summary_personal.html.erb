@@ -31,4 +31,4 @@
   <% end %>
 <% end %>
 
-<%= render 'featured/subscription' if @region.id == 'wien' %>
+<%= render 'featured/subscription' if @region.id == 'wien' && !@user.subscribed? %>
