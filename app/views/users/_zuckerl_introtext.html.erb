@@ -33,4 +33,10 @@
   </div>
   <%= render 'users/zuckerl_actioncard', user: @user %>
 
+  <% if !current_user.subscribed? && current_region.id == 'wien' %>
+    <div class="cardBox -tipp">
+      <%= link_to 'Tipp: Mit der JUHU! Fördermitgliedschaft sparst du 50 € auf das Wien Zuckerl', subscription_plans_path, class: 'link-more -small' %>
+    </div>
+  <% end %>
+
 </div>

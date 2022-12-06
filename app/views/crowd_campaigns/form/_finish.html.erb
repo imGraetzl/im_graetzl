@@ -23,7 +23,7 @@
       <%= icon_tag "globe" %>
       <span>Website</span>
     <% end %>
-    <%= f.url_field :contact_website, placeholder: 'http:// oder https://', class: '-validate', disabled: !@crowd_campaign.editable? %><em></em>
+    <%= f.text_field :contact_website, placeholder: 'http:// oder https://', disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="input-field">

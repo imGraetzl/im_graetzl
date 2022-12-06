@@ -43,6 +43,9 @@ class CrowdCampaign < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
+  before_validation :smart_add_url_protocol_website, if: -> { contact_website.present? }
+  before_validation :smart_add_url_protocol_video, if: -> { video.present? }
+
   validates_presence_of :title, :graetzl
   validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
@@ -222,6 +225,18 @@ class CrowdCampaign < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol_website
+    unless contact_website[/\Ahttp:\/\//] || contact_website[/\Ahttps:\/\//]
+      self.contact_website = "https://#{contact_website}"
+    end
+  end
+
+  def smart_add_url_protocol_video
+    unless video[/\Ahttp:\/\//] || video[/\Ahttps:\/\//]
+      self.video = "https://#{video}"
+    end
+  end
 
   def can_destroy?
     if !(self.draft? || self.pending?)

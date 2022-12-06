@@ -12,6 +12,9 @@ class ActionProcessor
       Notifications::NewLocation.generate(subject, to: user_ids(subject.graetzl))
 
     when [Location, :post]
+
+      # Delete existing Notifications for LocationPosts (for only having the newest in Mails)
+      Notification.where(subject: subject).where(child_type: 'LocationPost').delete_all
       Activity.add_public(subject, child, to: subject.graetzl)
       Notifications::NewLocationPost.generate(subject, child, to: user_ids(subject.graetzl))
 
@@ -175,6 +178,8 @@ class ActionProcessor
     when [CrowdCampaign, :post]
       if subject.scope_public?
         Activity.add_public(subject, child, to: :entire_region)
+        # Delete existing Notifications for CrowdCampaignPosts (for only having the newest in Mails)
+        Notification.where(subject: subject).where(child_type: 'CrowdCampaignPost').delete_all
         Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
       end
     when [CrowdCampaignPost, :comment]

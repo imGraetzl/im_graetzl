@@ -27,6 +27,8 @@ class CoopDemand < ApplicationRecord
 
   LIFETIME_MONTHS = 6
 
+  before_validation :smart_add_url_protocol, if: -> { website.present? }
+
   validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email, :coop_demand_category, :coop_type
   validate :has_one_graetzl_at_least
 
@@ -52,6 +54,12 @@ class CoopDemand < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol
+    unless website[/\Ahttp:\/\//] || website[/\Ahttps:\/\//]
+      self.website = "https://#{website}"
+    end
+  end
 
   def has_one_graetzl_at_least
     if graetzl_ids.empty?
