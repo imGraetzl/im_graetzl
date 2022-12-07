@@ -191,3 +191,24 @@
     <% end %>
   </div>
 </article>
+
+
+
+<% if current_region && current_region.id == 'wien' %>
+  <article class="container">
+    <div class="txt">
+      <h2>imGrätzl Fördermitgliedschaft</h2>
+      <h3>imGrätzl ist mittlerweile zu groß, als dass wir alles alleine stemmen können.</h3>
+      <p>
+        Damit wir imGrätzl in Wien weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen.<br>
+        Danke an alle, die imGrätzl bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht
+      </p>
+      <p class="link">
+        <%= link_to 'Zur Fördermitgliedschaft', subscription_plans_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    </div>
+    <div class="aside -img -illu">
+      <%= link_to(image_tag('info/cardbox-abo-wow.png', loading: 'lazy'), subscription_plans_path) %>
+    </div>
+  </article>
+<% end %>

@@ -51,7 +51,7 @@
     <%= icon_tag "video-play" %>
     <span>Video URL</span>
     <% end %>
-    <%= f.url_field :video, placeholder: 'Link zum Video (Youtube oder Vimeo)', class: '-validate', disabled: !@crowd_campaign.editable? %><em></em>
+    <%= f.text_field :video, placeholder: 'Link zum Video (Youtube oder Vimeo)', disabled: !@crowd_campaign.editable? %>
   </div>
 
 </div>

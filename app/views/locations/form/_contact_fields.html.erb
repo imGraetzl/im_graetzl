@@ -6,7 +6,7 @@
         <%= icon_tag "onlineshop" %>
         <span>Online Shop</span>
     <% end %>
-    <%= f.url_field :online_shop_url, placeholder: 'Falls du Produkte über deinen eigenen Online Shop verkaufst ...', class: '-validate' %><em></em>
+    <%= f.text_field :online_shop_url, placeholder: 'Falls du Produkte über deinen eigenen Online Shop verkaufst ...' %>
   </div>
 
   <div class="input-field">
@@ -14,7 +14,7 @@
         <%= icon_tag "globe" %>
         <span>Homepage</span>
     <% end %>
-    <%= f.url_field :website_url, placeholder: 'http:// oder https://', class: '-validate' %><em></em>
+    <%= f.text_field :website_url, placeholder: 'http:// oder https://' %>
   </div>
 
   <div class="input-field">

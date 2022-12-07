@@ -20,6 +20,8 @@ class ToolDemand < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
+  before_validation :smart_add_url_protocol, if: -> { website.present? }
+
   validates_presence_of :slogan, :demand_description, :usage_description, :usage_days, :tool_category_id, :first_name, :last_name, :email
   validate :has_one_graetzl_at_least # doesn't work for some reason
   validates :usage_period_from, presence: true, if: :usage_period?
@@ -42,6 +44,12 @@ class ToolDemand < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol
+    unless website[/\Ahttp:\/\//] || website[/\Ahttps:\/\//]
+      self.website = "https://#{website}"
+    end
+  end
 
   def has_one_graetzl_at_least
     if graetzl_ids.empty?

@@ -43,6 +43,8 @@ class Meeting < ApplicationRecord
     where("starts_at_date > :today OR ends_at_date > :today", today: Date.yesterday).
     order(:starts_at_date) }
 
+  before_validation :smart_add_url_protocol, if: -> { online_url.present? }
+
   validates_presence_of :name, :description, :starts_at_date, :graetzl
   validates :cover_photo, presence: true, on: :create
   validates :description, presence: true, length: { minimum: 150 }, on: :create
@@ -123,6 +125,12 @@ class Meeting < ApplicationRecord
   def starts_at_date_cannot_be_in_the_past
     if starts_at_date && starts_at_date < Date.today
       errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
+    end
+  end
+
+  def smart_add_url_protocol
+    unless online_url[/\Ahttp:\/\//] || online_url[/\Ahttps:\/\//]
+      self.online_url = "https://#{online_url}"
     end
   end
 

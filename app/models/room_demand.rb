@@ -24,6 +24,8 @@ class RoomDemand < ApplicationRecord
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
 
+  before_validation :smart_add_url_protocol, if: -> { website.present? }
+
   validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email
   validate :has_one_category_at_least
   validate :has_one_graetzl_at_least # doesn't work for some reason
@@ -54,6 +56,12 @@ class RoomDemand < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol
+    unless website[/\Ahttp:\/\//] || website[/\Ahttps:\/\//]
+      self.website = "https://#{website}"
+    end
+  end
 
   def has_one_category_at_least
     if room_categories.empty?

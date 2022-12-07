@@ -44,6 +44,8 @@ class Location < ApplicationRecord
   scope :goodie, -> { where("goodie != ''") }
   scope :menus, ->{ joins(:location_menus).merge(LocationMenu.upcoming) }
 
+  before_validation :smart_add_url_protocol_online_shop, if: -> { online_shop_url.present? }
+  before_validation :smart_add_url_protocol_website, if: -> { website_url.present? }
 
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
   validates :description, presence: true, length: { minimum: 250 }, on: :create
@@ -92,6 +94,18 @@ class Location < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol_online_shop
+    unless online_shop_url[/\Ahttp:\/\//] || online_shop_url[/\Ahttps:\/\//]
+      self.online_shop_url = "https://#{online_shop_url}"
+    end
+  end
+
+  def smart_add_url_protocol_website
+    unless website_url[/\Ahttp:\/\//] || website_url[/\Ahttps:\/\//]
+      self.website_url = "https://#{website_url}"
+    end
+  end
 
   def mailchimp_location_update
     MailchimpLocationUpdateJob.perform_later(self)

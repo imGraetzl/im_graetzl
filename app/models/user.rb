@@ -61,6 +61,8 @@ class User < ApplicationRecord
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, reject_if: :all_blank
 
+  before_validation :smart_add_url_protocol, if: -> { website.present? }
+
   validates :email, presence: true, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :first_name, presence: true, length: { maximum: 50 }
@@ -252,6 +254,12 @@ class User < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol
+    unless website[/\Ahttp:\/\//] || website[/\Ahttps:\/\//]
+      self.website = "https://#{website}"
+    end
+  end
 
   def update_user_graetzls
     self.user_graetzls.where(graetzl_id: self.graetzl.id).delete_all

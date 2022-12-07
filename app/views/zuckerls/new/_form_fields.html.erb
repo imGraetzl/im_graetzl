@@ -30,10 +30,10 @@
     <%= icon_tag "globe" %>
     <span>Link zu</span>
   <% end %>
-  <%= f.url_field :link,
+  <%= f.text_field :link,
     placeholder: 'http://www ...',
     id: 'zuckerl_link',
-    data: { behavior: 'linkinput' } %><em></em>
+    data: { behavior: 'linkinput' } %>
 </div>
 
 <div class="upload-oldschool">

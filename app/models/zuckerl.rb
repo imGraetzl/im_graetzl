@@ -14,6 +14,8 @@ class Zuckerl < ApplicationRecord
   belongs_to :subscription, optional: true
   has_one :graetzl, through: :location
 
+  before_validation :smart_add_url_protocol, if: -> { link.present? }
+
   validates_presence_of :title, :description, :cover_photo
   validates :amount, presence: true, on: :create
 
@@ -149,6 +151,12 @@ class Zuckerl < ApplicationRecord
   end
 
   private
+
+  def smart_add_url_protocol
+    unless link[/\Ahttp:\/\//] || link[/\Ahttps:\/\//]
+      self.link = "https://#{link}"
+    end
+  end
 
   def can_destroy?
     if self.invoice_number?
