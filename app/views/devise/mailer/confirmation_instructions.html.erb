@@ -8,8 +8,12 @@
 </p>
 
 <p>
-  Als registrierter Nutzer bekommst du automatisch Updates und News <%= I18n.t("region.#{@region.id}.from_your_graetzl") %> <%= @resource.graetzl.name %>.
-  Du kannst diesen Service nach der Registrierung unter <%= link_to 'Einstellungen', edit_user_url(target: "tab-2", host: @resource.region.host) %> jederzeit abbestellen.
+  Als registrierter Nutzer bekommst du wöchentlich Neuigkeiten <%= I18n.t("region.#{@region.id}.from_your_homegraetzl") %> (<%= @resource.graetzl.name %>) und deinen <%= I18n.t("region.#{@region.id}.favorite_graetzls") %> zugesandt.
+  <br>
+  Du kannst diesen Service nach der Registrierung unter <%= link_to 'Benachrichtigungs-Einstellungen', edit_user_url(target: "tab-2", host: @resource.region.host) %> jederzeit abbestellen.
+</p>
+<p>
+  Deine <%= I18n.t("region.#{@region.id}.favorite_graetzl") %> kannst du eingeloggt unter <%= link_to "Meine #{I18n.t("region.#{@region.id}.favorite_graetzl")}", favorite_graetzls_user_url(host: @resource.region.host) %> anpassen.
 </p>
 
 <p>Wir freuen uns auf Dich!<p>

@@ -45,7 +45,7 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
   end
 
   def crowd_pledge_debited
-    CrowdCampaignMailer.crowd_pledge_debited(CrowdPledge.processing.order(:created_at).last)
+    CrowdCampaignMailer.crowd_pledge_debited(CrowdPledge.debited.order(:created_at).last)
   end
 
   def crowd_pledge_failed

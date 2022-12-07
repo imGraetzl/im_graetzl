@@ -172,6 +172,12 @@
             dein Team von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %><br>
           </p>
 
+          <% if !@crowd_pledge.user %>
+            <p>
+              P.S.: Wenn dir <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %> gefällt und du weiterhin Neuigkeiten aus <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.from_your_graetzl") %> erhalten möchtest, dann kannst du dich <%= link_to "hier registrieren", new_registration_url, style: "color:#ec776a;" %>.
+            </p>
+          <% end %>
+
           ---
 
           <br><br>
