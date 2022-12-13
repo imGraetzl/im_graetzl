@@ -1,6 +1,6 @@
 APP.components.formHelper = (function() {
 
-  // Safari Fix - Disable Sumbit Button onClick (rails disable_with not working)
+  // Safari Fix - Disable Sumbit Button onClick (rails disable_with not working) and Submit Form
   function savingBtn() {
     $('.-saving').on('click', function(){
       var $btn = $(this);
@@ -8,10 +8,27 @@ APP.components.formHelper = (function() {
       var btnDisabledText = $btn.data('disable-with');
       $btn.addClass('-disabled');
       $btn.text(btnDisabledText);
+
+      var $form = $($btn).closest('form');
+      // Submit Form
+      if ($form.length) {
+
+        // Append Hidden Field to Form from (Button Name and Value)
+        if ($btn[0].name == 'tab') {
+          $('<input>').attr({ type: 'hidden', name: $btn[0].name, value: $btn[0].value}).appendTo($form)
+        }
+
+        event.preventDefault();
+        setTimeout(function(){ $form.submit(); }, 200);
+      }
+
+      /*
       setTimeout(function(){
         $btn.removeClass('-disabled');
         $btn.text(btnOriginalText);
       }, 500);
+      */
+
     });
   }
 
