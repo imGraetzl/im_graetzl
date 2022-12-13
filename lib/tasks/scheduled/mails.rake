@@ -8,7 +8,7 @@ namespace :scheduled do
         unseen_messages = thread.user_messages.select{ |m| m.id > user_thread.last_message_seen_id }
         next if unseen_messages.empty?
         p "#{user_thread.user.email} #{unseen_messages.count} unseen messages."
-        MessengerMailer.unseen_messages(user_thread.user, unseen_messages).deliver_now
+        MessengerMailer.unseen_messages(user_thread.user, unseen_messages.reverse).deliver_now
         user_thread.update(last_message_seen_id: unseen_messages.map(&:id).max)
       end
     end
