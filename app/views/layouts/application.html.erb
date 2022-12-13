@@ -62,7 +62,7 @@
 
   <%= render 'footer' %>
   <%= render partial: 'controller_footer' rescue nil %>
-  <%= image_tag "https://#{current_region.host}/assets/svg/icons.svg", style: 'display:none;' %>
+  <%= image_tag "#{asset_path('svg/icons.svg')}", style: 'display:none;' %>
 
 </body>
 
