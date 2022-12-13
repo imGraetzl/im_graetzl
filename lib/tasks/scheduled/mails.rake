@@ -9,7 +9,7 @@ namespace :scheduled do
         next if unseen_messages.empty?
         p "#{user_thread.user.email} #{unseen_messages.count} unseen messages."
         MessengerMailer.unseen_messages(user_thread.user, unseen_messages).deliver_now
-        user_thread.update(last_message_seen_id: unseen_messages.last.id)
+        user_thread.update(last_message_seen_id: unseen_messages.map(&:id).max)
       end
     end
   end
