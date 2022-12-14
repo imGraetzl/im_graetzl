@@ -29,7 +29,6 @@
 //= require modernizr.custom
 //= require autoheight
 //= require jBox.min
-//= require cocoon
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers
