@@ -20,7 +20,7 @@
     <ul class="pricing-summary -facts">
       <li>
         <div class="duration">Miete:</div>
-        <div class="title">
+        <div class="costname">
           <% @room_rental.room_rental_slots.each do |slot| %>
             <%= l(slot.rent_date, format: :short) %>, <%= slot.hour_from %> bis <%= slot.hour_to %> Uhr
             <br>

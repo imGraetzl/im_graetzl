@@ -3,6 +3,7 @@
 //= require jquery.easy-autocomplete
 //= require uppy
 //= require unscroll
+//= require cocoon
 //= require_directory ./components-loggedin
 //= require_directory ./controllers-loggedin
 
