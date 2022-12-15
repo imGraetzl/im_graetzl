@@ -123,6 +123,14 @@ class RoomRentalService
     true
   end
 
+  def payment_refunded(room_rental)
+    room_rental.update(
+      rental_status: :storno,
+      payment_status: 'refunded',
+    )
+    true
+  end
+
   def reject(room_rental)
     room_rental.rejected!
     RoomMailer.rental_rejected(room_rental).deliver_later

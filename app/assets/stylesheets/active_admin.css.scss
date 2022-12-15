@@ -38,10 +38,10 @@
   &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free {
     background: green;
   }
-  &.public_space, &.rejected {
+  &.public_space, &.rejected, &.storno {
     background: LightCoral;
   }
-  &.weekly, &.authorized {
+  &.weekly, &.authorized, &.refunded {
     background: LightBlue;
   }
   &.vacancy, &.daily, &.processing {
