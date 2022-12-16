@@ -9,12 +9,13 @@ class NotificationSettingsController < ApplicationController
   end
 
   def change_mail_notification
-    notification_type = params[:type].constantize
-
-    if params[:interval] == 'off'
-      current_user.disable_all_mail_notifications(notification_type)
+    if params[:type] == 'newsletter'
+      newsletter_state = ActiveModel::Type::Boolean.new.cast(params[:interval])
+      current_user.update(newsletter: newsletter_state)
+    elsif params[:interval] == 'off'
+      current_user.disable_all_mail_notifications(params[:type].constantize)
     else
-      current_user.enable_mail_notification(notification_type, params[:interval].to_sym)
+      current_user.enable_mail_notification(params[:type].constantize, params[:interval].to_sym)
     end
     render json: :ok
   end
@@ -22,7 +23,7 @@ class NotificationSettingsController < ApplicationController
   private
 
   def check_valid_type
-    if !Notifications::AllTypes.map(&:name).include?(params[:type])
+    if !(Notifications::AllTypes.map(&:name).include?(params[:type]) || ["newsletter"].include?(params[:type]))
       render body: "unrecognized type: #{params[:type]}", status: :forbidden
     end
   end
