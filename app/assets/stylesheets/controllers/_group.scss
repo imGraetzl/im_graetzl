@@ -392,9 +392,9 @@
           }
         }
       }
-      width:132px;
+      max-width:132px;
       @include respond-to("<=medium") {
-        width:112px;
+        max-width:112px;
       }
       margin-right:0px;
       margin-bottom:15px;
@@ -426,7 +426,7 @@
       margin-left:-10px;
       margin-right:-10px;
     }
-    .user {
+    div.user {
       width:31%;
       margin:10px;
       @include respond-to("<=large") {
