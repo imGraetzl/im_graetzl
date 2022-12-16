@@ -273,7 +273,7 @@
     align-items: flex-start;
   }
 
-  .user {
+  div.user {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -548,11 +548,10 @@
       }
     }
 
-    .user {
+    .user.opener {
       .img-round {
         width:60px;
         height:60px;
-        //margin-right:10px;
       }
       .infos {
         margin-left:10px;
