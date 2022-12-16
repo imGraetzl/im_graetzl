@@ -90,6 +90,12 @@ section.user-settings, section.usersetup.-toolteiler, section.usersetup.-rooms {
   .notifications-block {
     margin-bottom: 30px;
   }
+  .-notification-hint {
+    margin-bottom:50px;
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
 
   .tabs-nav {
     margin: 0 auto;
