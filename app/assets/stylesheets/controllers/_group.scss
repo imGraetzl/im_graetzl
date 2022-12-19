@@ -559,8 +559,10 @@
     }
 
     .content {
+      .entryComment {margin-left: 20px;}
       @include respond-to(">=medium") {
         margin-left: 70px;
+        .entryComment {margin-left: 0px;}
       }
     }
   }

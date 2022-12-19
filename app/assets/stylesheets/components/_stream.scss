@@ -313,6 +313,10 @@
   .entryContent .txt {
     white-space: pre-wrap;
   }
+
+  .entryComment { padding-left: 10px; }
+  .entryComment .txt { margin-left: 50px; }
+
   @include respond-to(">=medium") {
     .headline, .txt {
       margin-left: 60px;
