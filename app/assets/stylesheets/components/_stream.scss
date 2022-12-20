@@ -314,7 +314,7 @@
     white-space: pre-wrap;
   }
 
-  .entryComment { padding-left: 10px; }
+  //.entryComment { padding-left: 10px; }
   .entryComment .txt { margin-left: 50px; }
 
   @include respond-to(">=medium") {

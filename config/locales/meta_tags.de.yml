@@ -395,16 +395,6 @@ de:
       title: 'Lokales Crowdfunding - Deine Vorhaben in die Umsetzung bringen.'
       description: 'Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen. Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen, aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.'
 
-  campaign_users:
-    index:
-      title: 'Gemeinsam bringen wir mehr zusammen - Sei locally dabei!'
-      description: 'WeLocally startet in Kürze! Sei von Anfang an dabei und gestalte WeLocally mit. Damit gibst du WeLocally noch vor dem offiziellen Start den letzten Schliff.'
-    muehlviertel:
-      title: 'Gemeinsam bringen wir mehr zusammen - Sei locally dabei!'
-      description: 'WeLocally startet in Kürze im Mühlviertler Kernland! Sei von Anfang an dabei und gestalte WeLocally mit. Damit gibst du WeLocally noch vor dem offiziellen Start den letzten Schliff.'
-    kaernten:
-      title: 'Gemeinsam bringen wir mehr zusammen - Sei locally dabei!'
-      description: 'WeLocally startet in Kürze in Griffen, St. Andrä und Völkermarkt! Sei von Anfang an dabei und gestalte WeLocally mit. Damit gibst du WeLocally noch vor dem offiziellen Start den letzten Schliff.'
   region_calls:
     call:
       title: 'WeLocally Call - Innovative Gemeinden sind herzlich eingeladen sich anzudocken!'

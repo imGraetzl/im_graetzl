@@ -88,9 +88,6 @@ a.iconMapLink:hover .icon {
     text-decoration: underline;
     @include ellipsis();
   }
-  em {
-    //font-weight: bold;
-  }
   a:hover {
     text-decoration: none;
   }
@@ -105,11 +102,7 @@ a.iconMapLink:hover .icon {
   .iconMapLink {
     position: relative;
     float: left;
-    //margin-right: 10px;
     display: block;
-  }
-  img {
-    //margin-right:10px;
   }
   .infotxt {
     overflow: auto;
