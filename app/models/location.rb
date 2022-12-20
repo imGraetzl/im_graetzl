@@ -52,6 +52,7 @@ class Location < ApplicationRecord
 
   before_create { |location| location.last_activity_at = Time.current }
 
+  after_update :update_last_activity, if: -> { saved_change_to_goodie? }
   after_update :mailchimp_location_update, if: -> { approved?  }
   before_destroy :mailchimp_location_delete
 
@@ -94,6 +95,13 @@ class Location < ApplicationRecord
   end
 
   private
+
+  def update_last_activity
+    if self.approved? && self.goodie?
+      self.last_activity_at = Time.current
+      self.save
+    end
+  end
 
   def smart_add_url_protocol_online_shop
     unless online_shop_url[/\Ahttp:\/\//] || online_shop_url[/\Ahttps:\/\//]
