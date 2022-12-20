@@ -26,17 +26,4 @@ class UsersMailer < ApplicationMailer
     )
   end
 
-  def location_approved(location)
-    @location = location
-    @region = @location.region
-
-    headers("X-MC-Tags" => "location-approved")
-
-    mail(
-      subject: "Dein Schaufenster wurde freigeschalten",
-      from: platform_email("mirjam", "Mirjam Mieschendahl"),
-      to: @location.user.email,
-    )
-  end
-
 end
