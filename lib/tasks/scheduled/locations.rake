@@ -6,5 +6,4 @@ namespace :scheduled do
       LocationMailer.update_goodie_reminder(location).deliver_now
     end
   end
-
 end
