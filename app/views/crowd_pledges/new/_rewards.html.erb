@@ -10,7 +10,7 @@
     <h4><%= crowd_reward.title %></h4>
     <small><%= crowd_reward.claimed %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
     <% if crowd_reward.delivery_weeks %>
-      <small>Voraussichtliche Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %></small>
+      <small>Voraussichtliche Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %><br>(nach Beendigung der Kampagne)</small>
     <% end %>
     <div class="description"><%= crowd_reward.description %></div>
   </div>

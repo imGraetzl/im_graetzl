@@ -1,16 +1,7 @@
-// Campaign-User Pages
-section.campaigns, section.region_calls {
+// ------------------- REGION CALL
+section.region_calls {
 
   padding-bottom: 60px;
-
-  .-header-headline {
-    margin-top:60px;
-    margin-bottom:50px;
-    @include respond-to("<=medium") {
-      margin-top:50px;
-      margin-bottom:40px;
-    }
-  }
 
   .-form-headline {
     margin-top:50px;
@@ -27,108 +18,6 @@ section.campaigns, section.region_calls {
     }
   }
 
-  .-feature-headline {
-    max-width: 930px;
-    margin: auto;
-    margin-top:20px;
-    margin-bottom:90px;
-    @include respond-to("<=medium") {
-      margin-top:10px;
-      margin-bottom:40px;
-    }
-  }
-
-  section.kooperationspartner {
-
-    margin-top:40px;
-    @include respond-to(">=medium") {
-      margin-top:60px;
-    }
-
-    a {
-      color: $color-ambient-grey;
-      &:hover {
-        color: $color-ambient-rosa;
-      }
-    }
-    .cardBox, .sponsorBox {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap:wrap;
-      flex-direction:column;
-      @include respond-to(">=medium") {
-        flex-direction:row;
-      }
-      img {
-        width:50%;
-        @include respond-to(">=medium") {
-          width:100%;
-        }
-      }
-      div.wrp {
-        width:100%;
-        text-align:center;
-        @include respond-to(">=medium") {
-          width:50%;
-          text-align:left;
-        }
-        padding:10px;
-        .links {
-          @include ellipsis;
-        }
-      }
-    }
-  }
-
-  &.-kaernten {
-    section.kooperationspartner {
-      .cardBox, .sponsorBox {
-
-        flex-direction:row;
-
-        h3 {
-          padding-bottom:0px;
-        }
-
-        div.wrp {
-          width:70%;
-          text-align:left;
-        }
-        div.wrp.-img {
-          width:30%;
-          text-align: right;
-        }
-
-        img {
-          width:40%;
-        }
-
-        @include respond-to(">=medium") {
-          flex-wrap: nowrap;
-          img {
-            width:80%;
-            margin-right: 0px;
-          }
-        }
-      }
-    }
-  }
-
-  p.kooperation-txt {
-    @include font-size-primaryFont('large');
-    text-align: justify;
-    margin-bottom:30px;
-    @include respond-to(">=medium") {
-      margin-bottom:50px;
-    }
-  }
-
-}
-
-// ------------------- REGION CALL
-section.region_calls {
-
   .video-thumb img {
     border:5px solid white;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -140,6 +29,7 @@ section.region_calls {
       margin: auto;
     }
   }
+  
   .-header-headline {
     margin-top: 70px;
     margin-bottom: 70px;

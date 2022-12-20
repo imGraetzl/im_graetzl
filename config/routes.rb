@@ -322,12 +322,6 @@ Rails.application.routes.draw do
     resources :meetings, only: [:index]
   end
 
-  scope controller: 'campaign_users', path: 'campaign', as: 'campaign_users' do
-    get 'muehlviertel'
-    get 'kaernten'
-    post '(:campaign)' => 'campaign_users#create'
-  end
-
   # Redirects for legacy routes
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
   get 'raum' => redirect('raumteiler')

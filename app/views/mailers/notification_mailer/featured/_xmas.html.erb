@@ -1,0 +1,28 @@
+<%= render 'mailers/notification_mailer/summary/block_header', title: "Wir wünschen euch frohe Feiertage!" %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+
+        <%= link_to subscription_plans_url, target:'_blank' do %>
+          <%= image_tag 'mailings/xmas.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
+        <% end %>
+
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+          <tr>
+            <td>
+              <p>
+                <strong>Erohlt euch gut und wir wünschen Euch das allerbeste für 2023.</strong>
+                <br>imGrätzl.at ist in diesem Jahr so rasant gewachsen, wofür wir Danke sagen möchten!
+                <strong>Und jede einzelne <%= link_to 'Fördermitgliedschaft', subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> ermöglicht den Fortbestand im kommenden Jahr.</strong>
+                <br>Danke dafür! Michael, Mirjam & Lena
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

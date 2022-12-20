@@ -122,6 +122,14 @@ class ToolRentalService
     true
   end
 
+  def payment_refunded(tool_rental)
+    tool_rental.update(
+      rental_status: :storno,
+      payment_status: 'refunded',
+    )
+    true
+  end
+
   def reject(tool_rental)
     tool_rental.rejected!
     ToolMailer.rental_rejected(tool_rental).deliver_later

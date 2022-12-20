@@ -27,7 +27,7 @@ class CrowdCampaignService
     invoice_number = "#{Date.current.year}_Crowdfunding-#{campaign.id}_Nr-#{CrowdCampaign.next_invoice_number}"
     campaign.update(invoice_number: invoice_number)
     generate_invoice(campaign)
-    CrowdCampaignMailer.invoice(campaign).deliver_later(wait: 1.minute)
+    CrowdCampaignMailer.invoice(campaign).deliver_later
   end
 
   def generate_invoice(campaign)

@@ -1,3 +1,12 @@
+<div class="cardBox -notification-hint">
+  <p>
+    Als registrierter Nutzer bekommst du <strong>wöchentlich Neuigkeiten</strong> <%= t("region.#{current_region.id}.from_your_homegraetzl") %> (<%= current_user.graetzl.name %>) und deinen <%= t("region.#{current_region.id}.favorite_graetzls") %> zugesandt. Deine <%= t("region.#{current_region.id}.favorite_graetzls") %> kannst du <%= link_to "hier anpassen", favorite_graetzls_user_path %>.
+  </p>
+  <p>
+    Definiere ausserdem, welche Inhalte du erhalten möchtest und welche nicht.
+  </p>
+</div>
+
 <div class="notifications-block">
 
   <div class="settingHead">
@@ -82,4 +91,26 @@
   <%= render 'notification_settings/slice', type: Notifications::NewGroupDiscussion %>
   <%= render 'notification_settings/slice', type: Notifications::NewGroupMeeting %>
   <%= render 'notification_settings/slice', type: Notifications::NewGroupPost %>
+</div>
+
+<div class="notifications-block">
+  <div class="settingHead">
+    <div class="col1">
+      <h2>Redaktioneller <span>Newsletter</span></h2>
+    </div>
+  </div>
+  <div class="settingSlice">
+    <div class="col1">Der redaktionelle Newsletter erscheint ca. 1 mal pro Monat
+    </div>
+    <div class="col3">
+      <div class="input-select">
+        <%= select_tag :notification_interval, options_for_select([
+          ['Nein', :false],
+          ['Ja', :true]
+        ], current_user.newsletter?), data: {
+          behavior: "mail-notification-toggle", type: 'newsletter'
+        } %>
+      </div>
+    </div>
+  </div>
 </div>

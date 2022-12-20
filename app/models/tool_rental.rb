@@ -5,8 +5,8 @@ class ToolRental < ApplicationRecord
 
   has_one :user_message_thread
 
-  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, return_pending: 5, return_confirmed: 6, expired: 7, paid_out: 8 }
-  string_enum payment_status: ["authorized", "processing", "debited", "failed"]
+  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, return_pending: 5, return_confirmed: 6, expired: 7, paid_out: 8, storno: 9 }
+  string_enum payment_status: ["authorized", "processing", "debited", "failed", "refunded"]
 
   scope :initialized, -> { where.not(rental_status: :incomplete) }
 

@@ -31,9 +31,6 @@ de:
         one: Kategorie
         other: Kategorien
       contact: Kontakt
-      campaign_user:
-        one: Eintrag
-        other: Einträge
       region_call:
         one: Call
         other: Calls
@@ -146,11 +143,6 @@ de:
         country: Land
         city: Stadt
         zip: Postleitzahl
-      campaign_user:
-        campaign_title: Region
-        first_name: Vorname
-        last_name: Nachname
-        email: E-Mail
       region_call:
         name: Ansprechperson
         email: E-Mail
