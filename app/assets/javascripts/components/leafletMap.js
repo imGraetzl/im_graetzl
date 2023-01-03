@@ -13,6 +13,7 @@ APP.components.leafletMap = (function() {
     var y = mapElement.data("y");
 
     var map = L.map(mapElement.attr('id'), {
+      dragging: false,
       tap: false,
       scrollWheelZoom:false,
       zoomControl:false,
