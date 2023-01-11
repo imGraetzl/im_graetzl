@@ -10,7 +10,7 @@ class RoomsController < ApplicationController
 
     room_demands = room_demands_scope.in(current_region).includes(:user, :room_categories)
     room_demands = filter_demands(room_demands)
-    room_demands = room_demands.by_currentness.page(params[:page]).per(params[:per_page] || 15)
+    room_demands = room_demands.by_currentness.page(params[:page]).per(params[:per_page] || 8)
 
     @rooms = []
     @rooms += (room_offers + room_demands).sort_by(&:last_activated_at).reverse
