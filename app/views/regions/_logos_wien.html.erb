@@ -1,9 +1,10 @@
 <div class="region-logos">
-  <small class="title">imGrätzl wird unterstützt von:</small>
-  <div class="inner">
-    <%= link_to(image_tag('supporter/logos/kolarik_small.png', loading: 'lazy', width:107, height:44, alt: 'Familie Kolarik', data: { label: 'Familie Kolarik'}), 'https://www.kolarik.at', target: '_blank', :class => '-logo', rel: 'noopener') %>
-    <%= link_to(image_tag('supporter/logos/elif-macht-was_small.png', loading: 'lazy', width:107, height:100, alt: 'Elif Lisa Hakcobani', data: { label: 'Elif Lisa Hakcobani'}), 'https://www.geldmachtwas.com', target: '_blank', :class => '-logo -elif', rel: 'noopener') %>
-    <%= link_to(image_tag('supporter/logos/bezirksimkerei_small.png', loading: 'lazy', width:107, height:41, alt: 'Wiener Bezirksimkerei', data: { label: 'Wiener Bezirksimkerei'}), 'https://www.wiener-bezirksimkerei.at', target: '_blank', :class => '-logo', rel: 'noopener') %>
-  </div>
-  <small class="view-all"><%= link_to 'Zu allen UnterstützerInnen', subscription_plans_path %></small>
+  <%= link_to subscription_plans_path, class: 'subscription' do %>
+    <div class="inner">
+      <%= icon_tag "abo" %>
+      <div class="txt">
+        Unterstütze imGrätzl mit einer <strong>Fördermitgliedschaft</strong>.
+      </div>
+    </div>
+  <% end %>
 </div>
