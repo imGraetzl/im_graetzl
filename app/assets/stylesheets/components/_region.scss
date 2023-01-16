@@ -22,16 +22,47 @@ body.region-kaernten {
 body.region-wien {
   .homeRegion .graetzl-switch-wrapper {
 
-    .input-select {
-      width:55%;
-    }
-
     .region-logos {
       margin-top:0;
-      width:40%;
+      a.subscription {
+        width:100%;
+        text-decoration: none;
+        &:hover {
+          strong {
+            text-decoration: none;
+          }
+        }
+      }
     }
     .region-logos .inner {
-      background-color: rgba($color-ambient-mint-light,0.2);
+      height:60px;
+      background-color: #DBEFEC;
+      border-color: $color-ambient-mint-light-lowsaturation;
+      svg {
+        color: $color-font-primary;
+        margin-left:10px;
+        margin-right:10px;
+        height:70px;
+        width:70px;
+        animation: rotation 10s infinite linear;
+      }
+      @keyframes rotation {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(359deg);
+        }
+      }
+      .txt {
+        text-align: left;
+        font-style: italic;
+        color: #565759;
+        strong {
+          color:$color-ambient-rosa;
+          text-decoration: underline;
+        }
+      }
     }
 
     @include respond-to("<=large") {
@@ -40,6 +71,10 @@ body.region-wien {
       .input-select, .region-logos {
         width:100%;
         max-width: 500px;
+        .inner svg {
+          height:55px;
+          width:55px;
+        }
       }
       .region-logos {
         margin-top: 25px;
@@ -47,11 +82,6 @@ body.region-wien {
       .inner {
         padding:8px !important;
       }
-    }
-
-    .-elif img {
-      margin:0px;
-      height:48px;
     }
 
   }
