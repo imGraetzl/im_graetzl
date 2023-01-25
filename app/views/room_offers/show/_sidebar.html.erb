@@ -38,13 +38,29 @@
       </div>
 
       <% if user_signed_in? && current_user == @room_offer.user %>
+
+
+        <% if @room_offer.boosted? %>
+          <div class="btn-group">
+            <%= link_to 'Raumteiler Boost ist aktiv', room_boosters_user_path,
+              class: 'btn-primary -small' %>
+          </div>
+        <% elsif @room_offer.enabled? && current_region.has_room_booster? %>
+          <div class="btn-group">
+            <%= link_to 'Raumteiler Boost starten', new_room_offer_room_booster_path(@room_offer),
+              class: 'btn-primary -small'  %>
+          </div>
+        <% end %>
+
         <div class="btn-group">
           <%= link_to 'Bearbeiten', edit_room_offer_path(@room_offer),
             class: 'btn-secondary -mint -small'  %>
         </div>
         <% if @room_offer.room_rental_price.present? %>
-          <%= link_to 'Verfügbarkeitskalender', rental_timetable_room_offer_path(@room_offer),
+          <div class="btn-group">
+            <%= link_to 'Verfügbarkeitskalender', rental_timetable_room_offer_path(@room_offer),
             class: 'btn-secondary -mint -small'  %>
+          </div>
         <% end %>
         <div class="btn-group">
           <%= link_to "javascript:", data: { jq_dropdown: "#room-state-update-dropdown" }, class: "btn-secondary -mint -small -state-#{@room_offer.status}" do %>

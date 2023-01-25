@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_28_164030) do
+ActiveRecord::Schema.define(version: 2023_01_19_113633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -755,6 +755,7 @@ ActiveRecord::Schema.define(version: 2022_11_28_164030) do
     t.string "child_type"
     t.integer "child_id"
     t.string "region_id"
+    t.date "sort_date"
     t.index ["child_type", "child_id"], name: "index_notifications_on_child_type_and_child_id"
     t.index ["region_id"], name: "index_notifications_on_region_id"
     t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
@@ -772,6 +773,32 @@ ActiveRecord::Schema.define(version: 2022_11_28_164030) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "message"
+  end
+
+  create_table "room_boosters", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "status", default: "0"
+    t.string "payment_status"
+    t.string "invoice_number"
+    t.string "payment_method"
+    t.string "payment_card_last4"
+    t.string "stripe_payment_method_id"
+    t.string "stripe_payment_intent_id"
+    t.string "company"
+    t.string "name"
+    t.string "address"
+    t.string "zip"
+    t.string "city"
+    t.string "region_id"
+    t.datetime "debited_at"
+    t.date "send_at_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "room_offer_id"
+    t.index ["region_id"], name: "index_room_boosters_on_region_id"
+    t.index ["room_offer_id"], name: "index_room_boosters_on_room_offer_id"
+    t.index ["user_id"], name: "index_room_boosters_on_user_id"
   end
 
   create_table "room_categories", id: :serial, force: :cascade do |t|
@@ -919,6 +946,7 @@ ActiveRecord::Schema.define(version: 2022_11_28_164030) do
     t.string "address_city"
     t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
     t.string "address_description"
+    t.boolean "boosted", default: false
     t.index ["address_id"], name: "index_room_offers_on_address_id"
     t.index ["district_id"], name: "index_room_offers_on_district_id"
     t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id"
@@ -1385,6 +1413,8 @@ ActiveRecord::Schema.define(version: 2022_11_28_164030) do
   add_foreign_key "meeting_additional_dates", "meetings", on_delete: :cascade
   add_foreign_key "meetings", "groups", on_delete: :nullify
   add_foreign_key "meetings", "users", on_delete: :nullify
+  add_foreign_key "room_boosters", "room_offers", on_delete: :nullify
+  add_foreign_key "room_boosters", "users", on_delete: :nullify
   add_foreign_key "room_demand_categories", "room_categories", on_delete: :cascade
   add_foreign_key "room_demand_categories", "room_demands", on_delete: :cascade
   add_foreign_key "room_demand_graetzls", "graetzls", on_delete: :cascade

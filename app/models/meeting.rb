@@ -120,6 +120,10 @@ class Meeting < ApplicationRecord
     end
   end
 
+  def notification_sort_date
+    starts_at_date
+  end
+
   private
 
   def starts_at_date_cannot_be_in_the_past

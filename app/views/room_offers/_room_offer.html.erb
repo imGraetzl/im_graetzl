@@ -1,6 +1,6 @@
 <% graetzl = Graetzl.memoized(room_offer.graetzl_id) %>
 
-<div class="cardBox -roomoffer -<%= room_offer.status %>" data-behavior="masonry-card" data-card-id="room_offer-<%= room_offer.id %>">
+<div class="cardBox -roomoffer -<%= room_offer.status %> <%= room_offer.boosted ? '-boosted' : '' %>" data-behavior="masonry-card" data-card-id="room_offer-<%= room_offer.id %>">
 
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
@@ -10,7 +10,8 @@
     </div>
     <% if graetzl %>
       <div class="categoryicon">
-        <%= "#{graetzl.district.zip}, " if current_region.use_districts? %><%= graetzl.name %>
+        <span><%= "#{graetzl.district.zip}, " if current_region.use_districts? %><%= graetzl.name %></span>
+        <%= icon_tag "rocket" if room_offer.boosted? %>
       </div>
     <% end %>
   </div>
@@ -70,6 +71,14 @@
           Status: <span><%= t("activerecord.attributes.room_offer.statuses.#{room_offer.status}") %></span>
         <% end %>
         <%= link_to 'Verfügbarkeitskalender', rental_timetable_room_offer_path(room_offer), class: 'btn-primary -mint -small' if room_offer.room_rental_price.present? %>
+
+        <% if room_offer.boosted? %>
+          <%= link_to room_boosters_user_path, class: 'btn-icon -mint -small' do %>
+            <span><%= icon_tag "rocket" %> Raumteiler Boost ist aktiv</span>
+          <% end %>
+        <% else %>
+          <%= link_to 'Raumteiler Boost starten', new_room_offer_room_booster_path(room_offer), class: 'btn-primary -small' if room_offer.enabled? && current_region.has_room_booster? %>
+        <% end %>
       </div>
 
       <div id="room-update-dropdown-<%= room_offer.id %>" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">

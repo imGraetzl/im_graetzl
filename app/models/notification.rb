@@ -8,9 +8,14 @@ class Notification < ApplicationRecord
   belongs_to :subject, polymorphic: true
   belongs_to :child, optional: true, polymorphic: true
 
+  # notify_at >= CURRENT_DATE for Local Testing Preview
   scope :ready_to_be_sent, -> {
     where("notify_at <= CURRENT_DATE").where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
     where(sent: false)
+  }
+
+  scope :by_currentness, -> {
+    order(Arel.sql('(CASE WHEN sort_date >= current_date THEN sort_date END) ASC'))
   }
 
   ## user 66 for local testing, user 10612 for production
@@ -33,7 +38,7 @@ class Notification < ApplicationRecord
     where(sent: false)
   }
 
-  def self.generate(subject, child = nil, to:, time_range: [])
+  def self.generate(subject, child = nil, to:, time_range: [], sort_date: nil)
     user_ids = Array(to)
     return if user_ids.empty?
 
@@ -47,13 +52,15 @@ class Notification < ApplicationRecord
         region_id: subject.region_id,
         notify_at: time_range.first || Time.current,
         notify_before: time_range.last,
+        sort_date: sort_date,
       )
     end
 
     import(notifications, synchronize: notifications)
 
     notifications.each do |notification|
-      if notification.user.enabled_mail_notification?(self, :immediate)
+      # Dont send if notify_at is in future
+      if notification.notify_at <= Date.current && notification.user.enabled_mail_notification?(self, :immediate)
         NotificationMailer.send_immediate(notification).deliver_later
       end
     end

@@ -1,0 +1,55 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow',
+  )
+%>
+
+<section class="usersetup -room-boosters">
+
+  <div class="introcontainer">
+    <div class="introtxt">
+
+      <div class="hl-subtext" id="teilnahme">
+        <h1><em>Der Booster für deinen Raumteiler</em></h1>
+        <p>Eine Woche die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz <%= current_user.region %>.<%= render 'shared/questionmarklink', hint_url: info_raumteiler_path %></p>
+      </div>
+
+      <h3>Das kann der Raumteiler Booster</h3>
+      <ul class="list-basic">
+        <li>Platziere deinen Raumteiler im <strong>wöchentlichen Newsletter</strong> an alle imGrätzl NutzerInnen in ganz <%= current_user.region %>. (Nächster Newsletter am <%= I18n.localize(Date.today.next_occurring(:tuesday) , format:'%a, %d. %B %Y') %>).</li>
+        <li>Liste deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_user.region %>.</li>
+        <li>Dein Raumteiler wird auf allen Raumteilerseiten auf der Plattform eine Woche <strong>täglich hochgespült</strong>.</li>
+        <li>Ein Raumteiler Booster kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
+      </ul>
+
+    </div>
+
+    <%= render 'room_boosters/action_card', user: @user %>
+
+  </div>
+
+  <% if @room_boosters.present? %>
+    <h3>Deine Raumteiler Booster</h3>
+
+    <div class="table-container -light" role="table">
+      <div class="flex-table header" role="rowgroup">
+        <div class="flex-row xxlarge first" role="columnheader">Booster für Raumteiler</div>
+        <div class="flex-row medium" role="columnheader">Status</div>
+        <div class="flex-row large" role="columnheader">Plattform Booster</div>
+        <div class="flex-row medium" role="columnheader">Newsletter</div>
+        <div class="flex-row medium" role="columnheader">PDF Rechnung</div>
+      </div>
+      <% @room_boosters.order(created_at: :desc).each do |room_booster| %>
+        <div class="flex-table" role="rowgroup">
+          <div class="flex-row xxlarge first" role="cell"><%= avatar_image room_booster.room_offer, size: :thumb, class: 'img-square' %><%= link_to room_booster.room_offer, room_booster.room_offer %></div>
+          <div class="flex-row medium" role="cell"><%= icon_tag "rocket" if room_booster.active? %><%= t("activerecord.attributes.room_booster.statuses.#{room_booster.status}") %></div>
+          <div class="flex-row large" role="cell"><%= room_booster.runtime %></div>
+          <div class="flex-row medium" role="cell"><%= I18n.localize(room_booster.send_at_date, format:'%a, %d.%m.%Y') %></div>
+          <div class="flex-row medium" role="cell"><%= link_to 'Download', room_booster.invoice.presigned_url(:get) if room_booster.invoice_number.present? %></div>
+        </div>
+      <% end %>
+    </div>
+
+  <% end %>
+
+</section>

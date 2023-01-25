@@ -7,6 +7,7 @@ context.instance_eval do
           row :region
           row :graetzl
           row(:status){|r| status_tag(r.status)}
+          row(:boosted){|r| status_tag(r.boosted)}
           row :offer_type
           row :slogan
           row :slug

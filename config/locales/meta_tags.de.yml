@@ -204,6 +204,8 @@ de:
       title: 'Meine Geräteteiler'
     zuckerls:
       title: 'Meine Zuckerln'
+    room_boosters:
+      title: 'Meine Raumteiler Booster'
 
   room_offers:
     show:
@@ -314,6 +316,16 @@ de:
       title: 'Fördermitgliedschaft - Zahlungsart ändern'
     summary:
       title: 'Fördermitgliedschaft - Danke'
+
+  room_boosters:
+    new:
+      title: 'Raumteiler Booster - Neuen Boost starten'
+    choose_room_offer:
+      title: 'Raumteiler Booster - Raumteiler auswählen'
+    choose_payment:
+      title: 'Raumteiler Booster - Zahlungsart wählen'
+    summary:
+      title: 'Raumteiler Booster - Danke'
 
   messenger:
     index:

@@ -192,4 +192,19 @@ class RoomMailer < ApplicationMailer
     )
   end
 
+  def room_booster_invoice(room_booster)
+    @room_booster = room_booster
+    @room_offer = @room_booster.room_offer
+    @region = @room_booster.region
+
+    attachments["RoomBooster_#{@room_booster.invoice_number}.pdf"] = @room_booster.invoice.get.body.read
+    headers("X-MC-Tags" => "room-booster-invoice")
+
+    mail(
+      subject: "Dein Raumteiler Booster",
+      from: platform_email('no-reply'),
+      to: @room_booster.user.email,
+    )
+  end
+
 end

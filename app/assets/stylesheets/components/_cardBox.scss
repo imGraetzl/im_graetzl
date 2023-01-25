@@ -47,6 +47,30 @@
     }
   }
 
+  &.-boosted {
+    border: 1px solid $color-ambient-rosa-light;
+    background-color: #fef4f3;
+    .categoryicon {
+      background-color: #fef4f3;
+      color: $color-ambient-rosa;
+      display: flex;
+      align-items: center;
+      svg {
+        width:20px;
+        height:20px;
+      }
+    }
+    .slogan, .txt {
+      color: #514747;
+    }
+    .img-square {
+      border-color: $color-ambient-rosa-light;
+    }
+    .collaboration, .slot-booking {
+      background-color: white !important;
+    }
+  }
+
   &.-subscription-plan {
     .categoryicon {
       text-transform: uppercase;

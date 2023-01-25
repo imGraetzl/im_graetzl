@@ -20,6 +20,8 @@ class NotificationMailer < ApplicationMailer
       to: @user.email,
       template_name: "immediate/#{@notification.mail_template}"
     )
+
+    @notification.update(sent: true)
   end
 
   GRAETZL_SUMMARY_BLOCKS = {

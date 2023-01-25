@@ -21,6 +21,7 @@ class Region
     @use_districts = data[:use_districts]
     @zuckerl_graetzl_price = data[:zuckerl_graetzl_price]
     @zuckerl_entire_region_price = data[:zuckerl_entire_region_price]
+    @room_booster_price = data[:room_booster_price]
   end
 
   def to_s
@@ -49,6 +50,14 @@ class Region
 
   def zuckerl_entire_region_price
     @zuckerl_entire_region_price.to_f
+  end
+
+  def room_booster_price
+    @room_booster_price.to_f
+  end
+
+  def has_room_booster?
+    room_booster_price > 0
   end
 
   def host_id
