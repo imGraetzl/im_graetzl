@@ -71,9 +71,9 @@ module UserNotifiable
 
   def pending_notifications(region, period)
     if period == 'daily'
-      notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", daily_mail_notifications])
+      notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", daily_mail_notifications]).by_currentness
     elsif period == 'weekly'
-      notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", weekly_mail_notifications])
+      notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", weekly_mail_notifications]).by_currentness
     else
       notifications.none
     end

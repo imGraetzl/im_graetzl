@@ -1,0 +1,19 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="room-booster-page address-screen">
+
+  <div class="col-content">
+    <%= render "room_boosters/new/tabs_nav" %>
+    <%= render 'room_boosters/new/address' %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render @room_offer %>
+    <%= render 'room_boosters/new/key_data' %>
+  </div>
+
+</section>

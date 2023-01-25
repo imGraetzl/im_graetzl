@@ -1,0 +1,17 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="room-booster-page summary-screen">
+
+  <div class="col-content">
+    <%= render 'room_boosters/new/summary' %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render @room_offer %>
+  </div>
+
+</section>

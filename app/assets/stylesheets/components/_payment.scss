@@ -1,5 +1,5 @@
 // PAYMENT LAYOUT SCREENS
-.tool-rental-page, .room-rental-page, .crowd-pledges-page, .subscriptions-page, .zuckerl-page {
+.tool-rental-page, .room-rental-page, .crowd-pledges-page, .subscriptions-page, .zuckerl-page, .room-booster-page {
 
   // Layout Grid
   display: flex;
@@ -75,6 +75,9 @@
       border:none;
       color:$color-ambient-grey-dark;
       @include font-size-primaryFont('small');
+    }
+    .cardBox {
+      margin-bottom:20px;
     }
   }
 
@@ -177,6 +180,28 @@
       color: $color-ambient-rosa;
     }
   }
+
+  .keydata-facts {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    .headline {
+      color: $color-ambient-rosa;
+      margin-bottom: 10px;
+    }
+
+    .facts {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        padding-left: 10px;
+        font-style: italic;
+        border-left: 1px dotted $color-ambient-grey;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
 }
 
 .subscriptions-page {
@@ -207,7 +232,7 @@
   }
 }
 
-.zuckerl-page.summary-screen .summary {
+.room-booster-page.summary-screen .summary, .zuckerl-page.summary-screen .summary {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

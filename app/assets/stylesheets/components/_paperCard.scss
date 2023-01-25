@@ -162,6 +162,12 @@
     $webp1x: image_path('illu/illu-werkbank-plain.webp'),
   );
 }
+.paperCard.-room-boosters .wrp, .paperCard.-tools .wrp {
+  @include bg-url(
+    image_path('illu/illu-ideen-weissbg.png'),
+    $webp1x: image_path('illu/illu-ideen-weissbg.webp'),
+  );
+}
 .paperCard.-groups .wrp, .paperCard.-discussions .wrp {
   background-position-x: 40px;
   background-position-y: 25px;

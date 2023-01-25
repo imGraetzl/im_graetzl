@@ -64,6 +64,10 @@ class UsersController < ApplicationController
     @crowd_campaigns = current_user.crowd_campaigns.in(current_region).includes(:user)
   end
 
+  def room_boosters
+    @room_boosters = current_user.room_boosters.initialized.in(current_region).includes(:user)
+  end
+
   def groups
     @groups = current_user.groups.in(current_region).includes(:room_offer, :discussion_categories)
   end

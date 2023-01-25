@@ -1,0 +1,24 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="room-booster-page payment-screen">
+
+  <div class="col-content">
+    <%= render "room_boosters/new/tabs_nav" %>
+    <%= render 'room_boosters/new/payment' %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render @room_offer %>
+    <%= render 'room_boosters/new/key_data' %>
+  </div>
+
+</section>
+
+<%= javascript_include_tag "https://js.stripe.com/v3/" %>
+<script>
+  window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
+</script>

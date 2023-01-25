@@ -58,4 +58,8 @@ class RoomMailerPreview < ActionMailer::Preview
     RoomMailer.rental_payment_failed(RoomRental.failed.last || RoomRental.last)
   end
 
+  def room_booster_invoice
+    RoomMailer.room_booster_invoice(RoomBooster.initialized.last || RoomBooster.last)
+  end
+
 end

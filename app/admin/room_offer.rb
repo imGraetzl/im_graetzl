@@ -6,6 +6,7 @@ ActiveAdmin.register RoomOffer do
 
   scope :enabled, default: true
   scope :rentable
+  scope :boosted
   scope :disabled
   scope :occupied
   scope :all

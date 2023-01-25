@@ -100,6 +100,9 @@ de:
       room_rental:
         one: Transaktion
         other: Transaktionen
+      room_booster:
+        one: Raumteiler Booster
+        other: Raumteiler Booster
       tool_rental:
         one: Transaktion
         other: Transaktionen
@@ -260,6 +263,12 @@ de:
         status_message:
           enabled: Deine Raumsuche ist nun aktiv und sichtbar.
           disabled: Deine Raumsuche ist nun deaktiviert und scheint nicht mehr auf den Raumteilerseiten auf.
+      room_booster:
+        statuses:
+          pending: pending
+          active: Aktiv
+          expired: Abgelaufen
+          storno: Storno
       room_rental:
         rental_statuses:
           pending: Noch nicht akzeptiert

@@ -44,11 +44,11 @@ class ActionProcessor
         #Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
         Activity.add_public(subject, to: subject.graetzl)
         Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-          time_range: subject.notification_time_range)
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
       elsif subject.group_id
         Activity.add_personal(subject, group: subject.group)
         Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
-          time_range: subject.notification_time_range)
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
       end
 
     when [Meeting, :update]
@@ -56,11 +56,11 @@ class ActionProcessor
         #Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
         Activity.add_public(subject, to: subject.graetzl)
         Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-          time_range: subject.notification_time_range)
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
       elsif subject.group_id
         Activity.add_personal(subject, group: subject.group)
         Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
-          time_range: subject.notification_time_range)
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
       end
 
     when [Meeting, :attended]
@@ -103,8 +103,25 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzl)
       Notifications::NewRoomOffer.generate(subject, to: user_ids(subject.graetzl))
 
+    when [RoomOffer, :boost_create]
+      Activity.add_public(subject, to: :entire_region)
+      # Delete all pending Notifications for same subject and type
+      Notification.where(subject: subject).where(type: 'Notifications::NewRoomOffer').delete_all
+      # Notify all Users
+      Notifications::NewRoomOffer.generate(subject, child, to: User.in(subject.region).all.pluck(:id), time_range: child.notification_time_range, sort_date: child.notification_sort_date)
+
+    when [RoomOffer, :boost_pushup]
+      Activity.add_public(subject, to: :entire_region)
+
+    when [RoomOffer, :boost_refund]
+      Activity.where(subject: subject).update(graetzl_ids: subject.graetzl.id)
+      Notification.where(child: child).delete_all
+      Notifications::NewRoomOffer.generate(subject, child, to: user_ids(subject.graetzl), time_range: child.notification_time_range)
+
     when [RoomOffer, :comment]
-      if subject.enabled?
+      if subject.boosted?
+        Activity.add_public(subject, child, to: :entire_region)
+      elsif subject.enabled?
         Activity.add_public(subject, child, to: subject.graetzl)
       end
       notify_comment(subject, child)

@@ -35,6 +35,7 @@ class User < ApplicationRecord
   has_many :coop_demands, dependent: :destroy
   has_many :room_offers
   has_many :room_demands, dependent: :destroy
+  has_many :room_boosters
   has_many :room_rentals
   has_many :owned_room_rentals, through: :room_offers, source: :room_rentals
   has_many :tool_demands, dependent: :destroy

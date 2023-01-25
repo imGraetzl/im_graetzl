@@ -1,0 +1,21 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="usersetup">
+  <div class="selectroom">
+    <h2 class="hl-main"><span>Welchen deiner Raumteiler</span> möchtest du boosten?</h2>
+    <div class="input-select">
+      <label>
+        <%= icon_tag "raumteiler" %>
+        <span>Raumteiler</span>
+      </label>
+      <%= select_tag :location_id,
+                     options_for_select(@room_offers.map { |room_offer| [room_offer.slogan, new_room_offer_room_booster_path(room_offer)] }),
+                     prompt: 'wählen',
+                     onchange: 'location.href = $(this).val()' %>
+    </div>
+  </div>
+</section>

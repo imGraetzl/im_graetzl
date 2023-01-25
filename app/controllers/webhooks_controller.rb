@@ -61,6 +61,11 @@ class WebhooksController < ApplicationController
       zuckerl = Zuckerl.find_by(id: payment_intent.metadata.zuckerl_id)
       ZuckerlService.new.payment_succeeded(zuckerl, payment_intent) if zuckerl
     end
+
+    if payment_intent.metadata["room_booster_id"]
+      room_booster = RoomBooster.find_by(id: payment_intent.metadata.room_booster_id)
+      RoomBoosterService.new.payment_succeeded(room_booster, payment_intent) if room_booster
+    end
   end
 
   def payment_intent_failed(payment_intent)
@@ -82,6 +87,11 @@ class WebhooksController < ApplicationController
     if payment_intent.metadata["zuckerl_id"]
       zuckerl = Zuckerl.find_by(id: payment_intent.metadata.zuckerl_id)
       ZuckerlService.new.payment_failed(zuckerl, payment_intent) if zuckerl
+    end
+
+    if payment_intent.metadata["room_booster_id"]
+      room_booster = RoomBooster.find_by(id: payment_intent.metadata.room_booster_id)
+      RoomBoosterService.new.payment_failed(room_booster, payment_intent) if room_booster
     end
   end
 
@@ -115,6 +125,11 @@ class WebhooksController < ApplicationController
     if charge.metadata["tool_rental_id"]
       tool_rental = ToolRental.find_by(id: charge.metadata.tool_rental_id)
       ToolRentalService.new.payment_refunded(tool_rental) if tool_rental
+    end
+
+    if charge.metadata["room_booster_id"]
+      room_booster = RoomBooster.find_by(id: charge.metadata.room_booster_id)
+      RoomBoosterService.new.payment_refunded(room_booster) if room_booster
     end
   end
 

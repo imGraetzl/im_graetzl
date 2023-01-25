@@ -21,6 +21,7 @@ class RoomOffer < ApplicationRecord
   has_one :room_offer_availability
   accepts_nested_attributes_for :room_offer_availability, reject_if: :all_blank
 
+  has_many :room_boosters
   has_many :room_rentals
   has_many :room_rental_slots, through: :room_rentals
 
@@ -51,6 +52,7 @@ class RoomOffer < ApplicationRecord
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
   scope :rentable, -> { where(rental_enabled: true) }
+  scope :boosted, -> { where(boosted: true) }
 
   LIFETIME_MONTHS = 6
 
@@ -75,7 +77,7 @@ class RoomOffer < ApplicationRecord
   end
 
   def refresh_activity
-    if enabled? && last_activated_at < 15.days.ago
+    if enabled? && last_activated_at < 15.days.ago && !boosted?
       update(last_activated_at: Time.now)
     end
   end

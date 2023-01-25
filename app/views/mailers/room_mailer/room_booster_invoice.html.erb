@@ -1,0 +1,79 @@
+<% content_for(:above_title, "Hey #{@room_booster.user.first_name}") %>
+<% content_for(:title, "Dein Raumteiler Booster wurde aktiviert!") %>
+
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:30px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Dein Raumteiler Booster:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+
+<!-- --------------- CONTENT --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
+        <%= link_to room_offer_url(@room_booster.room_offer) do %>
+          <%= cover_photo_image @room_booster.room_offer, size: :small, class: 'mcnImage', style: "width:280px; border-radius:5px; max-width:280px; min-width:100px;" %>
+         <% end %>
+      </td>
+      <td valign="center" class="mcnTextContent" width="100%">
+        <p>
+          <em><strong>Raumteiler:</strong></em><br>
+          <%= link_to @room_booster.room_offer.slogan, room_offer_url(@room_booster.room_offer), style: "color:#ec776a;" %>
+        </p>
+        <p>
+          <em><strong>Plattform Booster:</strong></em><br>
+          <%= @room_booster.runtime %> in ganz <%= @room_booster.region %>
+        </p>
+        <p>
+          <em><strong>Newlsetter Booster:</strong></em><br>
+          <%= I18n.localize(@room_booster.send_at_date, format:'%A, %d.%m.%Y') %> in ganz <%= @room_booster.region %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-bottom:20px;"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- --------------- CONTENT --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
+
+        <p>
+          Deine Zahlung wurde erfolgreich gebucht. Du findest deine Rechnung angehängt und eingeloggt auf deiner <%= link_to "Booster Übersicht", room_boosters_user_url, style: "color:#ec776a;" %>.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-bottom:20px;"></td>
+    </tr>
+    <tr>
+      <td>
+        <%= render 'mailers/shared/button', title: "Zur Raumteiler Übersicht", url: region_rooms_url %>
+      </td>
+    </tr>
+  </tbody>
+</table>

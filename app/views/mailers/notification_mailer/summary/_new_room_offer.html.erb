@@ -2,7 +2,7 @@
   <tbody>
 
     <tr>
-      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-right:18px;">
         <table>
           <tr>
             <td>
@@ -19,12 +19,11 @@
         </table>
 
         <%= link_to room_offer_url(notification.room_offer), target: "_blank" do %>
-          <%= cover_photo_image notification.room_offer, size: :small, style: "width:100%; padding-bottom:5px; padding-top:10px;", class: "mcnImage" %>
+          <%= cover_photo_image notification.room_offer, size: :small, style: "width:100%; padding-bottom:3px; padding-top:10px;", class: "mcnImage" %>
         <% end %>
 
-        <p>
-          <%= notification.room_offer.slogan %>
-        </p>
+        <p style="min-height:75px; max-height:75px; overflow: hidden; text-overflow: ellipsis;"><%= notification.room_offer.slogan.truncate(110, separator: ' ') %></p>
+
       </td>
     </tr>
 

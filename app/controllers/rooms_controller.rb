@@ -96,9 +96,9 @@ class RoomsController < ApplicationController
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if params[:favorites].present? && current_user
-      offers = offers.where(graetzl_id: current_user.followed_graetzl_ids)
+      offers = offers.where(graetzl_id: current_user.followed_graetzl_ids).or(offers.boosted)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      offers = offers.where(graetzl_id: graetzl_ids)
+      offers = offers.where(graetzl_id: graetzl_ids).or(offers.boosted)
     end
 
     offers

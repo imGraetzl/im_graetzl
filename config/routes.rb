@@ -70,6 +70,7 @@ Rails.application.routes.draw do
     get 'zahlungsmethode', action: 'payment_method', as: 'payment_method'
     get 'payment_authorized', on: :member
     get 'raumteiler', action: 'rooms', as: 'rooms'
+    get 'raumbooster', action: 'room_boosters', as: 'room_boosters'
     get 'toolteiler', action: 'tools', as: 'tools'
     get 'coop-share', action: 'coop_demands', as: 'coop_demands'
     get 'gruppen', action: 'groups', as: 'groups'
@@ -196,6 +197,9 @@ Rails.application.routes.draw do
     patch 'update_status', on: :member
     post 'toggle_waitlist', on: :member
     post 'remove_from_waitlist', on: :member
+
+    resources :room_boosters, only: [:new, :create], path: 'raumbooster' do
+    end
   end
 
   resources :room_rentals, only: [:new, :create, :edit, :update] do
@@ -312,6 +316,12 @@ Rails.application.routes.draw do
     get 'payment_authorized', on: :member
     get 'change_payment', on: :member
     get 'payment_changed', on: :member
+    get 'summary', on: :member
+  end
+
+  resources :room_boosters, path: 'raumbooster' do
+    get 'choose_payment', on: :member
+    get 'payment_authorized', on: :member
     get 'summary', on: :member
   end
 
