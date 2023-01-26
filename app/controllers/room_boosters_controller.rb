@@ -74,7 +74,7 @@ class RoomBoostersController < ApplicationController
     when current_user.room_offers.in(current_region).enabled.count == 1
       @room_offer = current_user.room_offers.in(current_region).enabled.first
     else
-      @room_offers = current_user.room_offers.in(current_region).enabled
+      @room_offers = current_user.room_offers.in(current_region)
       if @room_offers.blank?
         flash[:notice] = "Du hast noch keinen Raumteiler zum Boosten. Neuen #{view_context.link_to 'Raumteiler erstellen', select_room_offers_path}"
         redirect_to room_boosters_user_url and return

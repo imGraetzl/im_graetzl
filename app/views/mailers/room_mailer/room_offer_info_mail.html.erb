@@ -42,6 +42,15 @@
 
         <br><br>
 
+        <% if @room_offer.region.id == 'wien' %>
+
+        <strong><u>Tipp für maximale Sichtbarkeit - Der Raumteiler Booster:</u></strong><br>
+        <em>Hol dir eine Woche die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz Wien.
+        <%= link_to 'Zum Raumteiler Booster', room_boosters_user_url(host: @room_offer.region.host), target: '_blank' %></em>
+        <br><br>
+
+        <% end %>
+
         <p>Bitte schreib uns an wir@imgraetzl.at, wenn dein Raumteilerwunsch vielleicht schon in Erfüllung gegangen ist. Für uns ist das ein echter Motivationsschub diese Geschichten zu hören.</p>
 
         Liebe Grüße,<br>

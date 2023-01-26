@@ -62,7 +62,7 @@ class RoomBoosterService
     room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
     generate_invoice(room_booster)
     RoomMailer.room_booster_invoice(room_booster).deliver_later(wait: 1.minute)
-
+    AdminMailer.new_room_booster(room_booster).deliver_later
   end
 
   # Daily PushUp

@@ -17,7 +17,7 @@
       <h3>Das kann der Raumteiler Booster</h3>
       <ul class="list-basic">
         <li>Platziere deinen Raumteiler im <strong>wöchentlichen Newsletter</strong> an alle imGrätzl NutzerInnen in ganz <%= current_user.region %>. (Nächster Newsletter am <%= I18n.localize(Date.today.next_occurring(:tuesday) , format:'%a, %d. %B %Y') %>).</li>
-        <li>Liste deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_user.region %>.</li>
+        <li>Liste damit deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_user.region %>.</li>
         <li>Dein Raumteiler wird auf allen Raumteilerseiten auf der Plattform eine Woche <strong>täglich hochgespült</strong>.</li>
         <li>Ein Raumteiler Booster kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
       </ul>

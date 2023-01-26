@@ -8,7 +8,7 @@ APP.controllers.crowd_campaigns = (function() {
 
     function initCrowdCampaignStart() {
       var _href = $("#startproject").attr("href");
-      $(".btns input:checked").on("change", function() {
+      $(".btns input").on("change", function() {
         if ($(".btns input:checked").length >= 1) {
           $("#startproject").attr("href", _href + '?crowdfunding_call=true');
         } else {
