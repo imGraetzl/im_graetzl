@@ -28,8 +28,11 @@
       <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
       <a href="#worum-gehts" class="btn-primary -mint" id="nav-1">Worum geht es?</a>
       <a href="#buchung" class="btn-primary -mint" id="nav-2">Slot-Buchung</a>
-      <a href="#raumteiler-guide" class="btn-primary -mint" id="nav-3">Raumteiler Guide</a>
-      <a href="#downloads" class="btn-primary -mint" id="nav-4">Download Vorlagen</a>
+      <% if current_region.id == 'wien' %>
+        <a href="#booster" class="btn-primary -mint" id="nav-3">Raumteiler Booster</a>
+      <% end %>
+      <a href="#raumteiler-guide" class="btn-primary -mint" id="nav-4">Raumteiler Guide</a>
+      <a href="#downloads" class="btn-primary -mint" id="nav-5">Download Vorlagen</a>
     </div>
   </aside>
 
@@ -87,23 +90,22 @@
       </p>
     </article>
 
-    <article class="container">
-      <h2 id="raumteiler-hubs">Raumteiler Hubs</h2>
-      <h3>Beiträge zu IBA_Wien: RAUMTEILER HUBS - Innovative Gewerbeflächen für Selbstständige und MacherInnen.</h3>
-      <a href="https://www.iba-wien.at/fileadmin/user_upload/documents/001_Downloads_Allgemein/IBA-Beitraege/30_Raumteiler_A4_web.pdf">
-        <%= image_tag'info/Raumteiler-Hubs-Deckblatt.jpg', class: 'hubs' %>
-      </a>
-      <p>
-        Wie plant und kalkuliert man Raumteiler Hubs für lokale Macher*innen? Grundrisse, Kalkulationsbeispiele und relevante Fragen werden in dem praxisorientierten Leitfaden behandelt. Für Interessierte, Planer*innen, Architekt*innen, Bauträger und Raumunternehmen.
-      </p>
-      <br>
-      <p>
-        <a href="https://www.iba-wien.at/fileadmin/user_upload/documents/001_Downloads_Allgemein/IBA-Beitraege/30_Raumteiler_A4_web.pdf" class="btn-primary -mint -download" id="guide-download">Raumteiler Hubs gratis downloaden</a>
-      </p>
-      <br style="clear:both;">
-    </article>
+    <% if current_region.id == 'wien' %>
+      <article class="container" id="3">
+        <h2 id="booster">Raumteiler Booster</h2>
+        <h3>Eine Woche die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz Wien.</h3>
+        <p>
+          <ul class="list-basic">
+            <li>Platziere deinen Raumteiler im <strong>wöchentlichen Newsletter</strong> an alle imGrätzl NutzerInnen in ganz <%= current_region %>. (Nächster Newsletter am <%= I18n.localize(Date.today.next_occurring(:tuesday) , format:'%a, %d. %B %Y') %>).</li>
+            <li>Liste damit deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_region %>.</li>
+            <li>Dein Raumteiler wird auf allen Raumteilerseiten auf der Plattform eine Woche <strong>täglich hochgespült</strong>.</li>
+            <li>Ein Raumteiler Booster kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
+          </ul>
+        </p>
+      </article>
+    <% end %>
 
-    <article class="container" id="3">
+    <article class="container" id="4">
       <h2 id="raumteiler-guide">Raumteiler Guide</h2>
       <h3>Deine Schritt-für-Schritt Anleitung zum Räume teilen.</h3>
       <a href="<%= t("region.#{current_region.id}.raumteiler_guide_url") %>">
@@ -121,7 +123,23 @@
       <br style="clear:both;">
     </article>
 
-    <article class="container" id="4">
+    <article class="container">
+      <h2 id="raumteiler-hubs">Raumteiler Hubs</h2>
+      <h3>Beiträge zu IBA_Wien: RAUMTEILER HUBS - Innovative Gewerbeflächen für Selbstständige und MacherInnen.</h3>
+      <a href="https://www.iba-wien.at/fileadmin/user_upload/documents/001_Downloads_Allgemein/IBA-Beitraege/30_Raumteiler_A4_web.pdf">
+        <%= image_tag'info/Raumteiler-Hubs-Deckblatt.jpg', class: 'hubs' %>
+      </a>
+      <p>
+        Wie plant und kalkuliert man Raumteiler Hubs für lokale Macher*innen? Grundrisse, Kalkulationsbeispiele und relevante Fragen werden in dem praxisorientierten Leitfaden behandelt. Für Interessierte, Planer*innen, Architekt*innen, Bauträger und Raumunternehmen.
+      </p>
+      <br>
+      <p>
+        <a href="https://www.iba-wien.at/fileadmin/user_upload/documents/001_Downloads_Allgemein/IBA-Beitraege/30_Raumteiler_A4_web.pdf" class="btn-primary -mint -download" id="guide-download">Raumteiler Hubs gratis downloaden</a>
+      </p>
+      <br style="clear:both;">
+    </article>
+
+    <article class="container" id="5">
       <h2 id="downloads">Musterverträge zum Download</h2>
       <h3>Zusätzlich dazu haben wir ein paar nützliche Vorlagen für dich zusammengestellt: </h3>
       <ol>
