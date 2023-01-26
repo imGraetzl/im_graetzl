@@ -11,6 +11,17 @@ class AdminMailer < ApplicationMailer
     )
   end
 
+  def new_room_booster(room_booster)
+    @room_booster = room_booster
+    @region = @room_booster.region
+
+    mail(
+      subject: "[#{@region.host_domain_name}] Buchung RoomBooster für #{@room_booster.room_offer}",
+      from: platform_email("no-reply"),
+      to: platform_email("wir"),
+    )
+  end
+
   def messenger_spam_alert(user)
     @user = user
     @region = @user.region

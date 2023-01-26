@@ -1,4 +1,7 @@
 section.good-morning-dates {
+  @include respond-to("<=medium") {
+    padding-top:40px;
+  }
   .card-grid-container {
     margin-bottom:60px;
   }

@@ -62,7 +62,7 @@
   </tbody>
 </table>
 
-<% if @room_offer.region.id == 'wien' || @room_offer.region.id == 'muehlviertler-kernland' %>
+<% if @room_offer.region.id == 'wien' %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -72,7 +72,7 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        Neu! Der Raumteiler Guide ist da!
+        Jetzt neu - Der Raumteiler Booster!
       </h4>
     </td>
   </tr>
@@ -95,37 +95,18 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
-        <a href="<%= t("region.#{@room_offer.region.id}.raumteiler_guide_url") %>">
-          <%= image_tag "regions/#{@room_offer.region.id}/Raumteiler-Guide-Deckblatt.png", style: "width:200px; padding-bottom:10px; padding-top:10px; padding-right:20px; float:left;", class: "mcnImage" %>
+        <a href="<%= room_boosters_user_url(host: @room_offer.region.host) %>" target="_blank">
+          <%= image_tag "illu/illu-ideen-weissbg.png", style: "width:200px; padding-bottom:10px; padding-top:10px; padding-right:20px; float:left;", class: "mcnImage" %>
         </a>
         <p>
-          <strong>Deine Schritt-für-Schritt Anleitung zum Räume teilen.</strong>
+          <strong>Tipp für maximale Sichtbarkeit - Der Raumteiler Booster:</strong>
         </p>
         <p>
-          Wenn du Fragen rund ums Räume teilen hast, der "Raumteiler Guide" erklärt Schritt
-          für Schritt, was es beim Räume teilen und beim Andocken zu beachten gibt. Enthalten sind
-          außerdem Musterverträge und die wichtigsten Anlaufadressen <%= t("region.#{@room_offer.region.id}.in_your_region") %>.
+          Hol dir eine Woche die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz Wien.
         </p>
 
-        <!-- BUTTON -->
-        <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonBlock" style="">
-          <tbody class="mcnButtonBlockOuter">
-            <tr>
-              <td style="" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-top-left-radius: 4px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;border-bottom-left-radius: 4px;background-color: #69A8A7; width:100%;">
-                  <tbody>
-                    <tr>
-                      <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 10px;">
-                        <a class="mcnButton " title="Button" href="<%= t("region.#{@room_offer.region.id}.raumteiler_guide_url") %>" target="_blank" style="font-weight: normal;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Hier gratis downloaden</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- /BUTTON -->
+        <%= render 'mailers/shared/button', title: "Zum Raumteiler Booster", url: "#{room_boosters_user_url(host: @room_offer.region.host)}", style: "width:100%;" %>
+
       </td>
 
       <td>

@@ -102,15 +102,35 @@
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:15px; padding-right:18px;">
 
-        <% if !@room_offer.rental_enabled? %>
-        <strong>Neu: Aktiviere das Kurzzeitmieten Buchungstool für deinen Raumteiler!</strong>
+        <% if @room_offer.region.id == 'wien' %>
+
+        <strong>Neu: Maximale Sichtbarkeit für deinen Raumteiler mit dem Raumteiler Booster!</strong><br>
         <p>
-          Falls du deinen Raum stundenweise, tageweise oder am Wochenende vermieten möchtest, dann ermöglicht das Tool eine einfache online Buchung inkl. Zahlungsabwicklung.
+          Hol dir eine Woche die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz Wien.
         </p>
         <p>
-          Einfach Raumteiler bearbeiten und "<strong>Kurzzeitmieten</strong>" aktivieren.
+          <%= link_to 'Alle Infos zum Raumteiler Booster', room_boosters_user_url(host: @room_offer.region.host), target: '_blank' %>
         </p>
+
+        <p>
+          <em>P.S.: Vergiss nicht vorher deinen Raumteiler zu reaktivieren.</em>
+        </p>
+
+        <% else %>
+
+          <% if !@room_offer.rental_enabled? %>
+          <strong>Neu: Aktiviere das Kurzzeitmieten Buchungstool für deinen Raumteiler!</strong>
+          <p>
+            Falls du deinen Raum stundenweise, tageweise oder am Wochenende vermieten möchtest, dann ermöglicht das Tool eine einfache online Buchung inkl. Zahlungsabwicklung.
+          </p>
+          <p>
+            Einfach Raumteiler bearbeiten und "<strong>Kurzzeitmieten</strong>" aktivieren.
+          </p>
+          <% end %>
+
         <% end %>
+
+
 
       </td>
     </tr>
