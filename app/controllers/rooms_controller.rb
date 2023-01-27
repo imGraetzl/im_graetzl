@@ -16,31 +16,33 @@ class RoomsController < ApplicationController
     @rooms += (room_offers + room_demands).sort_by(&:last_activated_at).reverse
     @next_page = room_offers.next_page.present? || room_demands.next_page.present?
 
-    #if params[:page].blank?
-    #  @rooms = insert_zuckerls(@rooms)
-    #end
+    if params[:page].blank? && params[:user_id].blank?
+      @rooms = insert_zuckerls(@rooms)
+    end
 
   end
 
   private
 
   def insert_zuckerls(collection)
-    graetzl_ids = params.dig(:filter, :graetzl_ids).reject(&:empty?)
-    if params[:favorites].present? && current_user
-      graetzl_ids = current_user.followed_graetzl_ids
-    elsif params[:district_id].present?
-      district = District.find(params[:district_id])
-      graetzl_ids = district.graetzl_ids
-    end
+    #graetzl_ids = params.dig(:filter, :graetzl_ids).reject(&:empty?)
+    #if params[:favorites].present? && current_user
+    #  graetzl_ids = current_user.followed_graetzl_ids
+    #elsif params[:district_id].present?
+    #  district = District.find(params[:district_id])
+    #  graetzl_ids = district.graetzl_ids
+    #end
 
-    zuckerls = Zuckerl.live.in(current_region)
-    zuckerls = zuckerls.in_area(graetzl_ids) if graetzl_ids.present?
+    # Only insert Entire Region Zuckerls (if also small zuckerls, use block above)
+    zuckerls = Zuckerl.live.entire_region.in(current_region)
+    #zuckerls = Zuckerl.live.in(current_region)
+    #zuckerls = zuckerls.in_area(graetzl_ids) if graetzl_ids.present?
     zuckerls = zuckerls.include_for_box.random(3)
 
     result = collection.to_a
     result.insert(5, zuckerls[0]) if zuckerls[0]
-    result.insert(10, zuckerls[1]) if zuckerls[1]
-    result.insert(15, zuckerls[2]) if zuckerls[2]
+    result.insert(14, zuckerls[1]) if zuckerls[1]
+    result.insert(22, zuckerls[2]) if zuckerls[2]
     result.compact
   end
 

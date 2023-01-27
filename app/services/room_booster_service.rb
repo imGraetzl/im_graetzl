@@ -65,8 +65,15 @@ class RoomBoosterService
     AdminMailer.new_room_booster(room_booster).deliver_later
   end
 
+  def create_for_free(room_booster)
+    room_booster.update(payment_status: 'free', status: 'active', amount: 0)
+    ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
+    room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
+  end
+
   # Daily PushUp
   def push_up(room_booster)
+    return if !room_booster.room_offer
     ActionProcessor.track(room_booster.room_offer, :boost_pushup, room_booster) # Raumteiler Activity PushUp
     room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
   end

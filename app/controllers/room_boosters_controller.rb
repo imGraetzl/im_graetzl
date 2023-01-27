@@ -25,7 +25,14 @@ class RoomBoostersController < ApplicationController
     @room_booster.status = "incomplete"
 
     if @room_booster.save
-      redirect_to [:choose_payment, @room_booster]
+
+      if current_user.admin? && params[:freeadmin].present?
+        RoomBoosterService.new.create_for_free(@room_booster)
+        redirect_to [:summary, @room_booster]
+      else
+        redirect_to [:choose_payment, @room_booster]
+      end
+
     else
       render :new
     end
