@@ -6,7 +6,7 @@ class RoomBooster < ApplicationRecord
   validates :amount, presence: true, on: :create
 
   string_enum status: ["incomplete", "pending", "active", "expired", "storno"]
-  string_enum payment_status: ["authorized", "processing", "debited", "failed", "refunded"]
+  string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
 
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :upcoming, -> { where("send_at_date > :today", today: Date.today)}

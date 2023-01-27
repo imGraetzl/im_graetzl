@@ -44,6 +44,15 @@ class MailchimpUserSubscribeJob < ApplicationJob
           tags: [{name:"NL False", status:"active"}]
         })
       end
+      if user.subscribed?
+        g.lists(list_id).members(member_id).tags.create(body: {
+          tags: [{name:"Abo", status:"active"}]
+        })
+      else
+        g.lists(list_id).members(member_id).tags.create(body: {
+          tags: [{name:"Abo", status:"inactive"}]
+        })
+      end
     rescue Gibbon::MailChimpError => mce
       Rails.logger.error("subscribe failed: due to #{mce.message}")
       raise mce

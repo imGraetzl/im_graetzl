@@ -32,7 +32,7 @@ class RoomDemand < ApplicationRecord
 
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
 
-  LIFETIME_MONTHS = 6
+  LIFETIME_MONTHS = 5
 
   after_update :destroy_activity_and_notifications, if: -> { disabled? }
 
