@@ -31,5 +31,6 @@
 
 <!-- Insert Supporters -->
 <% if @region.id == 'wien' && @period == 'weekly' %>
+  <%= render 'featured/crowdfunding_call' %>
   <%= render 'featured/subscribers' if Subscription.in(@region).active.present? %>
 <% end %>
