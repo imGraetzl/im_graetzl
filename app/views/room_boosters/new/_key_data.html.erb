@@ -3,7 +3,7 @@
   <ul class="facts">
     <li><strong>Plattform Booster:</strong> 1 Woche in ganz <%= @room_offer.region %></li>
     <li><strong>Newsletter:</strong> <%= I18n.localize(Date.today.next_occurring(:tuesday) , format:'%a, %d.%m.%Y') %> in ganz <%= @room_offer.region %></li>
-    <li><strong>Preis:</strong> <%= number_to_currency(RoomBooster.price(@room_offer.region) / 100) %> (inkl. 20% USt.)</li>
+    <li><strong>Preis:</strong> <%= @room_booster.amount ? number_to_currency(@room_booster.amount) : number_to_currency(RoomBooster.price(@room_offer.region) / 100) %> (inkl. 20% USt.)</li>
     <li>Mehr Infos zum <%= link_to 'Raumteiler Booster', room_boosters_user_path %>.</li>
   </ul>
 </div>

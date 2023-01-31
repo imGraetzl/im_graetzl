@@ -1,9 +1,3 @@
-<!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 2 -->
-<% zuckerls = Zuckerl.in(@region).live.in_area(@user.followed_graetzl_ids).include_for_box %>
-<% ownzuckerls = zuckerls.where(user_id: @user.id) %>
-<% zuckerls = (zuckerls - ownzuckerls).sample(2) %>
-<% zuckerls += ownzuckerls %>
-
 <% if zuckerls.any? %>
 
   <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'}" %>

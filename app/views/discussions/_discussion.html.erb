@@ -55,7 +55,7 @@
     <div class="txt">
       <h3><%= link_to discussion.title, [discussion.group, discussion, target: "topic"] %></h3>
       <% if !discussion.first_post.deleted? %>
-        <p><%= truncate discussion.first_post.content, length: 150 %></p>
+        <p><%= strip_tags(discussion.first_post.content.bbcode_to_html.html_safe).truncate(160) %></p>
       <% end %>
     </div>
 

@@ -114,7 +114,13 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def transaction_fee_percentage
-    created_at.after?("2022-07-15".to_date) ? 5 : 4
+    if [36].include?(id)
+      7 # 7% for Special Campaigns
+    elsif created_at.after?("2022-07-15".to_date)
+      5
+    else
+      4
+    end
   end
 
   def crowd_pledges_fee

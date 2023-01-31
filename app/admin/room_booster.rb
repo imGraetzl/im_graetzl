@@ -9,6 +9,7 @@ ActiveAdmin.register RoomBooster do
   scope :expired
   scope :storno
   scope :incomplete
+  scope :free
   scope :all
 
   index { render 'index', context: self }

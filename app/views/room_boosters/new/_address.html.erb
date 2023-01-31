@@ -54,7 +54,10 @@
 
     </div>
 
-    <%= submit_tag "Weiter zur Zahlung", class: 'btn-primary' %>
+    <div class="form-columns">
+      <%= f.button "Kostenlos erstellen", data: { confirm: 'Möchtest du diesen Raumteiler wirklich boosten?' }, name: "freeadmin", value: "true", class: 'btn-secondary' if current_user.admin? %>
+      <%= submit_tag "Weiter zur Zahlung", class: 'btn-primary' %>
+    </div>
 
   <% end %>
 
