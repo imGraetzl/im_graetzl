@@ -41,21 +41,31 @@
 
     <% if local_assigns[:activity_crowd_pledge] %>
       <% crowd_pledge = local_assigns[:activity_crowd_pledge] %>
-      <% if crowd_pledge.user %>
-        <div class="userEntry userPledge">
-          <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
-            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
-          <% end %>
-          <span class="userAndType">
-            <%= link_to crowd_pledge.contact_name, crowd_pledge.user, rel: 'nofollow' %>
-            <span>unterstützt dieses Projekt.</span>
-          </span>
-        </div>
+      <% if crowd_pledge.visible? %>
+        <% if crowd_pledge.user %>
+          <div class="userEntry userPledge">
+            <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
+              <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
+            <% end %>
+            <span class="userAndType">
+              <%= link_to crowd_pledge.contact_name, crowd_pledge.user, rel: 'nofollow' %>
+              <span>unterstützt dieses Projekt.</span>
+            </span>
+          </div>
+        <% else %>
+          <div class="userEntry userPledge">
+            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+            <span class="userAndType">
+              <strong><%= crowd_pledge.contact_name %></strong>
+              <span>unterstützt dieses Projekt.</span>
+            </span>
+          </div>
+        <% end %>
       <% else %>
         <div class="userEntry userPledge">
-          <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+          <%= image_tag("fallbacks/user_avatar.png", loading: 'lazy', alt: 'Anonymer Unterstützer', class: 'img-round') %>
           <span class="userAndType">
-            <strong><%= crowd_pledge.contact_name %></strong>
+            <strong>Anonyme Nutzer*in</strong>
             <span>unterstützt dieses Projekt.</span>
           </span>
         </div>
