@@ -39,7 +39,7 @@ class RoomBoosterService
     # Sometimes Webhook (payment_succeeded) is faster then payment_authorized
     # be sure that payment_status is set from Webhook (debited)
     room_booster.update(payment_status: 'debited', status: 'active', debited_at: Time.current)
-    RoomBoosterService.new.delay.create(room_booster)
+    RoomBoosterService.new.delay.create(room_booster) if room_booster.invoice_number.nil?
 
     { success: true }
   end
@@ -87,7 +87,7 @@ class RoomBoosterService
   private
 
   def payment_methods(room_booster)
-    ['card', 'sofort']
+    ['card', 'eps']
   end
 
   def payment_method_last4(payment_method)
