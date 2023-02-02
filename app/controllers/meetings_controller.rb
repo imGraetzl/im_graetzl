@@ -31,12 +31,18 @@ class MeetingsController < ApplicationController
     @meeting.region_id = current_region.id
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
 
-    if @meeting.save
-      ActionProcessor.track(@meeting, :create)
-      redirect_to [@meeting.graetzl, @meeting]
-    else
+    if !current_user.admin? && meeting = Meeting.upcoming.where(user_id: current_user.id).where(name: @meeting.name).last
+      flash.now[:notice] = "Du hast bereits ein zukünftiges Treffen mit dem Titel: '#{view_context.link_to meeting, [meeting.graetzl, meeting]}' erstellt. Du kannst dieses #{view_context.link_to 'hier bearbeiten', edit_meeting_path(meeting)} um es zu aktualisieren bzw. um weitere Termine hinzuzufügen."
       render 'new'
+    else
+      if @meeting.save
+        ActionProcessor.track(@meeting, :create)
+        redirect_to [@meeting.graetzl, @meeting]
+      else
+        render 'new'
+      end
     end
+
   end
 
   def edit
