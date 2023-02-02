@@ -45,9 +45,16 @@
         <% if @room_offer.region.id == 'wien' %>
 
         <strong><u>Tipp für maximale Sichtbarkeit - Der Raumteiler Booster:</u></strong><br>
-        <em>Hol dir eine Woche die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz Wien.
-        <%= link_to 'Zum Raumteiler Booster', room_boosters_user_url(host: @room_offer.region.host), target: '_blank' %></em>
-        <br><br>
+        <table border="0" cellpadding="0" cellspacing="0" style="margin-top:10px;">
+          <tr>
+            <td><%= image_tag 'mailings/ico-booster.png', style: "width:50px; height:50px; max-width:50px; max-height:50px; padding-right:10px;" %></td>
+            <td>
+              <em>Hol dir eine Woche lang die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz Wien.
+              <br><%= link_to 'Zum Raumteiler Booster', room_boosters_user_url(host: @room_offer.region.host), target: '_blank' %></em>
+            </td>
+          </tr>
+        </table>
+        <br>
 
         <% end %>
 
