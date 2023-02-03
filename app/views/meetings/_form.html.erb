@@ -72,6 +72,7 @@
     <p><span>Wann</span> planst du dein Treffen, deine Veranstaltung?</p>
 
     <div class="date-switch option-switch">
+
       <div class="input-radio">
         <%= radio_button_tag :date_option, 'single' %>
         <%= label_tag :date_option_single, "Einzeltermin" %>
@@ -84,8 +85,9 @@
 
       <div class="input-radio">
         <%= radio_button_tag :date_option, 'range' %>
-        <%= label_tag :date_option_range, "Mehrtägig" %>
+        <%= label_tag :date_option_range, "Zeiraum <em>(max. 30 Tage)</em>".html_safe %>
       </div>
+
     </div>
 
     <div class="dates">
@@ -97,7 +99,7 @@
         <%= f.text_field :starts_at_date,
                          value: (I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
                          data: { value: (I18n.localize(f.object.starts_at_date, format:'%Y-%m-%d') if f.object.starts_at_date) },
-                         class: 'datepicker',
+                         class: 'datepicker startdate',
                          placeholder: 'wählen' %>
       </div>
 
@@ -138,7 +140,7 @@
       <%= f.text_field :ends_at_date,
                        value: (I18n.localize(f.object.ends_at_date, format:'%A, %d. %B %Y') if f.object.ends_at_date),
                        data: { value: (I18n.localize(f.object.ends_at_date, format:'%Y-%m-%d') if f.object.ends_at_date) },
-                       class: 'datepicker',
+                       class: 'datepicker enddate',
                        placeholder: 'wählen' %>
     </div>
   </div>
@@ -148,7 +150,7 @@
       <%= render 'meetings/form/additional_date_fields', f: field_form if f.object.meeting_additional_dates.any? %>
     <% end %>
     <div class="meet-when meeting-additional-dates-links">
-      <%= link_to_add_association 'Weiteres Datum hinzufügen', f, :meeting_additional_dates, partial: 'meetings/form/additional_date_fields' %>
+      <%= link_to_add_association 'Weiteres Datum hinzufügen', f, :meeting_additional_dates, partial: 'meetings/form/additional_date_fields', class: 'btn-primary -mint -small' %>
     </div>
   </div>
 

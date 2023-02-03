@@ -64,6 +64,19 @@ input, select, textarea {
       background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
     }
   }
+  &.-line-up {
+    top:25px;
+    padding-bottom:25px;
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      top: -32px;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+    }
+  }
   &.-first-no-remove:first-of-type {
     .remove_fields { display: none; }
   }
@@ -814,14 +827,22 @@ input[type=url]:invalid + em::after {
   flex-wrap: wrap;
   div {
     display: flex;
-    @include respond-to("<medium") {
-      width:100%;
-      margin-left:30%;
+    width:90%;
+    white-space: nowrap;
+    @include respond-to(">=small") {
+      width:51%;
+    }
+    @include respond-to(">=medium") {
+      width: unset;
+      margin-left:unset;
     }
   }
   label {
-    min-width: 0px;
-    margin-right: 20px;
+    min-width: 0px !important;
+    margin-right: 30px;
+    em {
+      color: $color-ambient-grey;
+    }
   }
 }
 

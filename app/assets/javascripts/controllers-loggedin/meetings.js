@@ -43,6 +43,22 @@ APP.controllers_loggedin.meetings = (function() {
     function initCreateMeeting() {
       APP.components.addressInput();
 
+      $('.startdate').pickadate({
+        formatSubmit: 'yyyy-mm-dd',
+        hiddenName: true,
+        min: true,
+        onSet: function(context) {
+          if (typeof context.select !== 'undefined') {
+            var mindate = new Date(context.select);
+            var maxdate = new Date(context.select);
+            mindate.setDate(mindate.getDate() + 1); // Minimum 1 Days after Startdate
+            maxdate.setDate(maxdate.getDate() + 30); // Maximum 30 Days after Startdate
+            $('.enddate').pickadate('picker').set('min', mindate);
+            $('.enddate').pickadate('picker').set('max', maxdate);
+          }
+        }
+      });
+
       $('.create-meeting').on('cocoon:after-insert', function(e, insertedItem, originalEvent) {
         $('.datepicker').pickadate({
           formatSubmit: 'yyyy-mm-dd',
