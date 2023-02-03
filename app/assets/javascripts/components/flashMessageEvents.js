@@ -124,6 +124,15 @@ APP.components.flashMsgEvents = (function() {
           'event_category': 'User Settings'
         });
       }
+
+      // Favorite Graetzls
+      else if (flashMsg('Du hast bereits ein zukünftiges Treffen mit dem Titel')){
+        gtag(
+          'event', 'Meeting', {
+          'event_category': 'Error',
+          'event_label': 'Duplicate'
+        });
+      }
     }
 
     return {

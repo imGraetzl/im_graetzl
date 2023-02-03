@@ -24,6 +24,15 @@
           Kosten senken – Strom selber produzieren! Entdecke mit uns die Mini-PV Anlagen für den Balkon!
         </strong>
       </p>
+      <% if CrowdCampaign.funding.map(&:id).include?(36) %>
+        <ul>
+          <li>
+            <strong>
+              Aufgepasst: Unsere erste <%= link_to "Einkaufsgemeinschaft für Balkon-Solar", CrowdCampaign.funding.find(36) %> läuft gerade. Schnell sein!
+            </strong>
+          </li>
+        </ul>
+      <% end %>
       <p>
         Du interessierst dich für Balkon-Solar und möchtest wissen, wie es funktioniert? Dann bist du bei unserem Balkon-Solar Workshop genau richtig, in drei Stunden lernst du von den beiden Experten alles über Balkon-Solar. Danach weißt du:
       </p>

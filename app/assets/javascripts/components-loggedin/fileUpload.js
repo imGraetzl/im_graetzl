@@ -70,7 +70,7 @@ APP.components.fileUpload = (function() {
           'event_category': 'Error',
           'event_label': message
         });
-      }      
+      }
     });
 
     fileInput.addClass("uppy-setup");

@@ -5,6 +5,8 @@ class MeetingAdditionalDate < ApplicationRecord
 
   before_destroy :check_for_going_tos, prepend: true
 
+  scope :upcoming, -> { where("starts_at_date >= :today", today: Date.today).order(:starts_at_date)}
+
   def display_starts_at_date
     if starts_at_time && ends_at_time
       "#{I18n.localize(starts_at_date, format:'%a, %d. %B %Y')}, #{I18n.localize(starts_at_time, format:'%H:%M')} bis #{I18n.localize(ends_at_time, format:'%H:%M')} Uhr"

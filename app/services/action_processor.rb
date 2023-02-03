@@ -181,7 +181,7 @@ class ActionProcessor
         Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
       end
     when [CrowdPledge, :create]
-      if subject.visible? && subject.crowd_campaign.scope_public?
+      if subject.crowd_campaign.scope_public?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
     when [CrowdDonationPledge, :create]
