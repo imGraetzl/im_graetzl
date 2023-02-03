@@ -10,6 +10,7 @@ APP.controllers_loggedin.room_offers = (function() {
     APP.components.formValidation.init();
     APP.components.search.userAutocomplete();
     APP.components.formHelper.savingBtn();
+    APP.components.formHelper.formatIBAN();
 
     // Init Tab for Saving Single Tabs
     var initTab = APP.controllers.application.getUrlVars()["initTab"];

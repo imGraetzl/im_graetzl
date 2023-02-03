@@ -39,7 +39,7 @@
         <% end %>
 
         <% if @meeting.meeting_additional_dates.present? %>
-          <% @meeting.meeting_additional_dates.sort_by(&:starts_at_date).each do |date| %>
+          <% @meeting.meeting_additional_dates.upcoming.each do |date| %>
             <%= render 'meetings/datetime', date: date , additonal_date: 'additonal' %>
           <% end %>
         <% end %>
