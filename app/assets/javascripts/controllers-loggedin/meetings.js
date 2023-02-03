@@ -59,6 +59,23 @@ APP.controllers_loggedin.meetings = (function() {
         }
       });
 
+      $('.enddate').pickadate({
+        formatSubmit: 'yyyy-mm-dd',
+        hiddenName: true,
+        min: true,
+        onStart: function() {
+          var context = $('.startdate').data('value');
+          if (typeof context !== 'undefined') {
+            var mindate = new Date(context);
+            var maxdate = new Date(context);
+            mindate.setDate(mindate.getDate() + 1); // Minimum 1 Days after Startdate
+            maxdate.setDate(maxdate.getDate() + 30); // Maximum 30 Days after Startdate
+            $('.enddate').pickadate('picker').set('min', mindate);
+            $('.enddate').pickadate('picker').set('max', maxdate);
+          }
+        }
+      });
+
       $('.create-meeting').on('cocoon:after-insert', function(e, insertedItem, originalEvent) {
         $('.datepicker').pickadate({
           formatSubmit: 'yyyy-mm-dd',
