@@ -96,11 +96,12 @@ APP.components.formHelper = (function() {
   }
 
   function formatIBAN() {
-    $(".iban").on("input", function(e) { addChars(e) });
+    $(".iban").on("input", function(e) { insertSpaces(this) }); // Init on Input
+    $(".iban").each(function() { insertSpaces(this) }); // Init on Load
   }
 
-  function addChars(e) {
-    e.target.value = e.target.value.replace(/[^\dA-Za-z0-9]/g, '').replace(/(.{4})/g, '$1  ').trim().toUpperCase();
+  function insertSpaces($iban) {
+    $iban.value = $iban.value.replace(/[^\dA-Za-z0-9]/g, '').replace(/(.{4})/g, '$1  ').trim().toUpperCase();
   }
 
   return {

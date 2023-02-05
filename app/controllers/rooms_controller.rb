@@ -16,7 +16,7 @@ class RoomsController < ApplicationController
     @rooms += (room_offers + room_demands).sort_by(&:last_activated_at).reverse
     @next_page = room_offers.next_page.present? || room_demands.next_page.present?
 
-    if params[:page].blank? && params[:user_id].blank?
+    if params[:page].blank? && params[:user_id].blank? && params[:exclude_room_offer].blank?
       @rooms = insert_zuckerls(@rooms)
     end
 
