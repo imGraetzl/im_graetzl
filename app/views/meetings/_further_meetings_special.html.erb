@@ -1,0 +1,11 @@
+<div class="wrp-hl">
+  <div class="bigicontext-element">
+    <%= icon_tag('calendar-2') %>
+    <div class="txt">
+      Weitere <%= link_to category, special_category_path(category), rel: 'nofollow' %> Termine
+    </div>
+  </div>
+</div>
+<%= form_tag meetings_path(category_id: category.id, per_page: 3, upcoming: true, exclude: @meeting.id), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
+<div class="cardBoxCollection -tripple" data-behavior="meetings-card-container"></div>
+<%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
