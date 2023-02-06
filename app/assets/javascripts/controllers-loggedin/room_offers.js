@@ -43,9 +43,12 @@ APP.controllers_loggedin.room_offers = (function() {
         $('#slot-fields').replaceWith(slotsSection);
         $('#slot-fields').hide().slideDown();
         slotsSection = null;
+        APP.components.formHelper.formatIBAN();
       } else if (!rentalEnabled && !slotsSection){
         slotsSection = $('#slot-fields').clone();
         $('#slot-fields').empty();
+      } else {
+        APP.components.formHelper.formatIBAN();
       }
     }).change();
 

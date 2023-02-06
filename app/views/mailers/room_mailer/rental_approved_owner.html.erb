@@ -119,7 +119,7 @@
      <tr>
        <td class="mcnTextContent" style="padding-left:18px; padding-right:18px; width:100%;">
          <p>
-          Wir überweisen dir nach Mietende deines Raumteilers innerhalb von 5 Tagen deine Gutschrift (abzgl. der Servicegebühr) auf das von dir angegebene Konto.
+          Wir überweisen dir nach Mietende deines Raumteilers innerhalb von 5 Tagen deine Gutschrift (abzgl. der Servicegebühr) auf das von dir angegebene Konto. (endet auf ****<%= @room_rental.owner.iban.last(4) %>).
           Details zu deiner Rechnung an den Vermieter bzw. zu deiner Gutschrift findest du angehängt und eingeloggt in deinem <%= link_to "Buchungsarchiv", rooms_user_url(:target => "tab-buchungsarchiv"), style: "color:#ec776a;" %>.
          </p>
        </td>

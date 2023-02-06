@@ -8,6 +8,7 @@ APP.controllers_loggedin.tool_offers = (function() {
       APP.components.tabs.initTabs(".tabs-ctrl");
       APP.components.addressInput();
       APP.components.formHelper.savingBtn();
+      APP.components.formHelper.formatIBAN();
 
       // Init Tab for Saving Single Tabs
       var initTab = APP.controllers.application.getUrlVars()["initTab"];

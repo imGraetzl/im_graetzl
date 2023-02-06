@@ -95,11 +95,21 @@ APP.components.formHelper = (function() {
     });
   }
 
+  function formatIBAN() {
+    $(".iban").on("input", function(e) { insertSpaces(this) }); // Init on Input
+    $(".iban").each(function() { insertSpaces(this) }); // Init on Load
+  }
+
+  function insertSpaces($iban) {
+    $iban.value = $iban.value.replace(/[^\dA-Za-z0-9]/g, '').replace(/(.{4})/g, '$1  ').trim().toUpperCase();
+  }
+
   return {
     maxCategories: maxCategories,
     maxChars: maxChars,
     bbCodeHelp: bbCodeHelp,
     savingBtn: savingBtn,
+    formatIBAN: formatIBAN,
   };
 
 })();

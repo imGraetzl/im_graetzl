@@ -31,7 +31,7 @@
       <% Region.all.each do |region| %>
         <%= nav_region_menu_item("region-#{region.id}", "#{region.name}", region_index_url(host: region.host), region) %>
       <% end %>
-      <%= nav_menu_item("plus", 'Gemeinde / Stadt andocken', call_2022_url(host: welocally_platform_host)) %>
+      <%= nav_menu_item("plus", 'Gemeinde / Stadt andocken', andocken_url(host: welocally_platform_host)) %>
     </div>
     <div class="nav-dropdown-menu nav-dropdown-submenu" id="nav-submenu-site-location">
       <% if graetzl %>
@@ -91,7 +91,7 @@
       <% Region.all.each do |region| %>
         <%= nav_region_menu_item("region-#{region.id}", "#{region.name}", region_index_url(host: region.host), region) %>
       <% end %>
-      <%= nav_menu_item("plus", 'Gemeinde / Stadt andocken', call_2022_url(host: welocally_platform_host)) %>
+      <%= nav_menu_item("plus", 'Gemeinde / Stadt andocken', andocken_url(host: welocally_platform_host)) %>
     </div>
   </div>
 

@@ -5,7 +5,8 @@ class MeetingAdditionalDate < ApplicationRecord
 
   before_destroy :check_for_going_tos, prepend: true
 
-  scope :upcoming, -> { where("starts_at_date >= :today", today: Date.today).order(:starts_at_date)}
+  #scope :upcoming, -> { where("starts_at_date >= :today", today: Date.today).order(starts_at_date: :asc, starts_at_time: :asc)}
+  scope :upcoming, -> { order(starts_at_date: :asc, starts_at_time: :asc)}
 
   def display_starts_at_date
     if starts_at_time && ends_at_time

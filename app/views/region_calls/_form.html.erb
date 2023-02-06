@@ -1,3 +1,4 @@
+<!--
 <div class="input-field option-switch">
   <div class="input-radio">
     <%= f.radio_button :region_type, 'new_region', class: 'region-type-switch' %>
@@ -16,7 +17,14 @@
   <% end %>
   <%= f.select :region_id, options_for_select(Region.all.sort_by(&:name).map{|g| [g.name, g.id]}, @region_call.region_id), include_blank: "Region auswählen" %>
 </div>
-
+-->
+<div class="input-field">
+  <%= f.label :gemeinden do %>
+    <%= icon_tag "map-location" %>
+    <span>Stadt / Gemeinde(n)</span>
+  <% end %>
+  <%= f.text_field :gemeinden, placeholder: 'Um welche Stadt bzw. Gemeinde(n) handelt es sich...' %>
+</div>
 <div class="input-field">
   <%= f.label :name do %>
     <%= icon_tag "user-avatar" %>
@@ -32,13 +40,6 @@
   <%= f.text_field :personal_position, placeholder: 'Funktion' %>
 </div>
 <div class="input-field">
-  <%= f.label :phone do %>
-    <%= icon_tag "phone" %>
-    <span>Telefon</span>
-  <% end %>
-  <%= f.text_field :phone, placeholder: 'Telefonnummer' %>
-</div>
-<div class="input-field">
   <%= f.label :email do %>
     <%= icon_tag "at-symbol" %>
     <span>E-Mail Adresse</span>
@@ -46,11 +47,11 @@
   <%= f.text_field :email, placeholder: 'E-Mail' %>
 </div>
 <div class="input-field">
-  <%= f.label :gemeinden do %>
-    <%= icon_tag "map-location" %>
-    <span>Gemeinde(n)</span>
+  <%= f.label :phone do %>
+    <%= icon_tag "phone" %>
+    <span>Telefon</span>
   <% end %>
-  <%= f.text_field :gemeinden, placeholder: 'Um welche Gemeinde(n) handelt es sich...' %>
+  <%= f.text_field :phone, placeholder: 'Telefonnummer' %>
 </div>
 <div class="input-field">
   <%= f.label :message do %>

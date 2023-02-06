@@ -96,7 +96,7 @@
     <tr>
       <td class="mcnTextContent" style="padding-left:18px; padding-right:18px; width:100%;">
         <p>
-         Wir überweisen dir innerhalb der nächsten 5 Tage deine Gutschrift auf das von dir angegebene Konto.
+         Wir überweisen dir innerhalb der nächsten 5 Tage deine Gutschrift auf das von dir angegebene Konto. (endet auf ****<%= @tool_rental.tool_offer.iban.last(4) if @tool_rental.tool_offer.iban %>).
          Details zu deiner Gutschrift findest du angehängt und eingeloggt in deinem <%= link_to "Buchungsarchiv", tools_user_url(:target => "tab-buchungsarchiv"), style: "color:#ec776a;" %>.
         </p>
       </td>

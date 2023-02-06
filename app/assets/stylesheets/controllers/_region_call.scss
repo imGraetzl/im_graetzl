@@ -10,17 +10,12 @@ section.region_calls {
 
   .form-block {
     label {
-      min-width: 180px;
+      min-width: 200px;
     }
     .btn-primary {
       width:100%;
       margin:auto;
     }
-  }
-
-  .video-thumb img {
-    border:5px solid white;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   }
 
   .-fullwidth-welocally {
@@ -29,7 +24,7 @@ section.region_calls {
       margin: auto;
     }
   }
-  
+
   .-header-headline {
     margin-top: 70px;
     margin-bottom: 70px;
@@ -50,12 +45,12 @@ section.region_calls {
   }
   .imgHeader h1 {
     background-image: url(image_path('svg/speech-bubble-wide-rotate.svg'));
-    padding: 80px 20px 20px 25px;
-    top: -30px;
+    padding: 60px 20px 20px 25px;
+    top: -10px;
     left:100px;
     z-index: 2;
     @include respond-to("<=medium") {
-      padding: 50px 20px 20px 25px;
+      padding: 40px 20px 20px 20px;
       left:70px;
     }
   }
@@ -67,10 +62,10 @@ section.region_calls {
     font-weight: bold;
     font-size: 4.5rem;
     @include respond-to(">=medium") {
-      font-size: 6.5rem;
+      font-size: 5.5rem;
     }
     @include respond-to(">=large") {
-      font-size: 7.0rem;
+      font-size: 6.0rem;
     }
   }
   .imgHeader h2 span {
@@ -135,9 +130,11 @@ section.region_calls {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    img, p {
+    img {
       width:100%;
       height:auto;
+    }
+    p {
       margin-bottom:30px;
       @include respond-to(">=medium") {
         width:48%;

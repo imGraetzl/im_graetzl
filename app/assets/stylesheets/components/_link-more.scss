@@ -18,8 +18,9 @@
   }
 }
 
-.link-load {
+.link-load, .link-all {
   margin: 0 auto;
   display: table;
   &.hide { display: none; }
 }
+.link-all {font-weight: bold;}

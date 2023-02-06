@@ -429,3 +429,7 @@ de:
       payment_method:
         card: Kreditkarte
         sepa_debit: Bankkonto
+      region_call:
+        gemeinden: Stadt / Gemeinden(n)
+        name: Ansprechpartner
+        phone: Telefon
