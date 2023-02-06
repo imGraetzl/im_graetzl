@@ -48,7 +48,7 @@
 
   <div class="hl-subtext">
     <h1><span>WeLocally gibt es</span> aktuell in diesen Gebieten:</h1>
-    <p>Und die gute Nachricht: 2022 können sich zwei weitere Gebiete oder Städte andocken.</p>
+    <p>Innovative Städte & Gemeinden sind herzlich eingeladen sich anzudocken! <%= link_to 'Mehr Infos', andocken_url(host: welocally_platform_host) %></p>
   </div>
 
   <div class="region-switch-icons">
@@ -59,6 +59,12 @@
         </div>
         <div class="title"><%= region.name %></div>
       <% end %>
+    <% end %>
+    <%= link_to andocken_url(host: welocally_platform_host), class: 'region-button add-region' do %>
+      <div class="bigicontext-element">
+        <%= icon_tag "plus" %>
+      </div>
+      <div class="title">Gemeinde / Stadt andocken</div>
     <% end %>
   </div>
 
