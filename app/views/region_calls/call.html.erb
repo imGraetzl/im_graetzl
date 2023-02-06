@@ -8,28 +8,27 @@
   )
 %>
 
-<% content_for :canonical_url, call_2022_url(host: welocally_platform_host) %>
+<% content_for :canonical_url, andocken_url(host: welocally_platform_host) %>
 
 <section class="homeWeLocally region_calls info lp">
 
 
   <div class="imgHeader -fullwidth">
     <div class="wrp">
-      <h2><span>WeLocally</span><br>Open Call</h2>
-      <h1 class="weLocally"><span>Gemeinsam bringen <br>wir mehr zusammen.<br>Sei locally dabei!</span></h1>
+      <h2><span>WeLocally.at</span><br>Jetzt andocken!</h2>
+      <h1 class="weLocally"><span>Gemeinsam bringen <br>wir mehr zusammen.</span></h1>
     </div>
-    <%= link_to welocally_platform_url do %>
+    <%= link_to "?target=call", class: 'callbtn' do %>
       <%= image_tag 'campaigns/call/screenshot.png', class: 'screenshot', alt:'WeLocally Screenshot', width:721, height:542 %>
     <% end %>
   </div>
 
 
   <div class="hl-subtext -header-headline">
-    <h1>WeLocally:<br>innovative Gemeinden sind eingeladen sich anzudocken!</h1>
+    <h1>Innovative <span>Städte & Gemeinden</span><br>sind herzlich eingeladen sich <span>anzudocken</span>!</h1>
     <p>
       <strong><%= link_to 'WeLocally.at', welocally_platform_url %> ist eine digitale und gemeinwohlorientierte Plattform zur Vernetzung lokaler
-      Macher*innen im ländlichen Raum.</strong> Für Kooperationen und mehr Sichtbarkeit, Teilen von Ressourcen (z.B. Raum) und die Stärkung der lokalen Strukturen.
-      Für gemeindeübergreifende Zusammenarbeit!
+      Macher*innen in Städten und im ländlichen Raum.</strong> Für Kooperationen und mehr Sichtbarkeit, Teilen von Ressourcen (z.B. Raum) und die Stärkung der lokalen Strukturen.
     </p>
   </div>
 
@@ -43,6 +42,7 @@
   -->
 
   <div class="section -fullwidth -fullwidth-welocally">
+    <!--
     <div class="variants">
       <div class="variant">
         <%= image_tag 'campaigns/call/variante-1.png', alt:'WeLocally Variante 1', width:310, height:308 %>
@@ -57,23 +57,29 @@
         Umliegende Gemeinden können sich an die 3 bestehenden Gebiete andocken. (<%= link_to "Wien", 'https://www.imgraetzl.at/region/karte' %>,  <%= link_to "Kärnten", 'https://kaernten.welocally.at/region/karte' %>,  <%= link_to "Mühlviertler Kernland", 'https://muehlviertler-kernland.welocally.at/region/karte' %>)
       </div>
     </div>
-
+    -->
     <div class="hl-subtext">
       <p>
-        <strong>Es werden innovative Gemeinden gesucht,</strong> die WeLocally als eine Chance begreifen, um Selbstständige, lokale Unternehmen, Kunst- und Kulturschaffende und lokale Macher*innen und Vereine in ihrer Region zu stärken und die neue Formen der Zusammenarbeit fördern, Leerstand minimieren und die Mehrfachnutzung von Ressourcen und Infrastruktur unterstützen möchten.
+        <strong>Es werden innovative Städte und Gemeinden gesucht,</strong> die WeLocally als eine Chance begreifen, um Selbstständige, lokale Unternehmen, Kunst- und Kulturschaffende und lokale Macher*innen und Vereine in ihrer Region bzw. Stadt zu stärken und die neue Formen der Zusammenarbeit fördern, Leerstand minimieren und die Mehrfachnutzung von Ressourcen und Infrastruktur unterstützen möchten.
       </p>
     </div>
   </div>
 
 
   <div class="infos">
-    <%= image_tag 'campaigns/call/regionen-illu.png', alt:'WeLocally Call Illu', width:732, height:848 %>
     <p>
-      <strong>Hintergrund: WeLocally.at ist eine gemeindeübergreifende und gemeinwohlorientierte Plattform, die 2021 mit den Kärntner Gemeinden Griffen, St. Andrä und Völkermarkt und der Leader-Reagion Mühlviertler Kernland für den ländlichen Raum entwickelt wurde.</strong>
+      <%= link_to "?target=call", class: 'callbtn' do %>
+        <%= image_tag 'campaigns/call/regionen-illu.png', alt:'WeLocally Call Illu', width:732, height:848 %>
+      <% end %>
+    </p>
+    <p>
+      <strong>Hintergrund: WeLocally.at ist eine gemeindeübergreifende bzw. stadtbasierte und gemeinwohlorientierte Plattform, die 2021 mit den Kärntner Gemeinden Griffen, St. Andrä und Völkermarkt und der Leader-Reagion Mühlviertler Kernland für den ländlichen Raum entwickelt wurde.</strong>
       <br><br>
-      WeLocally basiert auf imGrätzl.at, das seit 2016 in Wien erfolgreich aufgebaut wurde. Auf WeLocally teilen sich lokale Macher*innen Ressourcen (z.B. Gewerbeflächen), verbinden sich in Kooperationen, stärken sich gegenseitig und bekommen Sichtbarkeit für ihre Tätigkeit und Events.
+      <strong>WeLocally basiert auf imGrätzl.at, das seit 2016 in Wien erfolgreich aufgebaut wurde.</strong>
       <br><br>
-      Durch den gemeindeübergreifenden Vernetzungsansatz von WeLocally rücken die Gemeinden enger zusammen. Positive regionale Effekte können entstehen, etwa wenn über den Raumteiler Leerstand aktiviert und damit der Orts-/Stadtkern belebt wird. Weitere Gemeinden können sich an WeLocally andocken. Für Gemeindeverbünde kann ein neues Pilotgebiet/Region eröffnet werden, Nachbargemeinden der Entwicklungspartner können sich an die bereits bestehenden Pilotgebiete anhängen.
+      Auf WeLocally teilen sich lokale Macher*innen Ressourcen (z.B. Gewerbeflächen), verbinden sich in Kooperationen, stärken sich gegenseitig und bekommen Sichtbarkeit für ihre Tätigkeit und Events.
+      <br><br>
+      Durch den gemeinde- bzw. bezirksübergreifenden Vernetzungsansatz von WeLocally rücken Gemeinden und Bezirke enger zusammen. Positive regionale Effekte können entstehen, etwa wenn über den Raumteiler Leerstand aktiviert und damit der Orts-/Stadtkern belebt wird.
     </p>
   </div>
 
@@ -82,19 +88,20 @@
       <h1><em>Zum Ablauf</em></h1>
     </div>
     <div class="items">
-      <div class="item -item1"><span><strong>Anmeldung Interesse</strong></span></div>
-      <div class="item -item2"><span><strong>Klärung offener Fragen</strong></span></div>
-      <div class="item -item3"><span><strong>Check, ob Gemeinde bzw. Verbund geeignet ist für WeLocally</strong></span></div>
-      <div class="item -item4"><span><strong>Technische Umsetzung - Integration auf der Plattform</strong></span></div>
-      <div class="item -item5"><span><strong>Bildung gemeindeübergreifende Arbeitsgruppe</strong></span></div>
-      <div class="item -item6"><span><strong>Drei Workshops zum Start mit der Arbeitsgruppe</strong></span></div>
-      <div class="item -item7"><span><strong>Arbeitsgruppe: monatliche Arbeitstreffen</strong></span></div>
+      <div class="item -item1"><span><strong>Anmeldung Interesse zum Andocken! (Formular ausfüllen)</strong></span></div>
+      <div class="item -item2"><span><strong>Klärung offener Fragen zum Ablauf bzw. zur Plattform.</strong></span></div>
+      <div class="item -item3"><span><strong>Check, ob Gemeinde bzw. Stadt geeignet ist für WeLocally.</strong></span></div>
+      <div class="item -item4"><span><strong>Technische Integration der Stadt bzw. Gemeinde auf WeLocally.</strong></span></div>
+      <div class="item -item6"><span><strong>Drei Workshops zum Start mit der neuen Stadt bzw. Gemeinde.</strong></span></div>
+      <div class="item -item7"><span><strong>Regelmäßiger Austausch zur erfolgreichen lokalen Verankerung.</strong></span></div>
     </div>
+    <!--
     <div class="hint">
       <small>
         Die Gemeinden arbeiten aktiv mit. Es sind drei Co-Creation Workshops mit der Arbeitsgruppe geplant. Im Anschluss daran erfolgen monatliche (online) Arbeitstreffen mit der Arbeitsgruppe, um die Verankerung der Plattform in der Gemeinde und Region umzusetzen.
       </small>
     </div>
+    -->
   </div>
 
   <div class="hl-subtext finanzen-headline">
@@ -106,64 +113,61 @@
 
   <div class="lightSliderWrapper card-slider-container">
     <div class="costs card-slider">
-      <div class="cardBox cost -cost1">
+      <div class="cardBox cost">
         <%= image_tag 'campaigns/call/ico-1.png', alt:'Icon 1', width:46, height:70 %>
-        <h4>Unter 2.000 Einwohner*innen</h4>
+        <h4>Unter 3.000 Einwohner*innen</h4>
         <div class="title">Set-up Gebühr</div>
-        <div class="price">2.500 € <span>/ einmalig</span></div>
+        <div class="price">3.000 € <span>/ einmalig</span></div>
         <div class="title">Laufende Kosten</div>
         <div class="price">200 € <span>/ monatlich</span></div>
       </div>
-      <div class="cardBox cost -cost1">
+      <div class="cardBox cost">
         <%= image_tag 'campaigns/call/ico-2.png', alt:'Icon 2', width:46, height:70 %>
-        <h4>2.000 - 3.000 Einwohner*innen</h4>
-        <div class="title">Set-up Gebühr</div>
-        <div class="price">3.500 € <span>/ einmalig</span></div>
-        <div class="title">Laufende Kosten</div>
-        <div class="price">200 € <span>/ monatlich</span></div>
-      </div>
-      <div class="cardBox cost -cost1">
-        <%= image_tag 'campaigns/call/ico-3.png', alt:'Icon 3', width:46, height:70 %>
         <h4>3.000 - 5.000 Einwohner*innen</h4>
         <div class="title">Set-up Gebühr</div>
         <div class="price">4.500 € <span>/ einmalig</span></div>
         <div class="title">Laufende Kosten</div>
         <div class="price">250 € <span>/ monatlich</span></div>
       </div>
-      <div class="cardBox cost -cost1">
-        <%= image_tag 'campaigns/call/ico-4.png', alt:'Icon 4', width:46, height:70 %>
+      <div class="cardBox cost">
+        <%= image_tag 'campaigns/call/ico-3.png', alt:'Icon 3', width:46, height:70 %>
         <h4>5.000 - 10.000 Einwohner*innen</h4>
         <div class="title">Set-up Gebühr</div>
         <div class="price">5.500 € <span>/ einmalig</span></div>
         <div class="title">Laufende Kosten</div>
         <div class="price">300 € <span>/ monatlich</span></div>
       </div>
-      <div class="cardBox cost -cost1">
-        <%= image_tag 'campaigns/call/ico-5.png', alt:'Icon 5', width:46, height:70 %>
+      <div class="cardBox cost">
+        <%= image_tag 'campaigns/call/ico-4.png', alt:'Icon 4', width:46, height:70 %>
         <h4>10.000 - 20.000 Einwohner*innen</h4>
         <div class="title">Set-up Gebühr</div>
         <div class="price">6.500 € <span>/ einmalig</span></div>
         <div class="title">Laufende Kosten</div>
-        <div class="price">500 € <span>/ monatlich</span></div>
+        <div class="price">450 € <span>/ monatlich</span></div>
+      </div>
+      <div class="cardBox cost">
+        <%= image_tag 'campaigns/call/ico-5.png', alt:'Icon 5', width:46, height:70 %>
+        <h4>Über 20.000 Einwohner*innen</h4>
+        <div class="title">Set-up Gebühr</div>
+        <div class="price"><span>Auf Anfrage</span></div>
+        <div class="title">Laufende Kosten</div>
+        <div class="price"><span>Auf Anfrage</span></div>
       </div>
     </div>
   </div>
 
   <small class="hint">
-    Gemeinden aus den Bezirken Völkermarkt und Wolfsberg werden in die bereits etablierte Arbeitsgruppe integriert.
-    <br>
-    Größere Städte ab 20.000 Einwohner*innen können sich ebenfalls gerne im Call anmelden, dort ist der Ablauf etwas anders, wir kommen dann gerne mit mehr Informationen auf Sie zu.
-    <br><br>
-    Partner profitieren von der Aufbauarbeit der letzten 5 Jahre. In die technische Entwicklung der Plattform wurden bislang über 300.000 € investiert, dazu ist ein Vielfaches an Eigenleistung eingeflossen. 2022 werden im Rahmen der Initiative „Regional.Digital.Innovativ“ vom Bundesministerium für Landwirtschaft, Regionen und Tourismus weitere Mittel investiert, um die Plattform technisch um lokale Crowdfunding Tools zu erweitern.  WeLocally ist außerdem von 2022 - 2025 Partner bei einem  Forschungsprojekt. Das ermöglicht uns weitere Services zu entwickeln, die sich positiv auf die lokalen Strukturen und lokale Akteur*innen auswirken werden. Partner*innen bekommen mit WeLocally eine auf sie angepasste digitale und lokale Lösung zu einem Bruchteil der Entwicklungskosten. (Preise netto zzgl. 20 % USt.)
+    PartnerInnen profitieren von der Aufbauarbeit der letzten 7 Jahre. In die technische Entwicklung der Plattform wurden bislang über 300.000 € investiert, dazu ist ein Vielfaches an Eigenleistung eingeflossen. 2022 wurden im Rahmen der Initiative „Regional.Digital.Innovativ“ vom Bundesministerium für Landwirtschaft, Regionen und Tourismus weitere Mittel investiert, um die Plattform technisch um lokale Crowdfunding Tools zu erweitern. WeLocally ist außerdem von 2022 - 2025 Partner bei einem  Forschungsprojekt. Das ermöglicht uns weitere Services zu entwickeln, die sich positiv auf die lokalen Strukturen und lokale Akteur*innen auswirken werden. Partner*innen bekommen mit WeLocally eine auf sie angepasste digitale und lokale Lösung zu einem Bruchteil der Entwicklungskosten. (Preise netto zzgl. 20 % USt.)
   </small>
 
   <div class="hl-subtext -form-headline">
     <h1 id="call"><em>Interesse anmelden</em></h1>
+    <p>Jetzt einfach & unverbindlich anfragen - Wir melden uns dann in Kürze.</p>
   </div>
 
   <%= form_for @region_call, url: url_for do |f| %>
   <%= form_errors_for @region_call if @region_call %>
-  <%= hidden_field_tag :redirect_path, '/call-2022' %>
+  <%= hidden_field_tag :redirect_path, '/andocken' %>
     <div class="call-form">
       <div class="form-block cardBox">
         <%= render 'form', :f => f %>

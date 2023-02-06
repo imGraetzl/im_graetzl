@@ -19,8 +19,9 @@ Rails.application.routes.draw do
   post 'geolocation'  => 'home#geolocation'
 
   #scope controller: 'region_calls', path: 'gemeinden', as: 'region_calls' do
-    get 'call-2022' => 'region_calls#call'
-    post 'call-2022' => 'region_calls#create'
+    get 'call-2022' => redirect('andocken')
+    get 'andocken' => 'region_calls#call'
+    post 'andocken' => 'region_calls#create'
   #end
 
   ActiveAdmin.routes(self)

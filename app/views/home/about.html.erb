@@ -25,7 +25,7 @@
 
   <div class="hl-subtext">
     <h1><span>WeLocally gibt es</span> in diesen Gebieten:</h1>
-    <p class="mail-hint">Innovative Gemeinden sind herzlich eingeladen sich anzudocken! <%= link_to 'Mehr Infos', call_2022_url(host: welocally_platform_host) %></p>
+    <p class="mail-hint">Innovative Gemeinden sind herzlich eingeladen sich anzudocken! <%= link_to 'Mehr Infos', andocken_url(host: welocally_platform_host) %></p>
   </div>
 
   <div class="region-switch-icons">
@@ -37,7 +37,7 @@
         <div class="title"><%= region.name %></div>
       <% end %>
     <% end %>
-    <%= link_to call_2022_url(host: welocally_platform_host), class: 'region-button add-region' do %>
+    <%= link_to andocken_url(host: welocally_platform_host), class: 'region-button add-region' do %>
       <div class="bigicontext-element">
         <%= icon_tag "plus" %>
       </div>

@@ -1,0 +1,67 @@
+<% content_for(:above_title, "Admin Info Mail") %>
+<% content_for(:title, "Neue Andock Anfrage") %>
+
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:30px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Facts:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+
+
+ <!-- --------------- ITEM --------------- -->
+ <table border="0" cellpadding="3" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td style="width:30%;"></td>
+       <td style="width:70%;"></td>
+     </tr>
+     <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">Stadt / Gemeinde(n):</td>
+       <td class="mcnTextContent"><%= @region_call.gemeinden %></td>
+     </tr>
+     <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">AnsprechpartnerIn:</td>
+       <td class="mcnTextContent"><%= @region_call.name %></td>
+     </tr>
+     <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">Funktion:</td>
+       <td class="mcnTextContent"><%= @region_call.personal_position %></td>
+     </tr>
+     <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">E-Mail:</td>
+       <td class="mcnTextContent"><%= @region_call.email %></td>
+     </tr>
+     <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">Telefon:</td>
+       <td class="mcnTextContent"><%= @region_call.phone %></td>
+     </tr>
+     <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">Nachricht:</td>
+       <td class="mcnTextContent"><%= @region_call.message %></td>
+     </tr>
+     <tr>
+       <td colspan="2">
+         <%= render 'mailers/shared/button', title: "Anfrage Ansehen", url: admin_region_call_url(@region_call) %>
+       </td>
+     </tr>
+   </tbody>
+ </table>

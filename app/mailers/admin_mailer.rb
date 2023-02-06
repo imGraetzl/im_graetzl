@@ -22,6 +22,17 @@ class AdminMailer < ApplicationMailer
     )
   end
 
+  def new_region_call(region_call)
+    @region_call = region_call
+    @region = Region.get('kaernten')
+
+    mail(
+      subject: "[WeLocally] #{@region_call.gemeinden} möchte andocken!",
+      from: platform_email("no-reply"),
+      to: platform_email("wir"),
+    )
+  end
+
   def messenger_spam_alert(user)
     @user = user
     @region = @user.region
