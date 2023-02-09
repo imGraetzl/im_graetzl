@@ -8,7 +8,8 @@
       </div>
     <% end %>
     <div class="categoryicon">
-      <%= icon_tag "location" %>
+      <%= icon_tag "location", class: 'fav-exchange' %>
+      <%= toggle_favorite_icon(location) if current_user %>
     </div>
     <%= graetzl_flag(graetzl) %>
   </div>

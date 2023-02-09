@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_19_113633) do
+ActiveRecord::Schema.define(version: 2023_02_07_111144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -458,6 +458,16 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.bigint "meeting_id", null: false
     t.index ["event_category_id"], name: "index_event_categories_meetings_on_event_category_id"
     t.index ["meeting_id"], name: "index_event_categories_meetings_on_meeting_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.string "favoritable_type", limit: 255
+    t.bigint "favoritable_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -1397,6 +1407,7 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
   add_foreign_key "discussions", "groups", on_delete: :cascade
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "favorites", "users", on_delete: :cascade
   add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
   add_foreign_key "group_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "group_graetzls", "groups", on_delete: :cascade

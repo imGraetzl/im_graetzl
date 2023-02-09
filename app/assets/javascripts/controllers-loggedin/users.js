@@ -33,6 +33,7 @@ APP.controllers_loggedin.users = (function() {
         if ($("section.usersetup").exists()) { addActionCard(); }
         if ($("section.usersetup.-favorite-graetzls").exists()) { initFavoriteGraetzls(); }
         if ($("section.usersetup.-payment-method").exists()) { initPaymentMethod(); }
+        if ($("section.favorites-container").exists()) { APP.components.cardBoxFilter.init(); }
 
         if ($("section.usersetup.-meetings").exists()) {
           $('.autosubmit-stream').submit();

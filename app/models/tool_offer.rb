@@ -13,6 +13,7 @@ class ToolOffer < ApplicationRecord
 
   has_many :tool_rentals
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum status: { enabled: 0, disabled: 1, deleted: 2 }
 
@@ -52,6 +53,10 @@ class ToolOffer < ApplicationRecord
     else
       price_per_day
     end
+  end
+
+  def is_favorite_of?(user)
+    favorites.where(user: user).exists?
   end
 
   private
