@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var pageToInit = $("body").attr("data-controller");
   APP.controllers_loggedin[pageToInit] && APP.controllers_loggedin[pageToInit].init();
 
+  APP.components.favorites.toggle();
   APP.components.search.init();
   APP.components.fileUpload.init();
 });

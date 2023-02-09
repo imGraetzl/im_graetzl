@@ -2,7 +2,7 @@
 
   <div class="cardBoxHeader -roomdemand">
     <%= link_to room_demand do %>
-      <div class="category-tags">
+      <div class="category-tags fav-exchange">
         <ul class="tag-list -mint">
           <% room_demand.room_categories.first(1).each do |category| %>
           <li><%= category.name %></li>
@@ -11,6 +11,9 @@
       </div>
       <div class="coverImgWrapper">
         <%= avatar_image room_demand, size: :large, class: 'coverImg' %>
+      </div>
+      <div class="categoryicon toggle-fav-ico">
+        <%= toggle_favorite_icon(room_demand) if current_user %>
       </div>
     <% end %>
   </div>

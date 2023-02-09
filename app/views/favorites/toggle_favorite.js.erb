@@ -1,0 +1,13 @@
+(function() {
+  var favoriteIcon = $(<%= @favoritable.target_url_params %>);
+  var $favoriteElement = $(favoriteIcon).closest('[data-behavior="masonry-card"]');
+  var $favoriteContainer = $(favoriteIcon).closest('.favorites-container');
+  <% if @favor %>
+    favoriteIcon.addClass( "-faved" );
+  <% else %>
+    favoriteIcon.removeClass( "-faved" );
+    if ($favoriteContainer.exists()) {
+      $('.card-grid').masonry( 'remove', $favoriteElement ).masonry('layout');
+    }
+  <% end %>
+})();

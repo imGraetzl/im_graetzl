@@ -45,7 +45,7 @@
     }
   }
 
-  .nav-top-link {
+  .nav-top-link, .nav-top-icon {
     display: flex;
     align-items: center;
     color: $color-ambient-mint-dark;
@@ -58,6 +58,10 @@
       color: $color-ambient-rosa;
       .icon { fill: $color-ambient-rosa; }
     }
+  }
+
+  .nav-top-icon {
+    padding: 0 0 0 10px;
   }
 
   .nav-top-link.flare {
@@ -132,6 +136,9 @@
     }
     .nav-top-link:last-of-type { padding-right: 0; }
     .nav-user-notification-link .icon { width: 32px; height: 32px; }
+    .nav-autocomplete-icon {
+      @include respond-to("<smallplus") { display: none; }
+    }
   }
 
   .nav-current-user-link {

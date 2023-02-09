@@ -21,6 +21,7 @@ class Meeting < ApplicationRecord
   has_many :users, -> { distinct }, through: :going_tos
 
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   include CoverImageUploader::Attachment(:cover_photo)
 
@@ -122,6 +123,10 @@ class Meeting < ApplicationRecord
 
   def notification_sort_date
     starts_at_date
+  end
+
+  def is_favorite_of?(user)
+    favorites.where(user: user).exists?
   end
 
   private

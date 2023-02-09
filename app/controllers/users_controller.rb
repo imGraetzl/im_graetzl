@@ -77,6 +77,10 @@ class UsersController < ApplicationController
     @graetzls = current_region.graetzls.sort_by! { |g| g.zip.to_i }.reverse
   end
 
+  def favorites
+    @user = current_user
+  end
+
   def subscription
     if current_user.subscribed?
       @subscription = current_user.subscription

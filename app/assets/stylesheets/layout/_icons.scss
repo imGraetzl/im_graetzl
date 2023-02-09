@@ -37,3 +37,21 @@
   margin: 0 auto;
   display: block;
 }
+
+.toggle-fav-ico {
+  color: $color-ambient-mint-dark;
+  &.-faved {
+    color: $color-ambient-rosa-dark;
+  }
+}
+.cardBox .toggle-fav-ico {
+  display: none;
+}
+.touch .favorites-container {
+  .fav-exchange {
+    display: none;
+  }
+  .toggle-fav-ico {
+    display: block;
+  }
+}

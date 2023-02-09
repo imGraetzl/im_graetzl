@@ -1,0 +1,18 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow',
+  )
+%>
+
+<section class="usersetup favorites-container">
+
+  <%= form_with url: results_favorites_path, remote: true, method: :get, class: 'cards-filter' do |f| %>
+
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="favorite-card-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'favorite-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

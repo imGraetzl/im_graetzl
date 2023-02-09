@@ -59,6 +59,9 @@ class User < ApplicationRecord
 
   has_many :wall_comments, as: :commentable, class_name: "Comment", dependent: :destroy
 
+  has_many :favorite_users, as: :favoritable, class_name: "Favorite", dependent: :destroy
+  has_many :favorites, inverse_of: :user
+
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, reject_if: :all_blank
 
@@ -252,6 +255,10 @@ class User < ApplicationRecord
 
     end
     stripe_customer_id
+  end
+
+  def is_favorite_of?(user)
+    favorite_users.where(user: user).exists?
   end
 
   private

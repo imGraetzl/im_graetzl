@@ -12,16 +12,6 @@ module ApplicationHelper
     about_platform_url(host: welocally_platform_host)
   end
 
-  def link_to_more_info
-    blog_url = 'https://blog.imgraetzl.at/services/'
-    icon = 'icon-lightbulb'
-    use = content_tag(:use, nil, { 'xlink:href' => "##{icon}" })
-    link_to blog_url, target: '_blank' do
-      concat content_tag(:svg, use, class: icon)
-      concat "Mehr Infos"
-    end
-  end
-
   def form_errors_for(target, name=nil)
     if target.errors.any?
       name ||= target.model_name.human
@@ -29,8 +19,8 @@ module ApplicationHelper
     end
   end
 
-  def icon_tag(name)
-    "<svg class='icon-#{name} icon'><use xlink:href='/assets/icons1.svg#icon-#{name}'></use></svg>".html_safe
+  def icon_tag(name, options = {})
+    "<svg class='icon-#{name} icon #{options[:class]}'><use xlink:href='/assets/icons.svg#icon-#{name}'></use></svg>".html_safe
   end
 
   def icon_with_badge(icon_name, number, options = {})
@@ -39,6 +29,15 @@ module ApplicationHelper
       icon_tag(icon_name) +
       content_tag(:div, number > 0 ? number : nil, class: 'icon-badge')
     end
+  end
+
+  # remove favoritable.is_favorite_of?(current_user) if performance problems
+  def toggle_favorite_icon(favoritable, options = {})
+    link_to icon_tag("favorite"), toggle_favorite_favorite_path(favoritable.id, favoritable.class),
+      remote: true, method: 'post',
+      title: 'Auf deine Merkliste setzen',
+      id: "favorite_#{favoritable.class.name.underscore}_#{favoritable.id}",
+      class: ['toggle-fav-ico', favoritable.is_favorite_of?(current_user) ? '-faved' : '']
   end
 
 end

@@ -14,6 +14,7 @@ class RoomDemand < ApplicationRecord
   has_many :graetzls, through: :room_demand_graetzls
   has_many :districts, -> { distinct }, through: :graetzls
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum demand_type: { seeking_room: 0, seeking_roommate: 1 }
   enum status: { enabled: 0, disabled: 1 }
@@ -53,6 +54,10 @@ class RoomDemand < ApplicationRecord
     if enabled? && last_activated_at < 15.days.ago
       update(last_activated_at: Time.now)
     end
+  end
+
+  def is_favorite_of?(user)
+    favorites.where(user: user).exists?
   end
 
   private

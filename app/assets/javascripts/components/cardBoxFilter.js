@@ -102,7 +102,7 @@ APP.components.cardBoxFilter = (function() {
     });
 
 
-    // Toggle ganz Wien Checkbox wenn alle Bezirke gewählt
+    //  ganz Wien Checkbox wenn alle Bezirke gewählt
     $(".filter-modal-jbox-areas .filter-input").on("change", function() {
 
       $('.filter-modal-jbox-areas #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
@@ -143,6 +143,7 @@ APP.components.cardBoxFilter = (function() {
     $('.link-load').on('ajax:success', function() {
       removeDuplicateCards();
       adjustNewCards();
+      APP.components.favorites.toggle();
     });
 
     selectHomeGraetzl();
@@ -174,6 +175,7 @@ APP.components.cardBoxFilter = (function() {
           addActionCard();
           removeDuplicateCards();
           adjustNewCards();
+          APP.components.favorites.toggle();
         }
     });
 

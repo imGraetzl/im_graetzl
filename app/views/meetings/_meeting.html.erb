@@ -28,10 +28,11 @@
 
     <div class="categoryicon">
       <% if meeting.online_meeting %>
-        <%= icon_tag "globe" %>
+        <%= icon_tag "globe", class: 'fav-exchange' %>
       <% else %>
-        <%= icon_tag "users" %>
+        <%= icon_tag "users", class: 'fav-exchange' %>
       <% end %>
+      <%= toggle_favorite_icon(meeting) if current_user %>
     </div>
 
     <% if meeting.online_meeting %>
