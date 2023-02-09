@@ -130,7 +130,7 @@ APP.components.flashMsgEvents = (function() {
         gtag(
           'event', 'Meeting', {
           'event_category': 'Error',
-          'event_label': 'Duplicate'
+          'event_label': 'Duplicate: ' + $("#meeting_name").val()
         });
       }
     }

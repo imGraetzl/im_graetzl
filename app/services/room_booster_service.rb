@@ -27,17 +27,12 @@ class RoomBoosterService
       stripe_payment_method_id: payment_intent.payment_method.id,
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
-      status: 'pending',
-      payment_status: 'processing',
     )
 
     true
   end
 
   def payment_succeeded(room_booster, payment_intent)
-    sleep 2
-    # Sometimes Webhook (payment_succeeded) is faster then payment_authorized
-    # be sure that payment_status is set from Webhook (debited)
     room_booster.update(payment_status: 'debited', status: 'active', debited_at: Time.current)
     RoomBoosterService.new.delay.create(room_booster) if room_booster.invoice_number.nil?
 
@@ -45,7 +40,6 @@ class RoomBoosterService
   end
 
   def payment_failed(room_booster, payment_intent)
-    return if !room_booster.processing?
     room_booster.update(payment_status: 'failed', status: 'incomplete')
 
     { success: true }
