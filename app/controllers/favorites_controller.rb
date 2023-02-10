@@ -18,15 +18,11 @@ class FavoritesController < ApplicationController
 
   end
 
+  # TODO: implement favorite_type filter
   def results
     head :ok and return if browser.bot? && !request.format.js?
-    @favorites = FavoriteService.new(current_user, favorite_params).favorites
-  end
-
-  private
-
-  def favorite_params
-    params.permit(:page, :per_page).merge(type: params.dig(:filter, :favorite_type))
+    favorites = current_user.favorites.includes(:favoritable).order(:created_at).map(&:favoritable)
+    @favorites = Kaminari.paginate_array(favorites).page(params[:page]).per(params[:per_page] || 15)
   end
 
 end

@@ -231,10 +231,6 @@ class CrowdCampaign < ApplicationRecord
     user&.subscribed?
   end
 
-  def is_favorite_of?(user)
-    favorites.where(user: user).exists?
-  end
-
   private
 
   def smart_add_url_protocol_website

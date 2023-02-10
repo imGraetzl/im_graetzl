@@ -125,10 +125,6 @@ class Meeting < ApplicationRecord
     starts_at_date
   end
 
-  def is_favorite_of?(user)
-    favorites.where(user: user).exists?
-  end
-
   private
 
   def starts_at_date_cannot_be_in_the_past

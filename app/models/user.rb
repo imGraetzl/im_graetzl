@@ -113,6 +113,10 @@ class User < ApplicationRecord
     free_region_zuckerl.to_i > 0 || free_graetzl_zuckerl.to_i > 0
   end
 
+  def has_favorite?(favoritable)
+    favorites.any?{|f| f.favoritable_type == favoritable.class.name && f.favoritable_id == favoritable.id}
+  end
+
   # For better Performance store Subscription State direct in User Model and Update Boolean from Subscriptions
   # def subscribed?
   #  subscription && subscription.active?
@@ -255,10 +259,6 @@ class User < ApplicationRecord
 
     end
     stripe_customer_id
-  end
-
-  def is_favorite_of?(user)
-    favorite_users.where(user: user).exists?
   end
 
   private

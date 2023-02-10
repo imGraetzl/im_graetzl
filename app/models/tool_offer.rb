@@ -55,10 +55,6 @@ class ToolOffer < ApplicationRecord
     end
   end
 
-  def is_favorite_of?(user)
-    favorites.where(user: user).exists?
-  end
-
   private
 
   def check_discounts

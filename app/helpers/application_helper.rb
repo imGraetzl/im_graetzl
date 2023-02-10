@@ -31,13 +31,12 @@ module ApplicationHelper
     end
   end
 
-  # remove favoritable.is_favorite_of?(current_user) if performance problems
   def toggle_favorite_icon(favoritable, options = {})
     link_to icon_tag("favorite"), toggle_favorite_favorite_path(favoritable.id, favoritable.class),
       remote: true, method: 'post',
       title: 'Auf deine Merkliste setzen',
       id: "favorite_#{favoritable.class.name.underscore}_#{favoritable.id}",
-      class: ['toggle-fav-ico', favoritable.is_favorite_of?(current_user) ? '-faved' : '']
+      class: ['toggle-fav-ico', current_user&.has_favorite?(favoritable) ? '-faved' : '']
   end
 
 end
