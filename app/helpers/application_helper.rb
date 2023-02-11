@@ -39,4 +39,17 @@ module ApplicationHelper
       class: ["toggle-fav-ico #{options[:class]}", current_user&.has_favorite?(favoritable) ? '-faved' : '']
   end
 
+  def messenger_button(user, options = {})
+    link_to messenger_start_thread_path(user_id: user&.id),
+      rel: 'nofollow',
+      data: { label: options[:label] },
+      title: "#{user&.first_name} im Messenger kontaktieren",
+      id: "requestMessengerBtn",
+      class: "btn-messenger #{options[:class]}" do
+        icon_tag("speech-bubbles") +
+        content_tag(:span, "Im Messenger kontaktieren", class: 'mobile') +
+        content_tag(:span, "Zum Messenger", class: 'desktop')
+    end
+  end
+
 end
