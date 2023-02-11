@@ -13,7 +13,6 @@ class Zuckerl < ApplicationRecord
   belongs_to :user
   belongs_to :subscription, optional: true
   has_one :graetzl, through: :location
-  has_many :favorites, as: :favoritable, dependent: :destroy
 
   before_validation :smart_add_url_protocol, if: -> { link.present? }
 

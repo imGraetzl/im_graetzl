@@ -7,10 +7,9 @@ module FavoriteHelper
       ['Anbieter & Macherinnen', 'Anbieter & Macherinnen', '["locations"]'],
       ['Raumteiler', 'Raumteiler', '["room_offer", "room_demand"]'],
       ['Events & Workshops', 'Events & Workshops', '["meeting"]'],
-      ['Coop & Share', 'Coop & Share', '["coop_demand"]'],
       ['Crowdfunding', 'Crowdfunding', '["crowd_campaign"]'],
+      ['Coop & Share', 'Coop & Share', '["coop_demand"]'],
       ['Geräteteiler', 'Geräteteiler', '["tool_offer", "tool_demand"]'],
-      ['Zuckerl', 'Zuckerl', '["zuckerl"]'],
     ]
   end
 

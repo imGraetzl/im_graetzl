@@ -12,7 +12,6 @@ class Favorite < ApplicationRecord
   scope :tool_demands, -> { where(favoritable_type: 'ToolDemand') }
   scope :tool_offers, -> { where(favoritable_type: 'ToolOffer') }
   scope :users, -> { where(favoritable_type: 'User') }
-  scope :zuckerls, -> { where(favoritable_type: 'Zuckerl') }
 
   validates :user_id, uniqueness: {
     scope: [:favoritable_id, :favoritable_type],
