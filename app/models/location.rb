@@ -94,10 +94,6 @@ class Location < ApplicationRecord
     user&.subscribed?
   end
 
-  def is_favorite_of?(user)
-    favorites.where(user: user).exists?
-  end
-
   private
 
   def update_last_activity

@@ -36,14 +36,17 @@
 
   </div>
 
+  <div class="sticky-btns">
+    <%= link_to messenger_start_thread_path(user_id: @coop_demand&.user&.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { category: "Coop & Share", label: "Coop & Share" } do %>
+      <%= icon_tag "speech-bubbles" %><span>Zum Messenger</span>
+    <% end %>
+    <%= toggle_favorite_icon(@coop_demand, class: 'btn-secondary -mint') if current_user %>
+  </div>
+
   <% if @coop_demand.location %>
     <aside class="location">
       <%= render @coop_demand.location %>
     </aside>
-  <% end %>
-
-  <% if @coop_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @coop_demand.user.id), rel: 'nofollow', class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Coop & Share", label: "Coop & Share" } %>
   <% end %>
 
   <%= link_to "Zum Coop & Share Markplatz", region_coop_demands_path, class: 'btn-primary -grey' %>

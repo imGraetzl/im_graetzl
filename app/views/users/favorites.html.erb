@@ -8,6 +8,15 @@
 
   <%= form_with url: results_favorites_path, remote: true, method: :get, class: 'cards-filter' do |f| %>
 
+    <div class="hl-subtext">
+      <h1>Deine <span>Merkliste</span></h1>
+      <div class="filter-selection-text-jbox">
+        Zeige mir Favoriten aus <%= link_to 'allen Bereichen', '#filter-modal-type', data: { no_filter_label: 'allen Bereichen'} %>
+      </div>
+    </div>
+    <div id="filter-modal-type" class="filter-modal-jbox oneclick">
+      <%= render 'filters/favorite_type' %>
+    </div>
   <% end %>
 
   <div class="card-grid-container">

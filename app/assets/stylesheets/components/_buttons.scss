@@ -299,3 +299,11 @@
     background-image: url(image_path('svg/kringel-grey-rosa.svg'));
   }
 }
+
+.btn-messenger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  max-height:50px;
+}

@@ -84,6 +84,13 @@
 
   </div>
 
+  <div class="sticky-btns">
+    <%= link_to messenger_start_thread_path(user_id: @room_offer&.user&.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumangebot" } do %>
+      <%= icon_tag "speech-bubbles" %><span>Zum Messenger</span>
+    <% end %>
+    <%= toggle_favorite_icon(@room_offer, class: 'btn-secondary -mint') if current_user %>
+  </div>
+
   <!-- ONLINE BOOKING -->
   <% if @room_offer.rental_enabled? && @room_offer.enabled? %>
     <div class="sideBarbox -top">
@@ -124,10 +131,8 @@
 
   <!-- OTHER PRICING -->
   <% if @room_offer.room_offer_prices.present? %>
-
     <div class="sideBarbox -pricing">
       <h3 class="sidebar -pakete">Raumteiler Pakete</h3>
-
       <div class="iconlist">
         <div class="pricing icontxt">
           <ul class="pricing-list">
@@ -140,13 +145,8 @@
           </ul>
         </div>
       </div>
-      <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), rel: 'nofollow', class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumangebot" } %>
     </div>
-
-  <% else %>
-      <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), rel: 'nofollow', class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumangebot" } %>
   <% end %>
-
 
   <% if @room_offer.occupied? %>
 

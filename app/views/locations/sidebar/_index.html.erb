@@ -89,8 +89,12 @@
     <% end %>
   </div>
 
-  <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @location.user_id), rel: 'nofollow',
-      class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Location", label: "Location" } if @location.user && @location.user != current_user %>
+  <div class="sticky-btns">
+    <%= link_to messenger_start_thread_path(user_id: @location&.user&.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { category: "Location", label: "Location" } do %>
+      <%= icon_tag "speech-bubbles" %><span>Zum Messenger</span>
+    <% end %>
+    <%= toggle_favorite_icon(@location, class: 'btn-secondary -mint') if current_user %>
+  </div>
 
   <% if @location.open_hours.present? %>
     <div class="sideBarbox openinghours">

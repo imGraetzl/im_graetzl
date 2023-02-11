@@ -44,11 +44,6 @@
           </div>
         <% end %>
 
-        <div class="icontxt">
-          <%= icon_tag "mail-1" %>
-          <%= link_to "Nachricht senden", messenger_start_thread_path(user_id: @user.id) %>
-        </div>
-
         <% if !@user.website.blank? %>
           <%= link_to @user.website, class: 'icontxt', target: '_blank' do %>
             <%= icon_tag "globe" %>
@@ -59,6 +54,13 @@
         <div class="icontxt">
           <%= icon_tag "map-location" %>
           <%= link_to @user.graetzl.name, graetzl_url(@user.graetzl, host: @user.region.host) %>
+        </div>
+
+        <div class="sticky-btns">
+          <%= link_to messenger_start_thread_path(user_id: @user.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { category: "User", label: "Profile" } do %>
+            <%= icon_tag "speech-bubbles" %><span>Zum Messenger</span>
+          <% end %>
+          <%= toggle_favorite_icon(@user, class: 'btn-secondary -mint') if current_user %>
         </div>
 
       </div>
@@ -123,5 +125,3 @@
   </div>
 
 </section>
-
-<%= toggle_favorite_icon(@user) if current_user %>
