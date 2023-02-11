@@ -84,14 +84,30 @@
 
   </div>
 
-  <div class="sticky-btns">
-    <%= messenger_button(@room_offer&.user, class: 'btn-primary -mint', label: @room_offer.class.name) %>
-    <%= toggle_favorite_icon(@room_offer, class: 'btn-secondary -mint') if current_user %>
-  </div>
+  <% if @room_offer.rental_enabled? && @room_offer.enabled? %>
+    <div class="sticky-btns -no-sticky">
+      <%= messenger_button(@room_offer&.user, class: 'btn-primary -mint', label: @room_offer.class.name) %>
+      <%= toggle_favorite_icon(@room_offer, class: 'btn-secondary -mint') if current_user %>
+    </div>
+    <div class="sticky-btns -only-sticky">
+      <%= link_to 'javascript:', class: 'btn-primary btn-avatar btn-book' do %>
+        <%= image_tag 'svg/icon-kringel-kurzzeitmiete.svg', class: 'icon' %>
+        <span>Kurzzeitmiete anfragen</span>
+      <% end %>
+      <%= toggle_favorite_icon(@room_offer, class: 'btn-secondary -mint') if current_user %>
+    </div>
+  <% else %>
+    <div class="sticky-btns">
+      <%= messenger_button(@room_offer&.user, class: 'btn-primary -mint', label: @room_offer.class.name) %>
+      <%= toggle_favorite_icon(@room_offer, class: 'btn-secondary -mint') if current_user %>
+    </div>
+  <% end %>
+
+
 
   <!-- ONLINE BOOKING -->
   <% if @room_offer.rental_enabled? && @room_offer.enabled? %>
-    <div class="sideBarbox -top">
+    <div class="sideBarbox -top" id="booking-box">
 
       <div class="headline-slots">
         <%= icon_tag "slots" %>
