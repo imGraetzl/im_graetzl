@@ -47,7 +47,6 @@
 
 <!-- Insert Supporters -->
 <% if @region.id == 'wien' && @period == 'weekly' %>
-  <%= render 'featured/good_morning_gastgeberinnen' %>
   <!-- render 'featured/room_booster' if @user.room_offers.exists? -->
   <%= render 'featured/subscribers' if Subscription.in(@region).active.present? %>
 <% end %>
