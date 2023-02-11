@@ -60,7 +60,7 @@ class SearchService
   end
 
   def search_meetings
-    Meeting.in(@region).upcoming.joins(:location).where("meetings.name ILIKE :q OR locations.name ILIKE :q", q: like_query).order('starts_at_date DESC')
+    Meeting.in(@region).upcoming.left_outer_joins(:location).where("meetings.name ILIKE :q OR locations.name ILIKE :q", q: like_query).order('starts_at_date DESC')
   end
 
   def search_crowd_campaigns
