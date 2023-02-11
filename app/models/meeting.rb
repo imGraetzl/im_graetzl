@@ -21,6 +21,7 @@ class Meeting < ApplicationRecord
   has_many :users, -> { distinct }, through: :going_tos
 
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   include CoverImageUploader::Attachment(:cover_photo)
 

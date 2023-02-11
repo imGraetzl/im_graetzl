@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_19_113633) do
+ActiveRecord::Schema.define(version: 2023_02_07_111144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "entire_region", default: false
-    t.bigint "group_id"
     t.string "region_id"
+    t.bigint "group_id"
     t.index ["child_id", "child_type"], name: "index_activities_on_child_id_and_child_type"
     t.index ["group_id"], name: "index_activities_on_group_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
@@ -107,13 +107,6 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "categories_meetings", id: false, force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "meeting_id"
-    t.index ["category_id"], name: "index_categories_meetings_on_category_id"
-    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -458,6 +451,16 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.bigint "meeting_id", null: false
     t.index ["event_category_id"], name: "index_event_categories_meetings_on_event_category_id"
     t.index ["meeting_id"], name: "index_event_categories_meetings_on_meeting_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.string "favoritable_type", limit: 255
+    t.bigint "favoritable_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -956,7 +959,7 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
   end
 
   create_table "room_rental_prices", force: :cascade do |t|
-    t.integer "room_offer_id"
+    t.bigint "room_offer_id"
     t.string "name"
     t.decimal "price_per_hour", precision: 10, scale: 2
     t.integer "minimum_rental_hours", default: 0
@@ -964,6 +967,7 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.integer "eight_hour_discount", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_offer_id"], name: "index_room_rental_prices_on_room_offer_id"
   end
 
   create_table "room_rental_slots", force: :cascade do |t|
@@ -1159,12 +1163,12 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.integer "address_id"
     t.jsonb "cover_photo_data"
     t.string "region_id"
-    t.decimal "deposit", precision: 10, scale: 2
     t.string "address_street"
     t.string "address_zip"
     t.string "address_city"
     t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
     t.string "address_description"
+    t.decimal "deposit", precision: 10, scale: 2
     t.index ["address_id"], name: "index_tool_offers_on_address_id"
     t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_tool_offers_on_location_id"
@@ -1310,7 +1314,6 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.boolean "stripe_connect_ready", default: false
     t.string "payment_method"
     t.string "payment_card_last4"
-    t.boolean "guest", default: false
     t.integer "free_region_zuckerl", default: 0
     t.integer "free_graetzl_zuckerl", default: 0
     t.boolean "subscribed", default: false
@@ -1341,8 +1344,8 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
     t.string "invoice_number"
     t.string "link"
     t.jsonb "cover_photo_data"
-    t.string "region_id"
     t.bigint "user_id"
+    t.string "region_id"
     t.string "payment_status"
     t.string "payment_method"
     t.string "payment_card_last4"
@@ -1395,8 +1398,10 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
   add_foreign_key "discussion_posts", "users", on_delete: :nullify
   add_foreign_key "discussions", "discussion_categories", on_delete: :nullify
   add_foreign_key "discussions", "groups", on_delete: :cascade
+  add_foreign_key "discussions", "users", on_delete: :nullify
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "favorites", "users", on_delete: :cascade
   add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
   add_foreign_key "group_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "group_graetzls", "groups", on_delete: :cascade
@@ -1431,6 +1436,7 @@ ActiveRecord::Schema.define(version: 2023_01_19_113633) do
   add_foreign_key "room_offers", "graetzls", on_delete: :nullify
   add_foreign_key "room_offers", "locations", on_delete: :nullify
   add_foreign_key "room_offers", "users", on_delete: :cascade
+  add_foreign_key "room_rental_prices", "room_offers", on_delete: :cascade
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify

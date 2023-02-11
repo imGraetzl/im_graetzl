@@ -13,6 +13,7 @@ class ToolOffer < ApplicationRecord
 
   has_many :tool_rentals
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum status: { enabled: 0, disabled: 1, deleted: 2 }
 

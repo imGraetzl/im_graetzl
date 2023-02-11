@@ -69,6 +69,12 @@ APP.controllers.room_offers = (function() {
       });
     });
 
+    $('.btn-book').on("click", function() {
+      $('html, body').animate({
+        scrollTop: $('#booking-box').offset().top
+      }, 600);
+    });
+
   }
 
   function initRoomDetail() {

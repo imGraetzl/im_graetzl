@@ -130,7 +130,10 @@
       <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.room, as: :crowd_donation %>
     <% end %>
 
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @crowd_campaign.user.id), rel: 'nofollow', class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Crowdfunding", label: "Kampagne" } %>
+    <div class="sticky-btns -no-sticky">
+      <%= messenger_button(@crowd_campaign&.user, class: 'btn-primary -mint', label: @crowd_campaign.class.name) %>
+      <%= toggle_favorite_icon(@crowd_campaign, class: 'btn-secondary -mint') if current_user %>
+    </div>
 
   </div>
 

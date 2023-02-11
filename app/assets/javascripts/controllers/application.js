@@ -89,11 +89,10 @@ APP.controllers.application = (function() {
     $('#requestMessengerBtn').on('click', function(event){
       event.preventDefault();
       var href = $(this).attr('href');
-      var category = $(this).attr('data-category');
       var label = $(this).attr('data-label');
       gtag(
         "event", label +  " :: Click :: Im Messenger kontaktieren", {
-        "event_category": category,
+        "event_category": "Messenger",
         "event_callback": function() {
           location.href = href;
         }

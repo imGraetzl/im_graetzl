@@ -112,4 +112,9 @@
     <% end %>
 
   </div>
+
+  <div class="sticky-btns">
+    <%= messenger_button(@tool_offer&.user, class: 'btn-primary -mint', label: @tool_offer.class.name) %>
+    <%= toggle_favorite_icon(@tool_offer, class: 'btn-secondary -mint') if current_user %>
+  </div>
 </aside>

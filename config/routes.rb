@@ -61,6 +61,11 @@ Rails.application.routes.draw do
       sign_out: 'logout',
     }
 
+  resources :favorites do
+    post :toggle_favorite, on: :member
+    get 'results', on: :collection
+  end
+
   resources :users, only: [:show, :update]
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
@@ -79,6 +84,7 @@ Rails.application.routes.draw do
     get 'treffen', action: 'meetings', as: 'meetings'
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
     get 'region-einstellungen', action: 'favorite_graetzls', as: 'favorite_graetzls'
+    get 'favorites', action: 'favorites', as: 'favorites'
   end
 
   scope controller: 'regions', as: 'region', path: 'region'  do

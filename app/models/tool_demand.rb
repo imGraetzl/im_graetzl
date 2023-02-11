@@ -12,6 +12,7 @@ class ToolDemand < ApplicationRecord
   has_many :districts, -> { distinct }, through: :graetzls
 
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum status: { enabled: 0, disabled: 1 }
 

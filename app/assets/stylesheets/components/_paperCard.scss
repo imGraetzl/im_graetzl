@@ -162,7 +162,7 @@
     $webp1x: image_path('illu/illu-werkbank-plain.webp'),
   );
 }
-.paperCard.-room-boosters .wrp, .paperCard.-tools .wrp {
+.paperCard.-room-boosters .wrp, .paperCard.-tools .wrp, .paperCard.-favorites .wrp {
   @include bg-url(
     image_path('illu/illu-ideen-weissbg.png'),
     $webp1x: image_path('illu/illu-ideen-weissbg.webp'),
@@ -180,6 +180,14 @@
 }
 .paperCard.-discussions .wrp {
   padding-top:190px;
+}
+.paperCard.-favorites .wrp {
+  padding-top:150px;
+  svg {
+    color: $color-ambient-rosa;
+    width:50px;
+    height:50px;
+  }
 }
 
 .paperCard.video {

@@ -6,7 +6,8 @@
         <%= avatar_image coop_demand, size: :large, class: 'coverImg' %>
       </div>
       <div class="categoryicon">
-        <%= icon_tag "coop-and-share" %>
+        <%= icon_tag "coop-and-share", class: 'fav-exchange' %>
+        <%= toggle_favorite_icon(coop_demand) if current_user %>
       </div>
     <% end %>
   </div>

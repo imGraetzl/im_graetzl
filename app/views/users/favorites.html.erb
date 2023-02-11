@@ -1,0 +1,27 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow',
+  )
+%>
+
+<section class="usersetup favorites-container">
+
+  <%= form_with url: results_favorites_path, remote: true, method: :get, class: 'cards-filter' do |f| %>
+
+    <div class="hl-subtext">
+      <h1>Deine <span>Merkliste</span></h1>
+      <div class="filter-selection-text-jbox">
+        Zeige mir Favoriten aus <%= link_to 'allen Bereichen', '#filter-modal-type', data: { no_filter_label: 'allen Bereichen'} %>
+      </div>
+    </div>
+    <div id="filter-modal-type" class="filter-modal-jbox oneclick">
+      <%= render 'filters/favorite_type' %>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="favorite-card-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'favorite-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

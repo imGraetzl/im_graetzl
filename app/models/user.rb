@@ -59,6 +59,9 @@ class User < ApplicationRecord
 
   has_many :wall_comments, as: :commentable, class_name: "Comment", dependent: :destroy
 
+  has_many :favorite_users, as: :favoritable, class_name: "Favorite", dependent: :destroy
+  has_many :favorites, inverse_of: :user
+
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, reject_if: :all_blank
 
@@ -110,10 +113,9 @@ class User < ApplicationRecord
     free_region_zuckerl.to_i > 0 || free_graetzl_zuckerl.to_i > 0
   end
 
-  # For better Performance store Subscription State direct in User Model and Update Boolean from Subscriptions
-  # def subscribed?
-  #  subscription && subscription.active?
-  # end
+  def has_favorite?(favoritable)
+    favorites.any?{|f| f.favoritable_type == favoritable.class.name && f.favoritable_id == favoritable.id}
+  end
 
   def subscription
     subscriptions.last

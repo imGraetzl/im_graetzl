@@ -1,0 +1,26 @@
+(function() {
+  var favoriteIcon = $(<%= @favoritable.target_url_params %>);
+  var $favoriteElement = $(favoriteIcon).closest('[data-behavior="masonry-card"]');
+  var $favoriteContainer = $(favoriteIcon).closest('.favorites-container');
+  <% if @favor %>
+    favoriteIcon.addClass( "-faved" );
+    gtag(
+      'event', 'Auf die Merkliste', {
+      'event_category': 'Favorites',
+      'event_label': favoriteIcon.attr('id')
+    });
+  <% else %>
+    favoriteIcon.removeClass( "-faved" );
+    if ($favoriteContainer.exists()) {
+      $('.card-grid').masonry( 'remove', $favoriteElement ).masonry('layout');
+      if ($favoriteContainer.find('[data-behavior="masonry-card"]').length <= 1) {
+        APP.components.cardBoxFilter.init(); // Show ActionCard again if empty
+      }
+    }
+    gtag(
+      'event', 'Von Merkliste entfernen', {
+      'event_category': 'Favorites',
+      'event_label': favoriteIcon.attr('id')
+    });
+  <% end %>
+})();

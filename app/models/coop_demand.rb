@@ -12,6 +12,7 @@ class CoopDemand < ApplicationRecord
   has_many :graetzls, through: :coop_demand_graetzls
   has_many :districts, -> { distinct }, through: :graetzls
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum coop_type: { demand: 0, offer: 1 }
   enum status: { enabled: 0, disabled: 1 }

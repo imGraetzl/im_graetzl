@@ -10,8 +10,11 @@
     </div>
     <% if graetzl %>
       <div class="categoryicon">
-        <span><%= "#{graetzl.district.zip}, " if current_region.use_districts? %><%= graetzl.name %></span>
-        <%= icon_tag "rocket" if room_offer.boosted? %>
+        <div class="fav-exchange">
+          <span><%= "#{graetzl.district.zip}, " if current_region.use_districts? %><%= graetzl.name %></span>
+          <%= icon_tag "rocket" if room_offer.boosted? %>
+        </div>
+        <%= toggle_favorite_icon(room_offer) if current_user %>
       </div>
     <% end %>
   </div>

@@ -73,9 +73,10 @@
     </aside>
   <% end %>
 
-  <% if @tool_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @tool_demand.user.id), rel: 'nofollow', class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Geräteteiler", label: "Gerätesuche" } %>
-  <% end %>
+  <div class="sticky-btns">
+    <%= messenger_button(@tool_demand&.user, class: 'btn-primary -mint', label: @tool_demand.class.name) %>
+    <%= toggle_favorite_icon(@tool_demand, class: 'btn-secondary -mint') if current_user %>
+  </div>
 
   <%= link_to "Alle Geräteteiler", region_tools_path, class: 'btn-primary -grey' %>
 </aside>

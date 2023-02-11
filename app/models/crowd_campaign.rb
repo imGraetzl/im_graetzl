@@ -31,6 +31,7 @@ class CrowdCampaign < ApplicationRecord
   has_many :crowd_campaign_posts, dependent: :destroy
   has_many :comments, through: :crowd_campaign_posts
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum active_state: { enabled: 0, disabled: 1, deleted: 2 }
   enum status: { draft: 0, submit: 1, pending: 2, canceled: 3, approved: 4, funding: 5, completed: 6 }

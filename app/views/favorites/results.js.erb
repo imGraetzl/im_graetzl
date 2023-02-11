@@ -1,0 +1,20 @@
+(function() {
+  var $cardContainer = $("[data-behavior='favorite-card-container']");
+  var $paginateLink = $("[data-behavior='favorite-paginate-link']");
+
+  <% if params[:page].blank? %>
+    <% if @favorites.empty? %>
+      $cardContainer.html("<%= j render 'action_card' %>");
+    <% else %>
+      $cardContainer.html("<%= j render @favorites %>");
+    <% end %>
+  <% else %>
+    $cardContainer.append("<%= j render @favorites %>");
+  <% end %>
+
+  <% if @favorites.next_page %>
+    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+  <% else %>
+    $paginateLink.addClass("hide");
+  <% end %>
+})();

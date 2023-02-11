@@ -48,13 +48,11 @@ section.meeting {
 
   .dateTime {
     margin-bottom: 1rem;
-    //font-weight: bold;
     .time {
       font-style: italic;
       font-weight: normal;
     }
     .till {
-      //font-style: italic;
       font-weight:normal;
       padding:5px;
     }
@@ -74,10 +72,8 @@ section.meeting {
     img {
       width: 50px;
       height: 50px;
-      //margin-right: 10px;
     }
     a {
-      //color: $color-ambient-mint;
       font-style: italic;
       font-weight: bold;
     }
@@ -104,30 +100,12 @@ section.meeting {
     @include col(1/3);
     margin-right: 0;
   }
-
-  .btn-going-to {
-    @include respond-to("<=medium") {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 999;
-      width: 100%;
-      padding: 10px;
-      background-color: white;
-      border-top: 1px solid $color-ambient-mint-light;
-      .btn-avatar {
-        margin: 0px;
-        justify-content: center;
-        width: 100%;
-      }
-    }
-  }
-
   .btn-avatar {
-    display: inline-flex;
-    max-height: 48px;
-    margin: 0 auto 2rem auto;
     @include respond-to(">=medium") {
+      white-space: nowrap;
+      display: inline-flex;
+      max-height: 48px;
+      margin: 0 auto 2rem auto;
       margin-left: 0;
       margin-right: 0;
     }
