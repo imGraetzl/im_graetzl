@@ -4,7 +4,7 @@
 
   <% if params[:page].blank? %>
     <% if @favorites.empty? %>
-      $cardContainer.html("Du hast noch keine Favoriten ...");
+      $cardContainer.html("<%= j render 'action_card' %>");
     <% else %>
       $cardContainer.html("<%= j render @favorites %>");
     <% end %>

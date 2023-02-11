@@ -36,7 +36,7 @@ module ApplicationHelper
       remote: true, method: 'post',
       title: 'Auf deine Merkliste setzen',
       id: "favorite_#{favoritable.class.name.underscore}_#{favoritable.id}",
-      class: ['toggle-fav-ico', current_user&.has_favorite?(favoritable) ? '-faved' : '']
+      class: ["toggle-fav-ico #{options[:class]}", current_user&.has_favorite?(favoritable) ? '-faved' : '']
   end
 
 end

@@ -60,14 +60,17 @@
 
   </div>
 
+  <div class="sticky-btns">
+    <%= link_to messenger_start_thread_path(user_id: @room_demand&.user&.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumsuche" } do %>
+      <%= icon_tag "speech-bubbles" %><span>Zum Messenger</span>
+    <% end %>
+    <%= toggle_favorite_icon(@room_demand, class: 'btn-secondary -mint') if current_user %>
+  </div>
+
   <% if @room_demand.location %>
     <aside class="location">
       <%= render @room_demand.location %>
     </aside>
-  <% end %>
-
-  <% if @room_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_demand.user.id), rel: 'nofollow', class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumsuche" } %>
   <% end %>
 
   <%= link_to "Alle Raumteiler", region_rooms_path, class: 'btn-primary -grey' %>

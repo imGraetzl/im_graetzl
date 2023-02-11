@@ -117,11 +117,6 @@ class User < ApplicationRecord
     favorites.any?{|f| f.favoritable_type == favoritable.class.name && f.favoritable_id == favoritable.id}
   end
 
-  # For better Performance store Subscription State direct in User Model and Update Boolean from Subscriptions
-  # def subscribed?
-  #  subscription && subscription.active?
-  # end
-
   def subscription
     subscriptions.last
   end
