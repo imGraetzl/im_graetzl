@@ -186,6 +186,8 @@ de:
       title: 'Meine Crowdfunding Projekte'
     edit:
       title: 'Profil Einstelungen'
+    favorites:
+      title: 'Meine Merkliste'
     favorite_graetzls:
       title: 'Favorite Einstellungen'
     groups:
