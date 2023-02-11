@@ -48,7 +48,7 @@ module ApplicationHelper
       class: "btn-messenger #{options[:class]}" do
         icon_tag("speech-bubbles") +
         content_tag(:span, "Im Messenger kontaktieren", class: 'mobile') +
-        content_tag(:span, "Zum Messenger", class: 'desktop')
+        content_tag(:span, "Nachricht senden", class: 'desktop')
     end
   end
 
