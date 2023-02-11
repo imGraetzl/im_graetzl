@@ -31,10 +31,12 @@
     </div>
     <div class="slogan"><%= truncate user.bio, length: 120 %></div>
 
-    <div class="location-line">
-      <%= icon_tag "location" %>
-      <%= link_to user.locations.last, user.locations.last %>
-    </div>
+    <% if user.locations.approved.any? %>
+      <div class="location-line">
+        <%= icon_tag "location" %>
+        <%= link_to user.locations.approved.first, user.locations.approved.first %>
+      </div>
+    <% end %>
 
     <%= link_to messenger_start_thread_path(user_id: user.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { label: "User" } do %>
       <%= icon_tag "speech-bubbles" %><span>Im Messenger kontaktieren</span>
