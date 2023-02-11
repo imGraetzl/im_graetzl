@@ -121,10 +121,9 @@ section.userprofile {
       position: relative;
       z-index: 2;
       @include respond-to(">=medium") {
-        @include col(1/3);
+        @include col(2/5);
         margin-top: -100px;
-        //width: 255px;
-        max-width: 255px;
+        max-width: 270px;
       }
       .img-round {
         width: 100px;
@@ -141,6 +140,9 @@ section.userprofile {
       }
       .icontxt {
         margin-bottom: 10px;
+      }
+      .sticky-btns {
+        margin-top: 20px;
       }
     }
 
@@ -160,9 +162,8 @@ section.userprofile {
       white-space: pre-wrap;
       @include font-size-primaryFont('large');
       @include respond-to(">=medium") {
-        @include col(2/3);
+        @include col(3/5);
         padding-top: 60px;
-        padding-right: 40px;
       }
 
     }
