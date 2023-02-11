@@ -36,8 +36,8 @@
       <%= link_to user.locations.last, user.locations.last %>
     </div>
 
-    <%= link_to messenger_start_thread_path(user_id: user.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { category: "User", label: "Favorites" } do %>
-      <%= icon_tag "speech-bubbles" %><span>Zum Messenger</span>
+    <%= link_to messenger_start_thread_path(user_id: user.id), rel: 'nofollow', class: "btn-primary -mint btn-messenger", id: 'requestMessengerBtn', data: { label: "User" } do %>
+      <%= icon_tag "speech-bubbles" %><span>Im Messenger kontaktieren</span>
     <% end %>
 
   </div>
