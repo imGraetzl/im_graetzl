@@ -6,6 +6,9 @@
     align-items: center;
     justify-content: center;
     max-height:50px;
+    @include respond-to("<=small") {
+      padding: 1.4rem 0.5rem;
+    }
   }
   .btn-messenger, .btn-avatar {
     white-space: nowrap;
@@ -13,7 +16,7 @@
     display: flex;
     gap: 7px;
   }
-  a.toggle-fav-ico {
+  .toggle-fav-ico {
     max-width:50px;
     &.-faved {
       @extend .-rose;
@@ -22,6 +25,11 @@
   svg.icon {
     min-width:28px;
     min-height:28px;
+  }
+  &.-only-sticky {
+    @include respond-to(">medium") {
+      display: none;
+    }
   }
   &:not(.-no-sticky) {
     @include respond-to("<=medium") {
