@@ -44,6 +44,9 @@
       background-color: white;
       border-top: 1px solid $color-ambient-mint-light;
     }
+    &.hide {
+      display: none;
+    }
   }
   .mobile {
     @include respond-to(">medium") {
