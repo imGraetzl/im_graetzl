@@ -83,9 +83,10 @@
     </div>
   </div>
 
-  <% if @crowd_campaign.crowd_pledges.initialized.visible.present? || @crowd_campaign.crowd_donation_pledges.present? %>
+  <% if @crowd_campaign.crowd_pledges.initialized.visible.exists? || @crowd_campaign.crowd_donation_pledges.exists? %>
+    <% pledges_count = @crowd_campaign.crowd_donation_pledges.any? ? 3 : 4 %>
     <div class="last-supporters">
-      <% @crowd_campaign.crowd_pledges.initialized.visible.order(created_at: :desc).first(3).each do |crowd_pledge| %>
+      <% @crowd_campaign.crowd_pledges.initialized.visible.order(created_at: :desc).first(pledges_count).each do |crowd_pledge| %>
         <div class="supporter">
           <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
           <div class="name">

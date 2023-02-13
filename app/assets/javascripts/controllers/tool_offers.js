@@ -16,6 +16,12 @@ APP.controllers.tool_offers = (function() {
         onClose: function() {
           $(document.activeElement).blur();
         },
+        onOpen: function() {
+          $(".sticky-btns").addClass('hide');
+        },
+        onClose: function() {
+          $(".sticky-btns").removeClass('hide');
+        }
       }).off('focus').on("change", function() {
         if ($('.request-price-form .date-from').val() && $('.request-price-form .date-to').val()) {
           $('.request-price-form').submit();

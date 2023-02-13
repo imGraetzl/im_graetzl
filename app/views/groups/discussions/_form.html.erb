@@ -45,12 +45,14 @@
     </div>
   <% end %>
 
+  <!--
   <% if f.object.new_record? && @group.default_joined? && @group.admins.include?(current_user) && current_user.admin? %>
     <div class="input-checkbox">
-      <input name="trigger_notification" type="hidden" value="0"><input type="checkbox" value="1" name="trigger_notification" id="trigger_notification">
+      <input name="trigger_notification" type="hidden"><input type="checkbox" name="trigger_notification" id="trigger_notification">
       <label for="trigger_notification"><strong>E-Mail Trigger?</strong> (<%= @group.group_users.size %> Gruppenmitglieder werden per E-Mail informiert - Default am nächsten Tag.)</label>
     </div>
   <% end %>
+  -->
 
   <%= f.button 'Thema erstellen', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>
 

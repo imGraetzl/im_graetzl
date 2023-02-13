@@ -34,7 +34,7 @@ class DiscussionsController < ApplicationController
     @discussion.discussion_posts.build(discussion_post_params.merge(initial_post: true, user: current_user))
     if @discussion.save
       @discussion.discussion_followings.create(user: current_user)
-      notify = @group.default_joined? ? @group.admins.include?(current_user) && params[:trigger_notification] == "1" : true
+      notify = @group.default_joined? ? @group.admins.include?(current_user) && params[:trigger_notification].present? : true
       ActionProcessor.track(@discussion, notify ? :create : :create_without_notify)
       redirect_to [@group, @discussion, anchor: "topic"]
     else
