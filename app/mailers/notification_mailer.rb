@@ -67,8 +67,17 @@ class NotificationMailer < ApplicationMailer
     @region = region
 
     # Insert last sticky post from admin-group as featured_discussion
-    admin_group = Group.in(@region).default_joined.last
-    @featured_discussion = admin_group&.discussions&.include_in_weekly_mail.last if admin_group
+    if @region.id == 'wien'
+      admin_group_id = 54
+    elsif @region.id == 'kaernten'
+      admin_group_id = 60
+    elsif @region.id == 'muehlviertler-kernland'
+      admin_group_id = 61
+    else
+      admin_group_id = false
+    end
+
+    @featured_discussion = Group.find_by(id: admin_group_id)&.discussions&.include_in_weekly_mail&.last
 
     @notifications = user.pending_notifications(@region, @period).where(
       type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)

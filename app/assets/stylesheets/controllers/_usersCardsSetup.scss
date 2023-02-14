@@ -142,6 +142,11 @@ section.usersetup {
     .table-container .img-square {
       margin-right:8px;
     }
+    li.hint {
+      font-style: italic;
+      padding-top:20px;
+      list-style: none;
+    }
   }
 
   .selectlocation, .selectroom {

@@ -17,8 +17,7 @@ class Discussion < ApplicationRecord
   scope :regular, -> { where(sticky: false) }
   scope :include_in_weekly_mail, -> {
     where(sticky: true).
-    where("discussions.created_at >= :lastweek", lastweek: 7.days.ago).
-    joins(:group).merge(Group.default_joined)
+    where("created_at >= :lastweek", lastweek: 7.days.ago)
   }
 
   def open?

@@ -11,8 +11,8 @@ class RoomBooster < ApplicationRecord
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :upcoming, -> { active.where("send_at_date > :today", today: Date.today)}
 
+  before_create :set_booster_dates
   after_update :update_room_offer, if: -> { saved_change_to_status? }
-  before_create :set_send_at_date
 
   def self.next_invoice_number
     where("invoice_number IS NOT NULL").count + 1
@@ -64,7 +64,7 @@ class RoomBooster < ApplicationRecord
   end
 
   def runtime
-    "#{I18n.localize(self.created_at, format:'%d.%m.%Y') if self.created_at} - #{I18n.localize(self.created_at + 7.days, format:'%d.%m.%Y') if self.created_at}"
+    "#{I18n.localize(self.starts_at_date, format:'%d.%m.%Y')} - #{I18n.localize(self.ends_at_date, format:'%d.%m.%Y')}"
   end
 
   def update_room_offer
@@ -75,10 +75,25 @@ class RoomBooster < ApplicationRecord
     end
   end
 
+  def boost_available?(room_booster)
+    RoomBooster.in(room_booster.region).active.count < 2
+  end
+
+  def next_available_boost_date?(room_booster)
+    if boost_available?(room_booster)
+      Date.today
+    else
+      RoomBooster.in(room_booster.region).active.last.ends_at_date + 1.day
+    end
+  end
+
   private
 
-  def set_send_at_date
-    self.send_at_date = Date.today.next_occurring(:tuesday)
+  def set_booster_dates
+    next_start_date = next_available_boost_date?(self)
+    self.starts_at_date = next_start_date
+    self.send_at_date = next_start_date.next_occurring(:tuesday)
+    self.ends_at_date = next_start_date + 7.days
   end
 
 end

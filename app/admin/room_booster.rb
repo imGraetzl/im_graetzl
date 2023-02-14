@@ -4,6 +4,7 @@ ActiveAdmin.register RoomBooster do
   actions :all, except: [:new, :create, :destroy, :edit]
 
   scope :initialized, default: true
+  scope :pending
   scope :active
   scope :upcoming
   scope :expired
