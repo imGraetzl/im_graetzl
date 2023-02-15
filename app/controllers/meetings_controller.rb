@@ -30,6 +30,7 @@ class MeetingsController < ApplicationController
     @meeting.user = current_user.admin? ? User.find(params[:user_id]) : current_user
     @meeting.region_id = current_region.id
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
+    @meeting.last_activated_at = Time.now
 
     if !current_user.admin? && meeting = Meeting.upcoming.where(user_id: current_user.id).where(name: @meeting.name).last
       flash.now[:notice] = "Du hast bereits ein zukünftiges Treffen mit dem Titel: '#{view_context.link_to meeting, [meeting.graetzl, meeting]}' erstellt. Du kannst dieses #{view_context.link_to 'hier bearbeiten', edit_meeting_path(meeting)} um es zu aktualisieren bzw. um weitere Termine hinzuzufügen."
@@ -51,6 +52,8 @@ class MeetingsController < ApplicationController
 
   def update
     @meeting = find_user_meeting
+    starts_at_date_before = @meeting.starts_at_date
+
     @meeting.assign_attributes(meeting_params)
     @meeting.state = :active
     @meeting.clear_address if @meeting.online_meeting?
@@ -58,6 +61,16 @@ class MeetingsController < ApplicationController
     @meeting.meeting_additional_dates.delete_all if params[:date_option] != 'multiple'
 
     if @meeting.save
+
+      if starts_at_date_before < Date.today && starts_at_date_before != @meeting.starts_at_date
+        # Create new Activity and Notifications if StartDate has changed from past into future
+        ActionProcessor.track(@meeting, :create)
+        @meeting.update(last_activated_at: Time.now)
+      elsif starts_at_date_before != @meeting.starts_at_date
+        # Just update existing Notifications if StartDate has changed
+        ActionProcessor.track(@meeting, :update)
+      end
+
       redirect_to [@meeting.graetzl, @meeting]
     else
       render :edit

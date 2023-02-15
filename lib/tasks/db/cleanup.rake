@@ -13,9 +13,9 @@ namespace :db do
 
     Activity.where(subject_type: 'Meeting').find_each do |activity|
       if activity.subject.ends_at_date
-        activity.destroy if activity.subject.ends_at_date < Date.yesterday
+        activity.destroy if activity.subject.ends_at_date < Date.today
       else
-        activity.destroy if activity.subject.starts_at_date < Date.yesterday
+        activity.destroy if activity.subject.starts_at_date < Date.today
       end
     end
 

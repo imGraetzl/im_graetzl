@@ -70,7 +70,7 @@ class RoomBooster < ApplicationRecord
   def update_room_offer
     if room_offer && active?
       room_offer.update_attribute(:boosted, true)
-    elsif room_offer
+    elsif room_offer && (expired? || storno?)
       room_offer.update_attribute(:boosted, false)
     end
   end
@@ -83,7 +83,7 @@ class RoomBooster < ApplicationRecord
     if boost_available?(room_booster)
       Date.today
     else
-      RoomBooster.in(room_booster.region).active.last.ends_at_date + 1.day
+      RoomBooster.in(room_booster.region).active.sort_by(&:ends_at_date).first.ends_at_date + 1.day
     end
   end
 
