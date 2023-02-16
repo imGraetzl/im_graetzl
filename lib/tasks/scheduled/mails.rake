@@ -43,6 +43,17 @@ namespace :scheduled do
     end
   end
 
+  desc 'Send pending immediate mails'
+  task pending_immediate_mails: :environment do
+    puts "Rake pending_immediate_mails start at #{Time.now}"
+
+    Notification.where(type: 'Notifications::NewMeeting').where('notify_at = ?', Date.today).where(sent: false).each do |notification|
+      if notification.user.enabled_mail_notification?(notification, :immediate)
+        NotificationMailer.send_immediate(notification).deliver_later
+      end
+    end
+  end
+
   task test_summary_mail: :environment do
     #user = User.find_by(email: "michael.walchhuetter@gmail.com")
 
