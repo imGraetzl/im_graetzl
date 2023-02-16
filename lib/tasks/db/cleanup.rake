@@ -4,8 +4,8 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     # Delete Expired and already sent Notifications
-    Notification.where('notify_at < ?', 15.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).destroy_all
-    Notification.where('notify_at < ?', 15.days.ago).where(sent: true).destroy_all
+    Notification.where('notify_at < ?', 14.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).destroy_all
+    Notification.where('notify_at < ?', 14.days.ago).where(sent: true).destroy_all
 
     # Delete WeLocally Activities after 12 Months and Vienna Activities after 6 Months
     Activity.where('created_at < ?', 12.months.ago).destroy_all
@@ -13,9 +13,9 @@ namespace :db do
 
     Activity.where(subject_type: 'Meeting').find_each do |activity|
       if activity.subject.ends_at_date
-        activity.destroy if activity.subject.ends_at_date < Date.yesterday
+        activity.destroy if activity.subject.ends_at_date < Date.today
       else
-        activity.destroy if activity.subject.starts_at_date < Date.yesterday
+        activity.destroy if activity.subject.starts_at_date < Date.today
       end
     end
 

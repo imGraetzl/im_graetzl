@@ -33,8 +33,18 @@ class RoomBoosterService
   end
 
   def payment_succeeded(room_booster, payment_intent)
-    room_booster.update(payment_status: 'debited', status: 'active', debited_at: Time.current)
-    RoomBoosterService.new.delay.create(room_booster) if room_booster.invoice_number.nil?
+    room_booster.update(payment_status: 'debited', debited_at: Time.current)
+
+    if room_booster.starts_at_date == Date.today && room_booster.invoice_number.nil?
+      room_booster.update(status: 'active')
+      RoomBoosterService.new.delay.create(room_booster)
+    else
+      room_booster.update(status: 'pending')
+    end
+
+    generate_invoice(room_booster)
+    RoomMailer.room_booster_invoice(room_booster).deliver_later(wait: 1.minute)
+    AdminMailer.new_room_booster(room_booster).deliver_later
 
     { success: true }
   end
@@ -54,20 +64,21 @@ class RoomBoosterService
   def create(room_booster)
     ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
     room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
-    generate_invoice(room_booster)
-    RoomMailer.room_booster_invoice(room_booster).deliver_later(wait: 1.minute)
-    AdminMailer.new_room_booster(room_booster).deliver_later
   end
 
   def create_for_free(room_booster)
-    room_booster.update(payment_status: 'free', status: 'active', amount: 0)
-    ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
-    room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
+    if room_booster.starts_at_date == Date.today
+      room_booster.update(payment_status: 'free', status: 'active', amount: 0)
+      ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
+      room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
+    else
+      room_booster.update(payment_status: 'free', status: 'pending', amount: 0)
+    end
   end
 
   # Daily PushUp
   def push_up(room_booster)
-    return if !room_booster.room_offer
+    return if !room_booster.active? && !room_booster.room_offer
     ActionProcessor.track(room_booster.room_offer, :boost_pushup, room_booster) # Raumteiler Activity PushUp
     room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
   end

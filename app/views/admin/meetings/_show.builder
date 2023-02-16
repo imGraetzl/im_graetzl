@@ -19,6 +19,7 @@ context.instance_eval do
           end
           row :slug
           row :created_at
+          row :last_activated_at
           row :location
           row :group
           row :user

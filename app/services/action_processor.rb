@@ -53,14 +53,27 @@ class ActionProcessor
 
     when [Meeting, :update]
       if subject.public?
-        #Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
-        Activity.add_public(subject, to: subject.graetzl)
-        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+
+        # Update existing Notifications to new Dates
+        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').any?
+          Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
+            notify_at: subject.notification_time_range.first || Time.current,
+            notify_before: subject.notification_time_range.last,
+            sort_date: subject.notification_sort_date,
+          )
+        end
+
       elsif subject.group_id
-        Activity.add_personal(subject, group: subject.group)
-        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+
+        # Update existing Notifications to new Dates
+        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').any?
+          Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').update_all(
+            notify_at: subject.notification_time_range.first || Time.current,
+            notify_before: subject.notification_time_range.last,
+            sort_date: subject.notification_sort_date,
+          )
+        end
+        
       end
 
     when [Meeting, :attended]

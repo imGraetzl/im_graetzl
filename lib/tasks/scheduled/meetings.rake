@@ -7,20 +7,11 @@ namespace :scheduled do
       model.destroy
     end
 
-    # Update all past meetings to next additional date.
-    # Add activity only if it has been a week since the last one.
+    # Update past meetings to next additional date and may refresh activity
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
-      if meeting.meeting_additional_dates.present?
+      if meeting.meeting_additional_dates.any?
         meeting.activate_next_date!
-        Rails.logger.info("[Meeting] Meeting (#{meeting.id}) updated next meeting date: #{meeting.starts_at_date}")
-
-        # Update Activity if there is none in the last week or 2 weeks for online meetings
-        if meeting.online_meeting? && !Activity.where(subject: meeting).where("created_at >= ?", 2.weeks.ago).exists?
-          ActionProcessor.track(meeting, :update)
-        elsif !meeting.online_meeting? && !Activity.where(subject: meeting).where("created_at >= ?", 1.week.ago).exists?
-          ActionProcessor.track(meeting, :update)
-        end
-
+        ActionProcessor.track(meeting, :create) if meeting.refresh_activity
       end
     end
 

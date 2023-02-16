@@ -103,6 +103,12 @@ class Meeting < ApplicationRecord
     next_meeting.destroy
   end
 
+  def refresh_activity
+    if active? && last_activated_at && last_activated_at <= 7.days.ago
+      update(last_activated_at: Time.now)
+    end
+  end
+
   def attendees
     self.going_tos.where.not(role: :initiator)
   end

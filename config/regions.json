@@ -2,6 +2,7 @@
   "wien": {
     "name": "Wien",
     "use_districts": true,
+    "public_group_id": 54,
     "room_booster_price": "30_00",
     "zuckerl_graetzl_price": "16_50",
     "zuckerl_entire_region_price": "125_00",
@@ -12,6 +13,7 @@
   "kaernten": {
     "name": "Kärnten",
     "use_districts": false,
+    "public_group_id": 60,
     "room_booster_price": "0_00",
     "zuckerl_graetzl_price": "5_00",
     "zuckerl_entire_region_price": "30_00",
@@ -22,6 +24,7 @@
   "muehlviertler-kernland": {
     "name": "Mühlviertler Kernland",
     "use_districts": false,
+    "public_group_id": 61,
     "room_booster_price": "0_00",
     "zuckerl_graetzl_price": "5_00",
     "zuckerl_entire_region_price": "30_00",

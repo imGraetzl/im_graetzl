@@ -80,7 +80,7 @@
             <span><%= icon_tag "rocket" %> Raumteiler Boost ist aktiv</span>
           <% end %>
         <% else %>
-          <%= link_to 'Raumteiler Boost starten', new_room_offer_room_booster_path(room_offer), class: 'btn-primary -small' if room_offer.enabled? && current_region.has_room_booster? %>
+          <%= link_to 'Raumteiler Boost starten', room_boosters_user_path, class: 'btn-primary -small' if room_offer.enabled? && current_region.has_room_booster? %>
         <% end %>
       </div>
 
