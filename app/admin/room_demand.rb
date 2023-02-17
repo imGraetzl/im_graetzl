@@ -39,12 +39,18 @@ ActiveAdmin.register RoomDemand do
   end
 
   csv do
-    column(:email) {|room| room.user.email if room.user }
+    #column(:email) {|room| room.user.email if room.user }
+    column :id
+    column :status
     #column :slogan
-    #column(:plz) { |room| room.districts.map(&:zip).join(", ") }
-    #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
+    District.all.order(:zip).each do |district|
+      column("#{district.zip}") {|room| district.room_demands.find_by_id(room.id) ? (1 / room.districts.count.to_f).round(3) : 0}
+    end
+    RoomCategory.all.each do |category|
+      column("#{category.name}") {|room| category.room_demands.find_by_id(room.id) ? (1 / room.room_categories.count.to_f).round(3) : 0}
+    end
     #column :created_at
-    column(:room_url) { |room| Rails.application.routes.url_helpers.room_demand_path(room)}
+    #column(:room_url) { |room| Rails.application.routes.url_helpers.room_demand_path(room)}
     #column(:room_state) { |room| I18n.t("activerecord.attributes.room_demand.statuses.#{room.status}")}
     #column(:room_type) { |room| I18n.t("activerecord.attributes.room_demand.demand_types.#{room.demand_type}")}
   end
