@@ -46,7 +46,7 @@ ActiveAdmin.register RoomDemand do
     District.all.order(:zip).each do |district|
       column("#{district.zip}") {|room| district.room_demands.find_by_id(room.id) ? (1 / room.districts.count.to_f).round(3) : 0}
     end
-    RoomCategory.all.each do |category|
+    RoomCategory.all.sort_by(&:position).each do |category|
       column("#{category.name}") {|room| category.room_demands.find_by_id(room.id) ? (1 / room.room_categories.count.to_f).round(3) : 0}
     end
     #column :created_at
