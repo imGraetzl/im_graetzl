@@ -27,7 +27,7 @@ class FavoritesController < ApplicationController
       favorites = favorites.select { |f| type_classes.include?(f.class.name.underscore) }
     end
 
-    @favorites = Kaminari.paginate_array(favorites).page(params[:page]).per(params[:per_page] || 15)
+    @favorites = Kaminari.paginate_array(favorites).page(params[:page]).per(params[:per_page] || 21)
   end
 
 end

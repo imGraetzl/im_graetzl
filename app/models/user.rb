@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :subscription_invoices
 
-  has_many :initiated_meetings, class_name: 'Meeting'
+  has_many :initiated_meetings, class_name: 'Meeting', dependent: :destroy
   has_many :going_tos, dependent: :destroy
   has_many :meeting_additional_dates, through: :going_tos, source: :meeting
   has_many :attended_meetings, through: :going_tos, source: :meeting
