@@ -70,7 +70,7 @@
           Bitte bewerte nun den Verleihvorgang bzw. <%= tool_rental.owner.first_name %> als Vermieter:
           <div class="leave-rating-container">
             <% (1..5).each do |rating| %>
-              <%= link_to '☆', leave_rating_tool_rental_path(tool_rental, rating: rating), method: 'post', class: 'star' %>
+              <%= link_to '☆', leave_rating_tool_rental_path(tool_rental, rating: rating), method: 'post', class: 'star', data: { :confirm => "Jetzt mit #{rating} Sternen bewerten." } %>
             <% end %>
           </div>
         <% else %>
