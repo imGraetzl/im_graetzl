@@ -146,7 +146,7 @@
   </div>
 
   <div class="date-fields additional-dates" id="date-option-multiple">
-    <%= f.fields_for :meeting_additional_dates, f.object.meeting_additional_dates.upcoming do |field_form| %>
+    <%= f.fields_for :meeting_additional_dates, f.object.meeting_additional_dates.sort_by { |d| [d.starts_at_date, d.starts_at_time] } do |field_form| %>
       <%= render 'meetings/form/additional_date_fields', f: field_form if f.object.meeting_additional_dates.any? %>
     <% end %>
     <div class="meet-when meeting-additional-dates-links">

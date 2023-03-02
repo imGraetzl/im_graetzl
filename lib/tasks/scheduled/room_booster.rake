@@ -4,7 +4,7 @@ namespace :scheduled do
   task room_booster_push_and_expire: :environment do
 
     # Expire Ending Boosters
-    RoomBooster.active.where("DATE(ends_at_date) = ?", Date.today).find_each do |room_booster|
+    RoomBooster.active.where("DATE(ends_at_date) = ?", Date.yesterday).find_each do |room_booster|
       RoomBoosterService.new.expire(room_booster)
     end
 

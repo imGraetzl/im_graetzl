@@ -22,11 +22,15 @@ namespace :db do
     # Delete going_tos from deleted meeting
     GoingTo.where(meeting_id: nil).destroy_all
 
-    # Delete Meetings without User - Todo: Add to UserModel
-    Meeting.where(user_id: nil).destroy_all
+    # Delete Meetings without User - Added to Model now
+    # Meeting.where(user_id: nil).destroy_all
 
     # Delete empty UserMessageThreads
     UserMessageThread.where(thread_type: 'general').where(last_message: nil).destroy_all
+
+    Group.find_each do |group|
+      Group.reset_counters(group.id, :group_users)
+    end
 
   end
 end
