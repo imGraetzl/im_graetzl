@@ -103,8 +103,6 @@
     </div>
   <% end %>
 
-
-
   <!-- ONLINE BOOKING -->
   <div id="sticky-overlay-bg"></div>
   <% if @room_offer.rental_enabled? && @room_offer.enabled? %>
@@ -117,9 +115,7 @@
         <h3 class="sidebar">Kurzzeitmiete</h3>
       </div>
 
-      <div class="scroll-container">
-
-        <div class="pricingForm">
+      <div class="pricingForm">
           <div class="package-pricing">
             <ul>
               <li>
@@ -144,7 +140,7 @@
         <div id="rental-form-container">
           <%= render 'room_offers/show/rental_form' %>
         </div>
-      </div>
+
     </div>
   <% end %>
 
