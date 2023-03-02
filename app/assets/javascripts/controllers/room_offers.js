@@ -78,11 +78,13 @@ APP.controllers.room_offers = (function() {
     $('.btn-book').on("click", function() {
       $('#booking-box').addClass('sticky-box');
       $('#sticky-overlay').addClass('sticky-box-overlay');
+      unscroll();
     });
 
     $('#booking-box .close-ico, #sticky-overlay').on("click", function() {
       $('#booking-box').removeClass('sticky-box');
       $('#sticky-overlay').removeClass('sticky-box-overlay');
+      unscroll.reset();
     });
 
 
