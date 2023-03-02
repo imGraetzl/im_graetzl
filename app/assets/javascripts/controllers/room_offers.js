@@ -76,10 +76,16 @@ APP.controllers.room_offers = (function() {
     });
 
     $('.btn-book').on("click", function() {
-      $('html, body').animate({
-        scrollTop: $('#booking-box').offset().top
-      }, 600);
+      $('#booking-box').addClass('sticky-box');
+      $('#sticky-overlay').addClass('sticky-box-overlay');
     });
+
+    $('#booking-box .close-ico, #sticky-overlay').on("click", function() {
+      $('#booking-box').removeClass('sticky-box');
+      $('#sticky-overlay').removeClass('sticky-box-overlay');
+    });
+
+
 
   }
 

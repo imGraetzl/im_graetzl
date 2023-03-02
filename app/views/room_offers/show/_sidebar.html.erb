@@ -106,9 +106,12 @@
 
 
   <!-- ONLINE BOOKING -->
+  <div id="sticky-overlay"></div>
   <% if @room_offer.rental_enabled? && @room_offer.enabled? %>
     <div class="sideBarbox -top" id="booking-box">
 
+      <%= button_tag '', class: 'close-ico -hidden' do %><%= icon_tag "cross" %><% end %>
+      
       <div class="headline-slots">
         <%= icon_tag "slots" %>
         <h3 class="sidebar">Kurzzeitmiete</h3>
