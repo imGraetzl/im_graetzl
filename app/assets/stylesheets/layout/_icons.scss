@@ -49,9 +49,9 @@
 }
 .touch .favorites-container {
   .fav-exchange {
-    display: none;
+    display: none !important;
   }
   .toggle-fav-ico {
-    display: block;
+    display: block !important;
   }
 }
