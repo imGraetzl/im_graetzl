@@ -106,7 +106,7 @@
 
 
   <!-- ONLINE BOOKING -->
-  <div id="sticky-overlay"></div>
+  <div id="sticky-overlay-bg"></div>
   <% if @room_offer.rental_enabled? && @room_offer.enabled? %>
     <div class="sideBarbox -top" id="booking-box">
 
@@ -117,31 +117,33 @@
         <h3 class="sidebar">Kurzzeitmiete</h3>
       </div>
 
+      <div class="scroll-container">
 
-      <div class="pricingForm">
-        <div class="package-pricing">
-          <ul>
-            <li>
-              <%= icon_tag "label-tag" %>
-              <div class="costname">
-                <%= @room_offer.room_rental_price.price_per_hour.to_i %> € / Stunde
-              </div>
-            </li>
-            <% if @room_offer.room_rental_price.eight_hour_discount.to_i > 0 %>
-            <li>
-              <%= icon_tag "label-tag" %>
-              <div class="costname">
-                <%= @room_offer.room_rental_price.daily_price.to_i %> € / Tag (8h)<br>
-                <small class="discount"><%= @room_offer.room_rental_price.eight_hour_discount %>% Rabatt</small>
-              </div>
-            </li>
-            <% end %>
-          </ul>
+        <div class="pricingForm">
+          <div class="package-pricing">
+            <ul>
+              <li>
+                <%= icon_tag "label-tag" %>
+                <div class="costname">
+                  <%= @room_offer.room_rental_price.price_per_hour.to_i %> € / Stunde
+                </div>
+              </li>
+              <% if @room_offer.room_rental_price.eight_hour_discount.to_i > 0 %>
+              <li>
+                <%= icon_tag "label-tag" %>
+                <div class="costname">
+                  <%= @room_offer.room_rental_price.daily_price.to_i %> € / Tag (8h)<br>
+                  <small class="discount"><%= @room_offer.room_rental_price.eight_hour_discount %>% Rabatt</small>
+                </div>
+              </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div id="rental-form-container">
-        <%= render 'room_offers/show/rental_form' %>
+        <div id="rental-form-container">
+          <%= render 'room_offers/show/rental_form' %>
+        </div>
       </div>
     </div>
   <% end %>

@@ -76,14 +76,14 @@ APP.controllers.room_offers = (function() {
     });
 
     $('.btn-book').on("click", function() {
-      $('#booking-box').addClass('sticky-box');
-      $('#sticky-overlay').addClass('sticky-box-overlay');
+      $('#booking-box').addClass('sticky-overlay');
+      $('#sticky-overlay-bg').show();
       unscroll();
     });
 
     $('#booking-box .close-ico, #sticky-overlay').on("click", function() {
-      $('#booking-box').removeClass('sticky-box');
-      $('#sticky-overlay').removeClass('sticky-box-overlay');
+      $('#booking-box').removeClass('sticky-overlay');
+      $('#sticky-overlay-bg').hide();
       unscroll.reset();
     });
 
