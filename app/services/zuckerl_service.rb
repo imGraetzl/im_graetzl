@@ -129,8 +129,8 @@ class ZuckerlService
       stripe_payment_method_id: payment_intent.payment_method.id,
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
-      payment_status: 'processing',
     )
+
     true
   end
 
@@ -141,7 +141,7 @@ class ZuckerlService
   end
 
   def retry_payment_methods(zuckerl)
-    ['card', 'sepa_debit', 'sofort']
+    ['card', 'eps']
   end
 
   def payment_method_last4(payment_method)
