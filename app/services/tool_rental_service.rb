@@ -117,7 +117,6 @@ class ToolRentalService
       stripe_payment_method_id: payment_intent.payment_method.id,
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
-      payment_status: 'processing',
     )
     true
   end
@@ -164,11 +163,7 @@ class ToolRentalService
   end
 
   def retry_payment_methods(tool_rental)
-    if tool_rental.total_price <= 200
-      ['card', 'sepa_debit', 'sofort']
-    else
-      ['card', 'sofort']
-    end
+    ['card', 'eps']
   end
 
   def payment_method_last4(payment_method)

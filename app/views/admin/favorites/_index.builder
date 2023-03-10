@@ -4,5 +4,6 @@ context.instance_eval do
   column :user
   column :favoritable_type
   column :favoritable
+  column :created_at
   actions
 end

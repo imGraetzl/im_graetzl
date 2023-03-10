@@ -79,6 +79,11 @@ APP.controllers.room_offers = (function() {
       $('#booking-box').addClass('sticky-overlay');
       $('#sticky-overlay-bg').show();
       unscroll();
+      gtag(
+        'event', 'Raumangebot :: Kurzzeitmiete Buchungsbox', {
+        'event_category': 'Raumteiler',
+        'event_label': 'Open :: Modal'
+      });
     });
 
     $('#booking-box .close-ico, #sticky-overlay').on("click", function() {

@@ -1,5 +1,15 @@
 class AdminMailer < ApplicationMailer
 
+  def daily_mail
+    @region = Region.get('wien')
+
+    mail(
+      subject: "[#{@region.host_domain_name}] Daily Mail",
+      from: platform_email("no-reply"),
+      to: platform_email("michael", "Michael"),
+    )
+  end
+
   def new_zuckerl(zuckerl)
     @zuckerl = zuckerl
     @region = @zuckerl.region

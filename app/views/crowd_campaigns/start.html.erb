@@ -34,6 +34,7 @@
     <%= link_to "Zu deinen bestehenden Projekten", crowd_campaigns_user_path, class: 'btn-primary -mint -large -shadow btn' if current_user && current_user.crowd_campaigns.present? %>
     <div class="btn">
       <%= link_to "Starte jetzt ein neues Projekt", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %>
+      <!--
       <% if current_region.use_districts? %>
       <div class="">
         <div class="input-checkbox">
@@ -42,9 +43,11 @@
         </div>
       </div>
       <% end %>
+      -->
     </div>
   </div>
 
+<!--
 <% if current_region.use_districts? %>
   <div class="cardBox -call">
     <txt class="wrp">
@@ -68,6 +71,7 @@
     <div class="card"></div>
   </div>
 <% end %>
+-->
 
   <div class="guidelines">
     <h4>Kosten:</h4>
