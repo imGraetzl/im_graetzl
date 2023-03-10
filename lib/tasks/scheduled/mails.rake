@@ -1,5 +1,10 @@
 namespace :scheduled do
 
+  desc 'Send daily Admin Mail'
+  task daily_mail: :environment do
+    AdminMailer.daily_mail.deliver_later
+  end
+
   desc 'Send messenger notifications'
   task unseen_messages: :environment do
     time_range = 1.day.ago..10.minutes.ago
