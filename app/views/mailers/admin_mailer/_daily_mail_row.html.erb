@@ -16,17 +16,17 @@
 <% elsif local_assigns[:percentage] %>
     <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= title %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: yesterday).sum(local_assigns[:amount]) * local_assigns[:percentage]) %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: current_month).sum(local_assigns[:amount]) * local_assigns[:percentage]) %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: last_month).sum(local_assigns[:amount]) * local_assigns[:percentage]) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(debited_at: yesterday).sum(local_assigns[:amount]) * local_assigns[:percentage]) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(debited_at: current_month).sum(local_assigns[:amount]) * local_assigns[:percentage]) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(debited_at: last_month).sum(local_assigns[:amount]) * local_assigns[:percentage]) %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.sum(local_assigns[:amount]) * local_assigns[:percentage]) %></td>
     </tr>
 <% elsif local_assigns[:amount] %>
     <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= title %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: yesterday).sum(local_assigns[:amount])) %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: current_month).sum(local_assigns[:amount])) %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: last_month).sum(local_assigns[:amount])) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(debited_at: yesterday).sum(local_assigns[:amount])) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(debited_at: current_month).sum(local_assigns[:amount])) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(debited_at: last_month).sum(local_assigns[:amount])) %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px; white-space: nowrap;"><%= number_to_currency(collection.sum(local_assigns[:amount])) %></td>
     </tr>
 <% elsif local_assigns[:sum] %>
