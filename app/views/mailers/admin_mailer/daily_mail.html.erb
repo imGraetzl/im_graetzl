@@ -25,8 +25,8 @@
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
     <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungen", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Großes Zuckerl", collection: Zuckerl.initialized.entire_region %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.initialized.graetzl %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Großes Zuckerl", collection: Zuckerl.marked_as_paid.entire_region %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.marked_as_paid.graetzl %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.marked_as_paid, amount: :amount %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Booster", collection: RoomBooster.initialized %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Booster Einnahmen", collection: RoomBooster.initialized, amount: :amount %>
@@ -75,6 +75,14 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Raum", collection: RoomOffer %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum | Active", collection: RoomDemand.enabled, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum", collection: RoomDemand %>
+    </tbody>
+  </table>
+
+
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Messenger", thead: true %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Messenger Nachrichten", collection: UserMessage %>
     </tbody>
   </table>
 
