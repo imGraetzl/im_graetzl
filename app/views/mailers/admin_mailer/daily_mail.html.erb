@@ -1,6 +1,5 @@
-  <% content_for(:above_title, "Daily Mail") %>
-  <% content_for(:title, "#{I18n.localize(Date.today, format:'%A, %d. %B %Y')}") %>
-
+  <% content_for(:above_title, "imGrätzl Daily Mail") %>
+  <% content_for(:title, "#{I18n.localize(Date.yesterday, format:'%A, %d. %B %Y')}") %>
 
 
   <%= render 'mailers/notification_mailer/summary/block_header', title: 'Zusammenfassung' %>
@@ -19,6 +18,7 @@
     <%= render 'mailers/admin_mailer/daily_mail_row', title: "Fördermitgliedschaft", thead: true %>
     <tbody>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Fördermitgliedschaft", collection: Subscription.active %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaft Einnahmen", collection: Subscription.active.includes(:subscription_plan), amount: :amount %>
     </tbody>
   </table>
 
@@ -27,9 +27,12 @@
     <tbody>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Großes Zuckerl", collection: Zuckerl.initialized.entire_region %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.initialized.graetzl %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.marked_as_paid, amount: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.marked_as_paid, amount: :amount %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Booster", collection: RoomBooster.initialized %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Booster Einnahmen", collection: RoomBooster.initialized, amount: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Booster Einnahmen", collection: RoomBooster.initialized, amount: :amount %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Buchung", collection: RoomRental.where(payment_status: [:authorized, :processing, :debited]) %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungs Provision", collection: RoomRental.debited, amount: :service_fee %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding Provision", collection: CrowdPledge.debited, amount: :total_price, percentage: 0.05 %>
     </tbody>
   </table>
 
