@@ -6,30 +6,30 @@
   <%= render 'mailers/notification_mailer/summary/block_header', title: 'Zusammenfassung' %>
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Registrierungen" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Registrierungen", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Gesamt", collection: User %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Gesamt", collection: User %>
       <% Region.all.each do |region| %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: region, collection: User.in(region) %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: region, collection: User.in(region) %>
       <% end %>
     </tbody>
   </table>
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Fördermitgliedschaft" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Fördermitgliedschaft", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Fördermitgliedschaft", collection: Subscription.active %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Fördermitgliedschaft", collection: Subscription.active %>
     </tbody>
   </table>
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Buchungen" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungen", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Großes Zuckerl", collection: Zuckerl.initialized.entire_region %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Kleines Zuckerl", collection: Zuckerl.initialized.graetzl %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Zuckerl Einnahmen", collection: Zuckerl.marked_as_paid, amount: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Raumteiler Booster", collection: RoomBooster.initialized %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Booster Einnahmen", collection: RoomBooster.initialized, amount: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Großes Zuckerl", collection: Zuckerl.initialized.entire_region %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.initialized.graetzl %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.marked_as_paid, amount: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Booster", collection: RoomBooster.initialized %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Booster Einnahmen", collection: RoomBooster.initialized, amount: true %>
     </tbody>
   </table>
 
@@ -38,60 +38,60 @@
   <%= render 'mailers/notification_mailer/summary/block_header', title: 'Erstellte Inhalte' %>
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Schaufenster" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Schaufenster", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Schaufenster", collection: Location %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Schaufenster Update", collection: LocationPost %> 
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Schaufenster", collection: Location %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Schaufenster Update", collection: LocationPost %> 
     </tbody>
   </table>
 
   
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Treffen" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Treffen", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Treffen | Upcoming", collection: Meeting.upcoming, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Treffen", collection: Meeting %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Treffen Teilnahme", collection: GoingTo.attendee %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Treffen | Upcoming", collection: Meeting.upcoming, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Treffen", collection: Meeting %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Treffen Teilnahme", collection: GoingTo.attendee %>
     </tbody>
   </table>
 
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Coop & Share" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Coop & Share | Active", collection: CoopDemand.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Coop & Share", collection: CoopDemand %>
-    </tbody>
-  </table>
-
-  
-  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Raumteiler" %>
-    <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Habe Raum | Active", collection: RoomOffer.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Habe Raum", collection: RoomOffer %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Raum | Active", collection: RoomDemand.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Raum", collection: RoomDemand %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share | Active", collection: CoopDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", collection: CoopDemand %>
     </tbody>
   </table>
 
   
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Geräteteiler" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Habe Gerät | Active", collection: ToolOffer.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Gerät", collection: ToolOffer %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Gerät | Active", collection: ToolDemand.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Gerät", collection: ToolDemand %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Raum | Active", collection: RoomOffer.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Raum", collection: RoomOffer %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum | Active", collection: RoomDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum", collection: RoomDemand %>
     </tbody>
   </table>
 
   
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Crowdfunding" %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Geräteteiler", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Kampagnen | Visible", collection: CrowdCampaign.scope_public, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Kampagnen", collection: CrowdCampaign %>
-      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Gerät | Active", collection: ToolOffer.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät", collection: ToolOffer %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät | Active", collection: ToolDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät", collection: ToolDemand %>
+    </tbody>
+  </table>
+
+  
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding", thead: true %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen | Visible", collection: CrowdCampaign.scope_public, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
     </tbody>
   </table>

@@ -3,7 +3,17 @@
 <% last_month = (1.month.ago.at_beginning_of_month.beginning_of_day)..(1.month.ago.at_end_of_month.end_of_day) %>
 <% last_30_days = (30.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
 
-<% if local_assigns[:amount] %>
+<% if local_assigns[:thead] %>
+    <thead>
+        <tr style="background-color: #96D4D4; font-size:0.8rem; text-align:right;">
+            <th style="width: 40%; font-size:1.0rem; text-align:left; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= title %></th>
+            <th style="width: 15%; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;">Gestern</th>
+            <th style="width: 15%; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= I18n.localize(Date.today, format:'%B') %></th>
+            <th style="width: 15%; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= I18n.localize(1.month.ago, format:'%B') %></th>
+            <th style="width: 15%; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;">Gesamt</th>
+        </tr>
+    </thead>
+<% elsif local_assigns[:amount] %>
     <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= title %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= number_to_currency(collection.where(created_at: yesterday).sum(:amount)) %></td>
