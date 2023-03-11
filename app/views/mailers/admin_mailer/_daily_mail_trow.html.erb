@@ -1,0 +1,27 @@
+<% yesterday = (1.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
+<% current_month = (1.days.ago.at_beginning_of_month.beginning_of_day)..(1.days.ago.end_of_day) %>
+<% last_month = (1.month.ago.at_beginning_of_month.beginning_of_day)..(1.month.ago.at_end_of_month.end_of_day) %>
+<% last_30_days = (30.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
+
+<% if local_assigns[:amount] %>
+    <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
+        <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= title %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= number_to_currency(collection.where(created_at: yesterday).sum(:amount)) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= number_to_currency(collection.where(created_at: current_month).sum(:amount)) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= number_to_currency(collection.where(created_at: last_month).sum(:amount)) %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= number_to_currency(collection.sum(:amount)) %></td>
+    </tr>
+<% elsif local_assigns[:sum] %>
+    <tr style="font-size:0.8rem; text-align:right;">
+        <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;" colspan="4"><%= title %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= collection.all.size %></td>
+    </tr>
+<% else %>
+    <tr style="font-size:0.8rem; text-align:right;">
+        <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= title %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= collection.where(created_at: yesterday).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= collection.where(created_at: current_month).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= collection.where(created_at: last_month).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding: 0px 5px;"><%= collection.all.size %></td>
+    </tr>
+<% end %>
