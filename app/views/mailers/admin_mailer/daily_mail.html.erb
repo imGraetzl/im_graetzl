@@ -1,416 +1,97 @@
-<% content_for(:above_title, "Daily Mail") %>
-<% content_for(:title, "#{I18n.localize(Date.today, format:'%A, %d. %B %Y')}") %>
+  <% content_for(:above_title, "Daily Mail") %>
+  <% content_for(:title, "#{I18n.localize(Date.today, format:'%A, %d. %B %Y')}") %>
 
-<% yesterday = (1.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
-<% current_month = (1.days.ago.at_beginning_of_month.beginning_of_day)..(1.days.ago.end_of_day) %>
-<% last_month = (1.month.ago.at_beginning_of_month.beginning_of_day)..(1.month.ago.at_end_of_month.end_of_day) %>
-<% last_30_days = (30.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
 
-<style>
-  .dailyMail {
-    margin-bottom:20px;
-  }
-  .dailyMail, .dailyMail th, .dailyMail td {
-    border: 1px solid white;
-    border-collapse: collapse;
-    padding-left:5px;
-    padding-right:5px;
-    text-align:right;
-  }
-  .dailyMail th {
-    background-color: #96D4D4;
-  }
-  .dailyMail .key {width: 40%}
-  .dailyMail .value {width: 15%}
-  .dailyMail tr:nth-child(even) {background-color: #f2f2f2;}
-  .dailyMail .small td, .dailyMail thead {
-    padding-left:20px;
-    text-align:right;
-    font-size:0.8rem;
-  }
-  .dailyMail .big td {
-    font-weight:bold;
-    border-bottom: 1px solid grey;
-  }
-  .dailyMail thead th:first-child {
-    text-align:left;
-    font-size: 1rem;
-  }
-  .dailyMail thead td:first-child {font-style:normal; text-align:left}
-  .dailyMail tbody td:first-child {font-style:normal; text-align:left}
-  .bold {font-weight:bold;}
 
-</style>
+  <%= render 'mailers/notification_mailer/summary/block_header', title: 'Zusammenfassung' %>
 
-<!-- --------------- BLOCK HEADLINE --------------- -->
-<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
-   <tr>
-     <td style="height:30px"> </td>
-   </tr>
-   <tr>
-     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
-       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Zusammenfassung
-       </h4>
-     </td>
-   </tr>
-   <tr>
-     <td style="padding-left:9px; padding-right:9px;">
-       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
-         <tr>
-           <td>
-             <span></span>
-           </td>
-         </tr>
-       </table>
-     </td>
-   </tr>
- </table>
-
-<!-- ---------------CONTENT --------------- -->
- <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Registrierungen</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Registrierungen" %>
     <tbody>
-        <tr class="small">
-          <td>Gesamt</td>
-          <td><%= User.where(created_at: yesterday).size %></td>
-          <td><%= User.where(created_at: current_month).size %></td>
-          <td><%= User.where(created_at: last_month).size %></td>
-          <td><%= User.all.size %></td>
-        </tr>
-        <% Region.all.each do |region| %>
-          <tr class="small">
-            <td><%= region %></td>
-            <td><%= User.in(region).where(created_at: yesterday).size %></td>
-            <td><%= User.in(region).where(created_at: current_month).size %></td>
-            <td><%= User.in(region).where(created_at: last_month).size %></td>
-            <td><%= User.in(region).all.size %></td>
-          </tr>
-        <% end %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Gesamt", collection: User %>
+      <% Region.all.each do |region| %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: region, collection: User.in(region) %>
+      <% end %>
     </tbody>
   </table>
 
-  <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Fördermitgliedschaft</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Fördermitgliedschaft" %>
     <tbody>
-
-        <tr class="small">
-          <td>Fördermitgliedschaft</td>
-          <td><%= Subscription.active.where(created_at: yesterday).size %></td>
-          <td><%= Subscription.active.where(created_at: current_month).size %></td>
-          <td><%= Subscription.active.where(created_at: last_month).size %></td>
-          <td><%= Subscription.active.all.size %></td>
-        </tr>
-
-      </tbody>
-  </table>
-
- <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Buchungen</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr class="small">
-          <td>Großes Zuckerl</td>
-          <td><%= Zuckerl.initialized.entire_region.where(created_at: yesterday).size %></td>
-          <td><%= Zuckerl.initialized.entire_region.where(created_at: current_month).size %></td>
-          <td><%= Zuckerl.initialized.entire_region.where(created_at: last_month).size %></td>
-          <td><%= Zuckerl.initialized.entire_region.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Kleines Zuckerl</td>
-          <td><%= Zuckerl.initialized.graetzl.where(created_at: yesterday).size %></td>
-          <td><%= Zuckerl.initialized.graetzl.where(created_at: current_month).size %></td>
-          <td><%= Zuckerl.initialized.graetzl.where(created_at: last_month).size %></td>
-          <td><%= Zuckerl.initialized.graetzl.all.size %></td>
-        </tr>
-
-         <tr class="small bold">
-          <td>Zuckerl Einnahmen</td>
-          <td><%= number_to_currency(Zuckerl.marked_as_paid.where(created_at: yesterday).sum(:amount)) %></td>
-          <td><%= number_to_currency(Zuckerl.marked_as_paid.where(created_at: current_month).sum(:amount)) %></td>
-          <td><%= number_to_currency(Zuckerl.marked_as_paid.where(created_at: last_month).sum(:amount)) %></td>
-          <td><%= number_to_currency(Zuckerl.marked_as_paid.sum(:amount)) %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Raumteiler Booster</td>
-          <td><%= RoomBooster.initialized.where(created_at: yesterday).size %></td>
-          <td><%= RoomBooster.initialized.where(created_at: current_month).size %></td>
-          <td><%= RoomBooster.initialized.where(created_at: last_month).size %></td>
-          <td><%= RoomBooster.initialized.all.size %></td>
-        </tr>
-
-        <tr class="small bold">
-          <td>Booster Einnahmen</td>
-          <td><%= number_to_currency(RoomBooster.initialized.where(created_at: yesterday).sum(:amount)) %></td>
-          <td><%= number_to_currency(RoomBooster.initialized.where(created_at: current_month).sum(:amount)) %></td>
-          <td><%= number_to_currency(RoomBooster.initialized.where(created_at: last_month).sum(:amount)) %></td>
-          <td><%= number_to_currency(RoomBooster.initialized.sum(:amount)) %></td>
-        </tr>
-
-      </tbody>
-  </table>
-
-
-<!-- --------------- BLOCK HEADLINE --------------- -->
-<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
-   <tr>
-     <td style="height:30px"> </td>
-   </tr>
-   <tr>
-     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
-       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Erstellte Inhalte
-       </h4>
-     </td>
-   </tr>
-   <tr>
-     <td style="padding-left:9px; padding-right:9px;">
-       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
-         <tr>
-           <td>
-             <span></span>
-           </td>
-         </tr>
-       </table>
-     </td>
-   </tr>
- </table>
-
-  <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Schaufenster</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr class="small">
-          <td>Schaufenster</td>
-          <td><%= Location.where(created_at: yesterday).size %></td>
-          <td><%= Location.where(created_at: current_month).size %></td>
-          <td><%= Location.where(created_at: last_month).size %></td>
-          <td><%= Location.approved.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Schaufenster Update</td>
-          <td><%= LocationPost.where(created_at: yesterday).size %></td>
-          <td><%= LocationPost.where(created_at: current_month).size %></td>
-          <td><%= LocationPost.where(created_at: last_month).size %></td>
-          <td><%= LocationPost.all.size %></td>
-        </tr>
-
-      </tbody>
-  </table>
-  
-  <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Treffen</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr class="small">
-          <td colspan="4">Treffen | Upcoming</td>
-          <td><%= Meeting.upcoming.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Treffen</td>
-          <td><%= Meeting.where(created_at: yesterday).size %></td>
-          <td><%= Meeting.where(created_at: current_month).size %></td>
-          <td><%= Meeting.where(created_at: last_month).size %></td>
-          <td><%= Meeting.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Treffen Teilnahme</td>
-          <td><%= GoingTo.attendee.where(created_at: yesterday).size %></td>
-          <td><%= GoingTo.attendee.where(created_at: current_month).size %></td>
-          <td><%= GoingTo.attendee.where(created_at: last_month).size %></td>
-          <td><%= GoingTo.attendee.all.size %></td>
-        </tr>
-
-      </tbody>
-  </table>
-
-  <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Coop & Share</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr class="small">
-          <td colspan="4">Coop & Share | Active</td>
-          <td><%= CoopDemand.enabled.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Coop & Share</td>
-          <td><%= CoopDemand.where(created_at: yesterday).size %></td>
-          <td><%= CoopDemand.where(created_at: current_month).size %></td>
-          <td><%= CoopDemand.where(created_at: last_month).size %></td>
-          <td><%= CoopDemand.all.size %></td>
-        </tr>
-
-      </tbody>
-  </table>
-  
-  <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Raumteiler</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr class="small">
-          <td colspan="4">Habe Raum | Active</td>
-          <td><%= RoomOffer.enabled.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Habe Raum</td>
-          <td><%= RoomOffer.where(created_at: yesterday).size %></td>
-          <td><%= RoomOffer.where(created_at: current_month).size %></td>
-          <td><%= RoomOffer.where(created_at: last_month).size %></td>
-          <td><%= RoomOffer.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td colspan="4">Suche Raum | Active</td>
-          <td><%= RoomDemand.enabled.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Suche Raum</td>
-          <td><%= RoomDemand.where(created_at: yesterday).size %></td>
-          <td><%= RoomDemand.where(created_at: current_month).size %></td>
-          <td><%= RoomDemand.where(created_at: last_month).size %></td>
-          <td><%= RoomDemand.all.size %></td>
-        </tr>
-
-      </tbody>
-  </table>
-  
-  <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Geräteteiler</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr class="small">
-          <td colspan="4">Habe Gerät | Active</td>
-          <td><%= ToolOffer.enabled.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Habe Gerät</td>
-          <td><%= ToolOffer.where(created_at: yesterday).size %></td>
-          <td><%= ToolOffer.where(created_at: current_month).size %></td>
-          <td><%= ToolOffer.where(created_at: last_month).size %></td>
-          <td><%= ToolOffer.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td colspan="4">Suche Gerät | Active</td>
-          <td><%= ToolDemand.enabled.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Suche Gerät</td>
-          <td><%= ToolDemand.where(created_at: yesterday).size %></td>
-          <td><%= ToolDemand.where(created_at: current_month).size %></td>
-          <td><%= ToolDemand.where(created_at: last_month).size %></td>
-          <td><%= ToolDemand.all.size %></td>
-        </tr>
-
-      </tbody>
-  </table>
-  
-  <table class="mcnTextContent dailyMail" style="width:100%;">
-    <thead>
-        <tr>
-          <th class="key">Crowdfunding</th>
-          <th class="value">Gestern</th>
-          <th class="value"><%= I18n.localize(Date.today, format:'%B') %></th>
-          <th class="value"><%= I18n.localize(1.month.ago, format:'%B') %></th>
-          <th class="value">Gesamt</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr class="small">
-          <td colspan="4">Kampagnen | Visible</td>
-          <td><%= CrowdCampaign.scope_public.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Kampagnen</td>
-          <td><%= CrowdCampaign.where(created_at: yesterday).size %></td>
-          <td><%= CrowdCampaign.where(created_at: current_month).size %></td>
-          <td><%= CrowdCampaign.where(created_at: last_month).size %></td>
-          <td><%= CrowdCampaign.all.size %></td>
-        </tr>
-
-        <tr class="small">
-          <td>Unterstützungen</td>
-          <td><%= CrowdPledge.initialized.where(created_at: yesterday).size %></td>
-          <td><%= CrowdPledge.initialized.where(created_at: current_month).size %></td>
-          <td><%= CrowdPledge.initialized.where(created_at: last_month).size %></td>
-          <td><%= CrowdPledge.initialized.all.size %></td>
-        </tr>
-
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Fördermitgliedschaft", collection: Subscription.active %>
     </tbody>
-</table>
+  </table>
+
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Buchungen" %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Großes Zuckerl", collection: Zuckerl.initialized.entire_region %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Kleines Zuckerl", collection: Zuckerl.initialized.graetzl %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Zuckerl Einnahmen", collection: Zuckerl.marked_as_paid, amount: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Raumteiler Booster", collection: RoomBooster.initialized %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Booster Einnahmen", collection: RoomBooster.initialized, amount: true %>
+    </tbody>
+  </table>
+
+
+
+  <%= render 'mailers/notification_mailer/summary/block_header', title: 'Erstellte Inhalte' %>
+
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Schaufenster" %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Schaufenster", collection: Location %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Schaufenster Update", collection: LocationPost %> 
+    </tbody>
+  </table>
+
+  
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Treffen" %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Treffen | Upcoming", collection: Meeting.upcoming, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Treffen", collection: Meeting %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Treffen Teilnahme", collection: GoingTo.attendee %>
+    </tbody>
+  </table>
+
+
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Coop & Share" %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Coop & Share | Active", collection: CoopDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Coop & Share", collection: CoopDemand %>
+    </tbody>
+  </table>
+
+  
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Raumteiler" %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Habe Raum | Active", collection: RoomOffer.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Habe Raum", collection: RoomOffer %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Raum | Active", collection: RoomDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Raum", collection: RoomDemand %>
+    </tbody>
+  </table>
+
+  
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Geräteteiler" %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Habe Gerät | Active", collection: ToolOffer.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Gerät", collection: ToolOffer %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Gerät | Active", collection: ToolDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Suche Gerät", collection: ToolDemand %>
+    </tbody>
+  </table>
+
+  
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_thead', title: "Crowdfunding" %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Kampagnen | Visible", collection: CrowdCampaign.scope_public, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Kampagnen", collection: CrowdCampaign %>
+      <%= render 'mailers/admin_mailer/daily_mail_trow', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
+    </tbody>
+  </table>
