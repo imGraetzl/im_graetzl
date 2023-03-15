@@ -36,6 +36,7 @@
       <!--<%= render 'good_morning_date_card' %>-->
     </div>
     <!-- Insert Featured Card -->
+    <%= render 'shared/featured_cards/subscription', subscription: Subscription.active.sample if Subscription.active.any? %>
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll -mint', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
 
