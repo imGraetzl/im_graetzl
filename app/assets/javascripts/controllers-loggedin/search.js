@@ -15,8 +15,7 @@ APP.controllers_loggedin.search = (function() {
           if ($searchInput.val().length >= 3) {
               APP.components.cardBoxFilter.submitForm();
               gtag(
-                'event', 'Searchpage :: Results', {
-                'event_category': 'Search',
+                'event', 'Search :: Searchpage :: Results', {
                 'event_label': $searchInput.val()
               });
           }

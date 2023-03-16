@@ -66,8 +66,7 @@ APP.components.fileUpload = (function() {
       if (!message.includes('Internetverbindung')) {
         previewContainer.closest('.upload-container').find('.img-upload-error').html(message).slideDown();
         gtag(
-          'event', 'Upload', {
-          'event_category': 'Error',
+          'event', 'Error :: Upload', {
           'event_label': message
         });
       }

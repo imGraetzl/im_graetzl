@@ -29,8 +29,7 @@ APP.components.initUserTooltip = function() {
               initTrackingLinks();
               // Analytics
               gtag(
-                'event', 'Open', {
-                'event_category': type + ' Tooltip',
+                'event', `Tooltip :: ${type} :: Open`, {
                 'event_label': 'Desktop'
               });
             }
@@ -59,8 +58,7 @@ APP.components.initUserTooltip = function() {
               initTrackingLinks();
               // Analytics
               gtag(
-                'event', 'Open', {
-                'event_category': type + ' Tooltip',
+                'event', `Tooltip :: ${type} :: Open`, {
                 'event_label': 'Mobile'
               });
             }

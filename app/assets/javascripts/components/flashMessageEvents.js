@@ -10,126 +10,111 @@ APP.components.flashMsgEvents = (function() {
 
       // Registration SignUp
       if (flashMsg('Super, du bist nun registriert!')){
-        gtag('event', 'sign_up', {'event_category': 'Registration'});
+        gtag('event', 'sign_up');
       }
 
       // Activate Coop & Share
       else if (flashMsg('Dein Coop & Share Angebot ist nun aktiv')){
         gtag(
-          'event', 'Coop & Share :: Click :: Status Aktiv', {
-          'event_category': 'Coop & Share'
-        });
+          'event', 'Coop & Share :: Click :: Status Aktiv'
+        );
       }
 
       // Deactivate Coop & Share
       else if (flashMsg('Dein Coop & Share Angebot ist nun deaktiviert')){
         gtag(
-          'event', 'Coop & Share :: Click :: Status Inaktiv', {
-          'event_category': 'Coop & Share'
-        });
+          'event', 'Coop & Share :: Click :: Status Inaktiv'
+        );
       }
 
       // Reactivate Coop & Share
       else if (flashMsg('Dein Coop & Share Angebot wurde erfolgreich verlängert!')){
         gtag(
-          'event', 'Coop & Share :: Click :: E-Mail Aktivierungslink', {
-          'event_category': 'Coop & Share'
-        });
+          'event', 'Coop & Share :: Click :: E-Mail Aktivierungslink'
+        );
       }
 
       // Activate RoomOffer
       else if (flashMsg('Dein Raumteiler ist nun aktiv')){
         gtag(
-          'event', 'Raumangebot :: Click :: Status Aktiv', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Raumangebot :: Click :: Status Aktiv'
+        );
       }
 
       // Deactivate RoomOffer
       else if (flashMsg('Dein Raumteiler ist nun deaktiviert')){
         gtag(
-          'event', 'Raumangebot :: Click :: Status Inaktiv', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Raumangebot :: Click :: Status Inaktiv'
+        );
       }
 
       // Reactivate RoomsOffers
       else if (flashMsg('Dein Raumteiler wurde erfolgreich verlängert!')){
         gtag(
-          'event', 'Raumangebot :: Click :: E-Mail Aktivierungslink', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Raumangebot :: Click :: E-Mail Aktivierungslink'
+        );
       }
 
       // Warteliste RoomOffer
       else if (flashMsg('Dein Raumteiler hat nun eine Warteliste')){
         gtag(
-          'event', 'Raumangebot :: Click :: Status Warteliste', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Raumangebot :: Click :: Status Warteliste'
+        );
       }
 
       // Activate RoomDemand
       else if (flashMsg('Deine Raumsuche ist nun aktiv')){
         gtag(
-          'event', 'Raumsuche :: Click :: Status Aktiv', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Raumsuche :: Click :: Status Aktiv'
+        );
       }
 
       // Deactivate RoomDemand
       else if (flashMsg('Deine Raumsuche ist nun deaktiviert')){
         gtag(
-          'event', 'Raumsuche :: Click :: Status Inaktiv', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Raumsuche :: Click :: Status Inaktiv'
+        );
       }
 
       // Reactivate RoomDemand
       else if (flashMsg('Deine Raumsuche wurde erfolgreich verlängert!')){
         gtag(
-          'event', 'Raumsuche :: Click :: E-Mail Aktivierungslink', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Raumsuche :: Click :: E-Mail Aktivierungslink'
+        );
       }
 
       // Deactivate RoomDemand
       else if (flashMsg('Der Aktivierungslink ist leider ungültig')){
         gtag(
-          'event', 'Raumteiler :: Click :: Aktivierungslink ungültig', {
-          'event_category': 'Raumteiler'
-        });
+          'event', 'Error :: Aktivierungslink ungültig'
+        );
       }
 
       // Activate ToolDemand
       else if (flashMsg('Deine Gerätesuche ist nun aktiv')){
         gtag(
-          'event', 'Gerätesuche :: Click :: Status Aktiv', {
-          'event_category': 'Geräteteiler'
-        });
+          'event', 'Gerätesuche :: Click :: Status Aktiv'
+        );
       }
 
       // Deactivate ToolDemand
       else if (flashMsg('Deine Gerätesuche ist nun deaktiviert')){
         gtag(
-          'event', 'Gerätesuche :: Click :: Status Inaktiv', {
-          'event_category': 'Geräteteiler'
-        });
+          'event', 'Gerätesuche :: Click :: Status Inaktiv'
+        );
       }
 
       // Favorite Graetzls
       else if (flashMsg('Deine Favoriten wurden gespeichert')){
         gtag(
-          'event', 'Favorite Graetzls :: Save', {
-          'event_category': 'User Settings'
-        });
+          'event', 'User Settings :: Favorite Graetzls :: Save'
+        );
       }
 
-      // Favorite Graetzls
+      // Meeting Error
       else if (flashMsg('Du hast bereits ein zukünftiges Treffen mit dem Titel')){
         gtag(
-          'event', 'Meeting', {
-          'event_category': 'Error',
+          'event', 'Error :: Meeting :: Duplicate', {
           'event_label': 'Duplicate: ' + $("#meeting_name").val()
         });
       }
