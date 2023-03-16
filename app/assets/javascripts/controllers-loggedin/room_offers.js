@@ -26,14 +26,24 @@ APP.controllers_loggedin.room_offers = (function() {
       'defaultText':'Kurz in Stichworten ..'
     });
 
-    $(".availability-select").on("change", function() {
-      var day = $(this).data("weekday");
-      if ($(this).val() == "0") {
-        $(".availability-input-" + day).prop("disabled", true);
-      } else {
-        $(".availability-input-" + day).prop("disabled", false);
-      }
-    }).change();
+    var initAvailabilitySelect = function() {
+      $(".availability-select").on("change", function() {
+        var day = $(this).data("weekday");
+        if ($(this).val() == "0") {
+          $(".availability-input-" + day).prop("disabled", true).closest('.input-select').addClass('disabled');
+        } else {
+          $(".availability-input-" + day).prop("disabled", false).closest('.input-select').removeClass('disabled');
+        }
+      }).change();
+    }
+
+    $(".hour-from").on("change", function() {
+      var $to_field = $('.hour-to#' + $(this).attr('id').replace("_from","_to"));
+      var hour = $(this).val();
+      $to_field.find("option").not(':empty').each(function(i, o) {
+        $(o).attr("disabled", $(o).val() * 1 <= hour * 1)
+      });
+    });
 
     // Slot Fields Toogle
     var slotsSection = null;
@@ -44,12 +54,16 @@ APP.controllers_loggedin.room_offers = (function() {
         $('#slot-fields').hide().slideDown();
         slotsSection = null;
         APP.components.formHelper.formatIBAN();
+        initAvailabilitySelect();
       } else if (!rentalEnabled && !slotsSection){
         slotsSection = $('#slot-fields').clone();
         $('#slot-fields').empty();
+        initAvailabilitySelect();
       } else {
         APP.components.formHelper.formatIBAN();
+        initAvailabilitySelect();
       }
+
     }).change();
 
     $(".room-categories input").on("change", function() {

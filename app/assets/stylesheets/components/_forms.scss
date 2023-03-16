@@ -32,7 +32,7 @@ input, select, textarea {
     }
   }
   &.-three {
-    div {
+    .input-field, .input-select {
       @include respond-to(">small") {
         width:31.5%;
       }

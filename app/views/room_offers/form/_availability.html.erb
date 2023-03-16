@@ -18,24 +18,26 @@
             fa.object.day_enabled?(weekday) ? '1' : '0'), data: {weekday: weekday}, class: 'availability-select' %>
       </div>
 
-      <div class="input-field time">
+      <div class="input-select time">
         <%= fa.label :"day_#{weekday}_from" do %>
           <%= icon_tag "time-clock" %>
           <span>Von</span>
         <% end %>
-        <%= fa.hidden_field  :"day_#{weekday}_from", value: nil, class: "unavailable-input-#{weekday}" %>
-        <%= fa.text_field  :"day_#{weekday}_from", class: "timepicker availability-input-#{weekday}",
-            placeholder: 'wählen' %>
+        <%= fa.hidden_field :"day_#{weekday}_from", value: nil, class: "unavailable-input-#{weekday}" %>
+        <%= fa.select :"day_#{weekday}_from",
+            (0..24).map{ |h| ["#{'%02d' % h}:00", h,] },
+            {include_blank: 'wählen'}, {class: "hour-from availability-input-#{weekday}"} %>
       </div>
 
-      <div class="input-field time">
+      <div class="input-select time">
         <%= fa.label :"day_#{weekday}_to" do %>
           <%= icon_tag "time-clock" %>
           <span>Bis</span>
         <% end %>
-        <%= fa.hidden_field  :"day_#{weekday}_to", value: nil, class: "unavailable-input-#{weekday}" %>
-        <%= fa.text_field :"day_#{weekday}_to", class: "timepicker availability-input-#{weekday}",
-            placeholder: 'wählen' %>
+        <%= fa.hidden_field :"day_#{weekday}_to", value: nil, class: "unavailable-input-#{weekday}" %>
+        <%= fa.select :"day_#{weekday}_to",
+            (0..24).map{ |h| ["#{'%02d' % h}:00", h,] },
+            {include_blank: 'wählen'}, {class: "hour-to availability-input-#{weekday}"} %>
       </div>
     <% end %>
 
