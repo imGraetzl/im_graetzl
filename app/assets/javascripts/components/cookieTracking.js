@@ -7,23 +7,27 @@ APP.components.cookieTracking = (function() {
     var userid = $("body").attr("data-userid") || false;
     var testmode = false;
 
-    if ($("body").attr("data-env-mode") == 'dev') {
-      testmode = true;
-      console.log('Testmode: ' + testmode);
-      console.log('Analytics Permission: ' + $.fn.ihavecookies.preference('analytics'));
-    } 
-
     // Set Analytics Permission Status on Load from User Cookie Setting
-    if ($.fn.ihavecookies.preference('analytics') === false) {
+    if (getCookie('cookieControl') && $.fn.ihavecookies.preference('analytics') === false) {
       gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'denied'
       });
+      var trackAnalytics = false;
     } else {
       gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'granted'
       });
+      var trackAnalytics = true;
+    }
+
+    // Dev Mode Infos
+    if ($("body").attr("data-env-mode") == 'dev') {
+      testmode = true;
+      console.log('Testmode: ' + testmode);
+      console.log('Analytics Permission: ' + $.fn.ihavecookies.preference('analytics'));
+      console.log('Analytics Tracking: ' + trackAnalytics);
     }
 
     // LOAD ANALYTICS ASYNC
@@ -109,6 +113,13 @@ APP.components.cookieTracking = (function() {
         $('body').ihavecookies(cookieOptions, 'reinit');
         eventSubmitted = false;
     });
+
+    // Helper Function getCookie
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
   }
 
