@@ -59,10 +59,8 @@ APP.controllers.room_offers = (function() {
         $(this).parents(".request-price-form").submit();
         // Analytics Tracking
         gtag(
-          'event', 'Raumangebot :: Kurzzeitmiete Buchungsbox', {
-          'event_category': 'Raumteiler',
-          'event_label': 'Auswahl :: Zeitraum'
-        });
+          'event', 'Buchungsbox :: Raumteiler :: Auswahl Zeitraum'
+        );
       }
     });
 
@@ -80,10 +78,8 @@ APP.controllers.room_offers = (function() {
       $('#sticky-overlay-bg').show();
       unscroll();
       gtag(
-        'event', 'Raumangebot :: Kurzzeitmiete Buchungsbox', {
-        'event_category': 'Raumteiler',
-        'event_label': 'Open :: Modal'
-      });
+        'event', 'Buchungsbox :: Raumteiler :: Open Mobile Modal'
+      );
     });
 
     $('#booking-box .close-ico, #sticky-overlay').on("click", function() {

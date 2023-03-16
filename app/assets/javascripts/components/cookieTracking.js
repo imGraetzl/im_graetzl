@@ -2,9 +2,29 @@ APP.components.cookieTracking = (function() {
 
   function init() {
 
-    // SETUP GTM & ANALYTICS --------------------------------
+    // GLOBAL SETUP VARS --------------------------------
     var uaid = $("body").attr("data-uaid");
     var userid = $("body").attr("data-userid") || false;
+    var testmode = false;
+
+    if ($("body").attr("data-env-mode") == 'dev') {
+      testmode = true;
+      console.log('Testmode: ' + testmode);
+      console.log('Analytics Permission: ' + $.fn.ihavecookies.preference('analytics'));
+    } 
+
+    // Set Analytics Permission Status on Load from User Cookie Setting
+    if ($.fn.ihavecookies.preference('analytics') === false) {
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied'
+      });
+    } else {
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'granted'
+      });
+    }
 
     // LOAD ANALYTICS ASYNC
     var script = document.createElement('script');
@@ -12,21 +32,11 @@ APP.components.cookieTracking = (function() {
     script.setAttribute('async', 'async');
     document.head.appendChild(script);
 
+    // Setup
     gtag('set', 'linker', {'domains': ['imgraetzl.at', 'welocally.at']});
-    gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'analytics_storage': 'granted'
-    });
     gtag('js', new Date());
     if (userid) { gtag('set', {'user_id': userid}); }
-    gtag('config', uaid, { 'anonymize_ip': true });
-
-    // Set Analytics Permission Status on Load
-    if ($.fn.ihavecookies.preference('analytics') === true) {
-        gtag('consent', 'update', {
-          'analytics_storage': 'granted'
-        });
-    }
+    gtag('config', uaid, { 'anonymize_ip': true, 'debug_mode': testmode });
 
     // Cookie Consent Banner
     var eventSubmitted = false;
@@ -59,10 +69,8 @@ APP.components.cookieTracking = (function() {
             // Event Tracking - Update Status
             if (!eventSubmitted) {
               gtag(
-                'event', 'Accept', {
-                'event_category': 'Consent Manager :: Update',
-                'event_label': myPreferences
-              });
+                'event', `Consent Manager :: Update :: ${myPreferences}`
+              );
               eventSubmitted = true;
             }
 
@@ -87,16 +95,12 @@ APP.components.cookieTracking = (function() {
     if (myPreferences) {
       myPreferences == '' ? myPreferences = 'all denied' : myPreferences.join();
       gtag(
-        'event', 'Status', {
-        'event_category': 'Consent Manager :: Init',
-        'event_label': 'cookie :: ' + myPreferences
-      });
+        'event', `Consent Manager :: Init :: ${myPreferences}`
+      );
     } else {
       gtag(
-        'event', 'Status', {
-        'event_category': 'Consent Manager :: Init',
-        'event_label': 'no cookie :: consent manager shown'
-      });
+        'event', `Consent Manager :: Init :: default`
+      );
     }
 
 

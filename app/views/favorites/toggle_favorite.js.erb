@@ -5,8 +5,7 @@
   <% if @favor %>
     favoriteIcon.addClass( "-faved" );
     gtag(
-      'event', 'Auf die Merkliste', {
-      'event_category': 'Favorites',
+      'event', 'Favorites :: Auf die Merkliste', {
       'event_label': favoriteIcon.attr('id')
     });
   <% else %>
@@ -18,8 +17,7 @@
       }
     }
     gtag(
-      'event', 'Von Merkliste entfernen', {
-      'event_category': 'Favorites',
+      'event', 'Favorites :: Von Merkliste entfernen', {
       'event_label': favoriteIcon.attr('id')
     });
   <% end %>

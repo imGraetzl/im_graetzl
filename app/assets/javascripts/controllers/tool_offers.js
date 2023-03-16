@@ -28,10 +28,8 @@ APP.controllers.tool_offers = (function() {
           $('.-disabled').hide();
           // Analytics Tracking
           gtag(
-            'event', 'Geräteteiler :: Buchungsbox', {
-            'event_category': 'Geräteteiler',
-            'event_label': 'Auswahl :: Zeitraum'
-          });
+            'event', 'Buchungsbox :: Geräteteiler :: Auswahl Zeitraum'
+          );
         }
       });
 

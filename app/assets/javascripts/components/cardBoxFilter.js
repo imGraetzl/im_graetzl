@@ -297,17 +297,10 @@ APP.components.cardBoxFilter = (function() {
 
 
   function gtag_tracking(modal) {
-
-    var label_category = "Filter";
     var label_type = modal.find("[data-filter-label]").data("filter-label");
     var label_item = filterForm.find('a[href="#' + modal.prop("id") + '"]').text();
-
-    if ( typeof modal.data("category-label") !== "undefined") {
-      label_category = modal.data("category-label");
-    }
     gtag(
-      'event', label_type + ' :: Modal', {
-      'event_category': label_category,
+      'event', `Filter :: Modal :: ${label_type}`, {
       'event_label': label_item
     });
   }

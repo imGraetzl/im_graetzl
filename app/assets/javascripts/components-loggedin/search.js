@@ -60,8 +60,7 @@ APP.components.search = (function() {
           addCategoryLinks();
           hideSpinner($input);
           gtag(
-            'event', 'Autocomplete :: Results', {
-            'event_category': 'Search',
+            'event', 'Search :: Autocomplete :: Results', {
             'event_label': search_phrase
           });
           counts = {}; // Reset Counts after Shown
@@ -73,8 +72,7 @@ APP.components.search = (function() {
             location.href = url;
           } else {
             gtag(
-              'event', 'Autocomplete :: Result Click', {
-              'event_category': 'Search',
+              'event', 'Search :: Autocomplete :: Result Click', {
               'event_label': search_phrase,
               'event_callback': function() {
                 location.href = url;
