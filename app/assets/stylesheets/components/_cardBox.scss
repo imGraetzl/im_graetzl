@@ -49,9 +49,9 @@
 
   &.-boosted {
     border: 1px solid $color-ambient-rosa-light;
-    background-color: #fef4f3;
+    //background-color: #fef4f3;
     .categoryicon {
-      background-color: #fef4f3;
+      //background-color: #fef4f3;
       color: $color-ambient-rosa;
       .fav-exchange {
         display: flex;
@@ -181,7 +181,7 @@
     margin-bottom: 0px;
   }
 
-  .btn-group, {
+  .btn-group {
     display: flex;
     margin-left: auto;
     flex-wrap: wrap;
@@ -425,9 +425,6 @@
   .menuteaser {
     border-color: $color-ambient-grey;
     background-color: $color-ambient-grey-light;
-    .hl, .txt {
-      //color: $color-ambient-mint-dark;
-    }
   }
   .basic-message-box {
     border-color: $color-ambient-mint-dark;
