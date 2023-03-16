@@ -9,11 +9,11 @@ module RoomsHelper
   end
 
   def room_rental_default_hours_from
-    (8..23).map{ |h| ["#{h}:00", h] }
+    (6..23).map{ |h| ["#{h}:00", h] }
   end
 
   def room_rental_default_hours_to
-    (9..24).map{ |h| ["#{h}:00", h] }
+    (7..24).map{ |h| ["#{h}:00", h] }
   end
 
   def room_discount_values
