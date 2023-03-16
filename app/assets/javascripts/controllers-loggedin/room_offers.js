@@ -35,15 +35,16 @@ APP.controllers_loggedin.room_offers = (function() {
           $(".availability-input-" + day).prop("disabled", false).closest('.input-select').removeClass('disabled');
         }
       }).change();
-    }
 
-    $(".hour-from").on("change", function() {
-      var $to_field = $('.hour-to#' + $(this).attr('id').replace("_from","_to"));
-      var hour = $(this).val();
-      $to_field.find("option").not(':empty').each(function(i, o) {
-        $(o).attr("disabled", $(o).val() * 1 <= hour * 1)
+      $(".hour-from").on("change", function() {
+        var $to_field = $('.hour-to#' + $(this).attr('id').replace("_from","_to"));
+        var hour = $(this).val();
+        $to_field.find("option").not(':empty').each(function(i, o) {
+          $(o).attr("disabled", $(o).val() * 1 <= hour * 1)
+        });
       });
-    });
+
+    }
 
     // Slot Fields Toogle
     var slotsSection = null;
