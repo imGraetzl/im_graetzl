@@ -91,8 +91,7 @@ APP.controllers.application = (function() {
       var href = $(this).attr('href');
       var label = $(this).attr('data-label');
       gtag(
-        "event", label +  " :: Click :: Im Messenger kontaktieren", {
-        "event_category": "Messenger",
+        "event", `Im Messenger kontaktieren :: ${label}`, {
         "event_callback": function() {
           location.href = href;
         }
@@ -111,12 +110,10 @@ APP.controllers.application = (function() {
       event.preventDefault();
       $('#contact-infos-block').fadeIn();
       $(this).hide();
-      var category = $(this).attr('data-category');
       var label = $(this).attr('data-label');
       gtag(
-        "event", label + " :: Click :: Kontaktinformationen einblenden", {
-        "event_category": category
-      });
+        "event", `Kontaktinformationen einblenden :: ${label}`
+      );
     });
   }
 

@@ -104,10 +104,8 @@ APP.controllers_loggedin.messenger = (function() {
             APP.components.initUserTooltip();
             $('.txtlinky').linkify({target: "_blank"});
             gtag(
-              'event', 'Open Thread', {
-              'event_category': 'Messenger',
-              'event_label': thread_id
-            });
+              'event', 'Messenger :: Open Thread'
+            );
           }
       });
 
@@ -119,12 +117,9 @@ APP.controllers_loggedin.messenger = (function() {
     $("#main-content").on("ajax:complete", ".post-message-form", function() {
 
       if( $(this).find(".chat-message-input").val() ) {
-        var thread_id = $(".chat-panel").data("thread-id");
         gtag(
-          'event', 'Post Message', {
-          'event_category': 'Messenger',
-          'event_label': thread_id
-        });
+          'event', 'Messenger :: Post Message'
+        );
       }
 
       $(this).find(".chat-message-input").val("");

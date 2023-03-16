@@ -50,9 +50,8 @@ APP.controllers.meetings = (function() {
         animation:{open: 'zoomIn', close: 'zoomOut'},
         onOpen: function() {
           gtag(
-            'event', 'Click :: Teilnehmen', {
-            'event_category': 'Meeting',
-          });
+            'event', 'Meeting :: Teilnehmen'
+          );
         },
       });
 
