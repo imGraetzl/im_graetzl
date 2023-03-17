@@ -34,6 +34,7 @@ APP.controllers.room_offers = (function() {
 
     $('.request-price-form .rent-date').on("change", function() {
       $('.request-price-form .hour-input').attr("disabled", !$(this).val());
+      if ($(this).val()) {$('.request-price-form .input-select').removeClass('disabled')}
     });
 
     $('.request-price-form').find(".rent-date, .hour-from").on("change", function() {
