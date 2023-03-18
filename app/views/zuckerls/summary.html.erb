@@ -4,7 +4,7 @@
   )
 %>
 
-<section class="zuckerl-page summary-screen">
+<section class="zuckerl-page summary-screen" data-transaction-id="<%= "ZUCKERL_#{@zuckerl.id}" %>" data-value="<%= @zuckerl.amount %>">
 
   <div class="col-content">
     <%= render 'zuckerls/new/summary' %>
