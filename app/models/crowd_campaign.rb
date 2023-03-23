@@ -13,7 +13,7 @@ class CrowdCampaign < ApplicationRecord
 
   belongs_to :user
   belongs_to :graetzl
-  belongs_to :district, optional: true
+  has_many :districts, through: :graetzl
   belongs_to :location, optional: true
   belongs_to :room_offer, optional: true
 
@@ -222,9 +222,8 @@ class CrowdCampaign < ApplicationRecord
     contact_email
   end
 
-  def graetzl=(value)
-    super
-    self.district ||= value.district if value.present?
+  def district
+    self.graetzl.district
   end
 
   def subscribed?

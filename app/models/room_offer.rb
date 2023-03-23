@@ -7,7 +7,7 @@ class RoomOffer < ApplicationRecord
 
   belongs_to :user
   belongs_to :graetzl
-  belongs_to :district, optional: true
+  has_many :districts, through: :graetzl
   belongs_to :location, optional: true
 
   has_many :room_offer_categories
@@ -83,9 +83,8 @@ class RoomOffer < ApplicationRecord
     end
   end
 
-  def graetzl=(value)
-    super
-    self.district ||= value.district if value.present?
+  def district
+    self.graetzl.district
   end
 
   def subscribed?
