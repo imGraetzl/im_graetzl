@@ -24,7 +24,9 @@ class Zuckerl < ApplicationRecord
   scope :initialized, -> { where.not(aasm_state: :incomplete).where.not(aasm_state: :cancelled) }
   scope :entire_region, -> { where(entire_region: true) }
   scope :graetzl, -> { where(entire_region: false) }
-  scope :marked_as_paid, -> { where("debited_at IS NOT NULL") }
+  #scope :marked_as_paid, -> { where("debited_at IS NOT NULL") }
+  scope :marked_as_paid, -> { where(payment_status: [:processing, :debited]) }
+
   scope :next_month_live, lambda {where("created_at > ? AND created_at < ? AND aasm_state = ? OR aasm_state = ?", Time.now.beginning_of_month, Time.now.end_of_month, 'pending', 'approved')}
 
   def self.price(region)
