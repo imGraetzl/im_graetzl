@@ -58,6 +58,19 @@
         probiere es mit einem anderen <%= link_to "Raumteiler", region_rooms_path %>.
       </div>
 
+    <% elsif room_rental.paid_out? %>
+
+      <div class="note">
+        <strong>Deine Raumteilerbuchung ist abgeschlossen.</strong><br>
+        Wir hoffen es hat alles gut geklappt!
+      </div>
+
+    <% elsif room_rental.storno? %>
+
+      <div class="note">
+        <strong>Die Buchungssanfrage wurde storniert.</strong><br>
+      </div>
+
     <% end %>
 
   </div>
