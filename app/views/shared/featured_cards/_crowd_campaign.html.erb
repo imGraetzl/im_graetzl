@@ -1,0 +1,78 @@
+<% @crowd_campaign = local_assigns[:crowd_campaign] %>
+
+<div class="cardBox featuredCard -hidden -crowd_campaign" data-behavior="masonry-card" data-card-id="crowd_campaign-<%= crowd_campaign.id %>">
+
+  <div class="cardBoxHeader">
+    <%= link_to crowd_campaign_url(@crowd_campaign, host: @crowd_campaign.region.host), target: "_blank" do %>
+      <div class="coverImgWrapper">
+        <%= cover_photo_image(crowd_campaign, class: 'coverImg') %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= icon_tag "crowd", class: 'fav-exchange' %>
+      <%= toggle_favorite_icon(crowd_campaign) if current_user %>
+    </div>
+    <div class="sideflag -R -label">- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</div>
+  </div>
+
+  <div class="cardBoxContent">
+    <%= link_to user_url(crowd_campaign.user, host: crowd_campaign.user.region.host), target: "_blank", class: 'initiator', rel: 'nofollow' do %>
+      <%= avatar_image crowd_campaign, size: :thumb, class: 'img-round show-badge' %>
+      <span><%= crowd_campaign.user.username %></span>
+    <% end %>
+    <div class="txt">
+      <h3><%= link_to crowd_campaign.title.truncate(110), crowd_campaign_url(@crowd_campaign, host: @crowd_campaign.region.host), target: "_blank" %></h3>
+      <p><%= crowd_campaign.slogan.truncate(110) %></p>
+    </div>
+
+    <% if crowd_campaign.funding_amount_set? %>
+      <%= render 'crowd_campaigns/funding_bar' %>
+    <% end %>
+
+    <% if crowd_campaign_post = crowd_campaign.actual_newest_post %>
+      <%= link_to [crowd_campaign, target: dom_id(crowd_campaign_post), host: crowd_campaign.region.host], target: "_blank", class: 'updateteaser' do %>
+        <div class="hl">
+          Letztes Update:
+        </div>
+        <div class="title">
+          <%= crowd_campaign_post.title %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if crowd_campaign.crowd_pledges.initialized.exists? %>
+      <% crowd_pledge = crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).last %>
+      <% if crowd_pledge.visible? %>
+        <% if crowd_pledge.user %>
+          <div class="userEntry userPledge">
+            <%= link_to user_url(crowd_pledge.user, host: crowd_pledge.user.region.host), target: '_blank', rel: 'nofollow' do %>
+              <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
+            <% end %>
+            <span class="userAndType">
+              <%= link_to crowd_pledge.contact_name, user_url(crowd_pledge.user, host: crowd_pledge.user.region.host), target: '_blank', rel: 'nofollow' %>
+              <span>unterstützt dieses Projekt.</span>
+            </span>
+          </div>
+        <% else %>
+          <div class="userEntry userPledge">
+            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+            <span class="userAndType">
+              <strong><%= crowd_pledge.contact_name %></strong>
+              <span>unterstützt dieses Projekt.</span>
+            </span>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="userEntry userPledge">
+          <%= image_tag("fallbacks/user_avatar.png", loading: 'lazy', alt: 'Anonymer Unterstützer', class: 'img-round') %>
+          <span class="userAndType">
+            <strong>Anonyme Nutzer*in</strong>
+            <span>unterstützt dieses Projekt.</span>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
+
+</div>

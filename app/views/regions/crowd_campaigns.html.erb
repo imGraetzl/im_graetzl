@@ -36,6 +36,9 @@
       <%= render 'crowd_campaigns/action_card', create_link: true %>
     </div>
     <!-- Insert Featured Card -->
+    <!-- Insert Shoafbauer Campaign in Vienna and remove SubscriptionBox above -->
+    <%= render 'shared/featured_cards/crowd_campaign', crowd_campaign: CrowdCampaign.funding.find_by_id(41) if CrowdCampaign.funding.find_by_id(41) && current_region.id == 'wien' %>
+    
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'crowd-campaigns-paginate-link' }, rel: 'nofollow' %>
   </div>
 
