@@ -24,6 +24,19 @@ class SubscriptionMailer < ApplicationMailer
     )
   end
 
+  def invoice_payment_failed(subscription)
+    @subscription = subscription
+    @user = @subscription.user
+    @region = @subscription.region
+    headers("X-MC-Tags" => "subscription-invoice-payment-failed")
+    mail(
+      subject: "#{@region.host_domain_name} Fördermitgliedschaft Zahlung fehlgeschlagen - Bitte versuche es erneut.",
+      from: platform_email('no-reply'),
+      to: @user.email,
+      bcc: 'michael@imgraetzl.at',
+    )
+  end
+
   def payment_action_required(payment_intent_id, subscription)
     @payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
     @subscription = subscription

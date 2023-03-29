@@ -18,6 +18,8 @@ class WebhooksController < ApplicationController
       payment_action_required(event.data.object)
     when "invoice.paid"
       invoice_paid(event.data.object)
+    when "invoice.payment_failed"
+      invoice_payment_failed(event.data.object)
     when "charge.refunded"
       charge_refunded(event.data.object)
     end
@@ -114,6 +116,11 @@ class WebhooksController < ApplicationController
     subscription = Subscription.find_by(stripe_id: object.subscription)
     SubscriptionService.new.invoice_paid(subscription, object) if subscription
     SubscriptionMailer.invoice(subscription).deliver_later if subscription
+  end
+
+  def invoice_payment_failed(object)
+    subscription = Subscription.find_by(stripe_id: object.subscription)
+    SubscriptionMailer.invoice_payment_failed(subscription).deliver_later if subscription
   end
 
   def charge_refunded(charge)
