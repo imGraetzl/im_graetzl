@@ -18,8 +18,6 @@ class WebhooksController < ApplicationController
       payment_action_required(event.data.object)
     when "invoice.paid"
       invoice_paid(event.data.object)
-    when "invoice.payment_failed"
-      invoice_payment_failed(event.data.object)
     when "charge.refunded"
       charge_refunded(event.data.object)
     end
