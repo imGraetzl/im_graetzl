@@ -78,7 +78,19 @@ context.instance_eval do
           table_for location.user do
             column(:id){|u| u.id}
             column(:username){|u| u.username}
+            column(:subscribed){|u| status_tag(u.subscribed?)}
+            column(:mitgliedschaft) {|u| u.subscribed? ? u.subscription.subscription_plan.name : ''}
             column(''){|u| link_to 'User Anzeigen', admin_user_path(u) }
+          end
+        end
+      end
+      if location.user
+        panel 'Schaufenster des Users' do
+          table_for location.user.locations do
+            column :id
+            column :name
+            column(:state){|l| status_tag(l.state)}
+            column(''){|l| link_to 'Anzeigen', admin_location_path(l) }
           end
         end
       end
