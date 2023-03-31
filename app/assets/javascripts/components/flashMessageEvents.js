@@ -119,6 +119,14 @@ APP.components.flashMsgEvents = (function() {
         });
       }
 
+      // Location Error
+      else if (flashMsg('Du hast bereits ein Schaufenster')){
+        gtag(
+          'event', 'Error :: Location :: Further Location', {
+          'event_label': 'User: ' + $("body").attr("data-userid")
+        });
+      }
+
       // Purchase
       else if (flashMsg('Deine Zahlung wurde erfolgreich authorisiert.')){
         if ($("[data-transaction-id]").exists()) {

@@ -28,6 +28,11 @@ class LocationsController < ApplicationController
   def new
     @location = current_user.locations.build(location_category_id: current_user.location_category_id)
     @location.graetzl = user_home_graetzl
+
+    if current_user.locations.approved.any? && !current_user.subscribed?
+      flash.now[:notice] = "Du hast bereits ein Schaufenster. Um ein weiteres Schaufenster einzurichten, hole dir die #{view_context.link_to 'JUHU Fördermitgliedschaft', subscription_plans_path}."
+    end
+    
   end
 
   def create
@@ -137,7 +142,7 @@ class LocationsController < ApplicationController
   def destroy
     @location = fetch_user_location(params[:id])
     @location.destroy
-    redirect_to locations_user_path, notice: 'Location entfernt'
+    redirect_to locations_user_path, notice: 'Dein Schaufenster wurde gelöscht'
   end
 
   def tooltip
