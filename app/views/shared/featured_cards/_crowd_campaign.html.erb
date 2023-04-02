@@ -1,6 +1,6 @@
 <% @crowd_campaign = local_assigns[:crowd_campaign] %>
 
-<div class="cardBox featuredCard -hidden -crowd_campaign" data-behavior="masonry-card" data-card-id="crowd_campaign-<%= crowd_campaign.id %>">
+<div class="cardBox featuredCard -hidden -crowd_campaign" data-behavior="masonry-card" data-card-id="crowd_campaign-<%= crowd_campaign.id %>" data-position="<%= local_assigns[:position] %>">
 
   <div class="cardBoxHeader">
     <%= link_to crowd_campaign_url(@crowd_campaign, host: @crowd_campaign.region.host), target: "_blank" do %>
