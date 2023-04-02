@@ -1,5 +1,5 @@
 <% yesterday = (1.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
-<% current_month = (1.days.ago.at_beginning_of_month.beginning_of_day)..(1.days.ago.end_of_day) %>
+<% current_month = (Date.today.at_beginning_of_month.beginning_of_day)..(Date.today.at_end_of_month.end_of_day) %>
 <% last_month = (1.month.ago.at_beginning_of_month.beginning_of_day)..(1.month.ago.at_end_of_month.end_of_day) %>
 <% last_30_days = (30.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
 
