@@ -15,9 +15,9 @@
       <%= label_tag :donation_amount do %>
         <span>Möchtest du einen freien Unterstützungsbetrag hinzufügen?</span>
       <% end %>
-      <%= f.text_field :donation_amount, class: 'amount', placeholder: 'Dein Betrag',
+      <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Dein Betrag in Euro',
         class: 'calculate-price', maxlength: 6,
-        data: { action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, crowd_reward_id: params[:crowd_reward_id]])} %>
+        data: {action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, crowd_reward_id: params[:crowd_reward_id]])} %>
     </div>
 
     <%= submit_tag "Weiter", class: 'btn-primary' %>
