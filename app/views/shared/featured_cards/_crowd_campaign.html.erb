@@ -41,7 +41,7 @@
     <% end %>
 
     <% if crowd_campaign.crowd_pledges.initialized.exists? %>
-      <% crowd_pledge = crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).last %>
+      <% crowd_pledge = crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).first %>
       <% if crowd_pledge.visible? %>
         <% if crowd_pledge.user %>
           <div class="userEntry userPledge">
