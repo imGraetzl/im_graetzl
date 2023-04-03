@@ -15,7 +15,7 @@ class CrowdCampaignsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @crowd_campaigns = collection_scope.in(current_region).includes(:user)
+    @crowd_campaigns = collection_scope.includes(:user)
     @crowd_campaigns = filter_collection(@crowd_campaigns)
     @crowd_campaigns = @crowd_campaigns.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
@@ -286,7 +286,7 @@ class CrowdCampaignsController < ApplicationController
     if params[:user_id].present?
       CrowdCampaign.scope_public.where(user_id: params[:user_id])
     else
-      CrowdCampaign.scope_public
+      CrowdCampaign.scope_public.in(current_region).or(CrowdCampaign.funding.where(id: 41))
     end
   end
 

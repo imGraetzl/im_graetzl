@@ -118,6 +118,27 @@ APP.components.flashMsgEvents = (function() {
           'event_label': 'Duplicate: ' + $("#meeting_name").val()
         });
       }
+
+      // Location Error
+      else if (flashMsg('Du hast bereits ein Schaufenster')){
+        gtag(
+          'event', 'Error :: Location :: Further Location', {
+          'event_label': 'User: ' + $("body").attr("data-userid")
+        });
+      }
+
+      // Purchase
+      else if (flashMsg('Deine Zahlung wurde erfolgreich authorisiert.')){
+        if ($("[data-transaction-id]").exists()) {
+          var $data = $(".summary-screen");
+          gtag("event", "purchase", {
+            transaction_id: $data.data('transaction-id'),
+            value: $data.data('value'),
+            currency: "EUR"
+          });
+        }
+      }
+
     }
 
     return {

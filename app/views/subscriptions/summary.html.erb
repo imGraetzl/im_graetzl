@@ -4,7 +4,7 @@
   )
 %>
 
-<section class="subscriptions-page summary-screen">
+<section class="subscriptions-page summary-screen" data-transaction-id="<%= "SUBSCRIPTION_#{@subscription.id}" %>" data-value="<%= @subscription.subscription_plan.amount %>">
 
   <div class="col-content">
     <%= render 'subscriptions/new/summary' %>

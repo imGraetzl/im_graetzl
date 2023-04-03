@@ -64,7 +64,7 @@
         <%= link_to "Rückgabe bestätigen", confirm_return_tool_rental_path(tool_rental), method: :post, class: "btn-primary -small" %>
       </div>
 
-    <% elsif tool_rental.return_confirmed? %>
+    <% elsif tool_rental.return_confirmed? || tool_rental.paid_out? %>
 
       <div class="note">
         <strong>Du hast die Rückgabe bestätigt.</strong><br>
@@ -76,10 +76,16 @@
             <% end %>
           </div>
         <% else %>
-          Danke für deine Bewertung.
+          Danke für deine Bewertung. 
         <% end %>
       </div>
 
+    <% elsif tool_rental.storno? %>
+
+      <div class="note">
+        <strong>Die Buchungsanfrage wurde storniert.</strong>
+      </div>
+      
     <% end %>
 
   </div>

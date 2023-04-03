@@ -6,6 +6,7 @@
 <% end %>
 <% content_for(:subtitle, "#{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} & #{t("region.#{@region.id}.favorite_graetzls")}") %>
 
+<%= render 'featured/crowd_campaign', crowd_campaign: CrowdCampaign.funding.find_by_id(41) if CrowdCampaign.funding.find_by_id(41) && @region.id == 'wien' && @period == 'weekly' %>
 
 <!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 4 -->
 <% current_position = 0 %>
@@ -14,7 +15,6 @@
 <% ownzuckerls = allzuckerls.where(user_id: @user.id) %>
 <% zuckerls = (allzuckerls - ownzuckerls).sample(4) %>
 <% zuckerls += ownzuckerls %>
-
 
 <% NotificationMailer::GRAETZL_SUMMARY_BLOCKS.each do |block_title, notification_types| %>
   <% notifications = @notifications.select{|n| n.class.in?(notification_types)} %>
@@ -48,7 +48,6 @@
 <!-- Insert Supporters -->
 <% if @region.id == 'wien' && @period == 'weekly' %>
   <%= render 'summary/new_admin_discussion' if @featured_discussion %>
-  <%= render 'featured/good_morning_dates' %>
   <!-- render 'featured/room_booster' if @user.room_offers.exists? -->
   <%= render 'featured/subscribers' if Subscription.in(@region).active.present? %>
 <% end %>

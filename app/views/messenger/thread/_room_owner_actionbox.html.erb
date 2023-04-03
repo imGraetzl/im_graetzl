@@ -49,6 +49,19 @@
       Diese Raumteiler Anfrage ist mittlerweile abgelaufen.
     </div>
 
+    <% elsif room_rental.paid_out? %>
+
+      <div class="note">
+        <strong>Deine Raumteilerbuchung ist abgeschlossen, wir hoffen es hat alles gut geklappt!</strong><br>
+        Die Mieteinnahmen werden dir auf dein Konto gutgeschrieben.
+      </div>
+
+    <% elsif room_rental.storno? %>
+
+      <div class="note">
+        <strong>Die Buchungssanfrage wurde storniert.</strong><br>
+      </div>
+
     <% end %>
 
   </div>

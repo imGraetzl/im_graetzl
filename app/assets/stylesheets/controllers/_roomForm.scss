@@ -107,7 +107,9 @@ section.room-offer-form {
   }
 
   .room-offer-type-selection {
-    text-align: center;
+    @include respond-to(">=medium") {
+        text-align: center;
+    }
     .input-radio {
       display: inline-block;
       margin: 0 10px;

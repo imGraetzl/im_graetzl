@@ -62,7 +62,7 @@
         Sobald <%= tool_rental.owner.full_name %> die Rückgabe des Geräteteilers bestätigt hat, kannst du hier den Mietvorgang bewerten.
       </div>
 
-    <% elsif tool_rental.return_confirmed? %>
+    <% elsif tool_rental.return_confirmed? || tool_rental.paid_out? %>
 
       <div class="note">
         <strong><%= tool_rental.owner.first_name %> hat die Rückgabe bestätigt.</strong><br>
@@ -74,8 +74,14 @@
             <% end %>
           </div>
         <% else %>
-          Danke für deine Bewertung.
+          Danke für deine Bewertung. 
         <% end %>
+      </div>
+
+    <% elsif tool_rental.storno? %>
+
+      <div class="note">
+        <strong>Die Buchungsanfrage wurde storniert.</strong>
       </div>
 
     <% end %>

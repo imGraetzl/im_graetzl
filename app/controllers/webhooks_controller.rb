@@ -116,6 +116,11 @@ class WebhooksController < ApplicationController
     SubscriptionMailer.invoice(subscription).deliver_later if subscription
   end
 
+  def invoice_payment_failed(object)
+    subscription = Subscription.find_by(stripe_id: object.subscription)
+    SubscriptionMailer.invoice_payment_failed(subscription).deliver_later if subscription
+  end
+
   def charge_refunded(charge)
     if charge.metadata["room_rental_id"]
       room_rental = RoomRental.find_by(id: charge.metadata.room_rental_id)

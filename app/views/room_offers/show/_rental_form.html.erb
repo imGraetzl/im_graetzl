@@ -8,7 +8,7 @@
         data: { days: @room_offer.available_days } %>
   </div>
 
-  <div class="input-select">
+  <div class="input-select disabled">
     <%= label_tag :hour_from do %>
       <%= icon_tag "time-clock" %>
     <% end %>
@@ -17,7 +17,7 @@
         include_blank: 'Check-in', disabled: true, class: 'hour-input hour-from' %>
   </div>
 
-  <div class="input-select">
+  <div class="input-select disabled">
     <%= label_tag :hour_to do %>
       <%= icon_tag "time-clock" %>
     <% end %>

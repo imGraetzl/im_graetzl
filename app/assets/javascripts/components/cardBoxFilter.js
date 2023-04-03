@@ -349,7 +349,14 @@ APP.components.cardBoxFilter = (function() {
   function addFeaturedCard() {
     if ($('.featuredCard').exists()) {
       var featuredCard = $('.featuredCard').clone().removeClass('-hidden');
-      if ($(".action-card-container").exists()) {
+      if (featuredCard.data('position')) {
+        // Special Position
+        var pos = featuredCard.data('position') -1;
+        if (cardGrid.children(':eq(0)').exists()) {
+          cardGrid.children(':eq('+pos+')').before(featuredCard);
+        }
+      }
+      else if ($(".action-card-container").exists()) {
         // Logged Out on Second Position
         if (cardGrid.children(':eq(0)').exists()) {
           cardGrid.children(':eq(0)').after(featuredCard);

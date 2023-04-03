@@ -8,7 +8,7 @@ APP.components.cookieTracking = (function() {
     var testmode = false;
 
     // Set Analytics Permission Status on Load from User Cookie Setting
-    if (getCookie('cookieControl') && $.fn.ihavecookies.preference('analytics') === false) {
+    if (checkCookie() && $.fn.ihavecookies.preference('analytics') === false) {
       gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'denied'
@@ -28,6 +28,7 @@ APP.components.cookieTracking = (function() {
       console.log('Testmode: ' + testmode);
       console.log('Analytics Permission: ' + $.fn.ihavecookies.preference('analytics'));
       console.log('Analytics Tracking: ' + trackAnalytics);
+      console.log('cookieControl exists: ' + checkCookie());
     }
 
     // LOAD ANALYTICS ASYNC
@@ -114,11 +115,9 @@ APP.components.cookieTracking = (function() {
         eventSubmitted = false;
     });
 
-    // Helper Function getCookie
-    function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
+    // Helper Function - Check for Cookie Control Cookie
+    function checkCookie() {
+      return document.cookie.match(/^(.*;)?\s*cookieControl\s*=\s*[^;]+(.*)?$/) ? true : false
     }
 
   }

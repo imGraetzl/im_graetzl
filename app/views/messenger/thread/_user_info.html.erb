@@ -1,6 +1,6 @@
 <% user = thread_other_user(@thread) %>
 <div class="user-info">
-  <%= link_to user do %>
+  <%= link_to user_url(user, host: user.region.host) do %>
     <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round show-badge' %>
   <% end %>
   <div class="name">
