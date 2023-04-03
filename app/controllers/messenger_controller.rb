@@ -8,7 +8,7 @@ class MessengerController < ApplicationController
 
   def start_thread
 
-    if !current_user.admin? && current_user.user_message_threads.where(created_at: 1.hours.ago..Time.now).count >= 15
+    if !(current_user.admin? || current_user.beta?) && current_user.user_message_threads.where(created_at: 1.hours.ago..Time.now).count >= 15
       # Spam Filter
       AdminMailer.messenger_spam_alert(current_user).deliver_later
       redirect_to root_path, notice: 'Zu viele Messenger Unterhaltungen mit diesem User innerhalb kurzer Zeit ...' and return
