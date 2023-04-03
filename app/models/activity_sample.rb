@@ -35,9 +35,8 @@ class ActivitySample
       Location.in(@current_region).approved.include_for_box.order("last_activity_at DESC").first(2)
     end
   end
-
   def crowd_campaigns
-    funding_campaigns = CrowdCampaign.in(@current_region).funding.all.sample(2)
+    funding_campaigns = CrowdCampaign.in(@current_region).funding.or(CrowdCampaign.funding.where(id: 41)).all.sample(2)
     public_campaigns = CrowdCampaign.in(@current_region).completed.enabled.all.sample(2)
     campaigns = funding_campaigns + public_campaigns
     campaigns.compact.first(2)
