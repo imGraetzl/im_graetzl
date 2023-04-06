@@ -40,17 +40,18 @@ class ActionProcessor
       notify_comment(subject, child)
 
     when [Meeting, :create]
-      if subject.public?
-        #Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
-        Activity.add_public(subject, to: subject.graetzl)
-        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
-      elsif subject.group_id
-        Activity.add_personal(subject, group: subject.group)
-        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+      # Create Activity and Notifications only for Meetings in the next 2 Months
+      if subject.starts_at_date <= Date.today + 2.month
+        if subject.public?
+          Activity.add_public(subject, to: subject.graetzl)
+          Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
+            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+        elsif subject.group_id
+          Activity.add_personal(subject, group: subject.group)
+          Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
+            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+        end
       end
-
     when [Meeting, :update]
       if subject.public?
 

@@ -6,8 +6,6 @@
 <% end %>
 <% content_for(:subtitle, "#{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} & #{t("region.#{@region.id}.favorite_graetzls")}") %>
 
-<%= render 'featured/crowd_campaign', crowd_campaign: CrowdCampaign.funding.find_by_id(41) if CrowdCampaign.funding.find_by_id(41) && @region.id == 'wien' && @period == 'weekly' %>
-
 <!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 4 -->
 <% current_position = 0 %>
 <% zuckerl_position = NotificationMailer::ZUCKERL_BLOCK_POSITION %>

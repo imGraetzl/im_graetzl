@@ -2,6 +2,11 @@ namespace :scheduled do
   desc 'Set new startDate if in past and additional future Date exists'
   task update_meeting_date: :environment do
 
+    # Create Activity for Meetings which had no Activity on Creating
+    Meeting.where("starts_at_date = ?", Date.today + 2.month).find_each do |meeting|
+      ActionProcessor.track(meeting, :create) if meeting.refresh_activity
+    end
+
     # Delete all PAST Additonal Dates
     MeetingAdditionalDate.where('starts_at_date < ?', Date.today).each do |model|
       model.destroy
@@ -10,7 +15,7 @@ namespace :scheduled do
     # Update past meetings to next additional date and may refresh activity
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
       if meeting.meeting_additional_dates.any?
-        meeting.activate_next_date!
+        meeting.set_next_date!
         ActionProcessor.track(meeting, :create) if meeting.refresh_activity
       end
     end

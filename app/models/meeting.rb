@@ -93,7 +93,7 @@ class Meeting < ApplicationRecord
     end
   end
 
-  def activate_next_date!
+  def set_next_date!
     next_meeting = meeting_additional_dates.sort_by(&:starts_at_date).first
     update(
       starts_at_date: next_meeting.starts_at_date,
