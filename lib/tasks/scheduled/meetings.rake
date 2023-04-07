@@ -4,7 +4,8 @@ namespace :scheduled do
 
     # Create Activity for Meetings which had no Activity on Creating
     Meeting.where("starts_at_date = ?", Date.today + 2.month).find_each do |meeting|
-      ActionProcessor.track(meeting, :create) if meeting.refresh_activity
+      ActionProcessor.track(meeting, :create)
+      meeting.update(last_activated_at: Time.now)
     end
 
     # Delete all PAST Additonal Dates
