@@ -43,7 +43,7 @@
           <strong><%= I18n.localize(@crowd_campaign.startdate, format:'%d. %b %Y') if @crowd_campaign.startdate %> - <%= I18n.localize(@crowd_campaign.enddate, format:'%d. %b %Y') if @crowd_campaign.enddate %></strong>
         </p>
         <p>
-          <em>Benötigter Mindesbetrag: <strong><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></strong></em>
+          <em>Benötigter Mindestbetrag: <strong><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></strong></em>
         </p>
       </td>
     </tr>
