@@ -71,6 +71,18 @@ ActiveAdmin.register Meeting do
           chain = super unless formats.include?(:json) || formats.include?(:csv)
           chain
       end
+
+      def update
+
+        starts_at_date_before = resource.starts_at_date
+
+        super
+
+        if starts_at_date_before != resource.starts_at_date
+          ActionProcessor.track(resource, :update)
+        end
+        
+      end
   end
 
   csv do
