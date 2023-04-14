@@ -39,8 +39,9 @@ class ActionProcessor
       end
       notify_comment(subject, child)
 
-    when [Meeting, :create]
+    when [Meeting, :create] 
       # Create Activity and Notifications only for Meetings in the next 2 Months
+
       if subject.starts_at_date <= Date.today + 2.month
         if subject.public?
           Activity.add_public(subject, to: subject.graetzl)
@@ -56,7 +57,7 @@ class ActionProcessor
       if subject.public?
 
         # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').any?
+        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').where('notify_before > ?', Date.today).any?
           Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
             notify_at: subject.notification_time_range.first || Time.current,
             notify_before: subject.notification_time_range.last,
@@ -67,7 +68,7 @@ class ActionProcessor
       elsif subject.group_id
 
         # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').any?
+        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').where('notify_before > ?', Date.today).any?
           Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').update_all(
             notify_at: subject.notification_time_range.first || Time.current,
             notify_before: subject.notification_time_range.last,

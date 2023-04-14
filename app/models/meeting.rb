@@ -54,6 +54,8 @@ class Meeting < ApplicationRecord
   before_validation :set_graetzl
   before_create :set_privacy
   after_create :update_location_activity
+  after_update :update_notifications, if: -> { saved_change_to_starts_at_date? }
+
 
   def self.visible_to_all
     where(private: false)
@@ -156,4 +158,9 @@ class Meeting < ApplicationRecord
   def update_location_activity
     location.update(last_activity_at: created_at) if location
   end
+
+  def update_notifications
+    ActionProcessor.track(self, :update)
+  end
+
 end

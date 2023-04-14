@@ -4,8 +4,11 @@ namespace :scheduled do
 
     # Create Activity for Meetings which had no Activity on Creating
     Meeting.where("starts_at_date = ?", Date.today + 2.month).find_each do |meeting|
-      ActionProcessor.track(meeting, :create)
-      meeting.update(last_activated_at: Time.now)
+
+      if !Notification.where(subject: meeting).where('notify_before > ?', Date.today).any?
+        ActionProcessor.track(meeting, :create) if meeting.refresh_activity
+      end
+
     end
 
     # Delete all PAST Additonal Dates
@@ -15,7 +18,7 @@ namespace :scheduled do
 
     # Update past meetings to next additional date and may refresh activity
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
-      if meeting.meeting_additional_dates.any?
+      if meeting.meeting_additional_dates.any? 
         meeting.set_next_date!
         ActionProcessor.track(meeting, :create) if meeting.refresh_activity
       end

@@ -11,6 +11,8 @@ ActiveAdmin.register ToolRental do
   scope :canceled
   scope :rejected
   scope :expired
+  scope :paid_out
+  scope :storno
   scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
