@@ -6,7 +6,7 @@ namespace :scheduled do
     Meeting.where("starts_at_date = ?", Date.today + 2.month).find_each do |meeting|
 
       if !Notification.where(subject: meeting).where('notify_before > ?', Date.today).any?
-        ActionProcessor.track(meeting, :create) if meeting.refresh_activity
+        ActionProcessor.track(meeting, :create)
       end
 
     end
