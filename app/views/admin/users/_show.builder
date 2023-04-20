@@ -91,20 +91,11 @@ context.instance_eval do
         end
       end
 
-      panel 'Geräteteiler' do
-        table_for user.tool_offers do
-          column :id
-          column :title
-          column(:state){|l| status_tag(l.status)}
-          column(''){|l| link_to 'Anzeigen', admin_tool_offer_path(l) }
-        end
-      end
-
       panel 'Raumteiler | Habe Raum' do
         table_for user.room_offers do
           column :id
           column :slogan
-          column(:comment_count) {|r| r.comments.size }
+          column(:status){|r| status_tag(r.status)}
           column(''){|l| link_to 'Anzeigen', admin_room_offer_path(l) }
         end
       end
@@ -113,8 +104,17 @@ context.instance_eval do
         table_for user.room_demands do
           column :id
           column :slogan
-          column(:comment_count) {|r| r.comments.size }
+          column(:status){|r| status_tag(r.status)}
           column(''){|l| link_to 'Anzeigen', admin_room_demand_path(l) }
+        end
+      end
+
+      panel 'Geräteteiler' do
+        table_for user.tool_offers do
+          column :id
+          column :title
+          column(:state){|l| status_tag(l.status)}
+          column(''){|l| link_to 'Anzeigen', admin_tool_offer_path(l) }
         end
       end
 
@@ -126,22 +126,24 @@ context.instance_eval do
         end
       end
 
-      panel 'Associations' do
+      panel 'Treffen' do
         tabs do
+          tab 'Zukünftige Treffen' do
+            table_for user.initiated_meetings.upcoming do
+              column :id
+              column :name
+              column(:status){|r| status_tag(r.state)}
+              column :starts_at_date
+              column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
+            end
+          end
           tab 'Erstellte Treffen' do
             table_for user.initiated_meetings do
               column :id
               column :name
-              column :user
-              column :created_at
+              column(:status){|r| status_tag(r.state)}
+              column :starts_at_date
               column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
-            end
-          end
-          tab 'Pinnwand' do
-            table_for user.wall_comments do
-              column :id
-              column :user
-              column :created_at
             end
           end
         end
