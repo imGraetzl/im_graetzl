@@ -4,7 +4,7 @@ context.instance_eval do
   column :user
   column(:status){|r| status_tag(r.status)}
   column :invoice_number
-  column(:invoice_pdf){|u| link_to 'Rechnung', u.invoice_pdf }
+  column(:invoice_pdf){|u| link_to 'Rechnung', u.generate_invoice_pdf }
   column :created_at
   actions
 end
