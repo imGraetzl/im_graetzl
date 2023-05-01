@@ -1,0 +1,54 @@
+<%= form_for [@poll, poll_user], html: { class: 'poll-form' } do |f| %>
+<%= form_errors_for f.object %>
+<% f.object.poll_user_answers.build if f.object.poll_user_answers.empty? %>
+
+  <% @poll.poll_questions.each do |question| %>
+
+      <h3><%= question.title %></h3>
+      <div class="cardBox">
+
+          <% if question.single? %>
+
+            <% question.poll_options.each do |option| %>
+              <%= f.fields_for :poll_user_answers do |o| %>
+              <%= o.hidden_field :poll_question_id, value: question.id %>
+                <div class="input-radio">
+                  <%= o.radio_button :poll_option_id, option.id %>
+                  <%= o.label :poll_option_id, option.title, value: option.id %>
+                </div>
+              <% end %>
+            <% end %>
+
+          <% elsif question.multiple? %>
+
+            <% question.poll_options.each do |option| %>
+              <%= f.fields_for :poll_user_answers do |o| %>
+              <%= o.hidden_field :poll_question_id, value: question.id %>
+                <div class="input-checkbox">
+                  <%= o.check_box :poll_option_id, {}, option.id, nil %>
+                  <%= o.label :poll_option_id, option.title %>
+              </div>
+              <% end %>
+            <% end %>
+
+          <% else %>
+            <%= f.fields_for :poll_user_answers do |o| %>
+            <%= o.hidden_field :poll_question_id, value: question.id %>
+              <div class="input-textarea">
+                <%= o.label :answer do %>
+                  <%= icon_tag "layout-document" %>
+                  <span>Antwort</span>
+                <% end %>
+                <%= o.text_area :answer, placeholder: 'Deine Antwort ...' %>
+              </div>
+            <% end %>
+          <% end %>
+        
+      </div>
+    
+      
+  <% end %>
+
+  <%= f.button 'Absenden', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>
+
+<% end %>

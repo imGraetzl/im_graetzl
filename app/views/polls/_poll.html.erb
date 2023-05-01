@@ -1,0 +1,35 @@
+<div class="cardBox -poll -<%= poll.status %>" data-behavior="masonry-card" data-card-id="poll-<%= poll.id %>">
+
+  <div class="cardBoxHeader -poll">
+    <%= link_to poll do %>
+      <div class="coverImgWrapper">
+        <%= cover_photo_image poll, size: :large, class: 'coverImg' %>
+      </div>
+      <div class="categoryicon">
+        <%= icon_tag "pie-chart" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="cardBoxContent -poll">
+
+    <div class="slogan">
+      <%= poll.title %>
+    </div>
+
+    <div class="txt">
+      <p><%= truncate poll.description, length: 100 %></p>
+      <p><%= truncate poll.poll_question.title, length: 100 %></p>
+      <ul>
+        <% poll.poll_question.poll_options.each do |option| %>
+          <li><%= option.title %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: poll, comment_url: poll_path(poll, target: local_assigns[:activity_comment].target_url_params), comment: local_assigns[:activity_comment] %>
+    <% end %>
+
+  </div>
+</div>

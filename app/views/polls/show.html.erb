@@ -1,0 +1,61 @@
+<% meta(
+    title: t('.title', name: @poll.title),
+    description: t('.description', desc: @poll.description[0...154]),
+    robots: 'index, follow',
+    og_title: t('.title', name: @poll.title),
+    og_description: t('.description', desc: @poll.description[0...154]),
+    og_image: @poll.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/og_logo.png")
+  )
+%>
+
+<% content_for :canonical_url, @poll %>
+
+<section class="meeting">
+
+  <div class="imgHeader -cloudy">
+    <div class="titleHeadline">
+      <div class="wrp">
+        <%= link_to content_tag(:h3, "#{@poll.poll_type}", class: 'district'), @poll %>
+        <h1><%= @poll.title %></h1>
+      </div>
+      <div class="card"></div>
+    </div>
+    <%= cover_header_image(@poll, class: 'titleImg') %>
+  </div>
+
+
+  <div class="entryDescription">
+
+    <div class="bbcode"><%= @poll.description.bbcode_to_html.html_safe %></div>
+
+
+    <%= render 'polls/users/form', poll_user: PollUser.new %>
+    
+
+  </div>
+
+  
+
+
+  <div class="entryParticipate" data-behavior="participants-container">
+    <div class="participants">
+      <% if @poll.users.size > 0 %>
+        <p class="userCount"><span><%= @poll.users.size %></span> haben teilgenommen</p>
+      <% end %>
+      <div class="portraitCollection">
+        <% @poll.users.each do |user| %>
+            <%= link_to user_path(user), rel: 'nofollow' do %>
+              <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round show-badge' %>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="stream">
+    <%= render 'comments/form', commentable: @poll %>
+    <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+  </div>
+
+</section>

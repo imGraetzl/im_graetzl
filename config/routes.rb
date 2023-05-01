@@ -95,6 +95,7 @@ Rails.application.routes.draw do
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
     get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
+    get 'mach-mit', action: 'polls', as: 'polls'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
@@ -272,6 +273,11 @@ Rails.application.routes.draw do
     get 'compose_mail', on: :member
     post 'send_mail', on: :member
     post :toggle_user_status, on: :member
+  end
+
+  resources :polls, path: 'mach-mit' do
+    resources :poll_users, only: [:new, :create, :edit, :update, :destroy] do
+    end
   end
 
   get 'messenger' => 'messenger#index'
