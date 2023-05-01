@@ -286,7 +286,7 @@ class CrowdCampaignsController < ApplicationController
     if params[:user_id].present?
       CrowdCampaign.scope_public.where(user_id: params[:user_id])
     else
-      CrowdCampaign.scope_public.in(current_region).or(CrowdCampaign.funding.where(id: 41))
+      CrowdCampaign.scope_public.in(current_region).or(CrowdCampaign.scope_public.where(id: 41))
     end
   end
 
