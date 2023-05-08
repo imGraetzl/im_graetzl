@@ -8,13 +8,40 @@ class PollUsersController < ApplicationController
 
   def create
 
-    @poll_user = @poll.poll_users.build(poll_user_params)
-    @poll_user.user = current_user
+    if @poll.users.include?(current_user)
+      poll_user = @poll.poll_users.where(user: current_user).last
+      flash.now[:notice] = "Du hast bereits teilgenommen. Du kannst deine Teilnahme #{view_context.link_to 'hier bearbeiten', edit_poll_poll_user_path(@poll, poll_user.id)}."
+      render 'polls/show'
+    else
 
-    if @poll_user.save
-      redirect_to @poll
+      @poll_user = @poll.poll_users.build(poll_user_params)
+      @poll_user.user = current_user
+    
+      if @poll_user.save
+        redirect_to @poll
+      else
+        redirect_to @poll
+      end
+
+    end
+    
+  end
+
+  def edit
+    @poll_user = current_user.poll_users.find(params[:id])
+    if @poll_user
+      render 'polls/show'
     else
       redirect_to @poll
+    end
+  end
+
+  def update
+    @poll_user = current_user.poll_users.find(params[:id])
+    if @poll_user.update(poll_user_params)
+      redirect_to @poll
+    else
+      render 'polls/show'
     end
   end
 

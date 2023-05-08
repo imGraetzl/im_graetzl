@@ -9,9 +9,9 @@
 
           <% if question.single? %>
 
-            <% question.poll_options.each do |option| %>
-              <%= f.fields_for :poll_user_answers do |o| %>
-              <%= o.hidden_field :poll_question_id, value: question.id %>
+            <%= f.fields_for :poll_user_answers do |o| %>
+            <%= o.hidden_field :poll_question_id, value: question.id %>
+              <% question.poll_options.each do |option| %>
                 <div class="input-radio">
                   <%= o.radio_button :poll_option_id, option.id %>
                   <%= o.label :poll_option_id, option.title, value: option.id %>
@@ -27,7 +27,7 @@
                 <div class="input-checkbox">
                   <%= o.check_box :poll_option_id, {}, option.id, nil %>
                   <%= o.label :poll_option_id, option.title %>
-              </div>
+               </div>
               <% end %>
             <% end %>
 

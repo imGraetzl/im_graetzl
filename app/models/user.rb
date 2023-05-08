@@ -62,6 +62,8 @@ class User < ApplicationRecord
   has_many :favorite_users, as: :favoritable, class_name: "Favorite", dependent: :destroy
   has_many :favorites, inverse_of: :user
 
+  has_many :poll_users
+
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, reject_if: :all_blank
 

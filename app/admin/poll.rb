@@ -26,8 +26,8 @@ ActiveAdmin.register Poll do
     :cover_photo, :remove_cover_photo,
     graetzl_ids: [],
     poll_questions_attributes: [
-      :id, :option_type, :optional, :title, :description,
-      poll_options_attributes: [:id, :title]
+      :id, :option_type, :optional, :title, :description, :_destroy,
+      poll_options_attributes: [:id, :title, :_destroy]
     ]
 
   # Within app/admin/resource_name.rb
