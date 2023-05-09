@@ -10,7 +10,7 @@
 
 <% content_for :canonical_url, @poll %>
 
-<section class="meeting">
+<section class="poll">
 
   <div class="imgHeader -cloudy">
     <div class="titleHeadline">
@@ -54,8 +54,12 @@
     </div>
   </div>
 
+  <div class="content-wide">
+    <%= render 'polls/users/result' %>
+  </div>
 
   <div class="stream">
+    <h2 class="hl-main">Beiträge zum Thema</h2>
     <%= render 'comments/form', commentable: @poll %>
     <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
   </div>

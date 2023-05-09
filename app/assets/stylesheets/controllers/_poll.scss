@@ -1,0 +1,101 @@
+section.poll {
+  @include cf;
+  .imgHeader {
+    @include respond-to("<=medium") {
+      margin-top:0px;
+      margin-bottom:15px;
+      .titleImg {
+        height:250px;
+      }
+    }
+    @include respond-to(">=medium") {
+      margin-bottom: -30px;
+      overflow: visible;
+    }
+
+  }
+
+  .cardBox.-poll {
+    margin-bottom:20px;
+    padding:0px;
+
+    .input-radio, .input-checkbox {
+      margin-left:15px;
+      margin-right:15px;
+      margin-top:3px;
+      margin-bottom:3px;
+    }
+
+    h3 {
+      padding:15px;
+      border-bottom: 1px solid $color-ambient-grey-light;
+      .icon {
+        float:right;
+        color: $color-ambient-mint-light;
+      }
+    }
+  }
+
+  .content-wide {
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-top: 1px solid $color-ambient-mint-light-lowsaturation;
+    clear: both;
+    h2 {
+      
+    }
+  }
+
+  .resultbox {
+    margin-bottom:20px;
+    h3 {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom:20px;
+      svg {
+        color: $color-ambient-mint-dark;
+        width:35px;
+        height:35px;
+      }
+      span {
+        margin-left:5px;
+      }
+      .count {
+        position: absolute;
+        @include font-size-primaryFont('base');
+        top: 0;
+        bottom: 0;
+        right:15px;
+        display: flex;
+        align-items: center;
+        font-weight:normal;
+        color: $color-ambient-grey;
+      }
+    }
+  }
+
+}
+
+.fundingBar {
+  margin-bottom:15px;
+  font-size: 35px;
+  .fundingBar_bar {
+    background-color: $color-ambient-mint;
+  }
+  .fundingBar_title, .fundingBar_result {
+    position: absolute;
+    @include font-size-primaryFont('large');
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    display: flex;
+    align-items: center;
+    padding-left:15px;
+  }
+  .fundingBar_result {
+    right:15px;
+    @include font-size-primaryFont('small');
+  }
+}

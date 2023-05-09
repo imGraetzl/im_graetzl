@@ -230,6 +230,10 @@ class ActionProcessor
     when [Subscription, :create]
       Activity.add_public(subject, to: :entire_region)
 
+    when [Poll, :comment]
+      #
+
+
     else
       raise "Action not defined for #{subject.class} #{action}"
     end

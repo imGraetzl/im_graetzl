@@ -4,8 +4,12 @@
 
   <% @poll.poll_questions.each do |question| %>
 
-      <h3><%= question.title %></h3>
-      <div class="cardBox">
+      <div class="cardBox -poll">
+
+        <h3>
+          <%= question.title %>
+           <%= icon_tag "pie-chart" %>
+        </h3>
 
           <% if question.single? %>
 
@@ -35,10 +39,6 @@
             <%= f.fields_for :poll_user_answers do |o| %>
             <%= o.hidden_field :poll_question_id, value: question.id %>
               <div class="input-textarea">
-                <%= o.label :answer do %>
-                  <%= icon_tag "layout-document" %>
-                  <span>Antwort</span>
-                <% end %>
                 <%= o.text_area :answer, placeholder: 'Deine Antwort ...' %>
               </div>
             <% end %>

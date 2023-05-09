@@ -21,6 +21,14 @@ class PollOption < ApplicationRecord
     poll_question.free_answer?
   end
 
+  def percentage
+    if self.poll_question.poll_users.present?
+      (self.poll_user_answers.count * 100 / self.poll_question.poll_users.count * 100) / 100
+    else
+      0
+    end
+  end
+
   private
 
 

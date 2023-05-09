@@ -8,9 +8,10 @@ class PollUsersController < ApplicationController
 
   def create
 
+    
     if @poll.users.include?(current_user)
       poll_user = @poll.poll_users.where(user: current_user).last
-      flash.now[:notice] = "Du hast bereits teilgenommen. Du kannst deine Teilnahme #{view_context.link_to 'hier bearbeiten', edit_poll_poll_user_path(@poll, poll_user.id)}."
+      flash.now[:notice] = "Du hast bereits teilgenommen."
       render 'polls/show'
     else
 
