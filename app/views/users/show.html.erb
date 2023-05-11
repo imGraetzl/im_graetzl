@@ -40,7 +40,7 @@
         <% if @user.subscribed? %>
           <div class="icontxt">
             <%= icon_tag "abo" %>
-            <%= link_to "imGrätzl Fördermitglied", subscription_plans_url(host: @user.region.host) %>
+            <%= link_to "imGrätzl Fördermitglied", subscription_plans_path %>
           </div>
         <% end %>
 
