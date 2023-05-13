@@ -276,7 +276,8 @@ Rails.application.routes.draw do
   end
 
   resources :polls, path: 'mach-mit' do
-    resources :poll_users, only: [:new, :create, :edit, :update, :destroy] do
+    post :unattend, on: :member
+    resources :poll_users, only: [:new, :create] do
     end
   end
 

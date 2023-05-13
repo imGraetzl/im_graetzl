@@ -13,6 +13,12 @@ class PollsController < ApplicationController
     @comments = @poll.comments.includes(:user, :images).order(created_at: :desc)
   end
 
+  def unattend
+    @poll = Poll.in(current_region).find(params[:id])
+    @poll.poll_users.where(user_id: current_user.id).destroy_all
+    redirect_to @poll
+  end
+
   private
 
   def collection_scope

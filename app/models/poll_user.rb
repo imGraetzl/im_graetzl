@@ -1,4 +1,6 @@
 class PollUser < ApplicationRecord
+  include Trackable
+
   belongs_to :poll
   belongs_to :user
   has_many :poll_user_answers, dependent: :destroy

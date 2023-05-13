@@ -14,6 +14,7 @@ class CreatePolls < ActiveRecord::Migration[6.1]
 
       t.timestamps
       t.index ["slug"], name: "index_polls_on_slug"
+      t.references :user, foreign_key: { on_delete: :cascade }, index: true
     end
 
     create_table :poll_graetzls do |t|
@@ -26,7 +27,7 @@ class CreatePolls < ActiveRecord::Migration[6.1]
       t.string "option_type", default: "0"
       t.string "title"
       t.text "description"
-      t.boolean "optional", default: false
+      t.boolean "required", default: true
 
       t.timestamps
       t.references :poll, index: true, foreign_key: { on_delete: :cascade }

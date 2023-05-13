@@ -2,23 +2,22 @@
 
 <% @poll.poll_questions.scope_options.each do |question| %>
 
-  <div class="resultbox">
+  <div class="results">
+  
     <h3>
       <%= icon_tag "pie-chart" %>
       <span><%= question.title %></span>
       <em class="count"><%= question.poll_users.count %> Antworten</em>
     </h3>
 
-    <% question.poll_options.each do |option| %>
-
-      <div class="fundingBar">
+    <% question.poll_options.order(votes_count: :desc).each do |option| %>
+      <div class="fundingBar -poll">
         <div class="fundingBar_track fundingBar_track-finished">
           <span class="fundingBar_title"><%= option.title %></span>
-          <span class="fundingBar_result"><%= option.percentage.to_i %>% (<%= option.poll_user_answers.count %>)</span>
+          <span class="fundingBar_result"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span>
           <div class="fundingBar_bar" style="width:<%= option.percentage.to_i %>%;"></div>
         </div>
       </div>
-
     <% end %>
 
   </div>

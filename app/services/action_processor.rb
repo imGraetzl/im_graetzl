@@ -231,8 +231,13 @@ class ActionProcessor
       Activity.add_public(subject, to: :entire_region)
 
     when [Poll, :comment]
-      #
+      Activity.add_public(subject, child, to: subject.graetzls)
+      notify_comment(subject, child)
 
+    when [PollUser, :create]
+      if subject.poll.enabled?
+        Activity.add_public(subject.poll, subject, to: subject.poll.graetzls)
+      end
 
     else
       raise "Action not defined for #{subject.class} #{action}"

@@ -4,6 +4,7 @@ class Poll < ApplicationRecord
   extend FriendlyId
   friendly_id :title, :use => :history
 
+  belongs_to :user
   has_many :poll_graetzls
   has_many :graetzls, through: :poll_graetzls
   has_many :districts, -> { distinct }, through: :graetzls
@@ -32,8 +33,12 @@ class Poll < ApplicationRecord
     includes(:poll_questions, :poll_options, :poll_users)
   end
 
-  def poll_question
-    poll_questions.first
+  def main_question
+    poll_questions.where(main_question: true).first
+  end
+
+  def find_poll_user(user)
+    poll_users.where(user_id: user&.id).first
   end
 
   def to_s
@@ -41,6 +46,5 @@ class Poll < ApplicationRecord
   end
 
   private
-
 
 end

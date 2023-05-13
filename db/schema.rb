@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_01_131939) do
+ActiveRecord::Schema.define(version: 2023_05_12_090146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -790,6 +790,7 @@ ActiveRecord::Schema.define(version: 2023_05_01_131939) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "poll_question_id"
+    t.integer "votes_count", default: 0
     t.index ["poll_question_id"], name: "index_poll_options_on_poll_question_id"
   end
 
@@ -797,10 +798,12 @@ ActiveRecord::Schema.define(version: 2023_05_01_131939) do
     t.string "option_type", default: "0"
     t.string "title"
     t.text "description"
-    t.boolean "optional", default: false
+    t.boolean "required", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "poll_id"
+    t.boolean "main_question", default: false
+    t.integer "votes_count", default: 0
     t.index ["poll_id"], name: "index_poll_questions_on_poll_id"
   end
 
@@ -838,8 +841,11 @@ ActiveRecord::Schema.define(version: 2023_05_01_131939) do
     t.jsonb "cover_photo_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.boolean "public_result", default: false
     t.index ["region_id"], name: "index_polls_on_region_id"
     t.index ["slug"], name: "index_polls_on_slug"
+    t.index ["user_id"], name: "index_polls_on_user_id"
   end
 
   create_table "region_calls", force: :cascade do |t|
@@ -1506,6 +1512,7 @@ ActiveRecord::Schema.define(version: 2023_05_01_131939) do
   add_foreign_key "poll_user_answers", "poll_users", on_delete: :cascade
   add_foreign_key "poll_users", "polls", on_delete: :cascade
   add_foreign_key "poll_users", "users", on_delete: :cascade
+  add_foreign_key "polls", "users", on_delete: :cascade
   add_foreign_key "room_boosters", "room_offers", on_delete: :nullify
   add_foreign_key "room_boosters", "users", on_delete: :nullify
   add_foreign_key "room_demand_categories", "room_categories", on_delete: :cascade

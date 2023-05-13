@@ -462,6 +462,12 @@ input, select, textarea {
       background-color: $color-font-primary;
     }
   }
+  &.disabled {
+    label::before {
+      background-color: $color-ambient-grey-light;
+      border-color: $color-ambient-grey;
+    }
+  }
 }
 
 .input-switch {
@@ -513,7 +519,33 @@ input, select, textarea {
     }
   }
 }
+// ---------------------------------------------------------------------- Button Row
 
+.input-button {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  a {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+  .btn-primary, .btn-secondary {
+    margin-bottom:15px;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  @include respond-to("<=medium") {
+    justify-content: center;
+    .btn-primary, .btn-secondary {
+      margin-left:0px;
+      width:100%;
+    }
+  }
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px dotted $color-ambient-mint-dark;
+}
 
 // ---------------------------------------------------------------------- Upload Fields
 .upload-oldschool {

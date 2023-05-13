@@ -12,6 +12,7 @@
 
 <section class="poll">
 
+
   <div class="imgHeader -cloudy">
     <div class="titleHeadline">
       <div class="wrp">
@@ -25,18 +26,9 @@
 
 
   <div class="entryDescription">
-
     <div class="bbcode"><%= @poll.description.bbcode_to_html.html_safe %></div>
-
-    <% if @poll_user %>
-      <%= render 'polls/users/edit', poll_user: @poll_user %>
-    <% else %>
-      <%= render 'polls/users/new', poll_user: PollUser.new %>
-    <% end %>
-
+    <%= render 'polls/show/form', poll_user: PollUser.new %>
   </div>
-
-  
 
 
   <div class="entryParticipate" data-behavior="participants-container">
@@ -54,14 +46,19 @@
     </div>
   </div>
 
-  <div class="content-wide">
-    <%= render 'polls/users/result' %>
-  </div>
+
+  <% if @poll.public_result? %>
+    <div class="content-wide">
+      <%= render 'polls/show/result' %>
+    </div>
+  <% end %>
+
 
   <div class="stream">
     <h2 class="hl-main">Beiträge zum Thema</h2>
     <%= render 'comments/form', commentable: @poll %>
     <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
   </div>
+
 
 </section>

@@ -1,3 +1,4 @@
+
 <div class="cardBox -poll -<%= poll.status %>" data-behavior="masonry-card" data-card-id="poll-<%= poll.id %>">
 
   <div class="cardBoxHeader -poll">
@@ -5,31 +6,65 @@
       <div class="coverImgWrapper">
         <%= cover_photo_image poll, size: :large, class: 'coverImg' %>
       </div>
+     <% end %>
       <div class="categoryicon">
-        <%= icon_tag "pie-chart" %>
+        <div class="fav-exchange">
+          <%= icon_tag "pie-chart" %>
+          <span>
+            <% if plz_list(poll) %>
+              <%= plz_list(poll).first(3).join(", ") %>
+              <%= plz_list(poll).size > 3 ? '...' : '' %>
+            <% end %>
+          </span>
+        </div>
+        <%= toggle_favorite_icon(poll) if current_user %>
       </div>
-    <% end %>
+      <div class="sideflag -R -label"><%= link_to poll.poll_type, region_polls_path %></div>
   </div>
 
   <div class="cardBoxContent -poll">
 
-    <div class="slogan">
-      <%= poll.title %>
+    <div class="txt">
+      <h3><%= poll.title %></h3>
+      <p><%= truncate poll.description, length: 100 %></p>
     </div>
 
-    <div class="txt">
-      <p><%= truncate poll.description, length: 100 %></p>
-      <p><%= truncate poll.poll_question.title, length: 100 %></p>
-      <ul>
-        <% poll.poll_question.poll_options.each do |option| %>
-          <li><%= option.title %></li>
-        <% end %>
-      </ul>
+    <div class="slogan">
+      <%= truncate poll.main_question.title, length: 100 %>
     </div>
+
+
+    <%= link_to poll, class: 'result' do %>
+      <% poll.main_question.poll_options.order(votes_count: :desc).each do |option| %>
+        <div class="fundingBar -poll -small">
+          <div class="fundingBar_track fundingBar_track-finished">
+            <span class="fundingBar_title"><%= truncate option.title, length: 25 %></span>
+            <span class="fundingBar_result"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span>
+            <div class="fundingBar_bar" style="width:<%= option.percentage.to_i %>%;"></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+
+    <% if local_assigns[:activity_poll_user] %>
+      <% poll_user = local_assigns[:activity_poll_user] %>
+      <div class="userEntry userPledge">
+        <%= link_to poll_user.user, rel: 'nofollow' do %>
+          <%= avatar_image poll_user.user, size: :thumb, class: 'img-round show-badge' %>
+        <% end %>
+        <span class="userAndType">
+          <%= link_to poll_user.user.username, poll_user.user, rel: 'nofollow' %>
+          <span>hat teilgenommen.</span>
+        </span>
+      </div>
+    <% end %>
+
 
     <% if local_assigns[:activity_comment] %>
       <%= render 'activities/comment', parent: poll, comment_url: poll_path(poll, target: local_assigns[:activity_comment].target_url_params), comment: local_assigns[:activity_comment] %>
     <% end %>
+    
 
   </div>
 </div>

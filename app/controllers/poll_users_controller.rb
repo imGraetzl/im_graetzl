@@ -8,17 +8,19 @@ class PollUsersController < ApplicationController
 
   def create
 
-    
     if @poll.users.include?(current_user)
+      
       poll_user = @poll.poll_users.where(user: current_user).last
       flash.now[:notice] = "Du hast bereits teilgenommen."
       render 'polls/show'
+
     else
 
       @poll_user = @poll.poll_users.build(poll_user_params)
       @poll_user.user = current_user
     
       if @poll_user.save
+        ActionProcessor.track(@poll_user, :create)
         redirect_to @poll
       else
         redirect_to @poll
@@ -26,24 +28,6 @@ class PollUsersController < ApplicationController
 
     end
     
-  end
-
-  def edit
-    @poll_user = current_user.poll_users.find(params[:id])
-    if @poll_user
-      render 'polls/show'
-    else
-      redirect_to @poll
-    end
-  end
-
-  def update
-    @poll_user = current_user.poll_users.find(params[:id])
-    if @poll_user.update(poll_user_params)
-      redirect_to @poll
-    else
-      render 'polls/show'
-    end
   end
 
   private

@@ -47,11 +47,30 @@
     }
   }
 
+  // -------------------------- Poll Cardbox
+  &.-poll {
+    .fav-exchange {
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right:2px;
+      }
+    }
+    .slogan {
+      font-weight: bold;
+    }
+    .result {
+      display: block;
+      margin-bottom: 20px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   &.-boosted {
     border: 1px solid $color-ambient-rosa-light;
-    //background-color: #fef4f3;
     .categoryicon {
-      //background-color: #fef4f3;
       color: $color-ambient-rosa;
       .fav-exchange {
         display: flex;
@@ -62,14 +81,8 @@
         }
       }
     }
-    .slogan, .txt {
-      //color: #514747;
-    }
     .img-square {
       border-color: $color-ambient-rosa-light;
-    }
-    .collaboration, .slot-booking {
-      //background-color: white !important;
     }
   }
 

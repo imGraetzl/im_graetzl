@@ -1,4 +1,5 @@
 section.poll {
+
   @include cf;
   .imgHeader {
     @include respond-to("<=medium") {
@@ -9,22 +10,15 @@ section.poll {
       }
     }
     @include respond-to(">=medium") {
-      margin-bottom: -30px;
+      margin-bottom: -20px;
       overflow: visible;
     }
 
   }
 
-  .cardBox.-poll {
+  .pollquestion {
     margin-bottom:20px;
     padding:0px;
-
-    .input-radio, .input-checkbox {
-      margin-left:15px;
-      margin-right:15px;
-      margin-top:3px;
-      margin-bottom:3px;
-    }
 
     h3 {
       padding:15px;
@@ -34,6 +28,13 @@ section.poll {
         color: $color-ambient-mint-light;
       }
     }
+
+    .input-radio, .input-checkbox {
+      margin-left:15px;
+      margin-right:15px;
+      margin-top:3px;
+      margin-bottom:3px;
+    }
   }
 
   .content-wide {
@@ -42,12 +43,9 @@ section.poll {
     padding-bottom: 30px;
     border-top: 1px solid $color-ambient-mint-light-lowsaturation;
     clear: both;
-    h2 {
-      
-    }
   }
 
-  .resultbox {
+  .results {
     margin-bottom:20px;
     h3 {
       position: relative;
@@ -76,11 +74,19 @@ section.poll {
     }
   }
 
+  .input-button {
+    .-delete {
+      width:100%;
+    }
+  }
+
 }
 
-.fundingBar {
+.fundingBar.-poll {
+  margin-top:0px;
   margin-bottom:15px;
   font-size: 35px;
+  color: $color-font-primary;
   .fundingBar_bar {
     background-color: $color-ambient-mint;
   }
@@ -97,5 +103,17 @@ section.poll {
   .fundingBar_result {
     right:15px;
     @include font-size-primaryFont('small');
+  }
+  &.-small {
+    font-size: 23px;
+    margin-top:10px;
+    margin-bottom:10px;
+    .fundingBar_title {
+      @include font-size-primaryFont('small');
+      padding-left:10px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
