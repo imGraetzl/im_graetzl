@@ -3,5 +3,10 @@ ActiveAdmin.register ApiAccount do
 
   config.filters = false
 
-  permit_params :name, :api_key, :enabled
+  index { render 'index', context: self }
+  show { render 'show', context: self }
+  form partial: 'form'
+
+
+  permit_params :name, :api_key, :enabled, :region_id
 end

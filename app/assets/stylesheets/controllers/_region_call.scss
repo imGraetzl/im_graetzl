@@ -8,6 +8,11 @@ section.region_calls {
     margin-bottom:20px;
   }
 
+  .-initiativen-headline {
+    margin-top:50px;
+    margin-bottom:70px;
+  }
+
   .form-block {
     label {
       min-width: 200px;
@@ -124,6 +129,7 @@ section.region_calls {
     }
   }
   .infos {
+    @include font-size-primaryFont('large');
     display: flex;
     margin-top:50px;
     margin-bottom: 50px;
