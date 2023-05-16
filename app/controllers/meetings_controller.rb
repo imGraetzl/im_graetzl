@@ -8,6 +8,7 @@ class MeetingsController < ApplicationController
     @meetings = @meetings.visible_to(current_user)
     @meetings = @meetings.by_currentness.page(params[:page]).per(params[:per_page] || 30)
     @meetings = @meetings.upcoming if params[:upcoming]
+    @meetings = @meetings.past if params[:past]
     @meetings = @meetings.where.not(id: params[:exclude].to_i) if params[:exclude]
   end
 
