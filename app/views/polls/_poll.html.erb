@@ -26,7 +26,7 @@
 
     <div class="txt">
       <h3><%= poll.title %></h3>
-      <p><%= truncate poll.description, length: 100 %></p>
+      <p><%= strip_tags(poll.description.bbcode_to_html.html_safe).truncate(100) %></p>
     </div>
 
     <div class="slogan">

@@ -16,9 +16,47 @@ section.poll {
 
   }
 
+  .entrySidebar {
+    margin-bottom: 3rem;
+    @include respond-to(">=medium") {
+      @include col(1/2);
+      margin-right: 0;
+      position: relative;
+      z-index: 5;
+    }
+    @include respond-to(">=large") {
+      @include col(1/3);
+      margin-right: 0;
+    }
+    .participants {
+      margin-bottom: 30px;
+    }
+    h3 {
+      margin-left:2px;
+      margin-bottom: 10px;
+      span {
+        color: $color-ambient-rosa;
+        margin-right: 3px;
+      }
+    }
+  }
+
+  .error ~ .input-button .errormsg {
+    display: block;
+    font-style: italic;
+    font-weight: bold;
+    color: $color-ambient-rosa-dark;
+  }
+
   .pollquestion {
     margin-bottom:20px;
     padding:0px;
+
+    &.error {
+      border-color: $color-ambient-rosa-dark;
+      svg { color: $color-ambient-rosa-dark !important; }
+
+    }
 
     h3 {
       padding:15px;
@@ -75,6 +113,7 @@ section.poll {
   }
 
   .input-button {
+    align-items: baseline;
     .-delete {
       width:100%;
     }

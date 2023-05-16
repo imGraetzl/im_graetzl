@@ -10,7 +10,6 @@ class PollUsersController < ApplicationController
 
     if @poll.users.include?(current_user)
       
-      poll_user = @poll.poll_users.where(user: current_user).last
       flash.now[:notice] = "Du hast bereits teilgenommen."
       render 'polls/show'
 
@@ -21,6 +20,7 @@ class PollUsersController < ApplicationController
     
       if @poll_user.save
         ActionProcessor.track(@poll_user, :create)
+        flash[:success] = 'Vielen Dank für deine Teilnahme.'
         redirect_to @poll
       else
         redirect_to @poll

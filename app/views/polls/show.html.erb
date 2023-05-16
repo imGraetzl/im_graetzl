@@ -27,14 +27,15 @@
 
   <div class="entryDescription">
     <div class="bbcode"><%= @poll.description.bbcode_to_html.html_safe %></div>
-    <%= render 'polls/show/form', poll_user: PollUser.new %>
+    <%= render 'form', poll_user: PollUser.new %>
   </div>
 
 
-  <div class="entryParticipate" data-behavior="participants-container">
+  <div class="entrySidebar">
+
     <div class="participants">
       <% if @poll.users.size > 0 %>
-        <p class="userCount"><span><%= @poll.users.size %></span> haben teilgenommen</p>
+        <h3><span><%= @poll.users.size %></span> haben teilgenommen</h3>
       <% end %>
       <div class="portraitCollection">
         <% @poll.users.each do |user| %>
@@ -44,12 +45,23 @@
         <% end %>
       </div>
     </div>
+
+    <% if @poll.meetings.present? %>
+      <h3>Sei dabei beim nächsten Treffen:</h3>
+      <div class="meetings">
+        <%= render @poll.meetings.upcoming.first %>
+      </div>
+    <% end %>
+
   </div>
+
+
+  
 
 
   <% if @poll.public_result? %>
     <div class="content-wide">
-      <%= render 'polls/show/result' %>
+      <%= render 'result' %>
     </div>
   <% end %>
 

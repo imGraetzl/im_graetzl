@@ -202,7 +202,8 @@ APP.controllers.application = (function() {
     scrollToTarget: scrollToTarget,
     initMessengerButton: initMessengerButton,
     initShowContact: initShowContact,
-    jBoxGallery: jBoxGallery
+    jBoxGallery: jBoxGallery,
+    loginModal: loginModal
   }
 
 })();

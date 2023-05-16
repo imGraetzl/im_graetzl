@@ -9,7 +9,7 @@ div.bbcode {
   h3.bb {
     font-family: $font-primary;
     margin-bottom:0px !important;
-    @include font-size-primaryFont('large');
+    //@include font-size-primaryFont('large');
   }
   ul, ol {
     white-space: normal;
