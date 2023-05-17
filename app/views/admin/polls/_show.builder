@@ -3,6 +3,7 @@ context.instance_eval do
     attributes_table_for poll do
       row :id
       row(:status){|m| status_tag(m.status)}
+      row :closed
       row :region
       row :title
       row :poll_type

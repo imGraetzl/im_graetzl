@@ -13,7 +13,7 @@
   <%= form_errors_for f.object %>
   <% f.object.poll_user_answers.build if f.object.poll_user_answers.empty? %>
 
-    <% @poll.poll_questions.each do |question| %>
+    <% @poll.poll_questions.order(:position).each do |question| %>
 
         <div class="cardBox pollquestion" data-required="<%= question.required? ? true : '' %>" data-type="<%= question.option_type %>">
 

@@ -13,6 +13,11 @@ class PollUsersController < ApplicationController
       flash.now[:notice] = "Du hast bereits teilgenommen."
       render 'polls/show'
 
+    elsif @poll.closed?
+
+      flash.now[:notice] = "Diese Umfrage ist schon geschlossen."
+      render 'polls/show'
+
     else
 
       @poll_user = @poll.poll_users.build(poll_user_params)

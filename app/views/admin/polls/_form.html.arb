@@ -7,6 +7,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :graetzls, collection: Graetzl.all.sort_by(&:zip_name).map{|g| [g.zip_name, g.id,] }, input_html: { class: 'admin-filter-select-all'}
     input :status, as: :select, include_blank: false, input_html: { class: 'admin-filter-select'}
     input :poll_type, as: :select, include_blank: false, input_html: { class: 'admin-filter-select'}
+    input :closed
     input :public_result
     input :title
     input :description
@@ -15,10 +16,11 @@ active_admin_form_for [:admin, resource] do |f|
   end
 
   f.has_many :poll_questions, allow_destroy: true, new_record: 'Frage hinzufügen' do |o|
-    o.input :title
-    o.input :required
     o.input :main_question
+    o.input :required
+    o.input :position
     o.input :option_type, as: :select
+    o.input :title
     o.has_many :poll_options, allow_destroy: true, new_record: 'Antwortmöglichkeit hinzufügen' do |o|
       o.input :title
     end

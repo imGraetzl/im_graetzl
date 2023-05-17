@@ -23,11 +23,17 @@ class Poll < ApplicationRecord
 
   validates_presence_of :title, :graetzls, :description
 
-  string_enum status: ["enabled", "disabled", "closed"]
+  string_enum status: ["enabled", "disabled"]
   string_enum poll_type: ["Allgemein", "Raumteiler", "Energieteiler"]
 
-  scope :scope_public, -> { where(status: [:open, :closed]) }
+  scope :scope_public, -> { where.not(status: :disabled) }
   scope :by_currentness, -> { order(created_at: :desc) }
+
+  after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status?}
+
+  def open?
+    !closed?
+  end
 
   def self.include_for_box
     includes(:poll_questions, :poll_options, :poll_users)

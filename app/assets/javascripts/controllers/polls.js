@@ -7,7 +7,7 @@ APP.controllers.polls = (function() {
 
   function pollForm() {
 
-    // Change Wording of Notice Message for Poll Registrations
+    // Poll Registrations
     if ($("#flash .notice").exists()) {
       if ( $("#flash .notice").text().indexOf('Vielen Dank für Deine Registrierung') >= 0 ){
         // Modifiy Message for Poll
@@ -42,7 +42,6 @@ APP.controllers.polls = (function() {
           submit = false;
         }
 
-
       });
 
       // Submit if no empty required Field
@@ -55,6 +54,7 @@ APP.controllers.polls = (function() {
   // Login Modal Opener for logged-out Users
   function loginForm() {
     $('input:radio, input:checkbox, textarea, .-save').on( "click", function( event ) {
+      event.preventDefault();
       APP.controllers.application.loginModal.open();
     });
   }

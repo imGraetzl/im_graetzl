@@ -1,6 +1,6 @@
-<h2 class="hl-main">Bisheriges <em>Ergebnis</em></h2>
+<h2 class="hl-main"> <%= @poll.open? ? 'Bisheriges' : 'Umfrage' %> <em>Ergebnis</em></h2>
 
-<% @poll.poll_questions.scope_options.each do |question| %>
+<% @poll.poll_questions.order(:position).scope_options.each do |question| %>
 
   <div class="results">
   

@@ -230,6 +230,11 @@ class ActionProcessor
     when [Subscription, :create]
       Activity.add_public(subject, to: :entire_region)
 
+    when [Poll, :create]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
+
     when [Poll, :comment]
       Activity.add_public(subject, child, to: subject.graetzls)
       notify_comment(subject, child)

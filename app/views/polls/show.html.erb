@@ -1,6 +1,6 @@
 <% meta(
     title: t('.title', name: @poll.title),
-    description: t('.description', desc: @poll.description[0...154]),
+    description: t('.description', desc: strip_tags(@poll.description.bbcode_to_html.html_safe)[0...154]),
     robots: 'index, follow',
     og_title: t('.title', name: @poll.title),
     og_description: t('.description', desc: @poll.description[0...154]),
@@ -27,7 +27,7 @@
 
   <div class="entryDescription">
     <div class="bbcode"><%= @poll.description.bbcode_to_html.html_safe %></div>
-    <%= render 'form', poll_user: PollUser.new %>
+    <%= render 'form', poll_user: PollUser.new if @poll.open? %>
   </div>
 
 
@@ -54,9 +54,6 @@
     <% end %>
 
   </div>
-
-
-  
 
 
   <% if @poll.public_result? %>

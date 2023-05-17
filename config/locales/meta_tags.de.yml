@@ -59,6 +59,9 @@ de:
       imgraetzl:
         title: 'Lokales Crowdfunding in %{region}'
         description: 'Entdecke lokale Crowdfunding Kampagnen aus Wien oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+    polls:
+      title: 'Mach mit! Umfragen in %{region}'
+      description: 'Mach mit bei einer der Umfragen in %{region}'
 
   districts:
     index:
@@ -168,6 +171,11 @@ de:
   locations:
     show:
       title: '%{name} - %{slogan}'
+      description: '%{desc}'
+
+  polls:
+    show:
+      title: '%{name}'
       description: '%{desc}'
 
   users:
