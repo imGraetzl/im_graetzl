@@ -109,11 +109,11 @@ section.info {
       .txt {width:70%;}
       @include respond-to(">=medium") {
         .person {width:20%}
-        .txt {width:80%; p {margin-top:20px;}}
+        .txt {width:80%; p {margin-top:10px;}}
       }
       @include respond-to(">=large") {
         .person {width:20%}
-        .txt {width:80%; p {margin-top:20px;}}
+        .txt {width:80%; p {margin-top:10px;}}
       }
     }
     // Single Mentor Card

@@ -87,15 +87,27 @@
     </div>
 
     <h3>Wo findet der Workshop statt</h3>
-    <p>
-    Der Workshop findet in der Semmelweisklinik auf der Terrasse statt und wir können nach dem Workshop noch ein wenig zusammensitzen und quatschen, uns gegenseitig kennenlernen und der Musik zuhören, die es am Freitag Abend unter der Reihe "<strong>Freitags in der Klinik</strong>" immer gibt :)
-    </p>
-    <p>
-    <strong><%= link_to "Kunst-und Kulturzentrum Semmelweisklinik", "https://www.semmelweisklinik.at", target: '_blank' %></strong><br>
-    Haus 4 im Areal - Auf der Terrasse<br>
-    Hockegasse 37<br>
-    1180 Wien<br>
-    </p>
+
+    <div class="persons">
+      <div class="person">
+        <%= link_to "https://www.semmelweisklinik.at", target: '_blank' do %>
+          <%= image_tag('info/balkonsolar/logo-semmelweisklinik.jpg', class: 'img-round') %>
+          <h4>Semmelweisklinik</h4>
+        <% end %>
+        <p class="title"></p>
+      </div>
+      <div class="txt">
+        <p>
+          Der Workshop findet in der Semmelweisklinik auf der Terrasse statt und wir können nach dem Workshop noch ein wenig zusammensitzen und quatschen, uns gegenseitig kennenlernen und der Musik zuhören, die es am Freitag Abend unter der Reihe "<strong>Freitags in der Klinik</strong>" immer gibt. Und mit einem Bier oder Drink unterstützt Ihr dieses tolle gemeinnützige Projekt und die Menschen dahinter.
+          <br><br>
+          <strong>Kunst-und Kulturzentrum Semmelweisklinik</strong><br>
+          Haus 4 im Areal - Auf der Terrasse<br>
+          Hockegasse 37, 1180 Wien<br>
+          </p>
+      </div>
+    </div>
+
+   
 
     <h3>Die Kosten</h3>
     <p>Wenn du kannst, dann schmeiße 10 € in den Hut, das Geld bekommt Markus für seinen ganzen Aufwand. Wenn es bei dir gerade eng ist, dann übernehmen wir die 10 €.</p>
