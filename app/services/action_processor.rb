@@ -39,23 +39,25 @@ class ActionProcessor
       end
       notify_comment(subject, child)
 
-    when [Meeting, :create]
-      if subject.public?
-        #Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
-        Activity.add_public(subject, to: subject.graetzl)
-        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
-      elsif subject.group_id
-        Activity.add_personal(subject, group: subject.group)
-        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
-      end
+    when [Meeting, :create] 
+      # Create Activity and Notifications only for Meetings in the next 2 Months
 
+      if subject.starts_at_date <= Date.today + 2.month
+        if subject.public?
+          Activity.add_public(subject, to: subject.graetzl)
+          Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
+            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+        elsif subject.group_id
+          Activity.add_personal(subject, group: subject.group)
+          Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
+            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+        end
+      end
     when [Meeting, :update]
       if subject.public?
 
         # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').any?
+        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').where('notify_before > ?', Date.today).any?
           Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
             notify_at: subject.notification_time_range.first || Time.current,
             notify_before: subject.notification_time_range.last,
@@ -66,7 +68,7 @@ class ActionProcessor
       elsif subject.group_id
 
         # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').any?
+        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').where('notify_before > ?', Date.today).any?
           Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').update_all(
             notify_at: subject.notification_time_range.first || Time.current,
             notify_before: subject.notification_time_range.last,
@@ -227,6 +229,20 @@ class ActionProcessor
 
     when [Subscription, :create]
       Activity.add_public(subject, to: :entire_region)
+
+    when [Poll, :create]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
+
+    when [Poll, :comment]
+      Activity.add_public(subject, child, to: subject.graetzls)
+      notify_comment(subject, child)
+
+    when [PollUser, :create]
+      if subject.poll.enabled?
+        Activity.add_public(subject.poll, subject, to: subject.poll.graetzls)
+      end
 
     else
       raise "Action not defined for #{subject.class} #{action}"

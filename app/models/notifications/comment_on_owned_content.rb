@@ -38,6 +38,8 @@ class Notifications::CommentOnOwnedContent < Notification
     case subject_type
     when 'Meeting'
       'Treffen'
+    when 'Poll'
+      subject.poll_type
     when 'Location'
       'Schaufenster'
     when 'LocationPost'

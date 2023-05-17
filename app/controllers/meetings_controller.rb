@@ -62,12 +62,10 @@ class MeetingsController < ApplicationController
 
     if @meeting.save
 
+      # Create new Activity and Notifications if StartDate has changed from past into future
       if starts_at_date_before < Date.today && starts_at_date_before != @meeting.starts_at_date
-        # Create new Activity and Notifications if StartDate has changed from past into future
-        ActionProcessor.track(@meeting, :create)
-        @meeting.update(last_activated_at: Time.now)
+        ActionProcessor.track(@meeting, :create) if @meeting.refresh_activity
       elsif starts_at_date_before != @meeting.starts_at_date
-        # Just update existing Notifications if StartDate has changed
         ActionProcessor.track(@meeting, :update)
       end
 
@@ -174,7 +172,7 @@ class MeetingsController < ApplicationController
 
   def meeting_params
     params.require(:meeting).permit(
-      :graetzl_id, :group_id, :location_id, :name, :description,
+      :graetzl_id, :group_id, :location_id, :poll_id, :name, :description,
       :starts_at_date, :ends_at_date, :starts_at_time, :ends_at_time,
       :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,

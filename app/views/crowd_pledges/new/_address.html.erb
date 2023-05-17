@@ -26,7 +26,7 @@
           <%= icon_tag "currency-euro" %>
           <span>Freie Unterstützung</span>
         <% end %>
-        <%= f.text_field :donation_amount, class: 'amount', placeholder: 'Betrag eingeben ...',
+        <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Betrag eingeben ...',
           class: 'calculate-price', maxlength: 6,
           data: { action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, crowd_reward_id: @crowd_pledge.crowd_reward_id])} %>
       </div>

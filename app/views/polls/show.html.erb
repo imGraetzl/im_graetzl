@@ -1,0 +1,73 @@
+<% meta(
+    title: t('.title', name: @poll.title),
+    description: t('.description', desc: strip_tags(@poll.description.bbcode_to_html.html_safe)[0...154]),
+    robots: 'index, follow',
+    og_title: t('.title', name: @poll.title),
+    og_description: t('.description', desc: @poll.description[0...154]),
+    og_image: @poll.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/og_logo.png")
+  )
+%>
+
+<% content_for :canonical_url, @poll %>
+
+<section class="poll">
+
+
+  <div class="imgHeader -cloudy">
+    <div class="titleHeadline">
+      <div class="wrp">
+        <%= link_to content_tag(:h3, "#{@poll.poll_type}", class: 'district'), @poll %>
+        <h1><%= @poll.title %></h1>
+      </div>
+      <div class="card"></div>
+    </div>
+    <%= cover_header_image(@poll, class: 'titleImg') %>
+  </div>
+
+
+  <div class="entryDescription">
+    <div class="bbcode"><%= @poll.description.bbcode_to_html.html_safe %></div>
+    <%= render 'form', poll_user: PollUser.new if @poll.open? %>
+  </div>
+
+
+  <div class="entrySidebar">
+
+    <div class="participants">
+      <% if @poll.users.size > 0 %>
+        <h3><span><%= @poll.users.size %></span> haben teilgenommen</h3>
+      <% end %>
+      <div class="portraitCollection">
+        <% @poll.users.each do |user| %>
+            <%= link_to user_path(user), rel: 'nofollow' do %>
+              <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round show-badge' %>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @poll.meetings.present? %>
+      <h3>Sei dabei beim nächsten Treffen:</h3>
+      <div class="meetings">
+        <%= render @poll.meetings.upcoming.first %>
+      </div>
+    <% end %>
+
+  </div>
+
+
+  <% if @poll.public_result? %>
+    <div class="content-wide">
+      <%= render 'result' %>
+    </div>
+  <% end %>
+
+
+  <div class="stream">
+    <h2 class="hl-main">Beiträge zum Thema</h2>
+    <%= render 'comments/form', commentable: @poll %>
+    <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+  </div>
+
+
+</section>

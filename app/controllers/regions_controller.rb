@@ -48,6 +48,9 @@ class RegionsController < ApplicationController
     end
   end
 
+  def polls
+  end
+
   def zuckerls
   end
 

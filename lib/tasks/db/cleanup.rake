@@ -19,17 +19,27 @@ namespace :db do
       end
     end
 
+    
     # Delete going_tos from deleted meeting
     GoingTo.where(meeting_id: nil).destroy_all
 
-    # Delete Meetings without User - Added to Model now
-    # Meeting.where(user_id: nil).destroy_all
 
     # Delete empty UserMessageThreads
     UserMessageThread.where(thread_type: 'general').where(last_message: nil).destroy_all
 
+
+    # Reset & Update all Counter Caches to keep in Sync
+
     Group.find_each do |group|
       Group.reset_counters(group.id, :group_users)
+    end
+
+    PollOption.find_each do |option|
+      PollOption.reset_counters(option.id, :poll_user_answers)
+    end
+
+    PollQuestion.find_each do |question|
+      PollQuestion.reset_counters(question.id, :poll_user_answers)
     end
 
   end

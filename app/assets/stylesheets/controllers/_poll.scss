@@ -1,0 +1,158 @@
+section.poll {
+
+  @include cf;
+  .imgHeader {
+    @include respond-to("<=medium") {
+      margin-top:0px;
+      margin-bottom:15px;
+      .titleImg {
+        height:250px;
+      }
+    }
+    @include respond-to(">=medium") {
+      margin-bottom: -20px;
+      overflow: visible;
+    }
+
+  }
+
+  .entrySidebar {
+    margin-bottom: 3rem;
+    @include respond-to(">=medium") {
+      @include col(1/2);
+      margin-right: 0;
+      position: relative;
+      z-index: 5;
+    }
+    @include respond-to(">=large") {
+      @include col(1/3);
+      margin-right: 0;
+    }
+    .participants {
+      margin-bottom: 30px;
+    }
+    h3 {
+      margin-left:2px;
+      margin-bottom: 10px;
+      span {
+        color: $color-ambient-rosa;
+        margin-right: 3px;
+      }
+    }
+  }
+
+  .error ~ .input-button .errormsg {
+    display: block;
+    font-style: italic;
+    font-weight: bold;
+    color: $color-ambient-rosa-dark;
+  }
+
+  .pollquestion {
+    margin-bottom:20px;
+    padding:0px;
+
+    &.error {
+      border-color: $color-ambient-rosa-dark;
+      svg { color: $color-ambient-rosa-dark !important; }
+
+    }
+
+    h3 {
+      padding:15px;
+      border-bottom: 1px solid $color-ambient-grey-light;
+      .icon {
+        float:right;
+        color: $color-ambient-mint-light;
+      }
+    }
+
+    .input-radio, .input-checkbox {
+      margin-left:15px;
+      margin-right:15px;
+      margin-top:3px;
+      margin-bottom:3px;
+    }
+  }
+
+  .content-wide {
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-top: 1px solid $color-ambient-mint-light-lowsaturation;
+    clear: both;
+  }
+
+  .results {
+    margin-bottom:20px;
+    h3 {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom:20px;
+      svg {
+        color: $color-ambient-mint-dark;
+        width:35px;
+        height:35px;
+      }
+      span {
+        margin-left:5px;
+      }
+      .count {
+        position: absolute;
+        @include font-size-primaryFont('base');
+        top: 0;
+        bottom: 0;
+        right:15px;
+        display: flex;
+        align-items: center;
+        font-weight:normal;
+        color: $color-ambient-grey;
+      }
+    }
+  }
+
+  .input-button {
+    align-items: baseline;
+    .-delete {
+      width:100%;
+    }
+  }
+
+}
+
+.fundingBar.-poll {
+  margin-top:0px;
+  margin-bottom:15px;
+  font-size: 35px;
+  color: $color-font-primary;
+  .fundingBar_bar {
+    background-color: $color-ambient-mint;
+  }
+  .fundingBar_title, .fundingBar_result {
+    position: absolute;
+    @include font-size-primaryFont('large');
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    display: flex;
+    align-items: center;
+    padding-left:15px;
+  }
+  .fundingBar_result {
+    right:15px;
+    @include font-size-primaryFont('small');
+  }
+  &.-small {
+    font-size: 23px;
+    margin-top:10px;
+    margin-bottom:10px;
+    .fundingBar_title {
+      @include font-size-primaryFont('small');
+      padding-left:10px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

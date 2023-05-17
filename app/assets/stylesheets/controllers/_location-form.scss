@@ -46,26 +46,4 @@ section.location-form {
     }
   }
 
-  .input-button {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    .btn-primary, .btn-secondary {
-      margin-bottom:15px;
-      //width:31%;
-      margin-left: 1%;
-      margin-right: 1%;
-    }
-    @include respond-to("<=medium") {
-      justify-content: center;
-      .btn-primary, .btn-secondary {
-        margin-left:0px;
-        width:100%;
-      }
-    }
-    padding-top: 20px;
-    margin-top: 20px;
-    border-top: 1px dotted $color-ambient-mint-dark;
-  }
-
 }

@@ -11,6 +11,7 @@ class Meeting < ApplicationRecord
   has_many :meeting_additional_dates, dependent: :destroy
   accepts_nested_attributes_for :meeting_additional_dates, allow_destroy: true, reject_if: :all_blank
 
+  belongs_to :poll, optional: true
   belongs_to :location, optional: true
   belongs_to :user, optional: true
   belongs_to :group, optional: true
@@ -93,7 +94,7 @@ class Meeting < ApplicationRecord
     end
   end
 
-  def activate_next_date!
+  def set_next_date!
     next_meeting = meeting_additional_dates.sort_by(&:starts_at_date).first
     update(
       starts_at_date: next_meeting.starts_at_date,
@@ -156,4 +157,5 @@ class Meeting < ApplicationRecord
   def update_location_activity
     location.update(last_activity_at: created_at) if location
   end
+
 end
