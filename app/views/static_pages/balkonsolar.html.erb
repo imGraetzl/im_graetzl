@@ -43,23 +43,23 @@
 <div class="content-wide">
     <div class="inner">
       <div class="main-content">
-        <div class="video">
+        <div class="video text">
           <div class="hl-subtext">
             <h1>Melde dich an und sei dabei!</h1>
             <p>Begrenzte Teilnehmeranzahl - Maximal 30 Plätze.</p>
           </div>
-            <youtube-embed><img loading="lazy" src="https://i.ytimg.com/vi/PL5wd_CHkIk/hqdefault.jpg" alt="Video"><iframe allow="autoplay" src="" data-src="https://www.youtube.com/embed/PL5wd_CHkIk?autoplay=1" frameborder="0" allowfullscreen="true"></iframe><button aria-label="Video abspielen"></button></youtube-embed>
-            <p class="hint">
-              <em>
+          <youtube-embed><img loading="lazy" src="https://i.ytimg.com/vi/PL5wd_CHkIk/hqdefault.jpg" alt="Video"><iframe allow="autoplay" src="" data-src="https://www.youtube.com/embed/PL5wd_CHkIk?autoplay=1" frameborder="0" allowfullscreen="true"></iframe><button aria-label="Video abspielen"></button></youtube-embed>
+          <p class="hint">
+            <em>
                 Bitte tragt euch verbindlich für den Workshop Termin ein, indem ihr beim Treffen euren Teilnahme zusagt. 
                 Sollten mehr als 30 TeilnehmerInnen interessiert sein, dann losen wir die Plätze aus 
                 und ihr bekommt von uns per Mail Bescheid, ob ihr dabei seid.<br>
                 (Und wir versuchen dann noch einen Zusatztermin zu organisieren.)
-              </em>
-            </p>
-          </div>
-         <!-- 24 for local, 14444 for live-->
-          <%= render Meeting.find(14444), show_going_tos: true %>
+            </em>
+          </p>
+        </div>
+        <!-- 24 for local, 14444 for live-->
+        <%= render Meeting.find(14444), show_going_tos: true %>
       </div>
     </div>
   </div>
@@ -117,7 +117,7 @@
 
 
   <div class="content-wide">
-    <div class="inner">
+    <div class="inner text">
 
       <h3>Was uns noch ganz wichtig ist</h3>
       <p>
