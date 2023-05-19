@@ -9,7 +9,7 @@ class Api::MeetingsController < Api::ApiController
     end
 
     # Category ID Filter
-    @meetings = @meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]}) if params[:category_id]
+    @meetings = @meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]}) if params[:category_id].present?
 
     # Date Filter
     from_date, to_date, min_created_at = get_date_range
