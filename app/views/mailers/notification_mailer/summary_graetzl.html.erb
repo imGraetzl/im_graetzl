@@ -21,6 +21,7 @@
 
   <!-- Insert 2 Random Zuckerls -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
+  <%= render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position %>
 
   <%= render 'summary/block_header', title: block_title %>
 
