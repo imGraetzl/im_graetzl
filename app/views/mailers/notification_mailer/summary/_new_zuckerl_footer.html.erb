@@ -1,8 +1,7 @@
 <table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer" style="width:100%;">
     <tr>
       <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px; text-align:center;">
-        <strong>Info: Nächste Woche ist der erste Newsletter im Monat <%= I18n.localize(Date.today.at_beginning_of_month.next_month, format:'%B') %>.</strong><br>
-        Möchtest du mit deinem Zuckerl vertreten sein? <%= link_to 'Hier Zuckerl buchen', region_rooms_url, target:'_blank', style: "color:#ec776a; font-weight:bold;" %>
+        <strong>Letzte Chance:</strong> Jetzt das <%= link_to 'Grätzlzuckerl buchen', new_zuckerl_url, target:'_blank', style: "color:#ec776a; font-weight:bold;" %>, damit ihr im <%= I18n.localize(Date.today.at_beginning_of_month.next_month, format:'%B') %> mit eurem Zuckerl auf imGrätzl und im Newsletter vertreten seid.
       </td>
     </tr>
 </table>
