@@ -15,7 +15,7 @@ namespace :scheduled do
 
     # Start Pending Boosters
     RoomBooster.pending.where("DATE(starts_at_date) = ?", Date.today).find_each do |room_booster|
-      RoomBoosterService.new.create(room_booster)
+      RoomBoosterService.new.start_pending(room_booster)
     end
 
   end
