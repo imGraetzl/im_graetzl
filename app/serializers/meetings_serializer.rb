@@ -10,7 +10,6 @@ class MeetingsSerializer
       meeting.slice(
         :id,
         :name,
-        :description,
         :created_at,
         :updated_at,
         :starts_at_date,
@@ -18,6 +17,7 @@ class MeetingsSerializer
         :ends_at_date,
         :ends_at_time,
       ).merge(
+        description: ActionController::Base.helpers.strip_tags(meeting.description.bbcode_to_html.html_safe).truncate(350), 
         url: site_url(:graetzl_meeting_url, meeting.graetzl, meeting),
         cover_photo_url: meeting.cover_photo_url,
         graetzl: meeting.graetzl.name,
