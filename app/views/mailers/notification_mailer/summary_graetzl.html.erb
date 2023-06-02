@@ -19,6 +19,8 @@
   <% next if notifications.empty? %>
   <% current_position += 1 %>
 
+  <%= render 'featured/crowdfunders_hub' if current_position == 2 && @period == 'weekly' && @region.id == 'wien' %>
+
   <!-- Insert 2 Random Zuckerls -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
   <%= render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position && Date.today.next_occurring(:tuesday).month > Date.today.month %>
@@ -33,7 +35,6 @@
   <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.id == 'wien' %>
 
 <% end %>
-
 
 <% if current_position < zuckerl_position %>
   <!-- Insert 2 Random Zuckerls here if no Zuckerls where inserted above -->
