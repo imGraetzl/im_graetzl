@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get  'home' => 'home#about', as: 'about_platform'
   post 'geolocation'  => 'home#geolocation'
 
-  get 'mach-mit' => redirect('energieteiler')
   get 'call-2022' => redirect('andocken')
   get 'andocken' => 'region_calls#call'
   post 'andocken' => 'region_calls#create'
@@ -349,6 +348,7 @@ Rails.application.routes.draw do
 
   # Redirects for legacy routes
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
+  get 'mach-mit' => redirect('energieteiler')
   get 'raum' => redirect('region/raumteiler')
   get 'raumsuche' => redirect('region/raumteiler')
   get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
