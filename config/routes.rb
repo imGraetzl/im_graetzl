@@ -18,11 +18,10 @@ Rails.application.routes.draw do
   get  'home' => 'home#about', as: 'about_platform'
   post 'geolocation'  => 'home#geolocation'
 
-  #scope controller: 'region_calls', path: 'gemeinden', as: 'region_calls' do
-    get 'call-2022' => redirect('andocken')
-    get 'andocken' => 'region_calls#call'
-    post 'andocken' => 'region_calls#create'
-  #end
+  get 'mach-mit' => redirect('energieteiler')
+  get 'call-2022' => redirect('andocken')
+  get 'andocken' => 'region_calls#call'
+  post 'andocken' => 'region_calls#create'
 
   ActiveAdmin.routes(self)
 
@@ -350,8 +349,8 @@ Rails.application.routes.draw do
 
   # Redirects for legacy routes
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
-  get 'raum' => redirect('raumteiler')
-  get 'raumsuche' => redirect('raumteiler')
+  get 'raum' => redirect('region/raumteiler')
+  get 'raumsuche' => redirect('region/raumteiler')
   get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
   get 'kaernten' => redirect('https://kaernten.welocally.at')
 

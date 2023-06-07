@@ -1,7 +1,7 @@
 <% if @poll.find_poll_user(current_user) %>
 
   <div class="input-button">
-   <%= link_to 'Du hast bereits teilgenommen - Aktuelle Teilnahme wieder löschen', [:unattend, @poll], method: :post, data: { confirm: 'Bist du dir sicher?' }, class: 'btn-secondary -delete' %>
+   <%= link_to 'Du hast bereits teilgenommen - Teilnahme wieder löschen', [:unattend, @poll], method: :post, data: { confirm: 'Bist du dir sicher?' }, class: 'btn-secondary -delete' %>
   </div>
 
 <% else %>
@@ -50,7 +50,7 @@
               <%= f.fields_for :poll_user_answers do |o| %>
               <%= o.hidden_field :poll_question_id, value: question.id %>
                 <div class="input-textarea <%= disabled ? 'disabled' : '' %>">
-                  <%= o.text_area :answer, placeholder: 'Deine Antwort ...', disabled:  disabled ? true : false %>
+                  <%= o.text_area :answer, placeholder: 'Deine Antwort ... (wird nicht öffentlich angezeigt)', disabled:  disabled ? true : false %>
                 </div>
               <% end %>
             <% end %>
