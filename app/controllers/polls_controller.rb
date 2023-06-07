@@ -5,7 +5,12 @@ class PollsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @polls = collection_scope.in(current_region).include_for_box
     @polls = filter_collection(@polls)
-    @polls = @polls.scope_public.by_currentness.page(params[:page]).per(params[:per_page] || 30)
+
+    if params[:sort].present? && params[:sort] == 'zip'
+      @polls = @polls.scope_public.by_zip.page(params[:page]).per(params[:per_page] || 30)
+    else
+      @polls = @polls.scope_public.by_currentness.page(params[:page]).per(params[:per_page] || 30)
+    end
   end
 
   def show
@@ -26,8 +31,12 @@ class PollsController < ApplicationController
   end
 
   def filter_collection(collection)
-    graetzl_ids = params.dig(:filter, :graetzl_ids)
 
+    if params[:poll_type].present?
+      collection = collection.where(poll_type: params[:poll_type])
+    end
+
+    graetzl_ids = params.dig(:filter, :graetzl_ids)
     if params[:favorites].present? && current_user
       favorite_ids = current_user.followed_graetzl_ids
       collection = collection.joins(:poll_graetzls).where(poll_graetzls: {graetzl_id: favorite_ids}).distinct

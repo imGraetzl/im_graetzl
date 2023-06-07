@@ -292,6 +292,7 @@ Rails.application.routes.draw do
   get 'cf/:id', to: 'crowd_campaigns#redirect'
   get 'unterstuetzer-team' => redirect('/')
   #get 'unterstuetzer-team', to: 'static_pages#mentoring'
+  get 'energieteiler', to: 'static_pages#energie_teiler', as: 'energie_teiler'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar', as: 'balkonsolar'
 

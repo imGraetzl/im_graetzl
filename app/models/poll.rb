@@ -28,7 +28,10 @@ class Poll < ApplicationRecord
 
   scope :scope_public, -> { where.not(status: :disabled) }
   scope :by_currentness, -> { order(created_at: :desc) }
+  scope :by_zip, -> { order(zip: :asc) }
 
+
+  after_create :set_zip
   after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status?}
 
   def open?
@@ -52,5 +55,10 @@ class Poll < ApplicationRecord
   end
 
   private
+
+  def set_zip
+    self.zip = self.districts.sort_by(&:zip).map(&:zip).first
+    self.save
+  end
 
 end

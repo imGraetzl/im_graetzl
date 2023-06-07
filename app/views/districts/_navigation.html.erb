@@ -30,9 +30,10 @@
       <%= icon_tag "coop-and-share" %>
       <div class="txt">Markt <br/>platz</div>
     <% end %>
-    <%= active_link_to district_tools_path(@district), class: "iconfilter" do %>
-      <%= icon_tag "tacker" %>
-      <div class="txt">Geräte<br/>teiler</div>
+
+    <%= active_link_to energie_teiler_path, class: "iconfilter" do %>
+      <%= icon_tag "sun" %>
+      <div class="txt">Energie<br/>teiler</div>
     <% end %>
 
     <%= active_link_to district_zuckerls_path(@district), class: "iconfilter" do %>
