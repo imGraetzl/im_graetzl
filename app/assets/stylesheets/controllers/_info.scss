@@ -203,6 +203,12 @@ section.info {
     }
   }
 
+  &.-energieteiler {
+    .imgHeader::after {
+      background-image: url(image_path('info/energieteiler/header.jpg'));
+    }
+  }
+
   &.-subscription-page {
 
     padding-bottom: 0px;

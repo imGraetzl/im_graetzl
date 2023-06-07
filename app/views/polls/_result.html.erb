@@ -1,4 +1,4 @@
-<h2 class="hl-main"> <%= @poll.open? ? 'Bisheriges' : 'Umfrage' %> <em>Ergebnis</em></h2>
+<h2 class="hl-main"> <em><%= @poll.open? ? 'Bisheriges' : 'Umfrage' %> Ergebnis</em></h2>
 
 <% @poll.poll_questions.order(:position).scope_options.each do |question| %>
 
