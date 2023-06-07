@@ -19,7 +19,7 @@
         </div>
         <%= toggle_favorite_icon(poll) if current_user %>
       </div>
-      <div class="sideflag -R -label"><%= link_to poll.poll_type, region_polls_path %></div>
+      <div class="sideflag -R -label"><%= link_to poll.poll_type, poll_type_path(poll.poll_type) %></div>
   </div>
 
   <div class="cardBoxContent -poll">
