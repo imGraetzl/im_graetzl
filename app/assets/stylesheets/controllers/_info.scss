@@ -207,6 +207,14 @@ section.info {
     .imgHeader::after {
       background-image: url(image_path('info/energieteiler/header.jpg'));
     }
+    .header-logo {
+      height:50%;
+      margin-top:80px;
+      @include respond-to(">=medium") {
+        height:40%;
+        margin-top:200px;
+      }
+    }
   }
 
   &.-subscription-page {

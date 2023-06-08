@@ -9,7 +9,9 @@
 %>
 
 <section class="info -energieteiler">
-  <div class="imgHeader -fullwidth"></div>
+  <div class="imgHeader -fullwidth">
+    <%= image_tag("info/energieteiler/logo.svg", class: 'header-logo') %>
+  </div>
 </section>
 
 <section class="energieteiler">
@@ -21,7 +23,7 @@
     </p>
   </div>
 
-  <%= form_tag polls_path(per_page: 23, meetings: 'true'), method: :get, remote: true, class: 'cards-filter' do %>
+  <%= form_tag polls_path(per_page: 23, meetings: true, show_going_tos: true), method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :poll_type, 'Energieteiler' %>
   <% end %>
 
