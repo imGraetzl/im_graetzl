@@ -15,7 +15,7 @@
         <% end %>
       </div>
     <!-- /Goodies -->
-    <% categories = LocationCategory.all.sort_by(&:position) %>
+    <% categories = LocationCategory.visible.sort_by(&:position) %>
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
     <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">

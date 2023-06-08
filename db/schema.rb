@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_07_084821) do
+ActiveRecord::Schema.define(version: 2023_06_07_141409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -608,6 +608,7 @@ ActiveRecord::Schema.define(version: 2023_06_07_084821) do
     t.integer "position", default: 0
     t.jsonb "main_photo_data"
     t.string "slug"
+    t.boolean "hidden", default: false
     t.index ["slug"], name: "index_location_categories_on_slug", unique: true
   end
 

@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <% if @poll.meetings.present? %>
+    <% if @poll.meetings.upcoming.present? %>
       <h3>Sei dabei beim nächsten Treffen:</h3>
       <div class="meetings">
         <%= render @poll.meetings.upcoming.first %>
