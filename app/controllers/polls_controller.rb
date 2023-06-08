@@ -3,14 +3,27 @@ class PollsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @polls = collection_scope.in(current_region).include_for_box
-    @polls = filter_collection(@polls)
+    polls = collection_scope.in(current_region).include_for_box
+    polls = filter_collection(polls)
 
-    if params[:sort].present? && params[:sort] == 'zip'
-      @polls = @polls.scope_public.by_zip.page(params[:page]).per(params[:per_page] || 30)
+    @polls = []
+
+    if params[:meetings].present?
+
+      meetings_upcoming = Meeting.in(current_region).upcoming.joins(:poll).page(params[:page]).per(params[:per_page] || 30)
+      meetings_past = Meeting.in(current_region).past.joins(:poll).page(params[:page]).per(params[:per_page] || 30)
+      
+      polls = polls.scope_public.by_zip.page(params[:page]).per(params[:per_page] || 30)
+      @polls += (meetings_upcoming + polls + meetings_past)
+      @next_page = polls.next_page.present? || meetings_upcoming.next_page.present? || meetings_past.next_page.present?
     else
-      @polls = @polls.scope_public.by_currentness.page(params[:page]).per(params[:per_page] || 30)
+
+      polls = polls.scope_public.by_currentness.page(params[:page]).per(params[:per_page] || 30)
+      @polls += polls
+      @next_page = polls.next_page.present?  
+      
     end
+
   end
 
   def show

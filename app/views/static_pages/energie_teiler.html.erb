@@ -21,7 +21,7 @@
     </p>
   </div>
 
-  <%= form_tag polls_path(per_page: 23, sort: 'zip'), method: :get, remote: true, class: 'cards-filter' do %>
+  <%= form_tag polls_path(per_page: 23, meetings: 'true'), method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :poll_type, 'Energieteiler' %>
   <% end %>
 
@@ -37,13 +37,13 @@
 
   <% if @locations.present? %>
     <div class="hl-subtext">
-      <h1>Expert*innen und <em>Anlaufstellen</em></h1>
+      <h1>Energieteiler <em>Anlaufstellen</em></h1>
       <p>
-        Ein Überblick über Expert*innen im Energiebereich.
+        Ein Überblick über Expert*innen im Energieteiler Bereich.
       </p>
     </div>
 
-    <div class="cardBoxCollection -quart">
+    <div class="cardBoxCollection -tripple">
       <%= render @locations %>
     </div>
 
