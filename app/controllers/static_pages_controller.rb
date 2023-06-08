@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
   end
 
   def energie_teiler
-    category_id = LocationCategory.where("name ILIKE :q", q: "%Energieteiler%").last.id
+    category_id = LocationCategory.where("name ILIKE :q", q: "%Energieteiler%").last&.id
     @locations = Location.in(current_region).where(location_category_id: category_id)
   end
 
