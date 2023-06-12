@@ -8,9 +8,9 @@
   )
 %>
 
-<% if current_region.id != 'wien' %>
+<% if current_region.id == 'graz' %>
 <div id="betaflash">
-  WeLocally ist in der Testphase, melde dich jetzt an und gestalte die nächsten Schritte mit.
+  WeLocally Graz ist in der Testphase, melde dich jetzt an und gestalte die nächsten Schritte mit.
   <%= link_to 'javascript:', class: 'close-ico' do %>
     <%= icon_tag "cross" %>
   <% end %>

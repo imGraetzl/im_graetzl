@@ -53,7 +53,7 @@
 
       <% else %>
 
-        <h3>Mitmachende Gemeinden in <%= current_region %></h3>
+        <h3><%= t("region.#{current_region.id}.footer_graetzl_headline") %></h3>
         <div class="row">
           <% ([:all] + Graetzl.in(current_region)).in_groups_of(5, false).each do |graetzls| %>
             <div class="col">

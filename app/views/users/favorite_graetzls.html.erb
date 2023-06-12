@@ -10,11 +10,11 @@
   <div class="fav-desktop">
     <div class="mapImgBlock ">
       <%= favorite_graetzl_map(@graetzls, current_user.favorite_graetzls, @user.graetzl, 'APP.components.areaMap.initFavoriteGraetzls($("#area-map"), {interactive: true,});') %>
-      <h2 class="region-title"><%= t("region.#{current_region.id}.favorite_graetzl") %></h2>
+      <h2 class="region-title"><%= t("region.#{current_region.id}.favorite_graetzls") %></h2>
       <div class="navBlock">
         <h3 class="hometitle"><%= t("region.#{current_region.id}.homegraetzl") %></h3>
         <div class="links home-graetzl"></div>
-        <h3 class="favoritetitle"><%= t("region.#{current_region.id}.favorite_graetzl") %></h3>
+        <h3 class="favoritetitle"><%= t("region.#{current_region.id}.favorite_graetzls") %></h3>
         <div class="links favorite-graetzls"></div>
       </div>
       <%= form_for current_user, html: { class: 'map-form' } do |f| %>
@@ -23,7 +23,7 @@
       <% end %>
     </div>
     <h3 class="more-info-title">Infos zu deinen Einstellungen</h3>
-    <p>Wähle auf der Karte <strong>deine <%= t("region.#{current_region.id}.favorite_graetzl") %></strong> um zusätzlich auch Inhalte und E-Mails aus diesen zu erhalten.</p>
+    <p>Wähle auf der Karte <strong>deine <%= t("region.#{current_region.id}.favorite_graetzls") %></strong> um zusätzlich auch Inhalte und E-Mails aus diesen zu erhalten.</p>
     <p><%= t("region.#{current_region.id}.your_homegraetzl") %> kannst du duch ändern deiner Adresse <%= link_to 'hier anpassen', edit_user_path %>.</p>
   </div>
 

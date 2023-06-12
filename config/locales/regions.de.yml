@@ -11,6 +11,7 @@ de:
       district_graetzl: "Gemeinde"
       graetzl: "Gemeinde"
       graetzln: "Gemeinden"
+      your_graetzl: "deiner Gemeinde"
       in_graetzl: "in der Gemeinde"
       in_your_graetzl: "in deiner Gemeinde"
       from_graetzl: "aus der Gemeinde"
@@ -38,7 +39,7 @@ de:
         meeting:
           subline: "WeLocally macht deine Treffen in der Region sichtbarer!"
           description: "Deine Events werden auf WeLocally angezeigt und sie werden über das wöchentliche WeLocally Mail an die registrierten Nutzer*innen in der Region bzw. Gemeinden versendet."
-
+      footer_graetzl_headline: "Mitmachende Gemeinden"
     wien:
       <<: *default
       contact_email: "wir@imgraetzl.at"
@@ -51,6 +52,7 @@ de:
       district_graetzl: "Bezirk / Grätzl"
       graetzl: "Grätzl"
       graetzln: "Grätzl"
+      your_graetzl: "deinem Grätzl"
       in_graetzl: "im Grätzl"
       in_your_graetzl: "in deinem Grätzl"
       from_graetzl: "aus dem Grätzl"
@@ -79,10 +81,47 @@ de:
           subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
           description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
 
+    graz:
+      <<: *default
+      district_graetzl: "Bezirk"
+      graetzl: "Bezirk"
+      graetzln: "Bezirke"
+      your_graetzl: "deinem Bezirk"
+      in_graetzl: "im Bezirk"
+      in_your_graetzl: "in deinem Bezirk"
+      from_graetzl: "aus dem Bezirk"
+      from_your_graetzl: "aus deinem Bezirk"
+      region: "Graz"
+      in_region: "in Graz"
+      in_your_region: "in Graz"
+      your_homegraetzl: "Deinen Heimatbezirk"
+      your_homegraetzl_lower: "dein Heimatbezirk"
+      from_your_homegraetzl: "aus deinem Heimatbezirk"
+      homegraetzl: "Heimatbezirk"
+      wish_graetzl: "Wunschbezirke"
+      favorite_graetzl: "Lieblingsbezirk"
+      favorite_graetzls: "Lieblingsbezirke"
+      from_your_favorite_graetzl: "aus deinen Lieblingsbezirken"
+      dem: "der"
+      zuckerl:
+        headline: "Das Zuckerl für ganz Graz"
+        subline: "Dieses wird in allen Bezirken in Graz angezeigt."
+        graetzl: "Bezirk"
+        region: "Ganz Graz"
+        visibility_graetzl: "im Bezirk"
+        visibility_info: "im Bezirk & ganz Graz"
+      info:
+        meeting:
+          subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
+          description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
+      footer_graetzl_headline: "Entdecke deinen Bezirk in Graz"
+
 
     kaernten:
       <<: *default
+      footer_graetzl_headline: "Mitmachende Gemeinden in Kärnten"
 
     muehlviertler-kernland:
       <<: *default
       raumteiler_guide_url: "https://raumteiler.s3.eu-central-1.amazonaws.com/WeLocally_Muehlviertel_RaumteilerGuide_2022.pdf.zip"
+      footer_graetzl_headline: "Mitmachende Gemeinden im Mühlviertler Kernland"

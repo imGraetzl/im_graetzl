@@ -344,8 +344,6 @@ Rails.application.routes.draw do
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
   get 'raum' => redirect('raumteiler')
   get 'raumsuche' => redirect('raumteiler')
-  get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
-  get 'kaernten' => redirect('https://kaernten.welocally.at')
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
