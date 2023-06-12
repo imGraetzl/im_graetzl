@@ -19,7 +19,7 @@
   <% next if notifications.empty? %>
   <% current_position += 1 %>
 
-  <%= render 'featured/crowdfunders_hub' if current_position == 2 && @period == 'weekly' && @region.id == 'wien' %>
+  <%= render 'featured/crowdfunders_hub' if current_position == 5 && @period == 'weekly' && @region.id == 'wien' %>
 
   <!-- Insert 2 Random Zuckerls -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
