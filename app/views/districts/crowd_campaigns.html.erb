@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', zip: @district.zip, region: current_region.name),
     og_description: t('.description', zip: @district.zip, name: @district.name, region: current_region.name),
-    og_image: image_url("meta/#{current_region.id}/crowdfunding.png")
+    og_image: image_url("meta/#{current_region.host_id}/crowdfunding.png")
   )
 %>
 <% content_for :canonical_url, region_crowd_campaigns_url %>

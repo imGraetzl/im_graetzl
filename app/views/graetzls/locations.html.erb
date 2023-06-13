@@ -1,8 +1,8 @@
 <% meta(
-    title: t(".#{current_region.host_id}.title", graetzl: @graetzl.name),
-    description: t(".#{current_region.host_id}.description", graetzl: @graetzl.name),
-    og_title: t(".#{current_region.host_id}.title", graetzl: @graetzl.name),
-    og_description: t(".#{current_region.host_id}.description", graetzl: @graetzl.name),
+    title: t(".#{current_region.id}.title", graetzl: @graetzl.name, region: current_region.name),
+    description: t(".#{current_region.id}.description", graetzl: @graetzl.name, region: current_region.name),
+    og_title: t(".#{current_region.id}.title", graetzl: @graetzl.name, region: current_region.name),
+    og_description: t(".#{current_region.id}.description", graetzl: @graetzl.name, region: current_region.name),
     og_image: image_url('meta/locations.jpg'),
     robots: 'index, follow'
   )

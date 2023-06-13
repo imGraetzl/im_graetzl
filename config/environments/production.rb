@@ -6,7 +6,7 @@ Rails.application.configure do
   # Get Greatzl Array in Console:
   # Graetzl.where.not(region_id:'wien').map{|s| "^/#{s.slug}$"}
   config.middleware.use Rack::Prerender, whitelist: [
-    '^/frantschach-st-gertraud$', '^/pregarten$', '^/neumarkt-im-muhlkreis$', '^/leopoldschlag$', '^/waldburg$', '^/griffen$', '^/unterweitersdorf$', '^/bad-st-leonhard$', '^/gutau$', '^/windhaag-bei-freistadt$', '^/hagenberg-im-muhlkreis$', '^/lasberg$', '^/hirschbach-im-muhlkreis$', '^/tragwein$', '^/grunbach$', '^/st-oswald-bei-freistadt$', '^/moosburg$', '^/sandl$', '^/st-andra$', '^/kefermarkt$', '^/rainbach-im-muhlkreis$', '^/freistadt$', '^/volkermarkt$',
+    '^/pregarten$', '^/neumarkt-im-muhlkreis$', '^/leopoldschlag$', '^/waldburg$', '^/griffen$', '^/unterweitersdorf$', '^/gutau$', '^/windhaag-bei-freistadt$', '^/hagenberg-im-muhlkreis$', '^/lasberg$', '^/hirschbach-im-muhlkreis$', '^/tragwein$', '^/grunbach$', '^/st-oswald-bei-freistadt$', '^/moosburg$', '^/sandl$', '^/st-andra$', '^/kefermarkt$', '^/rainbach-im-muhlkreis$', '^/freistadt$', '^/volkermarkt$',
     '^/region/', '/category/',
     '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$',
   ]

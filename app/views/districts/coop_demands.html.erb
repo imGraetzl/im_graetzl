@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
     og_description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
-    og_image: image_url("meta/#{current_region.id}/og_logo.png")
+    og_image: image_url("meta/#{current_region.host_id}/og_logo.png")
   )
 %>
 <% content_for :canonical_url, region_coop_demands_url(category: @category) if @category %>
