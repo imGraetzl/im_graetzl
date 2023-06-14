@@ -16,6 +16,12 @@ section.poll {
 
   }
 
+  .entrySidebar, .entryDescription {
+    .hl-main {
+      text-align: left;
+    }
+  }
+
   .entrySidebar {
     margin-bottom: 3rem;
     @include respond-to(">=medium") {
@@ -39,6 +45,9 @@ section.poll {
         margin-right: 3px;
       }
     }
+    .btn-primary, .btn-secondary {
+      margin-bottom:20px;
+    }
   }
 
   .error ~ .input-button .errormsg {
@@ -46,6 +55,14 @@ section.poll {
     font-style: italic;
     font-weight: bold;
     color: $color-ambient-rosa-dark;
+  }
+
+  .poll-form {
+    .input-button {
+      padding-top:0px;
+      border:none;
+      margin-bottom: 50px;
+    }
   }
 
   .pollquestion {
@@ -79,7 +96,7 @@ section.poll {
     margin-top: 30px;
     padding-top: 30px;
     padding-bottom: 30px;
-    border-top: 1px solid $color-ambient-mint-light-lowsaturation;
+    //border-top: 1px solid $color-ambient-mint-light-lowsaturation;
     clear: both;
   }
 
@@ -114,9 +131,6 @@ section.poll {
 
   .input-button {
     align-items: baseline;
-    .-delete {
-      width:100%;
-    }
   }
 
 }

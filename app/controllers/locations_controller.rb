@@ -26,7 +26,13 @@ class LocationsController < ApplicationController
   end
 
   def new
-    @location = current_user.locations.build(location_category_id: current_user.location_category_id)
+
+    if params[:location_category_id].present?
+      @location = current_user.locations.build(location_category_id: params[:location_category_id])
+    else
+      @location = current_user.locations.build(location_category_id: current_user.location_category_id)
+    end
+
     @location.graetzl = user_home_graetzl
 
     if current_user.locations.approved.any? && !current_user.subscribed?
