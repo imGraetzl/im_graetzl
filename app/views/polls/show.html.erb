@@ -12,7 +12,6 @@
 
 <section class="poll">
 
-
   <div class="imgHeader -cloudy">
     <div class="titleHeadline">
       <div class="wrp">
@@ -27,7 +26,6 @@
 
   <div class="entryDescription">
     <div class="bbcode"><%= @poll.description.bbcode_to_html.html_safe %></div>
-    <%= render 'form', poll_user: PollUser.new if @poll.open? %>
   </div>
 
 
@@ -35,7 +33,7 @@
 
     <div class="participants">
       <% if @poll.users.size > 0 %>
-        <h3><span><%= @poll.users.size %></span> haben teilgenommen</h3>
+        <h3><span><%= @poll.users.size %></span> Teilnehmer*innen bisher</h3>
       <% end %>
       <div class="portraitCollection">
         <% @poll.users.each do |user| %>
@@ -46,21 +44,45 @@
       </div>
     </div>
 
-    <% if @poll.meetings.upcoming.present? %>
-      <h3>Sei dabei beim nächsten Treffen:</h3>
-      <div class="meetings">
-        <%= render @poll.meetings.upcoming.first %>
-      </div>
+    <% if @poll.find_poll_user(current_user) %>
+      <%= link_to 'Teilnahme wieder entfernen', [:unattend, @poll], method: :post, data: { confirm: 'Bist du dir sicher?' }, class: 'btn-secondary -mint' %>
     <% end %>
+
+    <% if @poll.poll_type == 'Energieteiler' %>
+      <%= link_to "Zurück zum #{@poll.poll_type}", poll_type_path(@poll.poll_type), class: 'btn-primary -mint' %>
+    <% end %>
+
+
+    
 
   </div>
 
 
+  <div class="entryDescription">
+    <%= render 'form', poll_user: PollUser.new if @poll.open? %>
+    <% if @poll.public_result? %>
+      <%= render 'result' %>
+    <% end %>
+  </div>
+
+
+  <div class="entrySidebar">
+    <% if @poll.meetings.upcoming.present? %>
+      <h2 class="hl-main"><span>Nächstes Treffen</span></h2>
+      <div class="meetings">
+        <%= render @poll.meetings.upcoming.first %>
+      </div>
+    <% end %>
+  </div>
+
+
+  <!--
   <% if @poll.public_result? %>
     <div class="content-wide">
-      <%= render 'result' %>
+      ...
     </div>
   <% end %>
+  -->
 
 
   <div class="stream">

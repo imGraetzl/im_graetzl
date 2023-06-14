@@ -1,11 +1,6 @@
-<% if @poll.find_poll_user(current_user) %>
+<% if !@poll.find_poll_user(current_user) %>
 
-  <div class="input-button">
-   <%= link_to 'Du hast bereits teilgenommen - Teilnahme wieder löschen', [:unattend, @poll], method: :post, data: { confirm: 'Bist du dir sicher?' }, class: 'btn-secondary -delete' %>
-  </div>
-
-<% else %>
-
+  <h2 class="hl-main"><em>Jetzt teilnehmen</em></h2>
 
   <% disabled = @poll.find_poll_user(current_user) ? true : false %>
 
