@@ -68,7 +68,6 @@
 
   <div class="entrySidebar">
     <% if @poll.meetings.upcoming.present? %>
-      <h2 class="hl-main"><span>Nächstes Treffen</span></h2>
       <div class="meetings">
         <%= render @poll.meetings.upcoming.first %>
       </div>
