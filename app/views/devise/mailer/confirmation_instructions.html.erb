@@ -8,7 +8,7 @@
 </p>
 
 <p>
-  Als registrierter Nutzer bekommst du wöchentlich Neuigkeiten <%= I18n.t("region.#{@region.id}.from_your_homegraetzl") %> (<%= @resource.graetzl.name %>) und deinen <%= I18n.t("region.#{@region.id}.favorite_graetzls") %> zugesandt.
+  Als registrierter Nutzer bekommst du wöchentlich Neuigkeiten <%= I18n.t("region.#{@region.id}.from_your_homegraetzl") %> (<%= @resource.graetzl.name %>) und <%= I18n.t("region.#{@region.id}.from_your_favorite_graetzl") %> zugesandt.
   <br>
   Du kannst diesen Service nach der Registrierung unter <%= link_to 'Benachrichtigungs-Einstellungen', edit_user_url(target: "tab-2", host: @resource.region.host) %> jederzeit abbestellen.
 </p>

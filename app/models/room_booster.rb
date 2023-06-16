@@ -82,8 +82,10 @@ class RoomBooster < ApplicationRecord
   def next_available_boost_date?(room_booster)
     if boost_available?(room_booster)
       Date.today
-    else
+    elsif RoomBooster.in(room_booster.region).pending.count < 2
       RoomBooster.in(room_booster.region).active.sort_by(&:ends_at_date).first.ends_at_date + 1.day
+    else
+      RoomBooster.in(room_booster.region).pending.sort_by(&:ends_at_date).first.ends_at_date + 1.day
     end
   end
 

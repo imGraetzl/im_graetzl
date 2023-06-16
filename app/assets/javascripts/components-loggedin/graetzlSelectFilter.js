@@ -30,7 +30,7 @@ APP.components.graetzlSelectFilter = (function() {
       searchText: 'Suche nach ' + graetzl + '...',
       placeholder: graetzl + ' auswählen',
       csvDispCount: 3,
-      captionFormat: '{0} ' + graetzl + 'n',
+      captionFormat: '{0} ' + graetzl + '',
       captionFormatAllSelected: 'Alle {0} '+ graetzl +'n in ' + region,
       okCancelInMulti: true,
       locale: ['Übernehmen', 'Abbrechen']

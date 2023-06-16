@@ -10,7 +10,6 @@ class MeetingsSerializer
       meeting.slice(
         :id,
         :name,
-        :description,
         :created_at,
         :updated_at,
         :starts_at_date,
@@ -18,18 +17,28 @@ class MeetingsSerializer
         :ends_at_date,
         :ends_at_time,
       ).merge(
+        description: ActionController::Base.helpers.strip_tags(meeting.description.bbcode_to_html.html_safe).truncate(350), 
         url: site_url(:graetzl_meeting_url, meeting.graetzl, meeting),
         cover_photo_url: meeting.cover_photo_url,
         graetzl: meeting.graetzl.name,
         graetzl_url: site_url(:graetzl_url, meeting.graetzl),
         location: location_fields(meeting.location),
+        user: user_fields(meeting.user),
         address: address_fields(meeting)
       )
     end
   end
 
+  def user_fields(user)
+    user.slice(:id, :username).merge(
+      avatar_url: user.avatar_url,
+      url: site_url(:user_url, user),
+    ) if user
+  end
+
   def location_fields(location)
     location.slice(:id, :name).merge(
+      avatar_url: location.avatar_url,
       url: site_url(:graetzl_location_url, location.graetzl, location),
     ) if location
   end
@@ -37,6 +46,7 @@ class MeetingsSerializer
   def address_fields(meeting)
     return if !meeting.using_address?
     {
+      address_description: meeting.address_description,
       street_name: meeting.address_street,
       zip: meeting.address_zip,
       city: meeting.address_city,

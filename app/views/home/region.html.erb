@@ -1,16 +1,16 @@
 <% meta(
-    title: t(".#{current_region.host_id}.title", region: current_region.name),
-    description: t(".#{current_region.host_id}.description", region: current_region.name),
+    title: t(".#{current_region.id}.title", region: current_region.name),
+    description: t(".#{current_region.id}.description", region: current_region.name),
     robots: 'index, follow',
-    og_title: t(".#{current_region.host_id}.title", region: current_region.name),
-    og_description: t(".#{current_region.host_id}.description", region: current_region.name),
-    og_image: image_url("meta/#{current_region.id}/og_logo.png")
+    og_title: t(".#{current_region.id}.title", region: current_region.name),
+    og_description: t(".#{current_region.id}.description", region: current_region.name),
+    og_image: image_url("meta/#{current_region.host_id}/og_logo.png")
   )
 %>
 
-<% if current_region.id != 'wien' %>
+<% if current_region.id == 'graz' %>
 <div id="betaflash">
-  WeLocally ist in der Testphase, melde dich jetzt an und gestalte die nächsten Schritte mit.
+  WeLocally Graz ist in der Testphase, melde dich jetzt an und gestalte die nächsten Schritte mit.
   <%= link_to 'javascript:', class: 'close-ico' do %>
     <%= icon_tag "cross" %>
   <% end %>
@@ -37,13 +37,13 @@
       <% if current_region.use_districts? %>
           <label for="select">
             <%= icon_tag "map-location" %>
-            <span>Zu deinem Grätzl</span>
+            <span>Zu <%= t("region.#{current_region.id}.your_graetzl") %></span>
           </label>
           <%= select_tag :select, options_for_select(district_url_options), prompt: 'Bezirk wählen', onchange: 'location.href = $(this).val()' %>
       <% else %>
           <label for="select">
             <%= icon_tag "map-location" %>
-            <span>Zu deiner Gemeinde</span>
+            <span>Zu <%= t("region.#{current_region.id}.your_graetzl") %></span>
           </label>
           <%= select_tag :select, options_for_select(graetzl_url_options), prompt: 'Auswählen', onchange: 'location.href = $(this).val()' %>
       <% end %>

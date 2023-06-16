@@ -1,0 +1,10 @@
+active_admin_form_for [:admin, resource] do |f|
+  inputs do
+    f.semantic_errors
+    input :region_id, collection: Region.all, include_blank: true, input_html: { :class => 'admin-filter-select'}
+    input :name
+    input :api_key
+    input :enabled
+  end
+  actions
+end

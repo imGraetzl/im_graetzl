@@ -16,10 +16,10 @@
   <%= render partial: 'locations/sidebar/zuckerl', collection: @zuckerls %>
 
   <% if @location.goodie.present? %>
-    <div class="sideBarbox goodie" id="goodie">
+    <div class="sideBarbox goodie" id="goodie"> 
       <h3 class='sideflag -L'>Goodie für Mitglieder<%= icon_tag "goodie" %></h3>
         <% if user_signed_in? %>
-          <div class="wrp"><%= @location.goodie %></div>
+          <div class="wrp txtlinky"><%= @location.goodie %></div>
         <% else %>
           <div class="goodie-login-msg">
             Das Goodie ist nur für eingeloggte Mitglieder sichtbar.<br />

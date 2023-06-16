@@ -11,6 +11,10 @@ APP.controllers.crowd_donation_pledges = (function() {
       $('.-crowdRewardBox .left, .-crowdRewardBox .right').on("click", function() {
         $(this).closest('.-crowdRewardBox').toggleClass('-open');
       });
+      $('.-crowdRewardBox .right .txtlinky a').on("click", function() {
+        // Keep it open
+        $(this).closest('.-crowdRewardBox').toggleClass('-open');
+      });
     }
 
     function initAddressScreen() {

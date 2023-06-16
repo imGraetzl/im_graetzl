@@ -242,24 +242,11 @@ section.homeRegion {
         scale:0.9;
       }
     }
-    .graetzl-switch-wrapper {
-      .input-select {
-        width:55%;
-      }
-      .region-logos {
-        width:40%;
-      }
-      @include respond-to("<=medium") {
-        .input-select, .region-logos {
-          width:100%;
-        }
-      }
-    }
     .activeArea {
-      top:10%;
+      top:12%;
       width:45%; // MAP-AREA
       @include respond-to(">=medium") {
-        top:0%;
+        top:15%;
         width:60%; // MAP-AREA
       }
     }

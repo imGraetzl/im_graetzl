@@ -1,7 +1,17 @@
 class Api::MeetingsController < Api::ApiController
 
   def index
-    @meetings = Meeting.in(current_region).active.visible_to_all.where(approved_for_api: true)
+
+    if @api_account.full_access?
+      @meetings = Meeting.in(current_region).active.visible_to_all
+    else
+      @meetings = Meeting.in(current_region).active.visible_to_all.where(approved_for_api: true)
+    end
+
+    # Category ID Filter
+    @meetings = @meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]}) if params[:category_id].present?
+
+    # Date Filter
     from_date, to_date, min_created_at = get_date_range
     if from_date || to_date
       @meetings = @meetings.where("starts_at_date >= ?", from_date) if from_date

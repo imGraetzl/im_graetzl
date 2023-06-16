@@ -1,10 +1,10 @@
 <% meta(
-    title: t(".#{current_region.host_id}.title", region: current_region.name),
-    description: t(".#{current_region.host_id}.description", region: current_region.name),
+    title: t(".#{current_region.id}.title", region: current_region.name),
+    description: t(".#{current_region.id}.description", region: current_region.name),
     robots: 'index, follow',
-    og_title: t(".#{current_region.host_id}.title", region: current_region.name),
-    og_description: t(".#{current_region.host_id}.description", region: current_region.name),
-    og_image: image_url("meta/#{current_region.id}/crowdfunding.png")
+    og_title: t(".#{current_region.id}.title", region: current_region.name),
+    og_description: t(".#{current_region.id}.description", region: current_region.name),
+    og_image: image_url("meta/#{current_region.host_id}/crowdfunding.png")
   )
 %>
 
@@ -36,6 +36,7 @@
       <%= render 'crowd_campaigns/action_card', create_link: true %>
     </div>
     <!-- Insert Featured Card -->
+    <%= render 'shared/featured_cards/crowdfunders_hub' if current_region.id == 'wien' %>
     
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'crowd-campaigns-paginate-link' }, rel: 'nofollow' %>
   </div>

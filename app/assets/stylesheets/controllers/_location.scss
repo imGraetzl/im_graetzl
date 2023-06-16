@@ -143,7 +143,7 @@ section.location-page {
     }
   }
 
-  .goodie {
+  .goodie { 
     .sideflag {
       display: flex;
       justify-content: space-between;
@@ -156,19 +156,21 @@ section.location-page {
     .wrp {
       color: #cd891b;
       padding:0px 15px 15px 15px;
+      text-overflow: ellipsis;
+      overflow: hidden;
       white-space: pre-wrap;
     }
     .goodie-login-msg {
       padding:0px 15px 15px 15px;
       color: #cd891b;
       font-style: italic;
-      a {
-        color: #cd891b;
-        text-decoration: underline;
-        margin-bottom: 0px;
-        &:hover {
-          text-decoration: none;
-        }
+    }
+    a {
+      color: #cd891b !important;
+      text-decoration: underline !important;
+      margin-bottom: 0px;
+      &:hover {
+        text-decoration: none !important;
       }
     }
 

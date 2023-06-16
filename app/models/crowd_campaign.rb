@@ -55,7 +55,7 @@ class CrowdCampaign < ApplicationRecord
 
   scope :by_currentness, -> {
     order(Arel.sql('CASE WHEN enddate >= current_date THEN 0 WHEN funding_status != 0 THEN 1 ELSE 2 END')).
-    order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.startdate END) DESC, (CASE WHEN enddate < current_date THEN crowd_campaigns.enddate END) DESC'))
+    order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.enddate END) ASC, (CASE WHEN enddate < current_date THEN crowd_campaigns.enddate END) DESC'))
   }
 
   def closed?

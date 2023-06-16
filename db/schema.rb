@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_07_141409) do
+ActiveRecord::Schema.define(version: 2023_06_15_090117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -752,6 +752,11 @@ ActiveRecord::Schema.define(version: 2023_06_07_141409) do
     t.index ["region_id"], name: "index_meetings_on_region_id"
     t.index ["slug"], name: "index_meetings_on_slug"
     t.index ["user_id"], name: "index_meetings_on_user_id"
+  end
+
+  create_table "neighbour_graetzls", force: :cascade do |t|
+    t.integer "graetzl_id", null: false
+    t.integer "neighbour_graetzl_id", null: false
   end
 
   create_table "notifications", id: :serial, force: :cascade do |t|

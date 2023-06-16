@@ -80,7 +80,12 @@ class ActionProcessor
 
     when [Meeting, :attended]
       if subject.public?
-        Activity.add_public(subject, child, to: subject.graetzl)
+        # Hack for Balkonsolar (14444)
+        if subject.id == 14444
+          Activity.add_public(subject, child, to: :entire_region)
+        else
+          Activity.add_public(subject, child, to: subject.graetzl)
+        end
       end
       Notifications::MeetingAttended.generate(subject, child, to: subject.user_id) if subject.user_id != child.user_id
 

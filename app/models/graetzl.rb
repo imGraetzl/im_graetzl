@@ -22,6 +22,10 @@ class Graetzl < ApplicationRecord
   has_many :district_graetzls
   has_many :districts, through: :district_graetzls
 
+  has_many :neighbour_graetzls, :foreign_key => :graetzl_id, :dependent => :destroy
+  has_many :reverse_neighbour_graetzls, :class_name => :NeighbourGraetzl, :foreign_key => :neighbour_graetzl_id, :dependent => :destroy
+  has_many :neighbours, :through => :neighbour_graetzls, :source => :neighbour_graetzl
+
   def self.all_memoized
     @@memoized ||= includes(:districts).to_h{|g| [g.id.to_s, g] }.freeze
   end
@@ -56,8 +60,11 @@ class Graetzl < ApplicationRecord
     district&.id
   end
 
-  def neighbour_graetzls
-    if neighborless?
+  def default_neighbour_graetzls
+
+    if neighbours.present?
+      neighbours - [self]
+    elsif neighborless?
       []
     elsif region.use_districts?
       district.graetzls - [self]
@@ -66,6 +73,7 @@ class Graetzl < ApplicationRecord
     else
       region.graetzls - [self]
     end
+    
   end
 
 end

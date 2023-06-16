@@ -17,11 +17,13 @@ class RoomBoostersController < ApplicationController
 
     if RoomBooster.in(@room_offer.region).active.count < 2
       @next_start_date = Date.today
-    else
+    elsif RoomBooster.in(@room_offer.region).pending.count < 2
       @next_start_date = RoomBooster.in(@room_offer.region).active.sort_by(&:ends_at_date).first.ends_at_date + 1.day
       flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
+    else
+      @next_start_date = RoomBooster.in(@room_offer.region).pending.sort_by(&:ends_at_date).first.ends_at_date + 1.day
+      flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
     end
-
     @room_booster.starts_at_date = @next_start_date
     @room_booster.send_at_date = @next_start_date.next_occurring(:tuesday)
     @room_booster.ends_at_date = @next_start_date + 7.days

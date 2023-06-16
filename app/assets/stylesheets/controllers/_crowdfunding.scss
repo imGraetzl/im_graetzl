@@ -721,6 +721,20 @@ section.usersetup.-crowd_campaigns {
       font-style: italic;
       padding-bottom:10px;
     }
+    .crowdstrudel {
+      display: flex;
+      justify-content: center;
+      img {
+        margin-top:-20px;
+      }
+      @include respond-to("<medium") {
+        flex-wrap: wrap;
+        img {
+          margin-top:0px;
+        }
+      }
+
+    }
   }
   .cardBox.-crowd_campaign {
     .updateteaser {display: none;}

@@ -41,7 +41,25 @@ section.info {
         background: url(image_path('svg/icon-arrow-right-blinky-rosa-dark.svg')) no-repeat left center;
       }
     }
-    .content-wide, .content {
+
+    .main-content {
+      .hl-subtext {margin-bottom: 20px;}
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      .hint {
+        margin-top:20px;
+      }
+      div.video {width:100%;}
+      div.cardBox {width:100%;}
+      @include respond-to(">=medium") {
+        div.video {width:60%;}
+        div.cardBox {width:35%;}
+      }
+    }
+
+    .content-wide .text, .content { 
       p {
         padding-bottom:20px;
       }
@@ -86,16 +104,16 @@ section.info {
     }
     .persons {
       display: flex;
-      justify-content: center;
-      .person {
-        width:50%;
-        float:left;
-        @include respond-to(">=medium") {
-          width:33%;
-        }
-        @include respond-to(">=large") {
-          width:20%;
-        }
+      justify-content: space-between;
+      .person {width:30%}
+      .txt {width:70%;}
+      @include respond-to(">=medium") {
+        .person {width:20%}
+        .txt {width:80%; p {margin-top:10px;}}
+      }
+      @include respond-to(">=large") {
+        .person {width:20%}
+        .txt {width:80%; p {margin-top:10px;}}
       }
     }
     // Single Mentor Card
@@ -103,6 +121,7 @@ section.info {
       h4, p.title {
         display: block;
         text-align: center;
+        @include font-size-primaryFont('small');
       }
       a:hover {
         img {
@@ -123,6 +142,9 @@ section.info {
       }
     }
     .patner {
+      clear: both;
+      margin-bottom:20px;
+      @include cf();
       img {
         width:100px;
         height:auto;

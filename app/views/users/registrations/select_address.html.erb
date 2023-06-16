@@ -5,7 +5,7 @@
   <% if current_region.use_districts? %>
     <h1>Lass uns zu Beginn dein <span>Heimatgrätzl</span> finden...</h1>
   <% else %>
-    <h1>Kostenlos in <span>deiner Gemeinde</span> registrieren</h1>
+    <h1>Kostenlos in <span><%= t("region.#{current_region.id}.your_graetzl") %></span> registrieren</h1>
   <% end %>
 
   <%= form_for :user, url: new_registration_path, method: :get do |f| %>

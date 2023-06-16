@@ -20,8 +20,10 @@
         <h3>Du bist unternehmerisch, sozial oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
         <%= link_to 'Dein virtuelles Schaufenster gratis einrichten', new_location_path, class: 'btn-primary' %>
       <% else %>
-        <% if current_region.use_districts? %>
-          <h3>Über 10.000 Selbstständige, kl. Unternehmen & Macher*innen sind dabei.</h3>
+        <% if current_region.is?('wien') %>
+          <h3>Über 11.000 Selbstständige, kl. Unternehmen & Macher*innen sind dabei.</h3>
+        <% elsif current_region.is?('graz') %>
+          <h3>Werde in deinem Bezirk & in Graz sichtbar.</h3>
         <% else %>
           <h3>Werde in deiner Gemeinde und Region sichtbar.</h3>
         <% end %>

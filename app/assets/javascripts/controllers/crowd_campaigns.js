@@ -64,6 +64,11 @@ APP.controllers.crowd_campaigns = (function() {
         $(this).closest('.-crowdRewardBox').toggleClass('-open');
       });
 
+      $('.-crowdRewardBox .right .txtlinky a').on("click", function() {
+        // Keep it open
+        $(this).closest('.-crowdRewardBox').toggleClass('-open');
+      });
+
       $('.btn-support').on("click", function() {
         if($("#tab-info").is(":hidden")){
           APP.components.tabs.openTab('info');
