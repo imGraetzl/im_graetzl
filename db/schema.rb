@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_15_205744) do
+ActiveRecord::Schema.define(version: 2023_06_15_090117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(version: 2023_02_15_205744) do
     t.integer "active_state", default: 0
     t.string "invoice_number"
     t.boolean "crowdfunding_call", default: false
+    t.decimal "percentage_fee", precision: 5, scale: 2
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
@@ -607,6 +608,7 @@ ActiveRecord::Schema.define(version: 2023_02_15_205744) do
     t.integer "position", default: 0
     t.jsonb "main_photo_data"
     t.string "slug"
+    t.boolean "hidden", default: false
     t.index ["slug"], name: "index_location_categories_on_slug", unique: true
   end
 
@@ -740,14 +742,21 @@ ActiveRecord::Schema.define(version: 2023_02_15_205744) do
     t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
     t.string "address_description"
     t.date "last_activated_at"
+    t.bigint "poll_id"
     t.index ["address_id"], name: "index_meetings_on_address_id"
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"
     t.index ["group_id"], name: "index_meetings_on_group_id"
     t.index ["location_id"], name: "index_meetings_on_location_id"
+    t.index ["poll_id"], name: "index_meetings_on_poll_id"
     t.index ["region_id"], name: "index_meetings_on_region_id"
     t.index ["slug"], name: "index_meetings_on_slug"
     t.index ["user_id"], name: "index_meetings_on_user_id"
+  end
+
+  create_table "neighbour_graetzls", force: :cascade do |t|
+    t.integer "graetzl_id", null: false
+    t.integer "neighbour_graetzl_id", null: false
   end
 
   create_table "notifications", id: :serial, force: :cascade do |t|
@@ -771,6 +780,81 @@ ActiveRecord::Schema.define(version: 2023_02_15_205744) do
     t.index ["region_id"], name: "index_notifications_on_region_id"
     t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
     t.index ["user_id", "notify_at"], name: "index_notifications_on_user_id_and_notify_at"
+  end
+
+  create_table "poll_graetzls", force: :cascade do |t|
+    t.bigint "poll_id"
+    t.bigint "graetzl_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["graetzl_id"], name: "index_poll_graetzls_on_graetzl_id"
+    t.index ["poll_id"], name: "index_poll_graetzls_on_poll_id"
+  end
+
+  create_table "poll_options", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "poll_question_id"
+    t.integer "votes_count", default: 0
+    t.index ["poll_question_id"], name: "index_poll_options_on_poll_question_id"
+  end
+
+  create_table "poll_questions", force: :cascade do |t|
+    t.string "option_type", default: "0"
+    t.string "title"
+    t.text "description"
+    t.boolean "required", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "poll_id"
+    t.boolean "main_question", default: false
+    t.integer "votes_count", default: 0
+    t.integer "position", default: 0
+    t.index ["poll_id"], name: "index_poll_questions_on_poll_id"
+  end
+
+  create_table "poll_user_answers", force: :cascade do |t|
+    t.text "answer"
+    t.bigint "poll_question_id"
+    t.bigint "poll_option_id"
+    t.bigint "poll_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["poll_option_id"], name: "index_poll_user_answers_on_poll_option_id"
+    t.index ["poll_question_id"], name: "index_poll_user_answers_on_poll_question_id"
+    t.index ["poll_user_id"], name: "index_poll_user_answers_on_poll_user_id"
+  end
+
+  create_table "poll_users", force: :cascade do |t|
+    t.text "answer"
+    t.bigint "poll_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["poll_id"], name: "index_poll_users_on_poll_id"
+    t.index ["user_id"], name: "index_poll_users_on_user_id"
+  end
+
+  create_table "polls", force: :cascade do |t|
+    t.string "status", default: "0"
+    t.string "poll_type", default: "0"
+    t.string "slug"
+    t.string "title"
+    t.text "description"
+    t.string "region_id"
+    t.string "cover_photo_id"
+    t.string "cover_photo_content_type"
+    t.jsonb "cover_photo_data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.boolean "public_result", default: false
+    t.boolean "closed", default: false
+    t.string "zip"
+    t.index ["region_id"], name: "index_polls_on_region_id"
+    t.index ["slug"], name: "index_polls_on_slug"
+    t.index ["user_id"], name: "index_polls_on_user_id"
   end
 
   create_table "region_calls", force: :cascade do |t|
@@ -1426,7 +1510,18 @@ ActiveRecord::Schema.define(version: 2023_02_15_205744) do
   add_foreign_key "location_menus", "locations", on_delete: :cascade
   add_foreign_key "meeting_additional_dates", "meetings", on_delete: :cascade
   add_foreign_key "meetings", "groups", on_delete: :nullify
+  add_foreign_key "meetings", "polls", on_delete: :nullify
   add_foreign_key "meetings", "users", on_delete: :nullify
+  add_foreign_key "poll_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "poll_graetzls", "polls", on_delete: :cascade
+  add_foreign_key "poll_options", "poll_questions", on_delete: :cascade
+  add_foreign_key "poll_questions", "polls", on_delete: :cascade
+  add_foreign_key "poll_user_answers", "poll_options", on_delete: :cascade
+  add_foreign_key "poll_user_answers", "poll_questions", on_delete: :cascade
+  add_foreign_key "poll_user_answers", "poll_users", on_delete: :cascade
+  add_foreign_key "poll_users", "polls", on_delete: :cascade
+  add_foreign_key "poll_users", "users", on_delete: :cascade
+  add_foreign_key "polls", "users", on_delete: :cascade
   add_foreign_key "room_boosters", "room_offers", on_delete: :nullify
   add_foreign_key "room_boosters", "users", on_delete: :nullify
   add_foreign_key "room_demand_categories", "room_categories", on_delete: :cascade

@@ -6,7 +6,9 @@ Rails.application.configure do
   # Get Greatzl Array in Console:
   # Graetzl.where.not(region_id:'wien').map{|s| "^/#{s.slug}$"}
   config.middleware.use Rack::Prerender, whitelist: [
-    '^/pregarten$', '^/neumarkt-im-muhlkreis$', '^/leopoldschlag$', '^/waldburg$', '^/griffen$', '^/unterweitersdorf$', '^/gutau$', '^/windhaag-bei-freistadt$', '^/hagenberg-im-muhlkreis$', '^/lasberg$', '^/hirschbach-im-muhlkreis$', '^/tragwein$', '^/grunbach$', '^/st-oswald-bei-freistadt$', '^/moosburg$', '^/sandl$', '^/st-andra$', '^/kefermarkt$', '^/rainbach-im-muhlkreis$', '^/freistadt$', '^/volkermarkt$',
+    '^/griffen$', '^/volkermarkt$', '^/st-andra$',
+    '^/pregarten$', '^/neumarkt-im-muhlkreis$', '^/leopoldschlag$', '^/waldburg$', '^/unterweitersdorf$', '^/gutau$', '^/windhaag-bei-freistadt$', '^/hagenberg-im-muhlkreis$', '^/lasberg$', '^/hirschbach-im-muhlkreis$', '^/tragwein$', '^/grunbach$', '^/st-oswald-bei-freistadt$', '^/moosburg$', '^/sandl$', '^/kefermarkt$', '^/rainbach-im-muhlkreis$', '^/freistadt$',
+    '^/wetzelsdorf$', '^/lend$', '^/st-leonhard$', '^/gosting$', '^/puntigam$', '^/waltendorf$', '^/innere-stadt$', '^/jakomini$', '^/eggenberg$', '^/liebenau$', '^/gries$', '^/ries$', '^/strassgang$', '^/geidorf$', '^/andritz$', '^/st-peter$', '^/mariatrost$',
     '^/region/', '/category/',
     '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$',
   ]

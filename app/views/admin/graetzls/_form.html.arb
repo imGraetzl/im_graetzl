@@ -8,5 +8,10 @@ active_admin_form_for [:admin, resource] do |f|
     input :zip
     input :neighborless
   end
+
+  inputs "Nachbar-Grätzln" do
+    input :neighbours, collection: Graetzl.where(region_id: f.object.region_id).all, input_html: { :class => 'admin-filter-select'}
+  end
+
   actions
 end

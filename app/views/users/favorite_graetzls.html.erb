@@ -41,7 +41,7 @@
         <h1>Wähle deine <span><%= t("region.#{current_region.id}.favorite_graetzl") %></span></h1>
         <p>Um zusätzlich auch Inhalte und E-Mails <%= t("region.#{current_region.id}.from_your_favorite_graetzl") %> zu erhalten.</p>
       </div>
-      <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzl") %>">
+      <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzln") %>">
         <% if current_region.use_districts? %>
           <div class="input-select">
             <%= label nil, :district_ids do %>
