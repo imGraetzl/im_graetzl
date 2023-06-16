@@ -3,33 +3,59 @@ de:
       meta_tags:
         locale: de_DE
 
+
   home:
     about:
       title: 'Gemeinsam bringen wir mehr zusammen. Sei locally dabei!'
       description: 'Entdecke spannende Events, Workshops und die lokalen Anbieter*innen. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
+    
     region:
-      welocally:
+      default: &default
         title: 'Mach mit und sei locally dabei! | %{region}'
-        description: 'Gemeinsam bringen wir mehr zusammen. Entdecke spannende Events, Workshops und die lokalen Anbieter*innen. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
-      imgraetzl:
+        description: 'Gemeinsam bringen wir mehr zusammen. Entdecke spannende Events, Workshops und die lokalen Anbieter*innen in %{region}. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
+      wien:
+        <<: *default
         title: 'Mach mit - Treffen, Events & Initiativen im Grätzl'
-        description: 'Gemeinsam bringen wir mehr zusammen. Entdecke spannende Events, Workshops und die lokalen Anbieter*innen in Wien. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
+      graz:
+        <<: *default
+        title: 'Mach mit - Treffen, Events & Initiativen in %{region}'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
+
 
   regions:
     index:
-      welocally:
+      default: &default
         title: 'Gemeinden in der Region %{region}'
         description: 'Entdecke deine Gemeinde in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deiner Gemeinde. Die nächsten Workshops und Termine bei dir ums Eck ...'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Bezirke, Stadtviertel & Grätzl in %{region}'
         description: 'Entdecke dein Grätzl in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Grätzl & Bezirk. Die nächsten Workshops und Termine bei dir ums Eck ...'
+      graz:
+        <<: *default
+        title: 'Bezirke & Stadtviertel in %{region}'
+        description: 'Entdecke deinen Bezirk in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Bezirk. Die nächsten Workshops und Termine bei dir ums Eck ...'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     locations:
-      welocally:
+      default: &default
         title: '%{category}Lokale Anbieter & MacherInnen, Kreative & Wirtschaftstreibende in %{region}'
         description: 'Neuigkeiten von lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Newsletter aus deiner Gemeinde...'
-      imgraetzl:
-        title: '%{category}Lokale Anbieter & MacherInnen, Kreative & Wirtschaftstreibende in %{region}'
+      wien:
+        <<: *default
         description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Grätzl...'
+      graz:
+        <<: *default
+        description: 'Neuigkeiten von lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Bezirk...'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     meetings:
       title: '%{category}Workshops, Events & Veranstaltungen in %{region}'
       description: 'Events & Workshops organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen%{category}. Die nächsten Termine in %{region}, gleich stöbern...'
@@ -53,12 +79,18 @@ de:
       title: 'Jeden Monat neu - Zuckerl & Angebote in %{region}'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften in %{region}.'
     crowd_campaigns:
-      welocally:
+      default: &default
         title: 'Lokales Crowdfunding in %{region}'
-        description: 'Entdecke lokale Crowdfunding Kampagnen aus deiner Gemeinde in %{region} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
-      imgraetzl:
-        title: 'Lokales Crowdfunding in %{region}'
-        description: 'Entdecke lokale Crowdfunding Kampagnen aus Wien oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+        description: 'Entdecke lokale Crowdfunding Kampagnen aus %{region} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+      wien:
+        <<: *default
+      graz:
+        <<: *default
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
+
 
   districts:
     index:
@@ -95,70 +127,147 @@ de:
       title: 'Lokales Crowdfunding in %{zip} %{region}'
       description: 'Entdecke lokale Crowdfunding Kampagnen in %{region} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
 
+
   graetzls:
     show:
-      welocally:
+      default: &default
         title: 'Gemeinde „%{name}“ | %{region}'
         description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus der Gemeinde %{name}. Bist du wirtschaftlich oder kreativ in der Gemeinde tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus der Gemeinde.'
-      imgraetzl:
-          title: 'Grätzl „%{name}“ im %{numeric}. Bezirk in %{region}'
-          description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Grätzl %{name}. Bist du wirtschaftlich oder kreativ im Grätzl tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus dem Grätzl.'
+      wien:
+        <<: *default
+        title: 'Grätzl „%{name}“ im %{numeric}. Bezirk in %{region}'
+        description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Grätzl %{name}. Bist du wirtschaftlich oder kreativ im Grätzl tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus dem Grätzl.'
+      graz:
+        <<: *default
+        title: 'Bezirk „%{name}“ in %{region}'
+        description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Bezirk %{name}. Bist du wirtschaftlich oder kreativ im Bezirk tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus Graz.'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     meetings:
-      welocally:
+      default: &default
         title: 'Workshops, Events & Veranstaltungen in der Gemeinde %{graetzl}'
         description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus der Gemeinde %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Workshops, Events & Veranstaltungen im Grätzl %{graetzl}'
         description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem Grätzl %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
+      graz:
+        <<: *default
+        title: 'Workshops, Events & Veranstaltungen im Bezirk %{graetzl} in %{region}'
+        description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem Bezirk %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     locations:
-      welocally:
+      default: &default
         title: 'Lokale Geschäfte, Kreative & AnbieterInnen in der Gemeinde %{graetzl}'
         description: 'Neuigkeiten von lokalen Anbietern & Kreativen aus der Gemeinde %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Gemeinde-Newsletter...'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Lokale Geschäfte, Kreative & AnbieterInnen im Grätzl %{graetzl}'
         description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen aus dem Grätzl %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
+      graz:
+        <<: *default
+        title: 'Lokale Geschäfte, Kreative & AnbieterInnen im Bezirk %{graetzl} in %{region}'
+        description: 'Neuigkeiten von lokalen Anbietern & Kreativen aus dem Bezirk %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     rooms:
-      welocally:
+      default: &default
         title: 'Raumteiler aus der Gemeinde %{graetzl} | Neue Räume & Raumsuchende'
         description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler in der Gemeinde %{graetzl} finden ...'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Raumteiler im Grätzl %{graetzl} | Neue Räume & Raumsuchende'
-        description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} im %{numeric}. Bezirk. finden ...'
+        description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} im %{numeric}. Bezirk finden ...'
+      graz:
+        <<: *default
+        title: 'Raumteiler im Bezirk %{graetzl} in %{region} | Neue Räume & Raumsuchende'
+        description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Bezirk %{graetzl} finden ...'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     tools:
-      welocally:
+      default: &default
         title: 'Geräteteiler aus der Gemeinde %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
         description: 'Du kannst über den Geräteteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Geräteteiler im Grätzl %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-        description: 'Du kannst über den Geräteteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+      graz:
+        <<: *default
+        title: 'Geräteteiler im Bezirk %{graetzl} in %{region} - Arbeitsequipment leihen & Geräte am Standort nutzen'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     groups:
-      welocally:
+      default: &default
         title: 'Gruppen in der Gemeinde %{graetzl}'
-        description: 'Durchstöbere jetzt die Gruppen in der Gemeinde %{graetzl}.'
-      imgraetzl:
+        description: 'Durchstöbere jetzt die Gruppen bei dir ums Eck.'
+      wien:
+        <<: *default
         title: 'Gruppen im Grätzl %{graetzl}'
         description: 'Durchstöbere jetzt die Gruppen im Grätzl %{graetzl}. Neben Gruppen für ganz %{region} gibt es auch Gruppen nur für deinen Bezirk. Egal ob Kooperationen im Bezirk, Gegengeschäfte oder Gruppen für Aufträge & Zusammenarbeit. Schau mal rein ...'
+      graz:
+        <<: *default
+        title: 'Gruppen im Bezirk %{graetzl} in %{region}'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     zuckerls:
-      welocally:
+      default: &default
         title: 'Zuckerl & Angebote aus der Gemeinde %{graetzl}'
         description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus der Gemeinde %{graetzl}.'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Zuckerl & Angebote im Grätzl %{graetzl}'
         description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'
+      graz:
+        <<: *default
+        title: 'Zuckerl & Angebote im Bezirk %{graetzl} in %{region}'
+        description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Bezirk %{graetzl}.'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     coop_demands:
-      welocally:
+      default: &default
         title: 'Coop & Share Marktplatz Angebote in der Gemeinde %{graetzl}'
         description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind & finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Coop & Share Marktplatz Angebote im Grätzl %{graetzl}'
-        description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind & finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
+      graz:
+        <<: *default
+        title: 'Coop & Share Marktplatz Angebote im Bezirk %{graetzl} in %{region}'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     crowd_campaigns:
-      welocally:
+      default: &default
         title: 'Lokales Crowdfunding aus der Gemeinde %{graetzl}'
         description: 'Entdecke lokale Crowdfunding Kampagnen aus %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
-      imgraetzl:
+      wien:
+        <<: *default
         title: 'Lokales Crowdfunding aus dem Grätzl %{graetzl}'
         description: 'Entdecke lokale Crowdfunding Kampagnen aus dem Grätzl %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+      graz:
+        <<: *default
+        title: 'Lokales Crowdfunding aus dem Bezirk %{graetzl} in %{region}'
+        description: 'Entdecke lokale Crowdfunding Kampagnen aus dem Bezirk %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
 
   meetings:
     show:
@@ -172,12 +281,21 @@ de:
 
   users:
     show:
-      welocally:
+      default: &default
         title: '%{name} aus der Gemeinde %{graetzl}'
         description: '%{name}s Heimatgemeinde in %{region} ist %{graetzl}'
-      imgraetzl:
+      wien:
+        <<: *default
         title: '%{name} aus dem Grätzl %{graetzl}'
         description: '%{name}s Heimatgrätzl in %{region} ist das Grätzl %{graetzl}'
+      graz:
+        <<: *default
+        title: '%{name} aus dem Bezirk %{graetzl}'
+        description: '%{name}s Heimatbezirk in %{region} ist %{graetzl}'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
     billing_address:
       title: 'Meine Rechnungsdaten'
     coop_demands:
@@ -240,7 +358,6 @@ de:
     details:
       title: 'Crowdfunding Untestützung - Details'
 
-
   crowd_donation_pledges:
     login:
       title: 'Crowdfunding Untestützung - Einloggen'
@@ -252,7 +369,6 @@ de:
       title: 'Crowdfunding Untestützung - Zusammenfassung'
     details:
       title: 'Crowdfunding Untestützung - Details'
-
 
   coop_demands:
     show:

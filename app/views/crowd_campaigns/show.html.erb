@@ -3,7 +3,7 @@
     description: t('.description', desc: @crowd_campaign.slogan),
     og_title: t('.title', title: @crowd_campaign.title),
     og_description: t('.description', desc: @crowd_campaign.slogan),
-    og_image: @crowd_campaign.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/crowdfunding.png")
+    og_image: @crowd_campaign.cover_photo_url(:header, :large) || image_url("meta/#{current_region.host_id}/crowdfunding.png")
   )
 %>
 <% if @crowd_campaign.scope_public? %>
