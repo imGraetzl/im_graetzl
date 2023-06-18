@@ -8,6 +8,7 @@ de:
       facebook_url: "https://www.facebook.com/WeLocally"
       instagram_url: "https://www.instagram.com/welocally"
       raumteiler_guide_url: "https://raumteiler.s3.eu-central-1.amazonaws.com/WeLocally_Muehlviertel_RaumteilerGuide_2022.pdf.zip"
+      district: "Gemeinde"
       district_graetzl: "Gemeinde"
       graetzl: "Gemeinde"
       graetzln: "Gemeinden"
@@ -49,6 +50,7 @@ de:
       facebook_url: "https://www.facebook.com/imGraetzl"
       instagram_url: "https://www.instagram.com/imgraetzl"
       raumteiler_guide_url: "https://raumteiler.s3.eu-central-1.amazonaws.com/imGraetzl_Wien_RaumteilerGuide_2019.pdf.zip"
+      district: "Bezirk"
       district_graetzl: "Bezirk / Grätzl"
       graetzl: "Grätzl"
       graetzln: "Grätzln"
@@ -83,6 +85,7 @@ de:
 
     graz:
       <<: *default
+      district: "Bezirk"
       district_graetzl: "Bezirk"
       graetzl: "Bezirk"
       graetzln: "Bezirke"
