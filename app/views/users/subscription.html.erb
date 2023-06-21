@@ -18,7 +18,7 @@
           <% end %>
         </p>
         <% else %>
-          <p>Dein Beitrag ermöglicht den Betrieb von imGrätzl und unterstützt die lokalen Macher*innen in Wien. <%= render 'shared/questionmarklink', hint_url: subscription_plans_path %></p>
+          <p>Dein Beitrag ermöglicht den Betrieb von <%= t("region.#{current_region.id}.domain_short") %> und unterstützt die lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %>. <%= render 'shared/questionmarklink', hint_url: subscription_plans_path %></p>
         <% end %>
       </div>
 
