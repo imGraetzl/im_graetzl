@@ -460,8 +460,20 @@ de:
 
   subscription_plans:
     show:
-     title: 'imGrätzl Fördermitgliedschaft'
-     description: 'Dein Beitrag ermöglicht den Betrieb von imGrätzl und unterstützt die lokalen Macher*innen in Wien. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen.'
+      default: &default
+        title: 'WeLocally Fördermitgliedschaft' 
+        description: 'Dein Beitrag ermöglicht den Betrieb von WeLocally und unterstützt die lokalen Macher*innen in Wien. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen.'
+      wien:
+        <<: *default
+        title: 'imGrätzl Fördermitgliedschaft' 
+        description: 'Dein Beitrag ermöglicht den Betrieb von imGrätzl und unterstützt die lokalen Macher*innen in Wien. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen.'
+      graz:
+        <<: *default
+        description: 'Dein Beitrag ermöglicht den Betrieb von WeLocally und unterstützt die lokalen Macher*innen in Graz. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen.'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
 
   static_pages:
     info:
