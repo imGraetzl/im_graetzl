@@ -20,6 +20,7 @@ class Region
     @proximity = data[:proximity]
     @use_districts = data[:use_districts]
     @use_subscription = data[:use_subscription]
+    @subscription_goal = data[:subscription_goal]
     @zuckerl_graetzl_price = data[:zuckerl_graetzl_price]
     @zuckerl_entire_region_price = data[:zuckerl_entire_region_price]
     @room_booster_price = data[:room_booster_price]
@@ -44,6 +45,10 @@ class Region
 
   def is?(region_id)
     region_id == id ? true : false
+  end
+
+  def subscription_goal
+    @subscription_goal
   end
 
   def area
