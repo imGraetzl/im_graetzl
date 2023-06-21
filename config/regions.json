@@ -3,7 +3,7 @@
     "name": "Wien",
     "use_districts": true,
     "use_subscription": true,
-    "subscription_goal": 75,
+    "subscription_goal": 150,
     "public_group_id": 54,
     "room_booster_price": "30_00",
     "zuckerl_graetzl_price": "16_50",
@@ -14,7 +14,7 @@
   "graz": {
     "name": "Graz",
     "use_districts": false,
-    "use_subscription": false,
+    "use_subscription": true,
     "subscription_goal": 50,
     "public_group_id": 63,
     "room_booster_price": "0_00",

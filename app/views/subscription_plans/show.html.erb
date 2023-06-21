@@ -1,6 +1,6 @@
 <% meta(
-    title: t('.title'),
-    robots: 'index, follow',
+    title: t(".#{current_region.id}.title", region: current_region.name),
+    description: t(".#{current_region.id}.description", region: current_region.name),
   )
 %>
 

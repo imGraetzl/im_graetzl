@@ -19,7 +19,7 @@
       <%= nav_menu_item("tacker", 'Geräteteiler', region_tools_path) %>
       <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
       <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
-      <%= nav_menu_item("abo", 'imGrätzl Fördermitgliedschaft', subscription_plans_path) if current_region.use_subscription? %>
+      <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) if current_region.use_subscription? %>
       <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
       <%= nav_menu_item("coffee", "Blog", "#{t("region.#{current_region.id}.blog_url")}", class: 'discover', target: '_blank') %>
     </div>
@@ -79,7 +79,7 @@
         <%= nav_menu_item("tacker", 'Geräteteiler', region_tools_path) %>
         <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
         <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
-        <%= nav_menu_item("abo", 'imGrätzl Fördermitgliedschaft', subscription_plans_path) if current_region.use_subscription? %>
+        <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) if current_region.use_subscription? %>
         <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
         <%= nav_menu_item("coffee", "Blog", "#{t("region.#{current_region.id}.blog_url")}", class: 'discover', target: '_blank') %>
     </div>
