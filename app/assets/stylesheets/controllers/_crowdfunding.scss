@@ -692,24 +692,19 @@ section.usersetup.-crowd_campaigns {
       margin-top:5px;
     }
   }
+  .call-headline {margin-bottom: 30px;}
   .-call {
-    margin-bottom:50px;
+    margin-bottom:40px;
     .call-box {
-      h3 {
-        padding-bottom: 15px;
-      }
-      margin-top:10px;
-      display: flex;
-      flex-wrap: wrap;
-      div {
-        width:100%;
-        @include respond-to(">medium") {
-          width:48%;
-        }
-      }
       img {
-        width:100%;
+        width:47%;
         height:auto;
+        float: left;
+        margin-right:15px;
+        margin-bottom:15px;
+        @include respond-to("<medium") {
+          width:100%;
+        }
       }
     }
   }
