@@ -18,9 +18,9 @@
       <label for="district_id">Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)</label>
     </div>
   <% else %>
-    <div class="input-radio filter-input">
-      <input type="radio" value="<%= current_region.id %>" id="region_id" name="region_id" data-label="Region <%= current_region.name %>" >
-      <label for="region_id">Region <%= current_region.name %></label>
+    <div class="input-radio filter-input"> 
+      <input type="radio" value="<%= current_region.id %>" id="region_id" name="region_id" data-label="ganz <%= current_region.name %>" >
+      <label for="region_id">Ganz <%= current_region.name %></label>
     </div>
   <% end %>
 

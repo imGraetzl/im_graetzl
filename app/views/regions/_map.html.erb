@@ -15,11 +15,7 @@
       <% end %>
     </div>
     <select class="mobileSelectMenu">
-      <% if current_region.use_districts? %>
-        <option disabled>Bezirk wählen</option>
-      <% else %>
-        <option disabled>Gemeinde wählen</option>
-      <% end %>
+      <option disabled><%= t("region.#{current_region.id}.district") %> wählen</option>
     </select>
   </div>
 </div>

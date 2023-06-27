@@ -1,6 +1,7 @@
 context.instance_eval do
   attributes_table do
     row :id
+    row :region_id
     row :name
     row :amount
     row :coupon

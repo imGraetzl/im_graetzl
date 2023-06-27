@@ -37,44 +37,40 @@
     <%= link_to "Zu deinen bestehenden Projekten", crowd_campaigns_user_path, class: 'btn-primary -mint -large -shadow btn' if current_user && current_user.crowd_campaigns.present? %>
     <div class="btn">
       <%= link_to "Starte jetzt ein neues Projekt", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %>
-      <!--
-      <% if current_region.use_districts? %>
       <div class="">
         <div class="input-checkbox">
           <%= check_box_tag 'crowdfunding_call', 'yes', true %>
           <%= label_tag :crowdfunding_call, 'Ja, ich möchte beim Crowdfunding Call teilnehmen.' %>
         </div>
       </div>
-      <% end %>
-      -->
     </div>
   </div>
 
-<!--
-<% if current_region.use_districts? %>
+  <h1 class="hl-main call-headline"><span>Crowdfunding Call Herbst 2023</span></h1>
   <div class="cardBox -call">
     <txt class="wrp">
       <div class="txt">
         <div class="call-box">
-          <div>
-            <%= image_tag 'mailings/call.png', alt:'call-thumb', width:200, height:150 %>
-          </div>
-          <div>
-            <h3>Crowdfunding Call</h3>
-            Du wirst in der Vorbereitungsphase und während der Durchführung deiner Crowdfunding Kampagne vom imGrätzl Team begleitet und mit zusätzlicher Sichtbarkeit unterstützt.
+            <%= image_tag 'mailings/call-new.png', alt:'call-thumb', width:200, height:150 %>
+            <p>
+            <strong>Setze dein Vorhaben mit Begleitung und jede Menge <%= t("region.#{current_region.id}.domain_short") %> Sichtbarkeit um!</strong>
             <br><br>
-            <strong>Es stehen zwei Plätze zur Verfügung. Die Anmeldung ist möglich vom 27.01. – 05.03. 2023. Der gemeinsame Kampagnenstart ist Anfang April 2023. </strong> Was du mitbringst: ein konkretes Vorhaben, das im Idealfall einen zusätzlichen positiven Impact auf andere Menschen hat, wenn es in die Umsetzung kommt.
+            Du wirst in der Vorbereitungsphase und während der Durchführung deiner Crowdfunding Kampagne vom <%= t("region.#{current_region.id}.domain_short") %> Team begleitet und mit zusätzlicher Sichtbarkeit unterstützt.
             <br><br>
-          </div>
+            <strong>Es stehen im Call drei Plätze zur Verfügung. Die Anmeldung ist bis zum 01.08.2023 möglich. Der Kampagnenstart richtet sich nach deiner Planung. </strong>
+            <br><br>
+            Was du mitbringst: ein konkretes Vorhaben, das im Idealfall einen zusätzlichen positiven Impact auf andere Menschen hat, wenn es in die Umsetzung kommt. 
+            <strong>So nimmst du teil:</strong> Starte dein Projekt, hake dabei <strong>'Crowdfunding Call'</strong> an und fülle anschließend in der Kampagne die ersten beiden Formularseiten aus. Damit bist du beim Call dabei.
+            <br>
+            <strong>Alle Teilnehmer*innen werden am 07.08.2023 benachrichtigt</strong>, ob es geklappt hat oder nicht.
+            </p>
+            
         </div>
-        <strong>So nimmst du teil:</strong> Starte dein Projekt, hake dabei <strong>'Crowdfunding Call'</strong> an und fülle anschließend in der Kampagne die ersten beiden Formularseiten aus. Damit bist du beim Call dabei. Alle Teilnehmer*innen werden am 07.03.2023 benachrichtigt, ob es geklappt hat oder nicht.
-        <%= link_to "Weitere Informationen", 'https://blog.imgraetzl.at/allgemein/crowdfunding-call-fruehjahr-2023-setze-dein-vorhaben-mit-begleitung-und-jede-menge-imgraetzl-sichtbarkeit-um/', target: '_blank' %> zum Crowdfunding Call und zur Begleitung.
       </div>
     </txt>
     <div class="card"></div>
   </div>
-<% end %>
--->
+
 
   <div class="guidelines">
     <h4>Kosten:</h4>

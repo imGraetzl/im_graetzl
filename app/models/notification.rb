@@ -26,6 +26,12 @@ class Notification < ApplicationRecord
     where(sent: false)
   }
 
+  scope :next_graz, -> {
+    where(:user_id => 13782).where("notify_at <= ?", next_tuesday).
+    where("notify_before IS NULL OR notify_before >= ?", next_tuesday).
+    where(sent: false)
+  }
+
   scope :next_kaernten, -> {
     where(:user_id => 10613).where("notify_at <= ?", next_tuesday).
     where("notify_before IS NULL OR notify_before >= ?", next_tuesday).

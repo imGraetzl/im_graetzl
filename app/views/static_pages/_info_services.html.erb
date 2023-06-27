@@ -194,14 +194,14 @@
 
 
 
-<% if current_region && current_region.id == 'wien' %>
+<% if current_region && current_region.use_subscription? %>
   <article class="container">
     <div class="txt">
-      <h2>imGrätzl Fördermitgliedschaft</h2>
-      <h3>imGrätzl ist mittlerweile zu groß, als dass wir alles alleine stemmen können.</h3>
+      <h2><%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft</h2>
+      <h3><%= current_region.is?('wien') ? 'imGrätzl' : 'WeLocally & imGrätzl' %> ist mittlerweile zu groß, als dass wir alles alleine stemmen können.</h3>
       <p>
-        Damit wir imGrätzl in Wien weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen.<br>
-        Danke an alle, die imGrätzl bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht
+        Damit wir <%= t("region.#{current_region.id}.domain_short") %> <%= t("region.#{current_region.id}.in_region") %> weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen.<br>
+        Danke an alle, die <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass <%= t("region.#{current_region.id}.domain_short") %> allen lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %> kostenlos zur Verfügung steht
       </p>
       <p class="link">
         <%= link_to 'Zur Fördermitgliedschaft', subscription_plans_path, :class => 'btn-primary -mint -inlineflex' %>
