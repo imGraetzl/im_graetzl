@@ -75,11 +75,20 @@ ActiveAdmin.register Meeting do
       def update
 
         starts_at_date_before = resource.starts_at_date
+        starts_at_time_before = resource.starts_at_time
 
         super
 
-        if starts_at_date_before != resource.starts_at_date
+        if starts_at_date_before >= Date.today && (starts_at_date_before != resource.starts_at_date || starts_at_time_before != resource.starts_at_time)
+          
+          # Update Notifications and GoingTo Dates if Start Date is in future and changes
+
           ActionProcessor.track(resource, :update)
+          resource.going_tos.where(going_to_date: starts_at_date_before, going_to_time: starts_at_time_before).update_all(
+            going_to_date: resource.starts_at_date,
+            going_to_time: resource.starts_at_time
+          )
+
         end
         
       end
