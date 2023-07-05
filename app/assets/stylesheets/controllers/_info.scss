@@ -14,7 +14,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+    background-image: radial-gradient(ellipse at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 50%);
     pointer-events: none;
     z-index: 9;
   }
@@ -310,7 +310,7 @@ section.info {
           position: absolute;
           bottom: 0;
           left: 0;
-          background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 75%);
+          background-image: radial-gradient(ellipse at center bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 50%);
           pointer-events: none;
           z-index: 9;
         }

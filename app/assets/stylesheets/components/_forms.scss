@@ -61,7 +61,7 @@ input, select, textarea {
       position: absolute;
       bottom: 0;
       left: 0;
-      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+      background-image: radial-gradient(ellipse at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 70%);
     }
   }
   &.-line-up {
@@ -74,7 +74,7 @@ input, select, textarea {
       position: absolute;
       top: -32px;
       left: 0;
-      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+      background-image: radial-gradient(ellipse at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 70%);
     }
   }
   &.-first-no-remove:first-of-type {
