@@ -4,7 +4,7 @@ class MeetingAdditionalDate < ApplicationRecord
   has_many :users, through: :going_tos
 
   after_update :update_going_tos
-  #before_destroy :check_for_going_tos, prepend: true
+  before_destroy :check_for_going_tos, prepend: true
 
   #scope :upcoming, -> { where("starts_at_date >= :today", today: Date.today).order(starts_at_date: :asc, starts_at_time: :asc)}
   scope :upcoming, -> { order(starts_at_date: :asc, starts_at_time: :asc)}
@@ -22,10 +22,13 @@ class MeetingAdditionalDate < ApplicationRecord
   private
 
     def check_for_going_tos
-      self.going_tos.update_all(
-        going_to_date: nil,
-        going_to_time: nil
-      )
+      # Reset GoingTos if Future Date will be deleted
+      if self.starts_at_date >= Date.today
+        self.going_tos.update_all(
+          going_to_date: nil,
+          going_to_time: nil
+        )
+      end
     end
 
     def update_going_tos
