@@ -57,6 +57,11 @@
     -webkit-mask: url(image_path('svg/icon-flat-wohlbefinden.svg')) no-repeat;
   }
 
+  &.-energieteiler {
+    mask: url(image_path('svg/icon-flat-energieteiler.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-energieteiler.svg')) no-repeat;
+  }
+
   &.-kreativ-handwerk {
     mask: url(image_path('svg/icon-flat-kreativ-handwerk.svg')) no-repeat;
     -webkit-mask: url(image_path('svg/icon-flat-kreativ-handwerk.svg')) no-repeat;

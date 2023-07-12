@@ -1,3 +1,4 @@
+<% category_id = LocationCategory.where("name ILIKE :q", q: "%Energieteiler%").last&.id %>
 <div class="cardbox-wrp" data-behavior="masonry-card">
   <div class="paperCard -cord1RT -illuteaser -poll">
     <div class="wrp">
@@ -15,7 +16,7 @@
       </div>
 
         <h3>Du möchtest als Expert*in im Energieteiler aufscheinen?</h3>
-        <%= link_to "Jetzt Schaufenster einrichten", new_location_path(location_category_id: 22), class: 'btn-primary' %>
+        <%= link_to "Jetzt Schaufenster einrichten", new_location_path(location_category_id: category_id), class: 'btn-primary' %>
     </div>
     <div class="card"></div>
   </div>

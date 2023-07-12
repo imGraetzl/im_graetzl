@@ -1,0 +1,10 @@
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to notification.poll do %>
+    <%= avatar_image notification.poll_user.user, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.poll_user.user.username %></span> hat bei deiner Umfrage 
+      <span class="matter"><%= notification.poll.title %></span> teilgenommen.
+    </div>
+  <% end %>
+<% end %>

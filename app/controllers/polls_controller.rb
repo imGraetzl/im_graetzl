@@ -10,12 +10,17 @@ class PollsController < ApplicationController
 
     if params[:meetings].present?
 
-      meetings_upcoming = Meeting.in(current_region).upcoming.include_for_box.joins(:poll).page(params[:page]).per(params[:per_page] || 30)
-      meetings_past = Meeting.in(current_region).past.include_for_box.joins(:poll).page(params[:page]).per(params[:per_page] || 30)
+      #meetings_upcoming = Meeting.in(current_region).upcoming.include_for_box.joins(:poll).page(params[:page]).per(params[:per_page] || 30)
+      #meetings_past = Meeting.in(current_region).past.include_for_box.joins(:poll).page(params[:page]).per(params[:per_page] || 30)
       
+      @category = EventCategory.where("title ILIKE :q", q: "%Energieteiler%").last
+      meetings_upcoming = Meeting.in(current_region).upcoming.joins(:event_categories).where(event_categories: {id: @category&.id}).page(params[:page]).per(params[:per_page] || 30)
+      meetings_past = Meeting.in(current_region).past.joins(:event_categories).where(event_categories: {id: @category&.id}).page(params[:page]).per(params[:per_page] || 30)
+
       polls = polls.scope_public.by_zip.page(params[:page]).per(params[:per_page] || 30)
       @polls += (meetings_upcoming + polls + meetings_past)
       @next_page = polls.next_page.present? || meetings_upcoming.next_page.present? || meetings_past.next_page.present?
+    
     else
 
       polls = polls.scope_public.by_currentness.page(params[:page]).per(params[:per_page] || 30)

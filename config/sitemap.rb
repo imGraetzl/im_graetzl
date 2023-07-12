@@ -125,6 +125,11 @@ Region.all.each do |region|
       add crowd_campaign_path(crowd_campaign), changefreq: 'daily', priority: 1.0
     end
 
+    # Polls
+    Poll.in(region).enabled.find_each do |poll|
+      add poll_path(poll), changefreq: 'daily', priority: 0.9
+    end
+
     # Raumteiler
     RoomOffer.in(region).enabled.find_each do |room_offer|
       add room_offer_path(room_offer), changefreq: 'daily', priority: 0.9
@@ -157,6 +162,10 @@ Region.all.each do |region|
       add good_morning_dates_path, changefreq: 'daily', priority: 0.9
       add balkonsolar_path, changefreq: 'daily', priority: 0.9
       add subscription_plans_path, changefreq: 'daily', priority: 0.9
+    end
+
+    if region.use_energieteiler?
+      add energie_teiler_path, changefreq: 'daily', priority: 0.9
     end
 
     # Info Help Pages
