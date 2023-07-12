@@ -1,6 +1,7 @@
 context.instance_eval do
   selectable_column
   id_column
+  column :region_id
   column :name
   column :amount
   column :coupon

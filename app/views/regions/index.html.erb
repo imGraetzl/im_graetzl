@@ -1,16 +1,16 @@
 <% meta(
-    title: t(".#{current_region.host_id}.title", region: current_region.name),
-    description: t(".#{current_region.host_id}.description", region: current_region.name),
+    title: t(".#{current_region.id}.title", region: current_region.name),
+    description: t(".#{current_region.id}.description", region: current_region.name),
     robots: 'index, follow',
-    og_title: t(".#{current_region.host_id}.title", region: current_region.name),
-    og_description: t(".#{current_region.host_id}.description", region: current_region.name),
-    og_image: image_url("meta/#{current_region.id}/og_logo.png")
+    og_title: t(".#{current_region.id}.title", region: current_region.name),
+    og_description: t(".#{current_region.id}.description", region: current_region.name),
+    og_image: image_url("meta/#{current_region.host_id}/og_logo.png")
   )
 %>
 
-<% if current_region.id != 'wien' %>
+<% if current_region.id == 'graz' %>
 <div id="betaflash">
-  WeLocally ist in der Testphase, melde dich jetzt an und gestalte die nächsten Schritte mit.
+  WeLocally Graz ist in der Testphase, melde dich jetzt an und gestalte die nächsten Schritte mit.
   <%= link_to 'javascript:', class: 'close-ico' do %>
     <%= icon_tag "cross" %>
   <% end %>
@@ -38,11 +38,7 @@
       <%= render 'regions/action_card' if !user_signed_in? %>
     </div>
     <!-- Insert Featured Card -->
-    <% if CrowdCampaign.funding.find_by_id(41) && current_region.id == 'wien' %>
-        <%= render 'shared/featured_cards/crowd_campaign', crowd_campaign: CrowdCampaign.funding.find_by_id(41) %>
-      <% else %>
-        <%= render 'shared/featured_cards/subscription', subscription: Subscription.active.sample if Subscription.active.any? && current_region.id == 'wien' %>
-    <% end %>
+    <%= render 'shared/featured_cards/subscription', subscription: Subscription.active.sample if Subscription.active.any? && current_region.id == 'wien' %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
   </div>

@@ -24,33 +24,136 @@
           Kosten senken – Strom selber produzieren! Entdecke mit uns die Mini-PV Anlagen für den Balkon!
         </strong>
       </p>
-      <% if CrowdCampaign.funding.map(&:id).include?(36) %>
-        <ul>
-          <li>
-            <strong>
-              Aufgepasst: Unsere erste <%= link_to "Einkaufsgemeinschaft für Balkon-Solar", CrowdCampaign.funding.find(36) %> läuft gerade. Schnell sein!
-            </strong>
-          </li>
-        </ul>
-      <% end %>
       <p>
-        Du interessierst dich für Balkon-Solar und möchtest wissen, wie es funktioniert? Dann bist du bei unserem Balkon-Solar Workshop genau richtig, in drei Stunden lernst du von den beiden Experten alles über Balkon-Solar. Danach weißt du:
+        Du interessierst dich für Balkon-Solar und möchtest wissen, wie es funktioniert? Dann bist du bei unserem Balkon-Solar-Workshop genau richtig!
+        In zwei Stunden erzählt uns <strong>Markus Exenberger von <%= link_to 'Tiny and Van', 'https://www.facebook.com/tinyandvan/', target: 'blank' %></strong> alles über Balkonkraftwerke, deren Vor- und Nachteile und wie du aus deinem Balkonkraftwerk das Maximum an Energie rausholst.
       </p>
+      <p><strong>Danach weißt du:</strong></p>
       <ul>
         <li>Ob so eine Mini-PV-Anlage etwas für deinen Balkon ist und was es bringt.</li>
+        <li>Du weißt, welche Komponenten es braucht, wie die Anbringung und der Betrieb funktioniert.</li>
         <li>Du kannst dir mit dem Wissen eine geeignete Balkon-Solaranlage bestellen/kaufen.</li>
-        <li>Du weißt, wie die Anbringung und der Betrieb funktioniert.</li>
-        <li>Es wird dir alles nötige Know-How rundherum vermittelt, um mit der eigenen Stromerzeugung zu starten.</li>
+        <li>Du kannst dir dann aber auch eine Anlage günstig selber zusammenstellen und weißt, welche Elemente dafür notwendig sind. Und auch das Thema Stromspeicher & Blackout wird behandelt!</li>
       </ul>
     </div>
     <div class="card"></div>
   </div>
 
-  <div class="hl-subtext">
-    <h1><em>Wähle einen Workshop-Termin</em></h1>
+  
+<div class="content-wide">
+    <div class="inner">
+      <div class="main-content">
+        <div class="video text">
+          <div class="hl-subtext">
+            <h1>Melde dich an und sei dabei!</h1>
+            <p>Begrenzte Teilnehmeranzahl - Maximal 30 Plätze.</p>
+          </div>
+          <youtube-embed><img loading="lazy" src="https://i.ytimg.com/vi/PL5wd_CHkIk/hqdefault.jpg" alt="Video"><iframe allow="autoplay" src="" data-src="https://www.youtube.com/embed/PL5wd_CHkIk?autoplay=1" frameborder="0" allowfullscreen="true"></iframe><button aria-label="Video abspielen"></button></youtube-embed>
+          <p class="hint">
+            <em>
+                Bitte tragt euch verbindlich für den Workshop Termin ein, indem ihr beim Treffen euren Teilnahme zusagt. 
+                Sollten mehr als 30 TeilnehmerInnen interessiert sein, dann losen wir die Plätze aus 
+                und ihr bekommt von uns per Mail Bescheid, ob ihr dabei seid.<br>
+                (Und wir versuchen dann noch einen Zusatztermin zu organisieren.)
+            </em>
+          </p>
+        </div>
+        <!-- 24 for local, 14444 for live-->
+        <%= render Meeting.find(14444), show_going_tos: true %>
+      </div>
+    </div>
   </div>
 
-  <%= form_tag meetings_path(per_page: 17, show_going_tos: true), method: :get, remote: true, class: 'cards-filter' do %>
+
+
+  <div class="content">
+    
+    <h3>Nicht nur Theorie, sondern auch viel Praxis</h3>
+
+    <div class="persons">
+      <div class="person">
+        <%= link_to "https://www.facebook.com/tinyandvan/", target: '_blank' do %>
+          <%= image_tag('info/balkonsolar/markus-exenberger.jpg', class: 'img-round') %>
+          <h4>Markus Exenberger</h4>
+        <% end %>
+        <p class="title">Tiny and Van</p>
+      </div>
+      <div class="txt">
+        <p>
+          <strong>Markus vermittelt nicht nur die Theorie, sondern auch ganz viel Praxis.</strong><br>
+          Es stehen auch zwei unterschiedliche Balkon-Solar-Anlagen zum Erkunden bereit und Markus geht sogar noch einen Schritt weiter und zeigt uns seine gefinkelte Stromspeicherbox, mit welcher du dein Balkonkraftwerk optimal ausnutzt, bis hin zu einer Nulleinspeisung (Keine Sorge, bald weisst du, was das bedeutet :)
+        </p>
+      </div>
+    </div>
+
+    <h3>Wo findet der Workshop statt</h3>
+
+    <div class="persons">
+      <div class="person">
+        <%= link_to "https://www.semmelweisklinik.at", target: '_blank' do %>
+          <%= image_tag('info/balkonsolar/logo-semmelweisklinik.jpg', class: 'img-round') %>
+          <h4>Semmelweisklinik</h4>
+        <% end %>
+        <p class="title"></p>
+      </div>
+      <div class="txt">
+        <p>
+          Der Workshop findet in der Semmelweisklinik auf der Terrasse statt und wir können nach dem Workshop noch ein wenig zusammensitzen und quatschen, uns gegenseitig kennenlernen und der Musik zuhören, die es am Freitag Abend unter der Reihe "<strong>Freitags in der Klinik</strong>" immer gibt. Und mit einem Bier oder Drink unterstützt Ihr dieses tolle gemeinnützige Projekt und die Menschen dahinter.
+          <br><br>
+          <strong>Kunst-und Kulturzentrum Semmelweisklinik</strong><br>
+          Haus 4 im Areal - Auf der Terrasse<br>
+          Hockegasse 37, 1180 Wien<br>
+          </p>
+      </div>
+    </div>
+
+   
+
+    <h3>Die Kosten</h3>
+    <p>Wenn du kannst, dann schmeiße 10 € in den Hut, das Geld bekommt Markus für seinen ganzen Aufwand. Wenn es bei dir gerade eng ist, dann übernehmen wir die 10 €.</p>
+
+  </div>
+
+
+
+  <div class="content-wide">
+    <div class="inner text">
+
+      <h3>Was uns noch ganz wichtig ist</h3>
+      <p>
+      Balkon-Solar hilft nicht nur dabei, die eigenen Stromkosten zu senken, sondern ist auch eine großartige Möglichkeit, dass noch viel mehr Menschen aktiv an der Energiewende teilnehmen können, indem sie ihren eigenen Strom am Balkon produzieren. Yeah!
+      </p>
+      <p>
+      Deshalb wünschen wir uns für den Workshop Teilnehmer*innen, die auch Lust haben Balkon-Solar mit zu verbreiten: z.B. den Nachbarn und Nachbarinnen und im Bekanntenkreis davon berichten, wie es ihnen mit ihrer Anlage ergeht.
+      </p>
+      <p>
+      Ganz toll wäre es, wenn es auch Teilnehmer*innen gibt, die Freude daran haben, mit uns (oder selbstständig) weitere Infoveranstaltungen durchzuführen. imGrätzl hilft dann auch beim Organisieren und Verbreiten. Wir von imGrätzl engagieren uns in dem Feld, weil es in unseren Augen wichtig ist, dass viele Menschen bei der Energiewende mitmachen können. Und: Je mehr Strom aus erneuerbaren Energien kommt, desto besser wird es :)
+      </p>
+    
+      <h3>Kooperationspartner*innen</h3>
+      <div class="patner">
+        <%= link_to image_tag('info/balkonsolar/logo-tiny-and-van.jpg', class: 'logo'), "https://www.facebook.com/tinyandvan/", target: '_blank' %>
+        <p>
+        <strong><%= link_to "Tiny and Van", "https://www.facebook.com/tinyandvan/", target: '_blank' %> – Markus Exenberger</strong>. Photovoltaik mit und ohne Speicher, gesunde Wohnräume und ökologische Altbausanierung mit Liebe zu Lehm/Kalk/Holz, Wohnmobil
+        </p>
+      </div>
+      <div class="patner">
+        <%= link_to image_tag('info/balkonsolar/logo-semmelweisklinik.jpg', class: 'logo'), "https://www.semmelweisklinik.at", target: '_blank' %>
+        <p>
+        <strong><%= link_to "Kunst-und Kulturzentrum Semmelweisklinik", "https://www.semmelweisklinik.at", target: '_blank' %> - Wir bieten Platz für neue Visionen.</strong> Wir sind ein gemeinnütziger Verein, der im Haus 4 ein Zentrum für experimentelle und kreative (Zusammen-)Arbeit erschafft. Die Studios sind schon vermietet, in unserern Gemeinschaftsräumen entsteht Platz für Events, Workshops, Seminare, Treffen, Proben und vieles mehr. Kommt uns besuchen und helft gleich mit, diesen Ort mit Leben zu füllen :-)
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="hl-subtext">
+    <h1>Vergangene Balkonsolar Workshops</h1>
+    <p>Im November 2022 gabs unsere erste Reihe mit 3 Workshops</p>
+  </div>
+
+  <%= form_tag meetings_path(per_page: 3, show_going_tos: true, past: true), method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>
   <% end %>
   <div class="card-grid-container">
@@ -58,97 +161,6 @@
     <div class="action-card-container" data-behavior="meetings-action-card-container">
     </div>
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll -mint', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
-  </div>
-
-
-  <em><strong>First come, first served: pro Workshop gibt es 20 Plätze.</strong> Bitte tragt euch verbindlich für einen Termin ein, an dem ihr teilnehmen möchtet, ihr bekommt von uns dann eine schriftliche Bestätigung, ob es geklappt hat. Alle anderen kommen auf die Warteliste und werden ebenfalls benachrichtigt. Falls ein Platz frei wird, melden wir uns.</em>
-
-
-
-  <div class="content">
-    <h3>Nicht nur Theorie, sondern auch viel Praxis</h3>
-    <p>
-    Es steht eine Balkon-Solar-Anlage zum Erkunden bereit, ebenso wird vor Ort gemeinsam getestet, wie das mit der Modul-Aufhängung am Balkon funktioniert.
-    </p>
-    <p>
-    Für alle, die am Balkon nichts aufhängen dürfen, gibt es außerdem einen Einblick, welche anderen Alternativen (z.B. Solar Tische) es gibt. Die Mini-PV-Anlage könnt ihr euch nach den Workshops im <%= link_to "Geräteteiler", region_tools_path %> dann übrigens kostenlos ausleihen, wenn ihr schauen wollt, ob eine Balkon-Solaranlage an eurem Balkon Sinn macht. Noch mehr Information zu Balkonsolar in Wien gibt es <%= link_to "auf unserem Blog", "https://blog.imgraetzl.at/allgemein/balkon-solar-kosten-senken-und-ressourcen-erhoehen/", target: '_blank' %>.
-    </p>
-
-    <h3>Durch den Workshop führen</h3>
-    <p>
-    Sebastian Müller von Balkonsolar e.V. aus Freiburg und Rolf Behringer von Solarezukunft e.V. aus Freiburg<br>
-    Beide sind in Sachen Balkon-Solar auf vielen Barcamps, Festivals und Maker Faires in Deutschland unterwegs.<br>
-    Mirjam Mieschendahl von imGrätzl.at
-    </p>
-    <div class="persons">
-      <div class="person">
-        <%= link_to "https://balkon.solar", target: '_blank' do %>
-          <%= image_tag('info/balkonsolar/sebastian-mueller.jpg', class: 'img-round') %>
-          <h4>Sebastian Müller</h4>
-        <% end %>
-        <p class="title">Balkonsolar e.V.</p>
-      </div>
-      <div class="person">
-        <%= link_to "https://www.solarezukunft.org", target: '_blank' do %>
-          <%= image_tag('info/balkonsolar/rolf-behringer.jpg', class: 'img-round') %>
-          <h4>Rolf Behringer</h4>
-        <% end %>
-        <p class="title">Solarezukunft e.V.</p>
-      </div>
-      <div class="person">
-        <%= link_to "https://www.linkedin.com/in/mmieschendahl/", target: '_blank' do %>
-          <%= image_tag('info/organisatorin-mirjam.jpg', class: 'img-round') %>
-          <h4>Mirjam Mieschendahl</h4>
-        <% end %>
-        <p class="title">Gründerin imGrätzl.at</p>
-      </div>
-    </div>
-
-    <h3>Wo finden die Balkon-Solar Workshops statt</h3>
-    <p>
-    <strong><%= link_to "Happylab Wien", "https://www.imgraetzl.at/stuwerviertel/locations/happylab-d73ea6b8-a224-4dc4-b3f3-85997d624d46", target: '_blank' %></strong><br>
-    Schönngasse 15 - 17<br>
-    1020 Wien<br>
-    </p>
-
-    <h3>Die Kosten</h3>
-    <p>Die Teilnahme an den Workshops ist kostenlos, eine freie Spende für die Raumnutzung wäre schön, ca. 10 €. Wir lassen den Hut rumgehen.</p>
-
-  </div>
-
-
-
-  <div class="content-wide">
-    <div class="inner">
-
-      <h3>Was uns noch ganz wichtig ist</h3>
-      <p>
-      Balkon-Solar hilft nicht nur dabei, die eigenen Stromkosten zu senken, sondern ist auch eine großartige Möglichkeit, dass noch viel mehr Menschen aktiv an der Energiewende teilnehmen können, indem sie ihren eigenen Strom am Balkon produzieren. Yeah!
-      </p>
-      <p>
-      Deshalb wünschen wir uns für die ersten drei Balkon-Solar Workshops Teilnehmer*innen, die auch Lust haben Balkon-Solar mit zu verbreiten: z.B. den Nachbarn und Nachbarinnen und im Bekanntenkreis davon berichten, wie es ihnen mit ihrer Anlage ergeht.
-      </p>
-      <p>
-      Ganz toll wäre es, wenn es auch Teilnehmer*innen gibt, die Freude daran haben, mit uns (oder selbstständig) weitere Infoveranstaltungen durchzuführen. imGrätzl hilft dann auch beim Organisieren und Verbreiten. Wir von imGrätzl engagieren uns in dem Feld, weil es in unseren Augen wichtig ist, dass viele Menschen bei der Energiewende mitmachen können. Und: Je mehr Strom aus erneuerbaren Energien kommt, desto besser wird es :)
-      </p>
-      <p>
-      Falls ihr euch anmeldet und dann doch nicht könnt, dann bitte meldet euch unbedingt wieder ab, damit andere nachrücken können.<br>
-      Wichtiger Hinweis: Bitte FFP2 Masken mitbringen und während des Workshops aufsetzen.
-      </p>
-      <h3>Kooperationspartner*innen</h3>
-      <div class="patner">
-        <%= link_to image_tag('info/balkonsolar/logo-ews.png', class: 'logo'), "https://www.ews-schoenau.de", target: '_blank' %>
-        <p>
-        Die EWS (Die EWS, das sind die <%= link_to "Elektrizitätswerke Schönau", "https://www.ews-schoenau.de", target: '_blank' %> – eine bürgereigene Genossenschaft) aus Deutschland übernimmt die Reisekosten und die Kosten zur Durchführung der Workshops durch die beiden Experten. Außerdem übernehmen sie die Kosten zur Beschaffung der PV-Anlage, die dann in Wien verbleibt und in Zukunft kostenlos im Geräteteiler ausgeliehen werden kann.
-        </p>
-      </div>
-      <div class="patner">
-        <%= link_to image_tag('info/balkonsolar/logo-happylab.png', class: 'logo'), "https://www.happylab.at/de_vie/", target: '_blank' %>
-        <p>
-        <%= link_to "Happylab", "https://www.happylab.at/de_vie/", target: '_blank' %> unterstützt dabei die Workshops mit zu verbreiten und stellt das Happylab zur Verfügung.
-        </p>
-      </div>
-    </div>
   </div>
 
 </section>

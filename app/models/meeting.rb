@@ -46,8 +46,9 @@ class Meeting < ApplicationRecord
     order(:starts_at_date) }
 
   scope :past, -> { active.
-    where("starts_at_date < :today OR ends_at_date < :today", today: Date.today).
+    where("starts_at_date < :today OR ends_at_date < :today", today: Date.yesterday).
     order(:starts_at_date) }
+  
 
   before_validation :smart_add_url_protocol, if: -> { online_url.present? }
 

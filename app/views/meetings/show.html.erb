@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', name: @meeting.name),
     og_description: t('.description', desc: @meeting.description[0...154]),
-    og_image: @meeting.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/og_logo.png")
+    og_image: @meeting.cover_photo_url(:header, :large) || image_url("meta/#{current_region.host_id}/og_logo.png")
   )
 %>
 

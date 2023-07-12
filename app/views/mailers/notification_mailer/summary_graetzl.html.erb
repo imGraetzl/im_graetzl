@@ -21,6 +21,7 @@
 
   <!-- Insert 2 Random Zuckerls -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
+  <%= render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position && Date.today.next_occurring(:tuesday).month > Date.today.month %>
 
   <%= render 'summary/block_header', title: block_title %>
 
@@ -33,7 +34,6 @@
 
 <% end %>
 
-
 <% if current_position < zuckerl_position %>
   <!-- Insert 2 Random Zuckerls here if no Zuckerls where inserted above -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if @period == 'weekly' %>
@@ -42,6 +42,7 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.first(2) if @period == 'weekly' %>
 <% end %>
 
+<%= render 'featured/crowdfunding_call' if @region.id == 'wien' && @period == 'weekly' %>
 
 <!-- Insert Supporters -->
 <% if @region.id == 'wien' && @period == 'weekly' %>

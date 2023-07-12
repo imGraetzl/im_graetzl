@@ -1,6 +1,6 @@
 <% meta(
-    title: t('.title'),
-    robots: 'index, follow',
+    title: t(".#{current_region.id}.title", region: current_region.name),
+    description: t(".#{current_region.id}.description", region: current_region.name),
   )
 %>
 
@@ -15,7 +15,7 @@
     <div class="wrp">
       <p>
         <strong>
-          <%= t("region.#{current_region.id}.domain_short") %> ist mittlerweile zu groß, als dass wir alles alleine stemmen können. Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen.
+          <%= current_region.is?('wien') ? 'imGrätzl' : 'WeLocally & imGrätzl' %> ist mittlerweile zu groß, als dass wir alles alleine stemmen können. Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen.
         </strong>
       </p>
       <p>
@@ -24,7 +24,7 @@
       <p>
         <strong><%= Subscription.in(current_region).active.count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.
         <br>
-        <strong>Unser nächstes Ziel: <%= Subscription::NEXT_GOAL %> Förder*innen.</strong>
+        <strong>Unser nächstes Ziel: <%= current_region.subscription_goal %> Förder*innen.</strong>
       </p>
     </div>
     <div class="card"></div>

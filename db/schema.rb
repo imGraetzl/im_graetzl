@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_07_141409) do
+ActiveRecord::Schema.define(version: 2023_06_21_102630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -754,6 +754,11 @@ ActiveRecord::Schema.define(version: 2023_06_07_141409) do
     t.index ["user_id"], name: "index_meetings_on_user_id"
   end
 
+  create_table "neighbour_graetzls", force: :cascade do |t|
+    t.integer "graetzl_id", null: false
+    t.integer "neighbour_graetzl_id", null: false
+  end
+
   create_table "notifications", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "bitmask", null: false
@@ -1135,6 +1140,8 @@ ActiveRecord::Schema.define(version: 2023_06_07_141409) do
     t.integer "free_graetzl_zuckerl_monthly_interval", default: 0
     t.string "image_url"
     t.string "coupon"
+    t.string "region_id"
+    t.index ["region_id"], name: "index_subscription_plans_on_region_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|

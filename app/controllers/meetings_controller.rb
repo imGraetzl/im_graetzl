@@ -8,6 +8,7 @@ class MeetingsController < ApplicationController
     @meetings = @meetings.visible_to(current_user)
     @meetings = @meetings.by_currentness.page(params[:page]).per(params[:per_page] || 30)
     @meetings = @meetings.upcoming if params[:upcoming]
+    @meetings = @meetings.past if params[:past]
     @meetings = @meetings.where.not(id: params[:exclude].to_i) if params[:exclude]
   end
 
@@ -53,6 +54,7 @@ class MeetingsController < ApplicationController
   def update
     @meeting = find_user_meeting
     starts_at_date_before = @meeting.starts_at_date
+    starts_at_time_before = @meeting.starts_at_time
 
     @meeting.assign_attributes(meeting_params)
     @meeting.state = :active
@@ -64,9 +66,18 @@ class MeetingsController < ApplicationController
 
       # Create new Activity and Notifications if StartDate has changed from past into future
       if starts_at_date_before < Date.today && starts_at_date_before != @meeting.starts_at_date
+        
         ActionProcessor.track(@meeting, :create) if @meeting.refresh_activity
-      elsif starts_at_date_before != @meeting.starts_at_date
+      
+      # Update Notifications and GoingTo Dates if Start Date is in future and changes
+      elsif starts_at_date_before >= Date.today && (starts_at_date_before != @meeting.starts_at_date || starts_at_time_before != @meeting.starts_at_time)
+        
         ActionProcessor.track(@meeting, :update)
+        @meeting.going_tos.where(going_to_date: starts_at_date_before, going_to_time: starts_at_time_before).update_all(
+          going_to_date: @meeting.starts_at_date,
+          going_to_time: @meeting.starts_at_time
+        )
+
       end
 
       redirect_to [@meeting.graetzl, @meeting]

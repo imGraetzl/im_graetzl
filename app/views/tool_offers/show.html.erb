@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', title: @tool_offer.title[0..80].gsub(/\s\w+\s*$/,'...')),
     og_description: t('.description', desc: @tool_offer.description[0..250].gsub(/\n/, " ")),
-    og_image: @tool_offer.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/og_logo.png")
+    og_image: @tool_offer.cover_photo_url(:header, :large) || image_url("meta/#{current_region.host_id}/og_logo.png")
   )
 %>
 

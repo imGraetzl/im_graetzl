@@ -17,8 +17,9 @@
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
     <%= render 'mailers/admin_mailer/daily_mail_row', title: "Fördermitgliedschaft", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Fördermitgliedschaft", collection: Subscription.active %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaft Einnahmen", collection: Subscription.active.includes(:subscription_plan), amount: :amount %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaften Gesamt", collection: Subscription.active, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Bezahlte Mitgliedschaften", collection: Subscription.active.paid %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaft Einnahmen", collection: Subscription.active.paid.includes(:subscription_plan), amount: :amount %>
     </tbody>
   </table>
 
@@ -91,7 +92,7 @@
     <%= render 'mailers/admin_mailer/daily_mail_row', title: "Geräteteiler", thead: true %>
     <tbody>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Gerät | Active", collection: ToolOffer.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät", collection: ToolOffer %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Gerät", collection: ToolOffer %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät | Active", collection: ToolDemand.enabled, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät", collection: ToolDemand %>
     </tbody>

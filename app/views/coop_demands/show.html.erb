@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', slogan: "#{t("activerecord.attributes.coop_demand.coop_types.#{@coop_demand.coop_type}")} #{@coop_demand.coop_demand_category.name}: #{@coop_demand.slogan.truncate(35)}"),
     og_description: t('.description', desc: @coop_demand.demand_description[0..250].gsub(/\n/, " ")),
-    og_image: @coop_demand.avatar_url(:large) || image_url("meta/#{current_region.id}/og_logo.png")
+    og_image: @coop_demand.avatar_url(:large) || image_url("meta/#{current_region.host_id}/og_logo.png")
   )
 %>
 

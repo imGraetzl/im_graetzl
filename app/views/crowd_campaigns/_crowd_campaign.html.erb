@@ -3,7 +3,7 @@
 <div class="cardBox -crowd_campaign" data-behavior="masonry-card" data-card-id="crowd_campaign-<%= crowd_campaign.id %>">
 
   <div class="cardBoxHeader">
-    <%= link_to crowd_campaign_url(crowd_campaign, host: crowd_campaign.region.host) do %>
+    <%= link_to crowd_campaign do %>
       <div class="coverImgWrapper">
         <%= cover_photo_image(crowd_campaign, class: 'coverImg') %>
       </div>
@@ -16,12 +16,12 @@
   </div>
 
   <div class="cardBoxContent">
-    <%= link_to user_url(crowd_campaign.user, host: crowd_campaign.user.region.host), class: 'initiator', rel: 'nofollow' do %>
+    <%= link_to crowd_campaign.user, class: 'initiator', rel: 'nofollow' do %>
       <%= avatar_image crowd_campaign, size: :thumb, class: 'img-round show-badge' %>
       <span><%= crowd_campaign.user.username %></span>
     <% end %>
     <div class="txt">
-      <h3><%= link_to crowd_campaign.title.truncate(110), crowd_campaign_url(crowd_campaign, host: crowd_campaign.region.host) %></h3>
+      <h3><%= link_to crowd_campaign.title.truncate(110), crowd_campaign %></h3>
       <p><%= crowd_campaign.slogan.truncate(110) %></p>
     </div>
 
@@ -30,7 +30,7 @@
     <% end %>
 
     <% if crowd_campaign_post = crowd_campaign.actual_newest_post %>
-      <%= link_to [crowd_campaign, target: dom_id(crowd_campaign_post), host: crowd_campaign.region.host], class: 'updateteaser' do %>
+      <%= link_to [crowd_campaign, target: dom_id(crowd_campaign_post)], class: 'updateteaser' do %>
         <div class="hl">
           Letztes Update:
         </div>

@@ -77,7 +77,7 @@ section.homeWeLocally {
       position: absolute;
       bottom: 0;
       left: 0;
-      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 100%);
+      background-image: radial-gradient(ellipse at center bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 70%);
       pointer-events: none;
       z-index: 9;
     }
@@ -89,10 +89,10 @@ section.homeWeLocally {
       background-image: url(image_path('svg/kringel-grey-mint.svg'));
       justify-content: center;
 
-      height: 80px;
-      min-width: 80px;
-      max-width: 80px;
-      background-size: 80px 80px;
+      height: 70px;
+      min-width: 70px;
+      max-width: 70px;
+      background-size: 70px 70px;
 
       @include respond-to(">=medium") {
         height: 130px;
@@ -120,6 +120,11 @@ section.homeWeLocally {
       .bigicontext-element {
         //color: $color-ambient-rosa-dark;
         color: $color-ambient-mint-dark;
+      }
+      @include respond-to("<=medium") {
+        .title {
+          @include font-size-primaryFont('base');
+        }
       }
       &:hover {
         svg {

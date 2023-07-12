@@ -66,6 +66,12 @@ class RoomBoosterService
     room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
   end
 
+  def start_pending(room_booster)
+    room_booster.update(status: 'active')
+    room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
+    ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
+  end
+
   def create_for_free(room_booster)
     if room_booster.starts_at_date == Date.today
       room_booster.update(payment_status: 'free', status: 'active', amount: 0)
