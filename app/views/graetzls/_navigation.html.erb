@@ -1,7 +1,7 @@
 <div class="navigation-bar-wrp">
   <div class="navigation-bar -small overthrow">
 
-    <% if current_region.id == 'wien' %>
+    <% if current_region.use_energieteiler? %>
 
       <%= active_link_to graetzl_path(@graetzl), active: :exact, class: "iconfilter" do %>
         <%= icon_tag "map-location" %>

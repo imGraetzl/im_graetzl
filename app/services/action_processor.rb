@@ -249,6 +249,8 @@ class ActionProcessor
         Activity.add_public(subject.poll, subject, to: subject.poll.graetzls)
       end
 
+      Notifications::PollUserCreate.generate(subject.poll, subject, to: subject.poll.user_id) if subject.poll.user_id != subject.user_id
+
     else
       raise "Action not defined for #{subject.class} #{action}"
     end

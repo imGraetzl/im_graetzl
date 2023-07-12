@@ -25,6 +25,7 @@ class Region
     @zuckerl_entire_region_price = data[:zuckerl_entire_region_price]
     @room_booster_price = data[:room_booster_price]
     @public_group_id = data[:public_group_id]
+    @use_energieteiler = data[:navigation][:energieteiler]
   end
 
   def to_s
@@ -41,6 +42,10 @@ class Region
 
   def use_room_booster?
     room_booster_price > 0
+  end
+
+  def use_energieteiler?
+    @use_energieteiler
   end
 
   def is?(region_id)

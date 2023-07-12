@@ -1,7 +1,7 @@
 <div class="navigation-bar-wrp">
   <div class="navigation-bar overthrow">
 
-    <% if current_region.id == 'wien' %>
+    <% if current_region.use_energieteiler? %>
 
       <%= active_link_to region_index_path, class: "iconfilter" do %>
         <%= icon_tag "region-#{current_region.id}" %>
@@ -62,7 +62,7 @@
         <%= icon_tag "tacker" %>
         <div class="txt">Geräte<br/>teiler</div>
       <% end %>
-
+        
     <% end %>
 
   </div>
