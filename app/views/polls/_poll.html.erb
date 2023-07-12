@@ -38,7 +38,7 @@
       <% poll.main_question.poll_options.order(votes_count: :desc).each do |option| %>
         <div class="fundingBar -poll -small">
           <div class="fundingBar_track fundingBar_track-finished">
-            <span class="fundingBar_title"><%= truncate option.title, length: 25 %></span>
+            <span class="fundingBar_title"><%= truncate option.title, length: 30 %></span>
             <span class="fundingBar_result"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span>
             <div class="fundingBar_bar" style="width:<%= option.percentage.to_i %>%;"></div>
           </div>

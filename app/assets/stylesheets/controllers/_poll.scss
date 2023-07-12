@@ -101,7 +101,7 @@ section.poll {
   }
 
   .results {
-    margin-bottom:20px;
+    margin-bottom:30px;
     h3 {
       position: relative;
       display: flex;
@@ -111,9 +111,11 @@ section.poll {
         color: $color-ambient-mint-dark;
         width:35px;
         height:35px;
+        min-width:35px;
       }
       span {
         margin-left:5px;
+        padding-right:100px;
       }
       .count {
         position: absolute;
@@ -152,6 +154,9 @@ section.poll {
     display: flex;
     align-items: center;
     padding-left:15px;
+  }
+  .fundingBar_title {
+    padding-right: 60px;
   }
   .fundingBar_result {
     right:15px;
