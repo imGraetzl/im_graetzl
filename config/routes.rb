@@ -348,7 +348,6 @@ Rails.application.routes.draw do
 
   # Redirects for legacy routes
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
-  get 'mach-mit' => redirect('region/energieteiler')
   get 'raum' => redirect('region/raumteiler')
   get 'raumsuche' => redirect('region/raumteiler')
   get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
