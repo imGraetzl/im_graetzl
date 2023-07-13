@@ -1,4 +1,4 @@
-class CreatePolls < ActiveRecord::Migration[6.1]
+class AddPolls < ActiveRecord::Migration[6.1]
   def change
 
     create_table :polls do |t|
@@ -59,6 +59,18 @@ class CreatePolls < ActiveRecord::Migration[6.1]
 
     add_reference :meetings, :poll, foreign_key: { on_delete: :nullify },  index: true
     add_index :polls, :region_id
+
+    add_column :polls, :public_result, :boolean, default: false
+    add_column :poll_questions, :main_question, :boolean, default: false
+    add_column :poll_questions, :votes_count, :integer, default: 0
+    add_column :poll_options, :votes_count, :integer, default: 0
+
+    add_column :polls, :closed, :boolean, default: false
+    add_column :poll_questions, :position, :integer, default: 0
+
+    add_column :polls, :zip, :string
+
+    add_column :location_categories, :hidden, :boolean, default: false
 
   end
 end
