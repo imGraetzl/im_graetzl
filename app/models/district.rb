@@ -16,6 +16,7 @@ class District < ApplicationRecord
   has_many :coop_demands, -> { distinct }, through: :graetzls
   has_many :crowd_campaigns, -> { distinct }, through: :graetzls
   has_many :groups, -> { distinct }, through: :graetzls
+  has_many :polls, -> { distinct }, through: :graetzls
 
   def self.all_memoized
     @@memoized ||= includes(:graetzls).to_h{|d| [d.id.to_s, d] }.freeze

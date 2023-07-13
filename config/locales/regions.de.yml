@@ -41,6 +41,7 @@ de:
           subline: "WeLocally macht deine Treffen in der Region sichtbarer!"
           description: "Deine Events werden auf WeLocally angezeigt und sie werden über das wöchentliche WeLocally Mail an die registrierten Nutzer*innen in der Region bzw. Gemeinden versendet."
       footer_graetzl_headline: "Mitmachende Gemeinden"
+
     wien:
       <<: *default
       contact_email: "wir@imgraetzl.at"
@@ -82,6 +83,12 @@ de:
         meeting:
           subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
           description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
+        subscription:
+          subline: "imGrätzl ist mittlerweile zu groß, als dass wir alles alleine stemmen können."
+          description: "Damit wir imGrätzl in Wien weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die imGrätzl bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!"
+      subscription:
+        subline: "imGrätzl ist mittlerweile zu groß, als dass wir alles alleine stemmen können. Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen."
+        description: "Damit wir imGrätzl in Wien weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die imGrätzl bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!"
 
     graz:
       <<: *default
@@ -117,6 +124,13 @@ de:
         meeting:
           subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
           description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
+        subscription:
+          subline: "WeLocally in Graz erzeugt Kosten für den Betrieb der Plattform. Euer Beitrag hilft, die Rechnungen für Server und die notwendigen Tools zu bezahlen."
+          description: "Damit wir WeLocally in deiner Region aufbauen und zur Verfügung stellen können, brauchen wir vor allem eins: Förder*innen. Danke an alle, die WeLocally mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass WeLocally allen lokalen Macher*innen in deiner Region kostenlos zur Verfügung steht!"
+      subscription:
+        subline: "WeLocally in Graz & imGrätzl in Wien erzeugen Kosten für den Betrieb der Plattform. Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen."
+        description: "Damit wir WeLocally in Graz aufbauen und zur Verfügung stellen können, brauchen wir vor allem eins: Förder*innen. Danke an alle, die WeLocally mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass WeLocally allen lokalen Macher*innen in Graz kostenlos zur Verfügung steht!"
+
       footer_graetzl_headline: "Entdecke deinen Bezirk in Graz"
 
 
