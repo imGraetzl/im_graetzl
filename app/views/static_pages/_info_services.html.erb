@@ -138,31 +138,64 @@
 
 
 
-<article class="container">
-  <div class="txt">
-    <h2>Geräteteiler</h2>
-    <h3>Arbeitsequipment leihen & Geräte am Standort nutzen</h3>
-    <p>
-       Du kannst über den Geräteteiler Geräte vermieten und mieten oder auch den Zugang zur Ausstattung
-       an deinem Arbeitsstandort ermöglichen. Wenn dein Wunschgerät noch nicht ausleihbar ist,
-       dann starte ein Geräteteilergesuch. Ein schöner Nebeneffekt, wenn Arbeitsequipment mehrfach genutzt wird,
-       schon das die Ressourcen, weil sich nicht jeder die Geräte selber kaufen muss.
-    </p>
-    <% if current_region %>
-      <p class="link">
-        <%= link_to 'Mehr Infos', info_toolteiler_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den Geräteteilern', region_tools_path, :class => 'btn-primary -mint -inlineflex' %>
+
+
+<% if current_region && !current_region&.use_energieteiler? %>
+
+  <article class="container">
+    <div class="txt">
+      <h2>Geräteteiler</h2>
+      <h3>Arbeitsequipment leihen & Geräte am Standort nutzen</h3>
+      <p>
+        Du kannst über den Geräteteiler Geräte vermieten und mieten oder auch den Zugang zur Ausstattung
+        an deinem Arbeitsstandort ermöglichen. Wenn dein Wunschgerät noch nicht ausleihbar ist,
+        dann starte ein Geräteteilergesuch. Ein schöner Nebeneffekt, wenn Arbeitsequipment mehrfach genutzt wird,
+        schon das die Ressourcen, weil sich nicht jeder die Geräte selber kaufen muss.
       </p>
-    <% end %>
-  </div>
-  <div class="aside -img -illu">
-    <% if current_region %>
-    <%= link_to(image_tag('info/imGraetzl-Features-Toolteiler.png', loading: 'lazy'), region_groups_path) %>
-    <% else %>
-    <%= image_tag('info/imGraetzl-Features-Toolteiler.png', loading: 'lazy') %>
-    <% end %>
-  </div>
-</article>
+      <% if current_region %>
+        <p class="link">
+          <%= link_to 'Mehr Infos', info_toolteiler_path, :class => 'btn-primary -grey -inlineflex' %>
+          <%= link_to 'Zu den Geräteteilern', region_tools_path, :class => 'btn-primary -mint -inlineflex' %>
+        </p>
+      <% end %>
+    </div>
+    <div class="aside -img -illu">
+      <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Toolteiler.png', loading: 'lazy'), region_groups_path) %>
+      <% else %>
+      <%= image_tag('info/imGraetzl-Features-Toolteiler.png', loading: 'lazy') %>
+      <% end %>
+    </div>
+  </article>
+
+<% else %>
+  
+  <article class="container">
+    <div class="txt">
+      <h2>Energieteiler</h2>
+      <h3>Du möchtest mehr darüber erfahren, wie du Energie selber produzieren kannst?</h3>
+      <p>
+        Trage dich in deinem Bezirk zu dem Themengebiet ein, das dich interessiert oder vernetze dich direkt im Energieteiler mit Expert*innen und Anlaufstellen.  
+      </p>
+      <% if current_region %>
+        <p class="link">
+          <%= link_to 'Zum Energieteiler', energie_teiler_path, :class => 'btn-primary -mint -inlineflex' %>
+        </p>
+      <% end %>
+    </div>
+    <div class="aside -img -illu">
+      <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Energieteiler.png', loading: 'lazy'), energie_teiler_path) %>
+      <% else %>
+      <%= image_tag('info/imGraetzl-Features-Energieteiler.png', loading: 'lazy') %>
+      <% end %>
+    </div>
+  </article>
+
+<% end %>
+
+
+
 
 
 
@@ -198,10 +231,9 @@
   <article class="container">
     <div class="txt">
       <h2><%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft</h2>
-      <h3><%= current_region.is?('wien') ? 'imGrätzl' : 'WeLocally & imGrätzl' %> ist mittlerweile zu groß, als dass wir alles alleine stemmen können.</h3>
+      <h3><%= t("region.#{current_region.id}.info.subscription.subline") %></h3>
       <p>
-        Damit wir <%= t("region.#{current_region.id}.domain_short") %> <%= t("region.#{current_region.id}.in_region") %> weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen.<br>
-        Danke an alle, die <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass <%= t("region.#{current_region.id}.domain_short") %> allen lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %> kostenlos zur Verfügung steht
+        <%= t("region.#{current_region.id}.info.subscription.description") %>
       </p>
       <p class="link">
         <%= link_to 'Zur Fördermitgliedschaft', subscription_plans_path, :class => 'btn-primary -mint -inlineflex' %>

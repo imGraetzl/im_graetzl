@@ -14,12 +14,10 @@
   <div class="paperCard -cord1RT -header -top">
     <div class="wrp">
       <p>
-        <strong>
-          <%= current_region.is?('wien') ? 'imGrätzl' : 'WeLocally & imGrätzl' %> ist mittlerweile zu groß, als dass wir alles alleine stemmen können. Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen.
-        </strong>
+        <strong><%= t("region.#{current_region.id}.subscription.subline") %></strong>
       </p>
       <p>
-        Damit wir <%= t("region.#{current_region.id}.domain_short") %> <%= t("region.#{current_region.id}.in_region") %> weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass <%= t("region.#{current_region.id}.domain_short") %> allen lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %> kostenlos zur Verfügung steht!
+        <%= t("region.#{current_region.id}.subscription.description") %>
       </p>
       <p>
         <strong><%= Subscription.in(current_region).active.count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.

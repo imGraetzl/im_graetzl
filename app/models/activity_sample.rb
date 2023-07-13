@@ -76,6 +76,16 @@ class ActivitySample
     end
   end
 
+  def polls
+    if @graetzl
+      @graetzl.polls.in(@current_region).enabled.by_currentness.first(2)
+    elsif @district
+      @district.polls.in(@current_region).enabled.by_currentness.first(2)
+    else
+      Poll.in(@current_region).enabled.by_currentness.first(2)
+    end
+  end
+
   def zuckerls
     if @graetzl
       Zuckerl.in(@current_region).live.in_area(@graetzl.id).include_for_box.random(2)
