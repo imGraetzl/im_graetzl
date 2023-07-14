@@ -1,6 +1,7 @@
 context.instance_eval do
   selectable_column
   id_column
+  column :region_id
   column :poll_type
   column :title
   column(:status){|r| status_tag(r.status)}
