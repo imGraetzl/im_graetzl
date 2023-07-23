@@ -47,6 +47,20 @@
     <% end %>
 
 
+    <% if params[:show_poll_users].present? || local_assigns[:show_poll_users] %>
+      <div class="userlist">
+        <% poll.users.last(10).each do |user| %>
+          <%= link_to user_path(user), rel: 'nofollow' do %>
+            <%= avatar_image user, size: :thumb, class: 'img-round show-badge' %>
+          <% end %>
+        <% end %>
+        <% if poll.users.count > 10 %>
+          <span> + <%= poll.users.count - 10 %> weitere</span>
+        <% end %>
+      </div>
+    <% end %>
+
+
     <% if local_assigns[:activity_poll_user] %>
       <% poll_user = local_assigns[:activity_poll_user] %>
       <div class="userEntry userPledge">
