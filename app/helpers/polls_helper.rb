@@ -1,5 +1,14 @@
 module PollsHelper
 
+  def filter_energieteiler_types
+    [
+      ['Alle Inhalte', 'all'],
+      ['Energieteiler', 'poll'],
+      ['Expert*innen & Anlaufstellen', 'location'],
+      ['Events & Workshops', 'meeting'],
+    ]
+  end
+
   def plz_list(poll)
     if current_region.use_districts?
       if poll.poll_type == 'Energieteiler'

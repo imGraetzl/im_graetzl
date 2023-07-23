@@ -27,11 +27,10 @@ class Poll < ApplicationRecord
   string_enum poll_type: ["Allgemein", "Raumteiler", "Energieteiler"]
 
   scope :scope_public, -> { where.not(status: :disabled) }
-  scope :by_currentness, -> { order(created_at: :desc) }
+  scope :by_currentness, -> { order(last_activity_at: :desc) }
   scope :by_zip, -> { order(zip: :asc) }
 
-
-  after_create :set_zip
+  after_create :set_zip_and_activity
   after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status?}
 
   def open?
@@ -56,7 +55,8 @@ class Poll < ApplicationRecord
 
   private
 
-  def set_zip
+  def set_zip_and_activity
+    self.last_activity_at = Time.current
     self.zip = self.districts.sort_by(&:zip).map(&:zip).first
     self.save
   end
