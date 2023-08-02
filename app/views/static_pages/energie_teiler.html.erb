@@ -23,8 +23,17 @@
     </p>
   </div>
 
-  <%= form_tag polls_path(per_page: 23, meetings: true, show_going_tos: true), method: :get, remote: true, class: 'cards-filter' do %>
-    <%= hidden_field_tag :poll_type, 'Energieteiler' %>
+  <%= form_tag polls_path(per_page: 23, poll_type: 'Energieteiler', show_going_tos: true, show_poll_users: true), method: :get, remote: true, class: 'cards-filter' do %>
+    <div class="filter-selection-text-jbox -lower">
+      Zeige mir <%= link_to 'alle Inhalte', '#filter-modal-type', data: { no_filter_label: 'alle Inhalte'} %> 
+      in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %>
+    </div>
+    <div id="filter-modal-type" class="filter-modal-jbox">
+      <%= render 'filters/energieteiler_type' %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', entire_region: true %>
+    </div>
   <% end %>
 
   <div class="card-grid-container">
@@ -37,6 +46,7 @@
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'polls-paginate-link' }, rel: 'nofollow' %>
   </div>
 
+  <!--
   <% if @locations.present? %>
     <div class="hl-subtext">
       <h1><em>Energieteiler Anlaufstellen</em></h1>
@@ -48,7 +58,7 @@
     <div class="cardBoxCollection -tripple">
       <%= render @locations %>
     </div>
-
   <% end %>
+  -->
 
 </section>
