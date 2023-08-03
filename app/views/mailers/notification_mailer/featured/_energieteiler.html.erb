@@ -33,7 +33,7 @@
               <td bgcolor="#f0f0f0" width="100%" style="position:relative; border-radius: 25px; padding:1px 10px 1px 10px; border-top:5px solid white; background-color: #f0f0f0; background-image: url('<%= asset_url('info/energieteiler/1x1-mint.png') %>'); background-repeat: no-repeat; background-size: <%= option.percentage.to_i %>%;">
                 <span style="z-index:2; position:absolute;"><%= truncate option.title, length: 31 %></span>
                 <span style="position:absolute; right:10px; color: #888888;"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span>
-                <div style="z-index: 1; position:absolute; top:0; left:0; bottom:0; background-color:#83C7BD; height:100%; width:<%= option.percentage.to_i %>%;"></div>´
+                <div style="z-index: 1; position:absolute; top:0; left:0; bottom:0; background-color:#83C7BD; height:100%; width:<%= option.percentage.to_i %>%;"></div>
               </td>
             </tr>
           <% end %>
