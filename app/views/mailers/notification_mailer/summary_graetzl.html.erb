@@ -42,7 +42,7 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.first(2) if @period == 'weekly' %>
 <% end %>
 
-<%= render 'featured/crowdfunding_call' if @region.id == 'wien' && @period == 'weekly' %>
+<%= render 'featured/energieteiler' if @region.use_energieteiler? && @period == 'weekly' %>
 
 <!-- Insert Supporters -->
 <% if @region.id == 'wien' && @period == 'weekly' %>
