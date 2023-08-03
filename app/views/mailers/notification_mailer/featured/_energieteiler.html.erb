@@ -27,21 +27,15 @@
           </tr>
         </table>
 
-        <table border="0" cellpadding="2" cellspacing="2" style="max-width:600px; width:100%;">
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
           <% poll.main_question.poll_options.order(votes_count: :desc).each do |option| %>
             <tr>
-              <td colspan="2" bgcolor="#f0f0f0" width="100%" style="border-radius: 25px; padding:1px 10px 1px 10px; border-top:5px solid white; background-color: #f0f0f0; background-image: url('<%= asset_url('info/energieteiler/1x1-mint.png') %>'); background-repeat: no-repeat; background-size: <%= option.percentage.to_i %>%;">
-                <span><%= truncate option.title, length: 31 %></span>
-                <span style="float:right; color: #888888;"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span>
-              </td>
-            </tr>
-            <tr>
-              <td bgcolor="#f0f0f0" width="100%" style="border-radius: 25px; padding:1px 10px 1px 0px; border-top:5px solid white; background-color: #f0f0f0;">
-                <div style="border-radius: 25px; padding-left:10px; width:20%; background-color:#83C7BD; white-space:nowrap;" nowrap="nowrap">
-                  <span><%= truncate option.title, length: 31 %></span>
+              <td bgcolor="#f0f0f0" width="100%" style="height:24px; border-radius: 25px; padding:0px 10px 0px 0px; border-bottom:7px solid white; background-color: #f0f0f0;">
+                <div style="height:24px; line-height:24px; border-radius: 25px; width:<%= option.percentage.to_i %>%; background-color:#83C7BD; white-space:nowrap;" nowrap="nowrap">
+                  <span style="padding-left:10px;"><%= truncate option.title, length: 31 %></span>
                 </div>
               </td>
-              <td style="white-space:nowrap;" nowrap="nowrap"><span style="float:right; color: #888888;"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span></td>
+              <td style="line-height:24px; border-bottom:7px solid white; white-space:nowrap; color: #888888; padding-left:5px;" nowrap="nowrap"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</td>
             </tr>
           <% end %>
         </table>
