@@ -715,9 +715,6 @@ section.locations .goodieteasertxt {
 
 // Featured CardBoxes
 .cardBox.featuredCard {
-  &.-hidden {
-    display:none;
-  }
   &.-static {
     .cardBoxContent {
       p {
@@ -735,14 +732,17 @@ section.locations .goodieteasertxt {
     }
     .coverImgWrapper { height: 200px; }
   }
-  &.-featured {
-    .coverImgWrapper { height: 200px; }
-    .coverImg {object-fit: contain;}
-    a.btn-primary {background-color: #f2dd39; color: $color-font-primary}
-  }
-  .-new {
-    color: $color-ambient-rosa;
-    font-weight: bold;
+  &.-energieteiler {
+    .categoryicon {
+      background: none;
+    }
+    .icon {
+      width:75px;
+      height:auto;
+    }
+    .fundingBar_bar {
+      background-color: #f4e002;
+    }
   }
 }
 
