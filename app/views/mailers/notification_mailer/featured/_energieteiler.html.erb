@@ -6,7 +6,7 @@
     <tr>
       <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
 
-        <%= link_to region_polls_url, target:'_blank' do %>
+        <%= link_to energie_teiler_url, target:'_blank' do %>
           <%= image_tag 'info/energieteiler/cardbox_header.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
         <% end %>
 
@@ -18,9 +18,9 @@
               </p>
               <p><strong>
                 <% if @user.graetzl.region.use_districts? %>
-                  Gib uns Bescheid und trag dich gleich beim Energieteiler im <%= @user.graetzl.district.numeric %>. Bezirk ein.
+                  Gib uns Bescheid und trag dich gleich im <%= link_to "Energieteiler im #{@user.graetzl.district.numeric}. Bezirk", poll_url(poll), style:"font-weight:bold;", target: '_blank' %> ein.
                 <% else %>
-                  Gib uns Bescheid und trag dich gleich beim Energieteiler im Bezirk <%= @user.graetzl.name %> ein.
+                  Gib uns Bescheid und trag dich gleich im <%= link_to "Energieteiler im Bezirk #{@user.graetzl.name}", poll_url(poll), style:"font-weight:bold;", target: '_blank' %> ein.
                 <% end %>
               </strong></p>
             </td>
@@ -32,7 +32,7 @@
             <tr>
               <td bgcolor="#f0f0f0" width="100%" style="height:24px; border-radius: 25px; padding:0px 10px 0px 0px; border-bottom:7px solid white; background-color: #f0f0f0;">
                 <div style="height:24px; line-height:24px; border-radius: 25px; width:<%= option.percentage.to_i %>%; background-color:#83C7BD; white-space:nowrap;" nowrap="nowrap">
-                  <span style="padding-left:10px;"><%= truncate option.title, length: 31 %></span>
+                  <span style="padding-left:10px; font-size: 15px;"><%= truncate option.title, length: 31 %></span>
                 </div>
               </td>
               <td style="line-height:24px; border-bottom:7px solid white; white-space:nowrap; color: #888888; padding-left:5px;" nowrap="nowrap"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</td>
@@ -43,7 +43,7 @@
       </td>
     </tr>
     <tr>
-      <td><%= render 'mailers/shared/button', title: "Zum Energieteiler", url: region_polls_url, style: "width:100%;" %></td>
+      <td><%= render 'mailers/shared/button', title: "Zum Energieteiler", url: energie_teiler_url, style: "width:100%;" %></td>
     </tr>
   </tbody>
 </table>
