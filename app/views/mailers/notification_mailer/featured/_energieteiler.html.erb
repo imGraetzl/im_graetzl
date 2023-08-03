@@ -32,10 +32,10 @@
             <tr>
               <td bgcolor="#f0f0f0" width="100%" style="height:24px; border-radius: 25px; padding:0px 10px 0px 0px; border-bottom:7px solid white; background-color: #f0f0f0;">
                 <div style="height:24px; line-height:24px; border-radius: 25px; width:<%= option.percentage.to_i %>%; background-color:#83C7BD; white-space:nowrap;" nowrap="nowrap">
-                  <span style="padding-left:10px; font-size: 15px;"><%= truncate option.title, length: 31 %></span>
+                  <span style="padding-left:10px; font-size: 15px;"><%= option.title.truncate(30, omission: '..') %></span>
                 </div>
               </td>
-              <td style="line-height:24px; border-bottom:7px solid white; white-space:nowrap; color: #888888; padding-left:5px;" nowrap="nowrap"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</td>
+              <td style="font-size: 15px; line-height:24px; border-bottom:7px solid white; white-space:nowrap; color: #888888; padding-left:5px;" nowrap="nowrap"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</td>
             </tr>
           <% end %>
         </table>
