@@ -59,7 +59,7 @@
           </p>
         </div>
         <!-- 24 for local, 14444 for live-->
-        <%= render Meeting.find(14444), show_going_tos: true %>
+        <%= render Meeting.find(14444), show_going_tos: true if Meeting.where(id: 14444).exists? %>
       </div>
     </div>
   </div>
