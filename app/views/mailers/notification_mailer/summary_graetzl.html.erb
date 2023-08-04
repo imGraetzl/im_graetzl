@@ -6,6 +6,8 @@
 <% end %>
 <% content_for(:subtitle, "#{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} & #{t("region.#{@region.id}.favorite_graetzls")}") %>
 
+<%= render 'featured/energieteiler' if @region.id == 'wien' && @period == 'weekly' %>
+
 <!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 4 -->
 <% current_position = 0 %>
 <% zuckerl_position = NotificationMailer::ZUCKERL_BLOCK_POSITION %>
@@ -41,8 +43,6 @@
   <!-- Insert 2 more Random Zuckerls if there are more then 6 available -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.first(2) if @period == 'weekly' %>
 <% end %>
-
-<%= render 'featured/energieteiler' if @region.use_energieteiler? && @period == 'weekly' %>
 
 <!-- Insert Supporters -->
 <% if @region.id == 'wien' && @period == 'weekly' %>
