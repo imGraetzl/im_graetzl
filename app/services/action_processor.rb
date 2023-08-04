@@ -41,9 +41,15 @@ class ActionProcessor
 
     when [Meeting, :create] 
       # Create Activity and Notifications only for Meetings in the next 2 Months
+      # Create Activity and Notifications in entrire_region for 'Energieteiler' Meetings
 
       if subject.starts_at_date <= Date.today + 2.month
-        if subject.public?
+
+        if subject.public? && subject.event_categories.map(&:title).include?('Energieteiler')
+          Activity.add_public(subject, to: :entire_region)
+          Notifications::NewMeeting.generate(subject, to: User.in(subject.region).all.pluck(:id),
+            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+        elsif subject.public?
           Activity.add_public(subject, to: subject.graetzl)
           Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
             time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
@@ -52,7 +58,9 @@ class ActionProcessor
           Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
             time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
         end
+        
       end
+
     when [Meeting, :update]
       if subject.public?
 

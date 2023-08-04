@@ -7,7 +7,7 @@ class Notifications::NewMeeting < Notification
   end
 
   def mail_subject
-    "Neues Treffen #{I18n.t("region.#{region_id}.in_graetzl")} #{subject.graetzl.name}"
+    "Neues Treffen #{I18n.t("region.#{region_id}.in_graetzl")} #{self.user.graetzl.name}"
   end
 
   def meeting
