@@ -290,27 +290,28 @@ Rails.application.routes.draw do
   get 'cf/:id', to: 'crowd_campaigns#redirect'
   get 'unterstuetzer-team' => redirect('/')
   #get 'unterstuetzer-team', to: 'static_pages#mentoring'
-  get 'energieteiler', to: 'static_pages#energie_teiler', as: 'energie_teiler'
+  get 'energieteiler', to: 'static_pages#energieteiler', as: 'energieteiler'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar', as: 'balkonsolar'
 
   get 'info', to: 'static_pages#info'
-  get 'info/crowdfunding', to: 'static_pages#crowd_campaign'
-  get 'info/coop-share', to: 'static_pages#coop_demands'
-  get 'info/raumteiler', to: 'static_pages#raumteiler'
-  get 'info/toolteiler', to: 'static_pages#toolteiler'
-  get 'info/gruppen', to: 'static_pages#groups'
-  get 'info/anbieter-und-locations', to: 'static_pages#location'
-  get 'info/events-und-workshops', to: 'static_pages#meetings'
+  get 'info/crowdfunding', to: 'static_pages#info_crowdfunding'
+  get 'info/coop-share', to: 'static_pages#info_coop_demands'
+  get 'info/raumteiler', to: 'static_pages#info_raumteiler'
+  get 'info/toolteiler', to: 'static_pages#info_toolteiler'
+  get 'info/gruppen', to: 'static_pages#info_groups'
+  get 'info/anbieter-und-locations', to: 'static_pages#info_location'
+  get 'info/events-und-workshops', to: 'static_pages#info_meetings'
+  get 'info/energieteiler', to: 'static_pages#info_energieteiler'
+  get 'info/zuckerl', to: 'static_pages#info_zuckerl'
   get 'info/agb', to: 'static_pages#agb'
   get 'info/datenschutz', to: 'static_pages#datenschutz'
   get 'info/impressum', to: 'static_pages#impressum'
-  get 'info/zuckerl', to: 'static_pages#zuckerl'
   get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
-  get 'info/danke' => redirect('foerdermitgliedschaft')
   get 'info/ueber-uns', to: 'static_pages#about_us'
   get 'info/meilensteine', to: 'static_pages#milestones'
   get 'info/presse', to: 'static_pages#press'
+  get 'info/danke' => redirect('foerdermitgliedschaft')
 
 
   post 'webhooks/stripe'

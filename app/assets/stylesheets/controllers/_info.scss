@@ -1,4 +1,3 @@
-
 .navigation-bar.-info {
   margin-bottom: -70px;
   padding-top:50px;
@@ -218,7 +217,6 @@ section.info {
   }
 
   &.-subscription-page {
-
     padding-bottom: 0px;
     margin-bottom: -80px;
 
@@ -306,7 +304,6 @@ section.info {
       }
     }
     // -- GRID -- //
-
 
     article {
       display:flex;
@@ -618,7 +615,6 @@ section.info {
       }
       .icons {
         min-width:70px;
-        //margin-right:20px;
         svg:hover {
           color: $color-ambient-rosa;
           transition: transform 250ms;
@@ -634,9 +630,6 @@ section.info {
           font-weight: bold;
           color: $color-ambient-rosa;
         }
-      }
-      .title {
-        //color: $color-ambient-grey;
       }
       a.press-view-all {
         display: block;
@@ -662,7 +655,6 @@ section.info {
     }
   }
 
-
   // ----- HELP Detailpage ------ //
   &.-detail {
 
@@ -674,10 +666,6 @@ section.info {
       }
     }
 
-    article {
-      margin-bottom: 20px;
-    }
-
     h3 {
       padding: 20px 0px 20px;
     }
@@ -685,18 +673,23 @@ section.info {
     .hl-subtext p {
       padding-bottom:0px;
     }
-    p {
-      padding-bottom:25px;
+
+    article {
+      margin-bottom: 30px;
     }
+
+    p {
+      padding-bottom:20px;
+    }
+
     ol, ul {
       margin-left:20px;
     }
-    .toolteiler-faq {
-      li {
-        padding-bottom:25px;
-      }
-      em.quote {
-        display: block;
+
+    li {
+      padding-bottom:20px;
+      &:last-of-type {
+        padding-bottom:0px;
       }
     }
 

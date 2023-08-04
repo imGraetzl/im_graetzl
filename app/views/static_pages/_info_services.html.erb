@@ -179,13 +179,14 @@
       </p>
       <% if current_region %>
         <p class="link">
-          <%= link_to 'Zum Energieteiler', energie_teiler_path, :class => 'btn-primary -mint -inlineflex' %>
+          <%= link_to 'Mehr Infos', info_energieteiler_path, :class => 'btn-primary -grey -inlineflex' %>
+          <%= link_to 'Zum Energieteiler', energieteiler_path, :class => 'btn-primary -mint -inlineflex' %>
         </p>
       <% end %>
     </div>
     <div class="aside -img -illu">
       <% if current_region %>
-      <%= link_to(image_tag('info/imGraetzl-Features-Energieteiler.png', loading: 'lazy'), energie_teiler_path) %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Energieteiler.png', loading: 'lazy'), energieteiler_path) %>
       <% else %>
       <%= image_tag('info/imGraetzl-Features-Energieteiler.png', loading: 'lazy') %>
       <% end %>

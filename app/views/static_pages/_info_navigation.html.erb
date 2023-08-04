@@ -6,7 +6,17 @@
       <div class="txt">Services<br/>Übersicht</div>
     <% end %>
 
-    <%= active_link_to info_events_und_workshops_path, class: "iconfilter" do %>
+    <%= active_link_to info_raumteiler_path, class: "iconfilter" do %>
+      <%= icon_tag "raumteiler" %>
+      <div class="txt">Raum<br/>teiler</div>
+    <% end %>
+
+    <%= active_link_to info_crowdfunding_path, class: "iconfilter" do %>
+      <%= icon_tag "crowd" %>
+      <div class="txt">Crowd<br/>funding</div>
+    <% end %>
+
+     <%= active_link_to info_events_und_workshops_path, class: "iconfilter" do %>
       <%= icon_tag "calendar-2" %>
       <div class="txt">Events &<br/>Workshops</div>
     <% end %>
@@ -21,19 +31,16 @@
       <div class="txt">Markt<br/>platz</div>
     <% end %>
 
-    <%= active_link_to info_crowdfunding_path, class: "iconfilter" do %>
-      <%= icon_tag "crowd" %>
-      <div class="txt">Crowd<br/>funding</div>
-    <% end %>
-
-    <%= active_link_to info_raumteiler_path, class: "iconfilter" do %>
-      <%= icon_tag "raumteiler" %>
-      <div class="txt">Raum<br/>teiler</div>
-    <% end %>
-
-    <%= active_link_to info_toolteiler_path, class: "iconfilter" do %>
-      <%= icon_tag "tacker" %>
-      <div class="txt">Geräte<br/>teiler</div>
+    <% if current_region.use_energieteiler? %>
+      <%= active_link_to info_energieteiler_path, class: "iconfilter" do %>
+        <%= icon_tag "sun" %>
+        <div class="txt">Energie<br/>teiler</div>
+      <% end %>
+    <% else %>
+      <%= active_link_to info_toolteiler_path, class: "iconfilter" do %>
+        <%= icon_tag "tacker" %>
+        <div class="txt">Geräte<br/>teiler</div>
+      <% end %>
     <% end %>
 
     <%= active_link_to info_zuckerl_path, class: "iconfilter" do %>

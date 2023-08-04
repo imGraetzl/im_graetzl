@@ -165,7 +165,7 @@ Region.all.each do |region|
     end
 
     if region.use_energieteiler?
-      add energie_teiler_path, changefreq: 'daily', priority: 0.9
+      add energieteiler_path, changefreq: 'daily', priority: 0.9
     end
 
     # Info Help Pages

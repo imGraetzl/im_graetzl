@@ -53,7 +53,7 @@
     <article class="container" id="two">
       <h2 id="thema-2">Häufige gestellte Fragen & Infos</h2>
       <h3>Allgemein zum Geräteteiler</h3>
-      <ul class="toolteiler-faq">
+      <ul>
         <li>Verleiher von Arbeitsequipment und Leiher werden via Geräteteiler auf <%= t("region.#{current_region.id}.domain_short") %> miteinander verbunden.</li>
         <li>Der Ausleihvorgang, die Bezahlung und Geldverteilung erfolgt online über den Geräteteiler.</li>
         <li>Die Übergabe der Geräte erfolgt persönlich, das erhöht die Sicherheit. Als zusätzliche Sichheitsmaßnahmen kannst du die MieterInnen bitten sich bei der Übergabe mit einem Ausweisdokument auszuweisen und du kannst eine Kaution verlangen. Bitte kommuniziere die Kaution immer auch in deinem Geräteteiler.</li>
@@ -63,7 +63,7 @@
       </ul>
 
       <h3>Rund ums Bezahlen</h3>
-      <ul class="toolteiler-faq">
+      <ul>
         <li>Verleiher bekommen nach dem Verleihende die Leihgebühr auf das hinterlegte Konto überwiesen, sobald der Verleiher angegeben hat im Geräteteiler, dass das Gerät wieder zurückgegeben wurde. Die Auszahlung kann bis zu 5 Werktage dauern.</li>
         <li>Ausleiher stehen zwei Bezahlformen zur Verfügung: Kreditkarte und EPS Überweisung.</li>
         <li>Die Leihgebühr wird eingezogen, sobald der Verleihvorgang aktiviert wurde und zwar indem der Ausleiher der konkreten Leihanfrage zusagt.</li>
@@ -72,17 +72,17 @@
       </ul>
 
       <h3>Darf man seine Geräte ausleihen? Was sagt das Gewerberecht dazu?</h3>
-      <ul class="toolteiler-faq">
+      <ul>
         <li>
           Du hast ein Gewerbe? Unter § 32 Abs. 1 Z 10 der Gewerbeordnung steht dazu:<br><br>
-          <em class="quote">Weiters wird ein allgemeines Recht aller Gewerbetreibenden bestimmt, Waren zu vermieten und zu vermitteln, wobei es unerheblich ist, ob die Waren in einem sachlichen Zusammenhang mit der Haupttätigkeit des Gewerbetreibenden stehen oder nicht. Bei der Vermittlung ist es irrelevant, ob tatsächlich ein Kaufvertrag zwischen den Vertragspartnern zustande kommt. Link: <%= link_to 'https://www.wko.at/service/wirtschaftsrecht-gewerberecht/sonstige-rechte-nebenrechte-gewerbetreibende.html', 'https://www.wko.at/service/wirtschaftsrecht-gewerberecht/sonstige-rechte-nebenrechte-gewerbetreibende.html' %></em>
+          <em>Weiters wird ein allgemeines Recht aller Gewerbetreibenden bestimmt, Waren zu vermieten und zu vermitteln, wobei es unerheblich ist, ob die Waren in einem sachlichen Zusammenhang mit der Haupttätigkeit des Gewerbetreibenden stehen oder nicht. Bei der Vermittlung ist es irrelevant, ob tatsächlich ein Kaufvertrag zwischen den Vertragspartnern zustande kommt. Link: <%= link_to 'https://www.wko.at/service/wirtschaftsrecht-gewerberecht/sonstige-rechte-nebenrechte-gewerbetreibende.html', 'https://www.wko.at/service/wirtschaftsrecht-gewerberecht/sonstige-rechte-nebenrechte-gewerbetreibende.html' %></em>
           <br>
           Falls ihr Fragen dazu habt, erkundigt euch bitte dazu bei der Wirtschaftskammer.
         </li>
       </ul>
 
       <h3>Transaktionsbelege für Privatpersonen, Kleingewerbe, größere Unternehmen ...</h3>
-      <ul class="toolteiler-faq">
+      <ul>
         <li>Du kannst Transaktionsbelege ganz einfach für alle deine Verleihvorgänge herunterladen. Log dich über <%= t("region.#{current_region.id}.domain_short") %> ein und gehe zu Deinem Buchungsarchiv. Hier findest du eine Liste mit allen Zahlungen und Einnahmen, die du über den Geräteteiler gemacht hast, inklusive Link zum Download des Transaktionsbelegs. Die Transaktionsbelege haben eine rechtliche Gültigkeit und können auch als Abrechnung genutzt werden.</li>
         <li>Wenn du Einnahmen über den Geräteteiler generierst, dann musst du diese Einnahmen auch steuerlich berücksichtigen, bitte sprich dazu mit deinem Steuerberater.</li>
         <li>
@@ -97,7 +97,7 @@
       </ul>
 
       <h3>Gewerbliche Gerätevermieter?</h3>
-      <ul class="toolteiler-faq">
+      <ul>
         <li>Der Geräteteiler richtet sich vor allem an Kleingewerbetreibende, kleine Unternehmen, KünstlerInnen, Vereine und Privatpersonen, die nebenher ihre eigenen Arbeitsgeräte verleihen.
           Gewerbliche, also professionelle Gerätevermieter, müssen spezielle Vorgaben beachten, werden gekennzeichnet und werden nach einer persönlichen Kontaktaufnahme und Prüfung für die Nutzung des Geräteteilers ggf. freigeschaltet.
           Interesse? Bitte kontaktiert uns über <%= t("region.#{current_region.id}.contact_email") %>.

@@ -85,7 +85,7 @@ class RoomRental < ApplicationRecord
   end
 
   def invoice_ready?
-    authorized? || processing? || debited?
+    processing? || debited?
   end
 
   def payout_ready?
