@@ -7,7 +7,11 @@ class Notifications::NewMeeting < Notification
   end
 
   def mail_subject
-    "Neues Treffen #{I18n.t("region.#{region_id}.in_graetzl")} #{self.user.graetzl.name}"
+    if subject.event_categories.map(&:title).include?('Energieteiler')
+      "Neues Treffen #{I18n.t("region.#{region_id}.in_graetzl")} #{self.user.graetzl.name}"
+    else
+      "Neues Treffen #{I18n.t("region.#{region_id}.in_graetzl")} #{subject.graetzl.name}"
+    end
   end
 
   def meeting
