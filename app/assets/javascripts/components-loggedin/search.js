@@ -51,6 +51,10 @@ APP.components.search = (function() {
           listLocation: "crowd_campaigns",
           header: "Crowdfunding Kampagnen"
         },
+        {
+          listLocation: "polls",
+          header: "Umfragen"
+        },
       ],
       list: {
         //match: {enabled: true}, // searchphrase must be in shown result
@@ -147,6 +151,10 @@ APP.components.search = (function() {
               type = 'crowd_campaigns'
               count = 0;
               counts.CrowdCampaign ? count += counts.CrowdCampaign : count;
+            case 'Umfragen':
+              type = 'polls'
+              count = 0;
+              counts.Poll ? count += counts.Poll : count;
               break;
             default:
               type = ''
