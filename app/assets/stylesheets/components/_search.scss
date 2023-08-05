@@ -29,9 +29,6 @@
   right:20px;
   width:40px;
   height:40px;
-  &.-hidden {
-    display:none;
-  }
 }
 
 // Search Autocomplete
@@ -100,7 +97,7 @@
         margin-right:5px;
       }
     }
-    &.RoomOffer, &.ToolOffer, &.Location, &.Group, &.CrowdCampaign {
+    &.RoomOffer, &.ToolOffer, &.Location, &.Group, &.CrowdCampaign, &.Poll {
       img {
         @extend .img-square;
       }

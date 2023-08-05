@@ -1,0 +1,55 @@
+<div class="cardBox -energieteiler featuredCard -hidden -poll" data-behavior="masonry-card">
+
+  <div class="cardBoxHeader">
+    <%= link_to energieteiler_path do %>
+      <div class="coverImgWrapper">
+        <%= image_tag('info/energieteiler/cardbox_header.jpg', class: 'coverImg') %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= image_tag("info/energieteiler/logo.svg", class: 'icon') %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+    <div class="txt">
+      <h3>
+        Energieteiler
+      </h3>
+      <p>Erneuerbare Energien produzieren & teilen. Welches Thema interessiert dich am meisten?</p>
+      <% if local_assigns[:graetzl] && graetzl.polls.where(poll_type: 'Energieteiler').enabled.any? %>
+        
+        <% poll = graetzl.polls.where(poll_type: 'Energieteiler').enabled.last %>
+        <div class="slogan">
+          <% if graetzl.region.use_districts? %>
+            Gib uns Bescheid und trag dich gleich beim Energieteiler im <%= graetzl.district.numeric %>. Bezirk ein.
+          <% else %>
+            Gib uns Bescheid und trag dich gleich beim Energieteiler im Bezirk <%= graetzl.name %> ein.
+          <% end %>
+          
+        </div>
+        <%= link_to poll, class: 'result' do %>
+          <% poll.main_question.poll_options.order(votes_count: :desc).each do |option| %>
+            <div class="fundingBar -poll -small">
+              <div class="fundingBar_track fundingBar_track-finished">
+                <span class="fundingBar_title"><%= truncate option.title, length: 30 %></span>
+                <span class="fundingBar_result"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span>
+                <div class="fundingBar_bar" style="width:<%= option.percentage.to_i %>%;"></div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      
+      <% else %>
+
+        <div class="slogan">
+          Gib uns Bescheid und trag dich gleich beim Energieteiler in deinem Bezirk ein.
+        </div>
+
+      <% end %>
+      
+    </div>
+    <%= link_to 'Zum Energieteiler', energieteiler_path, class: 'btn-primary -mint' %>
+  </div>
+
+</div>

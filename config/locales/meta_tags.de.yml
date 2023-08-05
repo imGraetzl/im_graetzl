@@ -487,27 +487,33 @@ de:
     info:
       title: 'Coop & Share - Alle Services im Überblick'
       description: 'Eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende welche seinen NutzerInnen eine ganze Palette an Services anbietet...'
-    coop_demands:
-      title: 'Coop & Share Marktplatz'
+    info_coop_demands:
+      title: 'Coop & Share Marktplatz – Hilfe, Tipps & Tricks.'
       description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
-    zuckerl:
-      title: 'Das Zuckerl - Alle Infos'
-      description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Zuckerl.'
-    raumteiler:
+    info_raumteiler:
       title: 'Raumteiler – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Raumteiler / Teilen von Gewerbeflächen'
-    toolteiler:
+    info_toolteiler:
       title: 'Geräteteiler – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Geräteteiler / Arbeitsequipment leihen & Geräte am Standort nutzen'
-    location:
+    info_location:
       title: 'Anbieter & Macherinnen – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Schaufenster und weitere Funktionen für lokale Anbieter.'
-    meetings:
+    info_meetings:
       title: 'Events & Workshops – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Veröffentlichen von Events & Workhops.'
-    groups:
+    info_groups:
       title: 'Gruppen – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zu den Gruppen.'
+    info_crowdfunding:
+      title: 'Lokales Crowdfunding – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten rund ums Thema Crowdfunding.'
+    info_energieteiler:
+      title: 'Energieteiler – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Energieteiler - Erneuerbare Energien produzieren & teilen.'
+    info_zuckerl:
+      title: 'Das Zuckerl - Alle Infos'
+      description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Zuckerl.'
     code-of-conduct:
       title: 'Code of Conduct'
       description: 'Verhaltenskodex: Das Team sieht es als Aufgabe, eine freundliche, sichere und einladende Umgebung zu schaffen, unabhängig von Geschlecht, sexueller Orientierung, Befähigung, Herkunft, Religion (oder deren Nichtvorhandensein) sowie gesellschaftlichem und wirtschaftlichem Status.'
@@ -541,12 +547,9 @@ de:
     balkonsolar:
       title: 'Balkon-Solar Workshops in Wien'
       description: 'Kosten senken – Strom selber produzieren! Entdecke mit uns die Mini-PV Anlagen für den Balkon! Du interessierst dich für Balkon-Solar und möchtest wissen, wie es funktioniert? Dann bist du bei unserem Balkon-Solar Workshop genau richtig, in zwei Stunden lernst du von Markus Exenberger (Tiny and Van) alles über Balkonkraftwerke.'
-    energie_teiler:
-      title: 'Energieteiler'
+    energieteiler:
+      title: 'Energieteiler - Erneuerbare Energien produzieren & teilen.'
       description: 'Du möchtest bei realen Treffen mehr darüber erfahren, wie du Energie selber produzieren und die Energie vielleicht sogar mit anderen teilen kannst? Trage dich in deinem Bezirk zu dem Themengebiet ein, das dich interessiert oder vernetze dich im Energieteiler mit Expert*innen, Anbieter*innen oder anderen Interessierten.'
-    crowd_campaign:
-      title: 'Lokales Crowdfunding - Deine Vorhaben in die Umsetzung bringen.'
-      description: 'Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen. Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen, aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.'
 
   region_calls:
     call:

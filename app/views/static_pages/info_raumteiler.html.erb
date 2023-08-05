@@ -94,14 +94,12 @@
       <article class="container" id="3">
         <h2 id="booster">Raumteiler Booster</h2>
         <h3>Eine Woche die volle Sichtbarkeit für deinen Raumteiler auf der Plattform und in allen Newslettern in ganz Wien.</h3>
-        <p>
-          <ul class="list-basic">
+        <ul class="list-basic">
             <li>Platziere deinen Raumteiler im <strong>wöchentlichen Newsletter</strong> an alle imGrätzl NutzerInnen in ganz <%= current_region %>. (Nächster Newsletter am <%= I18n.localize(Date.today.next_occurring(:tuesday) , format:'%a, %d. %B %Y') %>).</li>
             <li>Liste damit deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_region %>.</li>
             <li>Dein Raumteiler wird auf allen Raumteilerseiten auf der Plattform eine Woche <strong>täglich hochgespült</strong>.</li>
             <li>Ein Raumteiler Booster kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
           </ul>
-        </p>
       </article>
     <% end %>
 

@@ -24,7 +24,7 @@ module PollsHelper
   def poll_type_path(poll_type)
     case poll_type
     when 'Energieteiler'
-      energie_teiler_path
+      energieteiler_path
     else
       region_polls_path
     end

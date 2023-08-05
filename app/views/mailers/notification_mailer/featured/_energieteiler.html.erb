@@ -1,0 +1,52 @@
+<% poll = @user.graetzl.polls.where(poll_type: 'Energieteiler').enabled.last %>
+<% if poll.present? %>
+  <%= render 'summary/block_header', title: "Energieteiler - Erneuerbare Energien produzieren & teilen." %>
+
+  <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+    <tbody>
+      <tr>
+        <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+
+          <%= link_to energieteiler_url, target:'_blank' do %>
+            <%= image_tag 'mailings/energieteiler.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
+          <% end %>
+
+          <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+            <tr>
+              <td>
+                <p>
+                Du möchtest bei realen Treffen mehr darüber erfahren, wie du Energie selber produzieren und die Energie vielleicht sogar mit anderen teilen kannst?
+                </p>
+                <p><strong>
+                  <% if @user.graetzl.region.use_districts? %>
+                    Gib uns Bescheid und trag dich gleich im <%= link_to "Energieteiler im #{@user.graetzl.district.numeric}. Bezirk", poll_url(poll), style:"font-weight:bold;", target: '_blank' %> ein.
+                  <% else %>
+                    Gib uns Bescheid und trag dich gleich im <%= link_to "Energieteiler im Bezirk #{@user.graetzl.name}", poll_url(poll), style:"font-weight:bold;", target: '_blank' %> ein.
+                  <% end %>
+                </strong></p>
+              </td>
+            </tr>
+          </table>
+
+          <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
+            <% poll.main_question.poll_options.order(votes_count: :desc).each do |option| %>
+              <tr>
+                <td bgcolor="#f0f0f0" width="100%" style="height:24px; border-radius: 25px; padding:0px 10px 0px 0px; border-bottom:7px solid white; background-color: #f0f0f0;">
+                  <div style="height:24px; line-height:24px; border-radius: 25px; width:<%= option.percentage.to_i %>%; background-color:#83C7BD; white-space:nowrap;" nowrap="nowrap">
+                    <span style="padding-left:10px; font-size: 15px;"><%= option.title.truncate(30, omission: '..') %></span>
+                  </div>
+                </td>
+                <td style="font-size: 15px; line-height:24px; border-bottom:7px solid white; white-space:nowrap; color: #888888; padding-left:5px;" nowrap="nowrap"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</td>
+              </tr>
+            <% end %>
+          </table>
+
+        </td>
+      </tr>
+      <tr>
+        <td><%= render 'mailers/shared/button', title: "Zum Energieteiler", url: energieteiler_url, style: "width:100%;" %></td>
+      </tr>
+    </tbody>
+  </table>
+
+<% end %>

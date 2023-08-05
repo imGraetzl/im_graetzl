@@ -41,9 +41,15 @@ class ActionProcessor
 
     when [Meeting, :create] 
       # Create Activity and Notifications only for Meetings in the next 2 Months
+      # Create Activity and Notifications in entrire_region for 'Energieteiler' Meetings
 
       if subject.starts_at_date <= Date.today + 2.month
-        if subject.public?
+
+        if subject.public? && subject.energieteiler?
+          Activity.add_public(subject, to: :entire_region)
+          Notifications::NewMeeting.generate(subject, to: User.in(subject.region).all.pluck(:id),
+            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
+        elsif subject.public?
           Activity.add_public(subject, to: subject.graetzl)
           Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
             time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
@@ -52,7 +58,9 @@ class ActionProcessor
           Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
             time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
         end
+        
       end
+
     when [Meeting, :update]
       if subject.public?
 
@@ -259,11 +267,24 @@ class ActionProcessor
   private
 
   def notify_comment(subject, comment)
+
+    # Notify OWNER
     if comment.user_id != subject.user_id
       Notifications::CommentOnOwnedContent.generate(subject, comment, to: subject.user_id)
     end
-    comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, comment.user_id]
+
+    # HIGHER PRIO: CommentInAttending
+    attending_followers = []
+    case subject.class.name
+    when 'Meeting', 'Poll'
+      attending_followers = subject.users.pluck(:user_id) - [subject.user_id, comment.user_id]
+      Notifications::CommentInAttending.generate(subject, comment, to: attending_followers)
+    end
+
+    # LOWER PRIO: CommentOnFollowedContent
+    comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, comment.user_id] - attending_followers
     Notifications::CommentOnFollowedContent.generate(subject, comment, to: comment_followers)
+
   end
 
   def user_ids(graetzls)
