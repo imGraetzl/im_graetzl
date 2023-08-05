@@ -2,8 +2,10 @@ class SubscriptionInvoice < ApplicationRecord
   belongs_to :user
   belongs_to :subscription
 
-  scope :sorted, ->{ order(created_at: :desc) }
-  default_scope ->{ sorted }
+  scope :sorted, -> { order(created_at: :desc) }
+  scope :paid, -> { where("amount > 0").and(where(status: :paid)) }
+
+  default_scope -> { sorted }
 
   def generate_invoice_pdf
     invoice = Stripe::Invoice.retrieve(stripe_id)

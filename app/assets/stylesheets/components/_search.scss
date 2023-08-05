@@ -97,7 +97,7 @@
         margin-right:5px;
       }
     }
-    &.RoomOffer, &.ToolOffer, &.Location, &.Group, &.CrowdCampaign {
+    &.RoomOffer, &.ToolOffer, &.Location, &.Group, &.CrowdCampaign, &.Poll {
       img {
         @extend .img-square;
       }

@@ -91,6 +91,7 @@ class SubscriptionService
       subscription_id: subscription.id,
       stripe_id: object.id,
       status:object.status,
+      amount:object.amount_paid / 100,
       created_at: Time.at(object.created),
       invoice_pdf: object.invoice_pdf,
       invoice_number: object.number,

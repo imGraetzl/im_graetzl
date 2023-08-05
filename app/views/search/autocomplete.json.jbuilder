@@ -72,6 +72,16 @@ json.crowd_campaigns do
   end
 end
 
+json.polls do
+  json.array!(@results.select{|r| r.is_a?(Poll)}) do |poll|
+    json.count @results.find{|r| r[:polls_count]} [:polls_count]
+    json.type poll.class.name
+    json.name poll.title
+    json.url poll_path(poll)
+    json.icon poll.cover_photo_url(:thumb)
+  end
+end
+
 json.groups do
   json.array!(@results.select{|r| r.is_a?(Group)}) do |group|
     json.count @results.find{|r| r[:groups_count]} [:groups_count]
