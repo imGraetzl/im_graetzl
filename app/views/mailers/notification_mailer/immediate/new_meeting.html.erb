@@ -1,6 +1,6 @@
 <% content_for(:above_title, "Hallo #{@user.first_name},") %>
 
-<% if @notification.meeting.event_categories.map(&:title).include?('Energieteiler') %>
+<% if @notification.meeting.energieteiler? %>
   <% content_for(:title, "Schau mal - Es gibt Neuigkeiten #{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} für dich:") %>
 <% else %>
   <% content_for(:title, "Schau mal - Es gibt Neuigkeiten #{t("region.#{@region.id}.from_graetzl")} #{@notification.meeting.graetzl.name} für dich:") %>

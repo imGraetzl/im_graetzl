@@ -45,7 +45,7 @@ class ActionProcessor
 
       if subject.starts_at_date <= Date.today + 2.month
 
-        if subject.public? && subject.event_categories.map(&:title).include?('Energieteiler')
+        if subject.public? && subject.energieteiler?
           Activity.add_public(subject, to: :entire_region)
           Notifications::NewMeeting.generate(subject, to: User.in(subject.region).all.pluck(:id),
             time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
