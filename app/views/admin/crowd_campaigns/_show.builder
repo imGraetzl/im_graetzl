@@ -4,6 +4,7 @@ context.instance_eval do
       panel 'Basic Details' do
         attributes_table_for crowd_campaign do
           row :id
+          row :service_fee_percentage
           row :region
           row :graetzl
           row :user
