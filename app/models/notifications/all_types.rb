@@ -4,7 +4,7 @@ module Notifications
     ReplyOnFollowedDiscussionPost,
     CommentOnFollowedContent,
     MeetingAttended,
-    CommentInMeeting,
+    CommentInAttending,
     CommentOnOwnedContent,
     ReplyOnComment,
     CommentOnDiscussionPost,

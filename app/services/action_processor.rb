@@ -267,11 +267,24 @@ class ActionProcessor
   private
 
   def notify_comment(subject, comment)
+
+    # Notify OWNER
     if comment.user_id != subject.user_id
       Notifications::CommentOnOwnedContent.generate(subject, comment, to: subject.user_id)
     end
-    comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, comment.user_id]
+
+    # HIGHER PRIO: CommentInAttending
+    attending_followers = []
+    case subject.class.name
+    when 'Meeting', 'Poll'
+      attending_followers = subject.users.pluck(:user_id) - [subject.user_id, comment.user_id]
+      Notifications::CommentInAttending.generate(subject, comment, to: attending_followers)
+    end
+
+    # LOWER PRIO: CommentOnFollowedContent
+    comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, comment.user_id] - attending_followers
     Notifications::CommentOnFollowedContent.generate(subject, comment, to: comment_followers)
+
   end
 
   def user_ids(graetzls)
