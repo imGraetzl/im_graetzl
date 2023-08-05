@@ -19,7 +19,7 @@ context.instance_eval do
       "<span class='mailtype'>Also Commented C.: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentOnFollowedContent)}'>#{u.enabled_mail_notification(Notifications::CommentOnFollowedContent)}</span>",
       "<span class='mailtype'>Commented Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::ReplyOnComment)}'>#{u.enabled_mail_notification(Notifications::ReplyOnComment)}</span>",
       "<span class='mailtype'>Also Commented Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::ReplyOnFollowedComment)}'>#{u.enabled_mail_notification(Notifications::ReplyOnFollowedComment)}</span>",
-      "<span class='mailtype'>Comment in Meeting: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentInMeeting)}'>#{u.enabled_mail_notification(Notifications::CommentInMeeting)}</span>",
+      "<span class='mailtype'>Comment in Attending: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentInAttending)}'>#{u.enabled_mail_notification(Notifications::CommentInAttending)}</span>",
       "<span class='mailtype'>Meeting New Attendee: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::MeetingAttended)}'>#{u.enabled_mail_notification(Notifications::MeetingAttended)}</span>",
       "<span class='mailtype'>Commented Wall: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewWallComment)}'>#{u.enabled_mail_notification(Notifications::NewWallComment)}</span>",
     ].join("<br>").html_safe

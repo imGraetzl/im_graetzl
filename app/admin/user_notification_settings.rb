@@ -25,7 +25,7 @@ ActiveAdmin.register User, as: "User Notification Settings" do
     ['New CrowdCampaign - Weekly','weekly_NewCrowdCampaign'],['New CrowdCampaign - Daily','daily_NewCrowdCampaign'],['New CrowdCampaign - Immediate','immediate_NewCrowdCampaign'],['New CrowdCampaign - Off','off_NewCrowdCampaign'],
     ['New CrowdCampaignPost - Weekly','weekly_NewCrowdCampaignPost'],['New CrowdCampaignPost - Daily','daily_NewCrowdCampaignPost'],['New CrowdCampaignPost - Immediate','immediate_NewCrowdCampaignPost'],['New CrowdCampaignPost - Off','off_NewCrowdCampaignPost'],
 
-    ['Comment in Meeting - Weekly','weekly_CommentInMeeting'],['Comment in Meeting - Daily','daily_CommentInMeeting'],['Comment in Meeting - Immediate','immediate_CommentInMeeting'],['Comment in Meeting - Off','off_CommentInMeeting'],
+    ['Comment in Attending - Weekly','weekly_CommentInAttending'],['Comment in Attending - Daily','daily_CommentInAttending'],['Comment in Attending - Immediate','immediate_CommentInAttending'],['Comment in Attending - Off','off_CommentInAttending'],
     ['New Attendee in Meeting - Weekly','weekly_MeetingAttended'],['New Attendee in Meeting - Daily','daily_MeetingAttended'],['New Attendee in Meeting - Immediate','immediate_MeetingAttended'],['New Attendee in Meeting - Off','off_MeetingAttended'],
 
     ['Commented Content - Weekly','weekly_CommentOnOwnedContent'],['Commented Content - Daily','daily_CommentOnOwnedContent'],['Commented Content - Immediate','immediate_CommentOnOwnedContent'],['Commented Content - Off','off_CommentOnOwnedContent'],

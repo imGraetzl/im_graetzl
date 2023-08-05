@@ -85,6 +85,10 @@ class Meeting < ApplicationRecord
     ends_at_date.try(:past?) || (ends_at_date.nil? && starts_at_date.try(:past?))
   end
 
+  def energieteiler?
+    self.event_categories.map(&:title).include?('Energieteiler')
+  end
+
   def public?
     !private?
   end
