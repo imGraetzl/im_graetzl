@@ -4,6 +4,7 @@ class SubscriptionInvoice < ApplicationRecord
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :paid, -> { where("amount > 0").and(where(status: :paid)) }
+  scope :free, -> { where("amount = 0") }
 
   default_scope -> { sorted }
 

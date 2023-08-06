@@ -49,8 +49,8 @@ class CrowdCampaignInvoice
 
     pdf.float { pdf.text "Festgelegtes Fundingziel", align: :left }
     pdf.text "#{format_price(campaign.funding_1_amount)}", align: :right
-    pdf.float { pdf.text "Festgelegter Optimalbetrag", align: :left }
-    pdf.text "#{format_price(campaign.funding_2_amount)}", align: :right
+    pdf.float { pdf.text "Festgelegter Optimalbetrag", align: :left } if campaign.funding_2_amount?
+    pdf.text "#{format_price(campaign.funding_2_amount)}", align: :right if campaign.funding_2_amount?
     pdf.move_down 10
 
     pdf.float { pdf.text "Erreichte Fundingsumme", align: :left, style: :bold }
@@ -74,7 +74,7 @@ class CrowdCampaignInvoice
     pdf.text "#{format_price(campaign.crowd_pledges_fee_netto)}", align: :right
     pdf.float { pdf.text "20% MwSt.", align: :left }
     pdf.text "#{format_price(campaign.crowd_pledges_fee_tax)}", align: :right
-    pdf.float { pdf.text "Transaktionsgebühren Gesamt (#{campaign.transaction_fee_percentage},00%)", align: :left, style: :bold }
+    pdf.float { pdf.text "Transaktionsgebühren Gesamt (#{campaign.transaction_fee_percentage}%)", align: :left, style: :bold }
     pdf.text "#{format_price(campaign.crowd_pledges_fee)}", align: :right, style: :bold
     pdf.move_down 25
 

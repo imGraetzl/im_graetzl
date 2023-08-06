@@ -58,6 +58,8 @@ class CrowdCampaign < ApplicationRecord
     order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.enddate END) ASC, (CASE WHEN enddate < current_date THEN crowd_campaigns.enddate END) DESC'))
   }
 
+  after_create :set_transaction_fee
+
   def closed?
     completed? & (not_funded? || invoice_number.present?)
   end
@@ -115,8 +117,10 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def transaction_fee_percentage
-    if [36].include?(id)
-      7 # 7% for Special Campaigns
+    if self.service_fee_percentage?
+      self.service_fee_percentage
+    elsif [36].include?(id)
+      7
     elsif created_at.after?("2022-07-15".to_date)
       5
     else
@@ -248,6 +252,11 @@ class CrowdCampaign < ApplicationRecord
     if !(self.draft? || self.pending?)
       throw :abort
     end
+  end
+
+  def set_transaction_fee
+    self.service_fee_percentage = self.transaction_fee_percentage
+    self.save
   end
 
 end

@@ -37,15 +37,18 @@
     <%= link_to "Zu deinen bestehenden Projekten", crowd_campaigns_user_path, class: 'btn-primary -mint -large -shadow btn' if current_user && current_user.crowd_campaigns.present? %>
     <div class="btn">
       <%= link_to "Starte jetzt ein neues Projekt", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %>
+      <!--
       <div class="">
         <div class="input-checkbox">
           <%= check_box_tag 'crowdfunding_call', 'yes', true %>
           <%= label_tag :crowdfunding_call, 'Ja, ich möchte beim Crowdfunding Call teilnehmen.' %>
         </div>
       </div>
+      -->
     </div>
   </div>
 
+  <!--
   <h1 class="hl-main call-headline"><span>Crowdfunding Call Herbst 2023</span></h1>
   <div class="cardBox -call">
     <txt class="wrp">
@@ -70,6 +73,7 @@
     </txt>
     <div class="card"></div>
   </div>
+  -->
 
 
   <div class="guidelines">
