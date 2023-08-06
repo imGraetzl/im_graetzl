@@ -116,7 +116,6 @@ class CrowdCampaign < ApplicationRecord
     crowd_pledges.failed.sum(:total_price)
   end
 
-  # TODO: Check transaction_fee_percentage in code - anpassung von integer auf decimal
   def transaction_fee_percentage
     if self.service_fee_percentage?
       self.service_fee_percentage

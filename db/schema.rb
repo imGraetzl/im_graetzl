@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_132953) do
+ActiveRecord::Schema.define(version: 2023_08_05_180810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(version: 2023_08_05_132953) do
     t.string "invoice_number"
     t.boolean "crowdfunding_call", default: false
     t.decimal "percentage_fee", precision: 5, scale: 2
+    t.decimal "service_fee_percentage", precision: 5, scale: 2
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
