@@ -85,7 +85,7 @@
     <% if !current_user %>
       <div class="input-checkbox">
         <%= f.check_box :guest_newsletter %>
-        <%= f.label :guest_newsletter, 'Ja, informiert mich über weitere Crowdfunding News.' %>
+        <%= f.label :guest_newsletter, "Ja, informiert mich über Neuigkeiten aus #{t("region.#{current_region.id}.domain_full")}" %>
       </div>
     <% end %>
 
