@@ -299,12 +299,12 @@ class CrowdCampaignsController < ApplicationController
       collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids})
     end
 
-    # Always show ALL Crowd Campaigns
-    #if params[:favorites].present? && current_user
-    #  collection = collection.where(graetzl_id: current_user.followed_graetzl_ids)
-    #elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
-    #  collection = collection.where(graetzl_id: graetzl_ids)
-    #end
+    # Always show ALL Crowd Campaigns, but throttled only explicit in Graetzls
+    if params[:favorites].present? && current_user
+      collection = (collection.none_throttled).or(collection.where(graetzl_id: current_user.followed_graetzl_ids))
+    elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
+      collection = (collection.none_throttled).or(collection.where(graetzl_id: graetzl_ids))
+    end
 
     collection
   end

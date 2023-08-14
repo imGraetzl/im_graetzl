@@ -82,6 +82,13 @@
       <%= f.label :anonym, 'Ich möchte anonym bleiben und nicht als Unterstützer*in gelistet werden.' %>
     </div>
 
+    <% if !current_user %>
+      <div class="input-checkbox">
+        <%= f.check_box :guest_newsletter %>
+        <%= f.label :guest_newsletter, 'Ja, informiert mich über weitere Crowdfunding News.' %>
+      </div>
+    <% end %>
+
     <div class="input-checkbox">
       <%= f.check_box :terms %>
       <%= f.label :terms, ("Ich akzeptiere die #{link_to 'Nutzungsbestimmungen', info_agb_path} und bestätige, dass ich mindestens 16 Jahre alt bin.").html_safe %>

@@ -47,6 +47,14 @@ class CrowdPledge < ApplicationRecord
     contact_name
   end
 
+  def first_name
+    contact_name.split.first
+  end
+
+  def last_name
+    contact_name.split(' ')[1..-1].join(' ')
+  end
+
   private
 
   def set_region

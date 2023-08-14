@@ -4,7 +4,8 @@ context.instance_eval do
   column :region_id
   column :poll_type
   column :title
-  column(:status){|r| status_tag(r.status)}
-  column :created_at
+  column(:status){|p| status_tag(p.status)}
+  column(:teilnehmer) {|p| p.poll_users.size}
+  column :last_activity_at
   actions
 end

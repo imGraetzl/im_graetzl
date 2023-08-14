@@ -48,7 +48,7 @@
       <%= link_to 'Teilnahme wieder entfernen', [:unattend, @poll], method: :post, data: { confirm: 'Bist du dir sicher?' }, class: 'btn-secondary -mint' %>
     <% end %>
 
-    <% if @poll.poll_type == 'Energieteiler' %>
+    <% if @poll.energieteiler? %>
       <%= link_to "Zurück zum #{@poll.poll_type}", poll_type_path(@poll.poll_type), class: 'btn-primary -mint' %>
     <% end %>
 

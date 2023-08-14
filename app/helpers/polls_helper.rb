@@ -11,7 +11,7 @@ module PollsHelper
 
   def plz_list(poll)
     if current_region.use_districts?
-      if poll.poll_type == 'Energieteiler'
+      if poll.energieteiler?
         [poll.zip]
       else
         region_districts_count = District.in(current_region).size

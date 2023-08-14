@@ -25,7 +25,14 @@ class PollUsersController < ApplicationController
     
       if @poll_user.save
         ActionProcessor.track(@poll_user, :create)
-        flash[:success] = "Vielen Dank für deine Teilnahme. Hier gehts #{view_context.link_to 'zurück zum Energieteiler', energieteiler_path}"
+
+        if @poll_user.poll.energieteiler?
+          PollMailer.energieteiler_attend_infos(@poll_user).deliver_later if @poll_user.poll.energieteiler?
+          flash[:success] = "Vielen Dank für deine Teilnahme. Hier gehts #{view_context.link_to 'zurück zum Energieteiler', energieteiler_path}"  
+        else
+          flash[:success] = "Vielen Dank für deine Teilnahme."  
+        end
+
         redirect_to @poll
       else
         redirect_to @poll

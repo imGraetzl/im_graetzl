@@ -35,8 +35,8 @@ de:
         one: Call
         other: Calls
       discussion_default_category:
-        one: Diskussions Kategorie
-        other: Diskussions Kategorien
+        one: Gruppen Diskussions Kategorie
+        other: Gruppen Diskussions Kategorien
       graetzl:
         one: Grätzl
         other: Grätzl
@@ -124,6 +124,12 @@ de:
       crowd_category:
         one: Kategorie
         other: Kategorien
+      poll:
+        one: Umfrage
+        other: Umfragen
+      poll_user:
+        one: Umfrage Teilnehmer
+        other: Umfragen Teilnehmer
 
 
     attributes:
