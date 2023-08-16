@@ -1,5 +1,5 @@
 ActiveAdmin.register PollUser do
-  menu parent: 'Einstellungen'
+  menu parent: 'Energieteiler'
   actions :all, except: [:new, :edit]
 
   scope :all, default: true

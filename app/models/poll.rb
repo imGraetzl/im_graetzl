@@ -37,6 +37,10 @@ class Poll < ApplicationRecord
     !closed?
   end
 
+  def energieteiler?
+    self.poll_type == 'Energieteiler'
+  end
+
   def self.include_for_box
     includes(:poll_questions, :poll_options, :poll_users)
   end

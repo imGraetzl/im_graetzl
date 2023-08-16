@@ -1,6 +1,6 @@
 ActiveAdmin.register Poll do
   include ViewInApp
-  menu parent: 'Einstellungen'
+  menu parent: 'Energieteiler'
 
   includes :poll_questions, :poll_options, :poll_users
   actions :all
@@ -12,6 +12,7 @@ ActiveAdmin.register Poll do
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
+
   filter :status
   filter :poll_type
   filter :title

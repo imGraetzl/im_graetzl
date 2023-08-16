@@ -57,6 +57,17 @@ class CrowdPledgesController < ApplicationController
 
     if success
       flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+
+      if @crowd_pledge.guest_user? && @crowd_pledge.guest_newsletter? && !User.find_by_email(@crowd_pledge.email)
+        # Subscribe Guest User in Mailchimp
+        MailchimpGuestSubscribeJob.perform_later(@crowd_pledge.email, {
+          first_name: @crowd_pledge&.first_name,
+          last_name: @crowd_pledge&.last_name,
+          region_id: @crowd_pledge.region_id,
+          tags: [@crowd_pledge.region.name, 'Guest', 'Crowdfunding']
+        })
+      end
+
       redirect_to [:summary, @crowd_pledge]
     else
       flash[:error] = error
@@ -130,7 +141,7 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
-      :crowd_reward_id, :donation_amount, :anonym, :terms,
+      :crowd_reward_id, :donation_amount, :anonym, :terms, :guest_newsletter,
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer
     )
   end

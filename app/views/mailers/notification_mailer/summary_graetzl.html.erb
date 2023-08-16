@@ -6,11 +6,9 @@
 <% end %>
 <% content_for(:subtitle, "#{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} & #{t("region.#{@region.id}.favorite_graetzls")}") %>
 
-<%= render 'featured/energieteiler' if @region.id == 'wien' && @period == 'weekly' %>
-
 <!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 4 -->
 <% current_position = 0 %>
-<% zuckerl_position = NotificationMailer::ZUCKERL_BLOCK_POSITION %>
+<% zuckerl_position = 3 %>
 <% allzuckerls = Zuckerl.in(@region).live.in_area(@user.followed_graetzl_ids).include_for_box %>
 <% ownzuckerls = allzuckerls.where(user_id: @user.id) %>
 <% zuckerls = (allzuckerls - ownzuckerls).sample(4) %>
@@ -21,16 +19,18 @@
   <% next if notifications.empty? %>
   <% current_position += 1 %>
 
-  <!-- Insert 2 Random Zuckerls -->
+  <!-- Insert Energieteiler on 2. Position -->
+  <%= render 'featured/energieteiler' if @region.id == 'wien' && @period == 'weekly' && current_position == 2 %>
+
+  <!-- Insert 2 Random Zuckerls on 3. Position -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
   <%= render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position && Date.today.next_occurring(:tuesday).month > Date.today.month %>
 
   <%= render 'summary/block_header', title: block_title %>
-
   <% notifications.each do |notification| %>
     <%= render "summary/#{notification.mail_template}", notification: notification %>
   <% end %>
-
+  
   <!-- Hack: Insert Footer Text for RoomOffers in Mails in Vienna -->
   <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.id == 'wien' %>
 

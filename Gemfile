@@ -42,7 +42,7 @@ gem "aws-sdk-s3", "~> 1"
 gem "image_processing", "~> 1.8"
 gem 'marcel'
 
-gem 'mini_racer'
+#gem 'mini_racer'
 
 gem 'sass-rails'
 gem 'terser'
@@ -73,7 +73,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'dotenv-rails'
-  gem 'guard-livereload'
+  #gem 'guard-livereload'
   gem 'foreman', require: false
   gem 'faker'
 end

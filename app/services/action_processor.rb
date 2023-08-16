@@ -204,29 +204,53 @@ class ActionProcessor
       notify_comment(subject, child)
 
     when [CrowdCampaign, :create]
-      if subject.scope_public?
+
+      if subject.scope_public? && subject.throttled?
+        Activity.add_public(subject, to: subject.graetzls)
+        Notifications::NewCrowdCampaign.generate(subject, to: user_ids(subject.graetzl), time_range: subject.notification_time_range)
+      else subject.scope_public?
         Activity.add_public(subject, to: :entire_region)
         Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
       end
+
     when [CrowdPledge, :create]
-      if subject.crowd_campaign.scope_public?
+
+      if subject.crowd_campaign.scope_public? && subject.crowd_campaign.throttled?
+        Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
+      else subject.crowd_campaign.scope_public?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
+
     when [CrowdDonationPledge, :create]
-      if subject.crowd_campaign.scope_public?
+
+      if subject.crowd_campaign.scope_public? && subject.crowd_campaign.throttled?
+        Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
+      else subject.crowd_campaign.scope_public?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
+
     when [CrowdCampaign, :comment]
-      Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
+
+      if subject.scope_public? && subject.throttled?
+        Activity.add_public(subject, child, to: subject.graetzl)
+      else subject.scope_public?
+        Activity.add_public(subject, child, to: :entire_region)
+      end
       notify_comment(subject, child)
 
     when [CrowdCampaign, :post]
-      if subject.scope_public?
-        Activity.add_public(subject, child, to: :entire_region)
-        # Delete existing Notifications for CrowdCampaignPosts (for only having the newest in Mails)
-        Notification.where(subject: subject).where(child_type: 'CrowdCampaignPost').delete_all
-        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
+
+      # Delete existing Notifications for CrowdCampaignPosts (for only having the newest in Mails)
+      Notification.where(subject: subject).where(child_type: 'CrowdCampaignPost').delete_all
+
+      if subject.scope_public? && subject.throttled?
+        Activity.add_public(subject, child, to: subject.graetzl) # Only in Graetzl
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: user_ids(subject.graetzl))       
+      else subject.scope_public?
+        Activity.add_public(subject, child, to: :entire_region) # All Graetzls
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id))      
       end
+
     when [CrowdCampaignPost, :comment]
       notify_comment(subject, child)
 

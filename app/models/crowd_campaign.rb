@@ -33,6 +33,7 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
+  string_enum visibility_status: ["throttled"]
   enum active_state: { enabled: 0, disabled: 1, deleted: 2 }
   enum status: { draft: 0, submit: 1, pending: 2, canceled: 3, approved: 4, funding: 5, completed: 6 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
@@ -50,6 +51,8 @@ class CrowdCampaign < ApplicationRecord
   validates_presence_of :title, :graetzl
   validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
+  scope :scope_throttled, -> { where(visibility_status: [:throttled]) }
+  scope :none_throttled, -> { where(visibility_status: nil).or(where.not(visibility_status: [:throttled])) }
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where(active_state: :enabled)) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
 

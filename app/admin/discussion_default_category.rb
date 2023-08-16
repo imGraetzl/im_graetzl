@@ -1,5 +1,5 @@
 ActiveAdmin.register DiscussionDefaultCategory do
-  menu parent: 'Groups'
+  menu parent: 'Einstellungen'
 
   permit_params :title
 end
