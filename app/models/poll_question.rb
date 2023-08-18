@@ -10,6 +10,7 @@ class PollQuestion < ApplicationRecord
   validates_presence_of :title
 
   scope :scope_options, -> { where(option_type: [:radio_button, :check_box]) }
+  scope :scope_free_answer, -> { where(option_type: :free_answer) }
 
   string_enum option_type: ["radio_button", "check_box", "free_answer"]
 

@@ -1,0 +1,31 @@
+section.info {
+
+  &.popup-page {
+    .imgHeader {
+      align-items: flex-end;
+    }
+    .imgHeader::after {
+      background-image: url(image_path('info/header-menschenstrom.png'));
+    }
+    .header-logo {
+      padding:25px;
+      width:50%;
+      height:auto;
+    }
+    .paperCard.-top {
+      p.info {
+        text-align: center;
+        @include font-size-primaryFont('larger');
+      }
+      p {
+        text-align: justify;
+      }
+      .wrp {
+        @include respond-to("<=medium") {
+          padding: 20px 20px 5px 20px;
+        }
+      }
+    }
+  }
+
+}

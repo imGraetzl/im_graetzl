@@ -1,0 +1,58 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('info/header-menschenstrom.png')
+  )
+%>
+
+<section class="info popup-page">
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1>WeLocally Pop-Up in Graz</h1>
+      <%= image_tag("info/popup.svg", class: 'header-logo') %>
+    </div>
+  </div>
+
+  <div class="paperCard -cord1RT -header -top">
+    <div class="wrp">
+      <p class="info">
+        <strong>Gemeinsam bringen wir mehr zusammen: WeLocally.at startet in Graz!</strong>
+      </p>
+      <p>
+        <strong>WeLocally zeigt auf einen Blick,</strong> was die Menschen in Graz auf die Beine stellen, 
+        welche Raumangebote es ums Eck gibt und eröffnet zahlreiche Anknüpfungspunkte für Kooperationen.
+        Die gemeinwohlorientierte Plattform unterstützt Selbstständige, kleine Unternehmen, Kunst- und Kulturschaffende, 
+        Vereine, Initiativen und alle, die Freude am kooperativen Tun haben, darin, ihre Ideen und Vorhaben in die 
+        Umsetzung zu bringen. Weg vom Einzelkämpfertum hin zu einem kooperativen "WIR" als Lösung für 
+        viele Herausforderungen! <strong>Ab sofort können sich Grazer Macherinnen und Macher <%= link_to "kostenlos registrieren", new_user_session_path %> und loslegen.</strong>
+      </p>
+      <p class="info">
+        <strong>Lerne uns kennen und komm zum WeLocally Pop-Up in Graz.</strong><br>
+        <strong>20.09. - 22.09.2023 / Münzgrabenstraße 57 - 8010 Graz (bei Gmota)</strong>
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <div class="hl-subtext">
+    <h1><em>Das Programm</em></h1>
+    <p>Alle Sessions sind kostenlos - Komm einfach dazu - Wir freuen uns auf dich!</p>
+  </div>         
+
+  <%= form_tag meetings_path(per_page: 20, show_going_tos: true), method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
+  <% end %>
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="meetings-card-container"></div>
+    <div class="action-card-container" data-behavior="meetings-action-card-container">
+      <!--<%= render 'good_morning_date_card' %>-->
+    </div>
+    <!-- Insert Featured Card -->
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll -mint', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

@@ -6,6 +6,7 @@ function init() {
   if($(".good-morning-dates").exists()) initGoodMorningDates();
   if($(".balkonsolar-page").exists()) initBalkonSolar();
   if($(".energieteiler").exists()) initEnergieteiler();
+  if($(".popup-page").exists()) initPopUp();
   if($("#help_nav").exists()) initHelpScroller();
 }
 
@@ -16,6 +17,12 @@ function initGoodMorningDates() {
 }
 
 function initBalkonSolar() {
+  if ($('.cards-filter').exists()) {
+    APP.components.cardBoxFilter.init();
+  }
+}
+
+function initPopUp() {
   if ($('.cards-filter').exists()) {
     APP.components.cardBoxFilter.init();
   }

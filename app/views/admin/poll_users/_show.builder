@@ -6,7 +6,15 @@ context.instance_eval do
       row :created_at
     end
   end
-  poll_user.poll.poll_questions.order(:position).each do |question|
+  poll_user.poll.poll_questions.scope_free_answer.order(:position).each do |question|
+    panel question.title do
+      question.poll_user_answers.where(poll_user_id: poll_user.id).each do |answer|
+        columns answer.poll_option
+        columns answer.answer
+      end
+    end
+  end
+  poll_user.poll.poll_questions.scope_options.order(:position).each do |question|
     panel question.title do
       question.poll_user_answers.where(poll_user_id: poll_user.id).each do |answer|
         columns answer.poll_option
