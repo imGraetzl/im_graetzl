@@ -10,7 +10,8 @@
 
 <% if current_region.id == 'graz' %>
 <div id="betaflash">
-  WeLocally Graz ist in der Testphase, melde dich jetzt an und gestalte die nächsten Schritte mit.
+  Lerne uns kennen und komm zum WeLocally <span>Pop-Up</span> in Graz. (20. bis 23. Sep.) 
+  <%= link_to 'Alle Infos hier.', popup_path %>
   <%= link_to 'javascript:', class: 'close-ico' do %>
     <%= icon_tag "cross" %>
   <% end %>
@@ -38,7 +39,8 @@
       <%= render 'regions/action_card' if !user_signed_in? %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/energieteiler', graetzl: @graetzl if current_region.use_energieteiler? %>
+    <%= render 'shared/featured_cards/energieteiler', graetzl: @graetzl if current_region.is?('wien') %>
+    <%= render 'shared/featured_cards/popup' if current_region.is?('graz') %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
   </div>
