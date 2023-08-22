@@ -24,20 +24,16 @@ APP.controllers.polls = (function() {
         $(this).removeClass('error');
 
         let $radio_buttons = $(this).find('input:radio');
-        let $check_boxes = $(this).find('input:checkbox');
+        let $check_boxes = $(this).find('input:checkbox:not(.noOption)');
         let $textareas = $(this).find('textarea');
 
-        if ( $radio_buttons.exists() && !$radio_buttons.is(":checked") ) {
-          $(this).addClass('error');
-          submit = false;
-        }
-
-        if ( $check_boxes.exists() && !$check_boxes.is(":checked") ) {
-          $(this).addClass('error');
-          submit = false;
-        }
-
         if ( $textareas.exists() && !$textareas.val() ) {
+          $(this).addClass('error');
+          submit = false;
+        } else if ( $radio_buttons.exists() && !$radio_buttons.is(":checked") ) {
+          $(this).addClass('error');
+          submit = false;
+        } else if ( $check_boxes.exists() && !$check_boxes.is(":checked") ) {
           $(this).addClass('error');
           submit = false;
         }

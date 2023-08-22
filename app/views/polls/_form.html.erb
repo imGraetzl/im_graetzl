@@ -20,7 +20,7 @@
             <% if question.single? %>
 
               <%= f.fields_for :poll_user_answers do |o| %>
-              <%= o.hidden_field :poll_question_id, value: question.id %>
+                <%= o.hidden_field :poll_question_id, value: question.id %>
                 <% question.poll_options.each do |option| %>
                   <div class="input-radio <%= disabled ? 'disabled' : '' %>">
                     <%= o.radio_button :poll_option_id, option.id, { disabled:  disabled ? true : false } %>
@@ -33,20 +33,26 @@
 
               <% question.poll_options.each do |option| %>
                 <%= f.fields_for :poll_user_answers do |o| %>
-                <%= o.hidden_field :poll_question_id, value: question.id %>
+                  <%= o.hidden_field :poll_question_id, value: question.id %>
                   <div class="input-checkbox <%= disabled ? 'disabled' : '' %>">
                     <%= o.check_box :poll_option_id, { disabled:  disabled ? true : false }, option.id, nil %>
                     <%= o.label :poll_option_id, option.title %>
-                </div>
+                  </div>
                 <% end %>
               <% end %>
 
             <% else %>
               <%= f.fields_for :poll_user_answers do |o| %>
-              <%= o.hidden_field :poll_question_id, value: question.id %>
+                <%= o.hidden_field :poll_question_id, value: question.id %>
                 <div class="input-textarea <%= disabled ? 'disabled' : '' %>">
-                  <%= o.text_area :answer, placeholder: 'Deine Antwort ... (wird nicht öffentlich angezeigt)', disabled:  disabled ? true : false %>
+                  <%= o.text_area :answer, placeholder: 'Deine Antwort ...', disabled:  disabled ? true : false %>
                 </div>
+                <% if question.free_answer_public_comment? %>
+                  <div class="input-checkbox <%= disabled ? 'disabled' : '' %>">
+                    <%= o.check_box :public_comment, { disabled:  disabled ? true : false, class: 'noOption' } %>
+                    <%= o.label :public_comment, 'Deine Antwort als Kommentar anzeigen?' %>
+                  </div>
+                <% end %>
               <% end %>
             <% end %>
           
