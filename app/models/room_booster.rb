@@ -83,9 +83,13 @@ class RoomBooster < ApplicationRecord
     if boost_available?(room_booster)
       Date.today
     elsif RoomBooster.in(room_booster.region).pending.count < 2
-      RoomBooster.in(room_booster.region).active.sort_by(&:ends_at_date).first.ends_at_date + 1.day
+      RoomBooster.in(room_booster.region).active.sort_by(&:ends_at_date).last.ends_at_date + 1.day
+    elsif RoomBooster.in(room_booster.region).pending.count < 4
+      RoomBooster.in(room_booster.region).pending.first(2).sort_by(&:ends_at_date).last.ends_at_date + 1.day
+    elsif RoomBooster.in(room_booster.region).pending.count < 6
+      RoomBooster.in(room_booster.region).pending.first(4).sort_by(&:ends_at_date).last.ends_at_date + 1.day
     else
-      RoomBooster.in(room_booster.region).pending.sort_by(&:ends_at_date).first.ends_at_date + 1.day
+      RoomBooster.in(room_booster.region).pending.first(6).sort_by(&:ends_at_date).last.ends_at_date + 1.day
     end
   end
 
