@@ -60,8 +60,6 @@ class NotificationMailer < ApplicationMailer
     ],
   }
 
-  ZUCKERL_BLOCK_POSITION = 3
-
   def summary_graetzl(user, region, period, discussion = nil)
     @user, @period = user, period
     @region = region
@@ -79,7 +77,7 @@ class NotificationMailer < ApplicationMailer
     end
 
     headers(
-      "X-MC-Tags" => "summary-graetzl-mail",
+      "X-MC-Tags" => "summary-graetzl-#{@region.id}",
       "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "summary-graetzl-mail",
     )
@@ -139,7 +137,7 @@ class NotificationMailer < ApplicationMailer
     end
 
     headers(
-      "X-MC-Tags" => "summary-personal-mail",
+      "X-MC-Tags" => "summary-personal-#{@region.id}",
       "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "summary-personal-mail",
     )

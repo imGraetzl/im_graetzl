@@ -164,6 +164,10 @@ Region.all.each do |region|
       add subscription_plans_path, changefreq: 'daily', priority: 0.9
     end
 
+    if region.id == 'graz'
+      add popup_path, changefreq: 'daily', priority: 0.9
+    end
+
     if region.use_energieteiler?
       add energieteiler_path, changefreq: 'daily', priority: 0.9
     end

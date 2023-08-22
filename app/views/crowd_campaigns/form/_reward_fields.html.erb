@@ -1,6 +1,6 @@
 <div class="nested-fields -line crowd-reward">
 
-  <% already_pledged = @crowd_campaign.crowd_pledges.exists?(crowd_reward_id: f.object.id) %>
+  <% already_pledged = @crowd_campaign.crowd_pledges.initialized.exists?(crowd_reward_id: f.object.id) %>
   <% disabled = local_assigns[:disabled] && already_pledged %>
   <% deleteable = !local_assigns[:disabled] || !already_pledged %>
 

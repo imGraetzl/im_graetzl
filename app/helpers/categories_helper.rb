@@ -10,6 +10,8 @@ module CategoriesHelper
       balkonsolar_path
     when 'Good Morning Dates'
       good_morning_dates_path
+    when 'WeLocally Pop-Up'
+      popup_path
     else
       region_meetings_path
     end

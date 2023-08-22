@@ -16,6 +16,9 @@
     top:2px;
   }
   padding-right:25px;
+  span {
+    white-space: nowrap;
+  }
 
   @include respond-to(">=medium") {
     position: absolute;

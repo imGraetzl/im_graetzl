@@ -23,7 +23,7 @@ class PollOption < ApplicationRecord
 
   def percentage
     if self.poll_question.votes_count > 0
-      (self.votes_count * 100 / self.poll_question.votes_count * 100) / 100
+      (self.votes_count * 100 / self.poll_question.poll_users.count * 100) / 100
     else
       0
     end
