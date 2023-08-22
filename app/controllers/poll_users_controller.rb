@@ -26,6 +26,14 @@ class PollUsersController < ApplicationController
       if @poll_user.save
         ActionProcessor.track(@poll_user, :create)
 
+        # Create Comment id User permitted!
+        if @poll_user.poll_user_answers.public_comment.present?
+          @comment = @poll.comments.new(user_id: current_user.id, content: @poll_user.poll_user_answers.public_comment.last.answer)
+          if @comment.save
+            ActionProcessor.track(@comment.commentable, :comment, @comment)
+          end
+        end
+
         if @poll_user.poll.energieteiler?
           PollMailer.energieteiler_attend_infos(@poll_user).deliver_later if @poll_user.poll.energieteiler?
           flash[:success] = "Vielen Dank für deine Teilnahme. Hier gehts #{view_context.link_to 'zurück zum Energieteiler', energieteiler_path}"  
@@ -52,7 +60,7 @@ class PollUsersController < ApplicationController
     params.require(:poll_user).permit(
       :poll_user_answer,
       poll_user_answers_attributes: [
-        :id, :poll_question_id, :poll_option_id, :answer, :_destroy
+        :id, :poll_question_id, :poll_option_id, :answer, :public_comment, :_destroy
       ]
     )
   end

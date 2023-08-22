@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_10_123211) do
+ActiveRecord::Schema.define(version: 2023_08_22_122426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -824,6 +824,7 @@ ActiveRecord::Schema.define(version: 2023_08_10_123211) do
     t.bigint "poll_user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "public_comment", default: false, null: false
     t.index ["poll_option_id"], name: "index_poll_user_answers_on_poll_option_id"
     t.index ["poll_question_id"], name: "index_poll_user_answers_on_poll_question_id"
     t.index ["poll_user_id"], name: "index_poll_user_answers_on_poll_user_id"
