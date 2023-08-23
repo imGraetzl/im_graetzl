@@ -16,6 +16,7 @@ class RoomRental < ApplicationRecord
   scope :initialized, -> { where.not(rental_status: :incomplete) }
 
   before_create :set_region
+  after_update :tahnkyou_mail, if: -> { debited? && paid_out? && saved_change_to_rental_status?}
 
   def self.next_invoice_number
     where("invoice_number IS NOT NULL").count + 1
@@ -106,6 +107,10 @@ class RoomRental < ApplicationRecord
 
   def set_region
     self.region_id = room_offer.region_id
+  end
+
+  def tahnkyou_mail
+    RoomMailer.rental_thankyou(self).deliver_later
   end
 
 end

@@ -1,0 +1,69 @@
+<% content_for(:above_title, "Servus #{@room_rental.owner.first_name}") %>
+<% content_for(:title, "Vielen Dank, dass du den Raumteiler für deine Raumbuchungen nutzt.") %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td class="mcnTextContent" style="padding-left:18px; padding-right:18px; width:100%;">
+          <p>
+          Für uns ist jede erfolgreiche Raumbuchung ein Grund zum Feiern, die Servicegebühr ermöglicht es, den Raumteiler zu betreiben. <strong>Danke, dass du damit den Betrieb unterstützt!</strong> Wir wünschen dir weiterhin viel Freude mit dem Raumteiler! 
+          </p>
+         <p>
+          Die Auszahlung deiner letzten Raummiete wurde soeben auf das von dir angegebene Konto (endet auf ****<%= @room_rental.owner.iban.last(4) %>) überweisen. <%= link_to "Zum Buchungsarchiv", rooms_user_url(:target => "tab-buchungsarchiv"), style: "color:#ec776a;" %>.
+         </p>
+       </td>
+     </tr>
+   </tbody>
+</table>
+
+<% if @region.use_subscription? && !@room_rental.owner.subscribed? %>
+
+  <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+    <tbody>
+      <tr>
+        <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px;">
+          <p>
+            <strong>Wenn du mit <%= t("region.#{@region.id}.domain_short") %> schon häufiger gute Erfahrungen gemacht hast, 
+            komm gerne in den Kreis der <%= t("region.#{@region.id}.domain_short") %> Fördermitglieder.</strong>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+
+          <%= link_to subscription_plans_url, target:'_blank' do %>
+            <%= image_tag 'info/cardbox-abo.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
+          <% end %>
+
+          <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+            <tr>
+              <td>
+                <p>
+                  Was vielen nicht bewusst ist, <%= t("region.#{@region.id}.domain_short") %> 
+                  wird von uns ehrenamtlich betrieben und die Fördermitglieder ermöglichen, dass <%= t("region.#{@region.id}.domain_short") %> kostenlos 
+                  den lokalen Macher*innen <%= t("region.#{@region.id}.in_region") %> zur Verfügung gestellt werden kann. 
+                  <strong>Jede Unterstützung hilft! Hier gehts zur <%= link_to 'Fördermitgliedschaft', subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %>.</strong>
+                </p>
+              </td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+<% end %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td class="mcnTextContent" style="padding-left:18px; padding-right:18px; width:100%;">
+        <p>
+        Viele Grüße,<br>
+        dein <%= t("region.#{@region.id}.domain_short") %> Team
+        </p>
+       </td>
+     </tr>
+   </tbody>
+</table>
