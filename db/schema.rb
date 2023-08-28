@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_22_122426) do
+ActiveRecord::Schema.define(version: 2023_08_28_094054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -695,6 +695,7 @@ ActiveRecord::Schema.define(version: 2023_08_22_122426) do
     t.string "goodie"
     t.text "description_background"
     t.text "description_favorite_place"
+    t.boolean "verified", default: false, null: false
     t.index ["address_id"], name: "index_locations_on_address_id"
     t.index ["created_at"], name: "index_locations_on_created_at"
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id"
