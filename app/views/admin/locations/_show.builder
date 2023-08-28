@@ -12,6 +12,7 @@ context.instance_eval do
             safe_join(location.products.map { |p| link_to(p.name, admin_tag_path(p)) }, ', ')
           end
           row(:state){|l| status_tag(l.state)}
+          row :verified
           row :slug
           row :created_at
           row :updated_at

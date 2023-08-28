@@ -8,11 +8,11 @@ ActiveAdmin.register CrowdCampaign do
   scope :all, default: true
   scope :draft
   scope :pending
-  scope :canceled
+  scope :declined
   scope :approved
   scope :funding
-  scope :completed
   scope :successful
+  scope :completed
   scope 'Visible', :scope_public
   scope 'Throttled',  :scope_throttled
 
@@ -36,15 +36,28 @@ ActiveAdmin.register CrowdCampaign do
     link_to 'Kampagne Freischalten', approve_admin_crowd_campaign_path(crowd_campaign), { method: :put }
   end
 
+  action_item :decline, only: :show, if: proc{ crowd_campaign.pending? } do
+    link_to 'Kampagne Ablehnen', decline_admin_crowd_campaign_path(crowd_campaign), { method: :put }
+  end
+
   # member actions
   member_action :approve, method: :put do
-
     if resource.approved!
       CrowdCampaignMailer.approved(resource).deliver_now
       flash[:success] = 'Crowdfunding Kampagne wurde freigeschalten.'
       redirect_to admin_crowd_campaigns_path
     else
       flash[:error] = 'Crowdfunding Kampagne kann nicht freigeschalten werden.'
+      redirect_to resource_path
+    end
+  end
+
+  member_action :decline, method: :put do
+    if resource.declined!
+      flash[:success] = 'Crowdfunding Kampagne wurde abgelenht.'
+      redirect_to admin_crowd_campaigns_path
+    else
+      flash[:error] = 'Crowdfunding Kampagne kann nicht abgelenht werden.'
       redirect_to resource_path
     end
   end

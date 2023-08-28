@@ -120,7 +120,7 @@
           <%= icon_tag "pencil" %>
           <div class="icontxt">Kampagne bearbeiten</div>
         <% end %>
-        <% if crowd_campaign.draft? %>
+        <% if crowd_campaign.draft? || crowd_campaign.pending? || crowd_campaign.declined? %>
           <%= link_to crowd_campaign_path(crowd_campaign), data: { confirm: 'Bist du dir sicher?' }, method: :delete do %>
             <%= icon_tag "cross" %>
             <div class="icontxt">Kampagne löschen</div>

@@ -5,10 +5,10 @@ Rails.application.configure do
   # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
   # Get Greatzl Array in Console:
   # Graetzl.where.not(region_id:'wien').map{|s| "^/#{s.slug}$"}
+  # For now: Without Graz, check if Google can crawl JS already
   config.middleware.use Rack::Prerender, whitelist: [
     '^/griffen$', '^/volkermarkt$', '^/st-andra$',
     '^/pregarten$', '^/neumarkt-im-muhlkreis$', '^/leopoldschlag$', '^/waldburg$', '^/unterweitersdorf$', '^/gutau$', '^/windhaag-bei-freistadt$', '^/hagenberg-im-muhlkreis$', '^/lasberg$', '^/hirschbach-im-muhlkreis$', '^/tragwein$', '^/grunbach$', '^/st-oswald-bei-freistadt$', '^/moosburg$', '^/sandl$', '^/kefermarkt$', '^/rainbach-im-muhlkreis$', '^/freistadt$',
-    '^/wetzelsdorf$', '^/lend$', '^/st-leonhard$', '^/gosting$', '^/puntigam$', '^/waltendorf$', '^/innere-stadt$', '^/jakomini$', '^/eggenberg$', '^/liebenau$', '^/gries$', '^/ries$', '^/strassgang$', '^/geidorf$', '^/andritz$', '^/st-peter$', '^/mariatrost$',
     '^/region/', '/category/',
     '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$',
   ]

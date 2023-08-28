@@ -34,8 +34,8 @@ class CrowdCampaign < ApplicationRecord
   has_many :favorites, as: :favoritable, dependent: :destroy
 
   string_enum visibility_status: ["throttled"]
-  enum active_state: { enabled: 0, disabled: 1, deleted: 2 }
-  enum status: { draft: 0, submit: 1, pending: 2, canceled: 3, approved: 4, funding: 5, completed: 6 }
+  enum active_state: { enabled: 0, disabled: 1 }
+  enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
   enum billable: { no_bill: 0, bill: 1, donation_bill: 2 }
 
@@ -84,7 +84,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def editable?
-    draft? || submit? || pending?
+    draft? || submit? || pending? || declined?
   end
 
   def owned_by?(a_user)
@@ -252,7 +252,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def can_destroy?
-    if !(self.draft? || self.pending?)
+    if !(self.draft? || self.pending? || self.declined?)
       throw :abort
     end
   end

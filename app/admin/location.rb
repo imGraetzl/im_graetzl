@@ -15,6 +15,7 @@ ActiveAdmin.register Location do
   filter :location_category
   filter :state, as: :select, collection: Location.states.keys
   filter :name
+  filter :verified
   filter :slogan
   filter :description
   filter :online_shop
@@ -86,6 +87,7 @@ ActiveAdmin.register Location do
   # strong parameters
   permit_params :graetzl_id,
     :state,
+    :verified,
     :name,
     :slug,
     :slogan,

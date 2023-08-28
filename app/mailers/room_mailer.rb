@@ -192,6 +192,19 @@ class RoomMailer < ApplicationMailer
     )
   end
 
+  def rental_thankyou(room_rental)
+    @room_rental = room_rental
+    @region = @room_rental.region
+
+    headers("X-MC-Tags" => "room-rental-thankyou")
+
+    mail(
+      subject: "Danke #{@room_rental.owner.first_name}! Deine Raumteiler Gutschrift ist unterwegs.",
+      from: platform_email('no-reply'),
+      to: @room_rental.owner.email,
+    )
+  end
+
   def room_booster_invoice(room_booster)
     @room_booster = room_booster
     @room_offer = @room_booster.room_offer
