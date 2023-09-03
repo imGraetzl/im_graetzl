@@ -2,7 +2,7 @@ context.instance_eval do
   selectable_column
   id_column
   #column :region
-  column(:startdate){|c| I18n.localize(c.startdate, format:'%d. %b %Y')}
+  column(:startdate){|c| I18n.localize(c.startdate, format:'%d. %b %Y') if c.startdate?}
   column :title
   column :user
   column(:status){|c| status_tag(c.status)}
