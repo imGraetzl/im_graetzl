@@ -1,13 +1,15 @@
 context.instance_eval do
   selectable_column
   id_column
-  column :region
+  #column :region
+  column(:startdate){|c| I18n.localize(c.startdate, format:'%d. %b %Y')}
   column :title
   column :user
-  column(:status){|r| status_tag(r.status)}
-  column(:funding_status){|r| status_tag(r.funding_status)}
-  column(:visibility){|r| status_tag(r.visibility_status)}
+  column(:status){|c| status_tag(c.status)}
+  column(:funding){|c| status_tag(c.funding_status)}
+  column(:stripe){|c| status_tag(c.user.stripe_connect_ready?)}
+  #column(:visibility){|c| status_tag(c.visibility_status)}
   column :closed?
-  column(:call){|r| status_tag(r.crowdfunding_call)}
+  column(:call){|c| status_tag(c.crowdfunding_call)}
   actions
 end

@@ -25,7 +25,22 @@
     </div>
   <% end %>
 
-  <% if @crowd_campaign.pending? %>
+  <% if @crowd_campaign.draft? %>
+
+      <div class="statuscontainer">
+        <div class="statustxt">
+          <div class="hl-subtext">
+            <h2><span>Deine Kampagne </span>ist noch in Bearbeitung.</h2>
+            <p>Wenn du fertig bist, reiche diese zur Freigabe ein.</p>
+          </div>
+          <p>
+            Sobald du mit der Bearbeitung deiner Kampagne fertig bist, klicke im Kampagnen-Setup auf der letzten Seite unter <%= link_to 'Projekt Abschluss', edit_finish_crowd_campaign_path(@crowd_campaign) %> auf den Button <strong>"Projekt zur Freigabe einreichen"</strong>, damit wir Bescheid wissen und deine Kampagne prüfen und auch freigeben können.
+          </p>
+        </div>
+        <%= render @crowd_campaign, manage_buttons: true %>
+      </div>
+
+  <% elsif @crowd_campaign.pending? %>
 
       <div class="statuscontainer">
         <div class="statustxt">

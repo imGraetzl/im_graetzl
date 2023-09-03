@@ -19,12 +19,12 @@
   <% next if notifications.empty? %>
   <% current_position += 1 %>
 
-  <!-- Insert Energieteiler on 2. Position -->
-  <%= render 'featured/energieteiler' if @region.id == 'wien' && @period == 'weekly' && current_position == 2 %>
-
   <!-- Insert 2 Random Zuckerls on 3. Position -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
   <%= render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position && Date.today.next_occurring(:tuesday).month > Date.today.month %>
+
+  <!-- Insert Seestädter on 4. Position -->
+  <%= render 'featured/seestadt' if @region.id == 'wien' && @period == 'weekly' && current_position == 4 %>
 
   <%= render 'summary/block_header', title: block_title %>
   <% notifications.each do |notification| %>
