@@ -23,10 +23,12 @@ namespace :scheduled do
   task daily_summary_mail: :environment do
     puts "Rake daily_summary_mail start at #{Time.now}"
     User.confirmed.find_each do |user|
-      Region.all.each do |region|
-        NotificationMailer.summary_graetzl(user, region, 'daily').deliver_now
-        NotificationMailer.summary_personal(user, region, 'daily').deliver_now
-      end
+      NotificationMailer.summary_graetzl(user, user.region, 'daily').deliver_now
+      NotificationMailer.summary_personal(user, user.region, 'daily').deliver_now
+      #Region.all.each do |region|
+      #  NotificationMailer.summary_graetzl(user, region, 'daily').deliver_now
+      #  NotificationMailer.summary_personal(user, region, 'daily').deliver_now
+      #end
     end
   end
 
@@ -41,10 +43,12 @@ namespace :scheduled do
     end
 
     User.confirmed.find_each do |user|
-      Region.all.each do |region|
-        NotificationMailer.summary_graetzl(user, region, 'weekly', discussion[region.id]).deliver_now if Date.today.tuesday?
-        NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.tuesday?
-      end
+      NotificationMailer.summary_graetzl(user, user.region, 'weekly', discussion[user.region.id]).deliver_now if Date.today.tuesday?
+      NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now if Date.today.tuesday?
+      #Region.all.each do |region|
+      #  NotificationMailer.summary_graetzl(user, region, 'weekly', discussion[region.id]).deliver_now if Date.today.tuesday?
+      #  NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.tuesday?
+      #end
     end
   end
 
