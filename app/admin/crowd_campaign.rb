@@ -11,7 +11,6 @@ ActiveAdmin.register CrowdCampaign do
   scope :declined
   scope :approved
   scope :funding
-  scope :successful
   scope :completed
   scope 'Visible', :scope_public
   scope 'Throttled',  :scope_throttled
@@ -33,11 +32,15 @@ ActiveAdmin.register CrowdCampaign do
 
   # action buttons
   action_item :approve, only: :show, if: proc{ crowd_campaign.pending? } do
-    link_to 'Kampagne Freischalten', approve_admin_crowd_campaign_path(crowd_campaign), { method: :put }
+    link_to 'Kampagne freischalten', approve_admin_crowd_campaign_path(crowd_campaign), { method: :put }
   end
 
   action_item :decline, only: :show, if: proc{ crowd_campaign.pending? } do
-    link_to 'Kampagne Ablehnen', decline_admin_crowd_campaign_path(crowd_campaign), { method: :put }
+    link_to 'Kampagne ablehnen', decline_admin_crowd_campaign_path(crowd_campaign), { method: :put }
+  end
+
+  action_item :draft, only: :show, if: proc{ crowd_campaign.pending? } do
+    link_to 'Kampagne zurück auf Draft setzen', draft_admin_crowd_campaign_path(crowd_campaign), { method: :put }
   end
 
   # member actions
@@ -58,6 +61,16 @@ ActiveAdmin.register CrowdCampaign do
       redirect_to admin_crowd_campaigns_path
     else
       flash[:error] = 'Crowdfunding Kampagne kann nicht abgelenht werden.'
+      redirect_to resource_path
+    end
+  end
+
+  member_action :draft, method: :put do
+    if resource.draft!
+      flash[:success] = 'Crowdfunding Kampagne wurde zurückgesetzt auf Draft.'
+      redirect_to admin_crowd_campaigns_path
+    else
+      flash[:error] = 'Crowdfunding Kampagne kann nicht auf Draft zurückgesetzt werden'
       redirect_to resource_path
     end
   end
