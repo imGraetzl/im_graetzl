@@ -28,4 +28,19 @@ section.info {
     }
   }
 
+  .logos {
+    @include respond-to(">=medium") {
+      display: flex;
+    }
+    .patner {
+      display: flex;
+      align-items: center;
+      img {
+        width:100px;
+        height:100px;
+        margin:30px;
+      }
+    }
+  }
+
 }

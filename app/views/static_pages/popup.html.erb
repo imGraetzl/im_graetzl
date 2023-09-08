@@ -13,7 +13,7 @@
   <div class="imgHeader -fullwidth">
     <div class="wrp">
       <h1>WeLocally Pop-Up in Graz</h1>
-      <%= image_tag("info/popup.svg", class: 'header-logo') %>
+      <%= image_tag("info/popup/popup.svg", class: 'header-logo') %>
     </div>
   </div>
 
@@ -51,6 +51,17 @@
     </div>
     <!-- Insert Featured Card -->
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll -mint', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+  <div class="logos">
+    <div class="patner">
+      <%= link_to image_tag('info/popup/logo_gmota.jpg', class: 'logo', loading: 'lazy'), "https://www.facebook.com/vereingmota/", target: '_blank' %>
+      <p>1000 Dank für die Unterstützung mit Raum durch den <%= link_to "Verein Gmota", "https://www.facebook.com/vereingmota/", target: '_blank' %></p>
+    </div>
+    <div class="patner">
+      <%= link_to image_tag('info/popup/logo_graz.png', class: 'logo', loading: 'lazy'), "https://www.wirtschaft.graz.at", target: '_blank' %>
+      <p>1000 Dank für die Unterstützung bei der Verbreitung durch die <%= link_to "Stadt Graz", "https://www.wirtschaft.graz.at", target: '_blank' %></p>
+    </div>
   </div>
 
 </section>
