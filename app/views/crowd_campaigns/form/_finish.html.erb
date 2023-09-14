@@ -112,3 +112,47 @@
 
   </div>
 <% end %>
+
+
+<% if @crowd_campaign.service_fee_percentage >= 5.0 %>
+  <div class="form-block percentage-block" data-percent="<%= percentage_to_value(@crowd_campaign.service_fee_percentage) %>">
+
+    <p class="txt">Dein <span>Kostenbeitrag</span></p>
+    <p>
+      Wenn deine Kampagne erfolgreich ist, behalten wir 5,0 % des erreichten Betrags (inkl. MwSt.) für den externen Zahlungsdienstleister ein. 
+      Du bestimmst selbst, wie viel du dem <%= t("region.#{current_region.id}.domain_short") %>-Team für die Arbeit und den Betrieb der Plattform gibst. 
+      Wir glauben an ein faires Geben und Nehmen als Basis für ein starkes WIR.
+    </p>
+    <br>
+    <p>
+      <strong>Wenn deine Kampagne nicht erfolgreich ist, kostet sie dich nichts.</strong>
+      Wir übernehmen dann ggf. auch die Kosten, die im Zusammenhang mit dem Zahlungsanbieter aufgetreten sind (z.B. den Legitimations Check etc.).
+    </p>
+
+    <div class="input-range">
+
+      <div class="range">
+        <input id="percentage" type="range" min="0" max="5" value="<%= percentage_to_value(@crowd_campaign.service_fee_percentage) %>" data-url="<%= set_percentage_crowd_campaign_path(@crowd_campaign) %>" <%= @crowd_campaign.editable? ? '' : 'disabled=true' %> /> 
+        <ul>
+          <li class="percent-0">5,0 %</li>
+          <li class="percent-1">6,0 %</li>
+          <li class="percent-2">7,0 %</li>
+          <li class="percent-3">8,0 %</li>
+          <li class="percent-4">9,0 %</li>
+          <li class="percent-5">10,0 %</li>
+        </ul>
+      </div>
+
+      <div class="percent-info-container">
+        <div class="percent-0 cardBox">Das Minimum ist gegeben.<br>Was können wir mit <%= t("region.#{current_region.id}.domain_short") %> noch besser machen, um dich zu überzeugen?</div>
+        <div class="percent-1 cardBox">Es ist ein Anfang.<br>Wie können wir dich für noch mehr Unterstützung begeistern?</div>
+        <div class="percent-2 cardBox">Herzlichen Dank!<br>Dein Beitrag ermöglicht es uns, an <%= t("region.#{current_region.id}.domain_short") %> dran zu bleiben.</div>
+        <div class="percent-3 cardBox">1000 Dank an dich!<br>Mit jedem zusätzlichen Prozentpunkt unterstützt du <%= t("region.#{current_region.id}.domain_short") %> entscheidend.</div>
+        <div class="percent-4 cardBox">Alles für die Gemeinschaft!<br>Danke, dass du die Ziele von <%= t("region.#{current_region.id}.domain_short") %> so großartig unterstützt. Herzlichen Dank dafür!</div>
+        <div class="percent-5 cardBox">Zusammen bauen wir eine starke Plattform. Deine Unterstützung sichert die Zukunft von <%= t("region.#{current_region.id}.domain_short") %> und hilft uns dabei Projekte für die lokalen Macher*innen umzusetzen. Ein großes Dankeschön an dich!</div>    
+      </div>
+
+    </div>
+
+  </div>
+<% end %>

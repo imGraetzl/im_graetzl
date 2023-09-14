@@ -42,6 +42,25 @@ module CrowdCampaignsHelper
     end
   end
 
+  def percentage_to_value(percentage)
+    case percentage
+    when 5
+      0
+    when 6
+      1
+    when 7
+      2
+    when 8
+      3
+    when 9
+      4
+    when 10
+      5
+    else
+      2
+    end
+  end
+
   def billable_values
     [
       ["Nein", 'no_bill'],

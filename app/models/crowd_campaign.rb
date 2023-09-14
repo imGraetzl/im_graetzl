@@ -122,12 +122,8 @@ class CrowdCampaign < ApplicationRecord
   def transaction_fee_percentage
     if self.service_fee_percentage?
       self.service_fee_percentage
-    elsif [36].include?(id)
-      7
-    elsif created_at.after?("2022-07-15".to_date)
-      5
     else
-      4
+      7
     end
   end
 
