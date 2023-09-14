@@ -185,6 +185,67 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         },
       });
 
+      // Slider Input Range
+      if ($(".input-range").exists()) {
+        const blockElement = document.querySelector(".percentage-block");
+        const sliderElement = document.querySelector("#percentage");
+        const sliderURL = sliderElement.getAttribute('data-url');
+        const disabled = sliderElement.getAttribute('disabled');
+        let sliderColor = "#EC776A";
+        if (disabled) {
+          sliderColor = "#aaaaaa";
+        }
+
+        sliderElement.addEventListener("input", (event) => {
+            const tempSliderValue = event.target.value; 
+            blockElement.setAttribute('data-percent', tempSliderValue);
+            const progress = (tempSliderValue / sliderElement.max) * 100;
+            sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${progress}%, #f0f0f0 ${progress}%)`;
+            percentageConverter(tempSliderValue);
+            savePercentage(tempSliderValue);
+        })
+
+        function percentageConverter(value) {
+          $("[class^='percent']").removeClass('-show');
+          $(".percent-"+value).addClass('-show');
+          switch(value) {
+            case '0':
+              return '5'
+            case '1':
+              return '6'
+            case '2':
+              return '7'
+            case '3':
+              return '8'
+            case '4':
+              return '9'
+            case '5':
+              return '10'
+            default:
+              return '7'
+          }
+        }
+
+        function savePercentage(value) {
+          $.ajax({
+            url: sliderURL,
+            dataType: "json",
+            type: "POST",
+            data: { percentage: value },
+            success: function(response) {
+              //console.log(response);
+            }
+           });
+        }
+
+        function initSlider() {
+            const sliderValue = (sliderElement.value / sliderElement.max) * 100;
+            sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${sliderValue}%, #f0f0f0 ${sliderValue}%)`;
+            percentageConverter(sliderElement.value);
+        }
+        initSlider();
+      }
+
     }
 
     return {
