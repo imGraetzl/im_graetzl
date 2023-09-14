@@ -31,6 +31,7 @@ class Meeting < ApplicationRecord
 
   enum state: { active: 0, disabled: 1 }
 
+  scope :entire_region, -> { where(entire_region: true) }
   scope :non_private, -> { where(private: false) }
   scope :online_meeting, -> { where(online_meeting: true) }
   scope :offline_meeting, -> { where(online_meeting: false) }
@@ -59,6 +60,7 @@ class Meeting < ApplicationRecord
 
   before_validation :set_graetzl
   before_create :set_privacy
+  before_create :set_entire_region
   after_create :update_location_activity
 
   def self.visible_to_all
@@ -161,6 +163,10 @@ class Meeting < ApplicationRecord
 
   def set_privacy
     self.private = true if group && group.private?
+  end
+
+  def set_entire_region
+    self.entire_region = (entire_region? || energieteiler?) ? true : false
   end
 
   def update_location_activity

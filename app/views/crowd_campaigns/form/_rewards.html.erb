@@ -7,7 +7,7 @@
 
   <div class="crowd-rewards">
     <% f.object.crowd_rewards.build if f.object.crowd_rewards.empty? %>
-    <%= f.fields_for :crowd_rewards do |reward_form| %>
+    <%= f.fields_for :crowd_rewards, f.object.crowd_rewards.sort_by(&:amount) do |reward_form| %>
       <%= render 'crowd_campaigns/form/reward_fields', f: reward_form, disabled: !@crowd_campaign.editable? %>
     <% end %>
     <div>

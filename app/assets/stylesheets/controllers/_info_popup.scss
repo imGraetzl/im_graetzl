@@ -29,6 +29,8 @@ section.info {
   }
 
   .logos {
+    margin-top: 20px;
+    border-top: 1px dotted $color-ambient-mint-light;
     @include respond-to(">=medium") {
       display: flex;
     }

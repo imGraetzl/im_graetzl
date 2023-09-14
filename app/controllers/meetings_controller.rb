@@ -168,10 +168,10 @@ class MeetingsController < ApplicationController
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if params[:favorites].present? && current_user
       favorite_ids = current_user.followed_graetzl_ids
-      meetings = meetings.where(graetzl_id: favorite_ids)
-      #meetings = meetings.where(graetzl_id: favorite_ids).or(meetings.online_meeting)
+      #meetings = meetings.where(graetzl_id: favorite_ids)
+      meetings = meetings.where(graetzl_id: favorite_ids).or(meetings.entire_region)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      meetings = meetings.where(graetzl_id: graetzl_ids)
+      meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.entire_region)
     end
 
     if params[:category_id].present?
