@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_28_094054) do
+ActiveRecord::Schema.define(version: 2023_09_14_075538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -696,6 +696,7 @@ ActiveRecord::Schema.define(version: 2023_08_28_094054) do
     t.text "description_background"
     t.text "description_favorite_place"
     t.boolean "verified", default: false, null: false
+    t.boolean "entire_region", default: false, null: false
     t.index ["address_id"], name: "index_locations_on_address_id"
     t.index ["created_at"], name: "index_locations_on_created_at"
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id"
@@ -747,6 +748,7 @@ ActiveRecord::Schema.define(version: 2023_08_28_094054) do
     t.string "address_description"
     t.date "last_activated_at"
     t.bigint "poll_id"
+    t.boolean "entire_region", default: false, null: false
     t.index ["address_id"], name: "index_meetings_on_address_id"
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"

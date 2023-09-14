@@ -9,7 +9,7 @@ ActiveAdmin.register Meeting do
   scope :upcoming
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :event_categories
+  filter :event_categories, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :users, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -18,7 +18,8 @@ ActiveAdmin.register Meeting do
   filter :description
   filter :created_at
   #filter :starts_at_date
-  filter :online_meeting
+  filter :online_meeting, input_html: { class: 'admin-filter-select'}
+  filter :entire_region, input_html: { class: 'admin-filter-select'}
 
   index { render 'index', context: self }
   show { render 'show', context: self }
@@ -107,6 +108,7 @@ ActiveAdmin.register Meeting do
 
   permit_params :graetzl_id,
     :name,
+    :entire_region,
     :slug,
     :state,
     :description,

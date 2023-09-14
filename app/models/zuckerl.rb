@@ -66,7 +66,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def self.in_area(graetzl_ids)
-    ids = joins(:location).where("entire_region = 't' OR locations.graetzl_id IN (?)", graetzl_ids).pluck(:id)
+    ids = joins(:location).where("zuckerls.entire_region = 't' OR locations.graetzl_id IN (?)", graetzl_ids).pluck(:id)
     where(id: ids)
   end
 

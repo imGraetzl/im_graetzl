@@ -41,11 +41,11 @@ class ActionProcessor
 
     when [Meeting, :create] 
       # Create Activity and Notifications only for Meetings in the next 2 Months
-      # Create Activity and Notifications in entrire_region for 'Energieteiler' Meetings
+      # Create Activity and Notifications in entrire_region for 'entire_region' Meetings
 
       if subject.starts_at_date <= Date.today + 2.month
 
-        if subject.public? && subject.energieteiler?
+        if subject.public? && subject.entire_region?
           Activity.add_public(subject, to: :entire_region)
           Notifications::NewMeeting.generate(subject, to: User.in(subject.region).all.pluck(:id),
             time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
@@ -88,8 +88,7 @@ class ActionProcessor
 
     when [Meeting, :attended]
       if subject.public?
-        # Hack for Balkonsolar (14444)
-        if subject.id == 14444
+        if subject.entire_region?
           Activity.add_public(subject, child, to: :entire_region)
         else
           Activity.add_public(subject, child, to: subject.graetzl)
