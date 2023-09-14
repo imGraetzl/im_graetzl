@@ -146,6 +146,7 @@ Rails.application.routes.draw do
     post :remove_post, on: :member
     post :comment_post, on: :member
     post :send_mail, on: :member
+    post :set_percentage, on: :member
     get 'start', on: :collection
     get 'edit_description', on: :member
     get 'edit_finance', on: :member

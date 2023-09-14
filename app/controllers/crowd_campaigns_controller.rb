@@ -44,6 +44,13 @@ class CrowdCampaignsController < ApplicationController
     end
   end
 
+  def set_percentage
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    percentage = value_to_percentage(params[:percentage].to_i)
+    @crowd_campaign.update_attribute :service_fee_percentage, percentage if @crowd_campaign.editable?
+    render json: @crowd_campaign.service_fee_percentage
+  end
+
   def edit
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     return redirect_to edit_crowd_campaign_path(@crowd_campaign) if params[:id] != @crowd_campaign.slug
@@ -259,6 +266,25 @@ class CrowdCampaignsController < ApplicationController
   end
 
   private
+
+  def value_to_percentage(value)
+    case value
+    when 0
+      5
+    when 1
+      6
+    when 2
+      7
+    when 3
+      8
+    when 4
+      9
+    when 5
+      10
+    else
+      7
+    end
+  end
 
   def fetch_user_crowd_campaign(id)
     current_user.crowd_campaigns.find(id)
