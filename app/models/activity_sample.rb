@@ -36,8 +36,8 @@ class ActivitySample
     end
   end
   def crowd_campaigns
-    funding_campaigns = CrowdCampaign.in(@current_region).funding.all.sample(2)
-    public_campaigns = CrowdCampaign.in(@current_region).completed.successful.enabled.all.sample(2)
+    funding_campaigns = CrowdCampaign.in(@current_region).funding.none_throttled.all.sample(2)
+    public_campaigns = CrowdCampaign.in(@current_region).completed.successful.enabled.none_throttled.all.sample(2)
     campaigns = funding_campaigns + public_campaigns
     campaigns.compact.first(2)
   end
