@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get  'home' => 'home#about', as: 'about_platform'
   post 'geolocation'  => 'home#geolocation'
 
-  get 'https://www.imgraetzl.at/crowdfunding/osterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party' => redirect('https://graz.welocally.at/crowdfunding/osterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party')
+  get 'crowdfunding/osterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party' => redirect('https://graz.welocally.at/crowdfunding/oesterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party')
   get 'call-2022' => redirect('andocken')
   get 'andocken' => 'region_calls#call'
   post 'andocken' => 'region_calls#create'
