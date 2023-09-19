@@ -355,6 +355,7 @@ Rails.application.routes.draw do
   get 'raumsuche' => redirect('region/raumteiler')
   get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
   get 'kaernten' => redirect('https://kaernten.welocally.at')
+  get 'https://www.imgraetzl.at.at/crowdfunding/osterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party' => redirect('https://graz.welocally.at/crowdfunding/osterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party')
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
