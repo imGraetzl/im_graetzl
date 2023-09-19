@@ -11,6 +11,7 @@
       <% if graetzl && graetzl.region == current_region || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
+      <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) if current_region.use_subscription? %>
       <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
       <%= nav_menu_item("crowd", 'Crowdfunding', region_crowd_campaigns_path) %>
       <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
@@ -20,7 +21,6 @@
       <%= nav_menu_item("tacker", 'Geräteteiler', region_tools_path) %>
       <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
       <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
-      <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) if current_region.use_subscription? %>
       <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
       <%= nav_menu_item("coffee", "Blog", "#{t("region.#{current_region.id}.blog_url")}", class: 'discover', target: '_blank') %>
     </div>
@@ -74,6 +74,7 @@
     <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
         <%= nav_menu_item("region-#{current_region.id}", "#{t("region.#{current_region.id}.region")} Übersicht", region_index_path, class: 'half region-switch') %>
         <%= nav_submenu_link("globe", '', 'nav-submenu-desk-regions', class: 'half region-switch globe') %>
+        <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) if current_region.use_subscription? %>
         <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
         <%= nav_menu_item("crowd", 'Crowdfunding', region_crowd_campaigns_path) %>
         <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
@@ -83,7 +84,6 @@
         <%= nav_menu_item("tacker", 'Geräteteiler', region_tools_path) %>
         <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
         <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
-        <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) if current_region.use_subscription? %>
         <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
         <%= nav_menu_item("coffee", "Blog", "#{t("region.#{current_region.id}.blog_url")}", class: 'discover', target: '_blank') %>
     </div>

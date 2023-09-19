@@ -20,6 +20,8 @@
         <%= t("region.#{current_region.id}.subscription.description") %>
       </p>
       <p>
+        <strong>Werdet Unterstützer*innen unserer Arbeit!</strong>
+        <br>
         <strong><%= Subscription.in(current_region).active.count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.
         <br>
         <strong>Unser nächstes Ziel: <%= current_region.subscription_goal %> Förder*innen.</strong>
@@ -34,8 +36,10 @@
   </div>
 
   <center><em>
-    Du bekommst selbstverständlich eine Rechnung über die Fördermitgliedschaft ausgestellt.<br>
-    Mehr Hintergrundinfos zur Fördermitgliedschaft gibt es außerdem auf unserem <%= link_to 'imGrätzl Blog',  'https://blog.imgraetzl.at/allgemein/die-imgraetzl-foerdermitgliedschaft-ist-da-haltet-mit-uns-den-raum-offen/', target: 'blank' %>
+    Du bekommst selbstverständlich eine Rechnung über deine Fördermitgliedschaft ausgestellt.
+    <% if current_region.is?('wien') %>
+      <br>Mehr Hintergrundinfos zur Fördermitgliedschaft gibt es außerdem auf unserem <%= link_to 'imGrätzl Blog',  'https://blog.imgraetzl.at/allgemein/die-imgraetzl-foerdermitgliedschaft-ist-da-haltet-mit-uns-den-raum-offen/', target: 'blank' %>
+    <% end %>
   </em></center>
 
   <div class="allBoxes">

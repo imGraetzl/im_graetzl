@@ -8,6 +8,17 @@
   )
 %>
 
+<!--
+<% if current_region.use_subscription? && user_signed_in? && !current_user&.subscribed? %>
+<div id="betaflash">
+  Unterstütze uns mit einer <%= link_to 'Fördermitgliedschaft', popup_path %>!
+  <%= link_to 'javascript:', class: 'close-ico' do %>
+    <%= icon_tag "cross" %>
+  <% end %>
+</div>
+<% end %>
+-->
+
 <section class="graetzls">
   <%= render 'map' %>
   <%= render 'navigation' %>
