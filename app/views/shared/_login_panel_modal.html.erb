@@ -13,7 +13,7 @@
     <div class="login">
       <%= form_for(:user, :url => session_path(:user, :redirect => request.original_url)) do |f| %>
         <div class="input-field">
-          <%= f.text_field :login, autofocus: true, placeholder: "Username oder E-Mail" %>
+          <%= f.text_field :login, autofocus: true, placeholder: "E-Mail oder Username" %>
         </div>
         <div class="input-field">
           <%= f.password_field :password, autocomplete: "off", placeholder: "Passwort" %>

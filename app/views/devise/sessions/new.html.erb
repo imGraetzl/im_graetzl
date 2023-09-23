@@ -12,10 +12,10 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="input-field">
           <%= f.label :login do %>
-            <%= icon_tag "user-avatar" %>
-            <span>Username</span>
+            <%= icon_tag "at-symbol" %>
+            <span>E-Mail</span>
           <% end %>
-          <%= f.text_field :login, autofocus: true, placeholder: "Username oder E-Mail" %>
+          <%= f.text_field :login, autofocus: true, placeholder: "E-Mail oder Username" %>
         </div>
 
         <div class="input-field">

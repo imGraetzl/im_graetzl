@@ -47,9 +47,6 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.first(2) if @period == 'weekly' %>
 <% end %>
 
-<!-- Insert Graz Popup -->
-<%= render 'featured/popup' if @region.id == 'graz' && @period == 'weekly' %>
-
 <!-- Insert Supporters -->
 <% if @region.id == 'wien' && @period == 'weekly' %>
   <%= render 'summary/new_admin_discussion' if @featured_discussion %>
