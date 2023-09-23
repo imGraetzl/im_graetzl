@@ -10,7 +10,7 @@
 
 <% if current_region.is?('wien') && user_signed_in? && current_user.show_subscription_hint? %>
 <div id="betaflash">
-  Unterstütze <%= t("region.#{current_region.id}.domain_short") %> mit einer <%= link_to 'Mitgliedschaft', subscription_plans_url %>.
+  Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_url %>!
   <%= link_to 'javascript:', class: 'close-ico' do %>
     <%= icon_tag "cross" %>
   <% end %>
