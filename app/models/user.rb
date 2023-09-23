@@ -124,7 +124,7 @@ class User < ApplicationRecord
   end
 
   def show_subscription_hint?
-    !subscribed? && created_at < 1.month.ago
+    !subscribed? && created_at < 30.days.ago
   end
 
   # Filter for Active Admin User Notification Settings
