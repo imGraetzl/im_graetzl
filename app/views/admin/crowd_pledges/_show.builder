@@ -11,6 +11,7 @@ context.instance_eval do
           row :debited_at
           row :total_price
           row :donation_amount
+          row :inclomplete_reminder_sent_at
         end
         attributes_table_for crowd_pledge.crowd_reward do
           row :amount

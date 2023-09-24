@@ -1,6 +1,9 @@
 class CrowdPledgeService
 
   def create_setup_intent(crowd_pledge)
+
+    CrowdCampaignMailer.crowd_pledge_incomplete(crowd_pledge).deliver_later(wait: 5.minutes)
+
     stripe_customer_id = get_stripe_customer_id(crowd_pledge)
     Stripe::SetupIntent.create(
       customer: stripe_customer_id,

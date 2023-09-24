@@ -102,6 +102,24 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def crowd_pledge_incomplete(crowd_pledge)
+    @crowd_pledge = crowd_pledge
+    @crowd_campaign = @crowd_pledge.crowd_campaign
+    @region = @crowd_campaign.region
+
+    already_sent = @crowd_campaign.crowd_pledges.where(email: crowd_pledge.email).where.not(inclomplete_reminder_sent_at: nil).any?
+    already_pledged = @crowd_campaign.crowd_pledges.authorized.where(email: crowd_pledge.email).any?
+    return if already_sent || already_pledged || !crowd_pledge.incomplete?
+    crowd_pledge.update(inclomplete_reminder_sent_at: Time.current)
+
+    headers("X-MC-Tags" => "crowd-pledge-incomplete")
+    mail(
+      subject: "Benötigst du Hilfe bei deiner Unterstützung für '#{@crowd_campaign.title}'?",
+      from: platform_email('michael', 'Michael Walchhütter'),
+      to: @crowd_pledge.email,
+    )
+  end
+
   def crowd_pledge_authorized(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign

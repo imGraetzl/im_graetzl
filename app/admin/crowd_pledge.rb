@@ -26,6 +26,7 @@ ActiveAdmin.register CrowdPledge do
   filter :debited_at
   filter :created_at
   filter :updated_at
+  filter :inclomplete_reminder_sent_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }

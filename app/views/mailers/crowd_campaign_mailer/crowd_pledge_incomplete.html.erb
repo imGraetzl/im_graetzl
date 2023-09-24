@@ -1,0 +1,26 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_pledge.contact_name %>,
+        </p>
+        <p>
+           <strong>Michael von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %> schreib dir.<br>
+           Ich wollte nachfragen, ob du eventuell Hilfe bei deiner Crowdfunding Unterstützung für die Kampagne <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> benötigst?</strong>
+        </p>
+        <p>
+         Solltest du Fragen haben oder etwas bei dir nicht funktioniert haben, gib kurz Bescheid. Du kannst mir einfach auf diese E-Mail antworten oder auch gerne anrufen (0664 / 132 14 99).
+        </p>
+        <p>
+          Du kannst deine zuletzt begonnene Unterstützung <%= link_to 'hier abschließen', choose_payment_crowd_pledge_url(@crowd_pledge), style: "color:#ec776a;" %>, oder natürlich auch gerne eine neue Untertsützung auf der Kampagnenseite starten:
+          <%= link_to crowd_campaign_url(@crowd_pledge.crowd_campaign), crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %>
+        </p>
+        <p>
+          Bei Fragen jederzeit gerne,<br>
+          Michael vom <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_short") %> Team
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

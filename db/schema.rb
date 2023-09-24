@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_14_075538) do
+ActiveRecord::Schema.define(version: 2023_09_24_110326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 2023_09_14_075538) do
     t.boolean "terms", default: false
     t.datetime "debited_at"
     t.boolean "guest_newsletter", default: false, null: false
+    t.datetime "inclomplete_reminder_sent_at"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
