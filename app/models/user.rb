@@ -123,6 +123,10 @@ class User < ApplicationRecord
     subscriptions.last
   end
 
+  def show_subscription_hint?
+    !subscribed? && created_at < 30.days.ago
+  end
+
   # Filter for Active Admin User Notification Settings
   def self.user_mail_setting_eq(notification)
     frequency = notification.split("_").first

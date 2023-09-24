@@ -52,7 +52,7 @@ class CrowdCampaign < ApplicationRecord
   validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
   scope :scope_throttled, -> { where(visibility_status: [:throttled]) }
-  scope :none_throttled, -> { where(visibility_status: nil).or(where.not(visibility_status: [:throttled])) }
+  scope :none_throttled, -> { where(visibility_status: nil) }
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where(active_state: :enabled)) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
 

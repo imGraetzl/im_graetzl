@@ -84,11 +84,11 @@ de:
           subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
           description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
         subscription:
-          subline: "imGrätzl ist mittlerweile zu groß, als dass wir alles alleine stemmen können."
-          description: "Damit wir imGrätzl in Wien weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die imGrätzl bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!"
+          subline: "Uns gibt es nur dank eurer Unterstützung!"
+          description: "Damit wir weiterhin imGrätzl für euch in Wien zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das imGrätzl Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen. Werdet Unterstützer*innen unserer Arbeit!"
       subscription:
-        subline: "imGrätzl ist mittlerweile zu groß, als dass wir alles alleine stemmen können. Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen."
-        description: "Damit wir imGrätzl in Wien weiterhin zur Verfügung stellen können, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die imGrätzl bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!"
+        subline: "Liebe lokale Macher*innen, uns gibt es nur dank eurer Unterstützung!"
+        description: "Damit wir weiterhin imGrätzl für euch in Wien zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das imGrätzl Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen."
 
     graz:
       <<: *default
@@ -125,11 +125,11 @@ de:
           subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
           description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
         subscription:
-          subline: "WeLocally in Graz erzeugt Kosten für den Betrieb der Plattform. Euer Beitrag hilft, die Rechnungen für Server und die notwendigen Tools zu bezahlen."
-          description: "Damit wir WeLocally in deiner Region aufbauen und zur Verfügung stellen können, brauchen wir vor allem eins: Förder*innen. Danke an alle, die WeLocally mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass WeLocally allen lokalen Macher*innen in deiner Region kostenlos zur Verfügung steht!"
+          subline: "Uns gibt es nur dank eurer Unterstützung!"
+          description: "Damit wir weiterhin WeLocally für euch in Graz zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das WeLocally Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen. Werdet Unterstützer*innen unserer Arbeit!"
       subscription:
-        subline: "WeLocally in Graz & imGrätzl in Wien erzeugen Kosten für den Betrieb der Plattform. Euer Beitrag hilft, die Rechnungen für Server, die Versicherung und die anderen notwendigen Tools zu bezahlen."
-        description: "Damit wir WeLocally in Graz aufbauen und zur Verfügung stellen können, brauchen wir vor allem eins: Förder*innen. Danke an alle, die WeLocally mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass WeLocally allen lokalen Macher*innen in Graz kostenlos zur Verfügung steht!"
+        subline: "Liebe lokale Macher*innen, uns gibt es nur dank eurer Unterstützung!"
+        description: "Damit wir weiterhin WeLocally für euch in Graz zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das WeLocally Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen."
 
       footer_graetzl_headline: "Entdecke deinen Bezirk in Graz"
 

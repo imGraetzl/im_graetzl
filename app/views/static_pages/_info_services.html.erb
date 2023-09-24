@@ -1,3 +1,23 @@
+<% if current_region && current_region.use_subscription? %>
+  <article class="container">
+    <div class="txt">
+      <h2><%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft</h2>
+      <h3><%= t("region.#{current_region.id}.info.subscription.subline") %></h3>
+      <p>
+        <%= t("region.#{current_region.id}.info.subscription.description") %>
+      </p>
+      <p class="link">
+        <%= link_to 'Werde jetzt Fördermitglied', subscription_plans_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    </div>
+    <div class="aside -img -illu">
+      <%= link_to(image_tag('info/cardbox-abo-wow.png', loading: 'lazy'), subscription_plans_path) %>
+    </div>
+  </article>
+<% end %>
+
+
+
 <article class="container">
   <div class="txt">
     <h2>Raumteiler</h2>
@@ -225,23 +245,3 @@
     <% end %>
   </div>
 </article>
-
-
-
-<% if current_region && current_region.use_subscription? %>
-  <article class="container">
-    <div class="txt">
-      <h2><%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft</h2>
-      <h3><%= t("region.#{current_region.id}.info.subscription.subline") %></h3>
-      <p>
-        <%= t("region.#{current_region.id}.info.subscription.description") %>
-      </p>
-      <p class="link">
-        <%= link_to 'Zur Fördermitgliedschaft', subscription_plans_path, :class => 'btn-primary -mint -inlineflex' %>
-      </p>
-    </div>
-    <div class="aside -img -illu">
-      <%= link_to(image_tag('info/cardbox-abo-wow.png', loading: 'lazy'), subscription_plans_path) %>
-    </div>
-  </article>
-<% end %>

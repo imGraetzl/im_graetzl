@@ -8,16 +8,6 @@
   )
 %>
 
-<% if current_region.id == 'graz' %>
-<div id="betaflash">
-  Lerne uns kennen und komm zum WeLocally <span>Pop-Up</span> in Graz. (20. bis 22. Sep.) 
-  <%= link_to 'Alle Infos hier.', popup_path %>
-  <%= link_to 'javascript:', class: 'close-ico' do %>
-    <%= icon_tag "cross" %>
-  <% end %>
-</div>
-<% end %>
-
 <section class="region -overview">
 
   <%= render 'map' %>
@@ -40,7 +30,6 @@
     </div>
     <!-- Insert Featured Card -->
     <%= render 'shared/featured_cards/energieteiler', graetzl: @graetzl if current_region.is?('wien') %>
-    <%= render 'shared/featured_cards/popup' if current_region.is?('graz') %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
   </div>
