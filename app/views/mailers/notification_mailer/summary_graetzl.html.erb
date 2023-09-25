@@ -24,7 +24,7 @@
   <%= render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position && Date.today.next_occurring(:tuesday).month > Date.today.month %>
 
   <!-- Insert Energieteiler on 3. Position -->
-  <%= render 'featured/energieteiler_treffen' if @region.id == 'wien' && @period == 'weekly' && current_position == 3 %>
+  <%= render 'featured/good_morning_dates' if @region.id == 'wien' && @period == 'weekly' && current_position == 3 %>
 
   <!-- Insert Seestädter on 4. Position -->
   <%= render 'featured/seestadt' if @region.id == 'wien' && @period == 'weekly' && current_position == 4 %>

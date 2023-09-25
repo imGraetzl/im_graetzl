@@ -117,6 +117,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Benötigst du Hilfe bei deiner Unterstützung für '#{@crowd_campaign.title}'?",
       from: platform_email('michael', 'Michael Walchhütter'),
       to: @crowd_pledge.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
