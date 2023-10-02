@@ -23,11 +23,8 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
   <%= render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position && Date.today.next_occurring(:tuesday).month > Date.today.month %>
 
-  <!-- Insert Energieteiler on 3. Position -->
-  <%= render 'featured/good_morning_dates' if @region.id == 'wien' && @period == 'weekly' && current_position == 3 %>
-
-  <!-- Insert Seestädter on 4. Position -->
-  <%= render 'featured/seestadt' if @region.id == 'wien' && @period == 'weekly' && current_position == 4 %>
+  <!-- Insert subscription on 2. Position -->
+  <%= render 'featured/subscription' if @region.id == 'wien' && @period == 'weekly' && current_position == 2 %>
 
   <%= render 'summary/block_header', title: block_title %>
   <% notifications.each do |notification| %>
