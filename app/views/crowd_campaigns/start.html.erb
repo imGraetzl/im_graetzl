@@ -1,32 +1,43 @@
-<% title('Lokales Crowdfunding - Starte jetzt dein Projekt') %>
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/crowdfunding.jpg')
+  )
+%>
 
-<section class="usersetup -crowd_campaigns">
-
-  <div class="hl-subtext">
-    <h1>Lokales <em>Crowdfunding</em></h1>
-    <p>Was hat es mit dem Crowdfunding auf sich?</p>
+<section class="info -crowdfunding">
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1>Lokales Crowdfunding</h1>
+    </div>
   </div>
+</section>
+
+<section class="startcampaign">
 
   <div class="paperCard video -cord1RT">
-    <txt class="wrp">
+    <wrp-element class="wrp">
       <div class="txt">
-        <h3>Start jetzt deine Crowdfunding Kampagne</h3>
-        Du hast ein Vorhaben, eine Idee, ein Projekt? Aber dir fehlen zur Realisierung noch Geld, vielleicht auch Raum, helfende Hände oder andere Ressourcen? Dann könnte Crowdfunding etwas für dich sein.
+        <h3>Setze dein Vorhaben mit der Kraft der Gemeinschaft um!</h3>
+        Du hast ein Vorhaben, eine Idee, ein Projekt? Aber dir fehlt zur Realisierung noch Geld, vielleicht auch Raum, helfende Hände oder andere Ressourcen? 
+        <strong>Dann könnte Crowdfunding etwas für dich sein.</strong>
       </div>
       <div class="video-thumb">
         <%= link_to 'javascript:', class: 'player play-icon jBoxVideo', rel: 'nofollow' do %>
           <%= image_tag 'videos/academy_intro.jpg', class: 'video', alt:'video-thumb', width:200, height:150 %>
         <% end %>
       </div>
-    </txt>
-    <txt class="wrp">
+    </wrp-element>
+    <wrp-element class="wrp">
       <div class="txt">
-        <strong>Schau dir zunächst die Videos an</strong>, in denen Schritt für Schritt erklärt wird, wie es funktioniert und befülle dann die Kampagnenseite. 
-        Gerne kannst du auch anrufen und wir reden über dein Crowdfunding Vorhaben: <%= link_to "0699-15028277", "tel:004369915028277" %> oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %>
+        <strong>Unser Tipp!</strong> Unbedingt die Schritt-für-Schritt Erklärung in unserer Crowdfunding Academy anschauen, dann hast du die Basics. 
         <br><br>
-        <strong>Lokales Crowdfunding?</strong> Deine Crowdfunding Kampagne wird in eine bestehende lokale Community platziert. Die Menschen freuen sich, wenn bei ihnen ums Eck Vorhaben umgesetzt werden. Dadurch wird dein Vorhaben lokal sichtbarer und kann sich leichter verbreiten. Neue Verbindungen und Chancen entstehen!
-        </div>
-    </txt>
+        <strong>Falls du unsicher bist,</strong> ob Crowdfunding etwas für dein Vorhaben ist, ruf kurz durch, dann reden wir über dein Vorhaben: <%= link_to "0699 / 150 28 277", "tel:004369915028277" %> oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %>
+      </div>
+    </wrp-element>
     <div class="card"></div>
   </div>
   <div id="jBoxVideoContent" class="jBoxHidden">
@@ -34,9 +45,9 @@
   </div>
 
   <div class="btns">
-    <%= link_to "Zu deinen bestehenden Projekten", crowd_campaigns_user_path, class: 'btn-primary -mint -large -shadow btn' if current_user && current_user.crowd_campaigns.present? %>
+    <%= link_to "Zu deinen bestehenden Kampagnen", crowd_campaigns_user_path, class: 'btn-primary -mint -large -shadow btn' if current_user && current_user.crowd_campaigns.present? %>
     <div class="btn">
-      <%= link_to "Starte jetzt ein neues Projekt", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %>
+      <%= link_to "Starte jetzt deine Crowdfunding Kampagne", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %>
       <!--
       <div class="">
         <div class="input-checkbox">
@@ -75,25 +86,35 @@
   </div>
   -->
 
-
-  <div class="guidelines">
-    <h4>Kosten:</h4>
-    <p>
-      Nur wenn deine Kampagne erfolgreich ist, behalten wir 5,0 % (inkl. MwSt.) von der eingegangenen Geldsumme ein, das ist für den Zahlungsanbieter. Wenn die Kampagne nicht erfolgreich ist, kostet sie dich nichts.
-    </p>
+  <div class="content-block -toggable">
+    <h3>Kosten</h3>
+    <div class="-toggle-content">
+      <strong>Nur wenn deine Kampagne erfolgreich ist, behalten wir 5,0 % (inkl. MwSt.) der gesammelten Summe für den externen Zahlungsdienstleister ein.</strong>
+      Du bestimmst selbst, wie viel du dem <%= t("region.#{current_region.id}.domain_short") %> Team für die Arbeit und den Betrieb der Plattform gibst. Wir glauben an ein faires Geben und Nehmen als Basis für ein starkes WIR.
+      <br><br>
+      <strong>Wenn die Kampagne nicht erfolgreich ist, kostet sie dich nichts.</strong> Wir übernehmen dann ggf. auch die Kosten, die im Zusammenhang mit dem Zahlungsanbieter aufgetreten sind (z.B. den Legitimations Check etc.).
+    </div>
   </div>
 
-  <br>
+  <div class="content-block -toggable">
+    <h3>Lokales Crowdfunding, dein Vorteil</h3>
+    <div class="-toggle-content">
+      <strong>Deine Crowdfunding Kampagne wird in eine bestehenden lokale Gemeinschaft aus lauter Macher*innen platziert.</strong> 
+      Die Menschen freuen sich, wenn bei ihnen ums Eck Vorhaben umgesetzt werden. Dadurch wird dein Vorhaben lokal sichtbarer und kann sich leichter verbreiten. Neue Verbindungen und Chancen entstehen!
+    </div>
+  </div>
 
-  <div class="guidelines">
-    <h4>Crowd-Academy:</h4>
-    <p class="crowdstrudel">
-      <span>Du wünscht dir eine intensive Begleitung, dann melde dich beim <strong>Crowdstrudel Team</strong>.
-      Sie haben die <%= link_to 'Crowd-Academy', 'https://www.crowdstrudel.com/crowdfunding-productlaunch', target: '_blank' %> ins Leben gerufen, um euch durch eure Crowdfunding Kampagne zu begleiten.</span>
-      <a href="https://www.crowdstrudel.com/crowdfunding-productlaunch", target="_blank">
-        <%= image_tag 'logo-crowdstrudel.svg', alt:'crowdstrudel', width:130 %>
-      </a>
-    </p>
+  <div class="content-block -toggable">
+    <h3>Crowd-Academy</h3>
+    <div class="-toggle-content">
+      <p class="crowdstrudel">
+        <span>Du wünscht dir eine intensive Begleitung, dann melde dich beim <strong>Crowdstrudel Team</strong>.
+        Sie haben die <%= link_to 'Crowd-Academy', 'https://www.crowdstrudel.com/crowdfunding-productlaunch', target: '_blank' %> ins Leben gerufen, um euch durch eure Crowdfunding Kampagne zu begleiten.</span>
+        <a href="https://www.crowdstrudel.com/crowdfunding-productlaunch", target="_blank">
+          <%= image_tag 'logo-crowdstrudel.svg', alt:'crowdstrudel', width:130 %>
+        </a>
+      </p>
+    </div>
   </div>
 
 </section>
