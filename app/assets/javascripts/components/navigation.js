@@ -32,6 +32,7 @@ APP.components.headerNavigation = (function() {
         menu.removeClass("jq-dropdown-anchor-" + menuLink.data("anchor") || "left");
         menuLink.jqDropdown('detach', '#' + menu.attr('id'));
       });
+      $('#betaflash').fadeOut();
     }
 
     function toggleMobileMenu(menuLink) {

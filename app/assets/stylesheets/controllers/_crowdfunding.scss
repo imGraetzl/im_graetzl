@@ -671,21 +671,67 @@ section.crowd_campaign {
 
 }
 
-section.usersetup.-crowd_campaigns {
+.info.-crowdfunding {
+  .imgHeader::after {
+    background-image: url(image_path('info/header-crowdfunding.jpg'));
+    background-position: left 20% center;
+    @include respond-to(">=large") {
+      background-position: center center;
+    }
+  }
+  .wrp {
+    margin-top:110px;
+    @include respond-to(">=medium") {
+      margin-top:125px;
+    }
+  }
+}
+
+section.startcampaign {
+
+  margin-top:-20px;
+  @include respond-to(">=medium") {
+    margin-top:-58px;
+  }
+
+  .content-block {
+    > h3 {
+      margin-bottom: 20px;
+    }
+    &.-toggable {
+      margin-bottom: 20px;
+    }
+  }
+
+  .paperCard.video {
+    margin-bottom: 30px;
+    .wrp {
+      @include respond-to("<=medium") {
+        flex-direction: column;
+        .video-thumb {
+          transform: rotate(0deg);
+          margin: 5px 0px 20px 0px;
+        }
+      }
+    }
+    .card {
+      background-color: #fff;
+    }
+    .txt {
+      @include font-size-primaryFont('large');
+    }
+  }
+
   .btns {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
-    align-items: flex-start;
     margin-bottom:50px;
     .btn {
-      margin-top:10px;
-      margin-left:10px;
-      margin-right:10px;
-      @include respond-to("<=small") {
+      margin-top:20px;
+      width:48%;
+      @include respond-to("<=medium") {
         width:100%;
-        margin-left:0px;
-        margin-right:0px;
       }
     }
     .input-checkbox {
@@ -708,29 +754,22 @@ section.usersetup.-crowd_campaigns {
       }
     }
   }
-  .guidelines {
+  .crowdstrudel {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    h4 {
-      font-style: italic;
-      padding-bottom:10px;
+    justify-content: center;
+    img {
+      margin-top:-20px;
     }
-    .crowdstrudel {
-      display: flex;
-      justify-content: center;
+    @include respond-to("<medium") {
+      flex-wrap: wrap;
       img {
-        margin-top:-20px;
+        margin-top:0px;
       }
-      @include respond-to("<medium") {
-        flex-wrap: wrap;
-        img {
-          margin-top:0px;
-        }
-      }
-
     }
   }
+  
+}
+section.usersetup.-crowd_campaigns {
   .cardBox.-crowd_campaign {
     .updateteaser {display: none;}
   }
