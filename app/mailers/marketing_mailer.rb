@@ -1,5 +1,18 @@
 class MarketingMailer < ApplicationMailer
 
+  def subscription_meeting_invite(user)
+    @user = user
+    @region = @user.region
+
+    headers("X-MC-Tags" => "subscription-meeting-invite")
+
+    mail(
+      subject: "Einladung zum Jahrestreffen der imGrätzl Fördermitglieder",
+      from: platform_email("wir"),
+      to: @user.email,
+    )
+  end
+
   def agb_change_and_welocally(user)
     @user = user
     @region = @user.region
