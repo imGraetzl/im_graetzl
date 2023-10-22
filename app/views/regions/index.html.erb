@@ -29,7 +29,7 @@
       <%= render 'regions/action_card' if !user_signed_in? %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/energieteiler', graetzl: @graetzl if current_region.is?('wien') %>
+    <%= render Meeting.find(16162), featured_card: 'featuredCard -hidden' if current_region.is?('wien') && Meeting.exists?(16162) %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
   </div>

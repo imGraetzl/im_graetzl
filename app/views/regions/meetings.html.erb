@@ -43,7 +43,7 @@
       <%= render 'meetings/action_card' %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? && current_region.is?('wien') %>
+    <%= render Meeting.find(16162), featured_card: 'featuredCard -hidden' if current_region.is?('wien') && Meeting.exists?(16162) %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
