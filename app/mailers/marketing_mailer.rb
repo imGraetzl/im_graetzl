@@ -7,7 +7,7 @@ class MarketingMailer < ApplicationMailer
     headers("X-MC-Tags" => "subscription-meeting-invite")
 
     mail(
-      subject: "Einladung zum Jahrestreffen der imGrätzl Fördermitglieder",
+      subject: "Erinnerung: Einladung zum Jahrestreffen für imGrätzl Förder*innen am 23.11.",
       from: platform_email("wir"),
       to: @user.email,
     )
