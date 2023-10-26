@@ -8,6 +8,10 @@ class SubscriptionMailerPreview < ActionMailer::Preview
     SubscriptionMailer.invoice(Subscription.last)
   end
 
+  def invoice_upcoming
+    SubscriptionMailer.invoice_upcoming(Subscription.last, Subscription.last.subscription_plan.amount, Time.now.to_i)
+  end
+
   def invoice_payment_failed
     SubscriptionMailer.invoice_payment_failed(Subscription.last)
   end
