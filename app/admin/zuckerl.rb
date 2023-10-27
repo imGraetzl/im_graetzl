@@ -85,8 +85,8 @@ ActiveAdmin.register Zuckerl do
     column :payment_status
     column :aasm_state
     column :entire_region
-    column(:graetzl) { |zuckerl| zuckerl.graetzl }
-    column(:plz) { |zuckerl| zuckerl.graetzl.zip }
+    column(:graetzl) { |zuckerl| zuckerl.graetzl if zuckerl.graetzl }
+    column(:plz) { |zuckerl| zuckerl.graetzl&.zip if zuckerl.graetzl }
     column :region_id
   end
 
