@@ -71,5 +71,23 @@ ActiveAdmin.register Zuckerl do
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
     end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
   end
+
+  csv do
+    column :id
+    column :created_at
+    column(:email) {|zuckerl| zuckerl.user.email if zuckerl.user }
+    column :amount
+    column :debited_at
+    column :payment_status
+    column :aasm_state
+    column :entire_region
+    column(:graetzl) { |zuckerl| zuckerl.graetzl }
+    column(:plz) { |zuckerl| zuckerl.graetzl.zip }
+    column :region_id
+  end
+
 end

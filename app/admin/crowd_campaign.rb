@@ -95,6 +95,25 @@ ActiveAdmin.register CrowdCampaign do
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
     end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
+  end
+
+  csv do
+    column :id
+    column :created_at
+    column :startdate
+    column :enddate
+    column :email
+    column :status
+    column :funding_status
+    column :transaction_fee_percentage
+    column :effective_funding_sum
+    column :crowd_pledges_fee
+    column :crowd_pledges_fee_netto
+    column :successful?
+    column :region_id
   end
 
 end
