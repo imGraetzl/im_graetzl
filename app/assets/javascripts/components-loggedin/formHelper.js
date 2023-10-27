@@ -53,9 +53,12 @@ APP.components.formHelper = (function() {
     $("[data-max-chars]").keyup(function() {
       var maxLength = $(this).data('max-chars');
       var lengthCount = $(this).val().length;
+      var newLines = $(this).val().match(/(\r\n|\n|\r)/g);
+      var additional = newLines?.length || 0;
       var lengthLeft = maxLength-lengthCount;
       $(this).closest('div').css("position", "relative");
       $(this).closest('div').find('.charsLeft').text(lengthLeft);
+      $(this).attr('maxlength', maxLength + additional);
     });
 
     // MIN Chars Input Counter
