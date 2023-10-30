@@ -83,10 +83,9 @@ APP.components.stripePayment = (function() {
 
       if (result.error.type === "card_error" || result.error.type === "validation_error") {
         form.find(".error-message").text(result.error.message);
-        //console.log(result)
       } else {
-        form.find(".error-message").text("Es ist ein Fehler aufgetreten, bitte versuche es erneut.");
-        //console.log(result)
+        //form.find(".error-message").text("Es ist ein Fehler aufgetreten, bitte versuche es erneut.");
+        form.find(".error-message").text(result.error.message);
       }
 
       setLoading(form, false);
@@ -117,8 +116,9 @@ APP.components.stripePayment = (function() {
   function setLoading(form, isLoading) {
     var btntext = form.find("#payment-submit").data('btntext') || 'Jetzt unterstützen'
     if (isLoading) {
-      // Disable the button and show a spinner
-      form.find("#payment-submit").attr("disabled", true).text('Bitte warten ...');
+      // Clear Error Msg / Disable the button and show a spinner
+      form.find(".error-message").text("");
+      form.find("#payment-submit").attr("disabled", true).text('Autorisierung läuft. Bitte warten ...');
     } else {
       form.find("#payment-submit").removeAttr("disabled").text(btntext);
     }

@@ -53,7 +53,7 @@ class ToolRentalsController < ApplicationController
     success, error = ToolRentalService.new.payment_authorized(@tool_rental, params[:setup_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
       redirect_to [:summary, @tool_rental]
     else
       flash[:error] = error
@@ -75,7 +75,7 @@ class ToolRentalsController < ApplicationController
     success, error = ToolRentalService.new.payment_retried(@tool_rental, params[:payment_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
       redirect_to [:summary, @tool_rental]
     else
       flash[:error] = error

@@ -77,7 +77,7 @@ class RoomBoostersController < ApplicationController
     success, error = RoomBoosterService.new.payment_authorized(@room_booster, params[:payment_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
       redirect_to [:summary, @room_booster]
     else
       flash[:error] = error

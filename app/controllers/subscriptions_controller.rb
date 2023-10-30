@@ -73,7 +73,7 @@ class SubscriptionsController < ApplicationController
     success, error = SubscriptionService.new.payment_authorized(@subscription, params[:payment_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
 
       ### Cancel prevoius active Subscriptions if exists (may used for 0,00 € Subscriptioons - May improve this)
       previous_subscriptions = current_user.subscriptions.active.where.not(:id => @subscription.id)

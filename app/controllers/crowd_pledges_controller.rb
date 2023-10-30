@@ -56,7 +56,7 @@ class CrowdPledgesController < ApplicationController
     success, error = CrowdPledgeService.new.payment_authorized(@crowd_pledge, params[:setup_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
 
       if @crowd_pledge.guest_user? && @crowd_pledge.guest_newsletter? && !User.find_by_email(@crowd_pledge.email)
         # Subscribe Guest User in Mailchimp
@@ -103,7 +103,7 @@ class CrowdPledgesController < ApplicationController
     success, error = CrowdPledgeService.new.payment_retried(@crowd_pledge, params[:payment_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
       redirect_to [:summary, @crowd_pledge]
     else
       flash[:error] = error
