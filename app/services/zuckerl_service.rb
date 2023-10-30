@@ -134,6 +134,11 @@ class ZuckerlService
     true
   end
 
+  def payment_refunded(zuckerl)
+    zuckerl.update(payment_status: 'refunded', status: 'storno')
+    true
+  end
+
   private
 
   def available_payment_methods(zuckerl)

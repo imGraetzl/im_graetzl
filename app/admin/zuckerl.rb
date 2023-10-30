@@ -4,12 +4,13 @@ ActiveAdmin.register Zuckerl do
   scope :initialized, default: true
   scope :pending
   scope :approved
-  scope :cancelled
   scope :live
   scope "#{I18n.localize Time.now.end_of_month+1.day, format: '%B'} Zuckerl", :next_month_live
   scope :expired
   scope "Bezahlt", :marked_as_paid
   scope :free
+  scope :cancelled
+  scope :storno
   scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
