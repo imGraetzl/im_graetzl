@@ -20,7 +20,7 @@ class MarketingMailer < ApplicationMailer
     headers("X-MC-Tags" => "energieteiler-meeting-invite")
 
     mail(
-      subject: "Einladung zum Infotreffen 'Energiegemeinschaften'",
+      subject: "Sorry, Infotreffen 'Energiegemeinschaften' ist am Mittwoch, nicht Montag...",
       from: platform_email("wir"),
       to: @user.email,
     )
