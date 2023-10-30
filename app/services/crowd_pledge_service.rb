@@ -152,7 +152,7 @@ class CrowdPledgeService
   end
 
   def available_payment_methods(crowd_pledge)
-    if crowd_pledge.total_price <= 200
+    if crowd_pledge.total_price <= 500
       ['card', 'sepa_debit']
     else
       ['card']
