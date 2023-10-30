@@ -14,4 +14,26 @@ ActiveAdmin.register RoomBooster do
   scope :all
 
   index { render 'index', context: self }
+
+  controller do
+    def apply_pagination(chain)
+      chain = super unless formats.include?(:json) || formats.include?(:csv)
+      chain
+    end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
+  end
+
+  csv do
+    column :id
+    column :created_at
+    column :starts_at_date
+    column(:email) {|booster| booster.user.email if booster.user }
+    column :status
+    column :payment_status
+    column :amount
+    column :region_id
+  end
+
 end

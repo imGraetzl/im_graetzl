@@ -7,4 +7,27 @@ ActiveAdmin.register SubscriptionInvoice do
   scope :free
 
   index { render 'index', context: self }
+
+  controller do
+    def apply_pagination(chain)
+      chain = super unless formats.include?(:json) || formats.include?(:csv)
+      chain
+    end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
+  end
+
+  csv do
+    column :id
+    column :created_at
+    column(:email) {|i| i.subscription.user.email if i.subscription.user }
+    column :amount
+    column :status
+    column(:status) { |i| i.subscription.status }
+    column(:start) { |i| i.subscription.current_period_start }
+    column(:end) { |i| i.subscription.current_period_end }
+    column(:region_id) { |i| i.subscription.region_id }
+  end
+
 end

@@ -19,9 +19,9 @@ class Zuckerl < ApplicationRecord
   validates_presence_of :title, :description, :cover_photo
   validates :amount, presence: true, on: :create
 
-  string_enum payment_status: ["free", "authorized", "processing", "debited", "failed"]
+  string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
 
-  scope :initialized, -> { where.not(aasm_state: :incomplete).where.not(aasm_state: :cancelled) }
+  scope :initialized, -> { where.not(aasm_state: [:incomplete, :cancelled, :storno]) }
   scope :entire_region, -> { where(entire_region: true) }
   scope :graetzl, -> { where(entire_region: false) }
   scope :marked_as_paid, -> { where("debited_at IS NOT NULL AND amount IS NOT NULL").or(where(payment_status: [:processing, :debited])) }
@@ -40,9 +40,10 @@ class Zuckerl < ApplicationRecord
     state :incomplete, initial: true
     state :pending
     state :approved
-    state :cancelled
     state :live
     state :expired
+    state :cancelled
+    state :storno
 
     event :pending do
       transitions from: :incomplete, to: :pending
@@ -62,6 +63,10 @@ class Zuckerl < ApplicationRecord
 
     event :cancel do
       transitions to: :cancelled
+    end
+
+    event :storno do
+      transitions to: :storno
     end
   end
 

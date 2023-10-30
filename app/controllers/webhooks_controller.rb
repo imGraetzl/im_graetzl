@@ -136,6 +136,11 @@ class WebhooksController < ApplicationController
       room_booster = RoomBooster.find_by(id: charge.metadata.room_booster_id)
       RoomBoosterService.new.payment_refunded(room_booster) if room_booster
     end
+
+    if charge.metadata["zuckerl_id"]
+      zuckerl = Zuckerl.find_by(id: charge.metadata.zuckerl_id)
+      ZuckerlService.new.payment_refunded(zuckerl) if zuckerl
+    end
   end
 
 end

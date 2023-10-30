@@ -13,7 +13,7 @@
     <%= icon_tag "layout-document" %>
     <span>Kurzbeschreibung</span>
     <% end %>
-    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable?, data: { max_chars: 250 }, maxlength:250 %>
+    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable?, data: { max_chars: 250 } %>
     <span class="charCountContainer charsLeft"></span>
   </div>
   <div class="benefit-checkbox">
@@ -28,7 +28,7 @@
       <%= icon_tag "layout-document" %>
       <span>Vorteil für die Allgemeinheit</span>
       <% end %>
-      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', data: { max_chars: 1500 }, maxlength:1500 %>
+      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', data: { max_chars: 1500 } %>
       <span class="charCountContainer charsLeft"></span>
     </div>
   </div>

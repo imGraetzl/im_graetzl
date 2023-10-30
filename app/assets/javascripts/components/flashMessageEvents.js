@@ -128,7 +128,7 @@ APP.components.flashMsgEvents = (function() {
       }
 
       // Purchase
-      else if (flashMsg('Deine Zahlung wurde erfolgreich authorisiert.')){
+      else if (flashMsg('Deine Zahlung wurde erfolgreich autorisiert.')){
         if ($("[data-transaction-id]").exists()) {
           var $data = $(".summary-screen");
           gtag("event", "purchase", {

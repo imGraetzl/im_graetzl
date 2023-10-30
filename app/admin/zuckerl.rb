@@ -4,12 +4,13 @@ ActiveAdmin.register Zuckerl do
   scope :initialized, default: true
   scope :pending
   scope :approved
-  scope :cancelled
   scope :live
   scope "#{I18n.localize Time.now.end_of_month+1.day, format: '%B'} Zuckerl", :next_month_live
   scope :expired
   scope "Bezahlt", :marked_as_paid
   scope :free
+  scope :cancelled
+  scope :storno
   scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -71,5 +72,23 @@ ActiveAdmin.register Zuckerl do
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
     end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
   end
+
+  csv do
+    column :id
+    column :created_at
+    column(:email) {|zuckerl| zuckerl.user.email if zuckerl.user }
+    column :amount
+    column :debited_at
+    column :payment_status
+    column :aasm_state
+    column :entire_region
+    column(:graetzl) { |zuckerl| zuckerl.graetzl if zuckerl.graetzl }
+    column(:plz) { |zuckerl| zuckerl.graetzl&.zip if zuckerl.graetzl }
+    column :region_id
+  end
+
 end

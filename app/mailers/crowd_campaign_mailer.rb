@@ -108,8 +108,8 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
 
     already_sent = @crowd_campaign.crowd_pledges.where(email: crowd_pledge.email).where.not(inclomplete_reminder_sent_at: nil).any?
-    already_pledged = @crowd_campaign.crowd_pledges.authorized.where(email: crowd_pledge.email).any?
-    return if already_sent || already_pledged || !crowd_pledge.incomplete?
+    #already_pledged = @crowd_campaign.crowd_pledges.authorized.where(email: crowd_pledge.email).any?
+    return if already_sent || !crowd_pledge.incomplete?
     crowd_pledge.update(inclomplete_reminder_sent_at: Time.current)
 
     headers("X-MC-Tags" => "crowd-pledge-incomplete")

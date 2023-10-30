@@ -155,7 +155,7 @@ class ToolRentalService
   private
 
   def available_payment_methods(tool_rental)
-    if tool_rental.total_price <= 200
+    if tool_rental.total_price <= 500
       ['card', 'sepa_debit']
     else
       ['card']

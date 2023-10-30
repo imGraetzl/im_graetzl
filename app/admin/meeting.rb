@@ -96,14 +96,18 @@ ActiveAdmin.register Meeting do
   end
 
   csv do
-    column(:email) {|m| m.user.email }
-    column(:full_name) {|m| m.user.full_name }
-    column :user_id
     column :id
-    column :name
-    column(:going_tos) {|m| m.going_tos.count }
-    column(:meeting_url) { |m| graetzl_meeting_url(m.graetzl, m)}
     column :created_at
+    column :starts_at_date
+    column(:email) {|m| m.user.email }
+    column :graetzl
+    column(:plz) { |m| m.graetzl.zip }
+    column :region_id
+    #column(:full_name) {|m| m.user.full_name }
+    #column :user_id
+    #column :name
+    #column(:going_tos) {|m| m.going_tos.count }
+    #column(:meeting_url) { |m| graetzl_meeting_url(m.graetzl, m)}
   end
 
   permit_params :graetzl_id,

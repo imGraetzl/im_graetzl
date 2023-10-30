@@ -1,5 +1,13 @@
 class MarketingMailerPreview < ActionMailer::Preview
 
+  def subscription_meeting_invite
+    MarketingMailer.subscription_meeting_invite(User.last)
+  end
+
+  def energieteiler_meeting_invite
+    MarketingMailer.energieteiler_meeting_invite(User.last)
+  end
+
   def agb_change_and_welocally
     MarketingMailer.agb_change_and_welocally(User.last)
   end

@@ -149,7 +149,7 @@ class RoomRentalService
   private
 
   def available_payment_methods(room_rental)
-    if room_rental.total_price <= 200
+    if room_rental.total_price <= 500
       ['card', 'sepa_debit']
     else
       ['card']

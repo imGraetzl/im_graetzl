@@ -15,7 +15,7 @@
     <%= icon_tag "layout-document" %>
     <span>Wofür benötigt?</span>
     <% end %>
-    <%= f.text_area :funding_1_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', data: { max_chars: 500 }, maxlength:500, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
+    <%= f.text_area :funding_1_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', data: { max_chars: 500 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="charCountContainer charsLeft"></span>
   </div>
 
@@ -38,7 +38,7 @@
     <%= icon_tag "layout-document" %>
     <span>Wofür benötigt?</span>
     <% end %>
-    <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', data: { max_chars: 500 }, maxlength:500, disabled: !@crowd_campaign.editable? %>
+    <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', data: { max_chars: 500 }, disabled: !@crowd_campaign.editable? %>
     <span class="charCountContainer charsLeft"></span>
   </div>
 
