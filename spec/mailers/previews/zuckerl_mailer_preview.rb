@@ -5,7 +5,7 @@ class ZuckerlMailerPreview < ActionMailer::Preview
   end
 
   def invoice
-    ZuckerlMailer.invoice(Zuckerl.marked_as_paid.last)
+    ZuckerlMailer.invoice(Zuckerl.debited.last)
   end
 
   def live
