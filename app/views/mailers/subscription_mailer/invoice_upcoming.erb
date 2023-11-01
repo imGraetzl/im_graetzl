@@ -1,16 +1,34 @@
+<% content_for(:above_title, "Hallo #{@subscription.user.first_name}") %>
+<% content_for(:title, "Vielen herzlichen Dank, dass du #{t("region.#{@subscription.region_id}.domain_short")} mit einer Fördermitgliedschaft unterstützt!") %>
+
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:15px"> </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+</table>
+
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
         <p>
-          Servus <%= @user.first_name %>,
+          Es ist nun wieder ein <%= @subscription.subscription_plan.interval == 'month' ? 'Monat' : 'Jahr' %> vergangen, ein <%= @subscription.subscription_plan.interval == 'month' ? 'Monat' : 'Jahr' %> in dem wir Dank deiner Unterstützung <%= t("region.#{@subscription.region_id}.domain_full") %> weiter betreiben konnten.
         </p>
         <p>
-          Vielen herzlichen Dank, dass du <%= t("region.#{@subscription.region_id}.domain_short") %> mit einer Fördermitgliedschaft unterstützt! 
-        </p>
-        <p>
-          Es ist wieder ein <%= @subscription.subscription_plan.interval == 'month' ? 'Monat' : 'Jahr' %> vergangen, ein <%= @subscription.subscription_plan.interval == 'month' ? 'Monat' : 'Jahr' %> in dem wir Dank deiner Unterstützung <%= t("region.#{@subscription.region_id}.domain_short") %> weiter betreiben konnten.
-          Deine Fördermitgliedschaft verlängert sich am <%= I18n.localize(@period_start, format:'%d. %B %Y') %> um ein weiteres <%= @subscription.subscription_plan.interval == 'month' ? 'Monat' : 'Jahr' %>. Der Förderbeitrag von <%= number_to_currency(@amount, unit: "€") %> wird von deiner hinterlegten Zahlungsmethode eingezogen.
+          Deine Fördermitgliedschaft <strong>verlängert sich am <%= I18n.localize(@period_start, format:'%d. %B %Y') %></strong> um ein weiteres <%= @subscription.subscription_plan.interval == 'month' ? 'Monat' : 'Jahr' %>. 
+          Der Förderbeitrag von <%= number_to_currency(@amount, unit: "€") %> wird dir am <%= I18n.localize(@period_start, format:'%d.%m.%Y') %> von deiner hinterlegten Zahlungsmethode eingezogen.
         </p>
       </td>
     </tr>
@@ -22,10 +40,10 @@
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
         <p>
-          Bei Fragen kannst du dich gerne an uns wenden. Schreib uns an: <%= t("region.#{@subscription.region.id}.contact_email") %>.
+          Bei Fragen kannst du dich gerne an uns wenden. Schreib uns dazu an: <%= t("region.#{@subscription.region.id}.contact_email") %>.
         </p>
         <p>
-          Herzlichn Dank,<br>
+          Vielen herzlichn Dank für deine Unterstützung,<br>
           Dein Team von <%= t("region.#{@subscription.region_id}.domain_full") %>
         </p>
       </td>

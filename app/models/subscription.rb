@@ -11,7 +11,7 @@ class Subscription < ApplicationRecord
   scope :coupon, -> { where.not(coupon: nil) }
   scope :paid, -> { where(coupon: nil) }
 
-  after_update :update_user, if: -> { saved_change_to_status? }
+  after_update :update_user, if: -> { saved_change_to_status? || saved_change_to_current_period_end? }
 
   NEXT_GOAL = 75
 
