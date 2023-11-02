@@ -6,16 +6,16 @@
           Servus <%= @user.first_name %>,
         </p>
         <p>
-          <strong>Leider gab es bei der Abbuchung deiner Fördermitgliedschaft Probleme,</strong> da deine ausgewählte Zahlungsform nicht belastet werden konnte.
+          Leider gab es bei der Bezahlung deiner Fördermitgliedschaft Probleme, <strong>da deine hinterlegte Zahlungsform nicht belastet werden konnte.</strong>
         </p>
         <p>
-          <strong>Deine aktuelle Mitgliedschaft wurde daher storniert.</strong> Wür würden uns sehr freuen, wenn du es mit einer anderen Zahlungsmethode erneut versuchst.
+          Bitte ändere deine hinterlegte Zahlungsmethode eingeloggt auf <%= t("region.#{@subscription.region.id}.domain_full") %> unter '<%= link_to 'Zahlungsmethode anpassen', payment_method_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>'.
         </p>
       </td>
     </tr>
     <tr>
       <td>
-      <%= render 'mailers/shared/button', title: "Zur Fördermitgliedschaft", url: subscription_plans_url %>
+      <%= render 'mailers/shared/button', title: "Zahlungsmethode anpassen", url: payment_method_user_url %>
       </td>
     </tr>
     <tr>

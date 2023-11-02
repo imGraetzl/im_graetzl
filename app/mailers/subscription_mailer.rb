@@ -35,6 +35,7 @@ class SubscriptionMailer < ApplicationMailer
       subject: "Deine #{@region.host_domain_name} Fördermitgliedschaft wird am #{I18n.localize(@period_start, format:'%d. %B')} verlängert.",
       from: platform_email('no-reply'),
       to: @user.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -44,7 +45,7 @@ class SubscriptionMailer < ApplicationMailer
     @region = @subscription.region
     headers("X-MC-Tags" => "subscription-invoice-payment-failed")
     mail(
-      subject: "#{@region.host_domain_name} Fördermitgliedschaft Zahlung fehlgeschlagen - Bitte versuche es erneut.",
+      subject: "#{@region.host_domain_name} Fördermitgliedschaft Zahlung fehlgeschlagen - Bitte überprüfe deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
       bcc: 'michael@imgraetzl.at',

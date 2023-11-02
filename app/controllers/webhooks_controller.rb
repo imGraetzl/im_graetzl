@@ -109,7 +109,7 @@ class WebhooksController < ApplicationController
 
   def payment_action_required(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
-    SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later if subscription
+    SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
   end
 
   def invoice_paid(object)
