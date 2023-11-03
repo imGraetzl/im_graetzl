@@ -108,6 +108,10 @@ ActiveAdmin.register CrowdCampaign do
     column :status
     column :funding_status
     column :transaction_fee_percentage
+
+    column('Minimalbetrag') { |i| number_to_currency(i.funding_1_amount, precision: 2 ,unit: "") }
+    column('Optimalbetrag') { |i| number_to_currency(i.funding_2_amount, precision: 2 ,unit: "") }
+
     #column :effective_funding_sum
     column(:effective_funding_sum) { |i| number_to_currency(i.effective_funding_sum, precision: 2 ,unit: "") }
     #column :crowd_pledges_fee
