@@ -54,11 +54,11 @@ ActiveAdmin.register RoomOffer do
   csv do
     column :id
     column :created_at
-    column(:email) {|room| room.user.email if room.user }
     column :status
     column(:graetzl) { |room| room.graetzl }
     column(:plz) { |room| room.graetzl.zip }
     column :region_id
+    #column(:email) {|room| room.user.email if room.user }
     #column :slogan
     #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
     #column(:room_url) { |room| Rails.application.routes.url_helpers.room_offer_path(room)}

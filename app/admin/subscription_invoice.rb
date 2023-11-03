@@ -21,8 +21,9 @@ ActiveAdmin.register SubscriptionInvoice do
   csv do
     column :id
     column :created_at
-    column(:email) {|i| i.subscription.user.email if i.subscription.user }
-    column :amount
+    #column(:email) {|i| i.subscription.user.email if i.subscription.user }
+    #column :amount
+    column(:amount) { |i| number_to_currency(i.amount, precision: 2 ,unit: "") }
     column :status
     column(:status) { |i| i.subscription.status }
     column(:start) { |i| i.subscription.current_period_start }

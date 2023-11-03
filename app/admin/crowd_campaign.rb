@@ -105,13 +105,15 @@ ActiveAdmin.register CrowdCampaign do
     column :created_at
     column :startdate
     column :enddate
-    column :email
     column :status
     column :funding_status
     column :transaction_fee_percentage
-    column :effective_funding_sum
-    column :crowd_pledges_fee
-    column :crowd_pledges_fee_netto
+    #column :effective_funding_sum
+    column(:effective_funding_sum) { |i| number_to_currency(i.effective_funding_sum, precision: 2 ,unit: "") }
+    #column :crowd_pledges_fee
+    column(:crowd_pledges_fee) { |i| number_to_currency(i.crowd_pledges_fee, precision: 2 ,unit: "") }
+    #column :crowd_pledges_fee_netto
+    column(:crowd_pledges_fee_netto) { |i| number_to_currency(i.crowd_pledges_fee_netto, precision: 2 ,unit: "") }
     column :successful?
     column :region_id
   end

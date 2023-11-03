@@ -67,8 +67,8 @@ ActiveAdmin.register User do
     csv do
       column :id
       column :created_at
-      column :email
-      column :full_name
+      #column :email
+      #column :full_name
       column(:graetzl) { |user| user.graetzl }
       column(:plz) { |user| user.graetzl.zip }
       column :region_id
