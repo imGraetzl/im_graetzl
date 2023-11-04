@@ -14,8 +14,8 @@ class WebhooksController < ApplicationController
       subscription_updated(event.data.object)
     when "customer.subscription.deleted"
       subscription_deleted(event.data.object)
-    #when "invoice.payment_action_required"
-    #  payment_action_required(event.data.object)
+    when "invoice.payment_action_required"
+      payment_action_required(event.data.object)
     when "invoice.payment_failed"
       invoice_payment_failed(event.data.object)
     when "invoice.paid"
@@ -109,11 +109,10 @@ class WebhooksController < ApplicationController
     SubscriptionService.new.delete_subscription(subscription, object) if subscription
   end
 
-  # Doch benötigt !!! Check / Also check chris oliver videos again!
-  #def payment_action_required(object)
-  #  subscription = Subscription.find_by(stripe_id: object.subscription)
-  #  SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
-  #end
+  def payment_action_required(object)
+    subscription = Subscription.find_by(stripe_id: object.subscription)
+    SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
+  end
 
   def invoice_paid(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
@@ -130,7 +129,10 @@ class WebhooksController < ApplicationController
 
   def invoice_payment_failed(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
-    SubscriptionMailer.invoice_payment_failed(subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
+    payment_intent = Stripe::PaymentIntent.retrieve(object.payment_intent)
+    if payment_intent.status == "requires_payment_method"
+      SubscriptionMailer.invoice_payment_failed(subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
+    end
   end
 
   def charge_refunded(charge)
