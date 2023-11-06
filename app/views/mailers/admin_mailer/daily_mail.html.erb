@@ -19,7 +19,7 @@
     <tbody>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Aktive Mitgliedschaften", collection: Subscription.active, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Bezahlte Rechnungen", collection: SubscriptionInvoice.paid %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.all, amount: :amount %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.paid, amount: :amount %>
     </tbody>
   </table>
 

@@ -4,6 +4,7 @@ ActiveAdmin.register SubscriptionInvoice do
 
   scope :all, default: true
   scope :paid
+  scope :open
   scope :free
 
   index { render 'index', context: self }
