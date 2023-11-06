@@ -28,11 +28,19 @@
 
         <% if @subscription.on_grace_period? %>
         <li class="sum">
-        Deine Mitgliedschaft läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>.
+          Deine Mitgliedschaft läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>.
         </li>
         <% elsif @subscription.canceled? %>
         <li class="sum">
-        Deine Mitgliedschaft ist am <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %> ausgelaufen.
+          Deine Mitgliedschaft ist am <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %> ausgelaufen.
+        </li>
+        <% elsif @subscription.past_due? && @subscription.subscription_invoices.open.any? %>
+        <li class="sum">
+          Für deine Mitgliedschaft liegt eine offene Rechnung vor. Bitte schließe deine Zahlung jetzt ab.
+        </li>
+        <% elsif @subscription.past_due? && !@subscription.subscription_invoices.open.any? %>
+        <li class="sum">
+          Bitte aktualisiere deine Zahlungsmethode um deine aktuelle Fördermitgliedschaft zu verlängern.
         </li>
         <% end %>
 
@@ -51,6 +59,15 @@
     <% elsif @subscription.canceled? %>
 
       <%= link_to "Zur Mitgliedschaft Übersicht", subscription_plans_path, class: 'btn-primary -mint' %>
+
+    <% elsif @subscription.past_due? && @subscription.subscription_invoices.open.any? %>
+
+      <% invoice = @subscription.subscription_invoices.open.last %>
+      <%= link_to "Zahlung abschließen", change_payment_subscription_path(@subscription, payment_intent: invoice.stripe_payment_intent_id), class: 'btn-primary' %>
+
+    <% elsif @subscription.past_due? && !@subscription.subscription_invoices.open.any? %>
+
+      <%= link_to "Zahlungsmethode aktualisieren", payment_method_user_path, class: 'btn-primary' %>
 
     <% end %>
 

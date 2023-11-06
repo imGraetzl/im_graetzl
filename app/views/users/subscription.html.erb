@@ -79,16 +79,24 @@
 
     <div class="table-container -light" role="table">
       <div class="flex-table header" role="rowgroup">
-        <div class="flex-row medium first" role="columnheader">Datum</div>
-        <div class="flex-row large" role="columnheader">Rechnungsnummer</div>
-        <div class="flex-row xxxlarge" role="columnheader">Download PDF Rechnung</div>
+        <div class="flex-row large first" role="columnheader">Datum</div>
+        <div class="flex-row large" role="columnheader">Status</div>
+        <div class="flex-row xlarge" role="columnheader">Rechnungsnummer</div>
+        <div class="flex-row xlarge" role="columnheader">Rechnung</div>
       </div>
 
       <% current_user.subscription_invoices.order(created_at: :desc).each do |invoice| %>
         <div class="flex-table" role="rowgroup">
-          <div class="flex-row medium" role="cell"><%= I18n.localize(invoice.created_at, format:'%B %Y') %></div>
-          <div class="flex-row large" role="cell"><%= invoice.invoice_number %></div>
-          <div class="flex-row xxxlarge" role="cell"><%= link_to 'Download', invoice.generate_invoice_pdf %></div>
+          <div class="flex-row large" role="cell"><%= I18n.localize(invoice.created_at, format:'%B %Y') %></div>
+          <div class="flex-row large" role="cell"><%= invoice.status %></div>
+          <div class="flex-row xlarge" role="cell"><%= invoice.invoice_number %></div>
+          <div class="flex-row xlarge" role="cell">
+          <% if invoice.status == "open" %>
+            <%= link_to 'Zahlung abschließen', change_payment_subscription_path(@subscription, payment_intent: invoice.stripe_payment_intent_id), class: '-rose' %>
+          <% else %>
+            <%= link_to 'Download', invoice.generate_invoice_pdf %>
+          <% end %>
+          </div>
         </div>
       <% end %>
 

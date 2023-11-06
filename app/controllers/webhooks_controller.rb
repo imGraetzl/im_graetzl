@@ -15,7 +15,7 @@ class WebhooksController < ApplicationController
     when "customer.subscription.deleted"
       subscription_deleted(event.data.object)
     when "invoice.payment_action_required"
-      payment_action_required(event.data.object)
+      invoice_payment_action_required(event.data.object)
     when "invoice.payment_failed"
       invoice_payment_failed(event.data.object)
     when "invoice.paid"
@@ -109,9 +109,12 @@ class WebhooksController < ApplicationController
     SubscriptionService.new.delete_subscription(subscription, object) if subscription
   end
 
-  def payment_action_required(object)
+  def invoice_payment_action_required(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
-    SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
+    if subscription && ["active", "past_due"].include?(subscription.status)
+      SubscriptionService.new.invoice_payment_action_required(subscription, object)
+      SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later  
+    end
   end
 
   def invoice_paid(object)
