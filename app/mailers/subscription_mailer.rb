@@ -45,7 +45,7 @@ class SubscriptionMailer < ApplicationMailer
     @region = @subscription.region
     headers("X-MC-Tags" => "subscription-invoice-payment-failed")
     mail(
-      subject: "#{@region.host_domain_name} Fördermitgliedschaft Zahlung fehlgeschlagen - Bitte überprüfe deine Zahlungsmethode",
+      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte überprüfe deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
       bcc: 'michael@imgraetzl.at',
@@ -59,7 +59,7 @@ class SubscriptionMailer < ApplicationMailer
     @region = @subscription.region
     headers("X-MC-Tags" => "subscription-payment-action-required")
     mail(
-      subject: "#{@region.host_domain_name} Fördermitgliedschaft Zahlung fehlgeschlagen - Bitte überprüfe deine Zahlungsmethode",
+      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte überprüfe deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
       bcc: 'michael@imgraetzl.at',

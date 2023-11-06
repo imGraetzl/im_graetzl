@@ -17,7 +17,7 @@ class SubscriptionMailerPreview < ActionMailer::Preview
   end
 
   def payment_action_required
-    SubscriptionMailer.payment_action_required(Subscription.last)
+    SubscriptionMailer.payment_action_required("pi_3O9OuuESnSu3ZRER1MwFZdeC", Subscription.last)
   end
 
 end
