@@ -6,6 +6,7 @@ ActiveAdmin.register SubscriptionInvoice do
   scope :paid
   scope :open
   scope :free
+  scope :refunded
 
   index { render 'index', context: self }
 end

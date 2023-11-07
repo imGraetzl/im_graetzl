@@ -6,6 +6,7 @@ class SubscriptionInvoice < ApplicationRecord
   scope :paid, -> { where("amount > 0").and(where(status: :paid)) }
   scope :open, -> { where(status: :open) }
   scope :free, -> { where("amount = 0") }
+  scope :refunded, -> { where(status: :refunded) }
 
   default_scope -> { sorted }
 

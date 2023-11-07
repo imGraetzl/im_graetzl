@@ -139,19 +139,22 @@ class WebhooksController < ApplicationController
   end
 
   def charge_refunded(charge)
+
     if charge.metadata["room_rental_id"]
       room_rental = RoomRental.find_by(id: charge.metadata.room_rental_id)
       RoomRentalService.new.payment_refunded(room_rental) if room_rental
-    end
-
-    if charge.metadata["tool_rental_id"]
+    
+    elsif charge.metadata["tool_rental_id"]
       tool_rental = ToolRental.find_by(id: charge.metadata.tool_rental_id)
       ToolRentalService.new.payment_refunded(tool_rental) if tool_rental
-    end
 
-    if charge.metadata["room_booster_id"]
+    elsif charge.metadata["room_booster_id"]
       room_booster = RoomBooster.find_by(id: charge.metadata.room_booster_id)
       RoomBoosterService.new.payment_refunded(room_booster) if room_booster
+
+    elsif charge.invoice
+      invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
+      SubscriptionService.new.invoice_refunded(invoice, charge) if invoice
     end
   end
 
