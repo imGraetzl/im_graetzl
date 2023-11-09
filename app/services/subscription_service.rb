@@ -82,7 +82,8 @@ class SubscriptionService
     ) if object.ended_at.present?
   end
 
-  def invoice_paid(subscription, object)
+  def invoice_payment_action_required(subscription, object)
+
     user = subscription.user
     return if user.nil?
     return if user.subscription_invoices.where(stripe_id: object.id).any?
@@ -91,11 +92,49 @@ class SubscriptionService
       subscription_id: subscription.id,
       stripe_id: object.id,
       status:object.status,
-      amount:object.amount_paid / 100,
+      amount:object.amount_due / 100,
       created_at: Time.at(object.created),
       invoice_pdf: object.invoice_pdf,
       invoice_number: object.number,
+      stripe_payment_intent_id: object.payment_intent,
     )
+  end
+
+  def invoice_refunded(subscription_invoice, object)
+    subscription_invoice.update(
+      status: 'refunded'
+    )
+  end
+
+  def invoice_paid(subscription, object)
+    user = subscription.user
+    return if user.nil?
+
+    if user.subscription_invoices.where(stripe_id: object.id).any?
+      subscription_invoice = user.subscription_invoices.where(stripe_id: object.id)
+      subscription_invoice.update_all(
+        subscription_id: subscription.id,
+        stripe_id: object.id,
+        status:object.status,
+        amount:object.amount_paid / 100,
+        created_at: Time.at(object.created),
+        invoice_pdf: object.invoice_pdf,
+        invoice_number: object.number,
+        stripe_payment_intent_id: object.payment_intent,
+      )
+    else
+      user.subscription_invoices.create(
+        subscription_id: subscription.id,
+        stripe_id: object.id,
+        status:object.status,
+        amount:object.amount_paid / 100,
+        created_at: Time.at(object.created),
+        invoice_pdf: object.invoice_pdf,
+        invoice_number: object.number,
+        stripe_payment_intent_id: object.payment_intent,
+      )
+    end
+    
   end
 
   def valid_coupon?(coupon)

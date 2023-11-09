@@ -15,9 +15,13 @@ class WebhooksController < ApplicationController
     when "customer.subscription.deleted"
       subscription_deleted(event.data.object)
     when "invoice.payment_action_required"
-      payment_action_required(event.data.object)
+      invoice_payment_action_required(event.data.object)
+    when "invoice.payment_failed"
+      invoice_payment_failed(event.data.object)
     when "invoice.paid"
       invoice_paid(event.data.object)
+    when "invoice.upcoming"
+      invoice_upcoming(event.data.object)
     when "charge.refunded"
       charge_refunded(event.data.object)
     end
@@ -105,9 +109,12 @@ class WebhooksController < ApplicationController
     SubscriptionService.new.delete_subscription(subscription, object) if subscription
   end
 
-  def payment_action_required(object)
+  def invoice_payment_action_required(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
-    SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later if subscription && subscription.past_due?
+    if subscription && ["active", "past_due"].include?(subscription.status)
+      SubscriptionService.new.invoice_payment_action_required(subscription, object)
+      SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later  
+    end
   end
 
   def invoice_paid(object)
@@ -116,25 +123,38 @@ class WebhooksController < ApplicationController
     SubscriptionMailer.invoice(subscription).deliver_later if subscription
   end
 
+  def invoice_upcoming(object)
+    subscription = Subscription.find_by(stripe_id: object.subscription)
+    amount = object.lines.data[0].amount / 100
+    period_start = object.lines.data[0].period.start
+    SubscriptionMailer.invoice_upcoming(subscription, amount, period_start).deliver_later if subscription
+  end
+
   def invoice_payment_failed(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
-    SubscriptionMailer.invoice_payment_failed(subscription).deliver_later if subscription
+    payment_intent = Stripe::PaymentIntent.retrieve(object.payment_intent)
+    if payment_intent.status == "requires_payment_method"
+      SubscriptionMailer.invoice_payment_failed(subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
+    end
   end
 
   def charge_refunded(charge)
+
     if charge.metadata["room_rental_id"]
       room_rental = RoomRental.find_by(id: charge.metadata.room_rental_id)
       RoomRentalService.new.payment_refunded(room_rental) if room_rental
-    end
-
-    if charge.metadata["tool_rental_id"]
+    
+    elsif charge.metadata["tool_rental_id"]
       tool_rental = ToolRental.find_by(id: charge.metadata.tool_rental_id)
       ToolRentalService.new.payment_refunded(tool_rental) if tool_rental
-    end
 
-    if charge.metadata["room_booster_id"]
+    elsif charge.metadata["room_booster_id"]
       room_booster = RoomBooster.find_by(id: charge.metadata.room_booster_id)
       RoomBoosterService.new.payment_refunded(room_booster) if room_booster
+
+    elsif charge.invoice
+      invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
+      SubscriptionService.new.invoice_refunded(invoice, charge) if invoice
     end
 
     if charge.metadata["zuckerl_id"]

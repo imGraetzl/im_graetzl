@@ -24,13 +24,28 @@ class SubscriptionMailer < ApplicationMailer
     )
   end
 
+  def invoice_upcoming(subscription, amount, period_start)
+    @subscription = subscription
+    @period_start = Time.at(period_start).to_datetime
+    @amount = amount
+    @user = @subscription.user
+    @region = @subscription.region
+    headers("X-MC-Tags" => "subscription-invoice-upcoming")
+    mail(
+      subject: "Deine #{@region.host_domain_name} Fördermitgliedschaft wird am #{I18n.localize(@period_start, format:'%d. %B')} verlängert.",
+      from: platform_email('no-reply'),
+      to: @user.email,
+      bcc: 'michael@imgraetzl.at',
+    )
+  end
+
   def invoice_payment_failed(subscription)
     @subscription = subscription
     @user = @subscription.user
     @region = @subscription.region
     headers("X-MC-Tags" => "subscription-invoice-payment-failed")
     mail(
-      subject: "#{@region.host_domain_name} Fördermitgliedschaft Zahlung fehlgeschlagen - Bitte versuche es erneut.",
+      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte überprüfe deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
       bcc: 'michael@imgraetzl.at',
@@ -44,7 +59,7 @@ class SubscriptionMailer < ApplicationMailer
     @region = @subscription.region
     headers("X-MC-Tags" => "subscription-payment-action-required")
     mail(
-      subject: "#{@region.host_domain_name} Fördermitgliedschaft Zahlung fehlgeschlagen - Bitte überprüfe deine Zahlungsmethode",
+      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte überprüfe deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
       bcc: 'michael@imgraetzl.at',

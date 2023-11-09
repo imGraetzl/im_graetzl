@@ -3,7 +3,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
 
   # Taxrates for Stripe
-  config.stripe_default_tax_rates = "txr_1M4kSpESnSu3ZRERpdKtMkh5"
+  config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
 
   # Settings specified here will take precedence over those in config/application.rb.
   config.imgraetzl_host = "staging.imgraetzl.at"

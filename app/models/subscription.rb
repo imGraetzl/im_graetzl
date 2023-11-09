@@ -11,9 +11,7 @@ class Subscription < ApplicationRecord
   scope :coupon, -> { where.not(coupon: nil) }
   scope :paid, -> { where(coupon: nil) }
 
-  after_update :update_user, if: -> { saved_change_to_status? }
-
-  NEXT_GOAL = 75
+  after_update :update_user, if: -> { saved_change_to_status? || saved_change_to_current_period_end? }
 
   # For better Performance use "active?" from status and not def below:
   # def active?
@@ -30,10 +28,6 @@ class Subscription < ApplicationRecord
 
   def past_due?
     ["past_due"].include?(status)
-  end
-
-  def has_incomplete_payment?
-    ["past_due", "incomplete"].include?(status)
   end
 
   def region_zuckerl_included?
