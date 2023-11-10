@@ -18,6 +18,7 @@ ActiveAdmin.register CrowdPledge do
   filter :crowd_campaign, collection: proc { CrowdCampaign.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_reward, collection: proc { CrowdReward.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :guest_newsletter, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :contact_name
   filter :email
   filter :payment_method

@@ -5,15 +5,16 @@ ActiveAdmin.register CrowdCampaign do
   includes :location, :user, :comments
   actions :all, except: [:new, :create]
 
-  scope :all, default: true
+  scope :initialized, default: true
   scope :draft
   scope :pending
-  scope :declined
   scope :approved
   scope :funding
   scope :completed
-  scope 'Visible', :scope_public
+  #scope 'Visible', :scope_public
   scope 'Throttled',  :scope_throttled
+  scope :declined
+  scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
