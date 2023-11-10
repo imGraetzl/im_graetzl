@@ -13,16 +13,20 @@ ActiveAdmin.register User do
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select' }
   filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :id, label: 'User', as: :select, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  #filter :id, label: 'User', as: :select, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location_category, collection: proc { LocationCategory.pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :business_interests, collection: proc { BusinessInterest.pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :business, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
+  #filter :business_interests, collection: proc { BusinessInterest.pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  #filter :business, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :subscribed, label: 'Fördermitglied', input_html: { class: 'admin-filter-select'}
+  filter :id, :as => :numeric
   filter :first_name
   filter :last_name
   filter :email
-  filter :origin
+  filter :stripe_customer_id, label: 'Stripe ID'
+  filter :stripe_connect_account_id, label: 'Stripe Connect ID'
+  #filter :origin
   filter :created_at
-  filter :last_sign_in_at
+  #filter :last_sign_in_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }

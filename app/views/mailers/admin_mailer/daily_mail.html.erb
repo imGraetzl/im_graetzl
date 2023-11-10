@@ -32,8 +32,8 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Booster", collection: RoomBooster.where(payment_status: [:authorized, :processing, :debited]) %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Booster Einnahmen", collection: RoomBooster.where(payment_status: [:authorized, :processing, :debited]), amount: :amount %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Buchung", collection: RoomRental.where(payment_status: [:authorized, :processing, :debited]) %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungs Provision", collection: RoomRental.where(payment_status: [:processing, :debited]), amount: :service_fee %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding Provision", collection: CrowdPledge.debited, pledge: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungs Fee", collection: RoomRental.where(payment_status: [:processing, :debited]), amount: :service_fee %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding Fee", collection: CrowdPledge.debited, pledge: true %>
     </tbody>
   </table>
 
@@ -102,8 +102,7 @@
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
     <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen | Visible", collection: CrowdCampaign.scope_public, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
     </tbody>
   </table>

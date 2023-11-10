@@ -151,6 +151,7 @@ APP.components.search = (function() {
               type = 'crowd_campaigns'
               count = 0;
               counts.CrowdCampaign ? count += counts.CrowdCampaign : count;
+              break;
             case 'Umfragen':
               type = 'polls'
               count = 0;
