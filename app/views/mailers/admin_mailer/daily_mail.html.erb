@@ -61,10 +61,10 @@
 
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", thead: true %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share | Active", collection: CoopDemand.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", collection: CoopDemand %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
     </tbody>
   </table>
 
@@ -76,6 +76,15 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Raum", collection: RoomOffer %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum | Active", collection: RoomDemand.enabled, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum", collection: RoomDemand %>
+    </tbody>
+  </table>
+
+
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", thead: true %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share | Active", collection: CoopDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", collection: CoopDemand %>
     </tbody>
   </table>
 
@@ -95,14 +104,5 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Gerät", collection: ToolOffer %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät | Active", collection: ToolDemand.enabled, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät", collection: ToolDemand %>
-    </tbody>
-  </table>
-
-  
-  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding", thead: true %>
-    <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
     </tbody>
   </table>

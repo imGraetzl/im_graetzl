@@ -1,3 +1,7 @@
+<!-- Insert on 2. Position -->
+<%= render 'featured/crowd_campaign', crowd_campaign: CrowdCampaign.find(95) if @region.id == 'wien' && @period == 'weekly' && current_position == 2 %>
+<!-- Insert on 2. Position -->
+
 <%= render 'summary/block_header', title: "Volle Wir-Kraft für Olivia!" %>
 
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">

@@ -21,11 +21,13 @@ ActiveAdmin.register CrowdCampaign do
   filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :crowd_categories
+  filter :crowd_categories, input_html: { class: 'admin-filter-select'}
+  filter :service_fee_percentage, :as => :numeric
   filter :visibility_status
   filter :title
+  filter :startdate
+  filter :enddate
   filter :created_at
-  filter :updated_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }
