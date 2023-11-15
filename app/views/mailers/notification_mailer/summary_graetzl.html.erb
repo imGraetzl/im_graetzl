@@ -19,8 +19,8 @@
   <% next if notifications.empty? %>
   <% current_position += 1 %>
 
-  <!-- Insert on 2. Position -->
-  <%= render 'featured/subscription' if @region.id == 'wien' && @period == 'weekly' && current_position == 2 %>
+  <!-- Insert on 3. Position -->
+  <%= render 'featured/subscription' if @region.id == 'wien' && @period == 'weekly' && current_position == 3 %>
 
   <!-- Insert 2 Random Zuckerls on 3. Position -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
