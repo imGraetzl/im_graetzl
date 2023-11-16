@@ -28,6 +28,17 @@ module RoomsHelper
     end
   end
 
+  def payment_method_label(payment_method)
+    case payment_method
+    when 'card'
+      "Kreditkarte"
+    when 'sepa_debit'
+      "SEPA Lastschrift"
+    when 'eps'
+      "EPS Überweisung"
+    end
+  end
+
   def room_rental_params
     params.permit(
       :room_offer_id, :rent_from, :rent_to, :renter_company, :renter_name, :renter_address,
