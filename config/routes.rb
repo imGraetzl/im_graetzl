@@ -357,6 +357,9 @@ Rails.application.routes.draw do
   get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
   get 'kaernten' => redirect('https://kaernten.welocally.at')
 
+  # Stripe Apple Pay Verification
+  get '/.well-known/:name', to: redirect('/well-known/%{name}')
+
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
     get 'locations(/category/:category)', action: 'locations', as: 'locations', on: :member
