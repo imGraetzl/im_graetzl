@@ -1,12 +1,6 @@
 class ToolRentalsController < ApplicationController
   before_action :authenticate_user!, except: [:new, :change_payment, :payment_changed, :summary]
 
-  #content_security_policy(only: :choose_payment) do |policy|
-  #  policy.style_src :self, :unsafe_inline, "*.welocally.at", "*.stripe.com"
-  #  policy.script_src  :self, "*.welocally.at", "*.stripe.com"
-  #  policy.frame_ancestors :self, '*.stripe.com'
-  #end
-
   def new
     @tool_rental = ToolRental.new(initial_rental_params)
     @tool_rental.calculate_price
@@ -45,7 +39,6 @@ class ToolRentalsController < ApplicationController
   end
 
   def choose_payment
-    response.headers['X-Frame-Options'] = 'ALLOWALL'
     @tool_rental = current_user.tool_rentals.find(params[:id])
     if !@tool_rental.incomplete?
       redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id) and return
