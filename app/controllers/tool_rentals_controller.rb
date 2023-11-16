@@ -2,7 +2,7 @@ class ToolRentalsController < ApplicationController
   before_action :authenticate_user!, except: [:new, :change_payment, :payment_changed, :summary]
 
   content_security_policy(only: :choose_payment) do |policy|
-    policy.style_src :self, :unsafe_inline, "welocally.at", "stripe.com"
+    policy.style_src :self, :unsafe_inline, "*.welocally.at", "*.stripe.com"
     #policy.frame_ancestors :self, 'https://js.stripe.com', 'https://hooks.stripe.com'
   end
 
