@@ -3,7 +3,8 @@ class ToolRentalsController < ApplicationController
 
   content_security_policy(only: :choose_payment) do |policy|
     policy.style_src :self, :unsafe_inline, "*.welocally.at", "*.stripe.com"
-    #policy.frame_ancestors :self, 'https://js.stripe.com', 'https://hooks.stripe.com'
+    policy.script_src  :self, "*.welocally.at", "https://js.stripe.com"
+    policy.frame_ancestors :self, 'https://js.stripe.com', 'https://hooks.stripe.com'
   end
 
   def new
