@@ -125,7 +125,7 @@ class WebhooksController < ApplicationController
 
   def invoice_upcoming(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
-    amount = object.lines.data[0].amount / 100
+    amount = object.amount_remaining / 100
     period_start = object.lines.data[0].period.start
     SubscriptionMailer.invoice_upcoming(subscription, amount, period_start).deliver_later if subscription
   end
