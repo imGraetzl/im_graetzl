@@ -45,6 +45,7 @@ class ToolRentalsController < ApplicationController
   end
 
   def choose_payment
+    response.headers['X-Frame-Options'] = 'ALLOWALL'
     @tool_rental = current_user.tool_rentals.find(params[:id])
     if !@tool_rental.incomplete?
       redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id) and return
