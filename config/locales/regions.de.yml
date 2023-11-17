@@ -41,6 +41,9 @@ de:
           subline: "WeLocally macht deine Treffen in der Region sichtbarer!"
           description: "Deine Events werden auf WeLocally angezeigt und sie werden über das wöchentliche WeLocally Mail an die registrierten Nutzer*innen in der Region bzw. Gemeinden versendet."
       footer_graetzl_headline: "Mitmachende Gemeinden"
+      mailers:
+        summary_graetzl:
+          subject: "Neues aus der Gemeinde %{graetzl}"
 
     wien:
       <<: *default
@@ -89,6 +92,9 @@ de:
       subscription:
         subline: "Liebe lokale Macher*innen, uns gibt es nur dank eurer Unterstützung!"
         description: "Damit wir weiterhin imGrätzl für euch in Wien zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das imGrätzl Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen."
+      mailers:
+        summary_graetzl:
+          subject: "Neues aus dem Grätzl %{graetzl}"
 
     graz:
       <<: *default
@@ -130,9 +136,10 @@ de:
       subscription:
         subline: "Liebe lokale Macher*innen, uns gibt es nur dank eurer Unterstützung!"
         description: "Damit wir weiterhin WeLocally für euch in Graz zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das WeLocally Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen."
-
       footer_graetzl_headline: "Entdecke deinen Bezirk in Graz"
-
+      mailers:
+        summary_graetzl:
+          subject: "Neues aus dem Bezirk %{graetzl}"
 
     kaernten:
       <<: *default

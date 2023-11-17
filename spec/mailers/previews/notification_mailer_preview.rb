@@ -17,6 +17,7 @@ class NotificationMailerPreview < ActionMailer::Preview
 
   def prepare_user
     user = User.where(email: 'michael.walchhuetter@gmail.com').first
+    #user = User.last
     user.notifications.update_all(sent: false)
     user
   end
