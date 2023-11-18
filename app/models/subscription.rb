@@ -8,8 +8,7 @@ class Subscription < ApplicationRecord
   string_enum status: ["incomplete", "active", "canceled", "past_due"]
 
   scope :initialized, -> { where.not(status: :incomplete) }
-  scope :coupon, -> { where.not(coupon: nil) }
-  scope :paid, -> { where(coupon: nil) }
+  scope :on_grace_period, -> { where("ends_at > ?", Time.zone.now) }
 
   after_update :update_user, if: -> { saved_change_to_status? || saved_change_to_current_period_end? }
 
