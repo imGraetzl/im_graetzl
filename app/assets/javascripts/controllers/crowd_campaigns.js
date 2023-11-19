@@ -1,7 +1,7 @@
 APP.controllers.crowd_campaigns = (function() {
 
     function init() {
-        if ($("section.usersetup").exists()) initCrowdCampaignStart();
+        if ($("section.startcampaign").exists()) initCrowdCampaignStart();
         if ($("section.crowd_campaign").exists()) initCrowdCampaign();
         if ($("section.crowd_campaign").data('preview')) initPreviewMode();
     }
