@@ -64,6 +64,11 @@ class CrowdCampaign < ApplicationRecord
 
   after_create :set_transaction_fee
 
+  def entire_region?
+    true
+    #self.service_fee_percentage >= 7 && !self.throttled?
+  end
+
   def closed?
     completed? & (not_funded? || invoice_number.present?)
   end
