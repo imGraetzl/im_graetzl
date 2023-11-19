@@ -97,6 +97,21 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
+
+    .facts {
+      margin-top:10px;
+      padding-top:10px;
+      border-top: 1px dotted $color-ambient-mint-dark;
+      li {
+        background: url(image_path('svg/icon-arrow-right-blinky-rosa-dark.svg')) no-repeat left top;
+        background-size: 25px;
+        padding-left:35px;
+        list-style: none;
+        font-weight: normal;
+        text-align: left;
+        margin-top:7px;
+      }
+    }
   }
 
   .cardBox {
