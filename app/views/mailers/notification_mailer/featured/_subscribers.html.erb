@@ -17,7 +17,7 @@
     <tr>
       <td valign="top" align="center" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-right:18px; padding-bottom:18px; text-align:center; display: flex; flex-wrap: wrap; justify-content:center;">
 
-        <%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.paid.sample(6), as: :subscription %>
+        <%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.sample(6), as: :subscription %>
 
       </td>
     </tr>

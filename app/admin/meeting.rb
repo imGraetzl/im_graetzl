@@ -72,6 +72,9 @@ ActiveAdmin.register Meeting do
           chain = super unless formats.include?(:json) || formats.include?(:csv)
           chain
       end
+      def apply_filtering(chain)
+        super(chain).distinct
+      end
 
       def update
 
@@ -99,10 +102,10 @@ ActiveAdmin.register Meeting do
     column :id
     column :created_at
     column :starts_at_date
-    column(:email) {|m| m.user.email }
     column :graetzl
     column(:plz) { |m| m.graetzl.zip }
     column :region_id
+    #column(:email) {|m| m.user.email }
     #column(:full_name) {|m| m.user.full_name }
     #column :user_id
     #column :name

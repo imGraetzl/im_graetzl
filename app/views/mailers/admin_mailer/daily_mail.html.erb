@@ -19,21 +19,21 @@
     <tbody>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Aktive Mitgliedschaften", collection: Subscription.active, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Bezahlte Rechnungen", collection: SubscriptionInvoice.paid %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.all, amount: :amount %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.paid, amount: :amount %>
     </tbody>
   </table>
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
     <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungen", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Großes Zuckerl", collection: Zuckerl.marked_as_paid.entire_region %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.marked_as_paid.graetzl %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.marked_as_paid, amount: :amount %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Großes Zuckerl", collection: Zuckerl.where(payment_status: [:processing, :debited]).entire_region %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.where(payment_status: [:processing, :debited]).graetzl %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.where(payment_status: [:processing, :debited]), amount: :amount %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Booster", collection: RoomBooster.where(payment_status: [:authorized, :processing, :debited]) %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Booster Einnahmen", collection: RoomBooster.where(payment_status: [:authorized, :processing, :debited]), amount: :amount %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Buchung", collection: RoomRental.where(payment_status: [:authorized, :processing, :debited]) %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungs Provision", collection: RoomRental.where(payment_status: [:processing, :debited]), amount: :service_fee %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding Provision", collection: CrowdPledge.debited, pledge: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungs Fee", collection: RoomRental.where(payment_status: [:processing, :debited]), amount: :service_fee %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding Fee", collection: CrowdPledge.debited, pledge: true %>
     </tbody>
   </table>
 
@@ -61,10 +61,10 @@
 
 
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", thead: true %>
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share | Active", collection: CoopDemand.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", collection: CoopDemand %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
     </tbody>
   </table>
 
@@ -76,6 +76,15 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Raum", collection: RoomOffer %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum | Active", collection: RoomDemand.enabled, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Raum", collection: RoomDemand %>
+    </tbody>
+  </table>
+
+
+  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", thead: true %>
+    <tbody>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share | Active", collection: CoopDemand.enabled, sum: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Coop & Share", collection: CoopDemand %>
     </tbody>
   </table>
 
@@ -95,15 +104,5 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Gerät", collection: ToolOffer %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät | Active", collection: ToolDemand.enabled, sum: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät", collection: ToolDemand %>
-    </tbody>
-  </table>
-
-  
-  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding", thead: true %>
-    <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen | Visible", collection: CrowdCampaign.scope_public, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
     </tbody>
   </table>

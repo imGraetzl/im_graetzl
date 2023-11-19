@@ -51,6 +51,7 @@ class CrowdCampaign < ApplicationRecord
   validates_presence_of :title, :graetzl
   validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
+  scope :initialized, -> { where.not(status: :declined) }
   scope :scope_throttled, -> { where(visibility_status: [:throttled]) }
   scope :none_throttled, -> { where(visibility_status: nil) }
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where(active_state: :enabled)) }
@@ -127,12 +128,25 @@ class CrowdCampaign < ApplicationRecord
     end
   end
 
+  def service_fee_percentage_owner
+    # without stripe
+    self.transaction_fee_percentage - 2
+  end
+
   def crowd_pledges_fee
     (effective_funding_sum / 100) * transaction_fee_percentage
   end
 
+  def crowd_pledges_fee_owner
+    (effective_funding_sum / 100) * service_fee_percentage_owner
+  end
+
   def crowd_pledges_fee_netto
     (crowd_pledges_fee / 1.20).round(2)
+  end
+
+  def crowd_pledges_fee_owner_netto
+    (crowd_pledges_fee_owner / 1.20).round(2)
   end
 
   def crowd_pledges_fee_tax

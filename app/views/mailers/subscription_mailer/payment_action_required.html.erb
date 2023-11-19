@@ -6,7 +6,7 @@
           Servus <%= @user.first_name %>,
         </p>
         <p>
-          <strong>Leider gab es bei der Abbuchung deiner Fördermitgliedschaft Probleme,</strong> da deine ausgewählte Zahlungsform nicht belastet werden konnte.
+          <strong>Leider gab es bei der Abbuchung deiner Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte.
         </p>
         <p>
           <strong>Wir würden dich daher bitten, deine Zahlungsmethode anzupassen,</strong> damit deine Mitgliedschaft verlängert werden kann.
@@ -15,7 +15,7 @@
     </tr>
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Zahlungsmethode jetzt anpassen", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent.id) %>
+        <%= render 'mailers/shared/button', title: "Zahlungsmethode anpassen", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent.id) %>
       </td>
     </tr>
     <tr>

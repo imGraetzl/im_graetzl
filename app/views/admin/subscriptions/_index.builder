@@ -7,6 +7,7 @@ context.instance_eval do
   column :region
   column(:subscribed){|r| status_tag(r.user&.subscribed?)}
   column('Auslaufend'){|r| status_tag(r.on_grace_period?)}
+  column :ends_at
   column :created_at
   actions
 end

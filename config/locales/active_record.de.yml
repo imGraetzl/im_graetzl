@@ -364,7 +364,6 @@ de:
         debited_at: Bezahlt am
         payment_reference: Zahlungsreferenz
         visibility: Sichtbarkeit
-        marked_as_paid: Als bezahlt markiert
         invoice_number: Rechnungsnummer
       group:
         group_category_ids: Kategorie

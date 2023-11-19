@@ -6,11 +6,10 @@ ActiveAdmin.register Zuckerl do
   scope :approved
   scope :live
   scope "#{I18n.localize Time.now.end_of_month+1.day, format: '%B'} Zuckerl", :next_month_live
-  scope :expired
-  scope "Bezahlt", :marked_as_paid
+  scope :debited
   scope :free
-  scope :cancelled
   scope :storno
+  scope :cancelled
   scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -80,15 +79,17 @@ ActiveAdmin.register Zuckerl do
   csv do
     column :id
     column :created_at
-    column(:email) {|zuckerl| zuckerl.user.email if zuckerl.user }
-    column :amount
-    column :debited_at
-    column :payment_status
+    #column :amount
+    column(:amount) { |i| number_to_currency(i.amount, precision: 2 ,unit: "") }
+    #column(:euro) { |zuckerl| number_to_currency(zuckerl.amount, precision: 2 ,unit: "€") }
     column :aasm_state
+    column :payment_status
+    column :debited_at
     column :entire_region
     column(:graetzl) { |zuckerl| zuckerl.graetzl if zuckerl.graetzl }
     column(:plz) { |zuckerl| zuckerl.graetzl&.zip if zuckerl.graetzl }
     column :region_id
+    #column(:email) {|zuckerl| zuckerl.user.email if zuckerl.user }
   end
 
 end

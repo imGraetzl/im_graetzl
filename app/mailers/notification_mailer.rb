@@ -83,7 +83,7 @@ class NotificationMailer < ApplicationMailer
     )
 
     mail(
-      subject: "Neues #{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name}", 
+      subject: t("region.#{@region.id}.mailers.summary_graetzl.subject", graetzl: @user.graetzl.name), 
       from: platform_email('no-reply'),
       to: @user.email,
     )

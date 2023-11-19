@@ -36,7 +36,7 @@ class CrowdPledge < ApplicationRecord
   end
 
   def calculate_price
-    self.total_price = crowd_reward&.amount.to_i + donation_amount.to_i
+    self.total_price = (crowd_reward&.amount || 0) + donation_amount.to_i
   end
 
   def contact_name_and_type

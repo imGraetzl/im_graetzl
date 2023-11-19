@@ -24,7 +24,7 @@
     <tr>
       <td colspan="2" class="mcnTextContent" style="padding-bottom:18px; padding-left:18px; padding-right:18px;">
         <p>
-          <%= notification.crowd_campaign_post.content.truncate(255, separator: ' ').gsub("\r\n", "<br/>").html_safe %>
+          <%= notification.crowd_campaign_post.content.truncate(255, separator: ' ').gsub("\r\n", "").html_safe %>
         </p>
       </td>
     </tr>

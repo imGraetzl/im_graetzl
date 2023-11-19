@@ -135,7 +135,7 @@ class ZuckerlService
   end
 
   def payment_refunded(zuckerl)
-    zuckerl.update(payment_status: 'refunded', status: 'storno')
+    zuckerl.update(payment_status: 'refunded', aasm_state: 'storno')
     true
   end
 

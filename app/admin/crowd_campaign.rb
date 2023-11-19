@@ -5,26 +5,29 @@ ActiveAdmin.register CrowdCampaign do
   includes :location, :user, :comments
   actions :all, except: [:new, :create]
 
-  scope :all, default: true
+  scope :initialized, default: true
   scope :draft
   scope :pending
-  scope :declined
   scope :approved
   scope :funding
   scope :completed
-  scope 'Visible', :scope_public
+  #scope 'Visible', :scope_public
   scope 'Throttled',  :scope_throttled
+  scope :declined
+  scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :crowd_categories
+  filter :crowd_categories, input_html: { class: 'admin-filter-select'}
+  filter :service_fee_percentage, :as => :numeric
   filter :visibility_status
   filter :title
+  filter :startdate
+  filter :enddate
   filter :created_at
-  filter :updated_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }
@@ -105,13 +108,19 @@ ActiveAdmin.register CrowdCampaign do
     column :created_at
     column :startdate
     column :enddate
-    column :email
     column :status
     column :funding_status
     column :transaction_fee_percentage
-    column :effective_funding_sum
-    column :crowd_pledges_fee
-    column :crowd_pledges_fee_netto
+
+    column('Minimalbetrag') { |i| number_to_currency(i.funding_1_amount, precision: 2 ,unit: "") }
+    column('Optimalbetrag') { |i| number_to_currency(i.funding_2_amount, precision: 2 ,unit: "") }
+
+    #column :effective_funding_sum
+    column(:effective_funding_sum) { |i| number_to_currency(i.effective_funding_sum, precision: 2 ,unit: "") }
+    #column :crowd_pledges_fee
+    column(:crowd_pledges_fee) { |i| number_to_currency(i.crowd_pledges_fee, precision: 2 ,unit: "") }
+    #column :crowd_pledges_fee_netto
+    column(:crowd_pledges_fee_netto) { |i| number_to_currency(i.crowd_pledges_fee_netto, precision: 2 ,unit: "") }
     column :successful?
     column :region_id
   end

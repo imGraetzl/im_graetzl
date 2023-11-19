@@ -41,9 +41,9 @@ ActiveAdmin.register RoomDemand do
   csv do
     column :id
     column :created_at
-    column(:email) {|room| room.user.email if room.user }
     column :status
     column :region_id
+    #column(:email) {|room| room.user.email if room.user }
     #column :slogan
     #District.all.order(:zip).each do |district|
     #  column("#{district.zip}") {|room| district.room_demands.find_by_id(room.id) ? (1 / room.districts.count.to_f).round(3) : 0}

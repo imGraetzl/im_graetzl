@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hallo #{@subscription.user.first_name}") %>
-<% content_for(:title, "Deine #{t("region.#{@subscription.region_id}.domain_full")} Fördermitgliedschaft wurde bezahlt") %>
+<% content_for(:title, "Deine #{t("region.#{@subscription.region_id}.domain_short")} Fördermitgliedschaft wurde bezahlt.") %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -33,7 +33,10 @@
 
       <p>
         Herzlichen Dank für deine Unterstützung <%= @subscription.user.first_name %>!<br>
-        Deine Zahlung wurde erfolgreich durchgeführt und du kannst deine <%= link_to 'Rechnung hier downloaden', @subscription.subscription_invoices.last.invoice_pdf, style: "color:#f48a85;" %>.
+        Die Zahlung deiner Fördermitgliedschaft wurde erfolgreich durchgeführt und du kannst deine <%= link_to 'Rechnung hier downloaden', @subscription.subscription_invoices.order(created_at: :desc).first.invoice_pdf, style: "color:#f48a85;" %>.
+      </p>
+      <p>
+        <em>Aktuelle Perioode deiner Mitgliedchaft: <%= I18n.localize(@subscription.current_period_start, format:'%d.%m.%Y') %> bis <%= I18n.localize(@subscription.current_period_end, format:'%d.%m.%Y') %></em>
       </p>
       <p>
         Alle Infos zu deiner Mitgliedschaft findets du eingeloggt auf <%= t("region.#{@subscription.region_id}.domain_full") %> unter dem Menüpunkt <%= link_to 'Fördermitgliedschaft', subscription_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>.
@@ -44,7 +47,7 @@
         Dein Team von <%= t("region.#{@subscription.region_id}.domain_full") %>
       </p>
 
-      <%= render 'mailers/shared/button', title: "Rechnung downloaden", url: @subscription.subscription_invoices.last.invoice_pdf %>
+      <%= render 'mailers/shared/button', title: "Rechnung downloaden", url: @subscription.subscription_invoices.order(created_at: :desc).first.invoice_pdf %>
     </td>
   </tr>
 </table>

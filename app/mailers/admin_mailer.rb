@@ -7,6 +7,7 @@ class AdminMailer < ApplicationMailer
       subject: "[#{@region.host_domain_name}] Daily Mail",
       from: platform_email("no-reply"),
       to: platform_email("wir"),
+      cc: "lena@imgraetzl.at, carina@imgraetzl.at"
     )
   end
 

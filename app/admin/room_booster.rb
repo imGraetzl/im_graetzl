@@ -29,10 +29,11 @@ ActiveAdmin.register RoomBooster do
     column :id
     column :created_at
     column :starts_at_date
-    column(:email) {|booster| booster.user.email if booster.user }
+    #column(:email) {|booster| booster.user.email if booster.user }
     column :status
     column :payment_status
-    column :amount
+    #column :amount
+    column(:amount) { |i| number_to_currency(i.amount, precision: 2 ,unit: "") }
     column :region_id
   end
 

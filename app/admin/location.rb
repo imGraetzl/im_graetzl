@@ -72,18 +72,6 @@ ActiveAdmin.register Location do
     end
   end
 
-  csv do
-    column(:email) {|l| l.user.email if l.user}
-    column :id
-    column :region
-    column :name
-    column(:l_graetzl) {|l| l.graetzl.name}
-    #column(:l_plz) {|l| l.address_zip}
-    column(:location_category) {|l| l.location_category.name if l.location_category}
-    column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_path(l.graetzl, l)}
-    #column(:l_graetzl_url) { |l| Rails.application.routes.url_helpers.graetzl_path(l.graetzl)}
-  end
-
   # strong parameters
   permit_params :graetzl_id,
     :state,
@@ -120,5 +108,23 @@ ActiveAdmin.register Location do
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
     end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
   end
+
+  csv do
+    column :id
+    column :created_at
+    column :state
+    column(:l_graetzl) {|l| l.graetzl.name}
+    column(:plz) { |l| l.graetzl.zip }
+    column :region
+    #column(:email) {|l| l.user.email if l.user}
+    #column(:l_plz) {|l| l.address_zip}
+    #column(:location_category) {|l| l.location_category.name if l.location_category}
+    #column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_path(l.graetzl, l)}
+    #column(:l_graetzl_url) { |l| Rails.application.routes.url_helpers.graetzl_path(l.graetzl)}
+  end
+
 end
