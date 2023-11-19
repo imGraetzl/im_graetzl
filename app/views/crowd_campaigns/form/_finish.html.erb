@@ -152,6 +152,10 @@
         <div class="percent-5 cardBox">Zusammen bauen wir eine starke Plattform. Deine Unterstützung sichert die Zukunft von <%= t("region.#{current_region.id}.domain_short") %> und hilft uns dabei Projekte für die lokalen Macher*innen umzusetzen. Ein großes Dankeschön an dich!</div>    
       </div>
 
+      <% if @crowd_campaign.crowdfunding_call? %>
+        <!-- insert call info here ... -->
+      <% end %>
+
     </div>
 
   </div>
