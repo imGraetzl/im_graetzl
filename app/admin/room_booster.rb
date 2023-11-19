@@ -6,7 +6,6 @@ ActiveAdmin.register RoomBooster do
   scope :initialized, default: true
   scope :pending
   scope :active
-  scope :upcoming
   scope :expired
   scope :storno
   scope :incomplete

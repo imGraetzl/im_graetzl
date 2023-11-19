@@ -9,7 +9,6 @@ class RoomBooster < ApplicationRecord
   string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
 
   scope :initialized, -> { where.not(status: :incomplete) }
-  scope :upcoming, -> { active.where("send_at_date > :today", today: Date.today)}
 
   before_create :set_booster_dates
   after_update :update_room_offer, if: -> { saved_change_to_status? }
