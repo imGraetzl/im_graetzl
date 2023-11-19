@@ -139,7 +139,7 @@ de:
       footer_graetzl_headline: "Entdecke deinen Bezirk in Graz"
       mailers:
         summary_graetzl:
-          subject: "Neues aus dem Bezirk %{graetzl}"
+          subject: "Neues aus Graz / %{graetzl}"
 
     kaernten:
       <<: *default
