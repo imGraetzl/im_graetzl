@@ -38,6 +38,14 @@
   <%= javascript_include_tag 'application', defer: true, onload: 'applicationLoadedInit();' %>
   <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || ['registrations', 'crowd_pledges', 'room_rentals', 'tool_rentals'].include?(controller_name) %>
 
+  <% if ['tool_rentals'].include? controller_name %>
+    <!-- try this fix for stripe -->
+    <%= javascript_include_tag "https://js.stripe.com/v3/" %>
+    <script>
+      window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
+    </script>
+  <% end %>
+
   <!-- DNS Prefetch for better Performance -->
   <% if ['home', 'regions', 'districts', 'graetzls'].include? controller_name %>
     <link rel="preconnect" href="//api.mapbox.com" crossorigin>
