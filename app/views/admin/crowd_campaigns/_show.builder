@@ -4,7 +4,6 @@ context.instance_eval do
       panel 'Basic Details' do
         attributes_table_for crowd_campaign do
           row :id
-          row(:visibility_status){|l| status_tag(l.visibility_status)}
           row :service_fee_percentage
           row :region
           row :graetzl
