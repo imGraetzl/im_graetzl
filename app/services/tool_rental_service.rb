@@ -1,5 +1,7 @@
 class ToolRentalService
 
+  include PaymentHelper
+
   def create_setup_intent(tool_rental)
     stripe_customer_id = tool_rental.renter.stripe_customer
     Stripe::SetupIntent.create(
@@ -24,6 +26,7 @@ class ToolRentalService
       stripe_payment_method_id: setup_intent.payment_method.id,
       payment_method: setup_intent.payment_method.type,
       payment_card_last4: payment_method_last4(setup_intent.payment_method),
+      payment_wallet: payment_wallet(setup_intent.payment_method),
       payment_status: 'authorized',
       rental_status: :pending,
     )
@@ -117,6 +120,7 @@ class ToolRentalService
       stripe_payment_method_id: payment_intent.payment_method.id,
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
+      payment_wallet: payment_wallet(payment_intent.payment_method),
     )
     true
   end
@@ -164,16 +168,6 @@ class ToolRentalService
 
   def retry_payment_methods(tool_rental)
     ['card', 'eps']
-  end
-
-  def payment_method_last4(payment_method)
-    if payment_method.type == 'card'
-      payment_method.card.last4
-    elsif payment_method.type == 'sepa_debit'
-      payment_method.sepa_debit.last4
-    else
-      nil
-    end
   end
 
   def statement_descriptor(tool_offer)

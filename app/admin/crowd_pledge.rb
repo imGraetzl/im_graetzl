@@ -19,10 +19,11 @@ ActiveAdmin.register CrowdPledge do
   filter :crowd_reward, collection: proc { CrowdReward.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :guest_newsletter, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :id, :as => :numeric
   filter :contact_name
   filter :email
-  filter :payment_method
   filter :stripe_customer_id
   filter :stripe_payment_intent_id
   filter :debited_at

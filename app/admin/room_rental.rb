@@ -14,11 +14,12 @@ ActiveAdmin.register RoomRental do
   scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :rental_status, as: :select, collection: RoomRental.rental_statuses.keys
-  filter :payment_status, as: :select, collection: RoomRental.payment_statuses.keys
+  filter :rental_status, as: :select, collection: RoomRental.rental_statuses.keys, input_html: { class: 'admin-filter-select'}
+  filter :payment_status, as: :select, collection: RoomRental.payment_statuses.keys, input_html: { class: 'admin-filter-select'}
   filter :room_offer, collection: proc { RoomOffer.order(:slogan).pluck(:slogan, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :payment_method
+  filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :stripe_customer_id
   filter :stripe_payment_intent_id
   filter :debited_at

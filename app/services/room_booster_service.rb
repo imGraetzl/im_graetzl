@@ -1,5 +1,7 @@
 class RoomBoosterService
 
+  include PaymentHelper
+
   def create_payment_intent(room_booster)
     stripe_customer_id = room_booster.user.stripe_customer
     Stripe::PaymentIntent.create(
@@ -27,6 +29,7 @@ class RoomBoosterService
       stripe_payment_method_id: payment_intent.payment_method.id,
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
+      payment_wallet: payment_wallet(payment_intent.payment_method),
     )
 
     true
@@ -99,16 +102,6 @@ class RoomBoosterService
 
   def payment_methods(room_booster)
     ['card', 'eps']
-  end
-
-  def payment_method_last4(payment_method)
-    if payment_method.type == 'card'
-      payment_method.card.last4
-    elsif payment_method.type == 'sepa_debit'
-      payment_method.sepa_debit.last4
-    else
-      nil
-    end
   end
 
   def statement_descriptor(room_booster)

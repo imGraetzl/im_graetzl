@@ -17,10 +17,11 @@ ActiveAdmin.register Zuckerl do
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :title
   filter :description
-  filter :entire_region
-  filter :aasm_state, as: :select, collection: Zuckerl.aasm.states_for_select
-  filter :payment_status, as: :select, collection: Zuckerl.payment_statuses.keys
-  filter :payment_method
+  filter :entire_region, input_html: { class: 'admin-filter-select'}
+  filter :aasm_state, as: :select, collection: Zuckerl.aasm.states_for_select, input_html: { class: 'admin-filter-select'}
+  filter :payment_status, as: :select, collection: Zuckerl.payment_statuses.keys, input_html: { class: 'admin-filter-select'}
+  filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :stripe_customer_id
   filter :stripe_payment_intent_id
   filter :created_at

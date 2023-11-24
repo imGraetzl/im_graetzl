@@ -1,5 +1,7 @@
 class UserService
 
+  include PaymentHelper
+
   def create_setup_intent(user)
     Stripe::SetupIntent.create(
       customer: user.stripe_customer,
@@ -15,7 +17,8 @@ class UserService
 
     user.update(
       payment_method: payment_method.type,
-      payment_card_last4: payment_method_last4(payment_method)
+      payment_card_last4: payment_method_last4(payment_method),
+      payment_wallet: payment_wallet(payment_method),
     )
   end
 
@@ -32,15 +35,5 @@ class UserService
   end
 
   private
-
-  def payment_method_last4(payment_method)
-    if payment_method.type == 'card'
-      payment_method.card.last4
-    elsif payment_method.type == 'sepa_debit'
-      payment_method.sepa_debit.last4
-    else
-      nil
-    end
-  end
 
 end

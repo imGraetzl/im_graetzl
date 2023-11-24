@@ -54,6 +54,7 @@ context.instance_eval do
       row :stripe_payment_intent_id
       row :payment_method
       row :payment_card_last4
+      row :payment_wallet
     end
   end
 
