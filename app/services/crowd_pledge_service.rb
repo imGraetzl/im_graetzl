@@ -1,5 +1,7 @@
 class CrowdPledgeService
 
+  include PaymentHelper
+
   def create_setup_intent(crowd_pledge)
 
     CrowdCampaignMailer.crowd_pledge_incomplete(crowd_pledge).deliver_later(wait: 5.minutes)
@@ -27,6 +29,7 @@ class CrowdPledgeService
       stripe_payment_method_id: setup_intent.payment_method.id,
       payment_method: setup_intent.payment_method.type,
       payment_card_last4: payment_method_last4(setup_intent.payment_method),
+      payment_wallet: payment_wallet(setup_intent.payment_method),
       status: 'authorized',
     )
 
@@ -130,6 +133,7 @@ class CrowdPledgeService
       stripe_payment_method_id: payment_intent.payment_method.id,
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
+      payment_wallet: payment_wallet(payment_intent.payment_method),
     )
     CrowdCampaignMailer.crowd_pledge_retried_debited(crowd_pledge).deliver_later
     true
@@ -161,16 +165,6 @@ class CrowdPledgeService
 
   def retry_payment_methods(crowd_pledge)
     ['card', 'eps']
-  end
-
-  def payment_method_last4(payment_method)
-    if payment_method.type == 'card'
-      payment_method.card.last4
-    elsif payment_method.type == 'sepa_debit'
-      payment_method.sepa_debit.last4
-    else
-      nil
-    end
   end
 
   def statement_descriptor(crowd_campaign)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_24_110326) do
+ActiveRecord::Schema.define(version: 2023_11_22_190237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -339,6 +339,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_110326) do
     t.datetime "debited_at"
     t.boolean "guest_newsletter", default: false, null: false
     t.datetime "inclomplete_reminder_sent_at"
+    t.string "payment_wallet"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
@@ -902,6 +903,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_110326) do
     t.bigint "room_offer_id"
     t.date "starts_at_date"
     t.date "ends_at_date"
+    t.string "payment_wallet"
     t.index ["region_id"], name: "index_room_boosters_on_region_id"
     t.index ["room_offer_id"], name: "index_room_boosters_on_room_offer_id"
     t.index ["user_id"], name: "index_room_boosters_on_user_id"
@@ -1110,6 +1112,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_110326) do
     t.string "region_id"
     t.string "stripe_payment_method_id"
     t.datetime "debited_at"
+    t.string "payment_wallet"
     t.index ["region_id"], name: "index_room_rentals_on_region_id"
     t.index ["room_offer_id"], name: "index_room_rentals_on_room_offer_id"
     t.index ["stripe_payment_intent_id"], name: "index_room_rentals_on_stripe_payment_intent_id"
@@ -1315,6 +1318,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_110326) do
     t.string "region_id"
     t.string "stripe_payment_method_id"
     t.datetime "debited_at"
+    t.string "payment_wallet"
     t.index ["region_id"], name: "index_tool_rentals_on_region_id"
     t.index ["stripe_payment_intent_id"], name: "index_tool_rentals_on_stripe_payment_intent_id"
     t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"
@@ -1423,6 +1427,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_110326) do
     t.integer "free_region_zuckerl", default: 0
     t.integer "free_graetzl_zuckerl", default: 0
     t.boolean "subscribed", default: false
+    t.string "payment_wallet"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
@@ -1464,6 +1469,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_110326) do
     t.string "zip"
     t.string "city"
     t.bigint "subscription_id"
+    t.string "payment_wallet"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"

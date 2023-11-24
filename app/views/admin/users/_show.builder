@@ -64,6 +64,7 @@ context.instance_eval do
           row :stripe_customer_id
           row :payment_method
           row :payment_card_last4
+          row :payment_wallet
           row :stripe_connect_account_id
           row :stripe_connect_ready
           row :iban
