@@ -22,7 +22,6 @@ ActiveAdmin.register Zuckerl do
   filter :payment_status, as: :select, collection: Zuckerl.payment_statuses.keys, input_html: { class: 'admin-filter-select'}
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :stripe_customer_id
   filter :stripe_payment_intent_id
   filter :created_at
   filter :debited_at

@@ -22,7 +22,6 @@ ActiveAdmin.register ToolRental do
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :stripe_customer_id
   filter :stripe_payment_intent_id
   filter :debited_at
   filter :created_at
