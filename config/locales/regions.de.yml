@@ -74,6 +74,7 @@ de:
       favorite_graetzl: "Lieblingsgrätzl"
       favorite_graetzls: "Lieblingsgrätzln"
       from_your_favorite_graetzl: "aus deinen Lieblingsgrätzln"
+      region_wide_newsletter: "im wienweiten imGrätzl Newsletter"
       dem: "dem"
       zuckerl:
         headline: "Das Zuckerl für ganz Wien"
@@ -118,6 +119,7 @@ de:
       favorite_graetzl: "Lieblingsbezirk"
       favorite_graetzls: "Lieblingsbezirke"
       from_your_favorite_graetzl: "aus deinen Lieblingsbezirken"
+      region_wide_newsletter: "im grazweiten WeLocally Newsletter"
       dem: "der"
       zuckerl:
         headline: "Das Zuckerl für ganz Graz"
@@ -144,8 +146,11 @@ de:
     kaernten:
       <<: *default
       footer_graetzl_headline: "Mitmachende Gemeinden in Kärnten"
+      region_wide_newsletter: "im WeLocally Newsletter in ganz Kärnten"
+
 
     muehlviertler-kernland:
       <<: *default
       raumteiler_guide_url: "https://raumteiler.s3.eu-central-1.amazonaws.com/WeLocally_Muehlviertel_RaumteilerGuide_2022.pdf.zip"
       footer_graetzl_headline: "Mitmachende Gemeinden im Mühlviertler Kernland"
+      region_wide_newsletter: "im WeLocally Newsletter in ganz Mühlviertler Kernland"

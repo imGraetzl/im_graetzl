@@ -728,29 +728,61 @@ section.startcampaign {
     flex-wrap: wrap;
     margin-bottom:50px;
     .btn {
+      align-self: flex-start;
       margin-top:20px;
       width:48%;
       @include respond-to("<=medium") {
         width:100%;
       }
     }
-    .input-checkbox {
-      margin-top:5px;
+    .call-cb {
+      display: flex;
+      justify-content: center;
+      .input-checkbox {
+        margin-top:5px;
+        display: inline-block;
+      }
     }
   }
   .call-headline {margin-bottom: 30px;}
   .-call {
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 6;
+      background-repeat: no-repeat;
+      top: -4px;
+      left: 28px;
+      height: 100px;
+      width: 50px;
+      background-image: url(image_path('svg/medal-flag.svg'));
+    }
     margin-bottom:40px;
     .call-box {
-      img {
-        width:47%;
-        height:auto;
-        float: left;
-        margin-right:15px;
-        margin-bottom:15px;
-        @include respond-to("<medium") {
-          width:100%;
+      p {
+        padding-top: 15px;
+        &:first-of-type {
+          @include font-size-primaryFont('large');
         }
+      }
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      > div {
+        display: inline-flex;
+        flex-direction: column;
+        width:49%;
+        @include respond-to("<=medium") {
+          width:100%;
+          img {
+            margin-bottom:15px;
+          }
+        }
+      }
+      img {
+        width:100%;
+        height:auto;
+        border-radius: 8px;
       }
     }
   }

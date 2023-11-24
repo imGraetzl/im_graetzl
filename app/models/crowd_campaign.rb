@@ -33,8 +33,7 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  string_enum visibility_status: ["throttled"]
-  enum active_state: { enabled: 0, disabled: 1 }
+  enum active_state: { enabled: 0, disabled: 1, throttled: 2 }
   enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
   enum billable: { no_bill: 0, bill: 1, donation_bill: 2 }
@@ -52,9 +51,9 @@ class CrowdCampaign < ApplicationRecord
   validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
   scope :initialized, -> { where.not(status: :declined) }
-  scope :scope_throttled, -> { where(visibility_status: [:throttled]) }
-  scope :none_throttled, -> { where(visibility_status: nil) }
-  scope :scope_public, -> { where(status: [:funding, :completed]).and(where(active_state: :enabled)) }
+  scope :scope_throttled, -> { where(active_state: :throttled) }
+  scope :none_throttled, -> { where.not(active_state: :throttled) }
+  scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: :disabled)) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
 
   scope :by_currentness, -> {
@@ -63,6 +62,11 @@ class CrowdCampaign < ApplicationRecord
   }
 
   after_create :set_transaction_fee
+
+  def entire_region?
+    !self.throttled?
+    #self.service_fee_percentage >= 7 || !self.throttled?
+  end
 
   def closed?
     completed? & (not_funded? || invoice_number.present?)

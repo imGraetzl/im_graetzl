@@ -98,7 +98,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne ist nun zur Auszahlung bereit.",
       from: platform_email("no-reply"),
       to: @crowd_campaign.user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: 'wir@imgraetzl.at',
     )
   end
 
