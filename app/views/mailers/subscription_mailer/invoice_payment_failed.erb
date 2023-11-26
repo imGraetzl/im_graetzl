@@ -6,19 +6,16 @@
           Servus <%= @user.first_name %>,
         </p>
         <p>
-          <strong>Leider gab es bei der Bezahlung deiner Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte.
+          <strong>Leider gab es bei der Abbuchung deiner <%= t("region.#{@subscription.region.id}.domain_short") %> Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte.
         </p>
         <p>
-          <strong>Wir würden dich daher bitten, deine Zahlungsmethode eingeloggt auf <%= t("region.#{@subscription.region.id}.domain_full") %> unter <%= link_to 'Zahlungsmethode anpassen', payment_method_user_url(host: @subscription.region.host), style: "color:#f48a85; font-weight:bold;", target: '_blank' %> zu aktualisieren,</strong> damit deine Mitgliedschaft verlängert werden kann.
-        </p>
-        <p>
-          Wir versuchen anschließend die Abbuchung deiner Mitgliedschaft in einigen Tagen erneut durchzuführen.
+          <strong>Wir würden dich daher bitten, deine Zahlungsmethode anzupassen,</strong> damit deine Mitgliedschaft (Laufzeit: <%= I18n.localize(@period_start, format:'%d.%m.%Y') %> bis <%= I18n.localize(@period_end, format:'%d.%m.%Y') %>) verlängert werden kann.
         </p>
       </td>
     </tr>
     <tr>
       <td>
-      <%= render 'mailers/shared/button', title: "Zahlungsmethode anpassen", url: payment_method_user_url %>
+        <%= render 'mailers/shared/button', title: "Zahlungsmethode anpassen", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent) %>
       </td>
     </tr>
     <tr>

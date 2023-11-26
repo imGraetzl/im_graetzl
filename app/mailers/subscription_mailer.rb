@@ -39,27 +39,16 @@ class SubscriptionMailer < ApplicationMailer
     )
   end
 
-  def invoice_payment_failed(subscription)
+  def invoice_payment_failed(payment_intent, subscription, period_start, period_end)
     @subscription = subscription
+    @payment_intent = payment_intent
+    @period_start = Time.at(period_start).to_datetime
+    @period_end = Time.at(period_end).to_datetime
     @user = @subscription.user
     @region = @subscription.region
     headers("X-MC-Tags" => "subscription-invoice-payment-failed")
     mail(
-      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte überprüfe deine Zahlungsmethode",
-      from: platform_email('no-reply'),
-      to: @user.email,
-      bcc: 'michael@imgraetzl.at',
-    )
-  end
-
-  def payment_action_required(payment_intent_id, subscription)
-    @payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
-    @subscription = subscription
-    @user = @subscription.user
-    @region = @subscription.region
-    headers("X-MC-Tags" => "subscription-payment-action-required")
-    mail(
-      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte überprüfe deine Zahlungsmethode",
+      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte aktualisiere deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
       bcc: 'michael@imgraetzl.at',

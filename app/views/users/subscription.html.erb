@@ -25,9 +25,7 @@
       <% if current_user.subscribed? %>
 
         <%= render partial: 'users/zuckerl_voucher_subscription' %>
-
         <ul class="list-basic">
-
           <% if @subscription.on_grace_period? %>
             <li>Deine Fördermitglidschaft läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>.</li>
           <% else %>
@@ -38,11 +36,27 @@
           <li>Deine abgewickelten Rechnungen findest du (sobald verfügbar) unten auf der Seite.</li>
         </ul>
 
+      <% elsif @subscription.past_due? && @subscription.subscription_invoices.open.any? %>
+
+        <p>
+          Für die aktuelle Laufzeit deiner Mitgliedschaft (<%= I18n.localize(@subscription.current_period_start, format:'%d. %b %Y') %> - <%= I18n.localize(@subscription.current_period_end, format:'%d. %b %Y') %>) liegt eine offene Rechnung vor, da deine hinterlegte Zahlungsmethode nicht belastet werden konnte. 
+          <strong>Bitte schließe deine Zahlung ab, damit deine Mitgliedschaft wieder aktiviert werden kann.</strong>
+        </p>
+
+      <% elsif @subscription.past_due? %>
+
+        <p>
+          Leider gab es bei der Bezahlung deiner Mitgliedschaft (<%= I18n.localize(@subscription.current_period_start, format:'%d. %b %Y') %> - <%= I18n.localize(@subscription.current_period_end, format:'%d. %b %Y') %>) Probleme, da deine hinterlegte Zahlungsmethode nicht belastet werden konnte. 
+          <strong>Bitte ändere deine Zahlungsmethode, damit deine Mitgliedschaft wieder aktiviert werden kann.</strong>
+        </p>
+
       <% else %>
-      <p>
-        Um unsere <%= t("region.#{current_region.id}.domain_short") %> Arbeit nachhaltig zu finanzieren, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen,
-        dass <%= t("region.#{current_region.id}.domain_short") %> allen lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %> kostenlos zur Verfügung steht! <%= link_to 'Hier gehts zu den Fördermitgliedschaften', subscription_plans_path %>
-      </p>
+
+        <p>
+          Um unsere <%= t("region.#{current_region.id}.domain_short") %> Arbeit nachhaltig zu finanzieren, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen,
+          dass <%= t("region.#{current_region.id}.domain_short") %> allen lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %> kostenlos zur Verfügung steht! <%= link_to 'Hier gehts zu den Fördermitgliedschaften', subscription_plans_path %>
+        </p>
+        
       <% end %>
 
     </div>
@@ -91,7 +105,7 @@
           <div class="flex-row large" role="cell"><%= invoice.status %></div>
           <div class="flex-row xlarge" role="cell"><%= invoice.invoice_number %></div>
           <div class="flex-row xlarge" role="cell">
-          <% if invoice.status == "open" %>
+          <% if invoice.status == "open" && @subscription.past_due? %>
             <%= link_to 'Zahlung abschließen', change_payment_subscription_path(@subscription, payment_intent: invoice.stripe_payment_intent_id), class: '-pay' %>
           <% else %>
             <%= link_to 'Download', invoice.generate_invoice_pdf %>
