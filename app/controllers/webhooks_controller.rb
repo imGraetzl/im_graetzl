@@ -109,14 +109,6 @@ class WebhooksController < ApplicationController
     SubscriptionService.new.delete_subscription(subscription, object) if subscription
   end
 
-  def invoice_payment_action_required(object)
-    subscription = Subscription.find_by(stripe_id: object.subscription)
-    if subscription && ["active", "past_due"].include?(subscription.status)
-      SubscriptionService.new.invoice_payment_action_required(subscription, object)
-      SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later  
-    end
-  end
-
   def invoice_paid(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
     SubscriptionService.new.invoice_paid(subscription, object) if subscription
@@ -125,16 +117,34 @@ class WebhooksController < ApplicationController
 
   def invoice_upcoming(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
-    amount = object.amount_remaining / 100
-    period_start = object.lines.data[0].period.start
-    SubscriptionMailer.invoice_upcoming(subscription, amount, period_start).deliver_later if subscription
+    if subscription
+      amount = object.amount_remaining / 100
+      period_start = object.lines.data[0].period.start
+      SubscriptionMailer.invoice_upcoming(subscription, amount, period_start).deliver_later
+    end
+  end
+
+  def invoice_payment_action_required(object)
+    subscription = Subscription.find_by(stripe_id: object.subscription)
+    payment_intent = Stripe::PaymentIntent.retrieve(object.payment_intent)
+
+    if subscription && object.billing_reason != "subscription_create" && ["active"].include?(subscription.status)
+      period_start = object.lines.data[0].period.start
+      period_end = object.lines.data[0].period.end
+      SubscriptionService.new.invoice_payment_open(subscription, object)
+      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later  
+    end
   end
 
   def invoice_payment_failed(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
     payment_intent = Stripe::PaymentIntent.retrieve(object.payment_intent)
-    if payment_intent.status == "requires_payment_method"
-      SubscriptionMailer.invoice_payment_failed(subscription).deliver_later if subscription && ["active", "past_due"].include?(subscription.status)
+
+    if subscription && object.billing_reason != "subscription_create" && ["requires_payment_method"].include?(payment_intent.status)
+      period_start = object.lines.data[0].period.start
+      period_end = object.lines.data[0].period.end
+      SubscriptionService.new.invoice_payment_open(subscription, object)
+      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later
     end
   end
 

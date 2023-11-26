@@ -49,7 +49,6 @@ context.instance_eval do
 
   panel 'Stripe Informationen' do
     attributes_table_for room_rental do
-      row :stripe_customer_id
       row :stripe_payment_method_id
       row :stripe_payment_intent_id
       row :payment_method

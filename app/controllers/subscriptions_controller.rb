@@ -10,7 +10,11 @@ class SubscriptionsController < ApplicationController
   end
 
   def new
-    redirect_to subscription_plans_path, notice: "Du hast bereits eine Mitgliedschaft." and return if current_user.subscribed?
+    if current_user.subscribed?
+      redirect_to subscription_plans_path, notice: "Du hast bereits eine Mitgliedschaft." and return
+    elsif current_user.subscription.past_due?
+      redirect_to subscription_plans_path, notice: "Du hast bereits eine Mitgliedschaft (mit einer noch offenen Rechnung). | #{ActionController::Base.helpers.link_to('Zur Mitgliedschaft', subscription_user_url)}" and return
+    end
 
     @plan = SubscriptionPlan.find_by(id: params[:subscription_plan_id])
     @subscription = current_user.subscriptions.build(initial_params)
@@ -98,7 +102,10 @@ class SubscriptionsController < ApplicationController
   def change_payment
     @subscription = current_user.subscriptions.find_by_id(params[:id])
     @plan = @subscription.subscription_plan
-    @payment_intent = Stripe::PaymentIntent.retrieve(params[:payment_intent])
+    @payment_intent = Stripe::PaymentIntent.update(
+      params[:payment_intent],
+      setup_future_usage: 'off_session',
+    )
   end
 
   def payment_changed

@@ -22,7 +22,8 @@ ActiveAdmin.register CrowdCampaign do
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_categories, input_html: { class: 'admin-filter-select'}
-  filter :active_state, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :active_state, as: :select, collection: CrowdCampaign.active_states, input_html: { class: 'admin-filter-select'}
+
   filter :service_fee_percentage, :as => :numeric
   filter :title
   filter :startdate

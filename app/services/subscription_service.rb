@@ -82,7 +82,7 @@ class SubscriptionService
     ) if object.ended_at.present?
   end
 
-  def invoice_payment_action_required(subscription, object)
+  def invoice_payment_open(subscription, object)
 
     user = subscription.user
     return if user.nil?
