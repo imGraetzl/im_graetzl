@@ -185,7 +185,6 @@ APP.controllers.application = (function() {
   });
 
   // BETA FLASH for WeLocally
-  
   if (!sessionStorage.getItem('betaflash')) {
     $('#betaflash').show();
   }
@@ -193,6 +192,21 @@ APP.controllers.application = (function() {
       sessionStorage.setItem('betaflash', true);
       $('#betaflash').fadeOut();
   });
+
+  // HACK: Rename Graetzl Error Message
+  if ($("#error_explanation").exists()) {
+    let graetzl = "Grätzl"
+    if ($('body').data('region') == 'graz') {
+      graetzl = "Bezirk"
+    } else if ($('body').data('region') != 'wien') {
+      graetzl = "Gemeinde"
+    }
+    for (const li of document.querySelectorAll('#error_explanation ul li')) {
+      let result = li.textContent.replace(/Graetzl|Grätzl/g, graetzl);
+      li.innerText = result;
+    }
+  }
+  
   
   // ---------------------------------------------------------------------- Returns
 
