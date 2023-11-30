@@ -4,11 +4,11 @@
 # For further information see the following documentation
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
-Rails.application.configure do
-  config.content_security_policy do |policy|
-    policy.style_src :self, :unsafe_inline
-  end
-end
+#Rails.application.configure do
+#  config.content_security_policy do |policy|
+#    policy.style_src :self, :unsafe_inline
+#  end
+#end
 
 # Rails.application.config.content_security_policy do |policy|
 #   policy.default_src :self, :https
