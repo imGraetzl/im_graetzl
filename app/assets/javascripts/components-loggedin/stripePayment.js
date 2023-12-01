@@ -84,7 +84,7 @@ APP.components.stripePayment = (function() {
       if (result.error.type === "card_error" || result.error.type === "validation_error") {
         form.find(".error-message").text(result.error.message);
       } else {
-        form.find(".error-message").text("Es ist ein Fehler aufgetreten, bitte versuche es erneut.");
+        form.find(".error-message").text("Es ist ein Fehler aufgetreten, bitte versuche eine andere Zahlungsmethode.");
         console.log(result.error.message);
       }
 
