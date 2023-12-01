@@ -15,9 +15,7 @@ APP.components.stripePayment = (function() {
       business: {
         name: business_name
       },
-      fields: {
-        //billingDetails: 'never'
-      },
+      paymentMethodOrder: ['card', 'apple_pay', 'eps', 'sepa_debit', 'google_pay'],
     }
     const appearance = {
       theme: 'flat',
@@ -84,8 +82,7 @@ APP.components.stripePayment = (function() {
       if (result.error.type === "card_error" || result.error.type === "validation_error") {
         form.find(".error-message").text(result.error.message);
       } else {
-        form.find(".error-message").text("Es ist ein Fehler aufgetreten, bitte versuche eine andere Zahlungsmethode.");
-        console.log(result.error.message);
+        form.find(".error-message").text(result.error.message);
       }
 
       setLoading(form, false);
