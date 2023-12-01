@@ -118,6 +118,7 @@ APP.components.stripePayment = (function() {
       form.find("#payment-submit").attr("disabled", true).text('Autorisierung läuft. Bitte warten ...');
 
       // If 3d secure Modal is in DOM but doenst open during 10 seconds, show error, reset button & track error
+      // [TODO: Remove this in future times]
       setTimeout(() => {        
         let modal3dsecure = document.querySelector('body').firstElementChild;
         let hidden3dsecure = modal3dsecure.querySelector('iframe') && modal3dsecure.style.display == 'none';
@@ -137,6 +138,7 @@ APP.components.stripePayment = (function() {
           }, 4000);
         }
       }, 7000);
+      // End of Fix
 
     } else {
       form.find("#payment-submit").removeAttr("disabled").text(btntext);
