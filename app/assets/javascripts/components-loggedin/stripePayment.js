@@ -120,20 +120,23 @@ APP.components.stripePayment = (function() {
       // If 3d secure Modal is in DOM but doenst open during 10 seconds, show error, reset button & track error
       setTimeout(() => {        
         let modal3dsecure = document.querySelector('body').firstElementChild;
-        if (modal3dsecure.querySelector('iframe') && modal3dsecure.style.display == 'none') {
-
-          document.querySelector('html').removeAttribute('tabindex');
-          document.querySelector('head').removeAttribute('tabindex');
-          document.querySelector('body').removeAttribute('tabindex');
-          document.querySelector('body').removeAttribute('style');
-          modal3dsecure.remove();
-
-          form.find("#payment-submit").removeAttr("disabled").text(btntext);
-          form.find(".error-message").text("Autorisierung nicht möglich, bitte verwende eine andere Zahlungsmethode.");
-
-          gtag('event', `Error :: Autorisierung :: ${form.attr('action')}`);
+        let hidden3dsecure = modal3dsecure.querySelector('iframe') && modal3dsecure.style.display == 'none';
+        if (hidden3dsecure) {
+          setTimeout(() => {  
+            // Try again
+            if (hidden3dsecure) {
+              document.querySelector('html').removeAttribute('tabindex');
+              document.querySelector('head').removeAttribute('tabindex');
+              document.querySelector('body').removeAttribute('tabindex');
+              document.querySelector('body').removeAttribute('style');
+              modal3dsecure.remove();
+              form.find("#payment-submit").removeAttr("disabled").text(btntext);
+              form.find(".error-message").text("Autorisierung nicht möglich, bitte verwende eine andere Zahlungsmethode.");
+              gtag('event', `Error :: Autorisierung :: ${form.attr('action')}`);
+            }
+          }, 4000);
         }
-      }, 10000);
+      }, 7000);
 
     } else {
       form.find("#payment-submit").removeAttr("disabled").text(btntext);
