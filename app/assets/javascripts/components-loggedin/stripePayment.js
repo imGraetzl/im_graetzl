@@ -116,30 +116,6 @@ APP.components.stripePayment = (function() {
       // Clear Error Msg / Disable the button and show a spinner
       form.find(".error-message").text("");
       form.find("#payment-submit").attr("disabled", true).text('Autorisierung läuft. Bitte warten ...');
-
-      // If 3d secure Modal is in DOM but doenst open during 10 seconds, show error, reset button & track error
-      // [TODO: Remove this in future times]
-      setTimeout(() => {        
-        let modal3dsecure = document.querySelector('body').firstElementChild;
-        let hidden3dsecure = modal3dsecure.querySelector('iframe') && modal3dsecure.style.display == 'none';
-        if (hidden3dsecure) {
-          setTimeout(() => {  
-            // Try again
-            if (hidden3dsecure) {
-              document.querySelector('html').removeAttribute('tabindex');
-              document.querySelector('head').removeAttribute('tabindex');
-              document.querySelector('body').removeAttribute('tabindex');
-              document.querySelector('body').removeAttribute('style');
-              modal3dsecure.remove();
-              form.find("#payment-submit").removeAttr("disabled").text(btntext);
-              form.find(".error-message").text("Autorisierung nicht möglich, bitte verwende eine andere Zahlungsmethode.");
-              gtag('event', `Error :: Autorisierung :: ${form.attr('action')}`);
-            }
-          }, 4000);
-        }
-      }, 7000);
-      // End of Fix
-
     } else {
       form.find("#payment-submit").removeAttr("disabled").text(btntext);
     }
