@@ -55,4 +55,17 @@ class SubscriptionMailer < ApplicationMailer
     )
   end
 
+  def invoice_payment_failed_final(subscription)
+    @subscription = subscription
+    @user = @subscription.user
+    @region = @subscription.region
+    headers("X-MC-Tags" => "subscription-invoice-payment-failed-final")
+    mail(
+      subject: "Deine #{@region.host_domain_name} Fördermitgliedschaft wurde leider storniert...",
+      from: platform_email('no-reply'),
+      to: @user.email,
+      bcc: 'michael@imgraetzl.at',
+    )
+  end
+
 end

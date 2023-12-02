@@ -140,11 +140,15 @@ class WebhooksController < ApplicationController
     subscription = Subscription.find_by(stripe_id: object.subscription)
     payment_intent = Stripe::PaymentIntent.retrieve(object.payment_intent)
 
-    if subscription && object.billing_reason != "subscription_create" && ["requires_payment_method"].include?(payment_intent.status)
+    if subscription && object.attempt_count == 3
+      SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later
+
+    elsif subscription && object.billing_reason != "subscription_create" && ["requires_payment_method"].include?(payment_intent.status)
       period_start = object.lines.data[0].period.start
       period_end = object.lines.data[0].period.end
       SubscriptionService.new.invoice_payment_open(subscription, object)
       SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later
+
     end
   end
 
