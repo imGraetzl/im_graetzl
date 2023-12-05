@@ -48,7 +48,7 @@ class SubscriptionMailer < ApplicationMailer
     @region = @subscription.region
     headers("X-MC-Tags" => "subscription-invoice-payment-failed")
     mail(
-      subject: "Probleme bei der Zahlung deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte aktualisiere deine Zahlungsmethode",
+      subject: "Probleme beim Zahlungsvorgang deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte aktualisiere deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
       bcc: 'michael@imgraetzl.at',

@@ -99,7 +99,7 @@
         <div class="flex-row xlarge" role="columnheader">Rechnung</div>
       </div>
 
-      <% current_user.subscription_invoices.order(created_at: :desc).each do |invoice| %>
+      <% current_user.subscription_invoices.initialized.order(created_at: :desc).each do |invoice| %>
         <div class="flex-table" role="rowgroup">
           <div class="flex-row large" role="cell"><%= I18n.localize(invoice.created_at, format:'%B %Y') %></div>
           <div class="flex-row large" role="cell"><%= invoice.status %></div>

@@ -22,6 +22,8 @@ class WebhooksController < ApplicationController
       invoice_paid(event.data.object)
     when "invoice.upcoming"
       invoice_upcoming(event.data.object)
+    when "invoice.marked_uncollectible"
+      invoice_marked_uncollectible(event.data.object)
     when "charge.refunded"
       charge_refunded(event.data.object)
     end
@@ -122,6 +124,11 @@ class WebhooksController < ApplicationController
       period_start = object.lines.data[0].period.start
       SubscriptionMailer.invoice_upcoming(subscription, amount, period_start).deliver_later
     end
+  end
+
+  def invoice_marked_uncollectible(object)
+    invoice = SubscriptionInvoice.find_by(stripe_id: object.id)
+    SubscriptionService.new.invoice_uncollectible(invoice, object) if invoice
   end
 
   def invoice_payment_action_required(object)
