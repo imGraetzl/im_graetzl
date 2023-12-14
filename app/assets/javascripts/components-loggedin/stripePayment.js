@@ -122,7 +122,10 @@ APP.components.stripePayment = (function() {
         let modal3dsecure = document.querySelector('body').firstElementChild;
         let hidden3dsecure = modal3dsecure.querySelector('iframe') && modal3dsecure.style.display == 'none';
         if (hidden3dsecure) {
-          gtag('event', `Error :: Autorisierung :: ${form.attr('action')}`);
+          gtag(
+            'event', 'Error :: Payment :: Autorisierung', {
+            'event_label' : form.attr('action')
+          });
         }
       }, 7000);
       // End of track
