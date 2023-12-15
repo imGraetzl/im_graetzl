@@ -13,7 +13,7 @@
     <ul class="pricing-summary -facts">
       <p class="title">
         <%= @plan %>
-        <% if @subscription.current_period_start %>
+        <% if @subscription&.current_period_start %>
           <small class="hint"><%= I18n.localize(@subscription.current_period_start, format:'%d. %b %Y') %> – <%= I18n.localize(@subscription.current_period_end, format:'%d. %b %Y') %></small>
         <% end %>
       </p>
