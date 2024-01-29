@@ -20,7 +20,6 @@
   <% current_position += 1 %>
 
   <!-- Insert on 2. Position -->
-  <%= render 'featured/good_morning_gastgeberinnen' if @period == 'weekly' && @region.id == 'wien' && current_position == 2 %>
 
   <!-- Insert 2 Random Zuckerls on 3. Position -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
