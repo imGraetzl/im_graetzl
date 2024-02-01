@@ -35,7 +35,7 @@ class Location < ApplicationRecord
   has_many :room_demands
   has_many :tool_offers
   has_many :crowd_campaigns
-  has_many :zuckerls, dependent: :destroy
+  has_many :zuckerls
   has_many :live_zuckerls, -> { live }, class_name: "Zuckerl"
 
   enum state: { pending: 0, approved: 1 }

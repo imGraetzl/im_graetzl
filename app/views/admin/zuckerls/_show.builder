@@ -2,7 +2,7 @@ context.instance_eval do
   attributes_table do
     row :id
     row :user do
-      link_to zuckerl.location.user.username, admin_user_path(zuckerl.location.user)
+      link_to zuckerl.location.user.username, admin_user_path(zuckerl.location.user) if zuckerl.location
     end
     row :location
     row :subscription
@@ -16,7 +16,7 @@ context.instance_eval do
       row(:zuckerl_invoice) { |z| link_to "PDF Rechnung", z.zuckerl_invoice.presigned_url(:get) }
     end
     row :entire_region
-    row :visibility
+    row :visibility if zuckerl.location
     row :title
     row :description
     row :link

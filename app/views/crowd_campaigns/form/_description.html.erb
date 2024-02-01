@@ -44,7 +44,7 @@
     <%= icon_tag "layout-document" %>
     <span>Worum geht es in deinem Projekt?</span>
     <% end %>
-    <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...', data: { max_chars: 1500 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
+    <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...', data: { max_chars: 3000 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="bbCodeOpener"><a>Tipps</a></span>
     <span class="charCountContainer charsLeft"></span>
   </div>

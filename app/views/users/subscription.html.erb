@@ -67,7 +67,7 @@
     <% end %>
   </div>
 
-  <% if @subscription&.zuckerls.present? %>
+  <% if @subscription&.zuckerls&.initialized.present? %>
     <h3>Bereits eingelöste Zuckerl</h3>
 
     <div class="table-container -light" role="table">
