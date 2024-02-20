@@ -1,0 +1,167 @@
+<% meta(
+    title: t('.title', title: @energy_demand.title[0..55].gsub(/\s\w+\s*$/,'...')),
+    description: t('.description', type: t("activerecord.attributes.energy.energy_types.full.#{@energy_demand.energy_type}"), desc: @energy_demand.description[0..160].gsub(/\n/, " ")),
+    robots: 'index, follow',
+    og_title: t('.title', title: @energy_demand.title[0..80].gsub(/\s\w+\s*$/,'...')),
+    og_description: t('.description', type: t("activerecord.attributes.energy.energy_types.full.#{@energy_demand.energy_type}"), desc: @energy_demand.description[0..250].gsub(/\n/, " ")),
+    og_image: @energy_demand.avatar_url(:large) || image_url("meta/#{current_region.host_id}/og_logo.png"),
+  )
+%>
+
+<section class="demandDetail energy-demand">
+
+  <div class="imgHeader">
+    <div class="titleHeadline">
+      <div class="wrp">
+        <h1>Suche Energiegemeinschaft zum Andocken</h1>
+        <div class="category-tags">
+          <ul class="tag-list -mint">
+            <li><%= link_to t("activerecord.attributes.energy.energy_types.full.#{@energy_demand.energy_type}"), region_energies_path %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card"></div>
+    </div>
+  </div>
+
+  <div class="userContent">
+    <div class="col1">
+      <%= avatar_image @energy_demand, class: 'img-round -largest' %>
+    </div>
+  </div>
+
+  <div class="mainContent">
+
+    <% if @energy_demand.disabled? && current_user == @energy_demand.user %>
+      <div class="inactive-msg">
+          Dein Energieteiler ist aktuell auf inaktiv gesetzt. Energieteiler jetzt <%= link_to 'wieder aktivieren', [:update_status, @energy_demand, status: "enabled"], method: :patch %>.
+      </div>
+    <% end %>
+
+    <div class="introtxt">
+      <h3><%= @energy_demand.title %></h3>
+    </div>
+
+    <div class="bbcode"><%= @energy_demand.description.bbcode_to_html.html_safe %></div>
+
+    <section>
+      <div class="bigicontext-element">
+        <%= icon_tag "handshake" %>
+        <div class="txt">Ich möchte mich beteiligen als ..</div>
+      </div>
+      <div class="cardBox factBox">
+      <% @energy_demand.energy_categories.member_type.sort_by(&:position).each_with_index do |category, i| %>
+        <div class="content-block -toggable <%= i.zero? ? '-open' : '' %>">
+          <h3 class="ico"><%= icon_tag "flash" %><span><%= category.label? ? t("activerecord.attributes.energy_demand.types.#{category.label}") : category.title %></span></h3>
+          <div class="-toggle-content">
+            <% if category.label? %>
+              <%= render "energy_demands/show/sub_type_#{category.label}" rescue nil %>
+            <% elsif category.group? %>
+              <%= render "energy_demands/show/sub_type_#{category.group}" rescue nil %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% @energy_demand.energy_categories.space_type.sort_by(&:position).each_with_index do |category, i| %>
+        <div class="content-block -toggable">
+          <h3 class="ico"><%= icon_tag "flash" %><span>Biete <%= category.label? ? t("activerecord.attributes.energy_demand.types.#{category.label}") : category.title %></span></h3>
+          <div class="-toggle-content">
+            <% if category.label? %>
+              <%= render "energy_demands/show/sub_type_#{category.label}" rescue nil %>
+            <% elsif category.group? %>
+              <%= render "energy_demands/show/sub_type_#{category.group}" rescue nil %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      </div>
+    </section>
+
+    <section>
+      <div class="bigicontext-element">
+        <%= icon_tag "profile-vcard" %>
+        <div class="txt">Kontakt-Infos</div>
+      </div>
+
+      <% if current_user %>
+        <!-- Contact Block -->
+        <div class="contact-login-msg -show">
+          <!-- Show Contact Link -->
+          <a href="#" id="show-contact-link" data-label="Energieteiler Suche">Kontaktinformationen einblenden</a>
+          <!-- /Show Contact Link -->
+          <div class="contact-infos" id="contact-infos-block">
+            <% if @energy_demand.contact_name.present? %>
+              <div class="icontxt">
+                <%= icon_tag "user-avatar" %>
+                <div class="txt"><%= @energy_demand.contact_name %></div>
+              </div>
+            <% end %>
+            <% if @energy_demand.contact_phone.present? %>
+              <div class="icontxt">
+                <%= icon_tag "phone" %>
+                <div class="txt"><%= @energy_demand.contact_phone %></div>
+              </div>
+            <% end %>
+            <% if @energy_demand.contact_email.present? %>
+              <%= mail_to @energy_demand.contact_email do %>
+                <div class="icontxt">
+                  <%= icon_tag "at-symbol" %>
+                  <div class="txt"><%= @energy_demand.contact_email %></div>
+                </div>
+              <% end %>
+            <% end %>
+            <% if @energy_demand.contact_website.present? %>
+              <%= link_to @energy_demand.contact_website, class: 'icontxt', target: '_blank' do %>
+                <%= icon_tag "globe" %>
+                <%= @energy_demand.contact_website.sub(/^https?\:\/\//,'') %>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
+        <!-- /Contact Block -->
+        <% if user_signed_in? && current_user == @energy_demand.user || user_signed_in? && current_user.admin? %>
+          <div id="show-contact-block"></div>
+        <% end %>
+
+      <% else %>
+
+        <div class="contact-login-msg">
+            Du musst eingeloggt sein, um die vollständigen Kontaktinformationen zu sehen.<br />
+            <%= link_to 'Zum Login', new_user_session_path(redirect: request.original_url, origin: request.path) %> |
+            <%= link_to 'Zur Registrierung', new_registration_path(origin: request.path) %>
+        </div>
+
+      <% end %>
+
+    </section>
+
+    <section>
+      <div class="bigicontext-element">
+        <%= icon_tag "map-location" %>
+        <div class="txt">Ich möchte mich in folgendem Gebiet andocken</div>
+      </div>
+      <div class="category-tags">
+        <ul class="tag-list">
+          <% compact_graetzl_list(@energy_demand.graetzls).each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="stream">
+        <div class="bigicontext-element">
+          <%= icon_tag "layout-text" %>
+          <div class="txt">Frage / Kommentar an <%= @energy_demand.contact_name %></div>
+        </div>
+        <%= render 'comments/form', commentable: @energy_demand %>
+        <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+      </div>
+    </section>
+
+  </div>
+
+  <%= render 'energy_demands/show/sidebar' %>
+
+</section>

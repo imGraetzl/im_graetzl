@@ -122,6 +122,32 @@ class ActionProcessor
       comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, child.user_id]
       Notifications::ReplyOnFollowedDiscussionPost.generate(subject, child, to: comment_followers)
 
+    when [EnergyOffer, :create]
+      Activity.add_public(subject, to: subject.graetzls)
+      Notifications::NewEnergyOffer.generate(subject, to: user_ids(subject.graetzls))
+
+    when [EnergyOffer, :update]
+      Activity.add_public(subject, to: subject.graetzls)
+
+    when [EnergyOffer, :comment]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
+      notify_comment(subject, child)
+
+    when [EnergyDemand, :create]
+      Activity.add_public(subject, to: subject.graetzls)
+      Notifications::NewEnergyDemand.generate(subject, to: user_ids(subject.graetzls))
+
+    when [EnergyDemand, :update]
+      Activity.add_public(subject, to: subject.graetzls)
+
+    when [EnergyDemand, :comment]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
+      notify_comment(subject, child)
+
     when [RoomOffer, :create]
       Activity.add_public(subject, to: subject.graetzl)
       Notifications::NewRoomOffer.generate(subject, to: user_ids(subject.graetzl))

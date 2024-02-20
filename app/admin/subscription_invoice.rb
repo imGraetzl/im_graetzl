@@ -7,6 +7,7 @@ ActiveAdmin.register SubscriptionInvoice do
   scope :open
   scope :free
   scope :refunded
+  scope :uncollectible
 
   index { render 'index', context: self }
 

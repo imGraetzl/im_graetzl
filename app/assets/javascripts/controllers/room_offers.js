@@ -1,7 +1,7 @@
 APP.controllers.room_offers = (function() {
 
   function init() {
-    if ($("section.roomDetail").exists()) { initRoomDetail(); }
+    if ($("section.-roomOffer").exists()) { initRoomDetail(); }
     if ($(".request-price-form").exists()) initRoomOfferBookingForm();
   }
 

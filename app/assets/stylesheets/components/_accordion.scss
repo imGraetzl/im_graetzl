@@ -1,4 +1,5 @@
 .-toggable {
+  margin-bottom: 20px;
   > h3 {
     position: relative;
     padding-bottom:20px;
@@ -18,6 +19,16 @@
       background-image: url(image_path('svg/icon-arrow.svg'));
       background-repeat: no-repeat;
       background-position: right;
+    }
+    &.ico {
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right: 5px;
+      }
+    }
+    &:hover {
+      color: $color-ambient-mint-dark;
     }
   }
   .-toggle-content {

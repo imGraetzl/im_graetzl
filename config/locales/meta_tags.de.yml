@@ -81,6 +81,9 @@ de:
     polls:
       title: 'Mach mit! Umfragen in %{region}'
       description: 'Mach mit bei einer der Umfragen in %{region}'
+    energies:
+      title: 'Energieteiler & Energiegemeinschaften - Erneuerbare Energien produzieren & teilen.'
+      description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft. Trage dich jetzt im Energieteiler ein udn finde eine passende Energiegemeinschaft.'
     crowd_campaigns:
       default: &default
         title: 'Lokales Crowdfunding in %{region}'
@@ -129,6 +132,9 @@ de:
     crowd_campaigns:
       title: 'Lokales Crowdfunding in %{zip} %{region}'
       description: 'Entdecke lokale Crowdfunding Kampagnen in %{region} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+    energies:
+      title: 'Energieteiler & Energiegemeinschaften in %{zip} %{region}'
+      description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft. Trage dich jetzt im Energieteiler ein udn finde eine passende Energiegemeinschaft.'
 
 
   graetzls:
@@ -192,6 +198,22 @@ de:
         <<: *default
         title: 'Raumteiler im Bezirk %{graetzl} in %{region} | Neue Räume & Raumsuchende'
         description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Bezirk %{graetzl} finden ...'
+      kaernten:
+        <<: *default
+      muehlviertler-kernland:
+        <<: *default
+    energies:
+      default: &default
+        title: 'Energieteiler & Energiegemeinschaften aus der Gemeinde %{graetzl}'
+        description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft in der Gemeinde %{graetzl} ...'
+      wien:
+        <<: *default
+        title: 'Energieteiler & Energiegemeinschaften im Grätzl %{graetzl}'
+        description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft im Grätzl %{graetzl} im %{numeric}. Bezirk ...'
+      graz:
+        <<: *default
+        title: 'Energieteiler & Energiegemeinschaften im Bezirk %{graetzl} in %{region}'
+        description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft im Bezirk %{graetzl} ...'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -326,6 +348,8 @@ de:
       title: 'Meine Zahlungseinstellungen'
     rooms:
       title: 'Meine Raumteiler'
+    energies:
+      title: 'Meine Energieteiler'
     subscription:
       title: 'Meine Fördermitgliedschaft'
     tools:
@@ -385,6 +409,16 @@ de:
     show:
       title: '%{slogan}'
       description: '%{desc}...'
+
+  energy_offers:
+    show:
+      title: '%{title}'
+      description: '%{type}: %{desc}...'
+
+  energy_demands:
+    show:
+      title: '%{title}'
+      description: '%{type}: %{desc}...'
 
   tool_offers:
     show:

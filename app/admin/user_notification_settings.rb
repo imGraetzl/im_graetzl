@@ -19,6 +19,9 @@ ActiveAdmin.register User, as: "User Notification Settings" do
     ['New RoomOffer - Weekly','weekly_NewRoomOffer'],['New RoomOffer - Daily','daily_NewRoomOffer'],['New RoomOffer - Immediate','immediate_NewRoomOffer'],['New RoomOffer - Off','off_NewRoomOffer'],
     ['New RoomDemand - Weekly','weekly_NewRoomDemand'],['New RoomDemand - Daily','daily_NewRoomDemand'],['New RoomDemand - Immediate','immediate_NewRoomDemand'],['New RoomDemand - Off','off_NewRoomDemand'],
 
+    ['New EnergyOffer - Weekly','weekly_NewEnergyOffer'],['New EnergyOffer - Daily','daily_NewEnergyOffer'],['New EnergyOffer - Immediate','immediate_NewEnergyOffer'],['New EnergyOffer - Off','off_NewEnergyOffer'],
+    ['New EnergyDemand - Weekly','weekly_NewEnergyDemand'],['New EnergyDemand - Daily','daily_NewEnergyDemand'],['New EnergyDemand - Immediate','immediate_NewEnergyDemand'],['New EnergyDemand - Off','off_NewEnergyDemand'],
+
     ['New CoopDemand - Weekly','weekly_NewCoopDemand'],['New CoopDemand - Daily','daily_NewCoopDemand'],['New CoopDemand - Immediate','immediate_NewCoopDemand'],['New CoopDemand - Off','off_NewCoopDemand'],
     ['New ToolOffer - Weekly','weekly_NewToolOffer'],['New ToolOffer - Daily','daily_NewToolOffer'],['New ToolOffer - Immediate','immediate_NewToolOffer'],['New ToolOffer - Off','off_NewToolOffer'],
 

@@ -65,7 +65,7 @@
     <%= toggle_favorite_icon(@room_demand, class: 'btn-secondary -mint') if current_user %>
   </div>
 
-  <% if @room_demand.location %>
+  <% if @room_demand.location&.approved? %>
     <aside class="location">
       <%= render @room_demand.location %>
     </aside>

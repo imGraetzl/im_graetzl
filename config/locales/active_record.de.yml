@@ -88,6 +88,12 @@ de:
       room_demand:
         one: Raumsuche
         other: Raumsuchen
+      energy_offer:
+        one: Energieteiler
+        other: Energieteiler
+      energy_demand:
+        one: Energieteiler
+        other: Energieteiler
       tool_category:
         one: Kategorie
         other: Kategorien
@@ -133,6 +139,97 @@ de:
 
 
     attributes:
+      energy:
+        energy_types:
+          short:
+            beg: "BEG"
+            eeg_local: "EEG"
+            eeg_regional: "EEG"
+            unclear: ""
+          full:
+            beg: "Bürgerenergiegemeinschaft (BEG)"
+            eeg_local: "Lokale erneuerbare Energiegemeinschaft (EEG)"
+            eeg_regional: "Regionale erneuerbare Energiegemeinschaft (EEG)"
+            unclear: "Energiegemeinschaft"
+      energy_demand:
+        energy_types:
+          form:
+            beg: "Bürgerenergiegemeinschaft (BEG)"
+            eeg: "Erneuerbare Energiegemeinschaft (EEG)"
+            eeg_local: "lokal"
+            eeg_regional: "regional"
+            unclear: "Egal"
+          cardbox:
+            beg: "Suche Energiegemeinschaft zum Andocken (BEG)"
+            eeg_local: "Suche Energiegemeinschaft zum Andocken (EEG)"
+            eeg_regional: "Suche Energiegemeinschaft zum Andocken (EEG)"
+            unclear: "Suche Energiegemeinschaft zum Andocken"
+        organization_forms:
+          verein: "Verein"
+          genossenschaft: "Genossenschaft"
+          other: "egal"
+        orientation_types:
+          small: "Klein und fein, Mitglieder kennen sich"
+          big: "Große Organisation"
+          poor: "Tarif für Menschen mit geringem Einkommen"
+        types:
+          consumer: "Consumer (als Energie-Abnehmer*innen)"
+          producer: "Producer (als Einspeiser)"
+          prosumer: "Prosumer (als Energie-Abnehmer*innen & Einspeiser)"
+          space: "Fläche für Erzeugungsanlage"
+        statuses:
+          enabled: Aktiv
+          disabled: Inaktiv
+        status_message:
+          enabled: Deine Energiegemeinschaft-Suche ist nun aktiv und sichtbar.
+          disabled: Deine Energiegemeinschaft-Suche ist nun deaktiviert und scheint nicht mehr im Energieteiler auf.      
+        energy_type: Typ der Energiegemeinschaft
+        energy_categories: Suchkategorie
+        title: Titel
+        description: Beschreibung
+        contact_name: Name
+        contact_email: E-Mailadresse
+
+      energy_offer:
+        energy_types:
+          form:
+            beg: "Bürgerenergiegemeinschaft (BEG)"
+            eeg: "Erneuerbare Energiegemeinschaft (EEG)"
+            eeg_local: "lokal"
+            eeg_regional: "regional"
+            unclear: "Noch nicht entschieden"
+          cardbox:
+            beg: "Biete Energiegemeinschaft zum Andocken (BEG) "
+            eeg_local: "Biete Energiegemeinschaft zum Andocken (EEG)"
+            eeg_regional: "Biete Energiegemeinschaft zum Andocken (EEG)"
+            unclear: "Biete Energiegemeinschaft zum Andocken"
+        operation_states:
+          progress: "im Aufbau / Gründung"
+          active: "in Betrieb"
+        organization_forms:
+          verein: "Verein"
+          genossenschaft: "Genossenschaft"
+          other: "noch nicht entschieden"
+        types:
+          consumer: "Mitglieder Energie-Abnehmer*innen"
+          producer: "Erzeugungsanlage"
+          prosumer: "Mitglieder mit Erzeugungsanlage"
+          space: "Fläche für Erzeugungsanlage"
+        statuses:
+          enabled: Aktiv
+          disabled: Inaktiv
+        status_message:
+          enabled: Deine Energiegemeinschaft ist nun aktiv und sichtbar.
+          disabled: Deine Energiegemeinschaft ist nun deaktiviert und scheint nicht mehr im Energieteiler auf.      
+        energy_type: Typ der Energiegemeinschaft
+        energy_categories: Suchkategorie
+        operation_state: Umsetzungsgrad
+        project_goals: Ziele der Energiegemeinschaft
+        title: Titel
+        description: Beschreibung
+        contact_name: Name
+        contact_email: E-Mailadresse
+
       comment:
         content: Kommentar
       address:

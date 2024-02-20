@@ -1,0 +1,62 @@
+section.energy-form {
+  max-width: 775px;
+  margin: 0 auto;
+  label {min-width:220px;}
+  textarea {min-height:150px;}
+
+  h2 {
+    @include font-size-secondaryFont;
+    margin: 40px 0 15px;
+    text-align: center;
+  }
+
+  div.hl-subtext {
+    margin: 40px 0 15px;
+    h1 { margin: 0px 0 15px; }
+    h2 { margin: 0px 0 5px; }
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
+  .energy-columns {
+    overflow: hidden;
+    .column-left { float: left; width: 50%; padding-right:10px;}
+    .column-right { float: right; width: 50%;}
+  }
+
+  .input-select {
+    .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
+  }
+
+  .button-switch {
+    text-align: center;
+    margin-top: 10px;
+    .btn-primary {
+      display:inline-table;
+      span {text-decoration: underline; font-weight: bold;}
+      margin: 10px;
+    }
+  }
+
+  .eeg-types {
+    display: none;
+    margin-left:35px;
+  }
+
+  .sub-type-info {
+    display: none;
+    margin-left:35px;
+  }
+
+  .energy-type-selection {
+    display: grid;
+    justify-content: center;
+    .input-radio {
+      label {
+        @include font-size-primaryFont('larger');
+        padding-bottom: 5px;
+      }
+    }
+  }
+}

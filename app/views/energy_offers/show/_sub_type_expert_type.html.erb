@@ -1,0 +1,6 @@
+<em>Wir suchen noch Expert*innen aus den Bereichen:</em>
+<ul>
+  <% @energy_offer.energy_categories.expert_sub_type.each do |c| %>
+    <li><%= c.title %></li>
+  <% end %>
+</ul>

@@ -1,0 +1,10 @@
+<em>Wir suchen noch Flächen für Erzeugungsanlagen, im Speziellen:</em>
+<ul>
+  <% if @energy_offer.goal_roofspace %>
+    <li>Dach</li>
+  <% end %>
+
+  <% if @energy_offer.goal_freespace %>
+    <li>Freifläche</li>
+  <% end %>
+</ul>

@@ -9,13 +9,21 @@
           <strong>Leider gab es bei der Abbuchung deiner <%= t("region.#{@subscription.region.id}.domain_short") %> Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte.
         </p>
         <p>
+        Keine Sorge, das kommt manchmal vor. Hier sind mögliche Gründe:
+        </p>
+        <ul>
+          <li>Deine Karte ist abgelaufen.</li>
+          <li>Das Konto ist nicht ausreichend gedeckt.</li>
+          <li>Die Buchung wurde von der Bank blockiert.</li>
+        </ul>
+        <p>
           <strong>Wir würden dich daher bitten, deine Zahlungsmethode anzupassen,</strong> damit deine Mitgliedschaft (Laufzeit: <%= I18n.localize(@period_start, format:'%d.%m.%Y') %> bis <%= I18n.localize(@period_end, format:'%d.%m.%Y') %>) verlängert werden kann.
         </p>
       </td>
     </tr>
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Zahlungsmethode anpassen", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent) %>
+        <%= render 'mailers/shared/button', title: "Zahlungsmethode aktualisieren", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent) %>
       </td>
     </tr>
     <tr>

@@ -1,0 +1,59 @@
+<aside class="sideBar">
+
+  <div class="sideBarbox contact">
+    <div class='sideflag -L'>Was mir wichtig ist …</div>
+
+    <div class="iconlist">
+
+      <%= link_to @energy_demand.user, class: 'user-wrp', rel: 'nofollow' do %>
+        <%= avatar_image_with_tooltip @energy_demand.user, size: :thumb, class: 'img-round show-badge' %>
+        <span class="name"><%= @energy_demand.user.username %></span>
+      <% end %>
+
+      <% if @energy_demand.orientation_type? %>
+        <div class="orientation_type icontxt">
+          <%= icon_tag "info-announcement" %>
+          <%= t("activerecord.attributes.energy_demand.orientation_types.#{@energy_demand.orientation_type}") %>
+        </div>
+      <% end %>
+
+      <% if @energy_demand.organization_form? && @energy_demand.organization_form != 'other' %>
+        <div class="organization_form icontxt">
+          <%= icon_tag "organization" %>
+          <%= t("activerecord.attributes.energy_demand.organization_forms.#{@energy_demand.organization_form}") %>
+        </div>
+      <% end %>
+
+      <div class="created icontxt">
+        <%= icon_tag "pencil" %>
+        Erstellt / Aktualisiert:<br><%= I18n.localize(@energy_demand.updated_at, format:'%d. %b %Y') %>
+      </div>
+
+      <% if user_signed_in? && current_user == @energy_demand.user %>
+        <div class="btn-group">
+          <%= link_to 'Bearbeiten', edit_energy_demand_path(@energy_demand), class: 'btn-secondary -mint -small' %>
+        </div>
+        <div class="btn-group">
+          <%= link_to "javascript:", data: { jq_dropdown: "#roomdemand-state-update-dropdown" }, class: "btn-secondary -mint -small -state-#{@energy_demand.status}" do %>
+            Status: <span><%= t("activerecord.attributes.energy_demand.statuses.#{@energy_demand.status}") %></span>
+          <% end %>
+        </div>
+        <div id="roomdemand-state-update-dropdown" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+          <div class="jq-dropdown-panel">
+            <%= link_to 'Aktiv', [:update_status, @energy_demand, status: "enabled"], method: :patch %>
+            <%= link_to 'Inaktiv', [:update_status, @energy_demand, status: "disabled"], method: :patch %>
+            <%= link_to 'Löschen', energy_demand_path(@energy_demand), data: { confirm: 'Bist du dir sicher?' }, method: :delete %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="sticky-btns">
+    <%= messenger_button(@energy_demand&.user, class: 'btn-primary -mint', label: @energy_demand.class.name) %>
+    <%= toggle_favorite_icon(@energy_demand, class: 'btn-secondary -mint') if current_user %>
+  </div>
+
+  <%= link_to "Alle Energieteiler", region_energies_path, class: 'btn-primary -grey' %>
+</aside>

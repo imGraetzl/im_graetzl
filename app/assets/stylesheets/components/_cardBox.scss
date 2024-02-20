@@ -131,7 +131,7 @@
 
 
   // -------------------------- Room Demand Cardbox
-  &.-roomdemand, &.-coopdemand {
+  &.-roomdemand, &.-coopdemand, &.-energydemand {
     .category-tags {
       position: absolute;
       top:4px;
@@ -308,7 +308,7 @@
     padding: 10px 0px 15px 0px;
   }
 
-  &.-roomdemand, &.-coopdemand, &.-tooldemand {
+  &.-roomdemand, &.-coopdemand, &.-tooldemand, &.-energydemand {
     .type-description {
       padding-top: 0px;
       margin-top:-10px;
@@ -321,14 +321,14 @@
     }
   }
 
-  &.-roomoffer, &.-roomdemand {
+  &.-roomoffer, &.-roomdemand, &.-energyoffer, &.-energydemand {
 
     .slogan {
       font-style: normal;
       font-weight: 600;
     }
 
-    .collaboration, .waiting-list, .slot-booking {
+    .collaboration, .waiting-list, .slot-booking, .facts {
       color: $color-ambient-brown;
       margin: 0px -3px 1px -3px;
       padding: 5px;
@@ -338,6 +338,15 @@
       }
       + .streamElement, + .btn-group {
         margin-top: 20px;
+      }
+      &.-grey {
+        background-color: #f8f8f8;
+      }
+      &.-mint {
+        background-color: rgba($color-ambient-mint-light, 0.3);
+      }
+      &.-nobg {
+        background-color: unset;
       }
     }
     .waiting-list {

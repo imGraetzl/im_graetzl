@@ -41,7 +41,7 @@
     <%= toggle_favorite_icon(@coop_demand, class: 'btn-secondary -mint') if current_user %>
   </div>
 
-  <% if @coop_demand.location %>
+  <% if @coop_demand.location&.approved? %>
     <aside class="location">
       <%= render @coop_demand.location %>
     </aside>

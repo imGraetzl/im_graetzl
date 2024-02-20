@@ -37,6 +37,12 @@ class NotificationMailer < ApplicationMailer
     'Auf der Suche nach Raum' => [
       Notifications::NewRoomDemand
     ],
+    'Neue Energiegemeinschaften zum Andocken' => [
+      Notifications::NewEnergyOffer
+    ],
+    'Auf der Suche nach einer Energiegemeinschaft' => [
+      Notifications::NewEnergyDemand
+    ],
     'Neue Treffen' => [
       Notifications::NewMeeting
     ],

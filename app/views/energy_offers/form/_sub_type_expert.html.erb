@@ -1,0 +1,6 @@
+<%= f.collection_check_boxes :energy_category_ids, EnergyCategory.expert_sub_type.all, :id, :label do |b| %>
+  <div class="input-checkbox">
+    <%= b.check_box %>
+    <label for="<%= "energy_offer_energy_category_ids_#{b.object.id}" %>"><%= b.object.title %></label>
+  </div>
+<% end %>

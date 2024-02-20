@@ -105,12 +105,12 @@ ActiveAdmin.register Meeting do
     column :graetzl
     column(:plz) { |m| m.graetzl.zip }
     column :region_id
-    #column(:email) {|m| m.user.email }
-    #column(:full_name) {|m| m.user.full_name }
-    #column :user_id
-    #column :name
-    #column(:going_tos) {|m| m.going_tos.count }
-    #column(:meeting_url) { |m| graetzl_meeting_url(m.graetzl, m)}
+    column(:email) {|m| m.user.email }
+    column(:full_name) {|m| m.user.full_name }
+    column :user_id
+    column :name
+    column(:going_tos) {|m| m.going_tos.count }
+    column(:meeting_url) { |m| graetzl_meeting_url(m.graetzl, m)}
   end
 
   permit_params :graetzl_id,

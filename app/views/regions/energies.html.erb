@@ -1,0 +1,48 @@
+<% meta(
+    robots: 'index, follow',
+    title: t('.title', region: current_region.name),
+    description: t('.description', region: current_region.name),
+    og_title: t('.title', region: current_region.name),
+    og_description: t('.description', region: current_region.name),
+    og_image: image_url('info/energieteiler/header_hell.jpg')
+  )
+%>
+
+<section class="region energies">
+
+  <%= render 'map' %>
+  <%= render 'navigation' %>
+
+  <div class="hl-subtext -cards">
+    <h1><em>Energieteiler</em></h1>
+    <p>Erneuerbare Energien produzieren & teilen. <%= render 'shared/questionmarklink', hint_url: info_energieteiler_path %></p>
+  </div>
+
+  <!--< %= render 'filters/room_categories' % >-->
+
+  <%= form_tag energies_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
+    <div class="filter-selection-text-jbox">
+      Zeige mir <%= link_to 'alle Energieteiler', '#filter-modal-type', data: { no_filter_label: 'alle Energieteiler' } %>
+      in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %>
+    </div>
+    <div id="filter-modal-type" class="filter-modal-jbox">
+      <%= render 'filters/energy_type' %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', entire_region: true %>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="energies-card-container"></div>
+    <div class="action-card-container" data-behavior="energies-action-card-container">
+      <%= render 'energies/action_card' %>
+    </div>
+    <!-- Insert Featured Card -->
+    <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? && current_region.is?('wien') %>
+
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'energies-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

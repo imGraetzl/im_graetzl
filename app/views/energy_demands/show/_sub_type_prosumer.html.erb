@@ -1,0 +1,14 @@
+<em>Ich möchte mich als 'Prosumer' bei einer Energiegemeinschaft andocken und biete hierfür:</em>
+<ul>
+  <% if @energy_demand.goal_prosumer_solarpower %>
+    <li>PV</li>
+  <% end %>
+
+  <% if @energy_demand.goal_prosumer_hydropower %>
+    <li>Wasserkraft</li>
+  <% end %>
+
+  <% if @energy_demand.goal_prosumer_windpower %>
+    <li>Windkraft</li>
+  <% end %>
+</ul>

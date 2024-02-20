@@ -15,9 +15,7 @@ APP.components.stripePayment = (function() {
       business: {
         name: business_name
       },
-      fields: {
-        //billingDetails: 'never'
-      },
+      paymentMethodOrder: ['card', 'apple_pay', 'eps', 'sepa_debit', 'google_pay'],
     }
     const appearance = {
       theme: 'flat',
@@ -84,8 +82,7 @@ APP.components.stripePayment = (function() {
       if (result.error.type === "card_error" || result.error.type === "validation_error") {
         form.find(".error-message").text(result.error.message);
       } else {
-        form.find(".error-message").text("Es ist ein Fehler aufgetreten, bitte versuche es erneut.");
-        console.log(result.error.message);
+        form.find(".error-message").text(result.error.message);
       }
 
       setLoading(form, false);
@@ -119,6 +116,20 @@ APP.components.stripePayment = (function() {
       // Clear Error Msg / Disable the button and show a spinner
       form.find(".error-message").text("");
       form.find("#payment-submit").attr("disabled", true).text('Autorisierung läuft. Bitte warten ...');
+
+      // [TODO: Remove this in future times] // Track non opening Modal 3dsecure bug
+      setTimeout(() => {        
+        let modal3dsecure = document.querySelector('body').firstElementChild;
+        let hidden3dsecure = modal3dsecure.querySelector('iframe') && modal3dsecure.style.display == 'none';
+        if (hidden3dsecure) {
+          gtag(
+            'event', 'Error :: Payment :: Autorisierung', {
+            'event_label' : form.attr('action')
+          });
+        }
+      }, 7000);
+      // End of track
+
     } else {
       form.find("#payment-submit").removeAttr("disabled").text(btntext);
     }

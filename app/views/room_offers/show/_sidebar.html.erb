@@ -209,7 +209,7 @@
     </div>
   <% end %>
 
-  <% if @room_offer.location %>
+  <% if @room_offer.location&.approved? %>
     <aside class="location">
       <%= render @room_offer.location %>
     </aside>

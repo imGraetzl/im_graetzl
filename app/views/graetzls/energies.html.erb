@@ -1,0 +1,56 @@
+<% meta(
+    title: t(".#{current_region.id}.title", graetzl: @graetzl.name, region: current_region.name),
+    description: t(".#{current_region.id}.description", graetzl: @graetzl.name, numeric: @graetzl.numeric, region: current_region.name),
+    og_title: t(".#{current_region.id}.title", graetzl: @graetzl.name, region: current_region.name),
+    og_description: t(".#{current_region.id}.description", graetzl: @graetzl.name, numeric: @graetzl.numeric, region: current_region.name),
+    og_image: image_url('info/energieteiler/header_hell.jpg'),
+    robots: 'index, follow'
+  )
+%>
+<% content_for :canonical_url, region_energies_url(category: @category) if @category %>
+
+<section class="graetzls energies">
+  <%= render 'map' %>
+  <%= render 'navigation' %>
+
+  <div class="hl-subtext -cards">
+    <h1>Entdecke <span>Energieteiler</span></h1>
+    <p>Erneuerbare Energien produzieren & teilen. <%= render 'shared/questionmarklink', hint_url: info_energieteiler_path %></p>
+  </div>
+
+  <%= form_tag energies_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
+    <div class="filter-selection-text-jbox">
+      Zeige mir <%= link_to 'alle Energieteiler', '#filter-modal-type', data: { no_filter_label: 'alle Energieteiler' } %>
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        in <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% else %>
+        in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
+      <% end %>
+    </div>
+    <div id="filter-modal-type" class="filter-modal-jbox">
+      <%= render 'filters/energy_type' %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        <%= render 'filters/areas', favorites: current_user %>
+      <% else %>
+        <%= render 'filters/areas', graetzl: @graetzl %>
+      <% end %>
+    </div>
+  <% end %>
+
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="energies-card-container"></div>
+    <div class="action-card-container" data-behavior="energies-action-card-container">
+      <%= render 'energies/action_card', graetzl: @graetzl %>
+    </div>
+
+    <!-- Insert Featured Card -->
+    <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? && current_region.is?('wien') %>
+
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'energies-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

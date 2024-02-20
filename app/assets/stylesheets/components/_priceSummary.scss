@@ -13,6 +13,12 @@
     //color: $color-ambient-mint-dark;
     @include font-size-primaryFont('large');
     font-weight: bold;
+    small.hint {
+      font-style: italic;
+      padding-top:5px;
+      display: block;
+      font-weight: normal;
+    }
   }
   .desc {
     text-align: center;

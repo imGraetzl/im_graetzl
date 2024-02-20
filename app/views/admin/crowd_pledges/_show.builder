@@ -55,4 +55,19 @@ context.instance_eval do
     end
   end
 
+  panel 'User Agent' do
+    attributes_table_for crowd_pledge do
+      if crowd_pledge.user_agent
+        row(:browser_platform){|p| p.user_agent["browser_platform"]}
+        row(:browser_platform_id){|p| p.user_agent["browser_platform_id"]}
+        row(:browser_platform_name){|p| p.user_agent["browser_platform_name"]}
+        row(:browser_platform_version){|p| p.user_agent["browser_platform_version"]}
+        row(:browser_name){|p| p.user_agent["browser_name"]}
+        row(:browser_full_version){|p| p.user_agent["browser_full_version"]}
+        row(:browser_device_id){|p| p.user_agent["browser_device_id"]}
+        row(:browser_device_name){|p| p.user_agent["browser_device_name"]}
+      end
+    end
+  end
+
 end

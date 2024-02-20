@@ -17,6 +17,7 @@ class CrowdPledgesController < ApplicationController
     @crowd_pledge.user_id = current_user.id if current_user
     @crowd_pledge.calculate_price
     @crowd_pledge.status = "incomplete"
+    @crowd_pledge.user_agent = user_agent
 
     if @crowd_pledge.save
       redirect_to [:choose_payment, @crowd_pledge]
@@ -113,6 +114,19 @@ class CrowdPledgesController < ApplicationController
 
   private
 
+  def user_agent
+    return {
+      browser_name: "#{browser.name}",
+      browser_full_version: "#{browser.full_version}",
+      browser_platform: "#{browser.platform}",
+      browser_platform_id: "#{browser.platform.id}",
+      browser_platform_name: "#{browser.platform.name}",
+      browser_platform_version: "#{browser.platform.version}",
+      browser_device_id: "#{browser.device.id}",
+      browser_device_name: "#{browser.device.name}",
+    }
+  end
+
   def load_active_campaign
     redirect_to root_url and return if params[:crowd_campaign_id].blank?
 
@@ -142,7 +156,8 @@ class CrowdPledgesController < ApplicationController
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
       :crowd_reward_id, :donation_amount, :anonym, :terms, :guest_newsletter,
-      :email, :contact_name, :address_street, :address_zip, :address_city, :answer
+      :email, :contact_name, :address_street, :address_zip, :address_city, :answer,
+      :user_agent
     )
   end
 

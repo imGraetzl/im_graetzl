@@ -20,7 +20,7 @@
   }
 }
 
-section.roomDetail {
+section.offerDetail {
 
   .cardBox {
     &.-group {
@@ -45,7 +45,7 @@ section.roomDetail {
     }
   }
 
-  &.-Offer {
+  &.-roomOffer, &.-energyOffer {
 
     .headContent {
       z-index: 10;
@@ -544,6 +544,31 @@ section.roomDetail {
       }
       .name {
         margin-left:10px;
+      }
+    }
+  }
+
+  &.-energyOffer {
+    .factBox {
+      background-color: $color-ambient-mint-shine;
+    }
+    .-toggable {
+      margin: 20px 15px 20px 15px;
+      &:last-child {
+        margin-bottom: 0px;
+        &:not(.-open) h3 {
+          border: none;
+        }
+      }
+    }
+    .-toggle-content {
+      padding-top: 20px;
+      padding-bottom: 10px;
+      ul {
+        margin-top:10px;
+        li {
+          margin-left:35px;
+        }
       }
     }
   }

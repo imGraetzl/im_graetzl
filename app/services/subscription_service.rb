@@ -106,6 +106,12 @@ class SubscriptionService
     )
   end
 
+  def invoice_uncollectible(subscription_invoice, object)
+    subscription_invoice.update(
+      status: 'uncollectible'
+    )
+  end
+
   def invoice_paid(subscription, object)
     user = subscription.user
     return if user.nil?

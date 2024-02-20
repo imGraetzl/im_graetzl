@@ -18,6 +18,8 @@ module Notifications
     NewMeeting,
     NewRoomDemand,
     NewRoomOffer,
+    NewEnergyOffer,
+    NewEnergyDemand,
     NewToolOffer,
     NewToolDemand,
     NewWallComment,

@@ -1,0 +1,20 @@
+<% title('Neue Energiegemeinschaft anlegen') %>
+
+<section class="energy-form">
+
+<div class="hl-subtext">
+      <h1><span>Neue Energiegemeinschaft</span> anlegen</h1>
+      <p>Hast du eine Energiegemeinschaft / oder suchst du eine Energiegemeinschaft?</p>
+
+      <div class="button-switch">
+        <%= link_to new_energy_offer_path, :class => 'btn-primary' do %>
+          Ich <span>biete</span> eine Energiegemeinschaft
+        <% end %>
+
+        <%= link_to new_energy_demand_path, :class => 'btn-primary' do %>
+          Ich <span>suche</span> eine Energiegemeinschaft
+        <% end %>
+      </div>
+</div>
+
+</section>
