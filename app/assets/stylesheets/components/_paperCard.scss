@@ -137,6 +137,12 @@
     $webp1x: image_path('illu/illu-cylce2-plain@2x.webp'),
   );
 }
+.paperCard.-energies .wrp {
+  @include bg-url(
+    image_path('illu/illu-cylce2-plain@2x.png'),
+    $webp1x: image_path('illu/illu-cylce2-plain@2x.webp'),
+  );
+}
 .paperCard.-crowd_campaign .wrp {
   //background-image: url(image_path('mailings/call.png')) !important;
   @include bg-url(

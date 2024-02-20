@@ -1,0 +1,322 @@
+<%= form_for(@energy_offer) do |f| %>
+<%= form_errors_for @energy_offer %>
+
+<div class="form-block">
+
+  <div class="energy-type-selection cardBox">
+
+    <% ["beg"].each do |(name)| %>
+      <div class="input-radio main-type">
+        <%= f.radio_button :energy_type, name %>
+        <%= f.label "energy_type_#{name}", t("activerecord.attributes.energy_offer.energy_types.form.#{name}") %>
+      </div>
+    <% end %>
+
+    <% ["eeg"].each do |(name)| %>
+      <div class="input-radio main-type">
+        <%= f.radio_button :energy_type, name %>
+        <%= f.label "energy_type_#{name}", t("activerecord.attributes.energy_offer.energy_types.form.#{name}") %>
+      </div>
+    <% end %>
+
+    <div class="eeg-types">
+      <% ["eeg_local"].each do |(name)| %>
+        <div class="input-radio">
+          <%= f.radio_button :energy_type, name %>
+          <%= f.label "energy_type_#{name}", t("activerecord.attributes.energy_offer.energy_types.form.#{name}") %>
+        </div>
+      <% end %>
+      <% ["eeg_regional"].each do |(name)| %>
+        <div class="input-radio">
+          <%= f.radio_button :energy_type, name %>
+          <%= f.label "energy_type_#{name}", t("activerecord.attributes.energy_offer.energy_types.form.#{name}") %>
+        </div>
+      <% end %>
+    </div>
+
+    <% ["unclear"].each do |(name)| %>
+      <div class="input-radio main-type">
+        <%= f.radio_button :energy_type, name %>
+        <%= f.label "energy_type_#{name}", t("activerecord.attributes.energy_offer.energy_types.form.#{name}") %>
+      </div>
+    <% end %>
+
+  </div>
+
+  
+
+
+  <h2 class="hl-main"><span>Titel</span> und <span>Beschreibung</span></h2>
+  <div class="input-field">
+    <%= f.label :title do %>
+    <%= icon_tag "record" %>
+    <span>Kurzer Titel</span>
+    <% end %>
+    <%= f.text_field :title, placeholder: 'Kurzer Titel deiner Energiegemeinschaft ...' %>
+  </div>
+  <div class="input-field">
+    <%= f.label :description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Beschreibung</span>
+    <% end %>
+    <%= f.text_area :description, placeholder: 'Hier kannst du deine Energiegemeinschaft ausführlicher beschreiben ...' %>
+  </div>
+  <div class="input-select">
+    <%= label_tag :members_count do %>
+      <%= icon_tag "users" %>
+      <span>Anzahl Mitglieder</span>
+    <% end %>
+    <%= f.select :members_count, member_count_values, { include_blank: 'Wieviele Mitglieder seid ihr schon?' } %>
+  </div>
+
+
+
+  <h2 class="hl-main"><span>Umsetzungs</span> grad</h2>
+  <div class="operation-state-selection cardBox">
+    <% EnergyOffer.operation_states.each do |(name, value)| %>
+      <div class="input-radio">
+        <%= f.radio_button :operation_state, name %>
+        <%= f.label "operation_state_#{name}", t("activerecord.attributes.energy_offer.operation_states.#{name}") %>
+      </div>
+    <% end %>
+  </div>
+
+
+
+
+  <h2 class="hl-main"><span>Was oder wen sucht ihr noch</span> für eure Energiegemeinschaft?</h2>
+  <div class="energy-categories category-types cardBox">
+    <%= f.collection_check_boxes :energy_category_ids, EnergyCategory.member_type.all, :id, :label do |b| %>
+      <div class="input-checkbox">
+        <%= b.check_box %>
+        <label for="<%= "energy_offer_energy_category_ids_#{b.object.id}" %>"><%= t("activerecord.attributes.energy_offer.types.#{b.object.label}") %></label>
+      </div>
+      <div class="sub-type-info <%= "sub_type_#{b.object.id}" %>">
+        <%= render "energy_offers/form/sub_type_#{b.object.label}", f: f rescue nil %>
+      </div>
+    <% end %>
+    <%= f.collection_check_boxes :energy_category_ids, EnergyCategory.space_type.all, :id, :label do |b| %>
+      <div class="input-checkbox">
+        <%= b.check_box %>
+        <label for="<%= "energy_offer_energy_category_ids_#{b.object.id}" %>"><%= t("activerecord.attributes.energy_offer.types.#{b.object.label}") %></label>
+      </div>
+      <div class="sub-type-info <%= "sub_type_#{b.object.id}" %>">
+        <%= render "energy_offers/form/sub_type_#{b.object.label}", f: f rescue nil %>
+      </div>
+    <% end %>
+    <%= f.collection_check_boxes :energy_category_ids, EnergyCategory.expert_type.all, :id, :label do |b| %>
+      <div class="input-checkbox">
+        <%= b.check_box %>
+        <label for="<%= "energy_offer_energy_category_ids_#{b.object.id}" %>"><%= b.object.title %></label>
+      </div>
+      <div class="sub-type-info <%= "sub_type_#{b.object.id}" %>">
+        <%= render "energy_offers/form/sub_type_expert", f: f rescue nil %>
+      </div>
+    <% end %>
+    <%= f.collection_check_boxes :energy_category_ids, EnergyCategory.exchange_type.all, :id, :label do |b| %>
+      <div class="input-checkbox">
+        <%= b.check_box %>
+        <label for="<%= "energy_offer_energy_category_ids_#{b.object.id}" %>"><%= b.object.title %></label>
+      </div>
+    <% end %>
+  </div>
+
+
+
+  <h2 class="hl-main"><span>Tarif</span> innerhalb der <span>Energiegemeinschaft</span></h2>
+  <div class="input-field">
+    <%= f.label :price_per_kwh do %>
+      <%= icon_tag "currency-euro" %>
+      <span>Cent / kWh</span>
+    <% end %>
+    <%= f.number_field :price_per_kwh, placeholder: 'Wisst ihr schon euren Tarif innerhalb der BEG/EEG', class: 'price-per-hour-input' %>
+  </div>
+
+
+
+
+  <h2 class="hl-main"><span>Ziele</span> und <span>Ausrichtung</span></h2>
+  <div class="input-field">
+    <%= f.label :project_goals do %>
+    <%= icon_tag "layout-document" %>
+    <span>Ziele</span>
+    <% end %>
+    <%= f.text_area :project_goals, placeholder: 'Was sind die Ziele eurer Energiegemeinschaft …' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :special_orientation do %>
+    <%= icon_tag "layout-document" %>
+    <span>Besondere Ausrichtung</span>
+    <% end %>
+    <%= f.text_area :special_orientation, placeholder: 'Habt ihr eine besondere Ausrichtung? z.B. Energiearmut …' %>
+  </div>
+
+
+
+<h2 class="hl-main"><span>In welchem Gebiet </span>kann man sich andocken?</h2>
+  <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzln") %>">
+    <% if current_region.use_districts? %>
+      <div class="input-select">
+        <%= f.label :district_ids do %>
+          <%= icon_tag "map-location" %>
+          <span>Bezirk</span>
+        <% end %>
+        <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
+      </div>
+    <% end %>
+    <div class="input-select">
+      <%= f.label :graetzl_ids do %>
+        <%= icon_tag "map-location" %>
+        <span><%= t("region.#{current_region.id}.graetzl") %></span>
+      <% end %>
+      <%= f.select :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
+    </div>
+  </div>
+
+
+
+
+  <h2 class="hl-main"><span>Fotos</span> zu eurer Energiegemeinschaft</h2>
+  <div class="upload-oldschool">
+    <%= f.label :avatar do %>
+      <%= icon_tag "photo-camera" %>
+      <span>Logo / Foto von euch<small class="upload-hint">(max. 5MB)</small></span>
+    <% end %>
+    <div class="field-wrp">
+      <%= upload_image_input(f, :avatar) %>
+    </div>
+  </div>
+  <div class="upload-oldschool">
+    <%= f.label :cover_photo do %>
+      <%= icon_tag "photo-camera" %>
+      <span>Coverfoto<small class="upload-hint">(max. 5MB)</small></span>
+    <% end %>
+    <div class="field-wrp">
+      <%= upload_image_input(f, :cover_photo) %>
+    </div>
+  </div>
+  <div class="upload-oldschool">
+    <%= f.label :images do %>
+      <%= icon_tag "photo-camera" %>
+      <span>Weitere Fotos<small class="upload-hint">(max. 5MB / Foto)</small></span>
+    <% end %>
+    <div class="field-wrp">
+      <%= upload_image_input(f, :images, multiple: true) %>
+    </div>
+  </div>
+
+
+
+
+  <h2 class="hl-main"><span>Anschrift</span> und <span>Kontakt</span></h2>
+  
+  <div class="input-select">
+    <%= f.label :organization_form do %>
+      <%= icon_tag "organization" %>
+      <span>Organisationsform</span>
+    <% end %>
+    <%= f.select :organization_form, options_for_select(organization_form_offer_options, f.object.organization_form), prompt: 'Auswählen' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_company do %>
+      <%= icon_tag "user-avatar" %>
+      <span>Organisationsname</span>
+    <% end %>
+    <%= f.text_field :contact_company, placeholder: 'Name vom Verein / Genossenschaft, ...' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_name do %>
+      <%= icon_tag "user-avatar" %>
+      <span>Kontaktperson</span>
+    <% end %>
+    <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_website do %>
+      <%= icon_tag "globe" %>
+      <span>Website</span>
+    <% end %>
+    <%= f.text_field :contact_website, placeholder: 'http:// oder https://' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_email do %>
+      <%= icon_tag "at-symbol" %>
+      <span>E-Mail</span>
+    <% end %>
+    <%= f.text_field :contact_email, placeholder: 'E-Mail Adresse' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_phone do %>
+      <%= icon_tag "phone" %>
+      <span>Telefon</span>
+    <% end %>
+    <%= f.text_field :contact_phone, placeholder: '+43 xxx xxxxxxx' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_address do %>
+      <%= icon_tag "map-location" %>
+      <span>Strasse & Nr.</span>
+    <% end %>
+    <%= f.text_field :contact_address, placeholder: 'Strasse & Nr.' %>
+  </div>
+
+  <div class="form-columns">
+    <div class="input-field">
+      <%= f.label :contact_zip do %>
+        <%= icon_tag "map-location" %>
+        <span>Postleitzahl</span>
+      <% end %>
+      <%= f.text_field :contact_zip, placeholder: 'PLZ' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :contact_city do %>
+        <%= icon_tag "map-location" %>
+        <span>Ort/Stadt</span>
+      <% end %>
+      <%= f.text_field :contact_city, placeholder: 'Stadt' %>
+    </div>
+  </div>
+  
+  <div class="input-select">
+    <%= f.label :location_id do %>
+      <%= icon_tag "location" %>
+      <span>Schaufenster</span>
+    <% end %>
+    <%= f.collection_select(:location_id, current_user.locations, :id, :name, {:include_blank => 'Schaufenster verknüpfen..'}) %>
+  </div>
+
+
+
+
+  <% if f.object.new_record? && current_user.admin? %>
+    <h2 class="hl-main"><span>User</span> auswählen</h2>
+    <% if f.object.new_record? %>
+      <div class="input-field">
+        <%= f.label :user_id do %>
+          <%= icon_tag "user-avatar" %>
+          <span>Ersteller</span>
+        <% end %>
+        <div class="user-autocomplete autocomplete-wrp">
+          <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
+          <%= hidden_field_tag :user_id, current_user.id, data:{behavior:"user-autocomplete-id"} %>
+          <%= text_field_tag :q, current_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="input-button">
+    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary -saving' %>
+  </div>
+
+</div>
+  
+<% end %>

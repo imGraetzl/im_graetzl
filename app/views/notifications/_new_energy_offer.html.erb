@@ -1,0 +1,9 @@
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to notification.energy_offer do %>
+    <%= avatar_image notification.energy_offer, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.energy_offer.user.username %></span> bietet eine Energiegemeinschaft in deinem Grätzl
+    </div>
+  <% end %>
+<% end %>

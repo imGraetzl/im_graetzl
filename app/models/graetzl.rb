@@ -20,6 +20,10 @@ class Graetzl < ApplicationRecord
   has_many :groups, through: :group_graetzls
   has_many :poll_graetzls
   has_many :polls, through: :poll_graetzls
+  has_many :energy_offer_graetzls
+  has_many :energy_offers, through: :energy_offer_graetzls
+  has_many :energy_demand_graetzls
+  has_many :energy_demands, through: :energy_demand_graetzls
 
   has_many :district_graetzls
   has_many :districts, through: :district_graetzls

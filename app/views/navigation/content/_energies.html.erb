@@ -1,0 +1,12 @@
+<% @energy_offers.each do |energy| %>
+  <%= link_to energy, class: 'nav-menu-item' do %>
+    <%= image_tag cover_url(energy, :thumb), class: 'img-square' %>
+    <span><%= energy.title %></span>
+  <% end %>
+<% end %>
+<% @energy_demands.each do |energy| %>
+  <%= link_to energy, class: 'nav-menu-item' do %>
+    <%= avatar_image energy, size: :thumb, class: 'img-square' %>
+    <span><%= energy.title %></span>
+  <% end %>
+<% end %>

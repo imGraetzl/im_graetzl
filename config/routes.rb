@@ -18,8 +18,6 @@ Rails.application.routes.draw do
   get  'home' => 'home#about', as: 'about_platform'
   post 'geolocation'  => 'home#geolocation'
 
-  get 'crowdfunding/osterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party' => redirect('https://graz.welocally.at/crowdfunding/oesterreichische-hard-iced-teas-cassy-und-marty-sind-bereit-fur-deine-party')
-  get 'call-2022' => redirect('andocken')
   get 'andocken' => 'region_calls#call'
   post 'andocken' => 'region_calls#create'
 
@@ -75,6 +73,7 @@ Rails.application.routes.draw do
     get 'zahlungsmethode', action: 'payment_method', as: 'payment_method'
     get 'payment_authorized', on: :member
     get 'raumteiler', action: 'rooms', as: 'rooms'
+    get 'energieteiler', action: 'energies', as: 'energies'
     get 'raumbooster', action: 'room_boosters', as: 'room_boosters'
     get 'toolteiler', action: 'tools', as: 'tools'
     get 'coop-share', action: 'coop_demands', as: 'coop_demands'
@@ -94,6 +93,7 @@ Rails.application.routes.draw do
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
     get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
+    get 'energieteiler', action: 'energies', as: 'energies'
     get 'mach-mit', action: 'polls', as: 'polls'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
     get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
+    get 'energieteiler', action: 'energies', as: 'energies'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
@@ -188,6 +189,17 @@ Rails.application.routes.draw do
   resources :crowd_donation_pledges, only: [] do
     get 'summary', on: :member
     get 'details', on: :member
+  end
+
+  resources :energies, only: [:index]
+  resources :energy_demands, path: 'suche-energiegemeinschaft', except: [:index] do
+    get 'reactivate/:activation_code' => 'energy_demands#reactivate', on: :member
+    patch 'update_status', on: :member
+  end
+  resources :energy_offers, path: 'energiegemeinschaft', except: [:index] do
+    get 'select', on: :collection
+    get 'reactivate/:activation_code' => 'room_offers#reactivate', on: :member
+    patch 'update_status', on: :member
   end
 
   resources :rooms, only: [:index]
@@ -292,7 +304,7 @@ Rails.application.routes.draw do
   get 'cf/:id', to: 'crowd_campaigns#redirect'
   get 'unterstuetzer-team' => redirect('/')
   #get 'unterstuetzer-team', to: 'static_pages#mentoring'
-  get 'energieteiler', to: 'static_pages#energieteiler', as: 'energieteiler'
+  #get 'energieteiler', to: 'static_pages#energieteiler', as: 'energieteiler'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'popup', to: 'static_pages#popup', as: 'popup'
@@ -354,8 +366,9 @@ Rails.application.routes.draw do
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
   get 'raum' => redirect('region/raumteiler')
   get 'raumsuche' => redirect('region/raumteiler')
-  get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
-  get 'kaernten' => redirect('https://kaernten.welocally.at')
+  get 'energieteiler' => redirect('region/energieteiler')
+  get 'energiegemeinschaft' => redirect('region/energieteiler')
+  get 'suche-energiegemeinschaft' => redirect('region/energieteiler')
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
@@ -365,6 +378,7 @@ Rails.application.routes.draw do
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns', on: :member
+    get 'energieteiler', action: 'energies', as: 'energies', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member
     resources :meetings, path: 'treffen', only: [:show]
     resources :groups, path: 'gruppen', only: [:show]

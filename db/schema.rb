@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_01_105327) do
+ActiveRecord::Schema.define(version: 2024_02_13_110151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -444,6 +444,134 @@ ActiveRecord::Schema.define(version: 2023_12_01_105327) do
     t.string "region_id"
     t.index ["region_id"], name: "index_districts_on_region_id"
     t.index ["slug"], name: "index_districts_on_slug"
+  end
+
+  create_table "energy_categories", force: :cascade do |t|
+    t.string "title"
+    t.string "label"
+    t.string "group"
+    t.string "css_ico_class"
+    t.jsonb "main_photo_data"
+    t.string "slug"
+    t.integer "position", default: 0
+    t.boolean "hidden", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_energy_categories_on_slug"
+  end
+
+  create_table "energy_demand_categories", force: :cascade do |t|
+    t.bigint "energy_demand_id"
+    t.bigint "energy_category_id"
+    t.index ["energy_category_id"], name: "index_energy_demand_categories_on_energy_category_id"
+    t.index ["energy_demand_id"], name: "index_energy_demand_categories_on_energy_demand_id"
+  end
+
+  create_table "energy_demand_graetzls", force: :cascade do |t|
+    t.bigint "energy_demand_id"
+    t.bigint "graetzl_id"
+    t.index ["energy_demand_id"], name: "index_energy_demand_graetzls_on_energy_demand_id"
+    t.index ["graetzl_id"], name: "index_energy_demand_graetzls_on_graetzl_id"
+  end
+
+  create_table "energy_demands", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.string "slug"
+    t.string "energy_type"
+    t.string "organization_form"
+    t.string "title"
+    t.text "description"
+    t.boolean "goal_producer_solarpower", default: false
+    t.boolean "goal_prosumer_solarpower", default: false
+    t.boolean "goal_producer_windpower", default: false
+    t.boolean "goal_prosumer_windpower", default: false
+    t.boolean "goal_producer_hydropower", default: false
+    t.boolean "goal_prosumer_hydropower", default: false
+    t.boolean "goal_roofspace", default: false
+    t.boolean "goal_freespace", default: false
+    t.string "goal_producer_solarpower_kwp"
+    t.string "goal_prosumer_solarpower_kwp"
+    t.string "goal_roofspace_m2"
+    t.string "goal_roofspace_direction"
+    t.string "goal_freespace_m2"
+    t.string "region_id"
+    t.date "last_activated_at"
+    t.jsonb "avatar_data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.string "contact_name"
+    t.string "contact_website"
+    t.string "contact_email"
+    t.string "contact_phone"
+    t.string "contact_address"
+    t.string "contact_zip"
+    t.string "contact_city"
+    t.string "orientation_type"
+    t.index ["region_id"], name: "index_energy_demands_on_region_id"
+    t.index ["slug"], name: "index_energy_demands_on_slug"
+    t.index ["user_id"], name: "index_energy_demands_on_user_id"
+  end
+
+  create_table "energy_offer_categories", force: :cascade do |t|
+    t.bigint "energy_offer_id"
+    t.bigint "energy_category_id"
+    t.index ["energy_category_id"], name: "index_energy_offer_categories_on_energy_category_id"
+    t.index ["energy_offer_id"], name: "index_energy_offer_categories_on_energy_offer_id"
+  end
+
+  create_table "energy_offer_graetzls", force: :cascade do |t|
+    t.bigint "energy_offer_id"
+    t.bigint "graetzl_id"
+    t.index ["energy_offer_id"], name: "index_energy_offer_graetzls_on_energy_offer_id"
+    t.index ["graetzl_id"], name: "index_energy_offer_graetzls_on_graetzl_id"
+  end
+
+  create_table "energy_offers", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.string "slug"
+    t.string "energy_type"
+    t.string "operation_state"
+    t.string "organization_form"
+    t.string "title"
+    t.text "description"
+    t.text "project_goals"
+    t.text "special_orientation"
+    t.string "members_count"
+    t.decimal "price_per_kwh", precision: 10, scale: 2
+    t.boolean "goal_producer_solarpower", default: false
+    t.boolean "goal_prosumer_solarpower", default: false
+    t.boolean "goal_producer_windpower", default: false
+    t.boolean "goal_prosumer_windpower", default: false
+    t.boolean "goal_producer_hydropower", default: false
+    t.boolean "goal_prosumer_hydropower", default: false
+    t.boolean "goal_roofspace", default: false
+    t.boolean "goal_freespace", default: false
+    t.string "goal_producer_solarpower_kwp"
+    t.string "goal_prosumer_solarpower_kwp"
+    t.string "goal_roofspace_m2"
+    t.string "goal_roofspace_direction"
+    t.string "goal_freespace_m2"
+    t.string "region_id"
+    t.date "last_activated_at"
+    t.jsonb "cover_photo_data"
+    t.jsonb "avatar_data"
+    t.string "contact_company"
+    t.string "contact_name"
+    t.string "contact_address"
+    t.string "contact_zip"
+    t.string "contact_city"
+    t.string "contact_website"
+    t.string "contact_email"
+    t.string "contact_phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "location_id"
+    t.bigint "user_id"
+    t.index ["location_id"], name: "index_energy_offers_on_location_id"
+    t.index ["region_id"], name: "index_energy_offers_on_region_id"
+    t.index ["slug"], name: "index_energy_offers_on_slug"
+    t.index ["user_id"], name: "index_energy_offers_on_user_id"
   end
 
   create_table "event_categories", force: :cascade do |t|
@@ -1513,6 +1641,17 @@ ActiveRecord::Schema.define(version: 2023_12_01_105327) do
   add_foreign_key "discussions", "groups", on_delete: :cascade
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "energy_demand_categories", "energy_categories", on_delete: :cascade
+  add_foreign_key "energy_demand_categories", "energy_demands", on_delete: :cascade
+  add_foreign_key "energy_demand_graetzls", "energy_demands", on_delete: :cascade
+  add_foreign_key "energy_demand_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "energy_demands", "users", on_delete: :cascade
+  add_foreign_key "energy_offer_categories", "energy_categories", on_delete: :cascade
+  add_foreign_key "energy_offer_categories", "energy_offers", on_delete: :cascade
+  add_foreign_key "energy_offer_graetzls", "energy_offers", on_delete: :cascade
+  add_foreign_key "energy_offer_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "energy_offers", "locations", on_delete: :nullify
+  add_foreign_key "energy_offers", "users", on_delete: :cascade
   add_foreign_key "favorites", "users", on_delete: :cascade
   add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
   add_foreign_key "group_graetzls", "graetzls", on_delete: :cascade

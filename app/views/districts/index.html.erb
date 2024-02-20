@@ -62,16 +62,6 @@
       <%= render 'coop_demands/action_card', district: @district, view_all: true, create_link: true %>
     </div>
   </div>
-  <div class="block-tools">
-    <div class="hl-subtext">
-      <h1>Entdecke — <span>Energieteiler</span> im <%= @district.numeric %>. Bezirk</h1>
-      <p>Du möchtest mehr darüber erfahren, wie du Energie selber produzieren oder teilen kannst? Trage dich in deinem Bezirk zu dem Themengebiet ein, das dich interessiert und komm zu den Vernetzungstreffen.</p>
-    </div>
-    <div class="cardBoxCollection -tripple -morelink">
-      <%= render @activity_sample.energieteiler %>
-      <%= render 'polls/action_card_energieteiler_anbieter', district: @district, view_all: true %>
-    </div>
-  </div>
   <div class="block-zuckerls">
     <div class="hl-subtext">
       <h1>Jeden Monat neu - <span>Zuckerl &amp; Angebote</span> im <%= @district.numeric %>. Bezirk</h1>

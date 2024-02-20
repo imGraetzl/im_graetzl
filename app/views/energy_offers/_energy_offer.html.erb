@@ -1,0 +1,67 @@
+<div class="cardBox -energyoffer -<%= energy_offer.status %>" data-behavior="masonry-card" data-card-id="energy_offer-<%= energy_offer.id %>">
+
+  <div class="cardBoxHeader">
+    <div class="coverImgWrapper">
+      <%= link_to energy_offer do %>
+        <%= cover_photo_image(energy_offer, class: 'coverImg') %>
+      <% end %>
+    </div>
+    <div class="categoryicon">
+      <%= icon_tag "sun", class: 'fav-exchange' %>
+      <%= toggle_favorite_icon(energy_offer) if current_user %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent -energyoffer">
+
+    <div class="avatar-block -below">
+      <%= link_to energy_offer, class: 'avatarImg' do %>
+        <%= avatar_image energy_offer, size: :small, class: 'img-square' %>
+      <% end %>
+      <%= link_to energy_offer, class: 'typelink' do %>
+        <div class="typetxt">
+          <div class="type-description">
+            <%= t("activerecord.attributes.energy_offer.energy_types.cardbox.#{energy_offer.energy_type}") %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="slogan">
+      <%= energy_offer.title %>
+    </div>
+
+    <div class="facts icontxt -nobg">
+      <%= icon_tag "search" %>
+      <em><strong>Wir sind noch auf der Suche nach:</strong></em>
+    </div>
+
+    <% energy_offer.energy_categories.main_categories.sort_by(&:position).each do |category| %>
+      <div class="facts icontxt -mint">
+        <%= icon_tag "lightning" %>
+        <%= category.label? ? t("activerecord.attributes.energy_offer.types.#{category.label}") : category.title %>
+      </div>
+    <% end %>
+
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: energy_offer, comment_url: energy_offer_path(energy_offer, target: local_assigns[:activity_comment].target_url_params), comment: local_assigns[:activity_comment] %>
+    <% end %>
+
+    <% if local_assigns[:manage_buttons].present? && current_user == energy_offer.user %>
+      <div class="btn-group">
+        <%= link_to 'Bearbeiten', edit_energy_offer_path(energy_offer), class: 'btn-secondary -mint -small' %>
+        <%= link_to "javascript:", data: { jq_dropdown: "#energy-update-dropdown-#{energy_offer.id}" }, class: "btn-secondary -mint -small -state-#{energy_offer.status}" do %>
+          Status: <span><%= t("activerecord.attributes.energy_offer.statuses.#{energy_offer.status}") %></span>
+        <% end %>
+      </div>
+      <div id="energy-update-dropdown-<%= energy_offer.id %>" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+        <div class="jq-dropdown-panel">
+          <%= link_to 'Aktiv', [:update_status, energy_offer, status: "enabled"], method: :patch %>
+          <%= link_to 'Inaktiv', [:update_status, energy_offer, status: "disabled"], method: :patch %>
+          <%= link_to 'Löschen', [energy_offer], method: :delete, data: { confirm: 'Bist du dir sicher?' } %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -88,7 +88,8 @@ class Meeting < ApplicationRecord
   end
 
   def energieteiler?
-    self.event_categories.map(&:title).any? { |cat| cat.include?('Energieteiler') }
+    false
+    #self.event_categories.map(&:title).any? { |cat| cat.include?('Energieteiler') }
   end
 
   def public?

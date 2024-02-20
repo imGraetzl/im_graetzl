@@ -457,7 +457,7 @@ input, select, textarea {
     border-radius: 50%;
   }
 
-  input:checked + label {
+  input:checked + label, input.checked + label {
     &:before {
       background-color: $color-font-primary;
     }

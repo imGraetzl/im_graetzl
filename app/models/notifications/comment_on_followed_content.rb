@@ -47,6 +47,8 @@ class Notifications::CommentOnFollowedContent < Notification
       'Menüplan'
     when 'RoomOffer', 'RoomDemand'
       'Raumteiler'
+    when 'EnergyOffer', 'EnergyDemand'
+      'Energieteiler'
     when 'ToolOffer', 'ToolDemand'
       'Geräteteiler'
     when 'CoopDemand'

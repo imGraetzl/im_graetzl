@@ -1,0 +1,10 @@
+<em>Ich biete eine Freifläche für eine Erzeugungsanlage:</em>
+<ul>
+  <% if @energy_demand.goal_roofspace %>
+    <li>Dach</li>
+  <% end %>
+
+  <% if @energy_demand.goal_freespace %>
+    <li>Freifläche</li>
+  <% end %>
+</ul>

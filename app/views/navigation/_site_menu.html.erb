@@ -17,7 +17,7 @@
       <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
       <%= nav_menu_item("location", 'Anbieter & Macherinnen', region_locations_path) %>
       <%= nav_menu_item("coop-and-share", 'Coop & Share Marktplatz', region_coop_demands_path) %>
-      <%= nav_menu_item("sun", 'Energieteiler', energieteiler_path) if current_region.use_energieteiler? %>
+      <%= nav_menu_item("sun", 'Energieteiler', region_energies_path) if current_region.use_energieteiler? %>
       <%= nav_menu_item("tacker", 'Geräteteiler', region_tools_path) %>
       <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
       <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
@@ -43,7 +43,7 @@
         <%= nav_menu_item("calendar-2", "Events & Workshops", meetings_graetzl_path(graetzl)) %>
         <%= nav_menu_item("location", "Anbieter & Macherinnen", locations_graetzl_path(graetzl)) %>
         <%= nav_menu_item("coop-and-share", 'Coop & Share Marktplatz', coop_demands_graetzl_path(graetzl)) %>
-        <%= nav_menu_item("sun", 'Energieteiler', energieteiler_path) if current_region.use_energieteiler? %>
+        <%= nav_menu_item("sun", 'Energieteiler', energies_graetzl_path(graetzl)) if current_region.use_energieteiler? %>
         <%= nav_menu_item("tacker", "Geräteteiler", tools_graetzl_path(graetzl)) %>
         <%= nav_menu_item("speech-bubble", "Gruppen", groups_graetzl_path(graetzl)) %>
         <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
@@ -55,7 +55,7 @@
         <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", district_meetings_path(district)) %>
         <%= nav_menu_item("location", "Anbieter & Macherinnen (#{district.numeric}. Bez.)", district_locations_path(district)) %>
         <%= nav_menu_item("coop-and-share", "Coop & Share Marktplatz (#{district.numeric}. Bez.)", district_coop_demands_path(district)) %>
-        <%= nav_menu_item("sun", 'Energieteiler', energieteiler_path) if current_region.use_energieteiler? %>
+        <%= nav_menu_item("sun", "Energieteiler (#{district.numeric}. Bez.)", district_energies_path(district)) if current_region.use_energieteiler? %>
         <%= nav_menu_item("tacker", "Geräteteiler (#{district.numeric}. Bez.)", district_tools_path(district)) %>
         <%= nav_menu_item("speech-bubble", "Gruppen (#{district.numeric}. Bez.)", district_groups_path(district)) %>
         <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", district_zuckerls_path(district)) %>
@@ -80,7 +80,7 @@
         <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
         <%= nav_menu_item("location", 'Anbieter & Macherinnen', region_locations_path) %>
         <%= nav_menu_item("coop-and-share", 'Coop & Share Marktplatz', region_coop_demands_path) %>
-        <%= nav_menu_item("sun", 'Energieteiler', energieteiler_path) if current_region.use_energieteiler? %>
+        <%= nav_menu_item("sun", 'Energieteiler', region_energies_path) if current_region.use_energieteiler? %>
         <%= nav_menu_item("tacker", 'Geräteteiler', region_tools_path) %>
         <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
         <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
@@ -119,6 +119,7 @@
       <%= nav_menu_item("calendar-2", "Events & Workshops", meetings_graetzl_path(graetzl)) %>
       <%= nav_menu_item("location", "Anbieter & Macherinnen", locations_graetzl_path(graetzl)) %>
       <%= nav_menu_item("coop-and-share", "Coop & Share Marktplatz", coop_demands_graetzl_path(graetzl)) %>
+      <%= nav_menu_item("sun", "Energieteiler", energies_graetzl_path(graetzl)) if current_region.use_energieteiler? %>
       <%= nav_menu_item("tacker", "Geräteteiler", tools_graetzl_path(graetzl)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
       <%= nav_menu_item("speech-bubble", "Gruppen", groups_graetzl_path(graetzl)) %>
@@ -129,6 +130,7 @@
       <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", district_meetings_path(district)) %>
       <%= nav_menu_item("location", "Anbieter & Macherinnen (#{district.numeric}. Bez.)", district_locations_path(district)) %>
       <%= nav_menu_item("coop-and-share", "Coop & Share Marktplatz (#{district.numeric}. Bez.)", district_coop_demands_path(district)) %>
+      <%= nav_menu_item("sun", "Energieteiler (#{district.numeric}. Bez.)", district_energies_path(district)) if current_region.use_energieteiler? %>
       <%= nav_menu_item("tacker", "Geräteteiler (#{district.numeric}. Bez.)", district_tools_path(district)) %>
       <%= nav_menu_item("speech-bubble", "Gruppen (#{district.numeric}. Bez.)", district_groups_path(district)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", district_zuckerls_path(district)) %>

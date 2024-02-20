@@ -1,0 +1,31 @@
+<div class="cardbox-wrp" data-behavior="masonry-card">
+  <div class="paperCard -cord1RT -illuteaser -energies">
+    <div class="wrp">
+      <div class="user">
+        <% if current_user %>
+          <%= avatar_image current_user, size: :thumb, class: 'avatar img-round show-badge' %>
+          <span><%= current_user.username %></span>
+        <% else %>
+          <picture>
+            <source srcset="<%= image_path('fallbacks/user_avatar.webp') %>" type="image/webp" />
+            <%= image_tag('fallbacks/user_avatar.png', loading: 'lazy', class: 'img-round') %>
+          </picture>
+          <span>Dein Name</span>
+        <% end %>
+      </div>
+      <h3>Hast du eine Energiegemeinschaft / oder suchst du eine Energiegemeinschaft?</h3>
+      <%= link_to 'Deine Energiegemeinschaft eintragen', select_energy_offers_path, class: 'btn-primary -rose' %>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <% if local_assigns[:view_all] %>
+    <% if local_assigns[:graetzl] %>
+      <%= link_to 'Alle Energiegemeinschaften', energies_graetzl_path(graetzl), class: 'link-more' %>
+    <% elsif local_assigns[:district] %>
+      <%= link_to 'Alle Energiegemeinschaften', district_energies_path(district), class: 'link-more' %>
+    <% else %>
+      <%= link_to 'Alle Energiegemeinschaften', region_energies_path, class: 'link-more' %>
+    <% end %>
+  <% end %>
+</div>

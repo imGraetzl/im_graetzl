@@ -66,6 +66,20 @@ class ActivitySample
     [room_offer, room_demand].compact.first(2)
   end
 
+  def energies
+    if @graetzl
+      energy_offer = @graetzl.energy_offers.in(@current_region).enabled.by_currentness.first
+      energy_demand = @graetzl.energy_demands.in(@current_region).enabled.by_currentness.first
+    elsif @district
+      energy_offer = @district.energy_offers.in(@current_region).enabled.by_currentness.first
+      energy_demand = @district.energy_demands.in(@current_region).enabled.by_currentness.first
+    else
+      energy_offer = EnergyOffer.in(@current_region).enabled.by_currentness.first
+      energy_demand = EnergyDemand.in(@current_region).enabled.by_currentness.first
+    end
+    [energy_offer, energy_demand].compact.first(2)
+  end
+
   def tools
     if @graetzl
       @graetzl.tool_offers.in(@current_region).enabled.by_currentness.first(2)

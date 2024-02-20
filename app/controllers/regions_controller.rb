@@ -48,6 +48,10 @@ class RegionsController < ApplicationController
     end
   end
 
+  def energies
+
+  end
+
   def polls
   end
 

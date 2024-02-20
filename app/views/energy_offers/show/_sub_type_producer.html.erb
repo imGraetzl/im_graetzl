@@ -1,0 +1,14 @@
+<em>Wir suchen noch Erzeugungsanlagen aus den Bereichen:</em>
+<ul>
+  <% if @energy_offer.goal_producer_solarpower %>
+    <li>PV</li>
+  <% end %>
+
+  <% if @energy_offer.goal_producer_hydropower %>
+    <li>Wasserkraft</li>
+  <% end %>
+
+  <% if @energy_offer.goal_producer_windpower %>
+    <li>Windkraft</li>
+  <% end %>
+</ul>

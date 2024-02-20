@@ -36,6 +36,7 @@
   <%= render 'notification_settings/slice', type: Notifications::NewRoomOffer %>
   <%= render 'notification_settings/slice', type: Notifications::NewRoomDemand %>
   <%= render 'notification_settings/slice', type: Notifications::NewToolOffer %>
+  <%= render 'notification_settings/slice', type: Notifications::NewEnergyOffer if current_region.use_energieteiler? %>
 </div>
 
 <div class="notifications-block">

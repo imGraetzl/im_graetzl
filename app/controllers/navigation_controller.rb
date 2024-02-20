@@ -16,6 +16,9 @@ class NavigationController < ApplicationController
     when 'tools'
       @tool_offers = current_user.tool_offers.in(current_region).non_deleted.first(3)
       @tool_demands = current_user.tool_demands.in(current_region).first(3)
+    when 'energies'
+      @energy_offers = current_user.energy_offers.in(current_region).first(3)
+      @energy_demands = current_user.energy_demands.in(current_region).first(3)
     when 'coop_demands'
       @coop_demands = current_user.coop_demands.in(current_region).first(6)
     when 'groups'

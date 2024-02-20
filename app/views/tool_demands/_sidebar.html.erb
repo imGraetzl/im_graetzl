@@ -67,7 +67,7 @@
 
   </div>
 
-  <% if @tool_demand.location %>
+  <% if @tool_demand.location&.approved? %>
     <aside class="location">
       <%= render @tool_demand.location %>
     </aside>

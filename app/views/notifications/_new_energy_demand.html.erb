@@ -1,0 +1,9 @@
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to notification.energy_demand do %>
+    <%= avatar_image notification.energy_demand, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.energy_demand.user.username %></span> sucht nach einer Energiegemeinschaft
+    </div>
+  <% end %>
+<% end %>

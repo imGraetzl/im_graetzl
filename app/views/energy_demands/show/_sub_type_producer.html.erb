@@ -1,0 +1,14 @@
+<em>Ich möchte mich als 'Producer' bei einer Energiegemeinschaft andocken und biete hierfür:</em>
+<ul>
+  <% if @energy_demand.goal_producer_solarpower %>
+    <li>PV</li>
+  <% end %>
+
+  <% if @energy_demand.goal_producer_hydropower %>
+    <li>Wasserkraft</li>
+  <% end %>
+
+  <% if @energy_demand.goal_producer_windpower %>
+    <li>Windkraft</li>
+  <% end %>
+</ul>

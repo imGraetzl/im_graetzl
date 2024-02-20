@@ -18,12 +18,12 @@
     <% else %>
       <%= nav_menu_item("location", 'Schaufenster einrichten', new_location_path) %>
     <% end %>
-
-    <%= nav_menu_item("coop-and-share", 'Neues Coop & Share Angebot', new_coop_demand_path) %>
-    <%= nav_menu_item("crowd", 'Neue Crowdfunding Kampagne', start_crowd_campaigns_path) %>
     <%= nav_menu_item("raumteiler", 'Raumteiler erstellen', select_room_offers_path) %>
-    <%= nav_menu_item("tacker", 'Geräteteiler erstellen', select_tool_offers_path) %>
+    <%= nav_menu_item("crowd", 'Neue Crowdfunding Kampagne', start_crowd_campaigns_path) %>
     <%= nav_menu_item("shopping-bag", 'Zuckerl buchen', new_zuckerl_path) %>
+    <%= nav_menu_item("sun", 'Energieteiler erstellen', select_energy_offers_path) if current_region.use_energieteiler? %>
+    <%= nav_menu_item("tacker", 'Geräteteiler erstellen', select_tool_offers_path) %>
+    <%= nav_menu_item("coop-and-share", 'Neues Coop & Share Angebot', new_coop_demand_path) %>
 
     <% if current_user.admin? %>
       <%= nav_menu_item("speech-bubble", 'Neue Gruppe gründen', new_group_path(graetzl_id: user_home_graetzl&.id)) %>
@@ -59,9 +59,10 @@
       <%= nav_submenu_link("shopping-bag", 'Meine Zuckerln', 'nav-submenu-user-zuckerls') %>
       <%= nav_submenu_link("calendar-2", 'Meine Treffen', 'nav-submenu-user-meetings',
           badge: current_user.attended_meetings.in(current_region).upcoming.size) %>
+      <%= nav_submenu_link("crowd", 'Crowdfunding Kampagnen', 'nav-submenu-user-crowd_campaigns') %>     
       <%= nav_submenu_link("raumteiler", 'Meine Raumteiler', 'nav-submenu-user-rooms') %>
-      <%= nav_submenu_link("tacker", 'Meine Geräteteiler', 'nav-submenu-user-tools') %>
-      <%= nav_submenu_link("crowd", 'Crowdfunding Kampagnen', 'nav-submenu-user-crowd_campaigns') %>
+      <%= nav_submenu_link("sun", 'Meine Energieteiler', 'nav-submenu-user-energies') if current_region.use_energieteiler? %>
+      <%= nav_submenu_link("tacker", 'Meine Geräteteiler', 'nav-submenu-user-tools') %>     
       <%= nav_submenu_link("coop-and-share", 'Coop & Share Marktplatz', 'nav-submenu-user-coop-shares') %>
       <%= nav_submenu_link("speech-bubble", 'Gruppen', 'nav-submenu-user-groups') %>
       <%= nav_menu_item("power", 'Abmelden', destroy_user_session_path, method: :delete) %>
@@ -122,6 +123,12 @@
       <%= nav_menu_item("speech-bubbles", 'Anfragen Messenger', messenger_path(filter: "tool_rental")) %>
       <%= nav_menu_item("archive-storage", 'Buchungsarchiv', tools_user_path(target: "tab-buchungsarchiv")) %>
       <%= nav_lazy_load_form('tools') %>
+    </div>
+
+    <div class="nav-dropdown-submenu" id="nav-submenu-user-energies">
+      <%= nav_submenu_back('nav-submenu-user-main') %>
+      <%= nav_menu_item("sun", 'Energieteiler verwalten', energies_user_path) %>
+      <%= nav_lazy_load_form('energies') %>
     </div>
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-coop-shares">

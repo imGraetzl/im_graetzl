@@ -1,0 +1,6 @@
+<% filter_energy_types.each do |label, value| %>
+  <div class="input-radio filter-input filter-energy-type">
+    <%= radio_button :filter, :energy_type, value, data: { label: label, filter_label: 'Energieteiler :: Type' } %>
+    <%= label_tag "filter_energy_type_#{value}", label %>
+  </div>
+<% end %>

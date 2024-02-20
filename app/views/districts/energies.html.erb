@@ -1,0 +1,44 @@
+<% meta(
+    robots: 'index, follow',
+    title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+    description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
+    og_title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
+    og_image: image_url('info/energieteiler/header_hell.jpg')
+  )
+%>
+
+<section class="districts energies">
+  <%= render 'map' %>
+  <%= render 'navigation' %>
+
+  <h1 class="hl-main -cards">
+    <span>Energieteiler</span> im <%= @district.numeric %>. Bezirk
+  </h1>
+
+  <%= form_tag energies_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
+    <%= hidden_field_tag :special_category_id, @special_category %>
+    <div class="filter-selection-text-jbox">
+      Zeige mir <%= link_to 'alle Energieteiler', '#filter-modal-type', data: { no_filter_label: 'alle Energieteiler' } %>
+      in <%= link_to @district.zip_name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-areas filter-applied' %>
+    </div>
+    <div id="filter-modal-type" class="filter-modal-jbox">
+      <%= render 'filters/energy_type' %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', district: @district %>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="energies-card-container"></div>
+    <div class="action-card-container" data-behavior="energies-action-card-container">
+      <%= render 'energies/action_card', district: @district %>
+    </div>
+
+    <!-- Insert Featured Card here -->
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'energies-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>
