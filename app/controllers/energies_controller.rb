@@ -4,7 +4,7 @@ class EnergiesController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
 
     # Energy Offers
-    energy_offers = energy_offers_scope.in(current_region).includes(:user)
+    energy_offers = energy_offers_scope.in(current_region).includes(:user, :energy_categories)
     energy_offers = filter_offers(energy_offers)
     energy_offers = energy_offers.by_currentness.page(params[:page]).per(params[:per_page] || 15)
 
