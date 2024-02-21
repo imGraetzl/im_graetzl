@@ -62,7 +62,7 @@ APP.components.search = (function() {
       ],
       list: {
         //match: {enabled: true}, // searchphrase must be in shown result
-        maxNumberOfElements: 10,
+        maxNumberOfElements: 16,
         onShowListEvent:function() {
           search_phrase = $input.val();
           addCategoryLinks();
