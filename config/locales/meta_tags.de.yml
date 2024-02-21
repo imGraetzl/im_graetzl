@@ -82,7 +82,7 @@ de:
       title: 'Mach mit! Umfragen in %{region}'
       description: 'Mach mit bei einer der Umfragen in %{region}'
     energies:
-      title: 'Energieteiler & Energiegemeinschaften - Erneuerbare Energien produzieren & teilen.'
+      title: 'Erneuerbare Energien produzieren & teilen - Biete oder finde Energiegemeinschaften zum Andocken.'
       description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft. Trage dich jetzt im Energieteiler ein udn finde eine passende Energiegemeinschaft.'
     crowd_campaigns:
       default: &default

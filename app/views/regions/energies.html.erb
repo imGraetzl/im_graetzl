@@ -8,17 +8,20 @@
   )
 %>
 
+<section class="info -energieteiler">
+  <div class="imgHeader -fullwidth">
+    <%= image_tag("info/energieteiler/logo.svg", class: 'header-logo') %>
+  </div>
+</section>
+
 <section class="region energies">
 
   <%= render 'map' %>
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">
-    <h1><em>Energieteiler</em></h1>
-    <p>Erneuerbare Energien produzieren & teilen. <%= render 'shared/questionmarklink', hint_url: info_energieteiler_path %></p>
+    <p>Erneuerbare Energien produzieren & teilen - Biete oder finde Energiegemeinschaften zum Andocken. <%= render 'shared/questionmarklink', hint_url: info_energieteiler_path %></p>
   </div>
-
-  <!--< %= render 'filters/room_categories' % >-->
 
   <%= form_tag energies_path, method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>
