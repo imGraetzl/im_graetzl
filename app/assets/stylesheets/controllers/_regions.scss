@@ -47,16 +47,17 @@ section.region {
       margin-top: -50px;
     }
     @include respond-to(">=large") {
-      .mapImgBlock {
-        display: none;
-      }
       margin-top: -80px;
       .navigation-bar {
         padding-top:55px;
       }
     }
   }
-
+  &.energies {
+    .mapImgBlock {
+      display: none;
+    }
+  }
 }
 
 .region-kaernten section.region {

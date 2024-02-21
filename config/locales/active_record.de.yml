@@ -89,11 +89,11 @@ de:
         one: Raumsuche
         other: Raumsuchen
       energy_offer:
-        one: Energieteiler
-        other: Energieteiler
+        one: Energiegemeinschaft
+        other: Energiegemeinschaften
       energy_demand:
-        one: Energieteiler
-        other: Energieteiler
+        one: Suche nach Energiegemeinschaft
+        other: Suche nach Energiegemeinschaften
       tool_category:
         one: Kategorie
         other: Kategorien

@@ -2,7 +2,7 @@
     title: t('.title'),
     description: t('.description'),
     robots: 'index, follow',
-    og_image: image_url("meta/#{current_region.host_id}/crowdfunding.png")
+    og_image: image_url('info/energieteiler/header_hell.jpg')
   )
 %>
 
@@ -10,15 +10,13 @@
 
   <div class="hl-subtext">
     <h1><em>Energieteiler</em></h1>
-    <p>Erneuerbare Energien produzieren & teilen.</p>
+    <p>Erneuerbare Energien produzieren & teilen - Biete oder finde Energiegemeinschaften zum Andocken.</p>
   </div>
 
   <div class="paperCard -cord1RT container -top" id="zero">
     <div class="wrp">
       <p>
-        <strong>Mit dem "Energieteiler" möchten wir dich unterstützen, deine Energiekosten zu reduzieren,</strong> indem wir Wege zeigen, 
-        wie du selbst erneuerbare Energien produzieren und ggf. mit anderen teilen kannst. Bei uns findest du Informationen, 
-        knüpfst Kontakte mit Gleichgesinnten und triffst auf Expert*innen.
+        <strong>Der "Energieteiler" ist deine Anlaufstelle, um dich mit Menschen zu vernetzen,</strong> die ein gemeinsames Ziel teilen: die Gründung und Förderung von Energiegemeinschaften.
       </p>
     </div>
     <div class="card"></div>
@@ -35,21 +33,23 @@
 
     <article class="container" id="1">
       <h2 id="wie"><span>Wie funktioniert</span> der Energieteiler?</h2>
-      <br>
-      <ul>
-        <li><strong>Melde dich für das Thema an, das dich am meisten interessiert:</strong> Balkon-Solar, Energieberatung, gemeinschaftliche Erzeugungsanlage, Erneuerbare Energiegeminschaft (lokal, regional), Bürgerenergiegemeinschaften.</li>
-        <li>Sobald sich genügend Interessierte in einem Interessenfeld gefunden haben, organisieren wir gemeinsam mit den angedockten Expert*innen <strong>Informationsveranstaltungen und Workshops zu dem jeweiligen Thema</strong>. Wenn du bei der Umfrage für deinen Bezirk mitgemacht hast, wirst du dazu automatisch eingeladen.</li>
-        <li>Bei den Treffen wirst du mit Gleichgesinnten vernetzt und du erfährst alles Wissenswerte zum Thema von den Expert*innen.</li>
-        <li>Du kannst jederzeit auch selbst einen Energieteiler eröffnen, wenn du z.B. eine Energiegemeinschaft gründen möchtest oder noch Flächen für eine Erzeugeranlage suchst oder ganz konkret eine Beratung benötigst.</li>
-        <li>Im Energieteiler kannst du dich auch direkt mit <strong>Expert*innen, Anbieter*innen, Anlaufstellen und bestehenden Energiegemeinschaften vernetzen</strong>. Sie alle bekommen ein Schaufenster und werden im Energieteiler sichtbar gemacht.</li>
-        <li>Mach deine eigenen thematisch passenden Veranstaltungen im Energieteiler sichtbar.</li>
-        <li>Die Inhalte, die im Energieteiler veröffentlicht werden, bekommen übrigens die maximale Sichtbarkeit auf imGrätzl und in dem wöchentlichen imGrätzl Newsletter.</li>
-      </ul>
-    </article>
-
-    <article>
       <p>
-        Der Energieteiler wird entwickelt im Rahmen der FFG “Impact Innovation” Schiene. Es sind zwei Entwicklungsphasen vorgesehen. Unterstütze uns dabei, den Energieteiler weiterzuentwickeln, damit er noch mehr Menschen erreicht und für die Energiewende begeistern kann. Vernetze dich dafür mit uns: <%= t("region.#{current_region.id}.contact_email") %>
+        Mit dem "Energieteiler" möchten wir dich dabei unterstützen, Gleichgesinnte zu finden, um eine Energiegemeinschaft zu gründen, egal ob es eine Erneuerbare Energiegemeinschaft oder eine Bürgerenergiegemeinschaft ist.
+      </p>
+      <p>
+        Bestehende Energiegemeinschaften möchten wir einladen, im Energieteiler sichtbar zu machen, was sie für den nächsten Schritt benötigen. Und: Im Energieteiler können Ressourcen rund um die Energiegemeinschaften gesucht oder zur Verfügung gestellt werden, wie das Dach zur Miete, Expertise oder Austausch.
+      </p>
+      <ul>
+        <li>Nutze den Energieteiler, um Kontakte zu knüpfen und eine Energiegemeinschaft zu gründen.</li>
+        <li>Mach deine bestehende Energiegemeinschaft sichtbar und finde neue Mitglieder, im Bezirk, im Stadtteil oder in ganz Wien.</li>
+        <li>Finde Ressourcen für deine Energiegemeinschaft, z.B. Flächen für Erzeugungsanlagen oder Expertise, Tools, Wissen und Austausch.</li>
+        <li>Mach Ressourcen sichtbar, die du einer Energiegemeinschaft zur Verfügung stellen möchtest.</li>
+        <li>Mache passende Veranstaltungen im Energieteiler sichtbar.</li>
+        <li>Die Inhalte, die im Energieteiler veröffentlicht werden, bekommen übrigens die maximale Sichtbarkeit auf imGrätzl und im wöchentlichen imGrätzl Newsletter.</li>
+      </ul>
+      <br>
+      <p>
+      (Für mehr Informationen rund um die Energiegemeinschaft besuche die Koordinierungsstelle unter <%= link_to 'energiegemeinschaften.gv.at', 'https://www.energiegemeinschaften.gv.at', target: 'blank' %>.)
       </p>
     </article>
 
