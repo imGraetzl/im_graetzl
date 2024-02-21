@@ -1,7 +1,7 @@
 class PollMailerPreview < ActionMailer::Preview
 
-  def energieteiler_attend_infos
-    PollMailer.energieteiler_attend_infos(PollUser.last)
+  def poll_attend_infos
+    PollMailer.poll_attend_infos(PollUser.last)
   end
 
 end

@@ -34,13 +34,9 @@ class PollUsersController < ApplicationController
           end
         end
 
-        if @poll_user.poll.energieteiler?
-          PollMailer.energieteiler_attend_infos(@poll_user).deliver_later if @poll_user.poll.energieteiler?
-          flash[:success] = "Vielen Dank für deine Teilnahme. Hier gehts #{view_context.link_to 'zurück zum Energieteiler', energieteiler_path}"  
-        else
-          flash[:success] = "Vielen Dank für deine Teilnahme."  
-        end
-
+        #PollMailer.poll_attend_infos(@poll_user).deliver_later
+        flash[:success] = "Vielen Dank für deine Teilnahme."
+        
         redirect_to @poll
       else
         redirect_to @poll

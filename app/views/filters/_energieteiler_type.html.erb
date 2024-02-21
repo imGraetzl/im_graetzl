@@ -1,6 +1,0 @@
-<% filter_energieteiler_types.each do |label, value| %>
-  <div class="input-radio filter-input filter-room-type">
-    <%= radio_button :filter, :energieteiler_type, value, data: { label: label, filter_label: 'Energieteiler :: Type' }, :checked => (value == 'all') %>
-    <%= label_tag "filter_energieteiler_type_#{value}", label %>
-  </div>
-<% end %>

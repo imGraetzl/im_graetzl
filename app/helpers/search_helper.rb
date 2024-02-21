@@ -11,6 +11,7 @@ module SearchHelper
       ['Coop & Share', 'Coop & Share', 'coop_demands'],
       ['Gruppen', 'Gruppen', 'groups'],
       ['Umfragen', 'Umfragen', 'polls'],
+      ['Energieteiler', 'Energieteiler', 'energies'],
     ]
   end
 

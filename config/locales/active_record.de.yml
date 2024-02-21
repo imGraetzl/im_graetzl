@@ -94,6 +94,9 @@ de:
       energy_demand:
         one: Suche nach Energiegemeinschaft
         other: Suche nach Energiegemeinschaften
+      energy_category:
+        one: Kategorie
+        other: Kategorien
       tool_category:
         one: Kategorie
         other: Kategorien

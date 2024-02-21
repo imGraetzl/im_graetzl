@@ -24,9 +24,8 @@ class Poll < ApplicationRecord
   validates_presence_of :title, :graetzls, :description
 
   string_enum status: ["enabled", "disabled"]
-  string_enum poll_type: ["Allgemein", "Raumteiler", "Energieteiler"]
+  string_enum poll_type: ["Umfrage", "Raumteiler", "Energieteiler"]
 
-  scope :scope_public, -> { where.not(status: :disabled) }
   scope :by_currentness, -> { order(last_activity_at: :desc) }
   scope :by_zip, -> { order(zip: :asc) }
 
@@ -35,10 +34,6 @@ class Poll < ApplicationRecord
 
   def open?
     !closed?
-  end
-
-  def energieteiler?
-    self.poll_type == 'Energieteiler'
   end
 
   def self.include_for_box

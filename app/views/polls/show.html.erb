@@ -15,7 +15,7 @@
   <div class="imgHeader -cloudy">
     <div class="titleHeadline">
       <div class="wrp">
-        <%= link_to content_tag(:h3, "#{@poll.poll_type}", class: 'district'), poll_type_path(@poll.poll_type) %>
+        <%= link_to content_tag(:h3, "Umfrage", class: 'district'), poll_type_path(@poll.poll_type) %>
         <h1><%= @poll.title %></h1>
       </div>
       <div class="card"></div>
@@ -47,13 +47,6 @@
     <% if @poll.find_poll_user(current_user) %>
       <%= link_to 'Teilnahme wieder entfernen', [:unattend, @poll], method: :post, data: { confirm: 'Bist du dir sicher?' }, class: 'btn-secondary -mint' %>
     <% end %>
-
-    <% if @poll.energieteiler? %>
-      <%= link_to "Zurück zum #{@poll.poll_type}", poll_type_path(@poll.poll_type), class: 'btn-primary -mint' %>
-    <% end %>
-
-
-    
 
   </div>
 
