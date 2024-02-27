@@ -22,10 +22,14 @@ class CrowdCampaignsController < ApplicationController
 
   def show
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @crowd_pledges = @crowd_campaign.crowd_pledges
-    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges
-    @preview = params[:preview] == 'true' ?  true : false
-    show_status_message?
+    if @crowd_campaign&.disabled?
+      redirect_to region_crowd_campaigns_path, notice: "Die Kampagne '#{@crowd_campaign.title}' wurde deaktiviert."
+    else
+      @crowd_pledges = @crowd_campaign.crowd_pledges
+      @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges
+      @preview = params[:preview] == 'true' ?  true : false
+      show_status_message?  
+    end
   end
 
   def new
