@@ -100,8 +100,8 @@ class ToolRentalInvoice
   def add_company_info(pdf, region)
     pdf.text "#{I18n.t("region.#{region.id}.domain_full")} wird betrieben von:"
     pdf.text "morgenjungs GmbH"
-    pdf.text "Lassallestraße 13/38"
-    pdf.text "A-1020 Wien"
+    pdf.text "Ottakringer Straße 94/11"
+    pdf.text "A-1170 Wien"
     pdf.text "#{I18n.t("region.#{region.id}.contact_email")}"
   end
 
