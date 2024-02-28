@@ -494,6 +494,7 @@ de:
         billable: Rechnung/Beleg Auswahl
         statuses:
           draft: In Bearbeitung
+          declined: In Bearbeitung
           submit: In Bearbeitung
           pending: In Prüfung
           approved: Freigegeben
