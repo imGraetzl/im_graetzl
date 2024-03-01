@@ -174,7 +174,9 @@ class MeetingsController < ApplicationController
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.entire_region)
     end
 
-    if params[:category_id].present?
+    if params[:special_category_id].present? && params[:special_category_id] == 'balkon-solar'
+      meetings = meetings.joins(:event_categories).where(event_categories: {slug: params[:special_category_id]})
+    elsif params[:category_id].present?
       meetings = meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]})
     end
 
