@@ -90,13 +90,13 @@ class ActivitySample
     end
   end
 
-  def energieteiler
+  def polls
     if @graetzl
-      @graetzl.polls.in(@current_region).where(poll_type: 'Energieteiler').enabled.by_currentness.first(2)
+      @graetzl.polls.in(@current_region).enabled.by_currentness.first(2)
     elsif @district
-      @district.polls.in(@current_region).where(poll_type: 'Energieteiler').enabled.by_currentness.first(2)
+      @district.polls.in(@current_region).enabled.by_currentness.first(2)
     else
-      Poll.in(@current_region).where(poll_type: 'Energieteiler').enabled.by_currentness.first(2)
+      Poll.in(@current_region).enabled.by_currentness.first(2)
     end
   end
 

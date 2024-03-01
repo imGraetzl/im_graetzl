@@ -1,6 +1,6 @@
 class PollMailer < ApplicationMailer
 
-  def energieteiler_attend_infos(poll_user)
+  def poll_attend_infos(poll_user)
     @poll_user = poll_user
     @poll = poll_user.poll
     @region = @poll.region
@@ -8,7 +8,7 @@ class PollMailer < ApplicationMailer
     headers("X-MC-Tags" => "notification-poll-attend-infos")
 
     mail(
-      subject: "Energieteiler: So geht es jetzt weiter",
+      subject: "Danke für deine Teilnahme!",
       from: platform_email('no-reply'),
       to: @poll_user.user.email,
     )

@@ -39,7 +39,7 @@ class Notifications::CommentOnOwnedContent < Notification
     when 'Meeting'
       'Treffen'
     when 'Poll'
-      subject.poll_type
+      'Umfrage'
     when 'Location'
       'Schaufenster'
     when 'LocationPost'

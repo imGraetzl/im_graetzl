@@ -8,14 +8,8 @@
         </p>
         
         <p>
-          danke für dein Interesse am "<%= link_to @poll.title, poll_url(@poll), style: "color:#ec776a;", target: 'blank' %>".
+          danke für deine Teilnahme an der Umfrage "<%= link_to @poll.title, poll_url(@poll), style: "color:#ec776a;", target: 'blank' %>".
         </p>
-
-        <p>
-          <strong>Sobald sich ausreichend Interessierte</strong> zu dem speziellen Energieteiler Thema gefunden haben, wird das Treffen durch die Experten organisiert und <strong>du bekommst eine Einladung dazu</strong>.
-        </p>
-
-        <br>
         
         <p>
           <%= @poll.users.size %> NutzerInnen haben bisher beim <%= @poll.title %> mitgemacht:

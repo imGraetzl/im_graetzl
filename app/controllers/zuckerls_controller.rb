@@ -12,6 +12,8 @@ class ZuckerlsController < ApplicationController
   def new
     set_location_for_new or return
     @zuckerl = @location.zuckerls.new
+    @zuckerl.starts_at = Date.tomorrow + 1
+    @zuckerl.ends_at = @zuckerl.starts_at + 1.month - 1.day
   end
 
   def create
@@ -115,9 +117,9 @@ class ZuckerlsController < ApplicationController
     if success
       flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
 
-      # Publish Immediate if Zuckerl is Payed and booked for current month
+      # Publish Immediate if Zuckerl is Payed and booked for now
       last_month = Date.today.last_month
-      if @zuckerl.approved? && @zuckerl.created_at >= last_month.beginning_of_month && @zuckerl.created_at <= last_month.end_of_month
+      if @zuckerl.approved? && @zuckerl.starts_at <= Date.today && @zuckerl.ends_at >= Date.today
         ZuckerlService.new.publish(@zuckerl)
       end
 
@@ -222,6 +224,8 @@ class ZuckerlsController < ApplicationController
   def zuckerl_params
     params.require(:zuckerl).permit(
       :title,
+      :starts_at,
+      :ends_at,
       :amount,
       :description,
       :cover_photo,

@@ -5,7 +5,6 @@ ActiveAdmin.register Zuckerl do
   scope :pending
   scope :approved
   scope :live
-  scope "#{I18n.localize Time.now.end_of_month+1.day, format: '%B'} Zuckerl", :next_month_live
   scope :debited
   scope :free
   scope :storno
@@ -25,6 +24,7 @@ ActiveAdmin.register Zuckerl do
   filter :stripe_payment_intent_id
   filter :created_at
   filter :debited_at
+  filter :starts_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }
@@ -56,6 +56,8 @@ ActiveAdmin.register Zuckerl do
   end
 
   permit_params :location_id,
+                :starts_at,
+                :ends_at,
                 :title,
                 :description,
                 :entire_region,

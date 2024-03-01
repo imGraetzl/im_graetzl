@@ -3,7 +3,7 @@ class Notifications::NewEnergyOffer < Notification
   self.class_bitmask = 2**26
 
   def self.description
-    'Eine neue Energiegemeinschaft wurde erstellt'
+    'Eine neue Energiegemeinschaft bzw. Suche wurde erstellt'
   end
 
   def mail_subject

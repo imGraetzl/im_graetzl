@@ -53,11 +53,11 @@
 
       <% if @zuckerl.entire_region %>
         <p>
-          Dein Zuckerl wird ausserdem den ganzen Monat <%= @zuckerl.runtime %> <strong>in alle wöchentlichen Newsletter in '<%= @zuckerl.visibility.camelize(:lower) %>'</strong> eingestreut.
+          Dein Zuckerl wird ausserdem im Zeitraum <%= @zuckerl.runtime %> <strong>in alle wöchentlichen Newsletter in '<%= @zuckerl.visibility.camelize(:lower) %>'</strong> eingestreut.
         </p>
       <% else %>
         <p>
-          Dein Zuckerl wird ausserdem den ganzen Monat <%= @zuckerl.runtime %> <strong>in alle wöchentlichen Newsletter im '<%= @zuckerl.visibility %>'</strong> eingestreut.
+          Dein Zuckerl wird ausserdem im Zeitraum <%= @zuckerl.runtime %> <strong>in alle wöchentlichen Newsletter im '<%= @zuckerl.visibility %>'</strong> eingestreut.
         </p>
       <% end %>
 

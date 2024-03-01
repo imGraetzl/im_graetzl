@@ -91,3 +91,18 @@ json.groups do
     json.icon group.cover_photo_url(:thumb)
   end
 end
+
+json.energies do
+  json.array!(@results.select{|r| r.is_a?(EnergyOffer) || r.is_a?(EnergyDemand)}) do |energy|
+    json.count @results.find{|r| r[:energies_count]} [:energies_count]
+    json.type energy.class.name
+    json.name energy.title
+    if energy.is_a?(EnergyOffer)
+      json.url energy_offer_path(energy)
+      json.icon energy.cover_photo_url(:thumb)
+    elsif energy.is_a?(EnergyDemand)
+      json.url energy_demand_path(energy)
+      json.icon energy.avatar_url(:thumb)
+    end
+  end
+end

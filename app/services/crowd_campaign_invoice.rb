@@ -30,7 +30,7 @@ class CrowdCampaignInvoice
   def add_company_info(pdf, region)
     pdf.text "Betreff: Deine erfolgreiche Crowdfunding Kampagne auf #{I18n.t("region.#{region.id}.domain_full")}", style: :bold
     pdf.text "morgenjungs GmbH"
-    pdf.text "Lassallestraße 13/38, A-1020 Wien"
+    pdf.text "Ottakringer Straße 94/11, A-1170 Wien"
     pdf.text "UID: ATU 69461502"
     pdf.move_down 20
   end

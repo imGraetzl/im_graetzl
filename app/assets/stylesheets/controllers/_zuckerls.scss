@@ -1,9 +1,11 @@
 section.zuckerl-page {
   overflow: hidden;
 
-  label {
-    @include respond-to(">=large") {
-      min-width: 200px;
+  &.createzuckerl {
+    label {
+      @include respond-to(">=medium") {
+        min-width: 165px;
+      }
     }
   }
 

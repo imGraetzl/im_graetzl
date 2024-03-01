@@ -1,6 +1,6 @@
 ActiveAdmin.register Poll do
   include ViewInApp
-  menu parent: 'Energieteiler'
+  menu parent: 'Einstellungen'
 
   includes :poll_questions, :poll_options, :poll_users
   actions :all

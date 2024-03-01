@@ -1,6 +1,31 @@
 <%= form_errors_for f.object %>
 <%= f.hidden_field :location_id if f.object.new_record? %>
 
+<div class="form-columns">
+  <div class="input-field">
+    <%= f.label :starts_at, class: 'dates' do %>
+      <%= icon_tag "calendar-2" %>
+      <span>Startdatum<small class="upload-hint">auswählen</small></span>
+    <% end %>
+    <%= f.text_field :starts_at,
+                     value: (I18n.localize(f.object.starts_at, format:'%a, %d. %B %Y') if f.object.starts_at),
+                     data: { value: (I18n.localize(f.object.starts_at, format:'%Y-%m-%d') if f.object.starts_at) },
+                     class: 'starts_at',
+                     placeholder: 'wählen' %>
+  </div>
+  <div class="input-field disabled">
+    <%= f.label :ends_at, class: 'dates' do %>
+      <%= icon_tag "calendar-2" %>
+      <span>Enddatum<small class="upload-hint">1 Monat Laufzeit</small></span>
+    <% end %>
+    <%= f.text_field :ends_at,
+                     value: (I18n.localize(f.object.ends_at, format:'%a, %d. %B %Y') if f.object.ends_at),
+                     data: { value: (I18n.localize(f.object.ends_at, format:'%Y-%m-%d') if f.object.ends_at) },
+                     class: 'ends_at',
+                     placeholder: 'wählen', disabled: true %>
+  </div>
+</div>
+
 <div class="input-field">
   <%= f.label :title do %>
     <%= icon_tag "record" %>

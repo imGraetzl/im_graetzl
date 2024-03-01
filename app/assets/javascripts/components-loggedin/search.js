@@ -52,13 +52,17 @@ APP.components.search = (function() {
           header: "Crowdfunding Kampagnen"
         },
         {
+          listLocation: "energies",
+          header: "Energieteiler"
+        },
+        {
           listLocation: "polls",
           header: "Umfragen"
         },
       ],
       list: {
         //match: {enabled: true}, // searchphrase must be in shown result
-        maxNumberOfElements: 10,
+        maxNumberOfElements: 16,
         onShowListEvent:function() {
           search_phrase = $input.val();
           addCategoryLinks();
@@ -156,6 +160,12 @@ APP.components.search = (function() {
               type = 'polls'
               count = 0;
               counts.Poll ? count += counts.Poll : count;
+              break;
+            case 'Energieteiler':
+              type = 'energies';
+              count = 0;
+              counts.EnergyOffer ? count += counts.EnergyOffer : count;
+              counts.EnergyDemand ? count += counts.EnergyDemand : count;
               break;
             default:
               type = ''

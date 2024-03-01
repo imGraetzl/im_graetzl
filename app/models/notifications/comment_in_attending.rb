@@ -3,7 +3,7 @@ class Notifications::CommentInAttending < Notification
   self.class_bitmask = 2**20
 
   def self.description
-    "Ein Treffen oder Energieteiler an dem ich teilnehme wurde kommentiert"
+    "Ein Treffen an dem ich teilnehme wurde kommentiert"
   end
 
   def mail_template
@@ -31,7 +31,7 @@ class Notifications::CommentInAttending < Notification
     when 'Meeting'
       'Treffen'
     when 'Poll'
-      subject.poll_type
+      'Umfrage'
     end
   end
 

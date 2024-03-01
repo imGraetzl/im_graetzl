@@ -10,7 +10,7 @@
         </p>
         <p>
           <strong>Wir würden dich daher bitten, deine Zahlungsmethode anzupassen,</strong>
-          damit dein Zuckerl '<strong><%= @zuckerl.title %></strong>' für dein Schaufenster <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %> im <%= @zuckerl.runtime %> geschaltet werden kann.
+          damit dein Zuckerl '<strong><%= @zuckerl.title %></strong>' für dein Schaufenster <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %> im Zeitraum <%= @zuckerl.runtime %> geschaltet werden kann.
         </p>
       </td>
     </tr>

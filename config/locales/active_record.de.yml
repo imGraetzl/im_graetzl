@@ -94,6 +94,9 @@ de:
       energy_demand:
         one: Suche nach Energiegemeinschaft
         other: Suche nach Energiegemeinschaften
+      energy_category:
+        one: Kategorie
+        other: Kategorien
       tool_category:
         one: Kategorie
         other: Kategorien
@@ -491,6 +494,7 @@ de:
         billable: Rechnung/Beleg Auswahl
         statuses:
           draft: In Bearbeitung
+          declined: In Bearbeitung
           submit: In Bearbeitung
           pending: In Prüfung
           approved: Freigegeben

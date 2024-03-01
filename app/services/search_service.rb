@@ -17,6 +17,7 @@ class SearchService
     search_coop_demands.first(2) +
     search_groups.first(2) +
     search_polls.first(2) +
+    search_energies.first(2) +
     [:rooms_count => search_rooms.length] +
     [:meetings_count => search_meetings.length] +
     [:locations_count => search_locations.length] +
@@ -24,7 +25,8 @@ class SearchService
     [:coop_demands_count => search_coop_demands.length] +
     [:crowd_campaigns_count => search_crowd_campaigns.length] +
     [:groups_count => search_groups.length] + 
-    [:polls_count => search_polls.length]
+    [:polls_count => search_polls.length] +
+    [:energies_count => search_energies.length]
   end
 
   def user
@@ -44,6 +46,7 @@ class SearchService
     results += search_rooms if @options[:type].blank? || @options[:type] == 'rooms'
     results += search_tools if @options[:type].blank? || @options[:type] == 'tools'
     results += search_polls if @options[:type].blank? || @options[:type] == 'polls'
+    results += search_energies if @options[:type].blank? || @options[:type] == 'energies'
     results += search_coop_demands if @options[:type].blank? || @options[:type] == 'coop_demands'
 
     Kaminari.paginate_array(results).page(@options[:page]).per(@options[:per_page] || 15)
@@ -75,6 +78,12 @@ class SearchService
 
   def search_polls
     Poll.in(@region).enabled.where("title ILIKE :q OR description ILIKE :q", q: like_query).order('created_at DESC')
+  end
+
+  def search_energies
+    energy_offers = EnergyOffer.in(@region).enabled.where("title ILIKE :q", q: like_query)
+    energy_demands = EnergyDemand.in(@region).enabled.where("title ILIKE :q", q: like_query)
+    (energy_offers + energy_demands).sort_by(&:last_activated_at).reverse
   end
 
   def search_tools

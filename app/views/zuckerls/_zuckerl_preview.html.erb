@@ -28,7 +28,7 @@
     <div class="zuckerlteasertxt">
       <div class="hl">
         <%= icon_tag "shopping-bag" %>
-        Zuckerl im <%= I18n.localize @zuckerl.starts_at, format: '%B' %>
+        Aktuelles Zuckerl
       </div>
       <div class="title" data-behavior="titlepreview"></div>
       <div class="description" data-behavior="descriptionpreview"></div>
@@ -44,7 +44,7 @@
 <div class="zuckerl-keydata">
   <div class="headline">Eckdaten</div>
   <ul class="facts">
-    <li><strong>Laufzeit:</strong> <%= zuckerl_month_and_year(@zuckerl) %></li>
+    <li><strong>Laufzeit:</strong> <%= zuckerl_runtime(@zuckerl) %></li>
     <li>
       <strong>Sichtbarkeit:</strong>
         <span data-behavior="graetzlpreview">
