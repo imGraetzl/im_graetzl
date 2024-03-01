@@ -9,14 +9,14 @@ class Zuckerl < ApplicationRecord
 
   friendly_id :title
 
-  belongs_to :location
-  belongs_to :user
+  belongs_to :location, optional: true
+  belongs_to :user, optional: true
   belongs_to :subscription, optional: true
   has_one :graetzl, through: :location
 
   before_validation :smart_add_url_protocol, if: -> { link.present? }
 
-  validates_presence_of :title, :description, :cover_photo
+  validates_presence_of :title, :description, :cover_photo, :starts_at, :ends_at
   validates :amount, presence: true, on: :create
 
   string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
@@ -24,8 +24,6 @@ class Zuckerl < ApplicationRecord
   scope :initialized, -> { where.not(aasm_state: [:incomplete, :cancelled, :storno]) }
   scope :entire_region, -> { where(entire_region: true) }
   scope :graetzl, -> { where(entire_region: false) }
-
-  scope :next_month_live, lambda {where("created_at > ? AND created_at < ? AND aasm_state = ? OR aasm_state = ?", Time.now.beginning_of_month, Time.now.end_of_month, 'pending', 'approved')}
 
   def self.price(region)
     region.zuckerl_graetzl_price * 1.2
@@ -132,18 +130,8 @@ class Zuckerl < ApplicationRecord
     end
   end
 
-  def starts_at
-    if self.live?
-      Time.now # If Zuckerl was manual set to live
-    elsif self.created_at
-      self.created_at.end_of_month+1.day # Normal Zuckerl
-    else
-      Time.now.end_of_month+1.day # For Zuckerl Preview on Create
-    end
-  end
-
   def runtime
-    I18n.localize starts_at, format: '%B %Y'
+    "#{I18n.localize starts_at, format: '%d. %b'} – #{I18n.localize ends_at, format: '%d. %b, %Y'}"
   end
 
   def zuckerl_invoice

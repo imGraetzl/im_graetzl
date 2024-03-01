@@ -8,8 +8,7 @@
 
     <p>Als Zuckerl eignen sich <strong>Angebote, Gutscheine oder Rabattaktionen, aber auch allgemeine Werbung für deine Produkte.</strong>.</p>
 
-    <p>Zuckerl können immer für den kommenden Monat im Voraus gebucht werden und laufen dann einen ganzen Monat.
-    <strong>Sprich, wenn du jetzt ein Zuckerl buchst, dann läuft dieses im <%= I18n.localize Time.now.end_of_month+1.day, format: '%B %Y' %>.</strong></p>
+    <p>Das Startdatum deines Zuckerls kannst du frei wählen. <strong>Die Laufzeit deines Zuckerls beträgt dann immer genau 1 Monat.</strong></p>
     <p>
       <strong>Ein Zuckerl kostet dich <%= number_to_currency(Zuckerl.price(current_region) / 100) %></strong> (inkl. USt.).
       Das Zuckerl erscheint <%= t("region.#{current_region.id}.in_your_graetzl") %><%= ' und im ganzen Bezirk' if current_region.use_districts? %>

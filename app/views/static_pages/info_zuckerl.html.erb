@@ -19,7 +19,7 @@
     <div class="wrp zuckerlwrp">
       <div class="left">
         <p>
-          <strong>Das Zuckerl</strong> erscheint jeden Monat neu und enthält besondere Angebote,
+          <strong>Zuckerln</strong> sind besondere Angebote,
           Gutscheine & Rabattaktionen von Kreativen, Selbständigen und kleinen Unternehmen <%= t("region.#{current_region.id}.from_your_graetzl") %>.
         </p>
         <p>
@@ -36,7 +36,7 @@
 
         <div class="zuckerlcard">
           <div class="wrp">
-            <h3>Schalte jetzt dein Zuckerl für den Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B' %>.</h3>
+            <h3>Schalte jetzt dein Zuckerl für einen vollen Monat.</h3>
             <%= link_to 'Jetzt Zuckerl buchen', new_zuckerl_path, class: 'btn-primary -rose -shadow' %>
           </div>
         </div>
@@ -65,14 +65,15 @@
   </div>
 
   <div class="wrp">
-    <h3>Kann ich das Zuckerl nur für einen Monat schalten?</h3>
-    <p>Ja, Zuckerl sind aktuelle Angebote, die immer für einen Monat gebucht werden. Alle Zuckerl für den Monat erscheinen immer am 01. des Monats und laufen dann den ganzen Monat. Möchtest du dein Angebot für einen bestimmten Monat schalten, dann buche das Zuckerl einfach im Monat davor ein. Möchtest du ein Zuckerl länger schalten, dann buche es einfach im Folgemonat erneut ein.</p>
+    <h3>Kann ich die Laufzeit meines Zuckerls bestimmen?</h3>
+    <p>Das Startdatum deines Zuckerls kannst du frei wählen. Die Laufzeit deines Zuckerls beträgt dann immer exakt einen Monat.<br>
+    Möchtest du ein Zuckerl länger schalten, dann kannst du z.b. ein weiters Zuckerl buchen und das Stardatum dementsprechend setzen.</p>
   </div>
 
   <div class="wrp">
     <h3>Wie kann ich mein gebuchtes Zuckerl bearbeiten?</h3>
     <p>
-      Du findest deine gebuchten Zuckerl unter "<%= link_to 'Buchungen verwalten', zuckerls_user_path %>". Solange dein Zuckerl noch nicht aktiv läuft, kannst du dieses dort auch bearbeiten. Wenn dein Zuckerl einmal im gebuchten Monat aktiv ist, kann es nicht mehr bearbeitet werden. Solltest du unbedingt noch etwas ändern müssen, so kontaktiere uns unter: <%= t("region.#{current_region.id}.contact_email") %>.
+      Du findest deine gebuchten Zuckerl unter "<%= link_to 'Buchungen verwalten', zuckerls_user_path %>". Solange dein Zuckerl noch nicht aktiv läuft, kannst du dieses dort auch bearbeiten. Wenn dein Zuckerl einmal aktiv ist, kann es nicht mehr bearbeitet werden. Solltest du unbedingt noch etwas ändern müssen, so kontaktiere uns unter: <%= t("region.#{current_region.id}.contact_email") %>.
       Löschen kannst du dein Zuckerl natürlich jederzeit.
     </p>
   </div>

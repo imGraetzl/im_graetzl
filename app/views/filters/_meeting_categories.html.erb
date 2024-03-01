@@ -21,7 +21,7 @@
       </div>
       -->
 
-      <div class="-category -href" data-href="<%= good_morning_dates_path %>" data-id="good-moring-dates" data-label="Good Morning & After Work Dates" data-slug="good-morning-dates">
+      <div class="-category -href" data-href="<%= good_morning_dates_path %>" data-id="good-moring-dates" data-label="Good Morning Dates" data-slug="good-morning-dates">
         <picture>
           <source srcset="<%= image_path('categories/good-morning-dates.webp') %>" type="image/webp" />
           <%= image_tag('categories/good-morning-dates.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
@@ -29,7 +29,7 @@
         <div class="cat -good-morning-dates">
           <%= category_icon('coffee', class: 'catimg', width:85, height:85) %>
         </div>
-        <h3><%= link_to "Good Morning & After Work Dates", good_morning_dates_path %></h3>
+        <h3><%= link_to "Good Morning Dates", good_morning_dates_path %></h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>

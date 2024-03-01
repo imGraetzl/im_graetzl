@@ -224,14 +224,6 @@
   }
 }
 
-.zuckerl-page.createzuckerl {
-  label {
-    @include respond-to(">=medium") {
-      min-width: 170px;
-    }
-  }
-}
-
 .room-booster-page.summary-screen .summary, .zuckerl-page.summary-screen .summary {
   display: flex;
   flex-wrap: wrap;

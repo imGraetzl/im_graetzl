@@ -8,6 +8,8 @@ active_admin_form_for [:admin, resource] do |f|
     input :cover_photo, as: :file, hint: f.object.cover_photo && image_tag(f.object.cover_photo_url(:thumb))
     input :remove_cover_photo, as: :boolean if f.object.cover_photo
     input :entire_region
+    input :starts_at
+    input :ends_at
   end
   inputs 'Billing Address' do
     input :company

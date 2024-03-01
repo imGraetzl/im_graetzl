@@ -79,7 +79,7 @@
 
       <% @subscription.zuckerls.order(created_at: :desc).each do |zuckerl| %>
         <div class="flex-table" role="rowgroup">
-          <div class="flex-row medium" role="cell"><%= zuckerl_month_and_year(zuckerl) %></div>
+          <div class="flex-row medium" role="cell"><%= zuckerl_runtime(zuckerl) %></div>
           <div class="flex-row large" role="cell"><%= zuckerl.visibility %></div>
           <div class="flex-row xxxlarge" role="cell"><%= link_to zuckerl.title, zuckerls_user_path(anchor:"zuckerl-#{zuckerl.id}") %></div>
         </div>

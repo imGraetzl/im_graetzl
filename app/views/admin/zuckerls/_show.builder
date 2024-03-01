@@ -7,6 +7,8 @@ context.instance_eval do
     row :location
     row :subscription
     row :created_at
+    row :starts_at
+    row :ends_at
     row(:aasm_state){|z| status_tag(z.aasm_state)}
     row :amount
     row(:payment_status){|z| status_tag(z.payment_status)}
