@@ -13,7 +13,7 @@ class RegionsController < ApplicationController
 
   def meetings
     if params[:category].present?
-      @category = EventCategory.find_by(slug: params[:category])
+      @category = EventCategory.visible.find_by(slug: params[:category])
       @special_category = params[:category] if helpers.special_categories.include?(params[:category])
     end
   end
