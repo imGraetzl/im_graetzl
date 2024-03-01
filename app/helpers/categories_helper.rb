@@ -1,7 +1,7 @@
 module CategoriesHelper
 
   def special_categories
-    ['kurzzeitmiete', 'online-shops', 'special-events', 'goodies', 'menus']
+    ['kurzzeitmiete', 'online-shops', 'goodies', 'menus', 'balkon-solar']
   end
 
   def special_category_path(category)

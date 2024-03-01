@@ -4,7 +4,7 @@
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
 
     <% if current_region.is?('graz') && category = EventCategory.where("title ILIKE :q", q: "%Balkon-Solar%").last %>
-      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
+      <div class="-category -special-category" data-id="<%= category.slug %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
         <div class="cat -<%= category.css_ico_class %>">
           <%= category_icon(category.css_ico_class, class: 'catimg', width:85, height:85) %>

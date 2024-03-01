@@ -49,7 +49,6 @@ class RegionsController < ApplicationController
   end
 
   def energies
-
   end
 
   def polls
