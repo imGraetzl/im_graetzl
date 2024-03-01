@@ -101,7 +101,6 @@ footer {
     color: #565759;
     border: none;
     @include respond-to(">=large") {
-      //flex: 0 0 auto;
       margin-top: 0;
       padding-right: 20px;
     }

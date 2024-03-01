@@ -2,7 +2,7 @@
 
   <div class="hl-subtext">
     <h2>Definiere die zunächst die <span>Laufzeit</span> deiner Kampagne</h2>
-    <p>Die Laufzeit sollte zwischen 2 Wochen und 2 Monaten betragen / Ideal wäre ein Monat.</p>
+    <p>Die Laufzeit sollte zwischen 2 und 6 Wochen betragen / Ideal wären 30 Tage.</p>
   </div>
 
   <div class="form-columns">
@@ -40,11 +40,11 @@
   <p class="txt">Jetzt geht es um <span>dein Projekt</span></p>
 
   <div class="input-textarea bbcodeField">
-    <%= f.label :description do %>
+    <%= f.label :support_description do %>
     <%= icon_tag "layout-document" %>
-    <span>Worum geht es in deinem Projekt?</span>
+    <span>Warum sollte man dich unterstützen?</span>
     <% end %>
-    <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...', data: { max_chars: 3000 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
+    <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...', data: { max_chars: 1500 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="bbCodeOpener"><a>Tipps</a></span>
     <span class="charCountContainer charsLeft"></span>
   </div>
@@ -60,23 +60,30 @@
   </div>
 
   <div class="input-textarea bbcodeField">
-    <%= f.label :support_description do %>
-    <%= icon_tag "layout-document" %>
-    <span>Warum sollte man dich unterstützen?</span>
-    <% end %>
-    <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...', data: { max_chars: 1500 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
-    <span class="bbCodeOpener"><a>Tipps</a></span>
-    <span class="charCountContainer charsLeft"></span>
-  </div>
-
-  <div class="input-textarea bbcodeField">
     <%= f.label :about_description do %>
     <%= icon_tag "layout-document" %>
-    <span>Warum brennst du für dein Projekt?</span>
+    <span>Wer steht hinter dem Projekt?</span>
     <% end %>
     <%= f.text_area :about_description, placeholder: 'Ein paar Infos über dich und den Projekt Hintergrund ...', data: { max_chars: 1500 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="bbCodeOpener"><a>Tipps</a></span>
     <span class="charCountContainer charsLeft"></span>
+  </div>
+
+  <div class="benefit-checkbox">
+    <div class="input-checkbox">
+      <%= f.check_box(:benefit) %>
+      <%= f.label :benefit, "Ja, von meinem Projekt profitiert auch die Allgemeinheit", class: 'benefit-switch' %>
+    </div>
+  </div>
+  <div class="benefit-fields">
+    <div class="input-textarea">
+      <%= f.label :benefit_description do %>
+      <%= icon_tag "layout-document" %>
+      <span>Vorteil für die Allgemeinheit</span>
+      <% end %>
+      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', data: { max_chars: 1500 } %>
+      <span class="charCountContainer charsLeft"></span>
+    </div>
   </div>
 
 </div>

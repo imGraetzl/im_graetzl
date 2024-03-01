@@ -21,10 +21,9 @@
         <%= link_to 'Gemeinde / Stadt andocken', andocken_url(host: welocally_platform_host) %>
         <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
         <%= link_to 'Cookie Einstellungen', 'javascript:', id: 'ihavecookiesBtn' %>
-        <!--<%= link_to 'Code of Conduct', info_code_of_conduct_path %>-->
         <%= link_to 'AGB', info_agb_path %>
         <a href="<%= t("region.#{current_region.id}.instagram_url") %>" target="_blank" rel="noopener" class="instagram">
-          Auf Instagram <%= image_tag 'svg/icon-instagram-grey.svg', loading: 'lazy', width:28, height:28, class: 'icon', alt: 'Instagram' %>
+          Auf Instagram <%= icon_tag "social-instagram" %>
         </a>
       </div>
 

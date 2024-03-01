@@ -3,7 +3,7 @@
   <div class="input-field">
     <%= f.label :title do %>
     <%= icon_tag "record" %>
-    <span>Projektname</span>
+    <span>Projekttitel</span>
     <% end %>
     <%= f.text_field :title, placeholder: 'Gib deiner Kampagne einen kurzen Titel ...', required: true, data: { max_chars: 100 }, maxlength:100, disabled: !@crowd_campaign.editable? %>
     <span class="charCountContainer charsLeft"></span>
@@ -11,26 +11,19 @@
   <div class="input-textarea">
     <%= f.label :slogan do %>
     <%= icon_tag "layout-document" %>
-    <span>Kurzbeschreibung</span>
+    <span>Projektslogan</span>
     <% end %>
-    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable?, data: { max_chars: 250 } %>
+    <%= f.text_area :slogan, placeholder: 'Dein Vorhaben in einem Satz zusammengefasst ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable?, data: { max_chars: 250 } %>
     <span class="charCountContainer charsLeft"></span>
   </div>
-  <div class="benefit-checkbox">
-    <div class="input-checkbox">
-      <%= f.check_box(:benefit) %>
-      <%= f.label :benefit, "Ja, von meinem Projekt profitiert auch die Allgemeinheit", class: 'benefit-switch' %>
-    </div>
-  </div>
-  <div class="benefit-fields">
-    <div class="input-textarea">
-      <%= f.label :benefit_description do %>
-      <%= icon_tag "layout-document" %>
-      <span>Vorteil für die Allgemeinheit</span>
-      <% end %>
-      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', data: { max_chars: 1500 } %>
-      <span class="charCountContainer charsLeft"></span>
-    </div>
+  <div class="input-textarea bbcodeField">
+    <%= f.label :description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Projektbeschreibung</span>
+    <% end %>
+    <%= f.text_area :description, placeholder: 'Worum geht es in deinem Projekt? Beschreibe dein Vorhaben hier ausführlicher ...', data: { max_chars: 3000 }, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
+    <span class="bbCodeOpener"><a>Tipps</a></span>
+    <span class="charCountContainer charsLeft"></span>
   </div>
 </div>
 

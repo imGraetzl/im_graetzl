@@ -63,6 +63,8 @@ context.instance_eval do
           row :contact_name
           row :contact_company
           row :contact_website
+          row :contact_instagram
+          row :contact_facebook
           row :contact_phone
           row :contact_address
           row :contact_zip
