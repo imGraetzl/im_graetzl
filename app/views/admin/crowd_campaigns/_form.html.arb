@@ -37,6 +37,8 @@ active_admin_form_for [:admin, resource] do |f|
         input :contact_name
         input :contact_company
         input :contact_website
+        input :contact_instagram
+        input :contact_facebook
         input :contact_phone
         input :contact_address
         input :contact_zip

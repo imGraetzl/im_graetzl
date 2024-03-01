@@ -68,16 +68,28 @@
               <%= avatar_image_with_tooltip @crowd_campaign.user, size: :thumb, class: 'img-round show-badge' %>
               <span class="name"><%= @crowd_campaign.user.full_name %></span>
             <% end %>
-            <% if @crowd_campaign.contact_website.present? %>
-              <%= link_to @crowd_campaign.contact_website, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
-                <%= icon_tag "globe" %>
-                <span><%= @crowd_campaign.contact_website.sub(/^https?\:\/\//,'') %></span>
-              <% end %>
-            <% end %>
             <% if @crowd_campaign.contact_email.present? %>
               <%= mail_to @crowd_campaign.contact_email, class: 'icontxt' do %>
                 <%= icon_tag "at-symbol" %>
                 <span><%= @crowd_campaign.contact_email %></span>
+              <% end %>
+            <% end %>
+            <% if @crowd_campaign.contact_website.present? %>
+              <%= link_to @crowd_campaign.contact_website, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
+                <%= icon_tag "globe" %>
+                <span><%= @crowd_campaign.contact_website.sub(/^https?\:\/\//,'').chomp("/") %></span>
+              <% end %>
+            <% end %>
+            <% if @crowd_campaign.contact_instagram.present? %>
+              <%= link_to @crowd_campaign.contact_instagram, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
+                <%= icon_tag "social-instagram" %>
+                <span><%= @crowd_campaign.contact_instagram.sub(/^https?\:\/\/www./,'').chomp("/") %></span>
+              <% end %>
+            <% end %>
+            <% if @crowd_campaign.contact_facebook.present? %>
+              <%= link_to @crowd_campaign.contact_facebook, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
+                <%= icon_tag "social-facebook" %>
+                <span><%= @crowd_campaign.contact_facebook.sub(/^https?\:\/\/www./,'').chomp("/") %></span>
               <% end %>
             <% end %>
           </div>

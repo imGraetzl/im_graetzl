@@ -47,8 +47,10 @@ class CrowdCampaign < ApplicationRecord
   before_validation :smart_add_url_protocol_website, if: -> { contact_website.present? }
   before_validation :smart_add_url_protocol_video, if: -> { video.present? }
 
-  validates_presence_of :title, :graetzl
-  validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
+  # Validation for Campaign Create (& Submit)
+  validates_presence_of :title
+  # Validation for Campaign Submit
+  validates_presence_of :slogan, :crowd_category_ids, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
   scope :initialized, -> { where.not(status: :declined) }
   scope :scope_throttled, -> { where(active_state: :throttled) }
@@ -194,9 +196,9 @@ class CrowdCampaign < ApplicationRecord
   def step_finished?(step)
     case step
     when 1
-      [title, slogan, crowd_category_ids, graetzl_id].all?(&:present?)
+      [title, slogan, description, crowd_category_ids, graetzl_id].all?(&:present?)
     when 2
-      [startdate, enddate, description, support_description, aim_description, about_description].all?(&:present?)
+      [startdate, enddate, support_description, aim_description, about_description].all?(&:present?)
     when 3
       [funding_1_amount, funding_1_description].all?(&:present?)
     when 4
