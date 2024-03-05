@@ -195,15 +195,12 @@
     <div class="meet-admin">
       <p><span>Admin</span> Funktionen</p>
 
-      <div class="input-select">
-        <%= f.label :location_id do %>
-          <%= icon_tag "label-tag" %>
-          <span>Umfrage verknüpfen</span>
-        <% end %>
-        <%= f.select(:poll_id, Poll.in(current_region).map{|p| [p.title, p.id] },
-            { include_blank: 'Treffen mit Umfrage verknüpfen ..' },
-            { class: 'select-poll-input' })
-        %>
+      <div class="cardBox">
+        <div class="input-checkbox">
+          <%= f.check_box :entire_region %>
+          <%= f.label :entire_region, "#{t("region.#{current_region.id}.zuckerl.region")}" %>
+          <small>(Treffen wird in alle Streams und E-Mails in der Region aufgenommen.)</small>
+        </div>
       </div>
 
       <% if f.object.new_record? %>

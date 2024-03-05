@@ -154,4 +154,15 @@
     </div>
   </div>
 
+  <% @category = EventCategory.where("title ILIKE :q", q: "%Crowdfunding%").last %>
+  <% @meetings = Meeting.upcoming.in(current_region).joins(:event_categories).where(event_categories: {id: @category&.id}) %>
+
+  <% if @meetings.any? %>
+    <div class="cardBoxCollection -tripple -meetings">
+      <%= render @meetings.last(2) %>
+      <%= render 'crowd_campaigns/action_card', create_link: true %>
+    </div>
+  <% end %>
+
 </section>
+

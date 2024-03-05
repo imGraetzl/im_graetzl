@@ -799,7 +799,15 @@ section.startcampaign {
       }
     }
   }
-  
+  .-meetings {
+    margin-top: 75px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .paperCard .card::before {
+      display: none;
+    }
+  }
 }
 section.usersetup.-crowd_campaigns {
   .cardBox.-crowd_campaign {

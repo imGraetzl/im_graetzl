@@ -40,6 +40,17 @@
     margin-bottom: 20px;
   }
 
+  .meet-admin .cardBox {
+    margin-bottom: 20px;
+    label {
+      display: inline;
+    }
+    small {
+      margin-left: 5px;
+      color: grey;
+    }
+  }
+
   .input-field,
   .input-textarea,
   .input-select,

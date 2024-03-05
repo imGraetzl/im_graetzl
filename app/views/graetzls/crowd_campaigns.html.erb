@@ -42,7 +42,7 @@
   <div class="card-grid-container">
     <div class="card-grid" data-behavior="crowd-campaigns-card-container"></div>
     <div class="action-card-container" data-behavior="crowd-campaigns-action-card-container">
-      <%= render 'crowd_campaigns/action_card', create_link: true %>
+      <%= render 'crowd_campaigns/action_card' %>
     </div>
     <!-- Insert Featured Card -->
     <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? && current_region.is?('wien') %>
