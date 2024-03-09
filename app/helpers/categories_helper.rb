@@ -6,10 +6,10 @@ module CategoriesHelper
 
   def special_category_path(category)
     case category.title
-    when 'Balkon-Solar'
-      balkonsolar_path
     when 'Good Morning Dates'
       good_morning_dates_path
+    when 'Balkon-Solar'
+      balkonsolar_path
     when 'WeLocally Pop-Up'
       popup_path
     else

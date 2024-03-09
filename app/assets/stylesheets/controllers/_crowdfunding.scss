@@ -296,10 +296,16 @@ section.crowd_campaign {
         top:-30px;
         right:7px;
       }
-      .whatsapp {
+      em + a {
         margin-left:8px;
-        width: 25px;
-        height:25px;
+      }
+      .whatsapp {
+        margin-left:3px;
+        margin-right:0px;
+        .icon {
+          width: 25px;
+          height:25px;
+        }
         @media screen and (min-width: 500px) {
           display: none;
         }

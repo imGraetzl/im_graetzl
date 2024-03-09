@@ -198,8 +198,11 @@
       <div class="cardBox">
         <div class="input-checkbox">
           <%= f.check_box :entire_region %>
-          <%= f.label :entire_region, "#{t("region.#{current_region.id}.zuckerl.region")}" %>
-          <small>(Treffen wird in alle Streams und E-Mails in der Region aufgenommen.)</small>
+          <label for="meeting_entire_region">
+            Ganz Wien
+            <small>(Treffen wird in alle Streams und E-Mails in der Region aufgenommen.)</small>
+          </label>
+          
         </div>
       </div>
 
