@@ -31,9 +31,10 @@ APP.components.graetzlSelectFilter = (function() {
       placeholder: graetzl + ' auswählen',
       csvDispCount: 3,
       captionFormat: '{0} ' + graetzl + '',
-      captionFormatAllSelected: 'Alle {0} '+ graetzl +'n in ' + region,
+      captionFormatAllSelected: 'Alle {0} ' + graetzl + ' in ' + region,
       okCancelInMulti: true,
-      locale: ['Übernehmen', 'Abbrechen']
+      selectAll: true,
+      locale: ['Übernehmen', 'Abbrechen', 'Alle ' + graetzl]
     });
 
     // Init Districts of Selected Graetzls (michael)

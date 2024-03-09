@@ -1,6 +1,6 @@
 <div class="form-block" id="tab-basic">
 
-  <div class="room-offer-type-selection">
+  <div class="type-selection cardBox">
     <% RoomOffer.offer_types.each_with_index do |(name, value), i| %>
     <div class="input-radio">
       <%= f.radio_button :offer_type, name, required: true %>
