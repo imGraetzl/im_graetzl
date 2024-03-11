@@ -1,8 +1,9 @@
 <!-- Prepare GOOD MORDNING Dates for @user, max 2 -->
 
-<% category = EventCategory.where(slug: 'good-morning-dates').map(&:id) %>
-<% all_dates = Meeting.upcoming.in(@region).joins(:event_categories).where(event_categories: {id: category}) %>
-<% my_dates = @user.district.meetings.upcoming.joins(:event_categories).where(event_categories: {id: category}) %>
+<!--% category = EventCategory.where(slug: 'good-morning-dates').map(&:id) %-->
+<!--% my_dates = @user.district.meetings.upcoming.joins(:event_categories).where(event_categories: 14) %-->
+<% all_dates = Meeting.upcoming.in(@region).joins(:event_categories).where(event_categories: 14) %>
+<% my_dates = all_dates.joins(:districts).where(districts: @user.district) %>
 <% @meetings = (all_dates - my_dates).sample(2) %>
 <% @meetings += my_dates %>
 
@@ -38,15 +39,7 @@
               <td style="font-size:12px; line-height:16px;">
                 <%= link_to meeting.user.username, user_url(meeting.user), style: "color:#ec776a; font-size:12px;" %>
                 <br>
-                <% if meeting.ends_at_date.present? %>
-                  <%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %b.') %>
-                  bis <%= I18n.localize(meeting.ends_at_date, format:'%d. %b. %Y') %>
-                <% else %>
-                  <%= I18n.localize(meeting.starts_at_date, format:'%A %d. %B') %>
-                  <% if meeting.meeting_additional_dates.present? %>
-                    <em>+ <%= meeting.meeting_additional_dates.count %> weitere</em>
-                  <% end %>
-                <% end %>
+                <%= I18n.localize(meeting.starts_at_date, format:'%A %d. %B') %>
               </td>
             </tr>
           </table>
