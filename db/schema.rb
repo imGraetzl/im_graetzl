@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_01_131009) do
+ActiveRecord::Schema.define(version: 2024_03_11_101033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -540,7 +540,7 @@ ActiveRecord::Schema.define(version: 2024_03_01_131009) do
     t.text "project_goals"
     t.text "special_orientation"
     t.string "members_count"
-    t.decimal "price_per_kwh", precision: 10, scale: 2
+    t.decimal "producer_price_per_kwh", precision: 10, scale: 2
     t.boolean "goal_producer_solarpower", default: false
     t.boolean "goal_prosumer_solarpower", default: false
     t.boolean "goal_producer_windpower", default: false
@@ -570,6 +570,7 @@ ActiveRecord::Schema.define(version: 2024_03_01_131009) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "location_id"
     t.bigint "user_id"
+    t.decimal "consumer_price_per_kwh", precision: 10, scale: 2
     t.index ["location_id"], name: "index_energy_offers_on_location_id"
     t.index ["region_id"], name: "index_energy_offers_on_region_id"
     t.index ["slug"], name: "index_energy_offers_on_slug"

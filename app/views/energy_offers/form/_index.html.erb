@@ -123,13 +123,20 @@
 
 
 
-  <h2 class="hl-main"><span>Tarif</span> innerhalb der <span>Energiegemeinschaft</span></h2>
+  <h2 class="hl-main"><span>Tarife</span> innerhalb der <span>Energiegemeinschaft</span></h2>
   <div class="input-field">
-    <%= f.label :price_per_kwh do %>
+    <%= f.label :producer_price_per_kwh do %>
       <%= icon_tag "currency-euro" %>
-      <span>Cent / kWh</span>
+      <span>Einspeisetarif<small class="upload-hint">Cent / kWh (Netto, exkl. MwSt.)</small></span>
     <% end %>
-    <%= f.number_field :price_per_kwh, placeholder: 'Wisst ihr schon euren Tarif innerhalb der BEG/EEG', class: 'price-per-hour-input' %>
+    <%= f.number_field :producer_price_per_kwh, placeholder: 'Wisst ihr schon euren Einspeisetarif? (Angaben in Netto, exkl. MwSt.)', class: 'price-per-hour-input' %>
+  </div>
+  <div class="input-field">
+    <%= f.label :consumer_price_per_kwh do %>
+      <%= icon_tag "currency-euro" %>
+      <span>Bezugstarif<small class="upload-hint">Cent / kWh (Netto, exkl. MwSt.)</small></span>
+    <% end %>
+    <%= f.number_field :consumer_price_per_kwh, placeholder: 'Wisst ihr schon euren Bezugstarif? (Angaben in Netto, exkl. MwSt.)', class: 'price-per-hour-input' %>
   </div>
 
 
