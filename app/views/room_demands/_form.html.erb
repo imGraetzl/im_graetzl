@@ -2,7 +2,7 @@
   <%= form_errors_for @room_demand %>
   <div class="form-block">
 
-    <div class="room-offer-type-selection">
+    <div class="type-selection cardBox">
       <% RoomDemand.demand_types.each_with_index do |(name, value), i| %>
         <div class="input-radio">
           <%= f.radio_button :demand_type, name, required: true %>

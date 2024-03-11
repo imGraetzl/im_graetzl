@@ -20,7 +20,7 @@ namespace :scheduled do
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
       if meeting.meeting_additional_dates.any? 
         meeting.set_next_date!
-        ActionProcessor.track(meeting, :create) if meeting.refresh_activity
+        ActionProcessor.track(meeting, :create) if (meeting.refresh_activity || meeting.entire_region?)
       end
     end
 

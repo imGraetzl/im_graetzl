@@ -174,7 +174,9 @@ class MeetingsController < ApplicationController
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.entire_region)
     end
 
-    if params[:category_id].present?
+    if params[:special_category_id].present? && params[:special_category_id] == 'balkon-solar'
+      meetings = meetings.joins(:event_categories).where(event_categories: {slug: params[:special_category_id]})
+    elsif params[:category_id].present?
       meetings = meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]})
     end
 
@@ -182,7 +184,7 @@ class MeetingsController < ApplicationController
   end
 
   def meeting_params
-    params.require(:meeting).permit(
+    list_params_allowed = [
       :graetzl_id, :group_id, :location_id, :poll_id, :name, :description,
       :starts_at_date, :ends_at_date, :starts_at_time, :ends_at_time,
       :cover_photo, :remove_cover_photo,
@@ -193,7 +195,9 @@ class MeetingsController < ApplicationController
       meeting_additional_dates_attributes: [
         :id, :starts_at_date, :starts_at_time, :ends_at_time, :_destroy
       ],
-    )
+    ]
+    list_params_allowed << :entire_region if current_user.admin?
+    params.require(:meeting).permit(list_params_allowed)
   end
 
   def going_to_params

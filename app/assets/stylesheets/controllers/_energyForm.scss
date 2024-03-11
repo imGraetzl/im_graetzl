@@ -48,15 +48,4 @@ section.energy-form {
     display: none;
     margin-left:35px;
   }
-
-  .energy-type-selection {
-    display: grid;
-    justify-content: center;
-    .input-radio {
-      label {
-        @include font-size-primaryFont('larger');
-        padding-bottom: 5px;
-      }
-    }
-  }
 }

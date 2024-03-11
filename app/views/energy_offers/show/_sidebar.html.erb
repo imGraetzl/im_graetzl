@@ -19,14 +19,27 @@
         <%= t("activerecord.attributes.energy.energy_types.short.#{@energy_offer.energy_type}") %> <%= t("activerecord.attributes.energy_offer.operation_states.#{@energy_offer.operation_state}") %>
       </div>
 
-      <div class="price_per_kwh icontxt">
-        <%= icon_tag "currency-euro" %>
-        <% if @energy_offer.price_per_kwh? %>
-           <%= number_to_currency(@energy_offer.price_per_kwh, precision: 2, unit: "Cent pro kWh") %>
-        <% else %>
-          Tarif noch nicht fixiert
-        <% end %>
-      </div>
+      <% if @energy_offer.producer_price_per_kwh? %>
+        <div class="price_per_kwh icontxt">
+          <%= icon_tag "currency-euro" %>
+          <div>
+            <%= number_to_currency(@energy_offer.producer_price_per_kwh, precision: 2, unit: "Cent pro kWh") %>
+            <strong>Einspeisetarif</strong>
+            <small>(exkl. MwSt.)</small>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @energy_offer.consumer_price_per_kwh? %>
+        <div class="price_per_kwh icontxt">
+          <%= icon_tag "currency-euro" %>
+          <div>
+            <%= number_to_currency(@energy_offer.consumer_price_per_kwh, precision: 2, unit: "Cent pro kWh") %>
+            <strong>Bezugstarif</strong>
+            <small>(exkl. MwSt.)</small>
+          </div>
+        </div>
+       <% end %>
 
       <% if @energy_offer.members_count? %>
         <div class="members icontxt">

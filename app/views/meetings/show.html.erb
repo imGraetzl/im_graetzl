@@ -105,7 +105,7 @@
   <% end %>
 
   <div class="meetingBlock">
-    <% if category = @meeting.event_categories.where(hidden: true).first %>
+    <% if category = @meeting.event_categories.where(slug: 'good-morning-dates').first %>
       <%= render 'further_meetings_special', category: category %>
     <% else %>
       <%= render 'further_meetings' %>

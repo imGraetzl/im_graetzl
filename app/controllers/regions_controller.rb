@@ -13,7 +13,7 @@ class RegionsController < ApplicationController
 
   def meetings
     if params[:category].present?
-      @category = EventCategory.find_by(slug: params[:category])
+      @category = EventCategory.visible.find_by(slug: params[:category])
       @special_category = params[:category] if helpers.special_categories.include?(params[:category])
     end
   end
@@ -46,10 +46,12 @@ class RegionsController < ApplicationController
     if params[:category].present?
       @category = CrowdCategory.find_by(slug: params[:category])
     end
+    # Featured Crowdfunding Meetings
+    category = EventCategory.where("title ILIKE :q", q: "%Crowdfunding%").last
+    @meeting = Meeting.upcoming.in(current_region).joins(:event_categories).where(event_categories: {id: category&.id}).first
   end
 
   def energies
-
   end
 
   def polls

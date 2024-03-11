@@ -14,7 +14,11 @@
         <% end %>
       </div>
       <h3>Lokales Crowdfunding, setze deine Vorhaben mit der Kraft der Gemeinschaft um.</h3>
-      <%= link_to 'Starte jetzt deine Crowdfunding Kampagne', start_crowd_campaigns_path, class: 'btn-primary -rose' %>
+      <% if local_assigns[:create_link] %>
+        <%= link_to 'Neue Kampagne starten', new_crowd_campaign_path, class: 'btn-primary -rose' %>
+      <% else %>
+        <%= link_to 'Starte jetzt deine Crowdfunding Kampagne', start_crowd_campaigns_path, class: 'btn-primary -rose' %>
+      <% end %>
     </div>
     <div class="card"></div>
   </div>
