@@ -127,16 +127,16 @@
   <div class="input-field">
     <%= f.label :producer_price_per_kwh do %>
       <%= icon_tag "currency-euro" %>
-      <span>Einspeisetarif<small class="upload-hint">Cent / kWh (Netto, exkl. MwSt.)</small></span>
+      <span>Einspeisetarif<small class="upload-hint">Cent / kWh (inkl. MwSt.)</small></span>
     <% end %>
-    <%= f.number_field :producer_price_per_kwh, placeholder: 'Wisst ihr schon euren Einspeisetarif? (Angaben in Netto, exkl. MwSt.)', class: 'price-per-hour-input' %>
+    <%= f.number_field :producer_price_per_kwh, placeholder: 'Wisst ihr schon euren Einspeisetarif? (Angaben in Brutto, inkl. MwSt.)', class: 'price-per-hour-input' %>
   </div>
   <div class="input-field">
     <%= f.label :consumer_price_per_kwh do %>
       <%= icon_tag "currency-euro" %>
-      <span>Bezugstarif<small class="upload-hint">Cent / kWh (Netto, exkl. MwSt.)</small></span>
+      <span>Bezugstarif<small class="upload-hint">Cent / kWh (inkl. MwSt.)</small></span>
     <% end %>
-    <%= f.number_field :consumer_price_per_kwh, placeholder: 'Wisst ihr schon euren Bezugstarif? (Angaben in Netto, exkl. MwSt.)', class: 'price-per-hour-input' %>
+    <%= f.number_field :consumer_price_per_kwh, placeholder: 'Wisst ihr schon euren Bezugstarif? (Angaben in Brutto, inkl. MwSt.)', class: 'price-per-hour-input' %>
   </div>
 
 

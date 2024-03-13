@@ -25,7 +25,7 @@
           <div>
             <%= number_to_currency(@energy_offer.producer_price_per_kwh, precision: 2, unit: "Cent pro kWh") %>
             <strong>Einspeisetarif</strong>
-            <small>(exkl. MwSt.)</small>
+            <small>(inkl. MwSt.)</small>
           </div>
         </div>
       <% end %>
@@ -36,7 +36,7 @@
           <div>
             <%= number_to_currency(@energy_offer.consumer_price_per_kwh, precision: 2, unit: "Cent pro kWh") %>
             <strong>Bezugstarif</strong>
-            <small>(exkl. MwSt.)</small>
+            <small>(inkl. MwSt.)</small>
           </div>
         </div>
        <% end %>
