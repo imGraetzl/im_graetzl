@@ -193,6 +193,26 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def crowd_pledge_newsletter(crowd_pledge, crowd_campaigns)
+    @crowd_pledge = crowd_pledge
+    @crowd_campaigns = crowd_campaigns
+    @region = @crowd_pledge.region
+    @unsubscribe_info_text = "Du bekommst diesen Newsletter, weil du dich bei deiner letzten Crowdfunding Untestützung dafür angemeldet hast. Hier kannst du dich wieder "
+    @unsubscribe_link_text = "abmelden"
+    @unsubscribe_link_url = "#{root_url}crowd_pledges/#{@crowd_pledge.id}/unsubscribe/#{@crowd_pledge.unsubscribe_code}"
+    if @crowd_campaigns.size > 1
+      @subject = "Diese #{@crowd_campaigns.size} neuen Crowdfunding Projekte aus #{@region.name} enden bald."
+    else
+      @subject = "Ein neues Crowdfunding Projekt aus #{@region.name} endet bald."
+    end
+    headers("X-MC-Tags" => "crowd-pledge-newsletter")
+    mail(
+      subject: @subject,
+      from: platform_email('no-reply'),
+      to: @crowd_pledge.email,
+    )
+  end
+
   def crowd_donation_pledge_info(crowd_donation_pledge)
     @crowd_donation_pledge = crowd_donation_pledge
     @crowd_campaign = @crowd_donation_pledge.crowd_campaign

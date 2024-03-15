@@ -19,12 +19,19 @@ class CrowdPledge < ApplicationRecord
   scope :visible, -> { where(anonym: false) }
   scope :anonym, -> { where(anonym: true) }
 
+  scope :guest_newsletter, -> { where(guest_newsletter: true) }
+  scope :guest_newsletter_recipients, -> { where(id: guest_newsletter.debited.select("DISTINCT ON(crowd_pledges.email) crowd_pledges.id")) }
+
   def visible?
     !anonym
   end
 
   def guest_user?
     user_id.nil?
+  end
+
+  def unsubscribe_code
+    self.created_at.to_i
   end
 
   def donation_amount=(val)

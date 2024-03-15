@@ -460,9 +460,14 @@
                                   <tr>
                                     <td valign="top" class="mcnTextContent" style="text-align: left;">
                                       <p style="text-align: left;">
-                                        <b>Zu viele Mails von uns?</b><br>
-                                        Du kannst einzelne Inhalte, die dich nicht interessieren, abbestellen. Du kannst dich natürlich auch komplett aus dem Verteiler austragen.<br>
-                                        <%= link_to "Hier gehts zu deinen E-Mail Einstellungen.", edit_user_url(anchor: 'tab-2') %>
+                                        <% if @unsubscribe_info_text %>
+                                          <%= @unsubscribe_info_text %>
+                                          <%= link_to @unsubscribe_link_text, @unsubscribe_link_url, target: '_blank' %>
+                                        <% else %>
+                                          <b>Zu viele Mails von uns?</b><br>
+                                          Du kannst einzelne Inhalte, die dich nicht interessieren, abbestellen. Du kannst dich natürlich auch komplett aus dem Verteiler austragen.<br>
+                                          <%= link_to "Hier gehts zu deinen E-Mail Einstellungen.", edit_user_url(anchor: 'tab-2') %>
+                                        <% end %>
                                       </p>
                                       <% if @region.id == 'wien' %>
                                         <strong>imGrätzl.at</strong><br>

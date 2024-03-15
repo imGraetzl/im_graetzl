@@ -112,6 +112,19 @@ class CrowdPledgesController < ApplicationController
     end
   end
 
+  def unsubscribe
+    @crowd_pledge = CrowdPledge.find(params[:id])
+    if @crowd_pledge.guest_newsletter? && params[:unsubscribe_code].to_i == @crowd_pledge.unsubscribe_code
+      CrowdPledge.guest_newsletter.where(email: @crowd_pledge.email).update_all(guest_newsletter: :false)
+      flash[:notice] = "Deine Crowdfunding E-Mails wurden erfolgreich abbestellt."
+    elsif !@crowd_pledge.guest_newsletter?
+      flash[:notice] = "Du bist bereits von den E-Mails abgemeldet."
+    else
+      flash[:notice] = "Der Abmeldelink ist leider ungültig."
+    end
+    redirect_to [:details, @crowd_pledge]
+  end
+
   private
 
   def user_agent
