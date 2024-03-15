@@ -195,7 +195,7 @@ class CrowdCampaignMailer < ApplicationMailer
 
   def crowd_pledge_newsletter(crowd_pledge, crowd_campaigns)
     @crowd_pledge = crowd_pledge
-    @crowd_campaigns = crowd_campaigns
+    @crowd_campaigns = CrowdCampaign.where(id: crowd_campaigns)
     @region = @crowd_pledge.region
     @unsubscribe_info_text = "Du bekommst diesen Newsletter, weil du dich bei deiner letzten Crowdfunding Untestützung dafür angemeldet hast. Hier kannst du dich wieder "
     @unsubscribe_link_text = "abmelden"
