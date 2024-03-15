@@ -184,6 +184,7 @@ Rails.application.routes.draw do
     get 'details', on: :member
     get 'change_payment', on: :member
     get 'payment_changed', on: :member
+    get 'unsubscribe/:unsubscribe_code', action: 'unsubscribe', on: :member
   end
 
   resources :crowd_donation_pledges, only: [] do

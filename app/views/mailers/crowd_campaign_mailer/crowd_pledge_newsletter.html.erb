@@ -1,0 +1,53 @@
+<% content_for(:above_title, "Hey #{@crowd_pledge.first_name},") %>
+<% content_for(:title, "Es gibt neue Crowdfunding Projekte aus #{@region.name}!") %>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-right:18px;">
+        <p>
+          Diese tollen neuen Vorhaben aus <%= @region.name %> laufen noch für kurze Zeit. 
+          Lass sie uns gemeinsam ins Ziel schieben. Zusammen schaffen wir das.
+        </p>
+    </tr>
+  </tbody>
+</table>
+
+<%= render 'mailers/notification_mailer/summary/block_header', title: 'Folgende Projekte laufen noch - Hilf mit, diese zu realisieren!' %>
+
+<% @crowd_campaigns.each_with_index do |crowd_campaign, i| %>
+  <%= render 'mailers/crowd_campaign_mailer/new_crowd_campaign', crowd_campaign: crowd_campaign, index: i %>
+<% end %>
+
+<%= render 'mailers/notification_mailer/summary/block_header', title: 'Du möchtest selbst ein Projekt starten?' %>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
+        
+        <%= link_to start_crowd_campaigns_url, target:'_blank' do %>
+          <%= image_tag 'mailings/crowdfunding-talk.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
+        <% end %>
+
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+          <tr>
+            <td>
+              <p>
+                Möchtest du mehr darüber erfahren, wie Crowdfunding funktioniert und ob es zur Umsetzung deines Vorhabens eingesetzt werden könnte?
+              </p>
+              <p>
+                <strong>Komm vorbei zu unserer offenen online Crowdfunding-Sprechstunde! <%= link_to 'Alle Infos und Termine', start_crowd_campaigns_url, target: "_blank", style: "font-weight:bold;" %>.</strong>
+              </p>
+            </td>
+          </tr>
+        </table>
+        
+        <p>
+          Wir freuen uns auf dich.<br>
+          Liebe Grüße, dein Team von <%= t("region.#{@region.id}.domain_full") %><br>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -32,7 +32,38 @@ namespace :scheduled do
         CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
       end
     end
+  end
 
+  # Send Crowdfunding Guest Newsletter
+  task crowd_campaigns_guest_newsletter: :environment do
+    
+    scheduled_sending_dates = [
+      '2024-03-15', '2024-04-05', '2024-04-26', '2024-05-17', '2024-06-07'
+    ]
+
+    send_date_today = nil
+    send_date_next = nil
+
+    scheduled_sending_dates.each_with_index do |date, index|
+      if date.include?(Date.today.to_s)
+        send_date_today = date.to_date
+        send_date_next = scheduled_sending_dates[index+1].to_date
+        break
+      end
+    end
+
+    if send_date_today
+      crowd_campaigns = CrowdCampaign.guest_newsletter.where(enddate: send_date_today..send_date_next)
+      if crowd_campaigns.any?
+        Region.all.each do |region|
+          if crowd_campaigns.in(region).any?
+            CrowdPledge.guest_newsletter_recipients.in(region).each do |pledge|
+              CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(region)).deliver_later
+            end
+          end
+        end
+      end
+    end
   end
 
 end

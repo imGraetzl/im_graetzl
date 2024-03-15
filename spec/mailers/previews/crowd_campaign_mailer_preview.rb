@@ -64,6 +64,11 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.crowd_pledge_retried_debited(CrowdPledge.processing.order(:created_at).last)
   end
 
+  def crowd_pledge_newsletter
+    region = Region.get('wien')
+    CrowdCampaignMailer.crowd_pledge_newsletter(CrowdPledge.guest_newsletter_recipients.in(region).last, CrowdCampaign.guest_newsletter.in(region))
+  end
+
   def crowd_donation_pledge_info
     CrowdCampaignMailer.crowd_donation_pledge_info(CrowdDonationPledge.order(:created_at).last)
   end

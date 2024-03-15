@@ -13,6 +13,7 @@ context.instance_eval do
           row(:active_state){|l| status_tag(l.active_state)}
           row(:status){|l| status_tag(l.status)}
           row(:funding_status){|l| status_tag(l.funding_status)}
+          row(:guest_newsletter){|l| status_tag(l.guest_newsletter)}
           row :title
           row :slug
           row :slogan

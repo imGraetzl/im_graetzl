@@ -21,10 +21,10 @@
 
   <!-- Insert 2 Random Zuckerls on 3. Position -->
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
-  <!-- render "summary/new_zuckerl_footer" if @region.id == 'wien' && @period == 'weekly' && current_position == zuckerl_position -->
+  <!-- render "summary/new_zuckerl_footer" if @region.is?('wien') && @period == 'weekly' && current_position == zuckerl_position -->
 
   <!-- Insert on 3. Position -->
-  <%= render 'featured/subscription' if @region.id == 'wien' && @period == 'weekly' && current_position == 3 %>
+  <%= render 'summary/new_good_morning_dates' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>
   <% notifications.each do |notification| %>
@@ -32,7 +32,7 @@
   <% end %>
   
   <!-- Hack: Insert Footer Text for RoomOffers in Mails in Vienna -->
-  <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.id == 'wien' %>
+  <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.is?('wien') %>
 
 <% end %>
 
@@ -45,7 +45,7 @@
 <% end %>
 
 <!-- Insert Supporters -->
-<% if @region.id == 'wien' && @period == 'weekly' %>
+<% if @region.is?('wien') && @period == 'weekly' %>
   <%= render 'summary/new_admin_discussion' if @featured_discussion %>
   <%= render 'featured/subscribers' if Subscription.in(@region).active.present? %>
 <% end %>

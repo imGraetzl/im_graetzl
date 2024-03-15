@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_11_101033) do
+ActiveRecord::Schema.define(version: 2024_03_15_105704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 2024_03_11_101033) do
     t.string "visibility_status"
     t.string "contact_instagram"
     t.string "contact_facebook"
+    t.boolean "guest_newsletter", default: true, null: false
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"

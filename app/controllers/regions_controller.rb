@@ -47,8 +47,7 @@ class RegionsController < ApplicationController
       @category = CrowdCategory.find_by(slug: params[:category])
     end
     # Featured Crowdfunding Meetings
-    category = EventCategory.where("title ILIKE :q", q: "%Crowdfunding%").last
-    @meeting = Meeting.upcoming.in(current_region).joins(:event_categories).where(event_categories: {id: category&.id}).first
+    @meeting = Meeting.crowdfunding.in(current_region).first
   end
 
   def energies

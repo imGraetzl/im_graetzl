@@ -35,4 +35,7 @@
     color: $color-ambient-mint;
     text-decoration: none;
   }
+  &.crowdcampaign .-crowd_campaign a {
+    color: unset !important;
+  }
 }
