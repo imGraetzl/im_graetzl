@@ -20,7 +20,8 @@ class CrowdPledge < ApplicationRecord
   scope :anonym, -> { where(anonym: true) }
 
   scope :guest_newsletter, -> { where(guest_newsletter: true) }
-  scope :guest_newsletter_recipients, -> { where(id: guest_newsletter.debited.select("DISTINCT ON(crowd_pledges.email) crowd_pledges.id")) }
+  scope :guest_newsletter_recipients, -> { where(id: guest_newsletter.debited.uniq { |p| p.email }) }
+  #scope :guest_newsletter_recipients, -> { where(id: guest_newsletter.debited.select("DISTINCT ON(crowd_pledges.email) crowd_pledges.id")) }
 
   def visible?
     !anonym
