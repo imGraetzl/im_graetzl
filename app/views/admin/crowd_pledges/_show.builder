@@ -29,6 +29,7 @@ context.instance_eval do
           row :contact_name
           row :user
           row :created_at
+          row :updated_at
         end
       end
     end
