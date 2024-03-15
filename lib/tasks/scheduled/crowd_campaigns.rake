@@ -58,7 +58,7 @@ namespace :scheduled do
         Region.all.each do |region|
           if crowd_campaigns.in(region).any?
             CrowdPledge.guest_newsletter_recipients.in(region).each do |pledge|
-              CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(region)).deliver_later
+              CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(region).map(&:id)).deliver_later
             end
           end
         end
