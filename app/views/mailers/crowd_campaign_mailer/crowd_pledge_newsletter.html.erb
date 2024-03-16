@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hey #{@crowd_pledge.first_name},") %>
-<% content_for(:title, "Es gibt neue Crowdfunding Projekte aus #{@region.name}!") %>
+<% content_for(:title, "Es gibt neue Crowdfunding Projekte - Schau mal!") %>
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextContentContainer">
   <tbody>
@@ -15,7 +15,7 @@
 
 <%= render 'mailers/notification_mailer/summary/block_header', title: 'Folgende Projekte laufen noch - Hilf mit, diese zu realisieren!' %>
 
-<% @crowd_campaigns.each_with_index do |crowd_campaign, i| %>
+<% @crowd_campaigns.order(enddate: :asc).each_with_index do |crowd_campaign, i| %>
   <%= render 'mailers/crowd_campaign_mailer/new_crowd_campaign', crowd_campaign: crowd_campaign, index: i %>
 <% end %>
 

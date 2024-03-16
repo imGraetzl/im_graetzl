@@ -201,9 +201,9 @@ class CrowdCampaignMailer < ApplicationMailer
     @unsubscribe_link_text = "abmelden"
     @unsubscribe_link_url = "#{root_url}crowd_pledges/#{@crowd_pledge.id}/unsubscribe/#{@crowd_pledge.unsubscribe_code}"
     if @crowd_campaigns.size > 1
-      @subject = "Diese #{@crowd_campaigns.size} neuen Crowdfunding Projekte aus #{@region.name} enden bald."
+      @subject = "Crowdfunding News: Diese #{@crowd_campaigns.size} neuen Projekte enden bald. Zusammen schaffen wir das!"
     else
-      @subject = "Ein neues Crowdfunding Projekt aus #{@region.name} endet bald."
+      @subject = "Crowdfunding News: Ein neues Projekt endet bald. Zusammen schaffen wir das!"
     end
     headers("X-MC-Tags" => "crowd-pledge-newsletter")
     mail(
