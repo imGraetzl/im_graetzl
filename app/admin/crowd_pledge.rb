@@ -13,7 +13,6 @@ ActiveAdmin.register CrowdPledge do
   scope :canceled
   scope :incomplete
   scope :all
-  scope :guest_newsletter
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_campaign, collection: proc { CrowdCampaign.scope_public.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
