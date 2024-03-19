@@ -1,0 +1,55 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+        <p>Servus <%= @user.first_name %>,
+
+        <p>
+          du hast bei deiner <%= t("region.#{@user.region.id}.domain_short") %> Registrierung angegeben, dass dich das Thema Vernetzung interessiert. 
+          Um dir die Vernetzung mit anderen Macher*innen in deinem eigenen Bezirk ganz einfach zu machen, 
+          haben wir die <strong>Good Morning Dates</strong> ins Leben gerufen. Von Macher*innen für Macher*innen. 
+          Am <%= I18n.localize(@meeting.starts_at_date, format:'%d. %B') %> startet das nächste Treffen im <%= @district.numeric %>. Bezirk 
+          und wir würden uns total freuen, wenn du dazu kommst!
+        </p>
+
+        <p>
+          <strong>Wann? <%= I18n.localize(@meeting.starts_at_date, format:'%A, den %d. %B') %> <%= I18n.localize(@meeting.starts_at_time, format:'um %H:%M Uhr') if @meeting.starts_at_time %></strong><br>
+          <% if @meeting.address_street? %>
+            <strong>Wo? <%= @meeting.address_description? ? "#{@meeting.address_description}, " : "" %></strong> <%= @meeting.address_street if @meeting.address_street %>, <%= @meeting.address_zip if @meeting.address_zip %> <%= @meeting.address_city if @meeting.address_city %>
+          <% else %>
+            <strong>Wo? Wird noch bekanntgegeben...</strong>
+          <% end %>
+        </p>
+
+        <p>
+          <strong>Euere GastgeberIn: <%= @meeting.location ? @meeting.location.name : @meeting.user.full_name %></strong>
+        </p>
+
+        <p>
+          Hier geht es zum Treffen, für unsere Planung bitte dort auf "teilnehmen" klicken, wenn du kommen magst:<br>
+          <%= link_to @meeting_url, graetzl_meeting_url(@meeting.graetzl, @meeting, host: @meeting.region.host), target: '_blank' %>
+        </p>
+
+        <p>
+          <strong>Hintergrund:</strong> Bei den <%= link_to 'Good Morning Dates', good_morning_dates_url, target: '_blank' %> bekommt ihr die Möglichkeit andere Macher*innen aus dem Bezirk kennenzulernen 
+          und zu erfahren, woran andere bei dir um die Ecke gerade tüfteln, was sie begeistert, wie sie ins Tun kommen. Oft ergeben sich beim Reden neue Chancen, Kooperationen oder andere gemeinsame Ideen. 
+          Außerdem ist es richtig fein, wenn man die anderen Ideenumsetzer*innen im Grätzl kennt :) Gerne auch weitersagen, wenn du andere Macher*innen im <%= @district.numeric %>. Bezirk kennst!
+        </p>
+
+        <p>
+          Liebe Grüße und eine gute Zeit!<br>
+          Mirjam vom <%= t("region.#{@user.region.id}.domain_full") %> Team<br>
+        </p>
+
+        <p>
+          --<br>
+          Mirjam Mieschendahl | <%= t("region.#{@user.region.id}.domain_full") %><br>
+          <%= t("region.#{@user.region.id}.contact_email") %><br>
+          +43 699 / 150 282 77
+        </p>
+        
+      </td>
+    </tr>
+  </tbody>
+</table>

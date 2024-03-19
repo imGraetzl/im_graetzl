@@ -34,4 +34,20 @@ class MeetingMailer < ApplicationMailer
       subject: "Hast du wieder ein Event oder ein Treffen in Planung?")
   end
 
+  def good_morning_date_invite(user, meeting)
+    @user = user
+    @meeting = meeting
+    @district = @meeting.graetzl.district
+    @region = @meeting.region
+    headers(
+      "X-MC-Tags" => "good-morning-date-invite",
+      "X-MC-GoogleAnalytics" => @region.host,
+      "X-MC-GoogleAnalyticsCampaign" => "good-morning-date-invite",
+    )
+    mail(
+      to: @user.email,
+      from: platform_email("wir", "Mirjam"),
+      subject: "Vernetzung im #{@district.numeric}. Bezirk, komm doch auch zum Good Morning Date am #{I18n.localize(@meeting.starts_at_date, format:'%d. %B')}")
+  end
+
 end

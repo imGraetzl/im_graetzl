@@ -36,6 +36,21 @@ namespace :scheduled do
     end
   end
 
+  desc 'Send Good Morning Date Invite'
+  task good_morning_date_invite: :environment do
+    region = Region.get('wien')
+    category = EventCategory.where("title ILIKE :q", q: "%Good Morning%").last
+    meetings = Meeting.joins(:event_categories).where(event_categories: {id: category&.id})
+    
+    meetings.in(region).where(starts_at_date: 14.days.from_now).find_each do |meeting|
+      #User.confirmed.in(region).where(newsletter: true).joins(:favorite_graetzls).where(favorite_graetzls: {id: meeting.graetzl.id}).or(User.confirmed.where(newsletter: true).where(graetzl_id: meeting.graetzl.id)).distinct.find_each do |user|
+      User.confirmed.in(region).where(newsletter: true).joins(:districts).where(districts: {id: meeting.graetzl.district.id}).find_each do |user|
+        next if meeting.users.include?(user)
+        MeetingMailer.good_morning_date_invite(user, meeting).deliver_now
+      end
+    end
+  end
+
   desc 'Disable Meetings after 1 year'
   task disable_past_meetings: :environment do
     Meeting.active.where("ends_at_date = ?", 12.months.ago).find_each do |meeting|

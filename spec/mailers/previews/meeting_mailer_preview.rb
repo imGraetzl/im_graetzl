@@ -8,4 +8,9 @@ class MeetingMailerPreview < ActionMailer::Preview
     MeetingMailer.create_meeting_reminder(Meeting.last)
   end
 
+  def good_morning_date_invite
+    region = Region.get('wien')
+    MeetingMailer.good_morning_date_invite(User.in(region).last, Meeting.in(region).last)
+  end
+
 end
