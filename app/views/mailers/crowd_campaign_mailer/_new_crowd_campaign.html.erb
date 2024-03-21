@@ -14,7 +14,7 @@
                 <%= link_to crowd_campaign.title, crowd_campaign_url(crowd_campaign), style: "color:#ec776a;", target: "_blank" %>
               </h3>
               <p style="margin-top:12px;">
-                Läuft noch <strong><%= crowd_campaign.remaining_days %> Tage</strong><br>
+                Läuft noch <strong><%= crowd_campaign.remaining_days > 1 ? "#{crowd_campaign.remaining_days} Tage" : "#{crowd_campaign.remaining_days} Tag"%></strong><br>
                 <% if crowd_campaign.funding_1? || crowd_campaign.over_funding_1? %>
                   Benötigter Mindestbetrag: <strong><%= number_to_currency(crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %></strong>
                 <% elsif crowd_campaign.funding_2? || crowd_campaign.over_funding_2?%>
