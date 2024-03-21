@@ -9,6 +9,7 @@ class RoomBooster < ApplicationRecord
   string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
 
   scope :initialized, -> { where.not(status: :incomplete) }
+  scope :active_or_pending, -> { where(status: [:active, :pending]) }
 
   before_create :set_booster_dates
   after_update :update_room_offer, if: -> { saved_change_to_status? }
@@ -74,21 +75,12 @@ class RoomBooster < ApplicationRecord
     end
   end
 
-  def boost_available?(room_booster)
-    RoomBooster.in(room_booster.region).active.count < 2
-  end
-
   def next_available_boost_date?(room_booster)
-    if boost_available?(room_booster)
-      Date.today
-    elsif RoomBooster.in(room_booster.region).pending.count < 2
-      RoomBooster.in(room_booster.region).active.sort_by(&:ends_at_date).last.ends_at_date + 1.day
-    elsif RoomBooster.in(room_booster.region).pending.count < 4
-      RoomBooster.in(room_booster.region).pending.first(2).sort_by(&:ends_at_date).last.ends_at_date + 1.day
-    elsif RoomBooster.in(room_booster.region).pending.count < 6
-      RoomBooster.in(room_booster.region).pending.first(4).sort_by(&:ends_at_date).last.ends_at_date + 1.day
+    if RoomBooster.in(room_booster.region).active_or_pending.count < 2
+      Date.tomorrow
     else
-      RoomBooster.in(room_booster.region).pending.first(6).sort_by(&:ends_at_date).last.ends_at_date + 1.day
+      newest_boosters = RoomBooster.in(room_booster.region).active_or_pending.sort_by(&:ends_at_date).last(2)
+      newest_boosters.first.ends_at_date + 1.day
     end
   end
 
@@ -97,8 +89,8 @@ class RoomBooster < ApplicationRecord
   def set_booster_dates
     next_start_date = next_available_boost_date?(self)
     self.starts_at_date = next_start_date
-    self.send_at_date = next_start_date.next_occurring(:tuesday)
-    self.ends_at_date = next_start_date + 7.days
+    self.send_at_date = (next_start_date - 1.day).next_occurring(:tuesday)
+    self.ends_at_date = next_start_date + 6.days
   end
 
 end
