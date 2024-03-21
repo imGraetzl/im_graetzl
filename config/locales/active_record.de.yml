@@ -176,9 +176,9 @@ de:
           big: "Große Organisation"
           poor: "Tarif für Menschen mit geringem Einkommen"
         types:
-          consumer: "Consumer (als Energie-Abnehmer*innen)"
+          consumer: "Consumer (als Strom-Abnehmer*in)"
           producer: "Producer (als Einspeiser)"
-          prosumer: "Prosumer (als Energie-Abnehmer*innen & Einspeiser)"
+          prosumer: "Prosumer (als Strom-Abnehmer*in & Einspeiser)"
           space: "Fläche für Erzeugungsanlage"
         statuses:
           enabled: Aktiv
@@ -214,7 +214,7 @@ de:
           genossenschaft: "Genossenschaft"
           other: "noch nicht entschieden"
         types:
-          consumer: "Mitglieder Energie-Abnehmer*innen"
+          consumer: "Mitglieder Strom-Abnehmer*innen"
           producer: "Erzeugungsanlage"
           prosumer: "Mitglieder mit Erzeugungsanlage"
           space: "Fläche für Erzeugungsanlage"

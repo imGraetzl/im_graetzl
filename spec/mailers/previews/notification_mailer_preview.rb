@@ -1,7 +1,7 @@
 class NotificationMailerPreview < ActionMailer::Preview
 
   def send_immediate
-    notification = Notifications::NewEnergyDemand.first
+    notification = Notifications::NewEnergyOffer.last
     NotificationMailer.send_immediate(notification)
   end
 

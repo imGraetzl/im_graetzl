@@ -40,8 +40,10 @@
             </td>
             <td>
               <em style="font-weight:bold;">
-                <%= I18n.t("activerecord.attributes.energy_offer.energy_types.cardbox.#{@notification.energy_offer.energy_type}") %>
+                <%= I18n.t("activerecord.attributes.energy_offer.energy_types.cardbox.#{@notification.energy_offer.energy_type}") %>:
               </em>
+              <br>
+              <%= link_to @notification.energy_offer.title.truncate(30, separator: ' '), energy_offer_url(@notification.energy_offer), style: "color:#ec776a;" %>
             </td>
           </tr>
         </table>
@@ -50,9 +52,13 @@
           <%= cover_photo_image(@notification.energy_offer, size: :small, style: "width:100%; padding-bottom:5px; padding-top:10px;", class: "mcnImage") %>
         <% end %>
 
-        <p>
-          <%= @notification.energy_offer.title %>
-        </p>
+        <p style="font-weight:bold;"><em>Wir sind noch auf der Suche nach:</em></p>
+        <ul style="padding:0; margin:0; padding-left:18px; list-style:inline;">
+          <% @notification.energy_offer.energy_categories.main_categories.sort_by(&:position).first(3).each do |category| %>
+            <li><%= category.label? ? t("activerecord.attributes.energy_offer.types.#{category.label}") : category.title %></li>
+          <% end %>
+        </ul>
+
       </td>
     </tr>
 

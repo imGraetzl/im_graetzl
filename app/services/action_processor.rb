@@ -234,7 +234,7 @@ class ActionProcessor
         Activity.add_public(subject, to: :entire_region)
         Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
       else subject.scope_public?
-        Activity.add_public(subject, to: subject.graetzls)
+        Activity.add_public(subject, to: subject.graetzl)
         Notifications::NewCrowdCampaign.generate(subject, to: user_ids(subject.graetzl), time_range: subject.notification_time_range)
       end
 
