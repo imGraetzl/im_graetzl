@@ -7,32 +7,22 @@ class RoomBoostersController < ApplicationController
     if @room_offer.disabled?
       flash[:notice] = "Dein Raumteiler ist aktuell inaktiv und kann nicht geboostert werden. Aktiviere diesen zuvor."
       redirect_to @room_offer and return
-    #elsif @room_offer.boosted?
-      #flash[:notice] = "Dieser Raumteiler wird gerade geboostert. #{view_context.link_to 'Zurück zur Booster Übersicht', room_boosters_user_url}"
-      #redirect_to @room_offer
     end
 
     @room_booster = @room_offer.room_boosters.build(initial_booster_params)
     @room_booster.assign_attributes(current_user_params)
 
-    if RoomBooster.in(@room_offer.region).active.count < 2
-      @next_start_date = Date.today
-    elsif RoomBooster.in(@room_offer.region).pending.count < 2
-      @next_start_date = RoomBooster.in(@room_offer.region).active.sort_by(&:ends_at_date).last.ends_at_date + 1.day
-      flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
-    elsif RoomBooster.in(@room_offer.region).pending.count < 4
-      @next_start_date = RoomBooster.in(@room_offer.region).pending.first(2).sort_by(&:ends_at_date).last.ends_at_date + 1.day
-      flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
-    elsif RoomBooster.in(@room_offer.region).pending.count < 6
-      @next_start_date = RoomBooster.in(@room_offer.region).pending.first(4).sort_by(&:ends_at_date).last.ends_at_date + 1.day
-      flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
+    if RoomBooster.in(@room_offer.region).active_or_pending.count < 2
+      @next_start_date = Date.tomorrow
     else
-      @next_start_date = RoomBooster.in(@room_offer.region).pending.first(6).sort_by(&:ends_at_date).last.ends_at_date + 1.day
+      newest_boosters = RoomBooster.in(@room_offer.region).active_or_pending.sort_by(&:ends_at_date).last(2)
+      @next_start_date = newest_boosters.first.ends_at_date + 1.day
       flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
     end
+
     @room_booster.starts_at_date = @next_start_date
-    @room_booster.send_at_date = @next_start_date.next_occurring(:tuesday)
-    @room_booster.ends_at_date = @next_start_date + 7.days
+    @room_booster.send_at_date = (@next_start_date - 1.day).next_occurring(:tuesday)
+    @room_booster.ends_at_date = @next_start_date + 6.days
 
   end
 

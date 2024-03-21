@@ -36,14 +36,7 @@ class RoomBoosterService
   end
 
   def payment_succeeded(room_booster, payment_intent)
-    room_booster.update(payment_status: 'debited', debited_at: Time.current)
-
-    if room_booster.starts_at_date == Date.today && room_booster.invoice_number.nil?
-      room_booster.update(status: 'active')
-      RoomBoosterService.new.delay.create(room_booster)
-    else
-      room_booster.update(status: 'pending')
-    end
+    room_booster.update(status: 'pending', payment_status: 'debited', debited_at: Time.current)
 
     generate_invoice(room_booster)
     RoomMailer.room_booster_invoice(room_booster).deliver_later(wait: 1.minute)
@@ -76,13 +69,7 @@ class RoomBoosterService
   end
 
   def create_for_free(room_booster)
-    if room_booster.starts_at_date == Date.today
-      room_booster.update(payment_status: 'free', status: 'active', amount: 0)
-      ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
-      room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
-    else
-      room_booster.update(payment_status: 'free', status: 'pending', amount: 0)
-    end
+    room_booster.update(payment_status: 'free', status: 'pending', amount: 0)
   end
 
   # Daily PushUp
