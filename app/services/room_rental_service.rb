@@ -41,7 +41,7 @@ class RoomRentalService
   def approve(room_rental)
     return if !room_rental.authorized?
 
-    room_rental.update(payment_status: 'processing')
+    room_rental.update(payment_status: 'processing', rental_status: :approved)
 
     payment_intent = Stripe::PaymentIntent.create(
       customer: room_rental.renter.stripe_customer_id,

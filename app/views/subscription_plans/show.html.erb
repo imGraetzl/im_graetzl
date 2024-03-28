@@ -44,6 +44,7 @@
 
   <div class="allBoxes">
     <div class="inner cardBoxCollection">
+      <%= render :partial => 'subscription_plans/subscribers_wow', :collection => current_region.wow, :as => :wow %>
       <%= render :partial => 'subscription_plans/subscribers', :collection => @subscriptions, :as => :subscription %>
     </div>
   </div>
