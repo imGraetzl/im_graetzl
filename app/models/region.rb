@@ -26,6 +26,7 @@ class Region
     @room_booster_price = data[:room_booster_price]
     @public_group_id = data[:public_group_id]
     @use_energieteiler = data[:navigation][:energieteiler]
+    @wow = data[:wow]
   end
 
   def to_s
@@ -82,6 +83,15 @@ class Region
 
   def public_group_id
     @public_group_id
+  end
+
+  def wow
+    @wow
+  end
+
+  def wow?
+    @wow.present?
+    #@wow.present? && @wow.any? { |w| w[:starts_at].to_date < Date.today && w[:ends_at].to_date > Date.today }
   end
 
   def host_id

@@ -1,0 +1,33 @@
+<div class="cardBox -subscription-plan">
+
+  <div class="cardBoxHeader">
+    <div class="coverImgWrapper">
+      <%= mail_to t("region.#{current_region.id}.contact_email"), image_tag('info/cardbox-abo-wow.png', class: 'coverImg', style: 'object-fit: contain') %>
+    </div>
+    <div class="categoryicon">
+      <strong>WOW!</strong>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+
+    <ul class="pricing-summary -facts">
+      <p class="title">Fördermitgliedschaft WOW!</p>
+    </ul>
+    <ul class="pricing-summary -facts">
+      <li class="benefit">Dein Logo auf der <%= t("region.#{current_region.id}.domain_short") %> Startseite verlinkt zu deiner Webseite.</li>
+      <li class="benefit">Nennung in den wöchentlichen <%= t("region.#{current_region.id}.domain_short") %> Newslettern.</li>
+      <li class="benefit">Plus alle Vorteile aus der JUHU! Mitgliedschaft.</li>
+    </ul>
+    <ul class="pricing-summary">
+      <li>
+        <div class="cost"><%= number_to_currency('1500', unit: "€") %></div>
+        <div class="costname">für ein Jahr</div>
+      </li>
+    </ul>
+
+    <%= link_to 'Zuckerl einlösen', new_zuckerl_path, class: 'btn-primary -mint' if current_user.free_region_zuckerl? %>
+  
+  </div>
+
+</div>

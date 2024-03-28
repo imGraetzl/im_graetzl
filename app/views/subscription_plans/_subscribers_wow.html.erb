@@ -1,0 +1,23 @@
+<% user_id, name, url, starts_at = wow.values_at(:user_id, :name, :url, :starts_at) %>
+<% user = User.find_by_id(user_id) %>
+<div class="subscriber-wrp cardBox">
+  <div class="tt-img">
+    <picture class="abo user">
+      <%= link_to(image_tag("supporter/wow/user_#{user_id}.jpg", loading: 'lazy', width:100, height:100, class: 'img-round show-badge'), url, target: '_blank', rel: 'noopener') %>
+    </picture>
+  </div>
+  <div class="tt-content">
+    <span><%= link_to name, url, rel: 'nofollow', class:'username', target: '_blank' %></span><br>
+    <small class="wow"><strong>WOW!</strong> Fördermitglied</small>
+    <div class="tt-line -graetzl">
+      <%= icon_tag "map-location" %>
+      <%= link_to user.graetzl.zip_name, user.graetzl if user %>
+    </div>
+    <% if user&.locations.present? %>
+    <div class="tt-line">
+      <%= icon_tag "location" %>
+      <%= link_to user.locations.last, user.locations.last %>
+    </div>
+    <% end %>
+  </div>
+</div>

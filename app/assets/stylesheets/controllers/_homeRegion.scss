@@ -31,7 +31,7 @@ section.homeRegion {
     width:60%;
   }
 
-  .region-logos {
+  .region-logos, .wow-logos {
 
     margin:auto;
     margin-top:-22px;
@@ -94,6 +94,40 @@ section.homeRegion {
     }
     .inner {
       padding:8px !important;
+    }
+  }
+
+  .wow-logos {
+    picture a {
+      display: flex;
+    }
+    .inner {
+      //background-color: #DBEFEC;
+    }
+    .txt {
+      margin-left:5px;
+      font-style: italic;
+      color: #565759;
+    }
+    .main {
+      font-weight: bold;
+    }
+    .others {
+      color: #565759;
+    }
+    .thx {
+      font-weight: bold;
+      @include respond-to(">=medium") {
+        display: block;
+      }
+      @include respond-to(">=large") {
+        display: inline;
+      }
+    }
+    @include respond-to("<=large") {
+      width:100%;
+      max-width: 500px;
+      margin-top:0px;
     }
   }
 

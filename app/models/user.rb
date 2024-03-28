@@ -125,6 +125,12 @@ class User < ApplicationRecord
     subscriptions.last
   end
 
+  def wow?
+    if subscribed? && region.wow? && region.wow.any? { |w| w[:user_id] == id }
+      region.wow.detect {|w| w[:user_id] == id }
+    end
+  end
+
   def show_subscription_hint?
     !subscribed? && created_at < 30.days.ago
   end

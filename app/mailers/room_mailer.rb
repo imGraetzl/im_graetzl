@@ -187,7 +187,7 @@ class RoomMailer < ApplicationMailer
     mail(
       subject: "Probleme bei deiner Raumteiler Zahlung, bitte überprüfe deine Zahlungsmethode.",
       from: platform_email('no-reply'),
-      to: @room_rental.owner.email,
+      to: @room_rental.renter.email,
       bcc: 'michael@imgraetzl.at',
     )
   end

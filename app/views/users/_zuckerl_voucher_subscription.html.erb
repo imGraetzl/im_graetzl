@@ -19,4 +19,14 @@
       </div>
     <% end %>
   </div>
+<% elsif current_user.wow? %>
+  <div class="cardBox -subscriptionzuckerls">
+    <div class="item">
+      <%= icon_tag "shopping-bag" %>
+      <div>
+        <strong><u> <%= current_user.wow?[:region_zuckerl] %> Zuckerl</u> mit der Sichtbarkeit '<u><%= t("region.#{current_region.id}.zuckerl.region") %></u>'.</strong><br>        
+        <span>Davon noch </span> <span class="zuckerl"><%= current_user.free_region_zuckerl %></span> <span>einlösbar bis <%= I18n.localize(current_user.wow?[:ends_at].to_date, format:'%d. %B %Y') %>.</span>
+      </div>
+    </div>
+  </div>
 <% end %>

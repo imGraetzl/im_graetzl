@@ -13,7 +13,7 @@
         <% if current_user.subscribed? %>
         <p>
           Vielen Dank für deine Unterstützung <%= current_user.first_name %>!
-          <% if @subscription&.zuckerl_included? %>
+          <% if @subscription&.zuckerl_included? || current_user.wow? %>
           <br>Deine Fördermitgliedschaft beinhaltet folgende Zuckerl:
           <% end %>
         </p>
@@ -26,14 +26,18 @@
 
         <%= render partial: 'users/zuckerl_voucher_subscription' %>
         <ul class="list-basic">
-          <% if @subscription.on_grace_period? %>
-            <li>Deine Fördermitglidschaft läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>.</li>
-          <% else %>
-            <li>Deine Fördermitglidschaft wird <%= @subscription.subscription_plan.interval == 'month' ? 'monatlich' : 'jährlich' %> verlängert und ist jederzeit kündbar. Nächste Verlängerung am <%= I18n.localize(@subscription.current_period_end, format:'%d. %B %Y') %>.</li>
+          <% if @subscription %>
+            <% if @subscription.on_grace_period? %>
+            <li>Deine Fördermitgliedschaft läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>.</li>
+            <% else %>
+              <li>Deine Fördermitgliedschaft wird <%= @subscription.subscription_plan.interval == 'month' ? 'monatlich' : 'jährlich' %> verlängert und ist jederzeit kündbar. Nächste Verlängerung am <%= I18n.localize(@subscription.current_period_end, format:'%d. %B %Y') %>.</li>
+            <% end %>
+            <li>Deine hinterlegte Zahlungsmethode kannst du <%= link_to 'hier', payment_method_user_path %> anpassen.</li>
+            <li>Deine Rechnungsanschrift kannst du <%= link_to 'hier', billing_address_user_path %> ändern.</li>
+            <li>Deine abgewickelten Rechnungen findest du (sobald verfügbar) unten auf der Seite.</li>
+          <% elsif current_user.wow? %>
+            <li>Deine WOW Fördermitgliedschaft ist aktiv und läuft noch bis <%= I18n.localize(current_user.wow?[:ends_at].to_date, format:'%d. %B %Y') %>.</li>
           <% end %>
-          <li>Deine hinterlegte Zahlungsmethode kannst du <%= link_to 'hier', payment_method_user_path %> anpassen.</li>
-          <li>Deine Rechnungsanschrift kannst du <%= link_to 'hier', billing_address_user_path %> ändern.</li>
-          <li>Deine abgewickelten Rechnungen findest du (sobald verfügbar) unten auf der Seite.</li>
         </ul>
 
       <% elsif @subscription&.past_due? && @subscription.subscription_invoices.open.any? %>
@@ -62,6 +66,8 @@
     </div>
     <% if @subscription %>
       <%= render 'users/subscription_plan', subscription_plan: @subscription.subscription_plan %>
+    <% elsif current_user.wow? %>
+      <%= render 'users/subscription_plan_wow' %>
     <% else %>
       <%= render 'subscriptions/action_card', user: @user %>
     <% end %>
