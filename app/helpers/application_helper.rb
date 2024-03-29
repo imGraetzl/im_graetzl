@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def icon_tag(name, options = {})
-    "<svg class='icon-#{name} icon #{options[:class]}'><use xlink:href='/assets/icons_010324.svg#icon-#{name}'></use></svg>".html_safe
+    "<svg class='icon-#{name} icon #{options[:class]}'><use xlink:href='/assets/icons_010424.svg#icon-#{name}'></use></svg>".html_safe
   end
 
   def icon_with_badge(icon_name, number, options = {})
