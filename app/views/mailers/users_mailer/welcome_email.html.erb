@@ -48,7 +48,7 @@
         <br><br>
 
         <em>
-          Wir haben außerdem noch den <%= link_to 'Geräteteiler', region_tools_url(host: @user.region.host), target: '_blank' %><% if @user.region.use_energieteiler? %> & <%= link_to 'Energieteiler', energieteiler_url(host: @user.region.host), target: '_blank' %><% end %>, immer wieder <%= @user.region.use_districts? ? (link_to 'Vernetzungsaktionen', good_morning_dates_url(host: @user.region.host), target: '_blank') : 'Vernetzungsaktionen' %> und jede Menge mehr. Am meisten hast du von <%= t("region.#{@user.region.id}.domain_short") %>, wenn du es aktiv nutzt!
+          Wir haben außerdem <% if @user.region.use_energieteiler? %>noch den <%= link_to 'Energieteiler', energieteiler_url(host: @user.region.host), target: '_blank' %>, <% end %>immer wieder <%= @user.region.use_districts? ? (link_to 'Vernetzungsaktionen', good_morning_dates_url(host: @user.region.host), target: '_blank') : 'Vernetzungsaktionen' %> und jede Menge mehr. Am meisten hast du von <%= t("region.#{@user.region.id}.domain_short") %>, wenn du es aktiv nutzt!
         </em>
 
         <br><br>
