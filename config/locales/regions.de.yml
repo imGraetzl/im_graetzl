@@ -143,6 +143,52 @@ de:
         summary_graetzl:
           subject: "Neues aus Graz / %{graetzl}"
 
+    linz:
+      <<: *default
+      district: "Bezirk"
+      district_graetzl: "Bezirk"
+      graetzl: "Bezirk"
+      graetzln: "Bezirke"
+      your_graetzl: "deinem Bezirk"
+      in_graetzl: "im Bezirk"
+      in_your_graetzl: "in deinem Bezirk"
+      from_graetzl: "aus dem Bezirk"
+      from_your_graetzl: "aus deinem Bezirk"
+      region: "Linz"
+      in_region: "in Linz"
+      in_your_region: "in Linz"
+      your_homegraetzl: "Deinen Heimatbezirk"
+      your_homegraetzl_lower: "dein Heimatbezirk"
+      from_your_homegraetzl: "aus deinem Heimatbezirk"
+      homegraetzl: "Heimatbezirk"
+      wish_graetzl: "Wunschbezirke"
+      favorite_graetzl: "Lieblingsbezirk"
+      favorite_graetzls: "Lieblingsbezirke"
+      from_your_favorite_graetzl: "aus deinen Lieblingsbezirken"
+      region_wide_newsletter: "im linzweiten WeLocally Newsletter"
+      dem: "der"
+      zuckerl:
+        headline: "Das Zuckerl für ganz Linz"
+        subline: "Dieses wird in allen Bezirken in Linz angezeigt."
+        graetzl: "Bezirk"
+        region: "Ganz Linz"
+        visibility_graetzl: "im Bezirk"
+        visibility_info: "im Bezirk & ganz Linz"
+      info:
+        meeting:
+          subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
+          description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
+        subscription:
+          subline: "Uns gibt es nur dank eurer Unterstützung!"
+          description: "Damit wir weiterhin WeLocally für euch in Linz zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das WeLocally Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen. Werdet Unterstützer*innen unserer Arbeit!"
+      subscription:
+        subline: "Liebe lokale Macher*innen, uns gibt es nur dank eurer Unterstützung!"
+        description: "Damit wir weiterhin WeLocally für euch in Linz zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das WeLocally Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen."
+      footer_graetzl_headline: "Entdecke deinen Bezirk in Linz"
+      mailers:
+        summary_graetzl:
+          subject: "Neues aus Linz / %{graetzl}"
+
     kaernten:
       <<: *default
       footer_graetzl_headline: "Mitmachende Gemeinden in Kärnten"

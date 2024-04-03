@@ -266,6 +266,14 @@ section.homeRegion {
   }
 
 }
+.region-linz {
+  .stage h1 {
+    @include respond-to(">=large") {
+      top: 70px;
+      left: 365px;
+    }
+  }
+}
 
 .region-kaernten {
   section.homeRegion {

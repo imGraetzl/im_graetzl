@@ -16,6 +16,12 @@ context.instance_eval do
       end
     end
     column span: 2 do
+      panel 'Neighbours' do
+        table_for graetzl.neighbours do
+          column :id
+          column :name
+        end
+      end
       panel 'User' do
         table_for graetzl.users do
           column :id
