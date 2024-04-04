@@ -33,7 +33,7 @@ Region.all.each do |region|
     add region_locations_path, changefreq: 'always', priority: 1.0
     add region_meetings_path, changefreq: 'always', priority: 1.0
     add region_rooms_path, changefreq: 'always', priority: 1.0
-    add region_tools_path, changefreq: 'always', priority: 1.0
+    add region_energies_path, changefreq: 'always', priority: 1.0
     add region_coop_demands_path, changefreq: 'always', priority: 1.0
     add region_crowd_campaigns_path, changefreq: 'always', priority: 1.0
     add region_groups_path, changefreq: 'daily', priority: 0.6
@@ -63,11 +63,6 @@ Region.all.each do |region|
       add region_meetings_path(category: category), changefreq: 'daily', priority: 0.7
     end
 
-    # Tools Categories
-    ToolCategory.find_each do |category|
-      add region_tools_path(category: category), changefreq: 'daily', priority: 0.7
-    end
-
     # Districts if used in region
     if region.use_districts?
       District.find_each do |district|
@@ -76,8 +71,7 @@ Region.all.each do |region|
         add district_meetings_path(district), changefreq: 'daily', priority: 0.8
         add district_rooms_path(district), changefreq: 'daily', priority: 0.8
         add district_coop_demands_path(district), changefreq: 'daily', priority: 0.8
-        add district_tools_path(district), changefreq: 'daily', priority: 0.7
-        add district_groups_path(district), changefreq: 'daily', priority: 0.7
+        add district_energies_path(district), changefreq: 'daily', priority: 0.7
         add district_zuckerls_path(district), changefreq: 'weekly', priority: 0.7
 
         # Location Categories
@@ -99,7 +93,7 @@ Region.all.each do |region|
       add locations_graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
       add meetings_graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
       add rooms_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
-      add tools_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
+      add energies_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add coop_demands_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add zuckerls_graetzl_path(graetzl), changefreq: 'weekly', priority: 0.5
 
@@ -139,17 +133,17 @@ Region.all.each do |region|
       add room_demand_path(room_demand), changefreq: 'daily', priority: 0.8
     end
 
+    # Energieteiler
+    EnergyOffer.in(region).enabled.find_each do |energy_offer|
+      add energy_offer_path(energy_offer), changefreq: 'daily', priority: 0.9
+    end
+
+    EnergyDemand.in(region).enabled.find_each do |energy_demand|
+      add energy_demand_path(energy_demand), changefreq: 'daily', priority: 0.8
+    end
+
     CoopDemand.in(region).enabled.find_each do |coop_demand|
       add coop_demand_path(coop_demand), changefreq: 'daily', priority: 0.8
-    end
-
-    # Geräteteiler
-    ToolOffer.in(region).enabled.find_each do |tool_offer|
-      add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.8
-    end
-
-    ToolDemand.in(region).enabled.find_each do |tool_demand|
-      add tool_demand_path(tool_demand), changefreq: 'daily', priority: 0.8
     end
 
     # Groups
@@ -165,11 +159,11 @@ Region.all.each do |region|
     end
 
     if region.id == 'graz'
-      add popup_path, changefreq: 'daily', priority: 0.9
+      add subscription_plans_path, changefreq: 'daily', priority: 0.9
     end
-
-    if region.use_energieteiler?
-      add energieteiler_path, changefreq: 'daily', priority: 0.9
+    
+    if region.id == 'linz'
+      add subscription_plans_path, changefreq: 'daily', priority: 0.9
     end
 
     # Info Help Pages
@@ -177,7 +171,7 @@ Region.all.each do |region|
     add info_anbieter_und_locations_path, changefreq: 'monthly', priority: 0.4
     add info_events_und_workshops_path, changefreq: 'monthly', priority: 0.4
     add info_raumteiler_path, changefreq: 'monthly', priority: 0.4
-    add info_toolteiler_path, changefreq: 'monthly', priority: 0.4
+    add info_energieteiler_path, changefreq: 'monthly', priority: 0.4
     add info_coop_share_path, changefreq: 'monthly', priority: 0.4
     add info_crowdfunding_path, changefreq: 'monthly', priority: 0.4
     add info_zuckerl_path, changefreq: 'never', priority: 0.4
