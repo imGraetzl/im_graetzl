@@ -21,5 +21,5 @@ ActiveAdmin.register Graetzl do
       end
   end
 
-  permit_params :name, :slug, :area, :zip, :region_id, :neighborless, neighbour_ids: []
+  permit_params :name, :slug, :zip, :region_id, :neighborless, neighbour_ids: []
 end
