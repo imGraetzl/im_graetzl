@@ -33,7 +33,8 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  enum active_state: { enabled: 0, disabled: 1, throttled: 2 }
+  string_enum visibility_status: ["graetzl","region", "platform"]
+  enum active_state: { enabled: 0, disabled: 1 }
   enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
   enum billable: { no_bill: 0, bill: 1, donation_bill: 2 }
@@ -53,22 +54,24 @@ class CrowdCampaign < ApplicationRecord
   validates_presence_of :slogan, :crowd_category_ids, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
   scope :initialized, -> { where.not(status: :declined) }
-  scope :scope_throttled, -> { where(active_state: :throttled) }
-  scope :none_throttled, -> { where.not(active_state: :throttled) }
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: :disabled)) }
+  scope :region_or_platform, -> { where(visibility_status: [:region, :platform]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
-  scope :guest_newsletter, -> {funding.none_throttled.where(guest_newsletter: true).order(enddate: :asc)}
+  scope :guest_newsletter, -> {funding.region.where(guest_newsletter: true).order(enddate: :asc)}
   
   scope :by_currentness, -> {
     order(Arel.sql('CASE WHEN enddate >= current_date THEN 0 WHEN funding_status != 0 THEN 1 ELSE 2 END')).
     order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.enddate END) ASC, (CASE WHEN enddate < current_date THEN crowd_campaigns.enddate END) DESC'))
   }
 
-  after_create :set_transaction_fee
+  after_create :set_transaction_fee_and_visibility_status
 
+  def entire_platform?
+    self.platform?
+  end
+  
   def entire_region?
-    !self.throttled?
-    #self.service_fee_percentage >= 7 || !self.throttled?
+    self.region?
   end
 
   def closed?
@@ -274,7 +277,8 @@ class CrowdCampaign < ApplicationRecord
     end
   end
 
-  def set_transaction_fee
+  def set_transaction_fee_and_visibility_status
+    self.visibility_status = :region
     self.service_fee_percentage = self.transaction_fee_percentage
     self.save
   end
