@@ -503,7 +503,6 @@ de:
         active_states:
           enabled: Aktiviert
           disabled: Deaktiviert
-          throttled: Gedrosselt
         status_message:
           enabled: Deine Kampagne ist nun öffentlich sichtbar.
           disabled: Deine Kampagne ist nun deaktiviert und nicht mehr sichtbar.

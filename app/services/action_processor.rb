@@ -230,33 +230,42 @@ class ActionProcessor
 
     when [CrowdCampaign, :create]
 
-      if subject.scope_public? && subject.entire_region?
+      if subject.entire_platform?
+        Activity.add_public(subject, to: :entire_platform)
+        Notifications::NewCrowdCampaign.generate(subject, to: User.all.pluck(:id), time_range: subject.notification_time_range) # Notify in all Regions
+      elsif subject.entire_region?
         Activity.add_public(subject, to: :entire_region)
         Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
-      else subject.scope_public?
+      else
         Activity.add_public(subject, to: subject.graetzl)
         Notifications::NewCrowdCampaign.generate(subject, to: user_ids(subject.graetzl), time_range: subject.notification_time_range)
       end
 
     when [CrowdPledge, :create]
 
-      if subject.crowd_campaign.scope_public? && subject.crowd_campaign.entire_region?
+      if subject.crowd_campaign.entire_platform?
+        Activity.add_public(subject.crowd_campaign, subject, to: :entire_platform)
+      elsif subject.crowd_campaign.entire_region?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
-      else subject.crowd_campaign.scope_public?
+      else
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
 
     when [CrowdDonationPledge, :create]
 
-      if subject.crowd_campaign.scope_public? && subject.crowd_campaign.entire_region?
+      if subject.crowd_campaign.entire_platform?
+        Activity.add_public(subject.crowd_campaign, subject, to: :entire_platform)
+      elsif subject.crowd_campaign.entire_region?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
-      else subject.crowd_campaign.scope_public?
+      else
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
 
     when [CrowdCampaign, :comment]
 
-      if subject.scope_public? && subject.entire_region?
+      if subject.scope_public? && subject.entire_platform?
+        Activity.add_public(subject, child, to: :entire_platform)
+      elsif subject.scope_public? && subject.entire_region?
         Activity.add_public(subject, child, to: :entire_region)
       else subject.scope_public?
         Activity.add_public(subject, child, to: subject.graetzl)
@@ -268,7 +277,10 @@ class ActionProcessor
       # Delete existing Notifications for CrowdCampaignPosts (for only having the newest in Mails)
       Notification.where(subject: subject).where(child_type: 'CrowdCampaignPost').delete_all
 
-      if subject.scope_public? && subject.entire_region?
+      if subject.scope_public? && subject.entire_platform?
+        Activity.add_public(subject, child, to: :entire_platform) # All Regions
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.all.pluck(:id))      
+      elsif subject.scope_public? && subject.entire_region?
         Activity.add_public(subject, child, to: :entire_region) # All Graetzls
         Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id))      
       else subject.scope_public?

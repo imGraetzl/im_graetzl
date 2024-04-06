@@ -144,6 +144,7 @@ APP.components.cardBoxFilter = (function() {
       removeDuplicateCards();
       adjustNewCards();
       APP.components.favorites.toggle();
+      APP.components.cross_platform_links.init(document.querySelector('.card-grid'));
     });
 
     selectHomeGraetzl();
@@ -176,6 +177,7 @@ APP.components.cardBoxFilter = (function() {
           removeDuplicateCards();
           adjustNewCards();
           APP.components.favorites.toggle();
+          APP.components.cross_platform_links.init(document.querySelector('.card-grid'));
         }
     });
 

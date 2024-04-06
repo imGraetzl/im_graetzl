@@ -11,8 +11,6 @@ ActiveAdmin.register CrowdCampaign do
   scope :approved
   scope :funding
   scope :completed
-  #scope 'Visible', :scope_public
-  scope 'Throttled', :scope_throttled
   scope :declined
   scope :all
   scope :guest_newsletter
@@ -24,6 +22,7 @@ ActiveAdmin.register CrowdCampaign do
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_categories, input_html: { class: 'admin-filter-select'}
   filter :active_state, as: :select, collection: CrowdCampaign.active_states, input_html: { class: 'admin-filter-select'}
+  filter :visibility_status, as: :select, collection: CrowdCampaign.visibility_statuses, input_html: { class: 'admin-filter-select'}
 
   filter :service_fee_percentage, :as => :numeric
   filter :title
@@ -80,7 +79,7 @@ ActiveAdmin.register CrowdCampaign do
     end
   end
 
-  permit_params :active_state, :status, :guest_newsletter, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
+  permit_params :active_state, :visibility_status, :status, :guest_newsletter, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
     :startdate, :enddate, :billable, :service_fee_percentage,
     :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
     :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_instagram, :contact_facebook, :contact_email, :contact_phone,

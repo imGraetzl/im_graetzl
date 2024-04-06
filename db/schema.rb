@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_15_105704) do
+ActiveRecord::Schema.define(version: 2024_04_05_111006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2024_03_15_105704) do
     t.boolean "entire_region", default: false
     t.bigint "group_id"
     t.string "region_id"
+    t.boolean "entire_platform", default: false, null: false
     t.index ["child_id", "child_type"], name: "index_activities_on_child_id_and_child_type"
     t.index ["group_id"], name: "index_activities_on_group_id"
     t.index ["region_id"], name: "index_activities_on_region_id"

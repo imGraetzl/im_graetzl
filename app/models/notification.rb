@@ -55,7 +55,7 @@ class Notification < ApplicationRecord
         child: child,
         display_on_website: user.enabled_website_notification?(self),
         bitmask: class_bitmask,
-        region_id: subject.region_id,
+        region_id: user.region_id,
         notify_at: time_range.first || Time.current,
         notify_before: time_range.last,
         sort_date: sort_date,

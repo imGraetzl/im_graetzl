@@ -41,4 +41,10 @@ class ApplicationController < ActionController::Base
     current_user.graetzl if current_user && current_user.graetzl.region == current_region
   end
 
+  def redirect_to_region?(record)
+    if record.region != current_region
+      redirect_to url_for(request.params.merge(host: record.region.host)), :status => 301
+    end
+  end
+
 end

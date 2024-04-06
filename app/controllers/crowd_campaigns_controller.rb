@@ -21,7 +21,10 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def show
-    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+
+    @crowd_campaign = CrowdCampaign.find(params[:id])
+    redirect_to_region?(@crowd_campaign)
+
     if @crowd_campaign&.disabled?
       redirect_to region_crowd_campaigns_path, notice: "Die Kampagne '#{@crowd_campaign.title}' wurde deaktiviert."
     else
@@ -316,8 +319,7 @@ class CrowdCampaignsController < ApplicationController
     if params[:user_id].present?
       CrowdCampaign.scope_public.where(user_id: params[:user_id])
     else
-      CrowdCampaign.scope_public.in(current_region)
-      #CrowdCampaign.scope_public.in(current_region).or(CrowdCampaign.scope_public.where(id: 41))
+      CrowdCampaign.in(current_region).scope_public.or(CrowdCampaign.platform.scope_public)
     end
   end
 
@@ -329,11 +331,11 @@ class CrowdCampaignsController < ApplicationController
       collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids})
     end
 
-    # Always show ALL Crowd Campaigns, but throttled only explicit in Graetzls
+    # Always show ALL Crowd Campaigns, but 'graetzl campaigns' only explicit in Graetzls
     if params[:favorites].present? && current_user
-      collection = (collection.none_throttled).or(collection.where(graetzl_id: current_user.followed_graetzl_ids))
+      collection = (collection.region_or_platform).or(collection.where(graetzl_id: current_user.followed_graetzl_ids))
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      collection = (collection.none_throttled).or(collection.where(graetzl_id: graetzl_ids))
+      collection = (collection.region_or_platform).or(collection.where(graetzl_id: graetzl_ids))
     end
 
     collection
