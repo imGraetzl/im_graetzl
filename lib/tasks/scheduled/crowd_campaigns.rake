@@ -27,7 +27,7 @@ namespace :scheduled do
     end
 
     # Send Reminder email to failed Pledges after 7 Days
-    CrowdCampaign.completed.where(enddate: 7.days.ago).find_each do |campaign|
+    CrowdCampaign.completed.where(enddate: 6.days.ago).find_each do |campaign|
       campaign.crowd_pledges.failed.find_each do |pledge|
         CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
       end
@@ -38,7 +38,7 @@ namespace :scheduled do
   task crowd_campaigns_guest_newsletter: :environment do
     
     scheduled_sending_dates = [
-      '2024-04-07', '2024-04-28', '2024-05-19', '2024-06-09', '2024-06-30'
+      '2024-04-28', '2024-05-19', '2024-06-09', '2024-06-30'
     ]
 
     send_date_today = nil
@@ -56,9 +56,9 @@ namespace :scheduled do
       crowd_campaigns = CrowdCampaign.guest_newsletter.where(enddate: send_date_today..send_date_next)
       if crowd_campaigns.any?
         Region.all.each do |region|
-          if crowd_campaigns.in(region).any?
+          if crowd_campaigns.in(region).any? || crowd_campaigns.platform.any?
             CrowdPledge.guest_newsletter_recipients.in(region).each do |pledge|
-              CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(region).map(&:id)).deliver_later
+              CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(region).or(crowd_campaigns.platform).map(&:id)).deliver_later
             end
           end
         end

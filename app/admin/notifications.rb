@@ -6,6 +6,7 @@ ActiveAdmin.register Notification, as: "Notifications" do
   scope :all, default: true
   scope 'Next Wien Mails', :next_wien
   scope 'Next Graz Mails', :next_graz
+  scope 'Next Linz Mails', :next_linz
   scope 'Next Kärnten Mails',:next_kaernten
   scope 'Next Mühlviertel Mails',:next_muehlviertel
 
