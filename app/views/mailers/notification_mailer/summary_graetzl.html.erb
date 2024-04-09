@@ -24,7 +24,7 @@
   <!-- render "summary/new_zuckerl_footer" if @region.is?('wien') && @period == 'weekly' && current_position == zuckerl_position -->
 
   <!-- Insert on 3. Position -->
-  <!-- render 'summary/new_good_morning_dates' if @region.is?('wien') && @period == 'weekly' && current_position == 3 -->
+  <%= render 'summary/new_good_morning_dates' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>
   <% notifications.each do |notification| %>
