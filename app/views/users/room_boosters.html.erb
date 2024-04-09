@@ -20,7 +20,6 @@
         <li>Liste damit deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_user.region %>.</li>
         <li>Dein Raumteiler wird auf allen Raumteilerseiten auf der Plattform eine Woche <strong>täglich hochgespült</strong>.</li>
         <li>Ein Raumteiler Booster kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
-        <li class="hint">Bei dir ist es echt gerade echt eng und es geht darum die Räumlichkeiten überhaupt zu halten, aber du kannst dir den Booster nicht leisten? Dann kontaktiere uns schnell, wir kennen solche Situationen zu gut. Wir haben <strong>Soli-Booster</strong> und vielleicht finden wir noch weitere Möglichkeiten im Gespräch. (<%= mail_to t("region.#{current_region.id}.contact_email") %>)</li>
       </ul>
 
     </div>
