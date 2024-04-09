@@ -26,8 +26,8 @@ namespace :scheduled do
       CrowdCampaignService.new.close(campaign)
     end
 
-    # Send Reminder email to failed Pledges after 7 Days
-    CrowdCampaign.completed.where(enddate: 6.days.ago).find_each do |campaign|
+    # Send Reminder email to failed Pledges after 6 Days
+    CrowdCampaign.completed.where(enddate: 5.days.ago).find_each do |campaign|
       campaign.crowd_pledges.failed.find_each do |pledge|
         CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
       end
