@@ -24,7 +24,7 @@
   <!-- render "summary/new_zuckerl_footer" if @region.is?('wien') && @period == 'weekly' && current_position == zuckerl_position -->
 
   <!-- Insert on 3. Position -->
-  <%= render 'summary/new_good_morning_dates' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
+  <!-- render 'summary/new_good_morning_dates' if @region.is?('wien') && @period == 'weekly' && current_position == 3 -->
 
   <%= render 'summary/block_header', title: block_title %>
   <% notifications.each do |notification| %>
@@ -35,7 +35,7 @@
   <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.is?('wien') %>
 
   <!-- Insert on 3. Position -->
-  <%= render 'featured/balkonsolar' if @region.is?('graz') && @period == 'weekly' && current_position == 2 %>
+  <!-- render 'featured/balkonsolar' if @region.is?('graz') && @period == 'weekly' && current_position == 2 -->
 
 <% end %>
 
