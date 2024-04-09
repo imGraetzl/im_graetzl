@@ -10,6 +10,7 @@ ActiveAdmin.register CrowdPledge do
   scope :processing
   scope :debited
   scope :failed
+  scope :refunded
   scope :canceled
   scope :incomplete
   scope :all

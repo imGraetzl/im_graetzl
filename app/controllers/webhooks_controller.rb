@@ -173,6 +173,10 @@ class WebhooksController < ApplicationController
       room_booster = RoomBooster.find_by(id: charge.metadata.room_booster_id)
       RoomBoosterService.new.payment_refunded(room_booster) if room_booster
 
+    elsif charge.metadata["pledge_id"]
+      crowd_pledge = CrowdPledge.find_by(id: charge.metadata.pledge_id)
+      CrowdPledgeService.new.payment_refunded(crowd_pledge) if crowd_pledge
+
     elsif charge.invoice
       invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
       SubscriptionService.new.invoice_refunded(invoice, charge) if invoice
