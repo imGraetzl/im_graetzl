@@ -145,6 +145,14 @@
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_failed_sum, unit: "€") %></h4>
                 </div>
                 <div>
+                  <h4 class="title">Zurückgetretene Transaktionen</h4>
+                  <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_refunded_sum, unit: "€") %></h4>
+                </div>
+                <div class="black">
+                  <h3 class="title">Tatsächlich erreichte Fundingsumme</h3>
+                  <h3 class="amount"><%= number_to_currency(@crowd_campaign.effective_funding_sum, unit: "€") %></h3>
+                </div>
+                <div>
                   <h4 class="title"><%= @crowd_campaign.transaction_fee_percentage %>% Servicegebühr (inkl. 20% MwSt)</h4>
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_fee, unit: "€") %></h4>
                 </div>

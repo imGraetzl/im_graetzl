@@ -130,6 +130,10 @@ class CrowdCampaign < ApplicationRecord
     crowd_pledges.failed.sum(:total_price)
   end
 
+  def crowd_pledges_refunded_sum
+    crowd_pledges.refunded.sum(:total_price)
+  end
+
   def transaction_fee_percentage
     if self.service_fee_percentage?
       self.service_fee_percentage
