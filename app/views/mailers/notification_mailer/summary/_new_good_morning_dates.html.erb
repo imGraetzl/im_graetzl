@@ -1,7 +1,5 @@
 <!-- Prepare GOOD MORDNING Dates for @user, max 2 -->
 
-<!--% category = EventCategory.where(slug: 'good-morning-dates').map(&:id) %-->
-<!--% my_dates = @user.district.meetings.upcoming.joins(:event_categories).where(event_categories: 14) %-->
 <% all_dates = Meeting.upcoming.in(@region).joins(:event_categories).where(event_categories: 14) %>
 <% my_dates = all_dates.joins(:districts).where(districts: @user.district) %>
 <% @meetings = (all_dates - my_dates).sample(2) %>
@@ -55,11 +53,20 @@
       <% if meeting.attendees.any? %>
       <tr>
         <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
-          <% meeting.attendees.each do |attendee| %>
+          <% meeting.attendees.map(&:user).last(12).each do |user| %>
             <table cellpadding="0" cellspacing="0" border="0" align="left" style="margin-right:10px; margin-bottom:10px;">
               <tr>
                 <td>
-                  <%= avatar_image attendee.user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+                  <%= avatar_image user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+          <% if meeting.attendees.count > 12 %>
+            <table cellpadding="0" cellspacing="0" border="0" align="left" style="margin-right:10px; margin-bottom:10px;">
+              <tr>
+                <td style="height:30px;">
+                  <small><em> + <%= meeting.attendees.count - 12 %> weitere</em></small>
                 </td>
               </tr>
             </table>
