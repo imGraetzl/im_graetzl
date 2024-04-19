@@ -74,7 +74,7 @@
 
         <div class="flex-table row" role="rowgroup">
           <div class="flex-row xxlarge" role="cell"><strong>Bezahlstatus</strong></div>
-          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.status %></div>
+          <div class="flex-row xxxlarge" role="cell"><%= t("activerecord.attributes.crowd_pledge.statuses.#{@crowd_pledge.status}") %></div>
         </div>
 
         <div class="flex-table row" role="rowgroup">

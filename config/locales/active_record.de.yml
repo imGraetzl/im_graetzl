@@ -300,7 +300,7 @@ de:
       post:
         title: Titel
         content: Text
-        created_at: Erstellt am
+        created_at: Erstellt am        
       coop_demand:
         slogan: Titel
         coop_demand_category: Kategorie
@@ -415,7 +415,6 @@ de:
         status_message:
           enabled: Deine Gerätesuche ist nun aktiv und sichtbar.
           disabled: Deine Gerätesuche ist nun deaktiviert und scheint nicht mehr im Bereich Geräteteiler auf.
-
       tool_rental:
         rental_statuses:
           pending: Noch nicht akzeptiert
@@ -525,6 +524,14 @@ de:
         contact_name: Name
         donation_amount: Freie Unterstützung
         terms: Nutzungsbedingungen
+        statuses:
+          incomplete: incomplete
+          authorized: autorisiert
+          processing: wird bearbeitet
+          debited: abgebucht
+          failed: fehlgeschlagen
+          canceled: canceled
+          refunded: zurückgetreten
       subscription_plan:
         intervals:
           month: Monat

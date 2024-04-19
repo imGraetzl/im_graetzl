@@ -44,6 +44,7 @@ namespace :scheduled do
     
     meetings.in(region).where(starts_at_date: 15.days.from_now).find_each do |meeting|
       #User.confirmed.in(region).where(newsletter: true).joins(:favorite_graetzls).where(favorite_graetzls: {id: meeting.graetzl.id}).or(User.confirmed.where(newsletter: true).where(graetzl_id: meeting.graetzl.id)).distinct.find_each do |user|
+      next if meeting.id == 17614 # Exclude this Meeting (already full)
       User.confirmed.in(region).where(newsletter: true).joins(:districts).where(districts: {id: meeting.graetzl.district.id}).find_each do |user|
         next if meeting.users.include?(user)
         MeetingMailer.good_morning_date_invite(user, meeting).deliver_now

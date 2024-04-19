@@ -57,6 +57,8 @@ class CrowdCampaignInvoice
     pdf.text "#{format_price(campaign.funding_sum)}", align: :right, style: :bold
     pdf.float { pdf.text "Davon fehlgeschlagene Transaktionen (#{campaign.crowd_pledges.failed.count})", align: :left }
     pdf.text "- #{format_price(campaign.crowd_pledges_failed_sum)}", align: :right
+    pdf.float { pdf.text "Davon zurückgetretene Transaktionen (#{campaign.crowd_pledges.refunded.count})", align: :left }
+    pdf.text "- #{format_price(campaign.crowd_pledges_refunded_sum)}", align: :right
     pdf.move_down 10
 
     pdf.float { pdf.text "Tatsächlich erreichte Fundingsumme", align: :left, style: :bold }

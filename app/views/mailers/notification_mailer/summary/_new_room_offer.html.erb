@@ -10,9 +10,10 @@
             </td>
             <td> 
             </td>
-            <td>
+            <td style="line-height:1.2;">
               <em style="font-weight:bold;">
-                Biete <%= I18n.t("activerecord.attributes.room_offer.offer_types_active.#{notification.room_offer.offer_type}") %>
+                Biete <%= I18n.t("activerecord.attributes.room_offer.offer_types_active.#{notification.room_offer.offer_type}") %><br>
+                <small style="font-weight:normal; color: #555;"><%= "#{notification.room_offer.graetzl.district.zip}, " if @region.use_districts? %><%= notification.room_offer.graetzl.name.truncate(30, separator: ' ') %></small>
               </em>
             </td>
           </tr>
