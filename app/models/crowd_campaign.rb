@@ -142,29 +142,29 @@ class CrowdCampaign < ApplicationRecord
     end
   end
 
-  def service_fee_percentage_owner
-    # without stripe
-    self.transaction_fee_percentage - 2
+  def stripe_fee_percentage
+    # average percentage
+    2
   end
 
   def crowd_pledges_fee
     (effective_funding_sum / 100) * transaction_fee_percentage
   end
 
-  def crowd_pledges_fee_owner
-    (effective_funding_sum / 100) * service_fee_percentage_owner
-  end
-
   def crowd_pledges_fee_netto
     (crowd_pledges_fee / 1.20).round(2)
   end
 
-  def crowd_pledges_fee_owner_netto
-    (crowd_pledges_fee_owner / 1.20).round(2)
-  end
-
   def crowd_pledges_fee_tax
     (crowd_pledges_fee_netto * 0.2).round(2)
+  end
+
+  def stripe_fee
+    (effective_funding_sum / 100) * stripe_fee_percentage
+  end
+
+  def platform_fee_netto
+    crowd_pledges_fee_netto - stripe_fee
   end
 
   def crowd_pledges_payout

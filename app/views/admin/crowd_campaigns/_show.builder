@@ -88,8 +88,8 @@ context.instance_eval do
             row :crowd_pledges_fee
             row :crowd_pledges_fee_tax
             row :crowd_pledges_fee_netto
-            #row :crowd_pledges_fee_owner
-            row :crowd_pledges_fee_owner_netto
+            row :stripe_fee
+            row :platform_fee_netto
             row :crowd_pledges_payout
             row :invoice_number
             row(:invoice) { |r| link_to "PDF", r.invoice.presigned_url(:get) } if crowd_campaign.invoice_number?

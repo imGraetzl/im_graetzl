@@ -6,11 +6,21 @@
 <% last_30_days = (30.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
 <% tax = 1.2 %>
 <% def calc_pledges(collection)
-    sum = 0
+    funding_sum = 0
+    crowd_pledges_fee = 0
+    stripe_fee = 0
+    transaction_fee_percentage = 0
+    stripe_fee_percentage = 0
     collection.all.each do |pledge|
-      sum += pledge.total_price * (pledge.crowd_campaign.service_fee_percentage_owner / 100)
+      transaction_fee_percentage = pledge.crowd_campaign.transaction_fee_percentage
+      stripe_fee_percentage = pledge.crowd_campaign.stripe_fee_percentage
+      funding_sum += pledge.total_price
+      crowd_pledges_fee += (pledge.total_price / 100) * transaction_fee_percentage
+      stripe_fee += (pledge.total_price / 100) * stripe_fee_percentage
     end
-    sum
+    crowd_pledges_fee_netto = (crowd_pledges_fee / 1.2)
+    platform_fee_netto = crowd_pledges_fee_netto - stripe_fee
+    return platform_fee_netto
   end
 %>
 
@@ -29,12 +39,12 @@
 <% elsif local_assigns[:pledge] %>
     <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: yesterday)) / tax, precision: 0 ,unit: "€") %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: this_month)) / tax, precision: 0 ,unit: "€") %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: last_month)) / tax, precision: 0 ,unit: "€") %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: this_year)) / tax, precision: 0 ,unit: "€") %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: last_year)) / tax, precision: 0 ,unit: "€") %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection) / tax, precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: yesterday)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: this_month)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: last_month)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: this_year)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: last_year)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection), precision: 0 ,unit: "€") %></td>
     </tr>
 <% elsif local_assigns[:amount] %>
     <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
