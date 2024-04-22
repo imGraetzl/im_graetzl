@@ -3,6 +3,7 @@ class CrowdPledge < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :crowd_campaign
   belongs_to :crowd_reward, optional: true
+  has_one :crowd_boost_charge
 
   before_create :set_region
 

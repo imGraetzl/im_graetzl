@@ -16,7 +16,8 @@ class CrowdCampaign < ApplicationRecord
   has_many :districts, through: :graetzl
   belongs_to :location, optional: true
   belongs_to :room_offer, optional: true
-
+  belongs_to :crowd_boost_slot, optional: true
+  has_one :crowd_boost, through: :crowd_boost_slot
   has_and_belongs_to_many :crowd_categories
 
   has_many :crowd_rewards
@@ -27,6 +28,7 @@ class CrowdCampaign < ApplicationRecord
 
   has_many :crowd_pledges
   has_many :crowd_donation_pledges
+  has_many :crowd_boost_pledges
 
   has_many :crowd_campaign_posts, dependent: :destroy
   has_many :comments, through: :crowd_campaign_posts
@@ -34,6 +36,7 @@ class CrowdCampaign < ApplicationRecord
   has_many :favorites, as: :favoritable, dependent: :destroy
 
   string_enum visibility_status: ["graetzl","region", "platform"]
+  string_enum boost_status: ["boost_pending", "boost_declined", "boost_allowed", "boost_authorized", "boost_debited", "boost_cancelled"]
   enum active_state: { enabled: 0, disabled: 1 }
   enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
@@ -111,7 +114,11 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def funding_sum
-    @cached_funding_sum ||= self.crowd_pledges.initialized.sum(:total_price)
+    @cached_funding_sum ||= self.crowd_pledges.initialized.sum(:total_price) + self.crowd_boost_pledges.initialized.sum(:amount)
+  end
+
+  def crowd_boost_pledges_sum
+    @cached_boost_sum ||= self.crowd_boost_pledges.initialized.sum(:amount)
   end
 
   def funding_count
@@ -123,7 +130,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def effective_funding_sum
-    crowd_pledges.debited.sum(:total_price)
+    crowd_pledges.debited.sum(:total_price) + crowd_boost_pledges.debited.sum(:amount)
   end
 
   def crowd_pledges_failed_sum

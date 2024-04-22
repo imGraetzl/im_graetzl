@@ -32,6 +32,11 @@ context.instance_eval do
           row :updated_at
         end
       end
+      panel 'Crowd Boost Charge' do
+        attributes_table_for crowd_pledge do
+          row :crowd_boost_charge_amount
+        end
+      end
     end
   end
   panel 'Kontaktdaten' do

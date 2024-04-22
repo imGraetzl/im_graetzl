@@ -55,6 +55,10 @@ active_admin_form_for [:admin, resource] do |f|
       actions
     end
     column do
+      inputs 'Crowd Boost Slot' do
+        input :crowd_boost_slot, collection: CrowdBoostSlot.all.map{|g| [g.title, g.id,] }, input_html: { :class => 'admin-filter-select'}
+        input :boost_status, as: :select, collection: CrowdCampaign.boost_statuses.keys, include_blank: true, input_html: { :class => 'admin-filter-select'}
+      end
       inputs 'Dankeschöns' do
         has_many :crowd_rewards,
                   allow_destroy: false,

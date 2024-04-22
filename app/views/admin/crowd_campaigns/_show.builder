@@ -77,11 +77,22 @@ context.instance_eval do
     end
     column do
 
+      if crowd_campaign.crowd_boost_slot.present?
+        panel 'Crowd Boost' do
+          attributes_table_for crowd_campaign do
+            row(:crowd_boost_slot){|c|c.crowd_boost_slot}
+            row(:boost_status){|c| status_tag(c.boost_status)}
+            row :crowd_boost_pledges_sum
+          end
+        end
+      end
+
       if crowd_campaign.completed?
         panel 'Auszahlungsstatistik' do
           attributes_table_for crowd_campaign do
             row :transaction_fee_percentage
             row :funding_sum
+            row :crowd_boost_pledges_sum
             row :crowd_pledges_failed_sum
             row :crowd_pledges_refunded_sum
             row :effective_funding_sum

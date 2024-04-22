@@ -1,0 +1,5 @@
+<h3>Crowd Boost Übersicht</h3>
+
+<% @crowd_boosts.each do |boost| %>
+  <div><%= link_to boost.title, boost %> (<%= boost.status %>)</div>
+<% end %>

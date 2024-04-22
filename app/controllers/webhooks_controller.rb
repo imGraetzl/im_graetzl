@@ -72,6 +72,11 @@ class WebhooksController < ApplicationController
       room_booster = RoomBooster.find_by(id: payment_intent.metadata.room_booster_id)
       RoomBoosterService.new.payment_succeeded(room_booster, payment_intent) if room_booster
     end
+
+    if payment_intent.metadata["crowd_boost_charge_id"]
+      crowd_boost_charge = CrowdBoostCharge.find_by(id: payment_intent.metadata.crowd_boost_charge_id)
+      CrowdBoostService.new.payment_succeeded(crowd_boost_charge, payment_intent) if crowd_boost_charge
+    end
   end
 
   def payment_intent_failed(payment_intent)

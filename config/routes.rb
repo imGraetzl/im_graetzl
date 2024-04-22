@@ -294,6 +294,19 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :crowd_boosts, only: [:index, :show], path: 'crowd-booster' do
+    resources :crowd_boost_charges, only: [:new, :create], path: 'charge' do
+      get 'login', on: :collection
+    end
+  end
+
+  resources :crowd_boost_charges, path: 'crowd-boost-charge' do
+    get 'choose_payment', on: :member
+    get 'payment_authorized', on: :member
+    get 'summary', on: :member
+    get 'details', on: :member
+  end
+
   get 'messenger' => 'messenger#index'
   get 'messenger/start_thread'
   get 'messenger/fetch_thread'

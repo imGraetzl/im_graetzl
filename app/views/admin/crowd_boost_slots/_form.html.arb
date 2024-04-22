@@ -1,0 +1,14 @@
+active_admin_form_for [:admin, resource] do |f|
+  f.semantic_errors
+  inputs 'Basic Info' do
+    input :crowd_boost, collection: CrowdBoost.all.sort_by(&:title), input_html: { :class => 'admin-filter-select'}
+    input :amount_limit
+    input :max_campaigns
+    input :starts_at, as: :datepicker
+    input :ends_at, as: :datepicker
+    Region.all.each do |region|
+      input :graetzls, label: region.name, collection: region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id,] }, input_html: { class: 'admin-filter-select-all'}
+    end
+  end
+  actions
+end

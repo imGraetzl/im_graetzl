@@ -26,6 +26,7 @@ class Region
     @room_booster_price = data[:room_booster_price]
     @public_group_id = data[:public_group_id]
     @use_energieteiler = data[:navigation][:energieteiler]
+    @crowd_boost_ids = data[:crowd_boost_ids]
     @wow = data[:wow]
   end
 
@@ -35,6 +36,14 @@ class Region
 
   def use_districts?
     @use_districts
+  end
+
+  def crowd_boost_ids
+    @crowd_boost_ids
+  end
+
+  def use_crowd_boost?
+    @crowd_boost_ids.present?
   end
 
   def use_subscription?

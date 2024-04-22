@@ -1,0 +1,7 @@
+<h3><%= @crowd_boost.title %></h3>
+
+<% @crowd_boost.crowd_boost_slots.active.each do |slot| %>
+  <div><%= slot.runtime %></div>
+  <%= link_to "Charge Boost", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary" %>
+<% end %>
+

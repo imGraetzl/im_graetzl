@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_05_111006) do
+ActiveRecord::Schema.define(version: 2024_04_22_091159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -191,6 +191,76 @@ ActiveRecord::Schema.define(version: 2024_04_05_111006) do
     t.index ["coop_demand_category_id"], name: "index_coop_suggested_tags_on_coop_demand_category_id"
   end
 
+  create_table "crowd_boost_charges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "payment_status"
+    t.decimal "amount", precision: 10, scale: 2
+    t.datetime "debited_at"
+    t.string "contact_name"
+    t.string "email"
+    t.string "stripe_customer_id"
+    t.string "stripe_payment_method_id"
+    t.string "stripe_payment_intent_id"
+    t.string "payment_method"
+    t.string "payment_card_last4"
+    t.string "payment_wallet"
+    t.string "region_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "crowd_boost_id"
+    t.bigint "user_id"
+    t.uuid "crowd_pledge_id"
+    t.index ["crowd_boost_id"], name: "index_crowd_boost_charges_on_crowd_boost_id"
+    t.index ["crowd_pledge_id"], name: "index_crowd_boost_charges_on_crowd_pledge_id"
+    t.index ["region_id"], name: "index_crowd_boost_charges_on_region_id"
+    t.index ["user_id"], name: "index_crowd_boost_charges_on_user_id"
+  end
+
+  create_table "crowd_boost_pledges", force: :cascade do |t|
+    t.string "status"
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "region_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "crowd_boost_id"
+    t.bigint "crowd_campaign_id"
+    t.index ["crowd_boost_id"], name: "index_crowd_boost_pledges_on_crowd_boost_id"
+    t.index ["crowd_campaign_id"], name: "index_crowd_boost_pledges_on_crowd_campaign_id"
+    t.index ["region_id"], name: "index_crowd_boost_pledges_on_region_id"
+  end
+
+  create_table "crowd_boost_slot_graetzls", force: :cascade do |t|
+    t.bigint "crowd_boost_slot_id"
+    t.bigint "graetzl_id"
+    t.index ["crowd_boost_slot_id"], name: "index_crowd_boost_slot_graetzls_on_crowd_boost_slot_id"
+    t.index ["graetzl_id"], name: "index_crowd_boost_slot_graetzls_on_graetzl_id"
+  end
+
+  create_table "crowd_boost_slots", force: :cascade do |t|
+    t.decimal "amount_limit", precision: 10, scale: 2
+    t.integer "max_campaigns"
+    t.date "starts_at"
+    t.date "ends_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "crowd_boost_id"
+    t.index ["crowd_boost_id"], name: "index_crowd_boost_slots_on_crowd_boost_id"
+  end
+
+  create_table "crowd_boosts", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.string "slug"
+    t.string "title"
+    t.string "slogan"
+    t.text "description"
+    t.jsonb "avatar_data"
+    t.integer "threshold_pledge_count", default: 0
+    t.decimal "threshold_funding_percentage", precision: 5, scale: 2
+    t.decimal "boost_amount", precision: 10, scale: 2
+    t.decimal "boost_precentage", precision: 5, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "crowd_campaign_posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -257,6 +327,9 @@ ActiveRecord::Schema.define(version: 2024_04_05_111006) do
     t.string "contact_instagram"
     t.string "contact_facebook"
     t.boolean "guest_newsletter", default: true, null: false
+    t.string "boost_status"
+    t.bigint "crowd_boost_slot_id"
+    t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
@@ -345,6 +418,9 @@ ActiveRecord::Schema.define(version: 2024_04_05_111006) do
     t.datetime "inclomplete_reminder_sent_at"
     t.string "payment_wallet"
     t.jsonb "user_agent"
+    t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
+    t.bigint "crowd_boost_id"
+    t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
@@ -1625,6 +1701,14 @@ ActiveRecord::Schema.define(version: 2024_04_05_111006) do
   add_foreign_key "coop_demands", "locations", on_delete: :nullify
   add_foreign_key "coop_demands", "users", on_delete: :cascade
   add_foreign_key "coop_suggested_tags", "coop_demand_categories", on_delete: :nullify
+  add_foreign_key "crowd_boost_charges", "crowd_boosts", on_delete: :nullify
+  add_foreign_key "crowd_boost_charges", "crowd_pledges", on_delete: :nullify
+  add_foreign_key "crowd_boost_charges", "users", on_delete: :nullify
+  add_foreign_key "crowd_boost_pledges", "crowd_boosts", on_delete: :nullify
+  add_foreign_key "crowd_boost_pledges", "crowd_campaigns", on_delete: :nullify
+  add_foreign_key "crowd_boost_slot_graetzls", "crowd_boost_slots", on_delete: :cascade
+  add_foreign_key "crowd_boost_slot_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "crowd_boost_slots", "crowd_boosts", on_delete: :cascade
   add_foreign_key "crowd_campaign_posts", "crowd_campaigns", on_delete: :cascade
   add_foreign_key "crowd_campaign_posts", "graetzls", on_delete: :nullify
   add_foreign_key "crowd_campaigns", "graetzls", on_delete: :nullify

@@ -1,0 +1,115 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="crowd-boost-charge-page detail-screen">
+
+  <div class="col-content">
+
+    <div class="hl-subtext">
+      <h1>Deine Einzahlung</h1>
+      <p>
+        Hier findest du eine Übersicht und Informationen zu deiner Einzahlung.
+      </p>
+    </div>
+
+    <div class="table-container -light" role="table">
+
+      <div class="flex-table header" role="rowgroup">
+        <div class="flex-row full first" role="columnheader">Zusammenfassung</div>
+      </div>
+
+      <div class="flex-table" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützes Projekt</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= link_to @crowd_boost_charge.crowd_boost.title, @crowd_boost_charge.crowd_boost, target: '_blank' %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungsdatum</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_boost_charge.created_at, format:'%a, %d. %B %Y, %H:%M') %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungsbetrag</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= number_to_currency(@crowd_boost_charge.amount, unit: "€") %></div>
+      </div>
+
+    </div>
+
+    <%= link_to 'Details öffnen', 'javascript:', class: 'btn-primary -mint -charge-details-toggle' %>
+
+    <div class="-charge-details">
+
+      <div class="table-container -light" role="table">
+
+        <div class="flex-table header" role="rowgroup">
+          <div class="flex-row full first" role="columnheader">Unterstützungsdetails</div>
+        </div>
+
+        <div class="flex-table" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Deine Daten</strong></div>
+          <div class="flex-row xxxlarge" role="cell">
+            <%= @crowd_boost_charge.contact_name %><br>
+          </div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Unterstützungs-ID</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_boost_charge.id %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Bezahlmethode</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_boost_charge.payment_method %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Bezahlstatus</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= t("activerecord.attributes.crowd_pledge.statuses.#{@crowd_boost_charge.payment_status}") %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Verwendungszweck</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= "#{@crowd_boost_charge.region.host_id} ChargeBoost".upcase %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Buchungsdatum</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_boost_charge.debited_at, format:'%a, %d. %B %Y, %H:%M') if @crowd_boost_charge.debited_at %></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="faqs">
+      <div class="content-block -toggable">
+        <h3>Wann kann ich eine Rechnung für meine Aufladung bekommen?</h3>
+        <div class="-toggle-content">
+          <p>Die Rechnung für dein Dankeschön bekommst du: </p>
+          <p>wenn das unterstützte Projekt berechtigt ist Rechnungen oder Spendenquittungen auszustellen, diese Information findest du auf ihrer Kampagnenseite.</p>
+          <p>Sobald die Kampagne erfolgreich abgeschlossen ist und die Dankeschöns versendet werden, solltest du die Rechnung oder Spendenquittung von den Starter*innen bekommen, wenn sie diese Berechtigung haben. Die Rechnung wird entweder per Mail versendet oder liegt den Dankeschöns bei.</p>
+        </div>
+      </div>
+      <div class="content-block -toggable">
+        <h3>Wie sieht die Abbuchung auf meiner Kreditkarte / meinem Konto aus?</h3>
+        <div class="-toggle-content">
+          <p>Bei <strong>Kreditkartenzahlungen</strong> erscheint die Abbuchung mit folgendem Buchungstext:<br>
+            <em><%= "#{@crowd_boost_charge.region.host_id} Crowdfunding".upcase %></em>
+          </p>
+          <p>Bei <strong>Zahlungen mittels Bankeinzug</strong> erscheint die Abbuchung mit folgendem Buchungstext:
+            <em>PPRO Payment Services S.A. (<%= @crowd_boost_charge.region.host_domain_name.upcase %> by Stripe via PPRO)</em>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sidebar">
+    <%= render @crowd_boost %>
+  </div>
+
+</section>
