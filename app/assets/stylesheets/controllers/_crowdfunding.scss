@@ -771,6 +771,9 @@ section.startcampaign {
           @include font-size-primaryFont('large');
         }
       }
+      .call-thumb {
+        cursor: pointer;
+      }
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
