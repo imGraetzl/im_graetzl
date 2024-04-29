@@ -23,8 +23,10 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
 
   <!-- Insert Feature Boxes -->
-  <%= render 'featured/balkonsolar' if @region.is?('graz') && @period == 'weekly' && current_position == 1 %>
+  <!-- render 'featured/balkonsolar' if @region.is?('graz') && @period == 'weekly' && current_position == 1 -->
   <!-- render 'featured/subscription' if @region.is?('wien') && @period == 'weekly' && current_position == 1 -->
+  <%= render 'featured/crowd_campaign_funding', crowd_campaign: CrowdCampaign.find(119) if @period == 'weekly' && current_position == 1 %>
+  <%= render 'featured/crowdfunding_call' if @period == 'weekly' && current_position == 3 %>
   <%= render 'summary/new_good_morning_dates' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>
