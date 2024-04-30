@@ -86,7 +86,7 @@ class Subscription < ApplicationRecord
   end
 
   def cancel_now!
-    sub = Stripe::Subscription.delete(stripe_id)
+    sub = Stripe::Subscription.cancel(stripe_id)
     update(status: 'canceled', ends_at: Time.at(sub.ended_at))
     self.destroy_activity_and_notifications
   end

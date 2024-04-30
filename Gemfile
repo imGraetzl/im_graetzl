@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.2'
+ruby '3.2.4'
 
 gem 'rails', '~> 6.1.0'
 gem 'puma'
@@ -12,6 +12,11 @@ gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
 gem 'activerecord-import'
 gem 'active_link_to'
+
+# Remove in Rails 7
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 gem 'rack-attack'
 gem 'rack-cors', require: 'rack/cors'
@@ -44,7 +49,7 @@ gem 'marcel'
 
 #gem 'mini_racer'
 
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'terser'
 gem 'jquery-rails'
 gem 'underscore-rails'
@@ -55,7 +60,7 @@ gem 'rabl'
 gem 'oj'
 gem 'jquery-ui-rails', '6.0.0'
 gem 'bb-ruby'
-gem 'stripe'
+gem 'stripe', "~> 8.0"
 gem 'prerender_rails'
 
 gem 'caxlsx'
@@ -67,7 +72,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'listen', '~> 3.0.5'
+  gem 'listen'
   # Helpers don't work if required, https://github.com/rspec/rspec-rails/issues/1525
   gem 'rails-controller-testing', require: false
   gem 'rspec-rails'

@@ -115,9 +115,9 @@
     white-space: nowrap;
 
     &.jBox-Confirm-button-cancel {
-      @extend .btn-primary.-grey;
+      @extend .btn-primary, .-grey;
       &:hover {
-        @extend .btn-primary.-grey;
+        @extend .btn-primary, .-grey;
         background-image: $texture-primary;
         opacity: 0.9;
       }

@@ -36,7 +36,7 @@
 }
 #gdpr-cookie-message button,
 button#ihavecookiesBtn {
-    @extend .btn-primary.-rose.-small;
+   @extend .btn-primary, .-rose, .-small;
     display: inline-flex;
     margin-left: 10px;
     cursor: pointer;
@@ -45,7 +45,7 @@ button#ihavecookiesBtn {
     }
 }
 button#gdpr-cookie-advanced {
-    @extend .btn-primary.-grey;
+    @extend .btn-primary, .-grey;
 }
 #gdpr-cookie-message button:disabled {
     opacity: 0.8;
