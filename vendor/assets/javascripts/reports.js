@@ -48,8 +48,8 @@ APP.controllers.reports = (function() {
       var host_admin = "http://" + window.location.host + "/admin/"; // Active Admin Path
       // Date Params for Ajax Requests
 
-      var ajaxStartDate = "&q%5Bcreated_at_gteq_datetime%5D=";
-      var ajaxEndDate = "&q%5Bcreated_at_lteq_datetime%5D="; // Mailchimp Chart
+      var ajaxStartDate = "&q%5Bcreated_at_gteq%5D=";
+      var ajaxEndDate = "&q%5Bcreated_at_lteq%5D="; // Mailchimp Chart
 
       var mcChartData = {
         labels: [],
@@ -1045,7 +1045,7 @@ APP.controllers.reports = (function() {
         return new Promise(function(resolve, reject) {
           $.ajax({
             // Reuquest Grätzl Data just with Users -> Performance
-            url: "/admin/graetzls.json?q%5Busers_count_greater_than%5D=0",
+            url: "/admin/graetzls.json?q%5Busers_count_gt%5D=0",
             method: "GET",
             success: function success(response) {
               //console.log(response);
