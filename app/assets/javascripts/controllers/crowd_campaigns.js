@@ -15,6 +15,10 @@ APP.controllers.crowd_campaigns = (function() {
           $("#startproject").attr("href", _href);
         }
       }).change();
+
+      $(".call-thumb").on("click", function() {
+        $(".call-toggle-headline").click();
+      })
     }
 
     function initPreviewMode() {

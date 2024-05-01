@@ -749,8 +749,15 @@ section.locations .goodieteasertxt {
       width:75px;
       height:auto;
     }
-    .fundingBar_bar {
-      //background-color: #f4e002;
+  }
+  &.-cfcall {
+    .coverImg {  
+      object-position: left top;
+    }
+    .btn-primary {
+      color: #333;
+      font-weight :bold;
+      background-color: #f3dd77;
     }
   }
 }

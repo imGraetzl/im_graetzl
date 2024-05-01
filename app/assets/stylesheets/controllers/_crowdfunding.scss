@@ -752,6 +752,7 @@ section.startcampaign {
   }
   .call-headline {margin-bottom: 30px;}
   .-call {
+    /*
     &::before {
       content: '';
       position: absolute;
@@ -763,16 +764,24 @@ section.startcampaign {
       width: 50px;
       background-image: url(image_path('svg/medal-flag.svg'));
     }
+    */
     margin-bottom:40px;
     .call-box {
       p {
         padding-top: 15px;
+        @include font-size-primaryFont('large');
+        /*
         &:first-of-type {
           @include font-size-primaryFont('large');
         }
+        */
+      }
+      .call-thumb {
+        cursor: pointer;
       }
       display: flex;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
       > div {
         display: inline-flex;
