@@ -7,10 +7,8 @@ Rails.application.configure do
   # Graetzl.where.not(region_id:'wien').map{|s| "^/#{s.slug}$"}
   # For now: Without Graz, check if Google can crawl JS already
   config.middleware.use Rack::Prerender, whitelist: [
-    '^/griffen$', '^/volkermarkt$', '^/st-andra$',
-    '^/pregarten$', '^/neumarkt-im-muhlkreis$', '^/leopoldschlag$', '^/waldburg$', '^/unterweitersdorf$', '^/gutau$', '^/windhaag-bei-freistadt$', '^/hagenberg-im-muhlkreis$', '^/lasberg$', '^/hirschbach-im-muhlkreis$', '^/tragwein$', '^/grunbach$', '^/st-oswald-bei-freistadt$', '^/moosburg$', '^/sandl$', '^/kefermarkt$', '^/rainbach-im-muhlkreis$', '^/freistadt$',
     '^/region/', '/category/',
-    '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$',
+    '/treffen$', '/locations$', '/raumteiler$', '/toolteiler$', '/energieteiler$', '/coop-share$', '/crowdfunding$', '/zuckerl$',
   ]
 
   # Taxrates for Stripe
