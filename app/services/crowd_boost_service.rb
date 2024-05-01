@@ -21,7 +21,7 @@ class CrowdBoostService
 
   def payment_authorized(crowd_boost_charge, payment_intent_id)
     payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.payment_status.in?(["succeeded", "processing"])
+    if !payment_intent.status.in?(["succeeded", "processing"])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
