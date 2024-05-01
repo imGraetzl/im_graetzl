@@ -48,8 +48,8 @@ APP.controllers.reports = (function() {
       var host_admin = "http://" + window.location.host + "/admin/"; // Active Admin Path
       // Date Params for Ajax Requests
 
-      var ajaxStartDate = "&created_at_gteq=";
-      var ajaxEndDate = "&created_at_lteq="; // Mailchimp Chart
+      var ajaxStartDate = "&q%5Bcreated_at_gteq%5D=";
+      var ajaxEndDate = "&q%5Bcreated_at_lteq%5D="; // Mailchimp Chart
 
       var mcChartData = {
         labels: [],
@@ -845,7 +845,9 @@ APP.controllers.reports = (function() {
 
           actualMonth = actualmonth.getMonth();
           var prevMonthLast = new Date(actualmonth.getFullYear(), actualMonth - i, 0);
-          var prevMonthLastDigits = prevMonthLast.toISOString().slice(0, 10);
+          var prevMonthLastFix = new Date(actualmonth.getFullYear(), actualMonth - i, +1);
+          var prevMonthLastDigits = prevMonthLastFix.toISOString().slice(0, 10);
+          //console.log(prevMonthLastDigits);
 
           $(
             '<option data-unit="months" data-day="' +
