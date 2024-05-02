@@ -845,7 +845,9 @@ APP.controllers.reports = (function() {
 
           actualMonth = actualmonth.getMonth();
           var prevMonthLast = new Date(actualmonth.getFullYear(), actualMonth - i, 0);
-          var prevMonthLastDigits = prevMonthLast.toISOString().slice(0, 10);
+          var prevMonthLastFix = new Date(actualmonth.getFullYear(), actualMonth - i, +1);
+          var prevMonthLastDigits = prevMonthLastFix.toISOString().slice(0, 10);
+          //console.log(prevMonthLastDigits);
 
           $(
             '<option data-unit="months" data-day="' +
