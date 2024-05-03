@@ -1,0 +1,51 @@
+<!-- Prepare Poll for @user -->
+<% poll = Poll.where(id: 42).last %>
+
+<% if poll.present? %>
+  <%= render 'summary/block_header', title: "#{poll.poll_type} - #{poll.title}" %>
+
+  <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+    <tbody>
+      <tr>
+        <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+
+          <%= link_to poll_url(poll), target:'_blank' do %>
+            <%= cover_photo_image(poll, size: :small, style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage") %>
+          <% end %>
+
+          <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+            <tr>
+              <td>
+                <p>
+                  <strong>Wir suchen einen Namen für den neuen Raumaktivierungstopf, bitte stimm mit ab!</strong>
+                  <!-- strip_tags(poll.description.bbcode_to_html.html_safe).truncate(281) -->
+                </p>
+                <p>
+                  Zum Hintergrund: Wir wissen aus eigener Erfahrung, dass es alles andere als einfach ist, Raum für das eigene Tun zu aktivieren und zu...
+                </p>
+              </td>
+            </tr>
+          </table>
+
+          <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
+            <% poll.main_question.poll_options.order(votes_count: :desc).each do |option| %>
+              <tr>
+                <td bgcolor="#f0f0f0" width="100%" style="height:24px; border-radius: 25px; padding:0px 0px 0px 0px; border-bottom:7px solid white; background-color: #f0f0f0;">
+                  <div style="height:24px; line-height:24px; border-radius: 25px; width:<%= option.percentage.to_i %>%; background-color:#83C7BD; white-space:nowrap;" nowrap="nowrap">
+                    <span style="padding-left:10px; font-size: 15px;"><%= option.title.truncate(30, omission: '..') %></span>
+                  </div>
+                </td>
+                <td style="font-size: 15px; line-height:24px; border-bottom:7px solid white; white-space:nowrap; color: #888888; padding-left:5px;" nowrap="nowrap"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</td>
+              </tr>
+            <% end %>
+          </table>
+
+        </td>
+      </tr>
+      <tr>
+        <td><%= render 'mailers/shared/button', title: "Jetzt Abstimmen", url: poll_url(poll), style: "width:100%;" %></td>
+      </tr>
+    </tbody>
+  </table>
+
+<% end %>
