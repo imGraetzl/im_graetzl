@@ -154,12 +154,13 @@ Region.all.each do |region|
     # Static Vienna Pages
     if region.id == 'wien'
       add good_morning_dates_path, changefreq: 'daily', priority: 0.9
-      add balkonsolar_path, changefreq: 'daily', priority: 0.9
+      add balkonsolar_wien_path, changefreq: 'daily', priority: 0.9
       add subscription_plans_path, changefreq: 'daily', priority: 0.9
     end
 
     if region.id == 'graz'
       add subscription_plans_path, changefreq: 'daily', priority: 0.9
+      add balkonsolar_path, changefreq: 'daily', priority: 0.9
     end
     
     if region.id == 'linz'

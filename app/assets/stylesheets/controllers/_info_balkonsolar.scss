@@ -42,6 +42,42 @@ section.info {
       }
     }
 
+    .introwrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include respond-to(">=medium") {
+        flex-direction: row;
+      }
+    }
+
+    .intro {
+      width:100%;
+      @include respond-to(">=medium") {
+        width:85%;
+      }
+    }
+
+    .flyer {
+      width: 30%;
+      @include respond-to(">=medium") {
+        width: 15%;
+      }
+      margin-left:10px;
+      transform: rotate(5deg);
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      img {
+        width: 100%;
+        height:auto;
+        border: 1px solid $color-ambient-grey;
+        border-radius: 2px;
+      }
+    }
+
     .main-content {
       .hl-subtext {margin-bottom: 20px;}
       display: flex;

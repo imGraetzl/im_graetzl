@@ -16,6 +16,11 @@ class StaticPagesController < ApplicationController
     @meetings = Meeting.in(current_region).joins(:event_categories).where(event_categories: {id: @category&.id})
   end
 
+  def balkonsolar_wien
+    @category = EventCategory.where("title ILIKE :q", q: "%Balkon%").last
+    @meetings = Meeting.in(current_region).joins(:event_categories).where(event_categories: {id: @category&.id})
+  end
+
   def popup
     @category = EventCategory.where("title ILIKE :q", q: "%WeLocally Pop-Up%").last
     @meetings = Meeting.in(current_region).joins(:event_categories).where(event_categories: {id: @category&.id})

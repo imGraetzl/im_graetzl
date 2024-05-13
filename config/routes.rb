@@ -307,7 +307,8 @@ Rails.application.routes.draw do
   #get 'unterstuetzer-team', to: 'static_pages#mentoring'
   #get 'energieteiler', to: 'static_pages#energieteiler', as: 'energieteiler'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
-  get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar', as: 'balkonsolar'
+  get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
+  get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
   get 'popup', to: 'static_pages#popup', as: 'popup'
 
   get 'info', to: 'static_pages#info'
