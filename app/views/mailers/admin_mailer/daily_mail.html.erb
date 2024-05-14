@@ -33,7 +33,7 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Booster Einnahmen", collection: RoomBooster.where(payment_status: [:processing, :debited]), amount: :amount %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Raumteiler Buchung", collection: RoomRental.where(payment_status: [:processing, :debited]) %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Buchungs Fee", collection: RoomRental.where(payment_status: [:processing, :debited]), amount: :service_fee %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding Fee", collection: CrowdPledge.where(status: [:processing, :debited]), pledge: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Crowdfunding Fee", collection: CrowdPledge.where(status: [:processing, :debited]).includes(:crowd_campaign), pledge: true %>
     </tbody>
   </table>
 

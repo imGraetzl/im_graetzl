@@ -4,20 +4,6 @@
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
 
     <% if current_region.is?('graz') && category = EventCategory.where("title ILIKE :q", q: "%Balkon-Solar%").last %>
-      <div class="-category -special-category" data-id="<%= category.slug %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
-        <%= category_image(category, class: 'categoryImg') %>
-        <div class="cat -<%= category.css_ico_class %>">
-          <%= category_icon(category.css_ico_class, class: 'catimg', width:85, height:85) %>
-        </div>
-        <h3><%= link_to category.title, region_meetings_path(category: category) %></h3>
-        <%= button_tag class: 'close-ico' do %>
-          <%= icon_tag "cross" %>
-        <% end %>
-      </div>
-    <% end %>
-
-    <% if current_region.is?('wien') %>
-      <!-- 
       <div class="-category -href" data-href="<%= balkonsolar_path %>" data-id="balkonsolar" data-label="Balkon-Solar" data-slug="balkonsolar">
         <picture>
           <source srcset="<%= image_path('categories/balkonsolar.webp') %>" type="image/webp" />
@@ -31,7 +17,9 @@
           <%= icon_tag "cross" %>
         <% end %>
       </div>
-      -->
+    <% end %>
+
+    <% if current_region.is?('wien') %>
       <div class="-category -href" data-href="<%= good_morning_dates_path %>" data-id="good-moring-dates" data-label="Good Morning Dates" data-slug="good-morning-dates">
         <picture>
           <source srcset="<%= image_path('categories/good-morning-dates.webp') %>" type="image/webp" />

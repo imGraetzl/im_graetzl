@@ -1,22 +1,16 @@
-<% yesterday = (1.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
-<% this_month = (Date.today.at_beginning_of_month.beginning_of_day)..(Date.today.at_end_of_month.end_of_day) %>
-<% last_month = (1.month.ago.at_beginning_of_month.beginning_of_day)..(1.month.ago.at_end_of_month.end_of_day) %>
-<% this_year = (Date.today.at_beginning_of_year.beginning_of_day)..(Date.today.at_end_of_year.end_of_day) %>
-<% last_year = (1.year.ago.at_beginning_of_year.beginning_of_day)..(1.year.ago.at_end_of_year.end_of_day) %>
-<% last_30_days = (30.days.ago.beginning_of_day)..(1.days.ago.end_of_day) %>
+<% yesterday = Date.yesterday.beginning_of_day..Date.yesterday.end_of_day %>
+<% this_month = Date.today.at_beginning_of_month..Date.today.at_end_of_month %>
+<% this_year = Date.today.at_beginning_of_year..Date.today.at_end_of_year %>
+<% last_month = 1.month.ago.at_beginning_of_month..1.month.ago.at_end_of_month %>
+<% last_year = 1.year.ago.at_beginning_of_year..1.year.ago.at_end_of_year %>
 <% tax = 1.2 %>
+
 <% def calc_pledges(collection)
-    funding_sum = 0
     crowd_pledges_fee = 0
     stripe_fee = 0
-    transaction_fee_percentage = 0
-    stripe_fee_percentage = 0
     collection.all.each do |pledge|
-      transaction_fee_percentage = pledge.crowd_campaign.transaction_fee_percentage
-      stripe_fee_percentage = pledge.crowd_campaign.stripe_fee_percentage
-      funding_sum += pledge.total_price
-      crowd_pledges_fee += (pledge.total_price / 100) * transaction_fee_percentage
-      stripe_fee += (pledge.total_price / 100) * stripe_fee_percentage
+      crowd_pledges_fee += (pledge.total_price / 100) * pledge.crowd_campaign.service_fee_percentage
+      stripe_fee += (pledge.total_price / 100) * 2 #pledge.crowd_campaign.stripe_fee_percentage
     end
     crowd_pledges_fee_netto = (crowd_pledges_fee / 1.2)
     platform_fee_netto = crowd_pledges_fee_netto - stripe_fee
