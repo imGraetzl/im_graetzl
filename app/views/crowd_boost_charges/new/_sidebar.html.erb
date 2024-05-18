@@ -1,0 +1,36 @@
+<div class="cardBox">
+
+  <div class="cardBoxHeader">
+    <div class="coverImgWrapper">
+      <%= link_to avatar_image(@crowd_boost_charge.crowd_boost, class: 'coverImg'), @crowd_boost_charge.crowd_boost %>
+    </div>
+    <div class="categoryicon">
+      <%= icon_tag "rocket" %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent" id="calculated-price-container">
+    <h3 class="sidebar">Zusammenfassung</h3>
+    <ul class="pricing-summary -facts"></ul>
+
+    <ul class="pricing-summary">
+      <li class="old-balance">
+        <div class="cost"><%= number_to_currency(@crowd_boost.balance.to_i, unit: "€") %></div>
+        <div class="costname">Aktuell im Topf</div>
+      </li>
+      <li class="add-amount">
+        <div class="cost"><%= number_to_currency(@crowd_boost_charge.amount.to_i, unit: "€") %></div>
+        <div class="costname">Deine Einzahlung</div>
+      </li>
+      <li class="new-balance">
+        <div class="cost"><%= number_to_currency(@crowd_boost.balance.to_i + @crowd_boost_charge.amount.to_i, unit: "€") %></div>
+        <div class="costname">
+          Neu im Topf
+          <br><small>Nach deiner Einzahlung -<br>DANKE!</small>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+</div>

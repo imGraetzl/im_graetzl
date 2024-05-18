@@ -6,14 +6,14 @@ class CrowdBoostSlot < ApplicationRecord
   has_many :crowd_boost_slot_graetzls
   has_many :graetzls, through: :crowd_boost_slot_graetzls
 
-  scope :active, -> { where("starts_at <= ?", Date.today).where("ends_at >= ?", Date.today) }
-  scope :upcoming, -> { where("starts_at > ?", Date.today) }
-  scope :expired, -> { where("ends_at < ?", Date.today) }
+  scope :open, -> { where("starts_at <= ?", Date.today).where("ends_at >= ?", Date.today).order(:starts_at) }
+  scope :active, -> { where("ends_at >= ?", Date.today).order(:ends_at) }
+  scope :expired, -> { where("ends_at < ?", Date.today).order(:ends_at) }
 
   before_destroy :can_destroy?
-  validates_presence_of :starts_at, :ends_at, :amount_limit
+  validates_presence_of :starts_at, :ends_at, :slot_amount_limit
 
-  def active?
+  def open?
     Date.today >= starts_at && Date.today <= ends_at
   end
 
@@ -30,14 +30,18 @@ class CrowdBoostSlot < ApplicationRecord
   end
 
   def balance
-    amount_limit - total_amount_pledged
+    slot_amount_limit - total_amount_pledged
   end
 
   def calculate_boost(amount)
-    if self.crowd_boost.boost_amount > 0
-      self.crowd_boost.boost_amount
+    if self.boost_amount > 0
+      self.boost_amount
     else
-      (amount / 100) * self.crowd_boost.boost_precentage
+      if ((amount / 100) * self.boost_percentage) > self.boost_percentage_amount_limit
+        self.boost_percentage_amount_limit
+      else
+        (amount / 100) * self.boost_percentage
+      end
     end
   end
 
@@ -45,12 +49,12 @@ class CrowdBoostSlot < ApplicationRecord
     slug.blank?
   end
 
-  def runtime
-    "#{I18n.localize(self.starts_at, format:'%d.%m.%y')} - #{I18n.localize(self.ends_at, format:'%d.%m.%y')}"
+  def timerange
+    "#{I18n.localize(self.starts_at, format:'%d. %B %Y')} - #{I18n.localize(self.ends_at, format:'%d. %B %Y')}"
   end
 
   def title
-    "#{self.runtime} - #{self.crowd_boost.title}"
+    "#{self.timerange} - #{self.crowd_boost.title}"
   end
 
   def to_s

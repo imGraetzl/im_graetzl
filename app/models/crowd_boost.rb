@@ -9,7 +9,7 @@ class CrowdBoost < ApplicationRecord
   has_many :crowd_boost_slots
   has_many :crowd_campaigns, through: :crowd_boost_slots
 
-  enum status: { active: 0, inactive: 1 }
+  enum status: { enabled: 0, disabled: 1 }
 
   before_destroy :can_destroy?
   validates_presence_of :title
@@ -32,6 +32,22 @@ class CrowdBoost < ApplicationRecord
 
   def to_s
     title
+  end
+
+  def next_slot(region = nil)
+    if region
+      crowd_boost_slots.in(region).active.first
+    else
+      crowd_boost_slots.active.first
+    end
+  end
+
+  def prev_slot(region = nil)
+    if region
+      crowd_boost_slots.in(region).expired.last
+    else
+      crowd_boost_slots.expired.last
+    end
   end
 
   private

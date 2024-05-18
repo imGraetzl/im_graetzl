@@ -29,17 +29,7 @@ section.info {
       }
     }
     ul {
-      padding-bottom: 15px;
-      li {
-        margin-bottom:7px;
-        @include font-size-primaryFont('large');
-        background: url(image_path('svg/icon-arrow-right-blinky-mint-dark.svg')) no-repeat left center;
-        padding-left: 45px;
-        list-style: none;
-      }
-      li:hover {
-        background: url(image_path('svg/icon-arrow-right-blinky-rosa-dark.svg')) no-repeat left center;
-      }
+      margin-bottom: 15px;
     }
 
     .introwrapper {

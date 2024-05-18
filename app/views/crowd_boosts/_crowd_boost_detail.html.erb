@@ -1,0 +1,47 @@
+<% @next_slot = crowd_boost.next_slot(current_region) %>
+
+<div class="cardBox -crowd_boost <%= @next_slot ? "-active" : "" %>" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
+  
+  <div class="cardBoxHeader">
+    <%= link_to crowd_boost do %>
+      <div class="coverImgWrapper">
+        <%= avatar_image(crowd_boost, class: 'coverImg') %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= icon_tag "rocket" %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+
+    <div class="txt">
+      <h3><%= link_to crowd_boost.title.truncate(110), crowd_boost %></h3>
+    </div>
+
+    <h4 class="facts-headline">Facts zum Booster-Topf</h4>
+
+    <div class="facts icontxt -mint">
+      <%= icon_tag "slots" %>
+      <div><%= crowd_boost.crowd_boost_slots.expired.count %> Runden bisher durchgeführt.</div>
+    </div>
+
+    <div class="facts icontxt -mint">
+      <%= icon_tag "flag" %>
+      <div><%= crowd_boost.crowd_campaigns.count %> Projekte bisher unterstützt.</div>
+    </div>
+
+    <div class="facts icontxt -mint">
+      <%= icon_tag "currency-euro" %>
+      <div><%= number_to_currency(crowd_boost.total_amount_pledged.to_i, unit: "€") %> bisher ausgeschüttet.</div>
+    </div>
+
+    <div class="facts icontxt -rosa">
+      <%= icon_tag "currency-euro" %>
+      <div><%= number_to_currency(crowd_boost.balance.to_i, unit: "€") %> aktuell im Topf.</div>
+    </div>
+
+    <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint" %>
+
+  </div>
+</div>

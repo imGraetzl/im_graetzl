@@ -10,6 +10,19 @@ class CrowdBoostCharge < ApplicationRecord
   scope :initialized, -> { where.not(payment_status: :incomplete) }
   scope :crowd_pledge, -> { where.not(crowd_pledge_id: nil) }
 
+  def self.next_invoice_number
+    where("invoice_number IS NOT NULL").count + 1
+  end
+
+  def invoice
+    bucket = Aws::S3::Resource.new.bucket('invoices.imgraetzl.at')
+    bucket.object("#{Rails.env}/crowd_boost_charges/#{invoice_number}.pdf")
+  end
+
+  def full_name
+    contact_name
+  end
+
   private
 
 end

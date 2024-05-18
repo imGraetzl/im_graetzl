@@ -196,6 +196,9 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.decimal "amount", precision: 10, scale: 2
     t.datetime "debited_at"
     t.string "contact_name"
+    t.string "address_street"
+    t.string "address_zip"
+    t.string "address_city"
     t.string "email"
     t.string "stripe_customer_id"
     t.string "stripe_payment_method_id"
@@ -204,6 +207,7 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.string "payment_card_last4"
     t.string "payment_wallet"
     t.string "region_id"
+    t.string "invoice_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "crowd_boost_id"
@@ -236,10 +240,17 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
   end
 
   create_table "crowd_boost_slots", force: :cascade do |t|
-    t.decimal "amount_limit", precision: 10, scale: 2
-    t.integer "max_campaigns"
+    t.decimal "slot_amount_limit", precision: 10, scale: 2
+    t.integer "slot_campaign_limit"
     t.date "starts_at"
     t.date "ends_at"
+    t.text "slot_description"
+    t.text "slot_terms"
+    t.integer "threshold_pledge_count", default: 0
+    t.decimal "threshold_funding_percentage", precision: 5, scale: 2
+    t.decimal "boost_amount", precision: 10, scale: 2
+    t.decimal "boost_percentage", precision: 5, scale: 2
+    t.decimal "boost_percentage_amount_limit", precision: 10, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "crowd_boost_id"
@@ -253,10 +264,6 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.string "slogan"
     t.text "description"
     t.jsonb "avatar_data"
-    t.integer "threshold_pledge_count", default: 0
-    t.decimal "threshold_funding_percentage", precision: 5, scale: 2
-    t.decimal "boost_amount", precision: 10, scale: 2
-    t.decimal "boost_precentage", precision: 5, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

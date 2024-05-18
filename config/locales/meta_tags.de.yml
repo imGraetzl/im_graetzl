@@ -458,6 +458,26 @@ de:
     details:
       title: 'Crowdfunding Untestützung - Details'
 
+  crowd_boost_charges:
+    login:
+      title: 'Topf Einzahlung - Einloggen'
+    new:
+      title: 'Topf Einzahlung - Betrag wählen'
+    choose_payment:
+      title: 'Topf Einzahlung - Zahlungsart wählen'
+    summary:
+      title: 'Topf Einzahlung - Zusammenfassung'
+    details:
+      title: 'Topf Einzahlung - Details'
+
+  crowd_boosts:
+    index:
+      title: 'Crowdfunding Booster'
+      description: '...'
+    show:
+      title: ''
+      description: ''
+
   coop_demands:
     show:
       title: '%{slogan}'

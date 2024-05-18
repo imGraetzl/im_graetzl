@@ -149,14 +149,8 @@ section.crowd_campaign {
     margin-bottom:20px;
   }
 
-  .content-block {
+  .content-block:not(.-toggable) {
     margin-bottom: 40px;
-    > h3 {
-      margin-bottom: 20px;
-    }
-    &.-toggable {
-      margin-bottom: 20px;
-    }
   }
   .imprint, .imprint p, .imprint div {
     white-space:normal;
@@ -571,10 +565,9 @@ section.crowd_campaign {
   }
 }
 
-.crowd-pledges-page {
+.crowd-pledges-page, .crowd-boost-charge-page {
   .pricing-summary li div.cost {min-width:75px;}
   .-freeamount {
-    //padding-bottom:30px;
     label {
       min-width:165px;
     }
@@ -617,7 +610,7 @@ section.crowd_campaign {
       display: none;
     }
   }
-  .-pledge-details {
+  .-pledge-details, .-charge-details {
     display: none;
   }
   .faqs {
@@ -629,16 +622,6 @@ section.crowd_campaign {
     ol {
       margin-bottom:20px;
       margin-left:20px;
-    }
-  }
-  .content-block {
-    margin-bottom: 40px;
-    > h3 {
-      @include font-size-primaryFont('base');
-      margin-bottom: 10px;
-    }
-    &.-toggable {
-      margin-bottom: 20px;
     }
   }
 
@@ -698,15 +681,6 @@ section.startcampaign {
   margin-top:-20px;
   @include respond-to(">=medium") {
     margin-top:-58px;
-  }
-
-  .content-block {
-    > h3 {
-      margin-bottom: 20px;
-    }
-    &.-toggable {
-      margin-bottom: 20px;
-    }
   }
 
   .paperCard.video {

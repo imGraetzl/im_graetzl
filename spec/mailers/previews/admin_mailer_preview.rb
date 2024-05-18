@@ -12,4 +12,8 @@ class AdminMailerPreview < ActionMailer::Preview
   def new_room_booster
     AdminMailer.new_room_booster(RoomBooster.last)
   end
+
+  def new_crowd_boost_charge
+    AdminMailer.new_crowd_boost_charge(CrowdBoostCharge.last)
+  end
 end

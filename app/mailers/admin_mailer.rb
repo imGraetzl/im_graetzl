@@ -33,6 +33,17 @@ class AdminMailer < ApplicationMailer
     )
   end
 
+  def new_crowd_boost_charge(crowd_boost_charge)
+    @crowd_boost_charge = crowd_boost_charge
+    @region = @crowd_boost_charge.region
+
+    mail(
+      subject: "[#{@region.host_domain_name}] CrowdBoost Aufladung für #{@crowd_boost_charge.crowd_boost}",
+      from: platform_email("no-reply"),
+      to: platform_email("wir"),
+    )
+  end
+
   def new_region_call(region_call)
     @region_call = region_call
     @region = Region.get('kaernten')

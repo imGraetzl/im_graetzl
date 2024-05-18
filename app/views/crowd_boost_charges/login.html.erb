@@ -7,12 +7,12 @@
 
   <div class="col-content">
     <section class="login">
-      <%= render 'shared/login_panel_content', redirect: request.referrer, origin: request.referrer %>
+      <%= render 'shared/login_panel_content', redirect: new_crowd_boost_crowd_boost_charge_url(@crowd_boost, amount:params[:amount]), origin: request.referrer %>
     </section>
   </div>
 
   <div class="col-sidebar">
-    <%= render @crowd_boost %>
+    <%= render 'crowd_boost_charges/new/sidebar' %>
   </div>
 
 </section>

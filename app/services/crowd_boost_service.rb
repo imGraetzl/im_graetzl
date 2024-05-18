@@ -14,7 +14,8 @@ class CrowdBoostService
         type: 'CrowdBoostCharge',
         crowd_boost_charge_id: crowd_boost_charge.id,
         crowd_boost_charge_amount: (crowd_boost_charge.amount * 100).to_i,
-        crowd_boost_id: crowd_boost_charge.crowd_boost.id
+        crowd_boost_id: crowd_boost_charge.crowd_boost.id,
+        region_id: crowd_boost_charge.region_id
       },
     )
   end
@@ -39,9 +40,9 @@ class CrowdBoostService
   def payment_succeeded(crowd_boost_charge, payment_intent)
     crowd_boost_charge.update(payment_status: 'debited', debited_at: Time.current)
 
-    #generate_invoice(crowd_boost_charge)
-    #CrowdBoostMailer.crowd_boost_charge_invoice(crowd_boost_charge).deliver_later(wait: 1.minute)
-    #AdminMailer.new_crowd_boost_charge(crowd_boost_charge).deliver_later
+    generate_invoice(crowd_boost_charge)
+    CrowdBoostMailer.crowd_boost_charge_invoice(crowd_boost_charge).deliver_later(wait: 1.minute)
+    AdminMailer.new_crowd_boost_charge(crowd_boost_charge).deliver_later
 
     { success: true }
   end
@@ -82,9 +83,9 @@ class CrowdBoostService
   end
 
   def generate_invoice(crowd_boost_charge)
-    invoice_number = "#{Date.current.year}_CrowdBoostCharge-#{crowd_boost_charge.id}_Nr-#{CrowdBoostCharge.next_invoice_number}"
+    invoice_number = "#{Date.current.year}_CrowdBoostCharge_#{crowd_boost_charge.id}_#{CrowdBoostCharge.next_invoice_number}"
     crowd_boost_charge.update(invoice_number: invoice_number)
-    crowd_boost_charge_invoice = RoomBoosterInvoice.new.invoice(crowd_boost_charge)
+    crowd_boost_charge_invoice = CrowdBoostInvoice.new.invoice(crowd_boost_charge)
     crowd_boost_charge.invoice.put(body: crowd_boost_charge_invoice)
   end
 

@@ -44,7 +44,7 @@
   &.weekly, &.authorized, &.refunded, &.boost_authorized {
     background: LightBlue;
   }
-  &.vacancy, &.daily, &.processing, &.boost_allowed {
+  &.vacancy, &.daily, &.processing, &.boost_approved {
     background: LightSeaGreen;
   }
   &.draft {

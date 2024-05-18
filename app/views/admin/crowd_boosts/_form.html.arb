@@ -6,10 +6,6 @@ active_admin_form_for [:admin, resource] do |f|
     input :slug if f.object.new_record?
     input :slogan
     input :description
-    input :threshold_pledge_count
-    input :threshold_funding_percentage
-    input :boost_amount
-    input :boost_precentage
     input :avatar, as: :file, hint: f.object.avatar && image_tag(f.object.avatar_url(:thumb))
     input :remove_avatar, as: :boolean if f.object.avatar
   end

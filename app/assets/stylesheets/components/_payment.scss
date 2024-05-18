@@ -31,6 +31,17 @@
     }
   }
 
+  .collapsed {
+    display: none;
+  }
+  .subtitle {
+    @include font-size-secondaryFont('small');
+    font-weight:bold;
+  }
+  .registerhint {
+    margin-top: 7px;
+  }
+
   .col-content {
     width:100%;
     margin-bottom:40px;
@@ -62,6 +73,12 @@
     }
     .input-field, .input-textarea, .input-select {
       margin-bottom: 15px;
+    }
+    .btn-primary {
+      margin-left:auto
+    }
+    a.btn-primary {
+      display: table;
     }
   }
 
@@ -143,13 +160,6 @@
     text-align: center;
     padding-top: 15px;
     color: red;
-  }
-
-  .btn-primary {
-    margin-left:auto
-  }
-  a.btn-primary {
-    display: table;
   }
 
   .footer-txt {

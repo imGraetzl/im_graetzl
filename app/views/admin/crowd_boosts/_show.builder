@@ -9,10 +9,6 @@ context.instance_eval do
           row :title
           row :slogan
           row :description
-          row :threshold_pledge_count
-          row :threshold_funding_percentage
-          row :boost_amount
-          row :boost_precentage
           row :avatar do |l|
             l.avatar && image_tag(l.avatar_url(:thumb))
           end
@@ -33,7 +29,7 @@ context.instance_eval do
       panel 'CrowdBoostSlots' do
         table_for crowd_boost.crowd_boost_slots do
           column :id
-          column(:active){|b| b.active?}
+          column(:open){|b| b.open?}
           column :starts_at
           column :ends_at
           column(''){|b| link_to 'Boost Slot Anzeigen', admin_crowd_boost_slot_path(b) }

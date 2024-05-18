@@ -104,6 +104,11 @@ class WebhooksController < ApplicationController
       room_booster = RoomBooster.find_by(id: payment_intent.metadata.room_booster_id)
       RoomBoosterService.new.payment_failed(room_booster, payment_intent) if room_booster
     end
+
+    if payment_intent.metadata["crowd_boost_charge_id"]
+      crowd_boost_charge = CrowdBoostCharge.find_by(id: payment_intent.metadata.crowd_boost_charge_id)
+      CrowdBoostService.new.payment_failed(crowd_boost_charge, payment_intent) if crowd_boost_charge
+    end
   end
 
   def subscription_updated(object)
@@ -185,12 +190,17 @@ class WebhooksController < ApplicationController
     elsif charge.invoice
       invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
       SubscriptionService.new.invoice_refunded(invoice, charge) if invoice
-    end
 
-    if charge.metadata["zuckerl_id"]
+    elsif charge.metadata["zuckerl_id"]
       zuckerl = Zuckerl.find_by(id: charge.metadata.zuckerl_id)
       ZuckerlService.new.payment_refunded(zuckerl) if zuckerl
+
+    elsif charge.metadata["crowd_boost_charge_id"]
+      crowd_boost_charge = CrowdBoostCharge.find_by(id: charge.metadata.crowd_boost_charge_id)
+      CrowdBoostService.new.payment_refunded(crowd_boost_charge) if crowd_boost_charge
+
     end
+
   end
 
 end

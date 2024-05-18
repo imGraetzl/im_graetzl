@@ -22,17 +22,17 @@
       </div>
 
       <div class="flex-table" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Unterstützes Projekt</strong></div>
+        <div class="flex-row xxlarge" role="cell"><strong>CrowdBoost</strong></div>
         <div class="flex-row xxxlarge" role="cell"><%= link_to @crowd_boost_charge.crowd_boost.title, @crowd_boost_charge.crowd_boost, target: '_blank' %></div>
       </div>
 
       <div class="flex-table row" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungsdatum</strong></div>
+        <div class="flex-row xxlarge" role="cell"><strong>Datum</strong></div>
         <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_boost_charge.created_at, format:'%a, %d. %B %Y, %H:%M') %></div>
       </div>
 
       <div class="flex-table row" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungsbetrag</strong></div>
+        <div class="flex-row xxlarge" role="cell"><strong>Betrag</strong></div>
         <div class="flex-row xxxlarge" role="cell"><%= number_to_currency(@crowd_boost_charge.amount, unit: "€") %></div>
       </div>
 
@@ -45,18 +45,20 @@
       <div class="table-container -light" role="table">
 
         <div class="flex-table header" role="rowgroup">
-          <div class="flex-row full first" role="columnheader">Unterstützungsdetails</div>
+          <div class="flex-row full first" role="columnheader">Einzahlungsdetails</div>
         </div>
 
         <div class="flex-table" role="rowgroup">
           <div class="flex-row xxlarge" role="cell"><strong>Deine Daten</strong></div>
           <div class="flex-row xxxlarge" role="cell">
             <%= @crowd_boost_charge.contact_name %><br>
+            <%= @crowd_boost_charge.address_street if @crowd_boost_charge.address_street.present? %><br>
+            <%= @crowd_boost_charge.address_zip if @crowd_boost_charge.address_zip.present? %> <%= @crowd_boost_charge.address_city if @crowd_boost_charge.address_city.present? %>
           </div>
         </div>
 
         <div class="flex-table row" role="rowgroup">
-          <div class="flex-row xxlarge" role="cell"><strong>Unterstützungs-ID</strong></div>
+          <div class="flex-row xxlarge" role="cell"><strong>Einzahlungs-ID</strong></div>
           <div class="flex-row xxxlarge" role="cell"><%= @crowd_boost_charge.id %></div>
         </div>
 
@@ -85,19 +87,17 @@
     </div>
 
     <div class="faqs">
-      <div class="content-block -toggable">
-        <h3>Wann kann ich eine Rechnung für meine Aufladung bekommen?</h3>
+      <div class="content-block -toggable -small">
+        <h3>Bekomme ich eine MwSt. Rechnung für meine Aufladung?</h3>
         <div class="-toggle-content">
-          <p>Die Rechnung für dein Dankeschön bekommst du: </p>
-          <p>wenn das unterstützte Projekt berechtigt ist Rechnungen oder Spendenquittungen auszustellen, diese Information findest du auf ihrer Kampagnenseite.</p>
-          <p>Sobald die Kampagne erfolgreich abgeschlossen ist und die Dankeschöns versendet werden, solltest du die Rechnung oder Spendenquittung von den Starter*innen bekommen, wenn sie diese Berechtigung haben. Die Rechnung wird entweder per Mail versendet oder liegt den Dankeschöns bei.</p>
+          <p>Du kannst einen Zahlungsbeleg für deine Einzahlung downloaden. Hiebei handelt es sich aber nicht um eine MwSt. Rechnung.</p>
         </div>
       </div>
-      <div class="content-block -toggable">
+      <div class="content-block -toggable -small">
         <h3>Wie sieht die Abbuchung auf meiner Kreditkarte / meinem Konto aus?</h3>
         <div class="-toggle-content">
           <p>Bei <strong>Kreditkartenzahlungen</strong> erscheint die Abbuchung mit folgendem Buchungstext:<br>
-            <em><%= "#{@crowd_boost_charge.region.host_id} Crowdfunding".upcase %></em>
+            <em><%= "#{@crowd_boost_charge.region.host_id} CrowdBoost".upcase %></em>
           </p>
           <p>Bei <strong>Zahlungen mittels Bankeinzug</strong> erscheint die Abbuchung mit folgendem Buchungstext:
             <em>PPRO Payment Services S.A. (<%= @crowd_boost_charge.region.host_domain_name.upcase %> by Stripe via PPRO)</em>
@@ -110,6 +110,10 @@
 
   <div class="col-sidebar">
     <%= render @crowd_boost %>
+    <br>
+    <%= link_to "Download Zahlungsbeleg", @crowd_boost_charge.invoice.presigned_url(:get), class: 'btn-secondary -mint -small' if @crowd_boost_charge.invoice_number.present? %>
+    <br>
+    <%= link_to 'Zahlung abschließen', choose_payment_crowd_boost_charge_url(@crowd_boost_charge), class: 'btn-secondary -small' if @crowd_boost_charge.failed? %>
   </div>
 
 </section>

@@ -8,18 +8,21 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
       t.string "slogan"
       t.text "description"
       t.jsonb "avatar_data"
-      t.integer "threshold_pledge_count", default: 0
-      t.decimal "threshold_funding_percentage", precision: 5, scale: 2
-      t.decimal "boost_amount", precision: 10, scale: 2
-      t.decimal "boost_precentage", precision: 5, scale: 2
       t.timestamps
     end
 
     create_table :crowd_boost_slots do |t|
-      t.decimal "amount_limit", precision: 10, scale: 2
-      t.integer "max_campaigns"
+      t.decimal "slot_amount_limit", precision: 10, scale: 2
+      t.integer "slot_campaign_limit"
       t.date "starts_at"
       t.date "ends_at"
+      t.text "slot_description"
+      t.text "slot_terms"
+      t.integer "threshold_pledge_count", default: 0
+      t.decimal "threshold_funding_percentage", precision: 5, scale: 2
+      t.decimal "boost_amount", precision: 10, scale: 2
+      t.decimal "boost_percentage", precision: 5, scale: 2
+      t.decimal "boost_percentage_amount_limit", precision: 10, scale: 2
       t.timestamps
       t.references :crowd_boost, foreign_key: { on_delete: :cascade }, index: true
     end
@@ -43,6 +46,9 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
       t.decimal "amount", precision: 10, scale: 2
       t.datetime "debited_at"
       t.string "contact_name"
+      t.string "address_street"
+      t.string "address_zip"
+      t.string "address_city"  
       t.string "email"
       t.string "stripe_customer_id"
       t.string "stripe_payment_method_id"
@@ -51,6 +57,7 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
       t.string "payment_card_last4"
       t.string "payment_wallet"
       t.string "region_id"
+      t.string "invoice_number"
       t.timestamps
       t.references :crowd_boost, foreign_key: { on_delete: :nullify }, index: true
       t.references :user, foreign_key: { on_delete: :nullify }, index: true

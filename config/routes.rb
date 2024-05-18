@@ -294,9 +294,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :crowd_boosts, only: [:index, :show], path: 'crowd-booster' do
+  resources :crowd_boosts, only: [:index, :show], path: 'crowdfunding-booster' do
     resources :crowd_boost_charges, only: [:new, :create], path: 'charge' do
       get 'login', on: :collection
+      post 'calculate_price', on: :collection
     end
   end
 

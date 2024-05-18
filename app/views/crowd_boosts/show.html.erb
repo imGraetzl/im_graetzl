@@ -1,8 +1,67 @@
-<h3><%= @crowd_boost.title %></h3>
+<section class="crowd_boost">
 
-<% @crowd_boost.crowd_boost_slots.active.each do |slot| %>
-  <div><%= slot.runtime %></div>
-<% end %>
+  <div class="introcontainer">
+    <div class="introtxt">
 
-  <%= link_to "Charge Boost", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary" %>
+      <div class="hl-subtext">
+        <h1><em><%= @crowd_boost.title %></em></h1>
+        <p><%= @next_slot ? @next_slot.slot_description : @crowd_boost.slogan %></p>
+      </div>
+
+      <% if @next_slot %>
+
+        <div class="cardBox slotBox">          
+          <ul class="list-arrow -rosa">
+            <li><strong>Einreichzeitraum:</strong> <%= @next_slot.timerange %></li>
+            <li>
+              <strong>Crowdfunding Boost:</strong>
+              <% if @next_slot.boost_amount? %>
+                <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Extra-Boost für dein Projekt
+              <% else %>
+                Bis zu <%= @next_slot.boost_percentage.to_i %>% Extra-Boost für dein Projekt
+              <% end %>
+            </li>
+          </ul>
+          <div class="badge -small"><div class="inner">Neue<br>Runde!</div></div>
+        </div>
+
+        <div class="content-block -toggable">
+          <h3>So nimmst du teil</h3>
+          <div class="-toggle-content">
+            <ul>
+              <li><%= link_to 'Starte deine Crowdfunding-Kampagne', new_crowd_campaign_path %> und wähle im Kampagnen-Setup aus, dass du beim "<%= @crowd_boost.title %>" dabei sein möchtest. (Ab <%= I18n.localize(@next_slot.starts_at, format:'%d. %b %Y') %> verfügbar.)</li>
+              <li>Nachdem du deine Kampagne zur Freischaltung eingereicht hast, prüfen wir dein Projekt und geben Bescheid, ob du zum Booster zugelassen wurdest.</li>
+              <li>
+                Ab <%= I18n.localize(@next_slot.ends_at + 1, format:'%e. %B %Y') %> kann deine Kampagne online gehen. Sobald deine Crowdfunding Kampagne <%= @next_slot.threshold_funding_percentage.to_i %>% des Finanzierungsziels mit mindestens <%= @next_slot.threshold_pledge_count %> Unterstützer*innen erreicht hat, 
+                <% if @next_slot.boost_amount? %>
+                  bekommst du aus dem Booster-Topf weitere <strong><%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %></strong> zugesagt.
+                <% else %>
+                  bekommst du aus dem Booster-Topf weitere <strong><%= @next_slot.boost_percentage.to_i %>%</strong> zugesagt. (<strong>max <%= number_to_currency(@next_slot.boost_percentage_amount_limit.to_i, unit: "€") %></strong>)
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-block -toggable">
+          <h3>Teilnahmebedingungen</h3>
+          <div class="-toggle-content bbcode"><%= @next_slot.slot_terms.bbcode_to_html.html_safe %></div>
+        </div>
+
+      <% end %>
+      
+      <div class="content-block -toggable">
+        <h3>„<%= @crowd_boost.title %>“ - Allgemeine Infos</h3>
+        <div class="-toggle-content bbcode"><%= @crowd_boost.description %></div>
+      </div>
+
+    </div>
+
+    <div class="introSide">
+      <%= render 'crowd_boosts/crowd_boost_detail', crowd_boost: @crowd_boost %>
+    </div>
+    
+
+  </div>
+
+
 

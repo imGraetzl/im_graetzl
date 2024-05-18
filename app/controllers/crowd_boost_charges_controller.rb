@@ -1,5 +1,5 @@
 class CrowdBoostChargesController < ApplicationController
-  before_action :load_crowd_boost, only: [:new, :create, :login]
+  before_action :load_crowd_boost, only: [:new, :create, :login, :calculate_price]
 
   def new
     @crowd_boost_charge = @crowd_boost.crowd_boost_charges.build(initial_charge_params)
@@ -23,10 +23,15 @@ class CrowdBoostChargesController < ApplicationController
     @crowd_boost_charge = @crowd_boost.crowd_boost_charges.build(initial_charge_params)
   end
 
+  def calculate_price
+    head :ok and return if browser.bot? && !request.format.js?
+    @crowd_boost_charge = @crowd_boost.crowd_boost_charges.build(initial_charge_params)
+  end
+
   def choose_payment
     @crowd_boost_charge = CrowdBoostCharge.find(params[:id])
     @crowd_boost = @crowd_boost_charge.crowd_boost
-    redirect_to [:summary, @crowd_boost_charge] and return if !@crowd_boost_charge.incomplete?
+    redirect_to [:summary, @crowd_boost_charge] and return if !(@crowd_boost_charge.incomplete? || @crowd_boost_charge.failed?)
     @payment_intent = CrowdBoostService.new.create_payment_intent(@crowd_boost_charge)
   end
 
@@ -72,6 +77,9 @@ class CrowdBoostChargesController < ApplicationController
     {
       email: current_user.email,
       contact_name: current_user.full_name,
+      address_street: current_user.address_street,
+      address_zip: current_user.address_zip,
+      address_city: current_user.address_city,
     }
   end
 

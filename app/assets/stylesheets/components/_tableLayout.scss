@@ -12,8 +12,13 @@ $row-hover-bg : $color-ambient-mint-light;
 
 .table-container {
 
-  line-height: 1.5;
+  @include font-size-primaryFont('small');
+  &.-base {
+    @include font-size-primaryFont('base');
+  }
 
+  line-height: 1.5;
+  
   a {
     color: $color-ambient-mint-dark;
     text-decoration: none;
@@ -50,10 +55,8 @@ $row-hover-bg : $color-ambient-mint-light;
   }
 
   .flex-row {
-    @include font-size-primaryFont('small');
     display: flex;
     align-items: center;
-    //justify-content: left;
     padding:5px 10px 5px 10px;
     border-right: solid 1px $table-border;
     border-bottom: solid 1px $table-border;
@@ -130,20 +133,6 @@ $row-hover-bg : $color-ambient-mint-light;
     }
   }
 
-  .header {
-    .flex-row {
-      //justify-content: center;
-    }
-  }
-
-  .rowspan {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    justify-content: center;
-  }
-
-
   // Begin - For nested Rows only!
   // See: https://medium.com/@snowleo208/how-to-create-responsive-table-d1662cb62075
   .column {
@@ -164,16 +153,6 @@ $row-hover-bg : $color-ambient-mint-light;
       }
     }
   }
-  .flex-cell {
-    width: 33%; //1px = border right
-    text-align: center;
-    padding: 0.5em 0.5em;
-    border-right: solid 1px $table-border;
-    //flex: 1 1 33.3%;
-    &:last-child {
-      // border-right: 0;
-    }
-  }
   // END Nested Rows
 
 
@@ -182,7 +161,6 @@ $row-hover-bg : $color-ambient-mint-light;
 
     .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large, .flex-row.xlarge {
       width: 50%; //1px = border right
-      //justify-content: center;
     }
     .column, .flex-row.xxlarge, .flex-row.xxxlarge {
       width: 100%;
@@ -211,7 +189,6 @@ $row-hover-bg : $color-ambient-mint-light;
 
     .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large, .flex-row.xlarge, .flex-row.xxlarge, .flex-row.xxxlarge {
       width: 100%; //1px = border right
-      //justify-content: center;
     }
 
     .column {
@@ -221,8 +198,11 @@ $row-hover-bg : $color-ambient-mint-light;
       }
     }
 
-    .flex-cell {
-      width: 100%; //1px = border right
+  }
+
+  &.-borderless {
+    .flex-table, .flex-row {
+      border:none;
     }
   }
 

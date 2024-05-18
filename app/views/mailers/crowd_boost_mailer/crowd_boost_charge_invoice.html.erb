@@ -1,0 +1,112 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_boost_charge.contact_name %>,
+        </p>
+        <p>
+          <strong>vielen Dank dür deine Aufladung von <%= link_to @crowd_boost_charge.crowd_boost.title, crowd_boost_url(@crowd_boost_charge.crowd_boost), style: "color:#ec776a; font-weight:bold;" %>.</strong>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:10px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Deine Einzahlung:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+         <table>
+
+           <tr>
+             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_boost_charge.amount, unit: "€") %></strong></td>
+             <td>Einzahlung</td>
+           </tr>
+
+         </table>
+
+       </td>
+     </tr>
+   </tbody>
+ </table>
+
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+    <tr>
+      <td style="height:10px"> </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+          Deine Daten:
+        </h4>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:9px; padding-right:9px;">
+        <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td>
+              <span></span>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+    <tbody>
+      <tr>
+        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+          <strong><%= @crowd_boost_charge.contact_name %><br></strong>
+          <%= @crowd_boost_charge.address_street %><br>
+          <%= @crowd_boost_charge.address_zip %> <%= @crowd_boost_charge.address_city %>
+
+          <br><br>
+          <strong>Zahlungs-ID: </strong><%= @crowd_boost_charge.id %>
+          <br><br>
+
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= render 'mailers/shared/button', title: "Zu den Einzahlungsssdetails", url: details_crowd_boost_charge_url(@crowd_boost_charge) %>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+          <p>
+            Liebe Grüße,<br>
+            dein Team von <%= t("region.#{@crowd_boost_charge.region.id}.domain_full") %><br>
+          </p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>

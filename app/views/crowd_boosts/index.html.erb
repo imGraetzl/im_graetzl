@@ -1,5 +1,55 @@
-<h3>Crowd Boost Übersicht</h3>
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+  )
+%>
 
-<% @crowd_boosts.each do |boost| %>
-  <div><%= link_to boost.title, boost %> (<%= boost.status %>)</div>
-<% end %>
+<section class="info crowd-boost-page">
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1>Crowdfunding</h1>
+      <h1>Kampagnen Booster</h1>
+    </div>
+  </div>
+
+  <div class="paperCard -cord1RT -header -top">
+    <div class="wrp introwrapper">
+      <div>
+        <p><strong>Com on! Lets füllt die Töpfe! Her mit dem Zaster!</strong></p>
+        <p>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </p>
+      </div>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <div class="content-main">
+    <div class="hl-subtext">
+      <h1>Aktuelle Töpfe</h1>
+      <p>Folgende Töpfe sind grad super sauber unterwegs - Mach mit!</p>
+    </div>
+    <div class="cardBoxCollection -tripple -meetings">
+      <% @crowd_boosts.each do |crowd_boost| %>
+        <%= render crowd_boost %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="content-wide">
+    <div class="inner">
+      <h3>Wusstest du, dass...</h3>
+      <ul class="list-arrow -large">
+        <li>Du selber super sauber in einen Topf einzahlen kannst.</li>
+        <li>Du dich auf einen Topf bewerben kannst und schon gehts Ramba-Zamba.</li>
+        <li>Du selbst einen Topf als Sponsoring-Partner starten kannst.</li>
+        <li>Unsere Crowdfundings eine Erfolgsquote von 80% haben.</li>
+      </ul>
+    </div>
+  </div>
+
+</section>

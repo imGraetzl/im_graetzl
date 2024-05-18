@@ -4,35 +4,44 @@ context.instance_eval do
       panel 'Einzahlungs Details' do
         attributes_table_for crowd_boost_charge do
           row :user
+          row :contact_name
           row :Details do
-            link_to('User Unterstützungsdetail Seite','/crowd-boost-charge/'+crowd_boost_charge.id+'/details', target: 'blank')
+            link_to('User Einzahlungsdetail Seite','/crowd-boost-charge/'+crowd_boost_charge.id+'/details', target: 'blank')
           end
+          row :id
+          row :amount
           row(:status){|r| status_tag(r.payment_status)}
           row :debited_at
-          row :amount
+          row :created_at
         end
       end
     end
     column do
-      panel 'Einzahlung' do
+      panel 'Einzahlung in den Topf' do
         attributes_table_for crowd_boost_charge do
           row :crowd_boost
-          row :id
-          row :email
-          row :contact_name
-          row :user
-          row :created_at
-          row :updated_at
+          row :region_id
         end
       end
     end
   end
+
+  if crowd_boost_charge.invoice_number?
+    panel 'Beleg' do
+      attributes_table_for crowd_boost_charge do
+        row :invoice_number
+        row(:invoice) { |r| link_to "PDF", r.invoice.presigned_url(:get) }
+      end
+    end
+  end
+
   panel 'Kontaktdaten' do
     attributes_table_for crowd_boost_charge do
       row :contact_name
-      #row :address_street
-      #row :address_zip
-      #row :address_city
+      row :email
+      row :address_street
+      row :address_zip
+      row :address_city
     end
   end
 
