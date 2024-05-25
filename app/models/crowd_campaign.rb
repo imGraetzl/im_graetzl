@@ -82,7 +82,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def payment_close_date
-    enddate + 10.days
+    enddate + 12.days
   end
 
   def payment_closed?
