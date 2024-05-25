@@ -38,7 +38,7 @@ namespace :scheduled do
   task crowd_campaigns_guest_newsletter: :environment do
     
     scheduled_sending_dates = [
-      '2024-04-27', '2024-05-25', '2024-06-15', '2024-07-06', '2024-07-27'
+      '2024-05-25', '2024-06-15', '2024-07-06', '2024-07-27', '2024-08-17'
     ]
 
     send_date_today = nil
@@ -55,15 +55,13 @@ namespace :scheduled do
     if send_date_today
       crowd_campaigns = CrowdCampaign.guest_newsletter.where(enddate: send_date_today..send_date_next)
       if crowd_campaigns.any?
-        Region.all.each do |region|
-          if crowd_campaigns.in(region).any? || crowd_campaigns.platform.any?
-            CrowdPledge.guest_newsletter_recipients.in(region).each do |pledge|
-              CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(region).or(crowd_campaigns.platform).map(&:id)).deliver_later
-            end
-          end
+        CrowdPledge.guest_newsletter_recipients.each do |pledge|
+          next unless (crowd_campaigns.in(pledge.region).any? || crowd_campaigns.platform.any?)
+          CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(pledge.region).or(crowd_campaigns.platform).map(&:id)).deliver_later
         end
       end
     end
+    
   end
 
 end
