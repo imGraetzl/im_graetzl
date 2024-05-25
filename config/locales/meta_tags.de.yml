@@ -463,6 +463,8 @@ de:
       title: 'Topf Einzahlung - Einloggen'
     new:
       title: 'Topf Einzahlung - Betrag wählen'
+    choose_region:
+      title: 'Topf Einzahlung - Region wählen'
     choose_payment:
       title: 'Topf Einzahlung - Zahlungsart wählen'
     summary:

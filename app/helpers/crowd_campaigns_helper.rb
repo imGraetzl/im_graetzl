@@ -69,6 +69,14 @@ module CrowdCampaignsHelper
     ]
   end
 
+  def available_slots_for(campaign)
+    if campaign&.boost_status? && campaign&.crowd_boost_slot_id
+      CrowdBoostSlot.where(id: campaign&.crowd_boost_slot_id).map{|g| [g.title, g.id]}
+    else
+      CrowdBoostSlot.in(current_region).open.map{|g| [g.title, g.id]}
+    end
+  end
+
   def campaign_remaining_time(campaign)
     if campaign.remaining_days > 2
       return [campaign.remaining_days, "Tage"]

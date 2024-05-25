@@ -1,9 +1,18 @@
 class CrowdBoostChargesController < ApplicationController
-  before_action :load_crowd_boost, only: [:new, :create, :login, :calculate_price]
+  before_action :load_crowd_boost, only: [:new, :choose_region, :create, :login, :calculate_price]
 
   def new
     @crowd_boost_charge = @crowd_boost.crowd_boost_charges.build(initial_charge_params)
     @crowd_boost_charge.assign_attributes(current_user_params) if current_user
+
+    unless @crowd_boost.chargeable?
+      flash[:notice] = "Sorry, aktuell ist eine Einzahlung in diesen Topf nicht möglich."
+      redirect_to @crowd_boost
+    end
+
+    unless current_region
+      render :choose_region, layout: 'platform'
+    end
   end
 
   def create
@@ -17,6 +26,10 @@ class CrowdBoostChargesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def choose_region
+    @crowd_boost_charge = @crowd_boost.crowd_boost_charges.build(initial_charge_params)
   end
 
   def login

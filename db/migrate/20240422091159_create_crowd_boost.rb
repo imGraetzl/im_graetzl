@@ -3,10 +3,12 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
 
     create_table :crowd_boosts do |t|
       t.integer "status", default: 0
+      t.string "chargeable_status"
       t.string "slug"
       t.string "title"
       t.string "slogan"
       t.text "description"
+      t.text "charge_description"
       t.jsonb "avatar_data"
       t.timestamps
     end

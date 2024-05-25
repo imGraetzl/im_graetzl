@@ -259,10 +259,12 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
 
   create_table "crowd_boosts", force: :cascade do |t|
     t.integer "status", default: 0
+    t.string "chargeable_status"
     t.string "slug"
     t.string "title"
     t.string "slogan"
     t.text "description"
+    t.text "charge_description"
     t.jsonb "avatar_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

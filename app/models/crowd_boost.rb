@@ -10,9 +10,14 @@ class CrowdBoost < ApplicationRecord
   has_many :crowd_campaigns, through: :crowd_boost_slots
 
   enum status: { enabled: 0, disabled: 1 }
+  string_enum chargeable_status: ["charge_enabled", "charge_call"]
 
   before_destroy :can_destroy?
   validates_presence_of :title
+
+  def chargeable?
+    charge_enabled? || charge_call?
+  end
 
   def total_amount_charged
     self.crowd_boost_charges.debited.sum(:amount)

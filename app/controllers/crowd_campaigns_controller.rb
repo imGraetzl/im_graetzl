@@ -376,6 +376,7 @@ class CrowdCampaignsController < ApplicationController
         :location_id, :room_offer_id,
         :graetzl_id, :address_street, :address_coords, :address_city, :address_zip, :address_description,
         :cover_photo, :remove_cover_photo, :video, :avatar, :remove_avatar,
+        :crowd_boost_slot_id,
         images_attributes: [:id, :file, :_destroy],
         crowd_rewards_attributes: [
           :id, :amount, :limit, :title, :description, :delivery_weeks, :delivery_address_required, :question, :avatar, :remove_avatar, :_destroy

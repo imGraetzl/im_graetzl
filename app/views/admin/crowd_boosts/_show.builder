@@ -6,9 +6,11 @@ context.instance_eval do
         attributes_table_for crowd_boost do
           row :id
           row(:status){|b| status_tag(b.status)}
+          row(:chargeable_status){|b| status_tag(b.chargeable_status)}
           row :title
           row :slogan
           row :description
+          row :charge_description
           row :avatar do |l|
             l.avatar && image_tag(l.avatar_url(:thumb))
           end

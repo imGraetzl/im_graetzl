@@ -41,7 +41,7 @@
       <div><%= number_to_currency(crowd_boost.balance.to_i, unit: "€") %> aktuell im Topf.</div>
     </div>
 
-    <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint" %>
+    <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint" if crowd_boost.chargeable? %>
 
   </div>
 </div>

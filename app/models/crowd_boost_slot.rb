@@ -17,10 +17,6 @@ class CrowdBoostSlot < ApplicationRecord
     Date.today >= starts_at && Date.today <= ends_at
   end
 
-  def available?
-
-  end
-
   def total_amount_initialized
     self.crowd_boost_pledges.initialized.sum(:amount)
   end
