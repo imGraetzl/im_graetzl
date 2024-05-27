@@ -5,6 +5,13 @@ context.instance_eval do
       panel 'Basic Details' do
         attributes_table_for crowd_boost do
           row :id
+          row :region_ids do |b|
+            safe_join(
+              b.region_ids.map do |region|
+                content_tag(:span, Region.get(region)) + ', '
+              end
+            )
+          end
           row(:status){|b| status_tag(b.status)}
           row(:chargeable_status){|b| status_tag(b.chargeable_status)}
           row :title

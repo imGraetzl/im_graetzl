@@ -32,6 +32,7 @@ class CrowdBoostService
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
+      payment_status: 'authorized',
     )
 
     true

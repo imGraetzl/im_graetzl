@@ -9,7 +9,7 @@
       <br>
       Vielen Dank für deine Einzahlung von <%= number_to_currency(@crowd_boost_charge.amount.to_i, unit: "€") %>.<br>
       Neuer Stand im Topf nach deiner Einzahlung:<br>
-      <strong>- <%= number_to_currency(@crowd_boost.balance.to_i, unit: "€") %> -</strong>
+      <strong>- <%= number_to_currency(@crowd_boost.balance_expected.to_i, unit: "€") %> -</strong>
     </p>
   </div>
 

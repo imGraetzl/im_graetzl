@@ -9,6 +9,6 @@ context.instance_eval do
   column :boost_percentage
   column(:balance){|b| b.balance}
   column(:pledges){|b| b.crowd_boost_pledges.count}
-  column(:campaigns){|b| b.crowd_campaigns.count}
+  #column(:campaigns){|b| b.crowd_campaigns.boost_initialized.count}
   actions
 end

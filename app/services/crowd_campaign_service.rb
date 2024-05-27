@@ -16,9 +16,17 @@ class CrowdCampaignService
       campaign.crowd_donation_pledges.find_each do |pledge|
         CrowdCampaignMailer.crowd_donation_pledge_success(pledge).deliver_later
       end
+      if campaign.boost_authorized?
+        campaign.crowd_boost_pledges.authorized.update_all(status: 'debited')
+        campaign.update(boost_status: 'boost_debited')
+      end
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else
       campaign.crowd_pledges.authorized.update_all(status: 'canceled')
+      if campaign.boost_authorized?
+        campaign.crowd_boost_pledges.authorized.update_all(status: 'canceled')
+        campaign.update(boost_status: 'boost_cancelled')
+      end
       CrowdCampaignMailer.completed_unsuccessful(campaign).deliver_later
     end
   end

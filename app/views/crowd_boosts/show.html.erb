@@ -36,7 +36,7 @@
                 <% if @next_slot.boost_amount? %>
                   bekommst du aus dem Booster-Topf weitere <strong><%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %></strong> zugesagt.
                 <% else %>
-                  bekommst du aus dem Booster-Topf weitere <strong><%= @next_slot.boost_percentage.to_i %>%</strong> zugesagt. (<strong>max <%= number_to_currency(@next_slot.boost_percentage_amount_limit.to_i, unit: "€") %></strong>)
+                  bekommst du aus dem Booster-Topf weitere <strong><%= @next_slot.boost_percentage.to_i %>%</strong> zugesagt. (<strong>max <%= number_to_currency(@next_slot.boost_amount_limit.to_i, unit: "€") %></strong>)
                 <% end %>
               </li>
             </ul>

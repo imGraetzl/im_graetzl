@@ -3,7 +3,7 @@ class CrowdBoostPledge < ApplicationRecord
 
   belongs_to :crowd_campaign
   belongs_to :crowd_boost
-  #has_one :crowd_boost_slot, through: :crowd_boost
+  has_one :crowd_boost_slot, through: :crowd_campaign
 
   before_create :set_region
 

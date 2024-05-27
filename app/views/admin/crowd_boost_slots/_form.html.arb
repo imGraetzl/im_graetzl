@@ -5,17 +5,16 @@ active_admin_form_for [:admin, resource] do |f|
     input :slot_description
     input :slot_terms
     input :slot_amount_limit
-    input :slot_campaign_limit
     input :starts_at, as: :datepicker
     input :ends_at, as: :datepicker
     input :threshold_pledge_count
     input :threshold_funding_percentage
     input :boost_amount
     input :boost_percentage
-    input :boost_percentage_amount_limit
+    input :boost_amount_limit
 
     Region.all.each do |region|
-      next if !region&.crowd_boost_ids&.include?(resource&.crowd_boost&.id)
+      next if !resource&.crowd_boost&.region_ids&.include?(region.id)
       input :graetzls, label: region.name, collection: region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id,] }, input_html: { class: 'admin-filter-select-all'}
     end
   end

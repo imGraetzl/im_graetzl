@@ -3,6 +3,7 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
 
     create_table :crowd_boosts do |t|
       t.integer "status", default: 0
+      t.text "region_ids", default: [], array: true
       t.string "chargeable_status"
       t.string "slug"
       t.string "title"
@@ -15,7 +16,6 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
 
     create_table :crowd_boost_slots do |t|
       t.decimal "slot_amount_limit", precision: 10, scale: 2
-      t.integer "slot_campaign_limit"
       t.date "starts_at"
       t.date "ends_at"
       t.text "slot_description"
@@ -24,7 +24,7 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
       t.decimal "threshold_funding_percentage", precision: 5, scale: 2
       t.decimal "boost_amount", precision: 10, scale: 2
       t.decimal "boost_percentage", precision: 5, scale: 2
-      t.decimal "boost_percentage_amount_limit", precision: 10, scale: 2
+      t.decimal "boost_amount_limit", precision: 10, scale: 2
       t.timestamps
       t.references :crowd_boost, foreign_key: { on_delete: :cascade }, index: true
     end
@@ -40,6 +40,7 @@ class CreateCrowdBoost < ActiveRecord::Migration[6.1]
       t.string "region_id"
       t.timestamps
       t.references :crowd_boost, foreign_key: { on_delete: :nullify }, index: true
+      t.references :crowd_boost_slot, foreign_key: { on_delete: :nullify }, index: true
       t.references :crowd_campaign, index: true, foreign_key: { on_delete: :nullify }
     end
 

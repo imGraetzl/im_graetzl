@@ -17,6 +17,10 @@ class CrowdBoostSlot < ApplicationRecord
     Date.today >= starts_at && Date.today <= ends_at
   end
 
+  def amount_limit_reached?(campaign)
+    total_amount_initialized + calculate_boost(campaign) >= slot_amount_limit
+  end
+
   def total_amount_initialized
     self.crowd_boost_pledges.initialized.sum(:amount)
   end
@@ -29,14 +33,14 @@ class CrowdBoostSlot < ApplicationRecord
     slot_amount_limit - total_amount_pledged
   end
 
-  def calculate_boost(amount)
-    if self.boost_amount > 0
+  def calculate_boost(campaign)
+    if self.boost_amount && self.boost_amount > 0
       self.boost_amount
     else
-      if ((amount / 100) * self.boost_percentage) > self.boost_percentage_amount_limit
-        self.boost_percentage_amount_limit
+      if ((campaign.funding_1_amount / 100) * self.boost_percentage) > self.boost_amount_limit
+        self.boost_amount_limit
       else
-        (amount / 100) * self.boost_percentage
+        (campaign.funding_1_amount / 100) * self.boost_percentage
       end
     end
   end

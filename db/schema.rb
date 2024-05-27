@@ -226,8 +226,10 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "crowd_boost_id"
+    t.bigint "crowd_boost_slot_id"
     t.bigint "crowd_campaign_id"
     t.index ["crowd_boost_id"], name: "index_crowd_boost_pledges_on_crowd_boost_id"
+    t.index ["crowd_boost_slot_id"], name: "index_crowd_boost_pledges_on_crowd_boost_slot_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_boost_pledges_on_crowd_campaign_id"
     t.index ["region_id"], name: "index_crowd_boost_pledges_on_region_id"
   end
@@ -241,7 +243,6 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
 
   create_table "crowd_boost_slots", force: :cascade do |t|
     t.decimal "slot_amount_limit", precision: 10, scale: 2
-    t.integer "slot_campaign_limit"
     t.date "starts_at"
     t.date "ends_at"
     t.text "slot_description"
@@ -250,7 +251,7 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.decimal "threshold_funding_percentage", precision: 5, scale: 2
     t.decimal "boost_amount", precision: 10, scale: 2
     t.decimal "boost_percentage", precision: 5, scale: 2
-    t.decimal "boost_percentage_amount_limit", precision: 10, scale: 2
+    t.decimal "boost_amount_limit", precision: 10, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "crowd_boost_id"
@@ -259,6 +260,7 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
 
   create_table "crowd_boosts", force: :cascade do |t|
     t.integer "status", default: 0
+    t.text "region_ids", default: [], array: true
     t.string "chargeable_status"
     t.string "slug"
     t.string "title"
@@ -1713,6 +1715,7 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
   add_foreign_key "crowd_boost_charges", "crowd_boosts", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "crowd_pledges", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "users", on_delete: :nullify
+  add_foreign_key "crowd_boost_pledges", "crowd_boost_slots", on_delete: :nullify
   add_foreign_key "crowd_boost_pledges", "crowd_boosts", on_delete: :nullify
   add_foreign_key "crowd_boost_pledges", "crowd_campaigns", on_delete: :nullify
   add_foreign_key "crowd_boost_slot_graetzls", "crowd_boost_slots", on_delete: :cascade

@@ -9,7 +9,7 @@ context.instance_eval do
   column(:status){|c| status_tag(c.status)}
   column(:funding){|c| status_tag(c.funding_status)}
   column(:call){|c| status_tag(c.crowdfunding_call)}
-  column(:crowd_boost){|c| status_tag(c.boost_status)}
+  column(:'Boost'){|c| status_tag(c.boost_status)}
   column(:stripe){|c| status_tag(c.user.stripe_connect_ready?)}
   column :closed?
 end

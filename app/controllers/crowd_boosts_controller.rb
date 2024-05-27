@@ -13,6 +13,7 @@ class CrowdBoostsController < ApplicationController
   def show
     @crowd_boost = CrowdBoost.find(params[:id])
     @next_slot = @crowd_boost.next_slot(current_region)
+    flash.now[:alert] = "Dieser Topf ist aktuell inaktiv." if @crowd_boost.disabled?
   end
 
   private

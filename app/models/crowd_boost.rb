@@ -12,6 +12,7 @@ class CrowdBoost < ApplicationRecord
   enum status: { enabled: 0, disabled: 1 }
   string_enum chargeable_status: ["charge_enabled", "charge_call"]
 
+  before_save :remove_blank_region_ids
   before_destroy :can_destroy?
   validates_presence_of :title
 
@@ -29,6 +30,10 @@ class CrowdBoost < ApplicationRecord
 
   def balance
     total_amount_charged - total_amount_pledged
+  end
+
+  def balance_expected
+    self.crowd_boost_charges.expected.sum(:amount) - total_amount_pledged
   end
 
   def should_generate_new_friendly_id?
@@ -58,7 +63,11 @@ class CrowdBoost < ApplicationRecord
   private
 
   def self.in(region)
-    where(id: region.crowd_boost_ids)
+    where(":region_ids = ANY (region_ids)", region_ids: region.id)
+  end
+
+  def remove_blank_region_ids
+    self.region_ids.reject!(&:blank?).to_s
   end
 
   def can_destroy?

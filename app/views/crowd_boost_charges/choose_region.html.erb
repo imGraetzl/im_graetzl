@@ -23,7 +23,7 @@
         <span>Region</span>
       </label>
       <!-- Get all Regions for current booster -->
-      <% regions = Region.all.find_all {|r| r.crowd_boost_ids.include?(@crowd_boost.id) } %>
+      <% regions = Region.all.find_all {|region| @crowd_boost.region_ids.include?(region.id)} %>
       <select name="select" onchange="location.href = $(this).val()">
         <option value="">Auswählen</option>
         <% regions.each do |region| %>

@@ -57,6 +57,7 @@ class CrowdCampaign < ApplicationRecord
   validates_presence_of :slogan, :crowd_category_ids, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
   scope :initialized, -> { where.not(status: :declined) }
+  scope :boost_initialized, -> { where(boost_status: [:boost_authorized, :boost_debited]) }
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: :disabled)) }
   scope :region_or_platform, -> { where(visibility_status: [:region, :platform]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
@@ -154,6 +155,10 @@ class CrowdCampaign < ApplicationRecord
     2
   end
 
+  def funding_percentage
+    funding_sum / (funding_1_amount / 100)
+  end
+
   def crowd_pledges_fee
     (effective_funding_sum / 100) * transaction_fee_percentage
   end
@@ -185,6 +190,15 @@ class CrowdCampaign < ApplicationRecord
     elsif funding_2_amount.present? && goal_1_reached? && funding_sum >= funding_2_amount
       update(funding_status: 'goal_2_reached')
       return :goal_2_reached
+    end
+  end
+
+  def check_boosting
+    if boost_approved? && crowd_boost_slot &&
+      crowd_pledges.count >= crowd_boost_slot.threshold_pledge_count &&
+      funding_percentage >= crowd_boost_slot.threshold_funding_percentage &&
+      !crowd_boost_slot.amount_limit_reached?(self)
+      return :boost_authorized
     end
   end
 
