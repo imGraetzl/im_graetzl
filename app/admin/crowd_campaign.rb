@@ -23,6 +23,8 @@ ActiveAdmin.register CrowdCampaign do
   filter :crowd_categories, input_html: { class: 'admin-filter-select'}
   filter :active_state, as: :select, collection: CrowdCampaign.active_states, input_html: { class: 'admin-filter-select'}
   filter :visibility_status, as: :select, collection: CrowdCampaign.visibility_statuses, input_html: { class: 'admin-filter-select'}
+  filter :boost_status, as: :select, collection: CrowdCampaign.boost_statuses, input_html: { class: 'admin-filter-select'}
+  filter :crowd_boost, collection: proc { CrowdBoost.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
 
   filter :service_fee_percentage, :as => :numeric
   filter :title
@@ -86,6 +88,7 @@ ActiveAdmin.register CrowdCampaign do
     :location_id, :room_offer_id, :user_id,
     :graetzl_id, :address_street, :address_coords, :address_city, :address_zip, :address_description,
     :cover_photo, :remove_cover_photo, :video, :avatar, :remove_avatar,
+    :crowd_boost_slot_id, :boost_status,
     crowd_category_ids: [],
     images_attributes: [:id, :file, :_destroy],
     crowd_rewards_attributes: [:id, :title, :description, :question, :limit],

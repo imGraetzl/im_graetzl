@@ -49,3 +49,26 @@ ol.list-formal {
   padding-left: 20px;
   margin-bottom: 20px;
 }
+
+ul.list-arrow {
+  li {
+    margin-bottom:8px;
+    background: url(image_path('svg/icon-arrow-right-blinky-mint-dark.svg')) no-repeat left top;
+    padding-left: 45px;
+    list-style: none;
+    &:last-of-type {
+      margin-bottom:0px;
+    }
+  }
+  li:hover {
+    background: url(image_path('svg/icon-arrow-right-blinky-rosa-dark.svg')) no-repeat left top;
+  }
+  &.-rosa {
+    li {
+      background: url(image_path('svg/icon-arrow-right-blinky-rosa-dark.svg')) no-repeat left top;
+    }
+  }
+  &.-large {
+    @include font-size-primaryFont('large');
+  }
+}

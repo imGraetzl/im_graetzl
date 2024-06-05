@@ -1,8 +1,6 @@
 .badge {
   position: relative;
   @include font-size-secondaryFont('base');
-  width: 90px;
-  height: 90px;
   background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-rosa.svg'));
   background-repeat: repeat, no-repeat;
   background-size: 100px 100px, 100% 100%;
@@ -18,18 +16,34 @@
   cursor: pointer;
   outline: none;
   text-decoration: none;
+  width: 90px;
+  height: 90px;
   padding-top: 18px;
   @include respond-to(">=medium") {
     width: 110px;
     height: 110px;
     padding-top: 25px;
-
   }
   @include respond-to(">=large") {
     width: 130px;
     height: 130px;
     padding-top: 30px;
   }
+  
+  &.-small {
+    width: 80px;
+    height: 80px;
+    padding-top: 10px;
+    @include font-size-secondaryFont('small');
+    transform: scale(0.9);
+    @include respond-to(">=medium") {
+      width: 90px;
+      height: 90px;
+      padding-top: 16px;
+      @include font-size-secondaryFont('small');
+    }
+  }
+
   @include respond-to("retina2x") {
     background-size:  50px 50px, 100% 100%;
   }

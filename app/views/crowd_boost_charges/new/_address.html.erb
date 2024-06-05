@@ -1,0 +1,79 @@
+<div class="address-container">
+
+  <div class="hl-subtext">
+    <h1>Deine Einzahlung für</h1>
+    <p class="subtitle">
+      <em><%= @crowd_boost %></em>
+    </p>
+    <% unless current_user %>
+      <p class="registerhint">
+        Solltest du bei <%= t("region.#{current_region.id}.domain_full") %> registriert sein,
+        <%= link_to 'melde dich zunächst hier an', login_crowd_boost_crowd_boost_charges_path(@crowd_boost), class: 'login-link', data: {href: login_crowd_boost_crowd_boost_charges_path(@crowd_boost)} %>
+        und nutze deine hinterlegten Standarddaten.
+      </p>
+    <% end %>
+  </div>
+
+  <%= form_for [@crowd_boost, @crowd_boost_charge] do |f| %>
+
+    <div class="input-field">
+      <%= f.label :amount do %>
+        <%= icon_tag "currency-euro" %>
+        <span>Dein Betrag</span>
+      <% end %>
+      <%= f.number_field :amount, placeholder: 'Betrag in €', class: 'amount-input', required: true, class: 'calculate-price', maxlength: 6,
+        data: {action: url_for([:calculate_price, @crowd_boost, @crowd_boost_charge])} %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Name</span>
+      <% end %>
+      <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname', required: true %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :email do %>
+        <%= icon_tag "at-symbol" %>
+        <span>E-Mail</span>
+      <% end %>
+      <%= f.email_field :email, placeholder: 'E-Mail Adresse', required: true, class: 'toggle-collapsed' %>
+    </div>
+
+    <div class="<%= current_user ? '' : 'collapsed' %>">
+      <div class="input-field">
+        <%= f.label :address_street do %>
+          <%= icon_tag "map-location" %>
+          <span>Strasse & Nr.</span>
+        <% end %>
+        <%= f.text_field :address_street, placeholder: 'Strasse & Nr.' %>
+      </div>
+
+      <div class="form-columns">
+
+        <div class="input-field">
+          <%= f.label :address_zip do %>
+            <%= icon_tag "map-location" %>
+            <span>Postleitzahl</span>
+          <% end %>
+          <%= f.text_field :address_zip, placeholder: 'PLZ' %>
+        </div>
+
+        <div class="input-field">
+          <%= f.label :address_city do %>
+            <%= icon_tag "map-location" %>
+            <span>Ort/Stadt</span>
+          <% end %>
+          <%= f.text_field :address_city, placeholder: 'Stadt' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-columns">
+      <%= submit_tag "Weiter zur Zahlung", class: 'btn-primary' %>
+    </div>
+
+  <% end %>
+
+</div>

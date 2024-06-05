@@ -151,7 +151,6 @@ section.crowdfunding-form {
       div {
         display: flex;
         h3, h4 {
-          width:50%;
           padding: 5px;
         }
         h4 {
@@ -161,8 +160,24 @@ section.crowdfunding-form {
           background-color: white;
           color: $color-ambient-rosa-dark;
         }
+        .title {
+          width:65%;
+        }
+        .amount {
+          width:35%;
+        }
+        @include respond-to(">=medium") {
+          .title {
+            width:70%;
+          }
+          .amount {
+            width:30%;
+          }
+        }
+        
         .amount {
           text-align: right;
+          white-space: nowrap;
         }
         &.header h3, &.header h4 {
           font-style: italic;

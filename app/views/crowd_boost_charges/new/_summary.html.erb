@@ -1,0 +1,23 @@
+<div class="summary">
+
+  <div class="hl-subtext">
+    <h1>Yeah, der Topf ist gefüllt!</h1>
+    <p class="subtitle">
+      <em><%= @crowd_boost %></em>
+    </p>
+    <p>
+      <br>
+      Vielen Dank für deine Einzahlung von <%= number_to_currency(@crowd_boost_charge.amount.to_i, unit: "€") %>.<br>
+      Neuer Stand im Topf nach deiner Einzahlung:<br>
+      <strong>- <%= number_to_currency(@crowd_boost.balance_expected.to_i, unit: "€") %> -</strong>
+    </p>
+  </div>
+
+  <div>
+    <p>
+      Vielen Dank! Wir haben dir soeben auch ein Bestätigungs-Email gesendet. 
+      Solltest du Fragen haben, schreib uns jederzeit gerne an <%= mail_to t("region.#{current_region.id}.contact_email"), nil %>
+    </p>
+  </div>
+
+</div>

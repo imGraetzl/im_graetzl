@@ -121,7 +121,7 @@
     </div>
 
     <div class="faqs">
-      <div class="content-block -toggable">
+      <div class="content-block -toggable -small">
         <h3>Wann wird das Geld deiner Unterstützung abgebucht?</h3>
         <div class="-toggle-content">
           <p>Dein Geld wird abgebucht, sobald diese drei Voraussetzungen erfüllt sind:</p>
@@ -133,14 +133,14 @@
           <p>Sobald diese 3 Voraussetzungen erfüllt sind, wird deine Unterstützung eingezogen. Wenn es soweit ist, bekommst du dazu noch ein Informationsmail von uns.</p>
         </div>
       </div>
-      <div class="content-block -toggable">
+      <div class="content-block -toggable -small">
         <h3>Was passiert mit meinem Geld, wenn das Projekt nicht erfolgreich abgeschlossen wird?</h3>
         <div class="-toggle-content">
           <p>Deine Unterstützung wird nicht eingezogen d.h. das Geld wird nicht abgebucht und du erhälst kein Dankeschön.</p>
           <p>Alle Unterstützungen werden storniert und evtl. vorgemerkte Beträge auf Kreditkarten nicht mehr angezeigt.</p>
         </div>
       </div>
-      <div class="content-block -toggable">
+      <div class="content-block -toggable -small">
         <h3>Wann bekomme ich mein Dankeschön?</h3>
         <div class="-toggle-content">
           <p>Die Dankeschöns werden nur bei erfolgreich abgeschlossenen Kampagnen ausgegeben. Falls die Kampagne nicht erfolgreich war, wird deine Unterstützung (Geld) nicht eingezogen.</p>
@@ -148,7 +148,7 @@
           <p>Du kannst die Starter*innen anschreiben und zu deinen Dankeschöns befragen z.B. über den internen Messenger oder per Mail. Die Mailadresse und den Kontakt findest du auf der Kampagnenseite im Impressum.</p>
         </div>
       </div>
-      <div class="content-block -toggable">
+      <div class="content-block -toggable -small">
         <h3>Wann kann ich eine Rechnung für mein Dankeschön bekommen?</h3>
         <div class="-toggle-content">
           <p>Die Rechnung für dein Dankeschön bekommst du: </p>
@@ -168,13 +168,13 @@
           </p>
         </div>
       </div>
-      <div class="content-block -toggable">
+      <div class="content-block -toggable -small">
         <h3>Wie kontaktiere ich die Starter*innen oder das Projekt?</h3>
         <div class="-toggle-content">
           <p>Du kannst die Starter*innen anschreiben z.B. über den internen Messenger oder per Mail. Die Mailadresse und andere Kontaktdaten findest du auf ihrer Kampagnenseite im Impressum. Du kannst auch eine öffentliche Nachricht auf die Pinnwand im Projekt schreiben!</p>
         </div>
       </div>
-      <div class="content-block -toggable">
+      <div class="content-block -toggable -small">
         <h3>Wie sieht die Abbuchung auf meiner Kreditkarte / meinem Konto aus?</h3>
         <div class="-toggle-content">
           <p>Bei <strong>Kreditkartenzahlungen</strong> erscheint die Abbuchung mit folgendem Buchungstext:<br>
@@ -186,7 +186,7 @@
         </div>
       </div>
       <% if @crowd_pledge.authorized? || @crowd_pledge.processing? || @crowd_pledge.debited? %>
-        <div class="content-block -toggable">
+        <div class="content-block -toggable -small">
           <h3>Wie kann ich meine Unterstützung stornieren?</h3>
           <div class="-toggle-content">
             <p>Als Unterstützer*in kannst du deine Unterstützung bis zu 13 Tage nach Projekterfolg stornieren, dies unabhängig von der Frage, ob dir zusätzlich ein gesetzliches Widerrufsrecht (<%= link_to '§ 11 Fern- und Auswärtsgeschäftegesetz', 'https://www.ris.bka.gv.at/eli/bgbl/i/2014/33/P11/NOR40162337', target: '_blank' %>) zusteht.</p>

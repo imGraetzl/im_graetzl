@@ -68,6 +68,7 @@
     }
   }
 
+  // -------------------------- Boosted Room Cardbox
   &.-boosted {
     border: 1px solid $color-ambient-rosa-light;
     .categoryicon {
@@ -86,6 +87,7 @@
     }
   }
 
+  // -------------------------- Subscription Cardbox
   &.-subscription-plan {
     .categoryicon {
       text-transform: uppercase;
@@ -115,6 +117,7 @@
       }
     }
   }
+
   // -------------------------- CrowdCampaign Cardbox
   &.-crowd_campaign {
     .sideflag {
@@ -129,6 +132,34 @@
     }
   }
 
+  // -------------------------- CrowdBoost Cardbox
+  &.-crowd_boost {
+    .sideflag {
+      color: $color-ambient-rosa-dark;
+      background-color: $color-ambient-rosa-light;
+      &.-R {
+        &:after {
+          border-color: $color-ambient-rosa-dark transparent transparent transparent;
+        }
+      }
+    }
+    .cardBoxContent {
+      .btn-primary { margin-top:10px; }
+    }
+    &.-active {
+      .categoryicon {
+        color: $color-ambient-rosa;
+      }
+    }
+    .facts-headline {
+      text-align: center;
+      //margin-bottom:16px;
+      padding: 15px;
+      border-top: 1px solid $color-ambient-mint-light;
+      //border-bottom: 1px solid $color-ambient-mint-light;
+    }
+  }
+
 
   // -------------------------- Room Demand Cardbox
   &.-roomdemand, &.-coopdemand, &.-energydemand {
@@ -139,6 +170,7 @@
     }
   }
 
+  // -------------------------- Coop Demand Cardbox
   &.-coopdemand {
     .categoryicon {
       svg.fav-exchange {
@@ -189,6 +221,9 @@
       }
     }
   } // Group Cardbox
+
+
+  // -------------------------- GENERAL STYLES
 
   .entryContent {
     margin-bottom: 0px;
@@ -322,39 +357,39 @@
   }
 
   &.-roomoffer, &.-roomdemand, &.-energyoffer, &.-energydemand {
-
     .slogan {
       font-style: normal;
       font-weight: 600;
     }
-
-    .collaboration, .waiting-list, .slot-booking, .facts {
-      color: $color-ambient-brown;
-      margin: 0px -3px 1px -3px;
-      padding: 5px;
-      background-color: $color-ambient-pink;
-      &:last-child {
-        margin-bottom: 0;
-      }
-      + .streamElement, + .btn-group {
-        margin-top: 20px;
-      }
-      &.-grey {
-        background-color: #f8f8f8;
-      }
-      &.-mint {
-        background-color: rgba($color-ambient-mint-light, 0.3);
-      }
-      &.-nobg {
-        background-color: unset;
-      }
-    }
-    .waiting-list {
-      background-color: $color-ambient-mint-light;
-    }
-
   }
 
+  .collaboration, .waiting-list, .slot-booking, .facts {
+    color: $color-ambient-brown;
+    margin: 0px -3px 1px -3px;
+    padding: 5px;
+    background-color: $color-ambient-pink;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    + .streamElement, + .btn-group {
+      margin-top: 20px;
+    }
+    &.-grey {
+      background-color: #f8f8f8;
+    }
+    &.-mint {
+      background-color: rgba($color-ambient-mint-light, 0.3);
+    }
+    &.-rosa {
+      background-color: rgba($color-ambient-rosa-light, 0.5);
+    }
+    &.-nobg {
+      background-color: unset;
+    }
+  }
+  .waiting-list {
+    background-color: $color-ambient-mint-light;
+  }
 
   .tool-usage-period {
     margin: 0px 0px 15px 0px;

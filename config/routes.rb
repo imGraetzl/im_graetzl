@@ -294,6 +294,21 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :crowd_boosts, only: [:index, :show], path: 'crowdfunding-booster' do
+    resources :crowd_boost_charges, only: [:new, :create], path: 'charge' do
+      get 'login', on: :collection
+      get 'choose_region', on: :collection
+      post 'calculate_price', on: :collection
+    end
+  end
+
+  resources :crowd_boost_charges, path: 'crowd-boost-charge' do
+    get 'choose_payment', on: :member
+    get 'payment_authorized', on: :member
+    get 'summary', on: :member
+    get 'details', on: :member
+  end
+
   get 'messenger' => 'messenger#index'
   get 'messenger/start_thread'
   get 'messenger/fetch_thread'
@@ -307,7 +322,8 @@ Rails.application.routes.draw do
   #get 'unterstuetzer-team', to: 'static_pages#mentoring'
   #get 'energieteiler', to: 'static_pages#energieteiler', as: 'energieteiler'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
-  get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar', as: 'balkonsolar'
+  get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
+  get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
   get 'popup', to: 'static_pages#popup', as: 'popup'
 
   get 'info', to: 'static_pages#info'

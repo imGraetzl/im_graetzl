@@ -1,9 +1,18 @@
 <div class='tabs-ctrl -plain'>
   <ul class="tabs-nav">
     <li><a href="#tab-supporters">UnterstützerInnen<small><%= @crowd_campaign.funding_count %></small></a></li>
-    <li><a href="#tab-material">Materialspenden<small><%= @crowd_donation_pledges.material.count %></small></a></li>
-    <li><a href="#tab-time">Zeitspenden<small><%= @crowd_donation_pledges.assistance.count %></small></a></li>
-    <li><a href="#tab-room">Raumspenden<small><%= @crowd_donation_pledges.room.count %></small></a></li>
+    <% if @crowd_campaign.boostable? %>
+      <li><a href="#tab-boost">Booster<small><%= @crowd_boost_pledges.count %></small></a></li>
+    <% end %>
+    <% if @crowd_campaign.crowd_donations.material.exists? %>
+        <li><a href="#tab-material">Materialspenden<small><%= @crowd_donation_pledges.material.count %></small></a></li>
+    <% end %>
+    <% if @crowd_campaign.crowd_donations.assistance.exists? %>
+        <li><a href="#tab-time">Zeitspenden<small><%= @crowd_donation_pledges.assistance.count %></small></a></li>
+    <% end %>
+    <% if @crowd_campaign.crowd_donations.room.exists? %>
+        <li><a href="#tab-room">Raumspenden<small><%= @crowd_donation_pledges.room.count %></small></a></li>
+    <% end %>
   </ul>
 
   <div id='tab-supporters'>
@@ -16,6 +25,22 @@
       </div>
       <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_pledge', collection: @crowd_pledges, as: 'crowd_pledge' %>
     </div>
+  </div>
+
+  <div id='tab-boost'>
+   <div class="table-container -light" role="table">
+     <div class="flex-table header" role="rowgroup">
+       <div class="flex-row xxlarge first" role="columnheader">Booster</div>
+       <div class="flex-row medium" role="columnheader">Betrag</div>
+       <div class="flex-row medium" role="columnheader">Status</div>
+       <div class="flex-row xxlarge" role="columnheader">Info</div>
+     </div>
+     <% if @crowd_campaign.boostable? && @crowd_boost_pledges.any? %>
+       <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_boost_pledge', collection: @crowd_boost_pledges, as: 'crowd_boost_pledge' %>
+     <% elsif @crowd_campaign.boostable? %>
+       <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_boost_slot', crowd_boost_slot: @crowd_boost_slot %>
+     <% end %>
+   </div>
   </div>
 
   <div id='tab-material'>

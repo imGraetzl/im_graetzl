@@ -84,25 +84,31 @@
     </div>
   </div>
 
-  <% if @crowd_campaign.crowd_pledges.initialized.visible.exists? || @crowd_campaign.crowd_donation_pledges.exists? %>
-    <% pledges_count = @crowd_campaign.crowd_donation_pledges.any? ? 3 : 4 %>
-    <div class="last-supporters">
-      <% @crowd_campaign.crowd_pledges.initialized.visible.order(created_at: :desc).first(pledges_count).each do |crowd_pledge| %>
-        <div class="supporter">
-          <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
-          <div class="name">
-            <span><%= crowd_pledge.contact_name %></span><br>
-            <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+  <% if @crowd_campaign.crowd_pledges.initialized.visible.exists? %>
+    <% pledges_count = @crowd_campaign.crowd_boost_pledges.any? ? 3 : 4 %>
+    <div class="last-supporters-container <%= "items-#{pledges_count}" %>">
+      <div class="last-supporters <%= "items-#{pledges_count}" %>">
+        <% @crowd_campaign.crowd_pledges.initialized.visible.order(created_at: :desc).first(pledges_count).each do |crowd_pledge| %>
+          <div class="supporter">
+            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
+            <div class="name">
+              <span><%= crowd_pledge.contact_name %></span><br>
+              <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+            </div>
           </div>
-        </div>
-      <% end %>
-      <% @crowd_campaign.crowd_donation_pledges.order(created_at: :desc).first(1).each do |crowd_pledge| %>
-        <div class="supporter -donation">
-          <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
-          <div class="name">
-            <span><%= crowd_pledge.contact_name %></span><br>
-            <small><%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{crowd_pledge.donation_type}") %> vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
-          </div>
+        <% end %>
+      </div>
+      <% if pledges_count == 3 %>
+        <div class="last-boosters">
+          <% @crowd_campaign.crowd_boost_pledges.order(created_at: :desc).first(1).each do |crowd_boost_pledge| %>
+            <div class="supporter">
+              <%= avatar_image crowd_boost_pledge.crowd_boost, size: :thumb, class: 'img-round' %>
+              <div class="name">
+                <span><%= link_to crowd_boost_pledge.crowd_boost, crowd_boost_pledge.crowd_boost %></span><br>
+                <small><strong><%= number_to_currency(crowd_boost_pledge.amount, unit: "€") %></strong> vor <%= time_ago_in_words(crowd_boost_pledge.created_at) %></small>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

@@ -31,8 +31,6 @@
     font-style: italic;
     display: list-item;
     list-style:initial;
-    //@include font-size-primaryFont('small');
-    //background: url(image_path('svg/icon-arrow-right-blinky-mint-dark.svg')) no-repeat left center;
   }
 
   li {
@@ -52,7 +50,7 @@
       color: $color-font-primary;
     }
   }
-  li.sum {
+  li.sum, li.new-balance {
     font-weight: bold;
     border-top: 1px solid $color-ambient-mint-light;
     padding-top: 20px;
@@ -66,6 +64,24 @@
     padding-top: 20px;
     .cost, .costname {
       color: $color-ambient-grey;
+    }
+  }
+  li.old-balance {
+    .cost, .costname {
+      font-weight: normal;
+      color: $color-font-primary;
+    }
+  }
+  li.new-balance {
+    .cost, .costname {
+      color: $color-font-primary;
+    }
+  }
+  li.add-amount {
+    font-weight: bold;
+    .cost, .costname {
+      font-weight: bold;
+      color: $color-ambient-orange;
     }
   }
 }

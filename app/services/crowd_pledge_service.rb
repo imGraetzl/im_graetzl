@@ -38,6 +38,26 @@ class CrowdPledgeService
     CrowdCampaignMailer.crowd_pledge_authorized(crowd_pledge).deliver_later
     ActionProcessor.track(crowd_pledge, :create)
 
+    case crowd_pledge.crowd_campaign.check_boosting
+    when :boost_authorized
+      boost_amount = crowd_pledge.crowd_campaign.crowd_boost_slot.calculate_boost(crowd_pledge.crowd_campaign)
+
+      crowd_boost_pledge = CrowdBoostPledge.create(
+        amount: boost_amount,
+        status: "authorized",
+        crowd_campaign_id: crowd_pledge.crowd_campaign.id,
+        crowd_boost_id: crowd_pledge.crowd_campaign.crowd_boost.id,
+        crowd_boost_slot_id: crowd_pledge.crowd_campaign.crowd_boost_slot.id,
+        region_id: crowd_pledge.region_id
+      )
+
+      if crowd_boost_pledge
+        crowd_pledge.crowd_campaign.update(boost_status: 'boost_authorized')
+        AdminMailer.new_crowd_booster(crowd_pledge.crowd_campaign, boost_amount).deliver_later
+      end
+      
+    end
+
     case crowd_pledge.crowd_campaign.check_funding
     when :goal_1_reached
       CrowdCampaignMailer.goal_1_reached(crowd_pledge.crowd_campaign).deliver_later

@@ -1,0 +1,125 @@
+// ----- CrowdBoost Overview ------ //
+section.info {
+  &.crowd-boost-page {
+    padding-bottom: 0px;
+    margin-bottom: -80px;
+
+    .imgHeader::after {
+      background-image: url(image_path('regions/welocally_header.jpg'));
+    }
+
+    .paperCard.-top {
+      margin-bottom:70px;
+      p {
+        @include font-size-primaryFont('larger');
+      }
+    }
+
+    .content-main {
+      padding-bottom:50px;
+    }
+
+    .content-wide {
+      padding-top:35px;
+      padding-bottom:50px;
+      position: relative;
+      background-color: #eaf2f4;
+      width: 100vw;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      .inner {
+        max-width: 930px;
+        position: relative;
+        margin: 0 auto;
+        padding-left: 18px;
+        padding-right: 18px;
+
+        @include respond-to(">=medium") {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+        @include respond-to(">=large") {
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+      }
+    }
+  }
+}
+
+// CrowdBoost Detail Page
+section.crowd_boost {
+
+  .badge {
+    position: absolute;
+    top:-40px;
+    right:-20px;
+    .inner {
+      transform: rotate(20deg);
+    }
+  }
+
+  .slotBox {
+    margin-top:30px;
+    margin-bottom:30px;
+    @include font-size-primaryFont('large');
+    line-height:1.6;
+    strong.-mint {
+      color: $color-ambient-rosa-dark;
+    }
+    li:first-of-type {
+      padding-right:30px;
+    }
+  }
+
+  .introcontainer {
+    @include respond-to(">=large") {
+      @include cf;
+    }
+    margin-bottom: 40px;
+
+    .introtxt {
+      margin-bottom: 40px;
+      @include respond-to(">=large") {
+        float: left;
+        margin-right: 2%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 0;
+        width: 65%;
+      }
+      h1 {
+        @include font-size-secondaryFont('base');
+        font-family: $font-secondary;
+        margin-bottom: 20px;
+        text-align: center;
+        span {
+          color: $color-ambient-rosa;
+        }
+      }
+      .hl-subtext {
+        margin-bottom:20px;
+      }
+    }
+
+    .introSide {
+      max-width: 300px;
+      margin: 0 auto;
+      @include respond-to(">=large") {
+        max-width: none;
+        width: 33%;
+        float: left;
+        margin: 0;
+      }
+    }
+
+    ul {
+      @extend .list-arrow;
+      margin-left: 0px;
+    } 
+    
+
+  }
+}

@@ -8,10 +8,6 @@ module CategoriesHelper
     case category.title
     when 'Good Morning Dates'
       good_morning_dates_path
-    when 'Balkon-Solar'
-      balkonsolar_path
-    when 'WeLocally Pop-Up'
-      popup_path
     else
       region_meetings_path
     end
