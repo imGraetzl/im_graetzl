@@ -6,50 +6,58 @@
     display: -ms-flexbox;
     display: flex;
     background-color: $color-ambient-grey-light;
-    position:relative;
+    position: relative;
     font-size:15px;
     @include respond-to(">=medium") {
-      font-size:20px
+      font-size:20px;
     }
 }
 
 .fundingBar_track {
     height: 100%;
     width: 10%;
-    overflow: hidden;
+    //overflow: hidden;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    position:relative
+    position: relative;
 }
 
 .fundingBar_track:first-child {
-    overflow: hidden;
+    //overflow: hidden;
     border-top-left-radius: .5em;
-    border-bottom-left-radius:.5em
+    border-bottom-left-radius:.5em;
+    .fundingBar_bar {
+      border-top-left-radius: .5em;
+      border-bottom-left-radius:.5em;
+    }
 }
 
 .fundingBar_track-only {
-    width:90%
+    width:90%;
 }
 
 .fundingBar_track-1st {
-    width:80%
+    width:80%;
 }
 
 .fundingBar_track-finished, .fundingBar_track-full {
-    width:100%
+    width:100%;
+}
+
+.fundingBar_track-finished .fundingBar_target-success {
+  position: absolute;
 }
 
 .fundingBar_track-2nd {
     position: relative;
-    overflow:visible
+    overflow: visible;
 }
 
 .fundingBar_track-2nd .fundingBar_bar {
     position: absolute;
     left: -.5em;
-    top:0
+    top: 0;
 }
 
 .fundingBar_bar {
@@ -60,11 +68,19 @@
     -o-transition: width 1s ease;
     transition: width 1s ease;
     border-top-right-radius: .5em;
-    border-bottom-right-radius:.5em
+    border-bottom-right-radius:.5em;
+    &.-boost {
+      overflow: visible;
+      position: relative;
+      border-radius: 0.4em;
+      z-index:2;
+      background-image: $texture-primary;
+      background-color: $color-ambient-rosa;
+    }
 }
 
 .fundingBar_bar-unsuccessful {
-    background-color:$color-ambient-grey
+    background-color:$color-ambient-grey;
 }
 
 .fundingBar_target {
@@ -72,26 +88,29 @@
     border-radius: 100%;
     height: 1em;
     width: 1em;
-    z-index: 2;
     -ms-flex-negative: 0;
     flex-shrink: 0;
     -webkit-box-flex: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    position:relative
+    position:relative;
+    &.-absolute {
+      position: absolute;
+      z-index: 9;
+    }
 }
 
 @-webkit-keyframes  {
     0% {
         opacity: 1;
         -webkit-transform: scale(1);
-        transform:scale(1)
+        transform:scale(1);
     }
 
     100% {
         opacity: 0;
         -webkit-transform: scale(3);
-        transform:scale(3)
+        transform:scale(3);
     }
 }
 
@@ -99,18 +118,37 @@
     0% {
         opacity: 1;
         -webkit-transform: scale(1);
-        transform:scale(1)
+        transform:scale(1);
     }
 
     100% {
         opacity: 0;
         -webkit-transform: scale(3);
-        transform:scale(3)
+        transform:scale(3);
     }
 }
 
+.fundingBar_target-success {
+  &.-animated:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $color-ambient-rosa;
+    border-radius: 50%;
+    -webkit-animation: radar 1.75s ease-in-out infinite;
+    animation: radar 1.75s ease-in-out infinite;
+    pointer-events:none;
+  }
+}
+
 .fundingBar_target-animated {
-    z-index:0
+  &:hover {
+    background-color: $color-ambient-rosa-dark;
+  }
 }
 
 .fundingBar_target-animated:before {
@@ -125,7 +163,7 @@
     border-radius: 50%;
     -webkit-animation: radar 1.75s ease-in-out infinite;
     animation: radar 1.75s ease-in-out infinite;
-    pointer-events:none
+    pointer-events:none;
 }
 
 .fundingBar_target-success:before {
@@ -138,7 +176,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    z-index:2
+    z-index:3;
 }
 
 .fundingBar_target-success:after {
@@ -150,15 +188,17 @@
     right: 50%;
     bottom: 0;
     left: -.5em;
-    z-index:1
+    z-index:1;
 }
 
-.fundingBar_target-success.fundingBar_target-rejected:before {
-    background-color:#304b50
-}
+.-over_boosting_1 {
+  .fundingBar_target-success.-first:before, .fundingBar_target-animated.-first:before {
+    background-color: $color-ambient-rosa-dark !important;
+  }
 
-.fundingBar_target-success.fundingBar_target-rejected:after {
-    background-color:$color-ambient-grey
+  .fundingBar_target-success.-first:after, .fundingBar_target-animated.-first:after {
+      background-color: $color-ambient-rosa !important;
+  }
 }
 
 // FUNDING STATS --------------------------------------------
@@ -180,8 +220,8 @@
     font-style: italic;
     @include font-size-primaryFont('small');
   }
-  div.success {
-    display: inline-block;;
+  div.success, div.booster {
+    display: inline-block;
     svg {
       display: flex;
     }
@@ -192,8 +232,11 @@
     font-weight: normal;
     margin-left:8px;
   }
-  .-supporters span {
+  .-supporters span, .-booster span {
     display: block;
+  }
+  .-booster{
+    color: $color-ambient-rosa-dark;
   }
 }
 
@@ -219,6 +262,34 @@
     h2 {
       @include font-size-primaryFont('larger');
       display: inline;
+    }
+  }
+}
+
+// HOVER LABEL
+
+.fundingBar .label {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  top:-25px;
+  white-space: nowrap;
+  @include font-size-primaryFont('small');
+  font-style: italic;
+}
+
+.crowd_campaign .mainArea {
+  .fundingBar_target-animated:hover, .fundingBar_target-success:hover {
+    .label {
+      display: block;
+      //color: $color-ambient-rosa-dark;
+    }
+  }
+  .fundingBar .-boost:hover {
+    .label {
+      display: block;
+      color: $color-ambient-rosa-dark;
     }
   }
 }

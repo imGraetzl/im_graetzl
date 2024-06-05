@@ -38,22 +38,6 @@ class CrowdPledgeService
     CrowdCampaignMailer.crowd_pledge_authorized(crowd_pledge).deliver_later
     ActionProcessor.track(crowd_pledge, :create)
 
-    case crowd_pledge.crowd_campaign.check_funding
-    when :goal_1_reached
-      CrowdCampaignMailer.goal_1_reached(crowd_pledge.crowd_campaign).deliver_later
-
-      if crowd_pledge.crowd_campaign.funding_2_amount.present? && (crowd_pledge.crowd_campaign.remaining_days > 2)
-        pledges = crowd_pledge.crowd_campaign.crowd_pledges.authorized
-        pledges = pledges.uniq { |s| s.email }
-        pledges.each do |pledge|
-          CrowdCampaignMailer.crowd_pledge_goal_1_reached(pledge).deliver_later
-        end
-      end
-
-    when :goal_2_reached
-      CrowdCampaignMailer.goal_2_reached(crowd_pledge.crowd_campaign).deliver_later
-    end
-
     case crowd_pledge.crowd_campaign.check_boosting
     when :boost_authorized
       boost_amount = crowd_pledge.crowd_campaign.crowd_boost_slot.calculate_boost(crowd_pledge.crowd_campaign)
@@ -72,6 +56,22 @@ class CrowdPledgeService
         AdminMailer.new_crowd_booster(crowd_pledge.crowd_campaign, boost_amount).deliver_later
       end
       
+    end
+
+    case crowd_pledge.crowd_campaign.check_funding
+    when :goal_1_reached
+      CrowdCampaignMailer.goal_1_reached(crowd_pledge.crowd_campaign).deliver_later
+
+      if crowd_pledge.crowd_campaign.funding_2_amount.present? && (crowd_pledge.crowd_campaign.remaining_days > 2)
+        pledges = crowd_pledge.crowd_campaign.crowd_pledges.authorized
+        pledges = pledges.uniq { |s| s.email }
+        pledges.each do |pledge|
+          CrowdCampaignMailer.crowd_pledge_goal_1_reached(pledge).deliver_later
+        end
+      end
+
+    when :goal_2_reached
+      CrowdCampaignMailer.goal_2_reached(crowd_pledge.crowd_campaign).deliver_later
     end
 
     true

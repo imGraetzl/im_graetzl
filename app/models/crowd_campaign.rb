@@ -102,6 +102,14 @@ class CrowdCampaign < ApplicationRecord
     draft? || submit? || pending? || declined?
   end
 
+  def boosted?
+    boost_authorized? || boost_debited?
+  end
+
+  def boostable?
+    boost_approved? || boost_authorized? || boost_debited? || boost_cancelled?
+  end
+
   def owned_by?(a_user)
     user_id.present? && user_id == a_user&.id
   end
@@ -116,6 +124,14 @@ class CrowdCampaign < ApplicationRecord
 
   def funding_sum
     @cached_funding_sum ||= self.crowd_pledges.initialized.sum(:total_price) + self.crowd_boost_pledges.initialized.sum(:amount)
+  end
+
+  def funding_sum_uncached
+    self.crowd_pledges.initialized.sum(:total_price) + self.crowd_boost_pledges.initialized.sum(:amount)
+  end
+
+  def crowd_pledges_sum
+    @cached_pledges_sum ||= self.crowd_pledges.initialized.sum(:total_price)
   end
 
   def crowd_boost_pledges_sum
@@ -184,12 +200,12 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def check_funding
-    if not_funded? && funding_sum >= funding_1_amount
-      update(funding_status: 'goal_1_reached')
-      return :goal_1_reached
-    elsif funding_2_amount.present? && goal_1_reached? && funding_sum >= funding_2_amount
+    if funding_2_amount.present? && (not_funded? || goal_1_reached?) && funding_sum_uncached >= funding_2_amount
       update(funding_status: 'goal_2_reached')
       return :goal_2_reached
+    elsif not_funded? && funding_sum_uncached >= funding_1_amount
+      update(funding_status: 'goal_1_reached')
+      return :goal_1_reached
     end
   end
 

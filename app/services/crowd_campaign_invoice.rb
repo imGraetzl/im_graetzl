@@ -24,7 +24,7 @@ class CrowdCampaignInvoice
     pdf.text campaign.contact_name
     pdf.text campaign.contact_address
     pdf.text "#{campaign.address_zip} #{campaign.address_city}"
-    pdf.move_down 30
+    pdf.move_down 20
   end
 
   def add_company_info(pdf, region)
@@ -41,7 +41,7 @@ class CrowdCampaignInvoice
     pdf.text "Kampagne: '#{campaign.title}'"
     pdf.move_down 20
     pdf.text "Wir freuen uns, dir dein erfolgreiches Crowdfunding Projekt auf #{I18n.t("region.#{campaign.region.id}.domain_full")} und die Auszahlung deines Geldes zu bestätigen. Du hast insgesamt #{campaign.funding_count} Unterstützungen für dein Projekt erhalten, herzliche Gratulation! Die Auszahlungssumme (siehe unterhalb) wird dir in den nächsten Tagen auf dein verknüpftes Konto überwiesen. Im Abschnitt 'Rechnung', findest du die Rechnung über die angefallene Servicegebühr."
-    pdf.move_down 30
+    pdf.move_down 20
 
     pdf.text "Fundingstatistik", size: 16, style: :bold
     pdf.stroke_horizontal_rule
@@ -53,6 +53,13 @@ class CrowdCampaignInvoice
     pdf.text "#{format_price(campaign.funding_2_amount)}", align: :right if campaign.funding_2_amount?
     pdf.move_down 10
 
+    if campaign.boostable?
+      pdf.float { pdf.text "Fundingsumme UnterstützerInnen", align: :left }
+      pdf.text "#{format_price(campaign.crowd_pledges_sum)}", align: :right
+      pdf.float { pdf.text "#{campaign.crowd_boost.title}", align: :left }
+      pdf.text "#{format_price(campaign.crowd_boost_pledges_sum)}", align: :right
+    end
+    
     pdf.float { pdf.text "Erreichte Fundingsumme", align: :left, style: :bold }
     pdf.text "#{format_price(campaign.funding_sum)}", align: :right, style: :bold
     pdf.float { pdf.text "Davon fehlgeschlagene Transaktionen (#{campaign.crowd_pledges.failed.count})", align: :left }
@@ -63,7 +70,7 @@ class CrowdCampaignInvoice
 
     pdf.float { pdf.text "Tatsächlich erreichte Fundingsumme", align: :left, style: :bold }
     pdf.text "#{format_price(campaign.effective_funding_sum)}", align: :right, style: :bold
-    pdf.move_down 25
+    pdf.move_down 20
 
   end
 
@@ -78,7 +85,7 @@ class CrowdCampaignInvoice
     pdf.text "#{format_price(campaign.crowd_pledges_fee_tax)}", align: :right
     pdf.float { pdf.text "Servicegebühr Gesamt (#{campaign.transaction_fee_percentage}%)", align: :left, style: :bold }
     pdf.text "#{format_price(campaign.crowd_pledges_fee)}", align: :right, style: :bold
-    pdf.move_down 25
+    pdf.move_down 20
 
   end
 

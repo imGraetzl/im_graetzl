@@ -47,6 +47,30 @@ wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
   end
 end
 
+if @crowd_campaign.boostable?
+  wb.add_worksheet(name: "Booster") do |sheet|
+    sheet.add_row [
+      'Payment Status',
+      'Datum',
+      'Booster',
+      'Summe (€)',
+    ]
+    @crowd_boost_pledges.each do |crowd_pledge|
+      sheet.add_row [
+        t("activerecord.attributes.crowd_boost.boost_status.#{@crowd_campaign.boost_status}"),
+        crowd_pledge.created_at,
+        crowd_pledge.crowd_boost.title,
+        crowd_pledge.amount,
+      ], style: [
+        nil,
+        date,
+        nil,
+        nil,
+      ]
+    end
+  end
+end
+
 wb.add_worksheet(name: "Materialspenden") do |sheet|
   sheet.add_row [
     'Datum',

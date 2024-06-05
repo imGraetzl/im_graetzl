@@ -118,17 +118,98 @@ section.crowd_campaign {
     }
   }
 
-  .last-supporters {
+  .last-supporters-container {
     display: flex;
+    justify-content: space-between;
     position: relative;
     .supporter {
       display: flex;
       align-items: center;
-      margin-right:25px;
-      white-space: nowrap;
+      overflow: hidden;
     }
     .name {
+      @include ellipsis;
       margin-left:8px;
+      margin-right:8px;
+    }
+    &.items-3 .lightSlider {
+      .supporter {
+        width:50%;
+      }
+    }
+    &.items-4 {
+      display: block;
+    }
+  }
+
+  .last-supporters {
+    display: flex;
+    justify-content: start;
+    width:50%;
+    @include respond-to(">=medium") {
+      width:68%;
+    }
+    .supporter {
+      display: none;
+      &:nth-child(-n+1) {
+        display: flex;
+        max-width:100%;
+      }
+      @include respond-to(">=medium") {
+        &:nth-child(-n+2) {
+          display: flex;
+          max-width:50%;
+        }
+      }
+      @include respond-to(">=large") {
+        &:nth-child(-n+3) {
+          display: flex;
+          max-width:33%;
+        }
+      }
+    }
+    &.items-4 {
+      width:100%;
+      .supporter {
+        &:nth-child(-n+1) {
+          display: flex;
+          max-width:100%;
+        }
+        @include respond-to(">=medium") {
+          &:nth-child(-n+3) {
+            display: flex;
+            max-width:33%;
+          }
+        }
+        @include respond-to(">=large") {
+          &:nth-child(-n+4) {
+            display: flex;
+            max-width:25%;
+          }
+        }
+      }
+    }
+    &.lightSlider {
+      position: unset;
+      .supporter {
+        display: flex !important;
+      }
+    }
+  }
+
+  .last-boosters {
+    display: flex;
+    width:50%;
+    @include respond-to(">=medium") {
+      width:32%;
+      border-left: 1px dotted $color-ambient-grey;
+      padding-left:15px;  
+    }
+    a {
+      color: $color-ambient-mint-dark;
+    }
+    strong {
+      //color: $color-ambient-rosa-dark;
     }
   }
 

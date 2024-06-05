@@ -5,6 +5,7 @@ context.instance_eval do
       panel 'Basic Details' do
         attributes_table_for crowd_boost_slot do
           row :id
+          row :crowd_boost
           row(:open){|b| b.open?}
           row :slot_amount_limit
           row :starts_at

@@ -1,0 +1,21 @@
+<div class="flex-table row" role="rowgroup">
+  <div class="flex-row xxlarge user" role="cell">
+    <div><%= avatar_image crowd_boost_pledge.crowd_boost, size: :thumb, class: 'img-round' %></div>
+    <div class="name">
+      <%= link_to crowd_boost_pledge.crowd_boost.title, crowd_boost_pledge.crowd_boost %><br>
+      <small><em><%= I18n.localize(crowd_boost_pledge.created_at, format:'%a, %d. %B %Y, %H:%M') %></em></small>
+    </div>
+  </div>
+  <div class="flex-row medium" role="cell"><strong><%= number_to_currency(crowd_boost_pledge.amount, unit: "€") %></strong></div>
+  <div class="flex-row medium" role="cell"><strong><%= t("activerecord.attributes.crowd_boost.boost_status.#{@crowd_campaign.boost_status}") %></strong></div>
+  <div class="flex-row xxlarge" role="cell">
+    <em>
+      <% if @crowd_boost_slot.boost_amount? %>
+        <strong><%= number_to_currency(@crowd_boost_slot.boost_amount.to_i, unit: "€") %></strong> extra Boost
+      <% else %>
+        <strong><%= @crowd_boost_slot.boost_percentage.to_i %>%</strong> extra Boost. (<strong>max <%= number_to_currency(@crowd_boost_slot.boost_amount_limit.to_i, unit: "€") %></strong>)
+      <% end %>
+      , sobald deine Kampagne <%= @crowd_boost_slot.threshold_funding_percentage.to_i %>% des Finanzierungsziels mit mindestens <%= @crowd_boost_slot.threshold_pledge_count %> Unterstützer*innen erreicht hat. 
+    </em>
+  </div>
+</div>

@@ -505,18 +505,19 @@ de:
         status_message:
           enabled: Deine Kampagne ist nun öffentlich sichtbar.
           disabled: Deine Kampagne ist nun deaktiviert und nicht mehr sichtbar.
-        boost_statuses:
+        boost_status_info:
+          boost_declined: Deine Bewerbung für den Booster wurde leider abgelehnt - Wir können dir keinen Booster-Platz geben.
+          boost_approved: "Du wurdest für folgenden Booster zugelassen:"
+          boost_authorized: "Du wurdest für folgenden Booster zugelassen:"
+          boost_debited: "Du wurdest für folgenden Booster zugelassen:"
+          boost_cancelled: "Du wurdest für folgenden Booster zugelassen:"
+      crowd_boost:
+        boost_status:
           boost_declined: abgelehnt
-          boost_approved: genehmigt
+          boost_approved: zugelassen
           boost_authorized: autorisiert
           boost_debited: erfolgreich geboostert
           boost_cancelled: nicht geboostert
-        boost_status_info:
-          boost_declined: Deine Bewerbung für folgenden Booster wurde leider abgelehnt - Wir können dir keinen Booster-Platz geben.
-          boost_approved: Deine Bewerbung für folgenden Booster war erfolgeich - Du bist bem Booster Programm dabei!
-          boost_authorized: Deine Bewerbung für folgenden Booster war erfolgeich - Du bist bem Booster Programm dabei!
-          boost_debited: Deine Bewerbung für folgenden Booster war erfolgeich - Du bist bem Booster Programm dabei!
-          boost_cancelled: Deine Bewerbung für folgenden Booster war erfolgeich - Du bist bem Booster Programm dabei!
       crowd_reward:
         title: Dankeschön Titel
         description: Dankeschön Beschreibung

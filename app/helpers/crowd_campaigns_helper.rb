@@ -90,7 +90,6 @@ module CrowdCampaignsHelper
   end
 
   def funding_percentage(c)
-    # Also show Percentage of Funding_2_Amount
     if c.funding? && c.funding_2?
       c.funding_sum / (c.funding_2_amount / 100)
     else
@@ -105,12 +104,44 @@ module CrowdCampaignsHelper
       (c.funding_sum / c.funding_1_amount) * 100
     elsif c.over_funding_1?
       percentage = (c.funding_sum - c.funding_1_amount) / c.funding_1_amount * 100
-      percentage > 100 ? 85 : percentage
+      if percentage == 0
+        0
+      elsif percentage < 5
+        30
+      elsif percentage < 10
+        40
+      elsif percentage < 20
+        50
+      elsif percentage < 30
+        65
+      elsif percentage < 40
+        75
+      elsif percentage < 50
+        85
+      else
+        90
+      end
     elsif c.funding_2?
       (c.funding_sum - c.funding_1_amount) / (c.funding_2_amount - c.funding_1_amount) * 100
     elsif c.over_funding_2?
       percentage = (c.funding_sum - c.funding_2_amount) / c.funding_2_amount * 100
-      percentage > 100 ? 85 : percentage
+      if percentage == 0
+        0
+      elsif percentage < 5
+        30
+      elsif percentage < 10
+        40
+      elsif percentage < 20
+        50
+      elsif percentage < 30
+        65
+      elsif percentage < 40
+        75
+      elsif percentage < 50
+        85
+      else
+        90
+      end
     end
   end
 

@@ -23,7 +23,7 @@ class CrowdCampaignService
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else
       campaign.crowd_pledges.authorized.update_all(status: 'canceled')
-      if campaign.boost_authorized?
+      if campaign.boost_authorized? || campaign.boost_approved?
         campaign.crowd_boost_pledges.authorized.update_all(status: 'canceled')
         campaign.update(boost_status: 'boost_cancelled')
       end
