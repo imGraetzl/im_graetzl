@@ -192,12 +192,18 @@
 }
 
 .-over_boosting_1 {
+
+  .fundingBar_target-success.-first, .fundingBar_target-animated.-first {
+    z-index:10;
+  }
+
   .fundingBar_target-success.-first:before, .fundingBar_target-animated.-first:before {
     background-color: $color-ambient-rosa-dark !important;
   }
 
   .fundingBar_target-success.-first:after, .fundingBar_target-animated.-first:after {
       background-color: $color-ambient-rosa !important;
+      background-image: $texture-primary;
   }
 }
 
