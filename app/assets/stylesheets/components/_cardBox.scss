@@ -725,11 +725,20 @@
   .calendarSheet {
     filter: grayscale(1);
   }
-  .cardBoxContent, .btn-group, .categoryicon, .graetzl-sideflag, .calendarSheet {
+  .calendarSheet, .cardBoxContent, .btn-group, .graetzl-sideflag {
     opacity: 0.8;
   }
-  .coverImgWrapper img{
-    opacity: 0.3;
+
+  .coverImgWrapper::after {
+    content: '';
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    z-index: 0;
+    background-color: white;
+    opacity: 0.5;
   }
 
   .coverImgWrapper::before {
