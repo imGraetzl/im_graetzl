@@ -53,6 +53,7 @@ class CrowdPledgeService
 
       if crowd_boost_pledge
         crowd_pledge.crowd_campaign.update(boost_status: 'boost_authorized')
+        ActionProcessor.track(crowd_boost_pledge, :create)
         AdminMailer.new_crowd_booster(crowd_pledge.crowd_campaign, boost_amount).deliver_later
       end
       

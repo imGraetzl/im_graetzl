@@ -161,8 +161,9 @@ class CrowdCampaignsController < ApplicationController
   def supporters
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     pledges = @crowd_campaign.crowd_pledges.initialized.visible
+    boost_pledges = @crowd_campaign.crowd_boost_pledges.initialized
     donation_pledges = @crowd_campaign.crowd_donation_pledges
-    @supporters = (pledges + donation_pledges).sort_by(&:created_at).reverse
+    @supporters = (pledges + boost_pledges + donation_pledges).sort_by(&:created_at).reverse
   end
 
   def compose_mail

@@ -3,12 +3,12 @@ module ImageHelper
   def avatar_image(object, size: nil, **options)
 
     if options[:class] && options[:class].include?('show-badge')
-      abo = (object.is_a?(User) || object.is_a?(Location) || object.is_a?(CrowdCampaign)) && object.subscribed? ? 'abo' : ''
+      abo = ((object.is_a?(User) || object.is_a?(Location)) && object.subscribed?) || object.is_a?(CrowdBoost) ? 'abo' : ''
     end
 
     #Evtl bei Location auch subscribed boolean hinzufügen & an gleicher stelle wie user via webhook subscriben...
     avatar_type = object.is_a?(Location) ? 'location' : 'user'
-    content_tag(:picture, nil, class: "#{abo} #{avatar_type}") do
+    content_tag(:picture, nil, class: "#{abo} type_#{object.class.name.underscore}") do
       if object&.avatar.nil?
           tag(:source, srcset: "#{image_path("fallbacks/#{avatar_type}_avatar.webp")}", type: "image/webp") +
           image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)

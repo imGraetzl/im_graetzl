@@ -255,6 +255,16 @@ class ActionProcessor
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
 
+    when [CrowdBoostPledge, :create]
+
+      if subject.crowd_campaign.entire_platform?
+        Activity.add_public(subject.crowd_campaign, subject, to: :entire_platform)
+      elsif subject.crowd_campaign.entire_region?
+        Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
+      else
+        Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
+      end
+
     when [CrowdDonationPledge, :create]
 
       if subject.crowd_campaign.entire_platform?
