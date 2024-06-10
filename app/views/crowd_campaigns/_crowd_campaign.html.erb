@@ -93,6 +93,17 @@
           </span>
         </div>
       <% end %>
+    <% elsif local_assigns[:activity_crowd_boost_pledge] %>
+      <% crowd_boost_pledge = local_assigns[:activity_crowd_boost_pledge] %>
+      <div class="userEntry userPledge">
+        <%= link_to crowd_boost_pledge.crowd_boost, rel: 'nofollow' do %>
+          <%= avatar_image crowd_boost_pledge.crowd_boost, size: :thumb, class: 'img-round show-badge' %>
+        <% end %>
+        <span class="userAndType">
+          <%= link_to crowd_boost_pledge.crowd_boost.title, crowd_boost_pledge.crowd_boost, rel: 'nofollow' %> hat mit 
+          <%= number_to_currency(crowd_boost_pledge.amount, precision: 0 ,unit: "€") %> geboostert.
+        </span>
+      </div>
     <% end %>
 
     <% if local_assigns[:activity_comment] %>

@@ -19,10 +19,15 @@
     position: absolute;
     z-index: 9;
   }
-  &.location {
+  &.type_location {
     &::before {
       top: -15%;
       right: -15%;
+    }
+  }
+  &.type_crowd_boost {
+    &::before {
+      background-image: url(image_path('svg/icon-booster.svg'));
     }
   }
 }

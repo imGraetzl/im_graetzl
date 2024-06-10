@@ -102,7 +102,7 @@
         <div class="last-boosters">
           <% @crowd_campaign.crowd_boost_pledges.order(created_at: :desc).first(1).each do |crowd_boost_pledge| %>
             <div class="supporter">
-              <%= avatar_image crowd_boost_pledge.crowd_boost, size: :thumb, class: 'img-round' %>
+              <%= avatar_image crowd_boost_pledge.crowd_boost, size: :thumb, class: 'img-round show-badge' %>
               <div class="name">
                 <span><%= link_to crowd_boost_pledge.crowd_boost, crowd_boost_pledge.crowd_boost %></span><br>
                 <small><strong><%= number_to_currency(crowd_boost_pledge.amount, unit: "€") %></strong> vor <%= time_ago_in_words(crowd_boost_pledge.created_at) %></small>
