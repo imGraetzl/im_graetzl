@@ -15,15 +15,15 @@
 
     <ul class="pricing-summary">
       <li class="old-balance">
-        <div class="cost"><%= number_to_currency(@crowd_boost.balance.to_i, unit: "€") %></div>
+        <div class="cost"><%= number_to_currency(@crowd_boost.balance.to_f, precision: 2, unit: "€") %></div>
         <div class="costname">Aktuell im Topf</div>
       </li>
       <li class="add-amount">
-        <div class="cost"><%= number_to_currency(@crowd_boost_charge.amount.to_i, unit: "€") %></div>
+        <div class="cost"><%= number_to_currency(@crowd_boost_charge.amount.to_f, precision: 2, unit: "€") %></div>
         <div class="costname">Deine Einzahlung</div>
       </li>
       <li class="new-balance">
-        <div class="cost"><%= number_to_currency(@crowd_boost.balance.to_i + @crowd_boost_charge.amount.to_i, unit: "€") %></div>
+        <div class="cost"><%= number_to_currency(@crowd_boost.balance.to_f + @crowd_boost_charge.amount.to_f, precision: 2, unit: "€") %></div>
         <div class="costname">
           Neu im Topf
           <br><small>Nach deiner Einzahlung -<br>DANKE!</small>

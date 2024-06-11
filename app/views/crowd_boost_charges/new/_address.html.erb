@@ -21,7 +21,7 @@
         <%= icon_tag "currency-euro" %>
         <span>Dein Betrag</span>
       <% end %>
-      <%= f.number_field :amount, placeholder: 'Betrag in €', class: 'amount-input', required: true, class: 'calculate-price', maxlength: 6,
+      <%= f.number_field :amount, step: 0.01, placeholder: 'Ganzer Betrag in €', class: 'amount-input', required: true, class: 'calculate-price', maxlength: 8,
         data: {action: url_for([:calculate_price, @crowd_boost, @crowd_boost_charge])} %>
     </div>
 

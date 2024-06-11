@@ -13,7 +13,7 @@ class CrowdBoostService
       metadata: {
         type: 'CrowdBoostCharge',
         crowd_boost_charge_id: crowd_boost_charge.id,
-        crowd_boost_charge_amount: (crowd_boost_charge.amount * 100).to_i,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_boost_charge.amount),
         crowd_boost_id: crowd_boost_charge.crowd_boost.id,
         region_id: crowd_boost_charge.region_id
       },
