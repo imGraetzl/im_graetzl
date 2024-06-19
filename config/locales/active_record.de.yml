@@ -518,6 +518,13 @@ de:
           boost_authorized: autorisiert
           boost_debited: erfolgreich geboostert
           boost_cancelled: nicht geboostert
+      crowd_boost_charge:
+        type:
+          general: Direkteinzahlung
+          zuckerl: Zuckerl
+          room_booster: Raumteiler Booster
+          crowd_pledge: Crowdfunding Unterstützung
+          subscription_invoice: Mitgliedschaft
       crowd_reward:
         title: Dankeschön Titel
         description: Dankeschön Beschreibung

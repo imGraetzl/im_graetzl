@@ -3,6 +3,9 @@ class RoomBooster < ApplicationRecord
 
   belongs_to :user
   belongs_to :room_offer
+  belongs_to :crowd_boost, optional: true
+  has_one :crowd_boost_charge
+
   validates :amount, presence: true, on: :create
 
   string_enum status: ["incomplete", "pending", "active", "expired", "storno"]
@@ -13,6 +16,7 @@ class RoomBooster < ApplicationRecord
 
   before_create :set_booster_dates
   after_update :update_room_offer, if: -> { saved_change_to_status? }
+  after_update :update_crowd_boost_charge, if: -> { crowd_boost_charge.present? && saved_change_to_payment_status? }
 
   def self.next_invoice_number
     where("invoice_number IS NOT NULL").count + 1
@@ -91,6 +95,13 @@ class RoomBooster < ApplicationRecord
     self.starts_at_date = next_start_date
     self.send_at_date = (next_start_date - 1.day).next_occurring(:tuesday)
     self.ends_at_date = next_start_date + 6.days
+  end
+
+  def update_crowd_boost_charge
+    self.crowd_boost_charge.update(
+      payment_status: self.payment_status,
+      debited_at: self.debited_at,
+    )
   end
 
 end

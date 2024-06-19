@@ -15,7 +15,6 @@ class CrowdBoostService
         crowd_boost_charge_id: crowd_boost_charge.id,
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_boost_charge.amount),
         crowd_boost_id: crowd_boost_charge.crowd_boost.id,
-        region_id: crowd_boost_charge.region_id
       },
     )
   end
@@ -57,6 +56,22 @@ class CrowdBoostService
   def payment_refunded(crowd_boost_charge)
     crowd_boost_charge.update(payment_status: 'refunded')
     true
+  end
+
+  def create_charge_from(subject)
+    subject.build_crowd_boost_charge(
+      amount: subject.crowd_boost_charge_amount,
+      payment_status: "authorized",
+      charge_type: subject.class.name.underscore,
+      crowd_boost_id: subject.crowd_boost_id,
+      region_id: subject.region_id,
+      user_id: subject.user_id,
+      email: subject.user.email,
+      contact_name: subject.user.full_name,
+      address_street: subject.user.address_street,
+      address_zip: subject.user.address_zip,
+      address_city: subject.user.address_city,
+    ).save
   end
 
   private

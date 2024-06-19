@@ -18,6 +18,11 @@ class ZuckerlService
 
 
   def payment_authorized(zuckerl, setup_intent_id)
+
+    if zuckerl.crowd_boost_charge_amount && zuckerl.crowd_boost_charge_amount > 0
+      CrowdBoostService.new.create_charge_from(zuckerl)
+    end
+
     setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
     if !setup_intent.status.in?(["succeeded", "processing"])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
@@ -71,7 +76,9 @@ class ZuckerlService
       metadata: {
         type: 'Zuckerl',
         zuckerl_id: zuckerl.id,
-        location_id: zuckerl.location.id
+        location_id: zuckerl.location.id,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
+        crowd_boost_id: zuckerl.crowd_boost_id,
       },
       off_session: true,
       confirm: true,
@@ -116,7 +123,9 @@ class ZuckerlService
       metadata: {
         type: 'Zuckerl',
         zuckerl_id: zuckerl.id,
-        location_id: zuckerl.location.id
+        location_id: zuckerl.location.id,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
+        crowd_boost_id: zuckerl.crowd_boost_id,
       },
     )
   end

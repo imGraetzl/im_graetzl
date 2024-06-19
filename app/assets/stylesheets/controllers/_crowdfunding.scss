@@ -477,45 +477,45 @@ section.crowd_campaign {
       text-align: center;
     }
   }
-  .supporters-container {
-    width:100%;
+}
+
+.supporters-container, .charges-container {
+  width:100%;
+  display: flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content: center;
+  .supporter {
     display: flex;
-    flex-wrap:wrap;
-    gap:10px;
-    justify-content: center;
-    .supporter {
+    align-items: center;
+    width: 32%;
+    .img-round {
+      width:80px;
+      height:80px;
       display: flex;
+      justify-content: center;
       align-items: center;
-      width: 30%;
-      .img-round {
-        width:80px;
-        height:80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        svg {
-          width:50%;
-          height:50%;
-          color: $color-ambient-mint;
-        }
-      }
-      .name {
-        margin-left:10px;
-      }
-      a {
-        color: $color-font-primary;
-        text-decoration: none;
-        &:hover {
-          color: $color-ambient-rosa;
-          text-decoration: underline;
-        }
-      }
-      @include respond-to("<medium") {
-        width: 100%;
+      svg {
+        width:50%;
+        height:50%;
+        color: $color-ambient-mint;
       }
     }
+    .name {
+      margin-left:10px;
+    }
+    a {
+      color: $color-font-primary;
+      text-decoration: none;
+      &:hover {
+        color: $color-ambient-rosa;
+        text-decoration: underline;
+      }
+    }
+    @include respond-to("<medium") {
+      width: 100%;
+    }
   }
-
 }
 
 // REWARD BOX ON CAMAIGN PAGE ----------------

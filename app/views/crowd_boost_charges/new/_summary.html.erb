@@ -8,14 +8,12 @@
     <p>
       <br>
       Vielen Dank für deine Einzahlung von <%= number_to_currency(@crowd_boost_charge.amount.to_f, precision: 2, unit: "€") %>.<br>
-      Neuer Stand im Topf nach deiner Einzahlung:<br>
-      <strong>- <%= number_to_currency(@crowd_boost.balance_expected.to_f, precision: 2, unit: "€") %> -</strong>
     </p>
   </div>
 
   <div>
     <p>
-      Vielen Dank! Wir haben dir soeben auch ein Bestätigungs-Email gesendet. 
+      Wir haben dir soeben auch ein Bestätigungs-Email gesendet. 
       Solltest du Fragen haben, schreib uns jederzeit gerne an <%= mail_to t("region.#{current_region.id}.contact_email"), nil %>
     </p>
   </div>

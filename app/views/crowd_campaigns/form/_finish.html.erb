@@ -19,6 +19,14 @@
   </div>
 
   <div class="input-field">
+    <%= f.label :vat_id do %>
+      <%= icon_tag "profile-vcard" %>
+      <span>UID-Nummer</span>
+    <% end %>
+    <%= f.text_field :vat_id, placeholder: 'Umsatz-Steuer-Identifikations-Nummer (falls vorhanden).', disabled: !@crowd_campaign.editable? %>
+  </div>
+
+  <div class="input-field">
     <%= f.label :contact_website do %>
       <%= icon_tag "globe" %>
       <span>Website</span>

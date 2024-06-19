@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_22_091159) do
+ActiveRecord::Schema.define(version: 2024_06_19_092125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -213,10 +213,15 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.bigint "crowd_boost_id"
     t.bigint "user_id"
     t.uuid "crowd_pledge_id"
+    t.bigint "zuckerl_id"
+    t.string "charge_type", default: "general"
+    t.bigint "room_booster_id"
     t.index ["crowd_boost_id"], name: "index_crowd_boost_charges_on_crowd_boost_id"
     t.index ["crowd_pledge_id"], name: "index_crowd_boost_charges_on_crowd_pledge_id"
     t.index ["region_id"], name: "index_crowd_boost_charges_on_region_id"
+    t.index ["room_booster_id"], name: "index_crowd_boost_charges_on_room_booster_id"
     t.index ["user_id"], name: "index_crowd_boost_charges_on_user_id"
+    t.index ["zuckerl_id"], name: "index_crowd_boost_charges_on_zuckerl_id"
   end
 
   create_table "crowd_boost_pledges", force: :cascade do |t|
@@ -228,6 +233,7 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.bigint "crowd_boost_id"
     t.bigint "crowd_boost_slot_id"
     t.bigint "crowd_campaign_id"
+    t.datetime "debited_at"
     t.index ["crowd_boost_id"], name: "index_crowd_boost_pledges_on_crowd_boost_id"
     t.index ["crowd_boost_slot_id"], name: "index_crowd_boost_pledges_on_crowd_boost_slot_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_boost_pledges_on_crowd_campaign_id"
@@ -340,6 +346,7 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.boolean "guest_newsletter", default: true, null: false
     t.string "boost_status"
     t.bigint "crowd_boost_slot_id"
+    t.string "vat_id"
     t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
@@ -1125,6 +1132,9 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.date "starts_at_date"
     t.date "ends_at_date"
     t.string "payment_wallet"
+    t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
+    t.bigint "crowd_boost_id"
+    t.index ["crowd_boost_id"], name: "index_room_boosters_on_crowd_boost_id"
     t.index ["region_id"], name: "index_room_boosters_on_region_id"
     t.index ["room_offer_id"], name: "index_room_boosters_on_room_offer_id"
     t.index ["user_id"], name: "index_room_boosters_on_user_id"
@@ -1693,6 +1703,9 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
     t.string "payment_wallet"
     t.date "starts_at"
     t.date "ends_at"
+    t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
+    t.bigint "crowd_boost_id"
+    t.index ["crowd_boost_id"], name: "index_zuckerls_on_crowd_boost_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
@@ -1714,7 +1727,9 @@ ActiveRecord::Schema.define(version: 2024_04_22_091159) do
   add_foreign_key "coop_suggested_tags", "coop_demand_categories", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "crowd_boosts", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "crowd_pledges", on_delete: :nullify
+  add_foreign_key "crowd_boost_charges", "room_boosters", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "users", on_delete: :nullify
+  add_foreign_key "crowd_boost_charges", "zuckerls", on_delete: :nullify
   add_foreign_key "crowd_boost_pledges", "crowd_boost_slots", on_delete: :nullify
   add_foreign_key "crowd_boost_pledges", "crowd_boosts", on_delete: :nullify
   add_foreign_key "crowd_boost_pledges", "crowd_campaigns", on_delete: :nullify

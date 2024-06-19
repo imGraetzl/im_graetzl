@@ -13,12 +13,19 @@ class RoomBoosterService
       metadata: {
         type: 'RoomBooster',
         room_booster_id: room_booster.id,
-        room_offer_id: room_booster.room_offer.id
+        room_offer_id: room_booster.room_offer.id,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(room_booster.crowd_boost_charge_amount),
+        crowd_boost_id: room_booster.crowd_boost_id,
       },
     )
   end
 
   def payment_authorized(room_booster, payment_intent_id)
+
+    if room_booster.crowd_boost_charge_amount && room_booster.crowd_boost_charge_amount > 0
+      CrowdBoostService.new.create_charge_from(room_booster)
+    end
+
     payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
     if !payment_intent.status.in?(["succeeded", "processing"])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
@@ -69,7 +76,7 @@ class RoomBoosterService
   end
 
   def create_for_free(room_booster)
-    room_booster.update(payment_status: 'free', status: 'pending', amount: 0)
+    room_booster.update(payment_status: 'free', status: 'pending', amount: 0, crowd_boost_id: nil, crowd_boost_charge_amount: nil)
   end
 
   # Daily PushUp

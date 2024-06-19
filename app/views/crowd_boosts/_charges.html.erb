@@ -1,0 +1,22 @@
+  <% @charges.each do |crowd_boost_charge| %>
+    <% if crowd_boost_charge.user %>
+      <div class="supporter cardBox">
+        <%= link_to crowd_boost_charge.user, rel: 'nofollow' do %>
+          <%= avatar_image_with_tooltip crowd_boost_charge.user, size: :thumb, class: 'img-round show-badge' %>
+        <% end %>
+        <div class="name">
+          <span><%= link_to crowd_boost_charge.contact_name, crowd_boost_charge.user, rel: 'nofollow' %></span><br>
+          <small><em>via <%= I18n.t("activerecord.attributes.crowd_boost_charge.type.#{crowd_boost_charge.charge_type}") %></small></em><br>
+          <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
+        </div>
+      </div>
+    <% else %>
+      <div class="supporter cardBox">
+        <%= avatar_image crowd_boost_charge.user, size: :thumb, class: 'img-round' %>
+        <div class="name">
+          <span><%= crowd_boost_charge.contact_name %></span><br>
+          <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
+        </div>
+      </div>
+    <% end %>
+  <% end %>

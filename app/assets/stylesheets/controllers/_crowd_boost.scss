@@ -119,7 +119,46 @@ section.crowd_boost {
       @extend .list-arrow;
       margin-left: 0px;
     } 
-    
+  }
+
+  .-fullwidth {
+    background-color: #eaf2f4;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+
+    > div {
+      max-width:930px;
+      margin-left: auto;
+      margin-right: auto;
+
+      padding-left: 18px;
+      padding-right: 18px;
+
+      @include respond-to(">=medium") {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+      @include respond-to(">=large") {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+
+    &.-content {
+      background-color: #f8f8f8;
+      margin-top:0px;
+      padding-top:50px;
+      margin-bottom:-80px;
+      padding-bottom:80px;
+      @include respond-to("<=medium") {
+        padding-top:30px;
+      }
+    }
 
   }
+
 }

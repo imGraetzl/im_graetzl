@@ -1,6 +1,6 @@
 class CrowdBoostsController < ApplicationController
   layout :set_layout
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns]
 
   def index
     if current_region
@@ -14,6 +14,16 @@ class CrowdBoostsController < ApplicationController
     @crowd_boost = CrowdBoost.find(params[:id])
     @next_slot = @crowd_boost.next_slot(current_region)
     flash.now[:alert] = "Dieser Topf ist aktuell inaktiv." if @crowd_boost.disabled?
+  end
+
+  def charges
+    @crowd_boost = CrowdBoost.find(params[:id])
+    @charges = @crowd_boost.crowd_boost_charges.debited.order(created_at: :desc)
+  end
+
+  def campaigns
+    @crowd_boost = CrowdBoost.find(params[:id])
+    @campaigns = @crowd_boost.crowd_campaigns.boost_initialized.by_currentness
   end
 
   private

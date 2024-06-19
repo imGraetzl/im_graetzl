@@ -32,10 +32,6 @@ class CrowdBoost < ApplicationRecord
     total_amount_charged - total_amount_pledged
   end
 
-  def balance_expected
-    self.crowd_boost_charges.expected.sum(:amount) - total_amount_pledged
-  end
-
   def should_generate_new_friendly_id?
     slug.blank?
   end

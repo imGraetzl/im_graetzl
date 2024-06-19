@@ -63,5 +63,22 @@
 
   </div>
 
+  <div class="tabs-ctrl -plain">
+    <ul class="tabs-nav">
+      <li class="active"><a href="#tab-campaigns"><h3>Unterstütze Projekte</h3><% if @crowd_boost.crowd_campaigns.boost_initialized.count > 0 %><small><%= @crowd_boost.crowd_campaigns.boost_initialized.count %></small><% end %></a></li>
+      <li><a href="#tab-charges"><h3>Topf Einzahlungen</h3><% if @crowd_boost.crowd_boost_charges.debited.count > 0 %><small><%= @crowd_boost.crowd_boost_charges.debited.count %></small><% end %></a></li>
+    </ul>
+  </div>
 
-
+  <div id="tabs-container" class="-fullwidth -content">
+    <div id="tab-campaigns" class="card-grid-container">
+      <%= form_tag campaigns_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'cards-filter' do %><% end %>
+      <div class="card-grid" data-behavior="campaigns-card-container"></div>
+    </div>
+    <div id="tab-charges" class="charges">
+      <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+      <div class="charges-container">
+        <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+      </div>
+    </div>
+  </div>

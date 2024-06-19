@@ -23,6 +23,12 @@ class ZuckerlsController < ApplicationController
     @zuckerl.region_id = @location.region_id
     @zuckerl.amount = @zuckerl.total_price / 100
 
+    # HOT August (TODO: Set ID) / Könnte auch von Formularfeld über zuckerl_params kommen
+    if @zuckerl.crowd_boost_chargeable?
+      @zuckerl.crowd_boost_id = 1
+      @zuckerl.crowd_boost_charge_amount = @zuckerl.basic_price / 100
+    end
+
     if @zuckerl.save
       @zuckerl.link ||= nil
       if valid_zuckerl_voucher_for(@zuckerl)
@@ -42,14 +48,14 @@ class ZuckerlsController < ApplicationController
     if params[:zuckerl][:subscription_id].present?
       @zuckerl.update zuckerl_voucher_params
       @zuckerl.pending!
-      @zuckerl.update(amount: 0, payment_status: 'free',)
+      @zuckerl.update(amount: 0, payment_status: 'free', crowd_boost_id: nil, crowd_boost_charge_amount: nil)
       redirect_to [:summary, @zuckerl], notice: 'Dein Zuckerl-Guthaben wurde eingelöst'
 
     elsif params[:zuckerl][:user_zuckerl].present?
 
       @zuckerl.entire_region? ? current_user&.decrement!(:free_region_zuckerl) : current_user&.decrement!(:free_graetzl_zuckerl)
       @zuckerl.pending!
-      @zuckerl.update(amount: 0, payment_status: 'free',)
+      @zuckerl.update(amount: 0, payment_status: 'free', crowd_boost_id: nil, crowd_boost_charge_amount: nil)
       redirect_to [:summary, @zuckerl], notice: 'Dein Zuckerl-Guthaben wurde eingelöst'
 
     elsif params[:edit_zuckerl].present?

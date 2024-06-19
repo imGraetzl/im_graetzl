@@ -295,6 +295,8 @@ Rails.application.routes.draw do
   end
 
   resources :crowd_boosts, only: [:index, :show], path: 'crowdfunding-booster' do
+    get 'charges', on: :member
+    get 'campaigns', on: :member
     resources :crowd_boost_charges, only: [:new, :create], path: 'charge' do
       get 'login', on: :collection
       get 'choose_region', on: :collection
