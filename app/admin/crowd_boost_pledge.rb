@@ -17,4 +17,27 @@ ActiveAdmin.register CrowdBoostPledge do
 
   index { render 'index', context: self }
 
+  # Within app/admin/resource_name.rb
+  # Controller pagination overrides
+  controller do
+    def apply_pagination(chain)
+        chain = super unless formats.include?(:json) || formats.include?(:csv)
+        chain
+    end
+  end
+
+  csv do
+    column :id
+    column :status
+    column :debited_at
+    column(:amount) { |pledge| ActionController::Base.helpers.number_with_precision(pledge.amount)}
+    column :crowd_boost_id
+    column(:crowd_boost) { |pledge| pledge.crowd_boost}
+    column :region_id
+    column :crowd_boost_slot_id
+    column(:crowd_boost_slot) { |pledge| pledge.crowd_boost_slot}
+    column :crowd_campaign_id
+    column(:crowd_campaign) { |pledge| pledge.crowd_campaign}
+  end
+
 end

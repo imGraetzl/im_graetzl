@@ -64,6 +64,7 @@ context.instance_eval do
           row :contact_email
           row :contact_name
           row :contact_company
+          row :vat_id
           row :contact_website
           row :contact_instagram
           row :contact_facebook
@@ -83,6 +84,8 @@ context.instance_eval do
             row(:crowd_boost_slot){|c|c.crowd_boost_slot}
             row(:boost_status){|c| status_tag(c.boost_status)}
             row :crowd_boost_pledges_sum
+            row :crowd_boost_pledges_netto
+            row :crowd_boost_pledges_tax
           end
         end
       end

@@ -24,6 +24,7 @@ class CrowdCampaignInvoice
     pdf.text campaign.contact_name
     pdf.text campaign.contact_address
     pdf.text "#{campaign.address_zip} #{campaign.address_city}"
+    pdf.text "UID: #{campaign.vat_id}" if campaign.vat_id?
     pdf.move_down 20
   end
 
@@ -47,16 +48,20 @@ class CrowdCampaignInvoice
     pdf.stroke_horizontal_rule
     pdf.move_down 10
 
-    pdf.float { pdf.text "Festgelegtes Fundingziel", align: :left }
+    pdf.float { pdf.text "Dein festgelegtes Fundingziel", align: :left }
     pdf.text "#{format_price(campaign.funding_1_amount)}", align: :right
-    pdf.float { pdf.text "Festgelegter Optimalbetrag", align: :left } if campaign.funding_2_amount?
+    pdf.float { pdf.text "Dein festgelegter Optimalbetrag", align: :left } if campaign.funding_2_amount?
     pdf.text "#{format_price(campaign.funding_2_amount)}", align: :right if campaign.funding_2_amount?
     pdf.move_down 10
 
     if campaign.boostable?
-      pdf.float { pdf.text "Fundingsumme UnterstützerInnen", align: :left }
+      pdf.float { pdf.text "Fundingsumme durch UnterstützerInnen (#{campaign.funding_count})", align: :left }
       pdf.text "#{format_price(campaign.crowd_pledges_sum)}", align: :right
-      pdf.float { pdf.text "#{campaign.crowd_boost.title}", align: :left }
+      if campaign.vat_id?
+        pdf.float { pdf.text "#{campaign.crowd_boost.title} (Netto: #{format_price(campaign.crowd_boost_pledges_netto)}  / USt.: #{format_price(campaign.crowd_boost_pledges_tax)} )", align: :left }
+      else
+        pdf.float { pdf.text "#{campaign.crowd_boost.title}", align: :left }
+      end
       pdf.text "#{format_price(campaign.crowd_boost_pledges_sum)}", align: :right
     end
     

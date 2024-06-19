@@ -241,8 +241,11 @@
   .-supporters span, .-booster span {
     display: block;
   }
-  .-booster{
+  .-booster {
     color: $color-ambient-rosa-dark;
+    @include respond-to("<=400px") {
+      display: none;
+    }
   }
 }
 

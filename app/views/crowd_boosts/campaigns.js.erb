@@ -1,0 +1,4 @@
+(function() {
+  var $cardContainer = $("[data-behavior='campaigns-card-container']");
+  $cardContainer.html("<%= j render partial: 'crowd_campaigns/crowd_campaign', collection: @campaigns, as: 'crowd_campaign' %>")
+})();

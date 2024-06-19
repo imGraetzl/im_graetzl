@@ -34,15 +34,19 @@ class RoomBoostersController < ApplicationController
     @room_booster.amount = @room_booster.total_price / 100
     @room_booster.status = "incomplete"
 
-    if @room_booster.save
+    # HOT August (TODO: Set ID) / Könnte auch von Formularfeld über room_booster_params kommen
+    if @room_booster.crowd_boost_chargeable?
+      @room_booster.crowd_boost_id = 1
+      @room_booster.crowd_boost_charge_amount = @room_booster.basic_price / 100
+    end
 
+    if @room_booster.save
       if current_user.admin? && params[:freeadmin].present?
         RoomBoosterService.new.create_for_free(@room_booster)
         redirect_to [:summary, @room_booster]
       else
         redirect_to [:choose_payment, @room_booster]
       end
-
     else
       render :new
     end

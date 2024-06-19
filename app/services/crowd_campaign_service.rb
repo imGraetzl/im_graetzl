@@ -17,7 +17,7 @@ class CrowdCampaignService
         CrowdCampaignMailer.crowd_donation_pledge_success(pledge).deliver_later
       end
       if campaign.boost_authorized?
-        campaign.crowd_boost_pledges.authorized.update_all(status: 'debited')
+        campaign.crowd_boost_pledges.authorized.update_all(status: 'debited', debited_at: Time.current)
         campaign.update(boost_status: 'boost_debited')
       end
       CrowdCampaignMailer.completed_successful(campaign).deliver_later

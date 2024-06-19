@@ -13,6 +13,8 @@ class Zuckerl < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :subscription, optional: true
   has_one :graetzl, through: :location
+  belongs_to :crowd_boost, optional: true
+  has_one :crowd_boost_charge
 
   before_validation :smart_add_url_protocol, if: -> { link.present? }
 
@@ -24,6 +26,8 @@ class Zuckerl < ApplicationRecord
   scope :initialized, -> { where.not(aasm_state: [:incomplete, :cancelled, :storno]) }
   scope :entire_region, -> { where(entire_region: true) }
   scope :graetzl, -> { where(entire_region: false) }
+
+  after_update :update_crowd_boost_charge, if: -> { crowd_boost_charge.present? && saved_change_to_payment_status? }
 
   def self.price(region)
     region.zuckerl_graetzl_price * 1.2
@@ -155,6 +159,13 @@ class Zuckerl < ApplicationRecord
     if self.invoice_number?
       throw :abort
     end
+  end
+
+  def update_crowd_boost_charge
+    self.crowd_boost_charge.update(
+      payment_status: self.payment_status,
+      debited_at: self.debited_at,
+    )
   end
 
 end

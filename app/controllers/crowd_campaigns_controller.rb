@@ -355,6 +355,7 @@ class CrowdCampaignsController < ApplicationController
       contact_address: current_user.billing_address&.street || current_user.address_street,
       contact_zip: current_user.billing_address&.zip || current_user.address_zip,
       contact_city: current_user.billing_address&.city || current_user.address_city,
+      vat_id: current_user.billing_address&.vat_id,
     }
   end
 
@@ -376,7 +377,7 @@ class CrowdCampaignsController < ApplicationController
         :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit_description,
         :startdate, :enddate, :billable, :benefit, :crowdfunding_call,
         :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
-        :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_instagram, :contact_facebook, :contact_email, :contact_phone,
+        :contact_company, :vat_id, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_instagram, :contact_facebook, :contact_email, :contact_phone,
         :location_id, :room_offer_id,
         :graetzl_id, :address_street, :address_coords, :address_city, :address_zip, :address_description,
         :cover_photo, :remove_cover_photo, :video, :avatar, :remove_avatar,

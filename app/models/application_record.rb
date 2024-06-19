@@ -15,4 +15,9 @@ class ApplicationRecord < ActiveRecord::Base
     @region ||= Region.get(region_id)
   end
 
+  def crowd_boost_chargeable?
+    # TODO: Hot August Dates
+    Date.today.to_datetime.between?('2024-06-01', '2024-08-31')
+  end
+
 end

@@ -23,6 +23,13 @@ context.instance_eval do
           row :region_id
         end
       end
+      panel 'Charge Type' do
+        attributes_table_for crowd_boost_charge do
+          row :zuckerl
+          row :room_booster
+          row :crowd_pledge
+        end
+      end
     end
   end
 

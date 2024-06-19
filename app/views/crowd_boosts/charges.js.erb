@@ -1,0 +1,4 @@
+(function() {
+  $(".charges-container").html("<%= j render 'crowd_boosts/charges' %>");
+  if ($('body.signed-in').exists()) APP.components.initUserTooltip();
+})();

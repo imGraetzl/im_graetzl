@@ -187,6 +187,22 @@ class CrowdCampaign < ApplicationRecord
     (crowd_pledges_fee_netto * 0.2).round(2)
   end
 
+  def crowd_boost_pledges_netto
+    if self.vat_id?
+      (crowd_boost_pledges_sum / 1.20).round(2)
+    else
+      crowd_boost_pledges_sum
+    end
+  end
+
+  def crowd_boost_pledges_tax
+    if self.vat_id?
+      (crowd_boost_pledges_netto * 0.2).round(2) if self.vat_id?
+    else
+      0
+    end
+  end
+
   def stripe_fee
     (effective_funding_sum / 100) * stripe_fee_percentage
   end

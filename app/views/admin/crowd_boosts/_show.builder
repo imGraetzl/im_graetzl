@@ -48,14 +48,13 @@ context.instance_eval do
     end
   end
   columns do
-    panel 'Campaigns' do
-      table_for crowd_boost.crowd_campaigns do
-        column(:campaign){|c| c}
-        column(:funding_status){|c| status_tag(c.funding_status)}
-        column(:boost_status){|c| status_tag(c.boost_status)}
-        column(:pledges){|c| c.crowd_boost_pledges.count}
-        column(:crowd_boost_sum){|c| c.crowd_boost_pledges_sum}
-        column(:boost_slot){|c| c.crowd_boost_slot}
+    panel 'Charges' do
+      table_for crowd_boost.crowd_boost_charges.expected.order(created_at: :desc) do
+        column(:created_at){|c| c.created_at}
+        column(:amount){|c| c.amount}
+        column(:payment_status){|c| status_tag(c.payment_status)}
+        column(:charge){|c| c}
+        column(:charge_type){|c| c.charge_type}
       end
     end
   end

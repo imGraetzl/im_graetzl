@@ -15,6 +15,7 @@ ActiveAdmin.register CrowdBoostCharge do
   scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :charge_type, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_boost, collection: proc { CrowdBoost.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -31,5 +32,31 @@ ActiveAdmin.register CrowdBoostCharge do
   index { render 'index', context: self }
   show { render 'show', context: self }
   form partial: 'form'
+
+  # Within app/admin/resource_name.rb
+  # Controller pagination overrides
+  controller do
+    def apply_pagination(chain)
+        chain = super unless formats.include?(:json) || formats.include?(:csv)
+        chain
+    end
+  end
+
+  csv do
+    column :id
+    column :payment_status
+    column :debited_at
+    column(:amount) { |charge| ActionController::Base.helpers.number_with_precision(charge.amount)}
+    column :crowd_boost_id
+    column(:crowd_boost) { |charge| charge.crowd_boost}
+    column :region_id
+    column :user_id
+    column :contact_name
+    column :email
+    column :charge_type
+    column :zuckerl_id
+    column :room_booster_id
+    column :crowd_pledge_id
+  end
 
 end

@@ -27,6 +27,14 @@ context.instance_eval do
     end
   end
 
+  panel 'CrowdBoostCharge' do
+    attributes_table_for zuckerl do
+      row :crowd_boost
+      row :crowd_boost_charge_amount
+      row :crowd_boost_charge
+    end
+  end
+
   panel 'Rechnungsadresse' do
     attributes_table_for zuckerl do
       row :company
