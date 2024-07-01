@@ -1,0 +1,69 @@
+<div class="address-container">
+
+  <div class="hl-subtext">
+    <h1>Neuer Raumteiler Booster für</h1>
+    <p>
+      <%= link_to @room_offer, @room_offer %>
+    </p>
+
+    <br>
+
+    <div class="contact-login-msg">
+        Ab dem 01. August können wieder neue Booster erstellt werden.
+    </div>
+
+  </div>
+
+  <%= form_for [@room_offer, @room_booster] do |f| %>
+
+    <div class="input-field">
+      <%= f.label :company do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Firma</span>
+      <% end %>
+      <%= f.text_field :company, placeholder: 'Firma', disabled:true %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Vorname</span>
+      <% end %>
+      <%= f.text_field :name, placeholder: 'Vorname', disabled:true %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :address do %>
+        <%= icon_tag "map-location" %>
+        <span>Strasse & Nr.</span>
+      <% end %>
+      <%= f.text_field :address, placeholder: 'Strasse & Nr.', disabled:true %>
+    </div>
+
+    <div class="form-columns">
+
+      <div class="input-field">
+        <%= f.label :zip do %>
+          <%= icon_tag "map-location" %>
+          <span>Postleitzahl</span>
+        <% end %>
+        <%= f.text_field :zip, placeholder: 'PLZ', disabled:true %>
+      </div>
+
+      <div class="input-field">
+        <%= f.label :city do %>
+          <%= icon_tag "map-location" %>
+          <span>Ort/Stadt</span>
+        <% end %>
+        <%= f.text_field :city, placeholder: 'Wien', disabled:true %>
+      </div>
+
+    </div>
+
+    <div class="form-columns">
+      <%= submit_tag "Weiter zur Zahlung", class: 'btn-primary', disabled:true %>
+    </div>
+
+  <% end %>
+
+</div>
