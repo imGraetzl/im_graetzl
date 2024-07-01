@@ -16,6 +16,10 @@ class CrowdBoostsController < ApplicationController
     flash.now[:alert] = "Dieser Topf ist aktuell inaktiv." if @crowd_boost.disabled?
   end
 
+  def call
+    @crowd_boost = CrowdBoost.find(params[:id])
+  end
+
   def charges
     @crowd_boost = CrowdBoost.find(params[:id])
     @charges = @crowd_boost.crowd_boost_charges.debited.order(created_at: :desc)

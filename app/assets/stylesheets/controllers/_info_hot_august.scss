@@ -1,0 +1,64 @@
+.hot_august {
+  
+  &.crowd_boost {
+    .introtxt {
+      .hl-subtext {
+        h1 {@include font-size-secondaryFont('large');}
+        p {@include font-size-primaryFont('larger');}
+      }
+      p {
+        @include font-size-primaryFont('large');
+        margin-bottom: 20px;
+      }
+    }
+  }
+  
+  .content-wide {
+    padding-top:35px;
+    padding-bottom:50px;
+    margin-bottom:50px;
+
+    position: relative;
+    background-color: #eaf2f4;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+
+    .inner {
+      max-width: 930px;
+      position: relative;
+      margin: 0 auto;
+      padding-left: 18px;
+      padding-right: 18px;
+
+      @include respond-to(">=medium") {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+      @include respond-to(">=large") {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+  }
+
+  .content-wide {
+
+  }
+
+  .toggle-container {
+    margin-bottom:50px;
+    .-toggle-content {
+      p {
+        @include font-size-primaryFont('large');
+        margin-bottom: 20px;
+      }
+      p:last-child {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+}

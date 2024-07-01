@@ -1,0 +1,74 @@
+<section class="crowd_boost hot_august">
+
+
+  <div class="introcontainer">
+    <div class="introtxt">
+      <div class="hl-subtext">
+        <h1><em>Der RaumBooster Topf</em></h1>
+        <p><strong>Leerstand beleben und Räumen eine neue Zukunft geben!</strong></p>
+      </div>
+      <p>Mehr Räume eröffnen oder halten für lokale Macher*innen und für lebendige Grätzl in Wien. Auf der einen Seite gibt es einen riesigen Raumbedarf, auf der anderen Seite Leerstand. Zudem steigen die Mieten und Energiekosten, Räume müssen deshalb von lokalen Macher*innen aufgegeben werden. </p>
+      <p><strong>Genau darum geht es beim RaumBooster – Der RaumBooster ist ein neues Format, das euch unterstützt, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen!</strong></p>
+      <p>In Calls laden wir euch ein, eure Raumvorhaben einzureichen. Alle, die sich für den Raumbooster qualifizieren und ihr Crowdfunding starten, bekommen einen zusätzlichen <strong>RaumBooster von 500 bis 1.000 € oben drauf</strong>, sobald das Crowdfunding 30% des Mindestziels erreicht und das Crowdfunding erfolgreich abgeschlossen wird.</p>
+    </div>
+    <div class="introSide">
+      <%= render 'crowd_boosts/crowd_boost_call', crowd_boost: @crowd_boost %>
+    </div>
+  </div>
+
+
+  <div class="content-wide">
+    <div class="inner">
+      <div class="hl-subtext">
+        <h1><em>Hot August</em> - Alles muss raus :)</h1>
+        <p>Ab August wird der RaumBooster gefüllt und damit mehr Raum geschaffen! Von lokalen Macher*innen für lokale Macher*innen. Hol dir ein Zuckerl, eine Fördermitgliedschaft oder komm zu einem Good-Morning-Date. <strong>Alle Erlöse landen im Topf!</strong></p>
+      </div>
+      <div class="cardBoxCollection -quart">
+        <div class="cardBox">Zuckerl & Pusher</div>
+        <div class="cardBox">Mitgliedschaft</div>
+        <div class="cardBox">Good Morning Date</div>
+        <div class="cardBox">Direkt einzahlen</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="toggle-container">
+    <div class="content-block -toggable">
+      <h3>Weiterer Ablauf</h3>
+      <div class="-toggle-content">
+        <p>Es ist geplant Anfang Dezember den ersten RaumBooster Call zu starten, bis dahin wollen wir mind. 3000 € im Topf haben, um damit gleich mehrere Raumprojekte an den Start zu bekommen!</p>
+      </div>
+    </div>
+    <div class="content-block -toggable">
+      <h3>Warum der RaumBooster?</h3>
+      <div class="-toggle-content">
+        <p>Räume zu aktivieren und zu halten wird immer kostspieliger, und dadurch werden die lokalen Macher*innen aus den Stadtteilen verdrängt. Die Macher*innen benötigen leistbare Räume für ihre Ideen, Angebote und Projekte. Bei einer Raumaktivierung kommen schnell ein paar tausend Euro zusammen: Provisionen, Renovierung, Ausstattung. Bestehende Räume möchten ebenfalls gehalten werden, diese müssen zukunftsfit gemacht werden z.B. mit neuen Organisationsmodellen oder anderen Anpassungen. Leerstandsförderungen sind großartig, stehen aber nicht allen offen und  müssen ausfinanziert werden. Kredite sind schwer zu bekommen und teuer.</p>  
+        <p>Durch eine Umfrage im Jahr 2022 unter 599 Macher*innen in Wien wurde deutlich, dass eine Raumaktivierung an den finanziellen Mitteln scheitert, obwohl es einen großen Raumbedarf gibt. Warum das wichtig ist: Unsere Stadtteile brauchen die lokalen Macher*innen und ihre Angebote der Alltagsökonomie, denn ohne sie veröden Grätzln und das Miteinander schwindet. Stadtteile verlieren ihre Identität und ihren Charme, die Lebensqualität sinkt. Und es ist einfach sinnvoll, bereits gebaute Ressourcen voll auszunutzen, jeder leerstehende oder untergenutzte Raum ist einer zu viel.</p>
+        <p>Wir wünschen uns, dass mit dem RaumBooster mehr Vorhaben schneller ihr Crowdfunding Ziel erreichen und dass die Crowdfundings höhere Summen generieren. Denn bereits mit der RaumBooster Qualifizierung können wir den Projektstarter*innen und ihren Unterstützer*innen ein Zeichen geben, dass es sich um ein großartiges und unterstützenswertes Vorhaben handelt. Das motiviert.</p>
+      </div>
+    </div>
+    <div class="content-block -toggable">
+      <h3>Darauf arbeiten wir langfristig hin</h3>
+      <div class="-toggle-content">
+        <p>Der Topf soll so groß werden, dass wir bald 23 Raumvorhaben pro Jahr mit anschieben können – pro Bezirk eins, dann zwei, dann drei ... Statt Verdrängung: eine liebevolle Rückeroberung!</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="tabs-container" class="-fullwidth -content">
+    <div class="hl-subtext">
+      <h1>Ihr ermöglicht den RaumBooster - Danke!</h1>
+      <p>Tausend Dank an euch, dass ihr den RaumBooster möglich macht!</p>
+    </div>
+    <div id="tab-charges" class="charges">
+      <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+      <div class="charges-container">
+        <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+      </div>
+    </div>
+  </div>
+
+
+</section>

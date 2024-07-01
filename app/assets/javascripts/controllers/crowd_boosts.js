@@ -2,11 +2,10 @@ APP.controllers.crowd_boosts = (function() {
 
     function init() {
         if ($("section.crowd_boost").exists()) initCrowdBoost();
+        if ($("section.hot_august").exists()) initCrowdHotAugust();
     }
 
     function initCrowdBoost() {
-
-      console.log('hans');
 
       APP.components.tabs.initTabs(".tabs-ctrl", "#tabs-container");
 
@@ -18,6 +17,12 @@ APP.controllers.crowd_boosts = (function() {
           $(".form-charges").submit();
         }
       }).trigger('_after');
+
+    }
+
+    function initCrowdHotAugust() {
+
+      $(".form-charges").submit();
 
     }
 
