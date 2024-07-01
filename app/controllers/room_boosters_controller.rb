@@ -17,7 +17,11 @@ class RoomBoostersController < ApplicationController
     else
       newest_boosters = RoomBooster.in(@room_offer.region).active_or_pending.sort_by(&:ends_at_date).last(2)
       @next_start_date = newest_boosters.first.ends_at_date + 1.day
-      flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
+      #flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."
+      
+      # Remove these 2 lines for HOT August and use flash line above again
+      @next_start_date = Date.new(2024,8,1)
+      flash.now[:notice] = "Der Raumteiler-Booster ist aktuell pausiert. Ab dem 01. August können wieder Booster erstellt werden."
     end
 
     @room_booster.starts_at_date = @next_start_date
