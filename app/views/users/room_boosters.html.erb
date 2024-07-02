@@ -19,7 +19,7 @@
         <li>Platziere deinen Raumteiler im <strong>wöchentlichen Newsletter</strong> an alle imGrätzl NutzerInnen in ganz <%= current_user.region %>. (Nächster Newsletter am <%= I18n.localize(Date.today.next_occurring(:tuesday) , format:'%a, %d. %B %Y') %>).</li>
         <li>Liste damit deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_user.region %>.</li>
         <li>Dein Raumteiler wird auf allen Raumteilerseiten auf der Plattform eine Woche <strong>täglich hochgespült</strong>.</li>
-        <li>Ein Raumteiler Booster kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
+        <li>Ein Raumteiler Pusher kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
       </ul>
 
     </div>
@@ -29,13 +29,13 @@
   </div>
 
   <% if @room_boosters.present? %>
-    <h3>Deine Raumteiler Booster</h3>
+    <h3>Deine Raumteiler Pusher</h3>
 
     <div class="table-container -light" role="table">
       <div class="flex-table header" role="rowgroup">
-        <div class="flex-row xxlarge first" role="columnheader">Booster für Raumteiler</div>
+        <div class="flex-row xxlarge first" role="columnheader">Pusher für Raumteiler</div>
         <div class="flex-row medium" role="columnheader">Status</div>
-        <div class="flex-row large" role="columnheader">Plattform Booster</div>
+        <div class="flex-row large" role="columnheader">Plattform Pusher</div>
         <div class="flex-row medium" role="columnheader">Newsletter</div>
         <div class="flex-row medium" role="columnheader">PDF Rechnung</div>
       </div>

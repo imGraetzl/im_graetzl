@@ -37,7 +37,7 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
   end
 
   def crowd_pledge_incomplete
-    CrowdCampaignMailer.crowd_pledge_incomplete(CrowdPledge.incomplete.order(:created_at).last)
+    CrowdCampaignMailer.crowd_pledge_incomplete(CrowdPledge.order(:created_at).last)
   end
 
   def crowd_pledge_authorized

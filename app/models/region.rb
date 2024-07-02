@@ -49,6 +49,10 @@ class Region
     @use_energieteiler
   end
 
+  def hot_august?
+    self.is?('wien') && Date.today.to_datetime.between?('2024-07-01', '2024-08-31')
+  end
+
   def is?(region_id)
     region_id == id ? true : false
   end

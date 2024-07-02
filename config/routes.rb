@@ -297,6 +297,7 @@ Rails.application.routes.draw do
   resources :crowd_boosts, only: [:index, :show], path: 'crowdfunding-booster' do
     get 'charges', on: :member
     get 'campaigns', on: :member
+    get 'call', on: :member
     resources :crowd_boost_charges, only: [:new, :create], path: 'charge' do
       get 'login', on: :collection
       get 'choose_region', on: :collection
@@ -321,12 +322,12 @@ Rails.application.routes.draw do
 
   get 'cf/:id', to: 'crowd_campaigns#redirect'
   get 'unterstuetzer-team' => redirect('/')
-  #get 'unterstuetzer-team', to: 'static_pages#mentoring'
-  #get 'energieteiler', to: 'static_pages#energieteiler', as: 'energieteiler'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
-  get 'popup', to: 'static_pages#popup', as: 'popup'
+  get 'hot-august' => redirect('/crowdfunding-booster/raum-booster/call')
+  #get 'unterstuetzer-team', to: 'static_pages#mentoring'
+  #get 'popup', to: 'static_pages#popup', as: 'popup'
 
   get 'info', to: 'static_pages#info'
   get 'info/crowdfunding', to: 'static_pages#info_crowdfunding'
