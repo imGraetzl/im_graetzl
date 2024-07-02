@@ -110,8 +110,8 @@ de:
         one: Transaktion
         other: Transaktionen
       room_booster:
-        one: Raumteiler Booster
-        other: Raumteiler Booster
+        one: Raumteiler Pusher
+        other: Raumteiler Pusher
       tool_rental:
         one: Transaktion
         other: Transaktionen
@@ -522,7 +522,7 @@ de:
         type:
           general: Direkteinzahlung
           zuckerl: Zuckerl
-          room_booster: Raumteiler Booster
+          room_booster: Raumteiler Pusher
           crowd_pledge: Crowdfunding Unterstützung
           subscription_invoice: Mitgliedschaft
       crowd_reward:

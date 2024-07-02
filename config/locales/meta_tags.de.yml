@@ -410,7 +410,7 @@ de:
     zuckerls:
       title: 'Meine Zuckerln'
     room_boosters:
-      title: 'Meine Raumteiler Booster'
+      title: 'Meine Raumteiler Pusher'
 
   room_offers:
     show:
@@ -557,13 +557,13 @@ de:
 
   room_boosters:
     new:
-      title: 'Raumteiler Booster - Neuen Boost starten'
+      title: 'Raumteiler Pusher - Neuen Boost starten'
     choose_room_offer:
-      title: 'Raumteiler Booster - Raumteiler auswählen'
+      title: 'Raumteiler Pusher - Raumteiler auswählen'
     choose_payment:
-      title: 'Raumteiler Booster - Zahlungsart wählen'
+      title: 'Raumteiler Pusher - Zahlungsart wählen'
     summary:
-      title: 'Raumteiler Booster - Danke'
+      title: 'Raumteiler Pusher - Danke'
 
   messenger:
     index:

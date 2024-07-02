@@ -2,7 +2,7 @@ APP.controllers.crowd_boosts = (function() {
 
     function init() {
         if ($("section.crowd_boost").exists()) initCrowdBoost();
-        if ($("section.hot_august").exists()) initCrowdHotAugust();
+        if ($("section.boost_call").exists()) initCrowdHotAugust();
     }
 
     function initCrowdBoost() {

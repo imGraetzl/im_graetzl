@@ -214,7 +214,7 @@ class RoomMailer < ApplicationMailer
     headers("X-MC-Tags" => "room-booster-invoice")
 
     mail(
-      subject: "Dein Raumteiler Booster",
+      subject: "Dein Raumteiler Pusher",
       from: platform_email('no-reply'),
       to: @room_booster.user.email,
     )

@@ -21,7 +21,7 @@ class RoomBoostersController < ApplicationController
       
       # Remove these 2 lines for HOT August and use flash line above again
       @next_start_date = Date.new(2024,8,1)
-      flash.now[:notice] = "Der Raumteiler-Booster ist aktuell pausiert. Ab dem 01. August können wieder Booster erstellt werden."
+      flash.now[:notice] = "Der Raumteiler-Pusher ist aktuell pausiert. Ab dem 01. August können wieder Pusher erstellt werden."
     end
 
     @room_booster.starts_at_date = @next_start_date
@@ -101,7 +101,7 @@ class RoomBoostersController < ApplicationController
     else
       @room_offers = current_user.room_offers.in(current_region)
       if @room_offers.blank?
-        flash[:notice] = "Du hast noch keinen Raumteiler zum Boosten. Neuen #{view_context.link_to 'Raumteiler erstellen', select_room_offers_path}"
+        flash[:notice] = "Du hast noch keinen Raumteiler zum Pushen. Neuen #{view_context.link_to 'Raumteiler erstellen', select_room_offers_path}"
         redirect_to room_boosters_user_url and return
       else
         render :choose_room_offer and return

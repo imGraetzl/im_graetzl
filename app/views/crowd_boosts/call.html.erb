@@ -1,4 +1,4 @@
-<section class="crowd_boost hot_august">
+<section class="crowd_boost boost_call">
 
 
   <div class="introcontainer">
@@ -9,7 +9,14 @@
       </div>
       <p>Mehr Räume eröffnen oder halten für lokale Macher*innen und für lebendige Grätzl in Wien. Auf der einen Seite gibt es einen riesigen Raumbedarf, auf der anderen Seite Leerstand. Zudem steigen die Mieten und Energiekosten, Räume müssen deshalb von lokalen Macher*innen aufgegeben werden. </p>
       <p><strong>Genau darum geht es beim RaumBooster – Der RaumBooster ist ein neues Format, das euch unterstützt, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen!</strong></p>
-      <p>In Calls laden wir euch ein, eure Raumvorhaben einzureichen. Alle, die sich für den Raumbooster qualifizieren und ihr Crowdfunding starten, bekommen einen zusätzlichen <strong>RaumBooster von 500 bis 1.000 € oben drauf</strong>, sobald das Crowdfunding 30% des Mindestziels erreicht und das Crowdfunding erfolgreich abgeschlossen wird.</p>
+      <p>In Calls laden wir euch ein, eure Raumvorhaben einzureichen. Alle, die sich für den RaumBooster qualifizieren und ihr Crowdfunding starten, bekommen einen zusätzlichen <strong>RaumBooster von 500 bis 1.000 € oben drauf</strong>, sobald das Crowdfunding 30% des Mindestziels erreicht hat.</p>
+      <div class="content-block -toggable">
+        <h3>Weitere Vorteile</h3>
+        <div class="-toggle-content">
+          <p>Außerdem erhalten die qualifizierten Projekte eine persönliche Crowdfunding-Begleitung, maximale Sichtbarkeit auf imGrätzl und das RaumBooster-Abzeichen auf ihrer Crowdfunding-Seite.</p>  
+          <p>Das Abzeichen macht für alle sichtbar, dass es sich um ein „besonders unterstützenswertes Vorhaben“ handelt, das schafft Vertrauen und zieht noch mehr Unterstützer*innen an. In Studien wurde außerdem herausgefunden, dass solche Matchfunding-Mechanismen wie der RaumBooster nicht nur schneller zum Ziel führen, sondern ihr Crowdfunding darüber hinaus noch erfolgreicher abschließen.</p>
+        </div>
+      </div>
     </div>
     <div class="introSide">
       <%= render 'crowd_boosts/crowd_boost_call', crowd_boost: @crowd_boost %>
@@ -19,15 +26,52 @@
 
   <div class="content-wide">
     <div class="inner">
+
       <div class="hl-subtext">
         <h1><em>Hot August</em> - Alles muss raus :)</h1>
-        <p>Ab August wird der RaumBooster gefüllt und damit mehr Raum geschaffen! Von lokalen Macher*innen für lokale Macher*innen. Hol dir ein Zuckerl, eine Fördermitgliedschaft oder komm zu einem Good-Morning-Date. <strong>Alle Erlöse landen im Topf!</strong></p>
+        <p>Ab August wird der RaumBooster gefüllt und damit mehr Raum geschaffen! Von lokalen Macher*innen für lokale Macher*innen. <strong>Die Erlöse landen im Topf!</strong></p>
       </div>
+      
       <div class="cardBoxCollection -quart">
-        <div class="cardBox">Zuckerl & Pusher</div>
-        <div class="cardBox">Mitgliedschaft</div>
-        <div class="cardBox">Good Morning Date</div>
-        <div class="cardBox">Direkt einzahlen</div>
+
+        <div class="paperCard -illuteaser -zuckerl -cord1RT">
+          <div class="wrp">
+            <h3>Hol dir ein <span>Zuckerl</span> oder pushe deinen <span>Raumteiler</span> nach vorne.</h3>
+            <p>Alle Einnahmen im August landen zu 100% im RaumBooster-Topf.</p>
+            <%= link_to 'Zuckerl buchen', new_zuckerl_path, class: 'btn-primary -mint -shadow' %>
+            <%= link_to 'Raumteiler pushen', new_room_booster_path, class: 'btn-primary -mint -shadow' %>
+          </div>
+          <div class="card"></div>
+        </div>
+
+        <div class="paperCard -illuteaser -location -cord1RT">
+          <div class="wrp">
+            <h3>Werde imGrätzl-<span>Fördermitglied</span>.</h3>
+            <p>Ein Teil deiner Mitgliedschaftsgebühren fließt in den RaumBooster-Topf, der andere Teil ermöglicht uns den Betrieb von imGrätzl.</p>
+            <%= link_to 'Mitglied werden', subscription_plans_path, class: 'btn-primary -mint -shadow' %>
+          </div>
+          <div class="card"></div>
+        </div>
+
+        <div class="paperCard -illuteaser -coop-demands -cord1RT">
+          <div class="wrp">
+            <h3>Besucht zahlreich die <span>Good Morning Dates</span> im Herbst.</h3>
+            <p>Als Dankeschön für die Organisation durch die Gastgeber*innen schmeißt bitte 5 € in den Hut, wenn ihr könnt. Yeah! Das Geld landet zu 100 % im RaumBooster-Topf!</p>
+            <%= link_to 'Termin Übersicht', good_morning_dates_path, class: 'btn-primary -mint -shadow' %>
+          </div>
+          <div class="card"></div>
+        </div>
+
+        <div class="paperCard -illuteaser -favorites -cord1RT">
+          <div class="wrp">
+            <h3><span>Unterstützt direkt</span> den RaumBooster-Topf.</h3>
+            <p>Du kannst natürlich auch direkt einen Betrag deiner Wahl in den Topf einzahlen, jeder Beitrag schafft neuen Raum!</p>
+            <%= link_to 'Direkt einzahlen', new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: 'btn-primary -mint -shadow' %>
+            <div class="badge -small"><div class="inner">Noch<br><%= @remaining_days %> Tage!</div></div>
+          </div>
+          <div class="card"></div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -37,7 +81,7 @@
     <div class="content-block -toggable">
       <h3>Weiterer Ablauf</h3>
       <div class="-toggle-content">
-        <p>Es ist geplant Anfang Dezember den ersten RaumBooster Call zu starten, bis dahin wollen wir mind. 3000 € im Topf haben, um damit gleich mehrere Raumprojekte an den Start zu bekommen!</p>
+        <p>Es ist geplant Anfang Dezember 2024 den ersten RaumBooster Call zu starten. Bis dahin wollen wir mind. 3000 € im Topf haben, um damit gleich mehrere Raumprojekte an den Start zu bekommen!</p>
       </div>
     </div>
     <div class="content-block -toggable">

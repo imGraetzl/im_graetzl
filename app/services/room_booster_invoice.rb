@@ -45,7 +45,7 @@ class RoomBoosterInvoice
     pdf.move_down 20
 
     table_data = []
-    table_data << ["ID ", "Booster für Raumteiler", "Laufzeit", "Sichtbarkeit", "Preis"]
+    table_data << ["ID ", "Pusher für Raumteiler", "Laufzeit", "Sichtbarkeit", "Preis"]
     table_data << [room_booster.id, room_booster.room_offer.to_s.parameterize(preserve_case: true, separator: ' '), room_booster.runtime, room_booster.region.name.to_s, room_booster.basic_price_with_currency]
     table_data << [nil, nil, nil, "(20% MwSt.)", room_booster.tax_with_currency]
     table_data << [nil, nil, nil, "Gesamt", room_booster.total_price_with_currency]

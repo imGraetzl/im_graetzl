@@ -6,7 +6,7 @@
         <% end %>
         <div class="name">
           <span><%= link_to crowd_boost_charge.contact_name, crowd_boost_charge.user, rel: 'nofollow' %></span><br>
-          <small><em>via <%= I18n.t("activerecord.attributes.crowd_boost_charge.type.#{crowd_boost_charge.charge_type}") %></small></em><br>
+          <small><em>via  <%= charge_type(crowd_boost_charge) %></small></em><br>
           <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
         </div>
       </div>

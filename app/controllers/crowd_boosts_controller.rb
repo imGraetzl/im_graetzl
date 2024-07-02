@@ -1,6 +1,6 @@
 class CrowdBoostsController < ApplicationController
   layout :set_layout
-  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns]
+  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns, :call]
 
   def index
     if current_region
@@ -18,6 +18,8 @@ class CrowdBoostsController < ApplicationController
 
   def call
     @crowd_boost = CrowdBoost.find(params[:id])
+    @next_slot = @crowd_boost.next_slot(current_region)
+    @remaining_days = (Date.new(2024, 8, 1) - Date.today).to_i
   end
 
   def charges

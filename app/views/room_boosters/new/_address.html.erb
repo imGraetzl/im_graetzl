@@ -1,7 +1,7 @@
 <div class="address-container">
 
   <div class="hl-subtext">
-    <h1>Neuer Raumteiler Booster für</h1>
+    <h1>Neuer Raumteiler Pusher für</h1>
     <p>
       <%= link_to @room_offer, @room_offer %><br>
       Gib hier deine Rechnungsadresse bekannt:
@@ -55,7 +55,7 @@
     </div>
 
     <div class="form-columns">
-      <%= f.button "Kostenlos erstellen", data: { confirm: 'Möchtest du diesen Raumteiler wirklich boosten?' }, name: "freeadmin", value: "true", class: 'btn-secondary' if current_user.admin? %>
+      <%= f.button "Kostenlos erstellen", data: { confirm: 'Möchtest du diesen Raumteiler wirklich pushen?' }, name: "freeadmin", value: "true", class: 'btn-secondary' if current_user.admin? %>
       <%= submit_tag "Weiter zur Zahlung", class: 'btn-primary' %>
     </div>
 

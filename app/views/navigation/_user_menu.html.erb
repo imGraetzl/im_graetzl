@@ -111,7 +111,7 @@
     <div class="nav-dropdown-submenu" id="nav-submenu-user-rooms">
       <%= nav_submenu_back('nav-submenu-user-main') %>
       <%= nav_menu_item("raumteiler", 'Raumteiler verwalten', rooms_user_path) %>
-      <%= nav_menu_item("rocket", 'Raumteiler Booster', room_boosters_user_path) if current_region.use_room_booster? %>
+      <%= nav_menu_item("rocket", 'Raumteiler Pusher', room_boosters_user_path) if current_region.use_room_booster? %>
       <%= nav_menu_item("archive-storage", 'Buchungsarchiv', rooms_user_path(target: "tab-buchungsarchiv")) %>
       <%= nav_menu_item("speech-bubbles", 'Anfragen Messenger', messenger_path(filter: "room_rental")) %>
       <%= nav_lazy_load_form('rooms') %>

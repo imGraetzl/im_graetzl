@@ -9,24 +9,35 @@
       </div>
     <% end %>
     <div class="categoryicon">
-      <%= icon_tag "rocket" %>
+      <%= image_tag 'svg/icon-booster.svg', class:'icon' %>
     </div>
   </div>
 
   <div class="cardBoxContent">
 
     <div class="txt">
-      <h3><%= link_to crowd_boost.title.truncate(110), crowd_boost %></h3>
+      <h3><%= link_to "Crowdfunding Topf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
     </div>
 
     <h4 class="facts-headline">Facts zum Booster-Topf</h4>
+
+    <% if @next_slot %>
+      <div class="facts icontxt -mint">
+        <%= icon_tag "rocket" %>
+        <% if @next_slot.boost_amount? %>
+          <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Boost für dein Projekt
+        <% else %>
+          Bis zu <%= @next_slot.boost_percentage.to_i %>% Boost für dein Projekt
+        <% end %>
+      </div>
+    <% end %>
 
     <div class="facts icontxt -rosa">
       <%= icon_tag "currency-euro" %>
       <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
     </div>
 
-    <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint" if crowd_boost.chargeable? %>
+    <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -shadow" if crowd_boost.chargeable? %>
 
   </div>
 </div>
