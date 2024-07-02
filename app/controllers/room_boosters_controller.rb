@@ -40,7 +40,7 @@ class RoomBoostersController < ApplicationController
 
     # HOT August (TODO: Set ID) / Könnte auch von Formularfeld über room_booster_params kommen
     if @room_booster.crowd_boost_chargeable?
-      @room_booster.crowd_boost_id = 1
+      @room_booster.crowd_boost_id = CrowdBoost.last.id
       @room_booster.crowd_boost_charge_amount = @room_booster.basic_price / 100
     end
 

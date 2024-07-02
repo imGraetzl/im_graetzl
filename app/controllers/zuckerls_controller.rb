@@ -25,7 +25,7 @@ class ZuckerlsController < ApplicationController
 
     # HOT August (TODO: Set ID) / Könnte auch von Formularfeld über zuckerl_params kommen
     if @zuckerl.crowd_boost_chargeable?
-      @zuckerl.crowd_boost_id = 1
+      @zuckerl.crowd_boost_id = CrowdBoost.last.id
       @zuckerl.crowd_boost_charge_amount = @zuckerl.basic_price / 100
     end
 
