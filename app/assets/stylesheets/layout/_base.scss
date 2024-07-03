@@ -71,6 +71,46 @@ main {
 
 }
 
+.content-wide {
+  padding-top:35px;
+  padding-bottom:50px;
+
+  position: relative;
+  background-color: #eaf2f4;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  .inner {
+    max-width: 930px;
+    position: relative;
+    margin: 0 auto;
+    padding-left: 18px;
+    padding-right: 18px;
+
+    @include respond-to(">=medium") {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+    @include respond-to(">=large") {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+
+  &.-grey {
+    background-color: #f8f8f8;
+  }
+
+  &.-end {
+    margin-bottom:-80px;
+    padding-bottom:80px;
+  }
+
+}
+
 a {
   color: $color-ambient-rosa;
   &:hover {

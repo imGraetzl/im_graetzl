@@ -101,12 +101,12 @@
   </div>
 
 
-  <div id="tabs-container" class="-fullwidth -content">
+  <div id="tabs-container" class="content-wide -grey -end">
     <div class="hl-subtext">
       <h1>Ihr ermöglicht den RaumBooster - Danke!</h1>
       <p>Tausend Dank an euch, dass ihr den RaumBooster möglich macht!</p>
     </div>
-    <div id="tab-charges" class="charges">
+    <div id="tab-charges" class="inner charges">
       <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
       <div class="charges-container">
         <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
