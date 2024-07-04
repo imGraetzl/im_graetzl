@@ -67,8 +67,9 @@ class CrowdBoost < ApplicationRecord
   end
 
   def can_destroy?
-    # abfrage ob es charges oder pledges gibt ...
-    true
+    if self.crowd_campaigns.boost_initialized.any?
+      throw :abort
+    end
   end
 
 end

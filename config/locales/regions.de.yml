@@ -200,3 +200,8 @@ de:
       raumteiler_guide_url: "https://raumteiler.s3.eu-central-1.amazonaws.com/WeLocally_Muehlviertel_RaumteilerGuide_2022.pdf.zip"
       footer_graetzl_headline: "Mitmachende Gemeinden im Mühlviertler Kernland"
       region_wide_newsletter: "im WeLocally Newsletter in ganz Mühlviertler Kernland"
+  domain:
+    welocally:
+      contact_email: "wir@welocally.at"
+    imgraetzl:
+      contact_email: "wir@imgraetzl.at"

@@ -5,11 +5,16 @@
 
       <div class="hl-subtext">
         <h1><em><%= @crowd_boost.title %></em></h1>
-        <p><%= @next_slot ? @next_slot.slot_description : @crowd_boost.slogan %></p>
+        <% if @next_slot %>
+          <div class="bbcode"><%= @next_slot.slot_description.bbcode_to_html.html_safe %></div>
+        <% else %>
+          <p><%= @crowd_boost.slogan %></p>
+        <% end %>
       </div>
 
       <% if @next_slot %>
 
+        <!-- Slot Box -->
         <div class="cardBox slotBox">          
           <ul class="list-arrow -rosa">
             <li><strong>Einreichzeitraum:</strong> <%= @next_slot.timerange %></li>
@@ -24,35 +29,36 @@
           </ul>
           <div class="badge -small"><div class="inner">Neue<br>Runde!</div></div>
         </div>
+        <!-- /Slot Box -->
 
-        <div class="content-block -toggable">
-          <h3>So nimmst du teil</h3>
-          <div class="-toggle-content">
-            <ul>
-              <li><%= link_to 'Starte deine Crowdfunding-Kampagne', new_crowd_campaign_path %> und wähle im Kampagnen-Setup aus, dass du beim "<%= @crowd_boost.title %>" dabei sein möchtest. (Ab <%= I18n.localize(@next_slot.starts_at, format:'%d. %b %Y') %> verfügbar.)</li>
-              <li>Nachdem du deine Kampagne zur Freischaltung eingereicht hast, prüfen wir dein Projekt und geben Bescheid, ob du zum Booster zugelassen wurdest.</li>
-              <li>
-                Ab <%= I18n.localize(@next_slot.ends_at + 1, format:'%e. %B %Y') %> kann deine Kampagne online gehen. Sobald deine Crowdfunding Kampagne <%= @next_slot.threshold_funding_percentage.to_i %>% des Finanzierungsziels mit mindestens <%= @next_slot.threshold_pledge_count %> Unterstützer*innen erreicht hat, 
-                <% if @next_slot.boost_amount? %>
-                  bekommst du aus dem Booster-Topf weitere <strong><%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %></strong> zugesagt.
-                <% else %>
-                  bekommst du aus dem Booster-Topf weitere <strong><%= @next_slot.boost_percentage.to_i %>%</strong> zugesagt. (<strong>max <%= number_to_currency(@next_slot.boost_amount_limit.to_i, unit: "€") %></strong>)
-                <% end %>
-              </li>
-            </ul>
+        <% if @next_slot.slot_detail_description %>
+          <div class="content-block -toggable">
+            <h3>Wie funktioniert der <%= @crowd_boost.title %></h3>
+            <div class="-toggle-content bbcode"><%= @next_slot.slot_detail_description.bbcode_to_html.html_safe %></div>
           </div>
-        </div>
-        <div class="content-block -toggable">
-          <h3>Teilnahmebedingungen</h3>
-          <div class="-toggle-content bbcode"><%= @next_slot.slot_terms.bbcode_to_html.html_safe %></div>
-        </div>
+        <% end %>
 
+        <% if @next_slot.slot_terms %>
+          <div class="content-block -toggable">
+            <h3>So kannst du teilnehmen</h3>
+            <div class="-toggle-content bbcode"><%= @next_slot.slot_terms.bbcode_to_html.html_safe %></div>
+          </div>
+         <% end %>
+         
+        <% if @next_slot.slot_process_description %>
+          <div class="content-block -toggable">
+            <h3>Qualifizierung - Wie bewertet die Jury</h3>
+            <div class="-toggle-content bbcode"><%= @next_slot.slot_process_description.bbcode_to_html.html_safe %></div>
+          </div>
+        <% end %>
+
+      <% elsif @crowd_boost.description %>
+        <!-- Show General CrowdBoost Indos if there is no Slot -->
+        <div class="content-block -toggable -open">
+          <h3>Allgemeine Infos</h3>
+          <div class="-toggle-content bbcode"><%= @crowd_boost.description %></div>
+        </div>
       <% end %>
-      
-      <div class="content-block -toggable">
-        <h3>„<%= @crowd_boost.title %>“ - Allgemeine Infos</h3>
-        <div class="-toggle-content bbcode"><%= @crowd_boost.description %></div>
-      </div>
 
     </div>
 
@@ -66,21 +72,23 @@
   <div class="tabs-ctrl -plain">
     <ul class="tabs-nav">
       <li class="active"><a href="#tab-campaigns"><h3>Unterstütze Projekte</h3><% if @crowd_boost.crowd_campaigns.boost_initialized.count > 0 %><small><%= @crowd_boost.crowd_campaigns.boost_initialized.count %></small><% end %></a></li>
-      <li><a href="#tab-charges"><h3>Topf Einzahlungen</h3><% if @crowd_boost.crowd_boost_charges.debited.count > 0 %><small><%= @crowd_boost.crowd_boost_charges.debited.count %></small><% end %></a></li>
+      <% if @crowd_boost.chargeable? %><li><a href="#tab-charges"><h3>Topf Einzahlungen</h3><% if @crowd_boost.crowd_boost_charges.debited.count > 0 %><small><%= @crowd_boost.crowd_boost_charges.debited.count %></small><% end %></a></li><% end %>
     </ul>
   </div>
 
   <div id="tabs-container" class="content-wide -grey -end">
-    <div id="tab-campaigns" class="inner card-grid-container">
+    <div id="tab-campaigns" class="wrp-inner card-grid-container">
       <%= form_tag campaigns_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'cards-filter' do %><% end %>
       <div class="card-grid" data-behavior="campaigns-card-container"></div>
     </div>
-    <div id="tab-charges" class="inner charges">
-      <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
-      <div class="charges-container">
-        <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+    <% if @crowd_boost.chargeable? %>
+      <div id="tab-charges" class="wrp-inner charges">
+        <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+        <div class="charges-container">
+          <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
 </section>

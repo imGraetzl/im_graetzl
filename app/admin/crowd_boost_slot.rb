@@ -14,7 +14,7 @@ ActiveAdmin.register CrowdBoostSlot do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :slot_amount_limit, :starts_at, :ends_at, :crowd_boost_id, :threshold_pledge_count, :threshold_funding_percentage, :boost_amount, :boost_percentage, :boost_amount_limit, :slot_description, :slot_terms, graetzl_ids: []
+  permit_params :slot_amount_limit, :starts_at, :ends_at, :crowd_boost_id, :threshold_pledge_count, :threshold_funding_percentage, :boost_amount, :boost_percentage, :boost_amount_limit, :slot_description, :slot_process_description, :slot_detail_description, :slot_terms, graetzl_ids: []
 
   controller do
     def apply_pagination(chain)

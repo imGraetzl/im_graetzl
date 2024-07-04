@@ -143,6 +143,12 @@
     $webp1x: image_path('illu/illu-cylce2-plain@2x.webp'),
   );
 }
+.paperCard.-good-morning-date .wrp {
+  @include bg-url(
+    image_path('illu/illu-2frauen.png'),
+    $webp1x: image_path('illu/illu-2frauen.webp'),
+  );
+}
 .paperCard.-crowd_campaign .wrp {
   //background-image: url(image_path('mailings/call.png')) !important;
   @include bg-url(

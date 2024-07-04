@@ -4,7 +4,7 @@
   <div class="introcontainer">
     <div class="introtxt">
       <div class="hl-subtext">
-        <h1><em>Der RaumBooster Topf</em></h1>
+        <h1><em><%= @crowd_boost.title %></em></h1>
         <p><strong>Leerstand beleben und Räumen eine neue Zukunft geben!</strong></p>
       </div>
       <p>Mehr Räume eröffnen oder halten für lokale Macher*innen und für lebendige Grätzl in Wien. Auf der einen Seite gibt es einen riesigen Raumbedarf, auf der anderen Seite Leerstand. Zudem steigen die Mieten und Energiekosten, Räume müssen deshalb von lokalen Macher*innen aufgegeben werden. </p>
@@ -25,7 +25,8 @@
 
 
   <div class="content-wide">
-    <div class="inner">
+    <div class="wrp-inner">
+      <div class="badge -small"><div class="inner">Noch<br><%= @remaining_days %> Tage!</div></div>
 
       <div class="hl-subtext">
         <h1><em>Hot August</em> - Alles muss raus :)</h1>
@@ -53,7 +54,7 @@
           <div class="card"></div>
         </div>
 
-        <div class="paperCard -illuteaser -coop-demands -cord1RT">
+        <div class="paperCard -illuteaser -good-morning-date -cord1RT">
           <div class="wrp">
             <h3>Besucht zahlreich die <span>Good Morning Dates</span> im Herbst.</h3>
             <p>Als Dankeschön für die Organisation durch die Gastgeber*innen schmeißt bitte 5 € in den Hut, wenn ihr könnt. Yeah! Das Geld landet zu 100 % im RaumBooster-Topf!</p>
@@ -67,7 +68,6 @@
             <h3><span>Unterstützt direkt</span> den RaumBooster-Topf.</h3>
             <p>Du kannst natürlich auch direkt einen Betrag deiner Wahl in den Topf einzahlen, jeder Beitrag schafft neuen Raum!</p>
             <%= link_to 'Direkt einzahlen', new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: 'btn-primary -mint -shadow' %>
-            <div class="badge -small"><div class="inner">Noch<br><%= @remaining_days %> Tage!</div></div>
           </div>
           <div class="card"></div>
         </div>
@@ -81,7 +81,7 @@
     <div class="content-block -toggable">
       <h3>Weiterer Ablauf</h3>
       <div class="-toggle-content">
-        <p>Es ist geplant Anfang Dezember 2024 den ersten RaumBooster Call zu starten. Bis dahin wollen wir mind. 3000 € im Topf haben, um damit gleich mehrere Raumprojekte an den Start zu bekommen!</p>
+        <p>Der erste RaumBooster Call ist vom 15. Dezember - 15. Januar 2025 geplant und wir laden dann ein die Raumvorhaben einzureichen. Bis dahin wollen wir ein paar tausend Euro im Topf haben, um damit gleich mehrere Raumprojekte gut anschieben zu können! Alle Informationen dazu folgen noch.</p>
       </div>
     </div>
     <div class="content-block -toggable">
@@ -106,7 +106,7 @@
       <h1>Ihr ermöglicht den RaumBooster - Danke!</h1>
       <p>Tausend Dank an euch, dass ihr den RaumBooster möglich macht!</p>
     </div>
-    <div id="tab-charges" class="inner charges">
+    <div id="tab-charges" class="wrp-inner charges">
       <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
       <div class="charges-container">
         <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
