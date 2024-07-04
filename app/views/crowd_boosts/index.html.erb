@@ -11,18 +11,16 @@
 
   <div class="imgHeader -fullwidth">
     <div class="wrp">
-      <h1>Crowdfunding</h1>
-      <h1>Kampagnen Booster</h1>
+      <h1>Crowdfunding Booster</h1>
     </div>
   </div>
 
   <div class="paperCard -cord1RT -header -top">
     <div class="wrp introwrapper">
       <div>
-        <p><strong>Com on! Lets füllt die Töpfe! Her mit dem Zaster!</strong></p>
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
+        <p><strong>Mit dem Crowdfunding Booster erreichst du deine Crowdfunding Ziele noch schneller und einfacher.</strong></p>
+        <p>Ein Booster bietet dir zusätzliche Leistungen, das kann Beratung, finanzielle Unterstützung, erhöhte Sichtbarkeit oder eine Kombination daraus sein.</p>
+        <p>Prüfe, ob dein Vorhaben zu einem der verfügbaren Crowdfunding Booster passt und ob du die Kriterien erfüllst. Du kannst die Booster beim Erstellen deiner Kampagne aktivieren und erhältst zeitnah eine Rückmeldung, ob die Qualifizierung für den ausgewählten Booster erfolgreich war.</p>
       </div>
     </div>
     <div class="card"></div>
@@ -30,8 +28,8 @@
 
   <div class="content-main">
     <div class="hl-subtext">
-      <h1>Aktuelle Töpfe</h1>
-      <p>Folgende Töpfe sind grad super sauber unterwegs - Mach mit!</p>
+      <h1>Aktuelle Crowdfunding Booster</h1>
+      <p><%= link_to 'Starte jetzt dein Crowdfunding', new_crowd_campaign_path %> und qualifiziere dich für einen der aktuellen Booster!</p>
     </div>
     <div class="cardBoxCollection -tripple -meetings">
       <% @crowd_boosts.each do |crowd_boost| %>
@@ -41,13 +39,12 @@
   </div>
 
   <div class="content-wide">
-    <div class="inner">
+    <div class="wrp-inner">
       <h3>Wusstest du, dass...</h3>
       <ul class="list-arrow -large">
-        <li>Du selber super sauber in einen Topf einzahlen kannst.</li>
-        <li>Du dich auf einen Topf bewerben kannst und schon gehts Ramba-Zamba.</li>
-        <li>Du selbst einen Topf als Sponsoring-Partner starten kannst.</li>
-        <li>Unsere Crowdfundings eine Erfolgsquote von 80% haben.</li>
+        <li>du selber die Booster mit befüllen kannst? Damit kannst du die Themen, die dir am Herzen liegen, so richtig nach vorne bringen.</li>
+        <li>du als Booster Einzahler aufscheinst, wenn du eine Summe in den Booster einzahlst? Wenn es eine größere Summe ist, dann haben wir Sponsoring-Pakete dafür.</li>
+        <li>du selber auch einen Booster als Sponsoring-Partner starten kannst? Du bestimmst das Thema und wir organisieren alles für dich. Schreib uns an: <%= mail_to t("domain.#{current_domain}.contact_email") %></li>
       </ul>
     </div>
   </div>

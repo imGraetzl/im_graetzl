@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def current_domain
+    request.host.split(".").last(2).first
+  end
+
   def welocally_platform_host
     if Rails.env.production?
       "www.#{Rails.application.config.welocally_host}"

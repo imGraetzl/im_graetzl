@@ -19,33 +19,6 @@ section.info {
       padding-bottom:50px;
     }
 
-    .content-wide {
-      padding-top:35px;
-      padding-bottom:50px;
-      position: relative;
-      background-color: #eaf2f4;
-      width: 100vw;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      .inner {
-        max-width: 930px;
-        position: relative;
-        margin: 0 auto;
-        padding-left: 18px;
-        padding-right: 18px;
-
-        @include respond-to(">=medium") {
-          padding-left: 25px;
-          padding-right: 25px;
-        }
-        @include respond-to(">=large") {
-          padding-left: 0px;
-          padding-right: 0px;
-        }
-      }
-    }
   }
 }
 
@@ -78,7 +51,7 @@ section.crowd_boost {
     @include respond-to(">=large") {
       @include cf;
     }
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 
     .introtxt {
       margin-bottom: 40px;
@@ -100,7 +73,15 @@ section.crowd_boost {
         }
       }
       .hl-subtext {
-        margin-bottom:20px;
+        margin-bottom:30px;
+        .bbcode {
+          @include font-size-primaryFont('larger');
+          text-align: justify;
+          strong {
+            display: block;
+            text-align: center;
+          }
+        }
       }
     }
 
@@ -119,46 +100,6 @@ section.crowd_boost {
       @extend .list-arrow;
       margin-left: 0px;
     } 
-  }
-
-  .-fullwidth {
-    background-color: #eaf2f4;
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-
-    > div {
-      max-width:930px;
-      margin-left: auto;
-      margin-right: auto;
-
-      padding-left: 18px;
-      padding-right: 18px;
-
-      @include respond-to(">=medium") {
-        padding-left: 25px;
-        padding-right: 25px;
-      }
-      @include respond-to(">=large") {
-        padding-left: 0px;
-        padding-right: 0px;
-      }
-    }
-
-    &.-content {
-      background-color: #f8f8f8;
-      margin-top:0px;
-      padding-top:50px;
-      margin-bottom:-80px;
-      padding-bottom:80px;
-      @include respond-to("<=medium") {
-        padding-top:30px;
-      }
-    }
-
   }
 
   .charges-container {
@@ -184,39 +125,8 @@ section.crowd_boost {
       }
     }
   }
-  
-  .content-wide {
-    padding-top:35px;
-    padding-bottom:50px;
-    margin-bottom:50px;
 
-    position: relative;
-    background-color: #eaf2f4;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-
-    .inner {
-      max-width: 930px;
-      position: relative;
-      margin: 0 auto;
-      padding-left: 18px;
-      padding-right: 18px;
-
-      @include respond-to(">=medium") {
-        padding-left: 25px;
-        padding-right: 25px;
-      }
-      @include respond-to(">=large") {
-        padding-left: 0px;
-        padding-right: 0px;
-      }
-    }
-  }
-
-  .content-wide .paperCard {
+  .paperCard {
 
     .wrp {
       padding-top:175px;
@@ -225,7 +135,6 @@ section.crowd_boost {
       padding-bottom:20px;
       h3 {
         margin-bottom:15px;
-        //color: $color-font-primary;
         span {
           color: $color-ambient-rosa;
         }
@@ -245,6 +154,7 @@ section.crowd_boost {
   }
 
   .toggle-container {
+    margin-top:50px;
     margin-bottom:50px;
     .-toggle-content {
       p {
@@ -258,7 +168,7 @@ section.crowd_boost {
   }
 
   .badge {
-    top:-50px !important;
+    top:-70px !important;
     right:0px !important;
   }
 

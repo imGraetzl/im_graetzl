@@ -16,7 +16,9 @@ context.instance_eval do
           row :boost_percentage
           row :boost_amount_limit
           row :slot_description
+          row :slot_detail_description
           row :slot_terms
+          row :slot_process_description
         end
       end
 

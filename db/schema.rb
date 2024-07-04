@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_19_092125) do
+ActiveRecord::Schema.define(version: 2024_07_04_105807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -261,6 +261,8 @@ ActiveRecord::Schema.define(version: 2024_06_19_092125) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "crowd_boost_id"
+    t.text "slot_detail_description"
+    t.text "slot_process_description"
     t.index ["crowd_boost_id"], name: "index_crowd_boost_slots_on_crowd_boost_id"
   end
 
