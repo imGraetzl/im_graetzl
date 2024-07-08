@@ -88,6 +88,11 @@ class RoomBooster < ApplicationRecord
     end
   end
 
+  def paused?
+    Date.today < ('2024-08-01').to_datetime
+    #self.room_offer.region_id == 'wien' && Date.today < ('2024-08-01').to_datetime
+  end
+
   private
 
   def set_booster_dates

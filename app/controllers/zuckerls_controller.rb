@@ -23,9 +23,8 @@ class ZuckerlsController < ApplicationController
     @zuckerl.region_id = @location.region_id
     @zuckerl.amount = @zuckerl.total_price / 100
 
-    # HOT August (TODO: Set ID) / Könnte auch von Formularfeld über zuckerl_params kommen
-    if @zuckerl.crowd_boost_chargeable?
-      @zuckerl.crowd_boost_id = CrowdBoost.last.id
+    if current_region.hot_august?
+      @zuckerl.crowd_boost_id = current_region.default_crowd_boost_id
       @zuckerl.crowd_boost_charge_amount = @zuckerl.basic_price / 100
     end
 

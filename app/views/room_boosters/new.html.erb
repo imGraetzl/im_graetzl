@@ -8,8 +8,11 @@
 
   <div class="col-content">
     <%= render "room_boosters/new/tabs_nav" %>
-    <!-- Use /address when possible again (HOT August)-->
-    <%= render 'room_boosters/new/address_disabled' %>
+    <% if @room_booster.paused? %>
+      <%= render 'room_boosters/new/address_disabled' %>
+    <% else %>
+      <%= render 'room_boosters/new/address' %>
+    <% end %>    
   </div>
 
   <div class="col-sidebar">

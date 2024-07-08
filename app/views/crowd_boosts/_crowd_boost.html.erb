@@ -25,14 +25,17 @@
         <%= icon_tag "time-clock" %>
         Einreichfrist: <%= I18n.localize(@next_slot.ends_at, format:'%d. %b %Y') %>
       </div>
-      <div class="facts icontxt -rosa">
-        <%= icon_tag "rocket" %>
-        <% if @next_slot.boost_amount? %>
+      <% if @next_slot.boost_amount? %>
+        <div class="facts icontxt -rosa">
+          <%= icon_tag "rocket" %>
           <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Boost für dein Projekt
-        <% else %>
+        </div>
+      <% elsif @next_slot.boost_percentage? %>
+        <div class="facts icontxt -rosa">
+          <%= icon_tag "rocket" %>
           Bis zu <%= @next_slot.boost_percentage.to_i %>% Boost für dein Projekt
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     <% end %>
 
     <%= link_to 'Mehr Infos', crowd_boost, class: 'btn-primary -mint' %>

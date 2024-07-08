@@ -50,7 +50,7 @@ class Region
   end
 
   def hot_august?
-    self.is?('wien') && Date.today.to_datetime.between?('2024-07-01', '2024-08-31')
+    self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
   end
 
   def is?(region_id)
@@ -96,6 +96,10 @@ class Region
   def wow?
     @wow.present?
     #@wow.present? && @wow.any? { |w| w[:starts_at].to_date < Date.today && w[:ends_at].to_date > Date.today }
+  end
+
+  def default_crowd_boost_id
+    1
   end
 
   def host_id
