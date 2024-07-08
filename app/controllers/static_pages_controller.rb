@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
 
   def good_morning_dates
     @category = EventCategory.where("title ILIKE :q", q: "%Good Morning%").last
-    @meetings = Meeting.in(current_region).joins(:event_categories).where(event_categories: {id: @category&.id})
+    @meetings = Meeting.in(current_region).where('starts_at_date > ?', '2024-01-01').joins(:event_categories).where(event_categories: {id: @category&.id})
     @locations = Location.in(current_region).where(meetings: @meetings).distinct
   end
 
