@@ -26,6 +26,8 @@ class SubscriptionsController < ApplicationController
       subscription_params.merge(
         stripe_plan: @plan.stripe_id,
         region_id: current_user.region_id,
+        crowd_boost_charge_amount: @plan.crowd_boost_charge_amount,
+        crowd_boost_id: @plan.crowd_boost_id
       )
     )
 

@@ -7,6 +7,8 @@ context.instance_eval do
     row :coupon
     row :interval
     row :stripe_id
+    row :crowd_boost_charge_amount
+    row :crowd_boost
     row :short_name
     row :image_url
     row :free_region_zuckerl
