@@ -1,5 +1,7 @@
 class SubscriptionPlan < ApplicationRecord
 
+  belongs_to :crowd_boost, optional: true
+
   scope :sorted, ->{ order(amount: :asc) }
   default_scope ->{ sorted }
 

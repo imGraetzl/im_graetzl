@@ -27,6 +27,7 @@ context.instance_eval do
         attributes_table_for crowd_boost_charge do
           row :zuckerl
           row :room_booster
+          row :subscription_invoice
           row :crowd_pledge
         end
       end

@@ -3,6 +3,7 @@ class Subscription < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :subscription_plan
+  belongs_to :crowd_boost, optional: true
   has_many :subscription_invoices
   has_many :zuckerls
   string_enum status: ["incomplete", "active", "canceled", "past_due"]

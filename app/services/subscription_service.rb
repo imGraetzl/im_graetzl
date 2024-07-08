@@ -11,6 +11,8 @@ class SubscriptionService
       metadata: {
         type: 'Subscription',
         subscription_id: subscription.id,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(subscription.crowd_boost_charge_amount),
+        crowd_boost_id: subscription.crowd_boost_id,
       },
       default_tax_rates: [
         Rails.application.config.stripe_default_tax_rates,
@@ -90,6 +92,8 @@ class SubscriptionService
 
     user.subscription_invoices.create(
       subscription_id: subscription.id,
+      crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
+      crowd_boost_id: subscription.crowd_boost_id,
       stripe_id: object.id,
       status:object.status,
       amount:object.amount_due / 100,
@@ -120,6 +124,8 @@ class SubscriptionService
       subscription_invoice = user.subscription_invoices.where(stripe_id: object.id)
       subscription_invoice.update_all(
         subscription_id: subscription.id,
+        crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
+        crowd_boost_id: subscription.crowd_boost_id,
         stripe_id: object.id,
         status:object.status,
         amount:object.amount_paid / 100,
@@ -131,6 +137,8 @@ class SubscriptionService
     else
       user.subscription_invoices.create(
         subscription_id: subscription.id,
+        crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
+        crowd_boost_id: subscription.crowd_boost_id,
         stripe_id: object.id,
         status:object.status,
         amount:object.amount_paid / 100,
@@ -141,6 +149,18 @@ class SubscriptionService
       )
     end
     
+  end
+
+  def update_payment_intent(subscription)
+    Stripe::PaymentIntent.update(
+      subscription.stripe_payment_intent_id,
+      metadata: {
+        type: 'SubscriptionInvoice',
+        subscription_invoice_id: subscription.id,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(subscription.crowd_boost_charge_amount),
+        crowd_boost_id: subscription.crowd_boost_id,
+      }
+    )
   end
 
   def valid_coupon?(coupon)

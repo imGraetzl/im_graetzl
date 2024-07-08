@@ -18,14 +18,17 @@
         <div class="cardBox slotBox">          
           <ul class="list-arrow -rosa">
             <li><strong>Einreichzeitraum:</strong> <%= @next_slot.timerange %></li>
-            <li>
-              <strong>Crowdfunding Boost:</strong>
-              <% if @next_slot.boost_amount? %>
+            <% if @next_slot.boost_amount? %>
+              <li>
+                <strong>Crowdfunding Boost:</strong>
                 <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Extra-Boost für dein Projekt
-              <% else %>
+              </li>
+            <% elsif @next_slot.boost_percentage? %>
+              <li>
+                <strong>Crowdfunding Boost:</strong>
                 Bis zu <%= @next_slot.boost_percentage.to_i %>% Extra-Boost für dein Projekt
-              <% end %>
-            </li>
+              </li>
+            <% end %>
           </ul>
           <div class="badge -small"><div class="inner">Neue<br>Runde!</div></div>
         </div>

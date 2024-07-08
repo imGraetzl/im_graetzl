@@ -64,7 +64,7 @@ class CrowdBoostService
       payment_status: "authorized",
       charge_type: subject.class.name.underscore,
       crowd_boost_id: subject.crowd_boost_id,
-      region_id: subject.region_id,
+      region_id: subject.user.region_id,
       user_id: subject.user_id,
       email: subject.user.email,
       contact_name: subject.user.full_name,

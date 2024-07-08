@@ -6,6 +6,7 @@ class CrowdBoostCharge < ApplicationRecord
   belongs_to :zuckerl, optional: true
   belongs_to :room_booster, optional: true
   belongs_to :crowd_pledge, optional: true
+  belongs_to :subscription_invoice, optional: true
 
   string_enum charge_type: ["general", "zuckerl", "room_booster", "subscription_invoice", "crowd_pledge"]
   string_enum payment_status: ["incomplete", "authorized", "processing", "debited", "failed", "refunded"]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_04_105807) do
+ActiveRecord::Schema.define(version: 2024_07_05_100032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -216,10 +216,12 @@ ActiveRecord::Schema.define(version: 2024_07_04_105807) do
     t.bigint "zuckerl_id"
     t.string "charge_type", default: "general"
     t.bigint "room_booster_id"
+    t.bigint "subscription_invoice_id"
     t.index ["crowd_boost_id"], name: "index_crowd_boost_charges_on_crowd_boost_id"
     t.index ["crowd_pledge_id"], name: "index_crowd_boost_charges_on_crowd_pledge_id"
     t.index ["region_id"], name: "index_crowd_boost_charges_on_region_id"
     t.index ["room_booster_id"], name: "index_crowd_boost_charges_on_room_booster_id"
+    t.index ["subscription_invoice_id"], name: "index_crowd_boost_charges_on_subscription_invoice_id"
     t.index ["user_id"], name: "index_crowd_boost_charges_on_user_id"
     t.index ["zuckerl_id"], name: "index_crowd_boost_charges_on_zuckerl_id"
   end
@@ -1363,6 +1365,9 @@ ActiveRecord::Schema.define(version: 2024_07_04_105807) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "subscription_id"
     t.decimal "amount", precision: 10, scale: 2
+    t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
+    t.bigint "crowd_boost_id"
+    t.index ["crowd_boost_id"], name: "index_subscription_invoices_on_crowd_boost_id"
     t.index ["subscription_id"], name: "index_subscription_invoices_on_subscription_id"
     t.index ["user_id"], name: "index_subscription_invoices_on_user_id"
   end
@@ -1387,6 +1392,9 @@ ActiveRecord::Schema.define(version: 2024_07_04_105807) do
     t.string "image_url"
     t.string "coupon"
     t.string "region_id"
+    t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
+    t.bigint "crowd_boost_id"
+    t.index ["crowd_boost_id"], name: "index_subscription_plans_on_crowd_boost_id"
     t.index ["region_id"], name: "index_subscription_plans_on_region_id"
   end
 
@@ -1403,6 +1411,9 @@ ActiveRecord::Schema.define(version: 2024_07_04_105807) do
     t.string "coupon"
     t.datetime "current_period_start"
     t.datetime "current_period_end"
+    t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
+    t.bigint "crowd_boost_id"
+    t.index ["crowd_boost_id"], name: "index_subscriptions_on_crowd_boost_id"
     t.index ["region_id"], name: "index_subscriptions_on_region_id"
     t.index ["subscription_plan_id"], name: "index_subscriptions_on_subscription_plan_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
@@ -1730,6 +1741,7 @@ ActiveRecord::Schema.define(version: 2024_07_04_105807) do
   add_foreign_key "crowd_boost_charges", "crowd_boosts", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "crowd_pledges", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "room_boosters", on_delete: :nullify
+  add_foreign_key "crowd_boost_charges", "subscription_invoices", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "users", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "zuckerls", on_delete: :nullify
   add_foreign_key "crowd_boost_pledges", "crowd_boost_slots", on_delete: :nullify
