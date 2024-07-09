@@ -70,7 +70,7 @@
   </div>
 
   <div class="benefit-checkbox">
-    <div class="input-checkbox">
+    <div class="input-checkbox <%= !@crowd_campaign.editable? ? 'disabled' : '' %>">
       <%= f.check_box(:benefit) %>
       <%= f.label :benefit, "Ja, von meinem Projekt profitiert auch die Allgemeinheit", class: 'benefit-switch' %>
     </div>
@@ -81,7 +81,7 @@
       <%= icon_tag "layout-document" %>
       <span>Vorteil für die Allgemeinheit</span>
       <% end %>
-      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', data: { max_chars: 1500 } %>
+      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', data: { max_chars: 1500 }, disabled: !@crowd_campaign.editable? %>
       <span class="charCountContainer charsLeft"></span>
     </div>
   </div>

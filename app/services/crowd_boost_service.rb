@@ -59,7 +59,7 @@ class CrowdBoostService
   end
 
   def create_charge_from(subject)
-    subject.build_crowd_boost_charge(
+    crowd_boost_charge = subject.build_crowd_boost_charge(
       amount: subject.crowd_boost_charge_amount,
       payment_status: "authorized",
       charge_type: subject.class.name.underscore,
@@ -71,7 +71,9 @@ class CrowdBoostService
       address_street: subject.user.address_street,
       address_zip: subject.user.address_zip,
       address_city: subject.user.address_city,
-    ).save
+    )
+    crowd_boost_charge.save
+    generate_invoice(crowd_boost_charge)
   end
 
   private
@@ -99,7 +101,7 @@ class CrowdBoostService
   end
 
   def generate_invoice(crowd_boost_charge)
-    invoice_number = "#{Date.current.year}_CrowdBoostCharge_#{crowd_boost_charge.id}_#{CrowdBoostCharge.next_invoice_number}"
+    invoice_number = "#{Date.current.year}_CrowdBoostCharge_#{crowd_boost_charge.id}"
     crowd_boost_charge.update(invoice_number: invoice_number)
     crowd_boost_charge_invoice = CrowdBoostInvoice.new.invoice(crowd_boost_charge)
     crowd_boost_charge.invoice.put(body: crowd_boost_charge_invoice)

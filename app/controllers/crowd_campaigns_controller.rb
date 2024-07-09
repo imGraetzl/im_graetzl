@@ -396,6 +396,7 @@ class CrowdCampaignsController < ApplicationController
   def noneditable_campaign_params
     campaign_params = params.require(:crowd_campaign).permit(
       :location_id, :room_offer_id,
+      :contact_website, :contact_instagram, :contact_facebook,
       images_attributes: [:id, :file, :_destroy],
       crowd_rewards_attributes: [
         :id, :amount, :limit, :title, :description, :delivery_weeks, :delivery_address_required, :question, :avatar, :remove_avatar, :_destroy

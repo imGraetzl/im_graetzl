@@ -94,7 +94,7 @@
       <%= icon_tag "globe" %>
       <span>Website</span>
     <% end %>
-    <%= f.text_field :contact_website, placeholder: 'http:// oder https://', disabled: !@crowd_campaign.editable? %>
+    <%= f.text_field :contact_website, placeholder: 'http:// oder https://' %>
   </div>
 
   <div class="input-field">
@@ -102,7 +102,7 @@
       <%= icon_tag "social-instagram" %>
       <span>Instagram</span>
     <% end %>
-    <%= f.text_field :contact_instagram, placeholder: 'https://www.instagram.com/xyz', disabled: !@crowd_campaign.editable? %>
+    <%= f.text_field :contact_instagram, placeholder: 'https://www.instagram.com/xyz' %>
   </div>
 
   <div class="input-field">
@@ -110,7 +110,7 @@
       <%= icon_tag "social-facebook" %>
       <span>Facebook</span>
     <% end %>
-    <%= f.text_field :contact_facebook, placeholder: 'https://www.facebook.com/xyz', disabled: !@crowd_campaign.editable? %>
+    <%= f.text_field :contact_facebook, placeholder: 'https://www.facebook.com/xyz' %>
   </div>
 
 </div>

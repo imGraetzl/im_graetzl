@@ -41,6 +41,23 @@ class CrowdBoostInvoice
     pdf.text "Zahlungsbeleg", size: 20, style: :bold
     pdf.move_down 20
 
+    pdf.text "CrowdBoost ID: #{crowd_boost_charge.crowd_boost.id}"
+
+    case crowd_boost_charge.charge_type
+    when "general"
+      pdf.text "via Direkteinzahlung"
+    when "zuckerl"
+      pdf.text "via Zuckerl ID: #{crowd_boost_charge&.zuckerl&.id}"
+    when "room_booster"
+      pdf.text "via Raumteiler Pusher ID: #{crowd_boost_charge&.room_booster&.id}"
+    when "crowd_pledge"
+      pdf.text "via Crowdfunding Unterstützung ID: #{crowd_boost_charge&.crowd_pledge&.id}"
+    when "subscription_invoice"
+      pdf.text "via Mitgliedschaft Invoice ID: #{crowd_boost_charge&.subscription_invoice&.id}"
+    end
+
+    pdf.move_down 20
+
     table_data = []
     table_data << ["Zahlungs-ID", "CrowdBoost", "Betrag"]
     table_data << [crowd_boost_charge.id, crowd_boost_charge.crowd_boost.to_s.parameterize(preserve_case: true, separator: ' '), format_price(crowd_boost_charge.amount)]
