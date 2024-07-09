@@ -30,7 +30,7 @@
     <div class="card"></div>
   </div>
 
-  <div class="cardBoxCollection -tripple">
+  <div class="cardBoxCollection <%= @plans.count > 2 ? '-quart' : '-tripple' %>">
     <%= render @plans %>
     <%= render 'subscription_plans/subscription_plan_wow' %>
   </div>
