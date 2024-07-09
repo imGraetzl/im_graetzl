@@ -9,24 +9,21 @@
 %>
 
 <% if current_region.hot_august? %>
-<div id="betaflash">
-  „Hot August” für den RaumBooster - <%= link_to 'Mach mit', '/hot-august' %>!
-  <%= link_to 'javascript:', class: 'close-ico' do %>
-    <%= icon_tag "cross" %>
-  <% end %>
-</div>
+  <div id="betaflash">
+    „Hot August” für den RaumBooster - <%= link_to 'Mach mit', '/hot-august' %>!
+    <%= link_to 'javascript:', class: 'close-ico' do %>
+      <%= icon_tag "cross" %>
+    <% end %>
+  </div>
+<% elsif current_region.is?('wien') && user_signed_in? && current_user.show_subscription_hint? %>
+  <div id="betaflash">
+    Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_url %>!
+    <%= link_to 'javascript:', class: 'close-ico' do %>
+      <%= icon_tag "cross" %>
+    <% end %>
+  </div>
 <% end %>
 
-<!--
-<% if current_region.is?('wien') && user_signed_in? && current_user.show_subscription_hint? %>
-<div id="betaflash">
-  Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_url %>!
-  <%= link_to 'javascript:', class: 'close-ico' do %>
-    <%= icon_tag "cross" %>
-  <% end %>
-</div>
-<% end %>
--->
 
 <section class="graetzls">
   <%= render 'map' %>

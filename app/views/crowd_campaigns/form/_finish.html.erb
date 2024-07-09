@@ -27,30 +27,6 @@
   </div>
 
   <div class="input-field">
-    <%= f.label :contact_website do %>
-      <%= icon_tag "globe" %>
-      <span>Website</span>
-    <% end %>
-    <%= f.text_field :contact_website, placeholder: 'http:// oder https://', disabled: !@crowd_campaign.editable? %>
-  </div>
-
-  <div class="input-field">
-    <%= f.label :contact_instagram do %>
-      <%= icon_tag "social-instagram" %>
-      <span>Instagram</span>
-    <% end %>
-    <%= f.text_field :contact_instagram, placeholder: 'https://www.instagram.com/xyz', disabled: !@crowd_campaign.editable? %>
-  </div>
-
-  <div class="input-field">
-    <%= f.label :contact_facebook do %>
-      <%= icon_tag "social-facebook" %>
-      <span>Facebook</span>
-    <% end %>
-    <%= f.text_field :contact_facebook, placeholder: 'https://www.facebook.com/xyz', disabled: !@crowd_campaign.editable? %>
-  </div>
-
-  <div class="input-field">
     <%= f.label :contact_email do %>
       <%= icon_tag "at-symbol" %>
       <span>E-Mail</span>
@@ -105,6 +81,36 @@
       <span>Rechnung / Beleg</span>
     <% end %>
     <%= f.select :billable, billable_values, { include_blank: 'auswählen...' }, disabled: !@crowd_campaign.editable? %>
+  </div>
+
+</div>
+
+<div class="form-block">
+
+  <p class="txt"><span>Links</span> zu deinem Projekt</p>
+
+  <div class="input-field">
+    <%= f.label :contact_website do %>
+      <%= icon_tag "globe" %>
+      <span>Website</span>
+    <% end %>
+    <%= f.text_field :contact_website, placeholder: 'http:// oder https://', disabled: !@crowd_campaign.editable? %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_instagram do %>
+      <%= icon_tag "social-instagram" %>
+      <span>Instagram</span>
+    <% end %>
+    <%= f.text_field :contact_instagram, placeholder: 'https://www.instagram.com/xyz', disabled: !@crowd_campaign.editable? %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_facebook do %>
+      <%= icon_tag "social-facebook" %>
+      <span>Facebook</span>
+    <% end %>
+    <%= f.text_field :contact_facebook, placeholder: 'https://www.facebook.com/xyz', disabled: !@crowd_campaign.editable? %>
   </div>
 
 </div>

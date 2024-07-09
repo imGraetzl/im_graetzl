@@ -79,7 +79,7 @@
     </ul>
   </div>
 
-  <div id="tabs-container" class="content-wide -grey -end">
+  <div id="tabs-container" class="content-wide -grey">
     <div id="tab-campaigns" class="wrp-inner card-grid-container">
       <%= form_tag campaigns_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'cards-filter' do %><% end %>
       <div class="card-grid" data-behavior="campaigns-card-container"></div>
@@ -92,6 +92,17 @@
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div class="content-wide -end logo-footer">
+    <div class="wrp-inner">
+      <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
+        <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
+      </a>
+      <p>
+        Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
+      </p>
+    </div>
   </div>
 
 </section>

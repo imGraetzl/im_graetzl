@@ -108,6 +108,18 @@ section.crowd_boost {
     }
   }
 
+  .logo-footer {
+    padding-bottom: 30px;
+    .wrp-inner {
+      display: flex;
+      align-items: center;
+      p {
+        padding-left:20px;
+      }
+    }
+    
+  }
+
 }
 
 // ----- CrowdBoost Call Page ------ //
