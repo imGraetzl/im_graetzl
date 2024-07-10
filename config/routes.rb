@@ -325,7 +325,7 @@ Rails.application.routes.draw do
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
-  get 'hot-august' => redirect('/crowdfunding-booster/raum-booster/call')
+  get 'raumbooster' => redirect('/crowdfunding-booster/raum-booster/call')
   #get 'unterstuetzer-team', to: 'static_pages#mentoring'
   #get 'popup', to: 'static_pages#popup', as: 'popup'
 
