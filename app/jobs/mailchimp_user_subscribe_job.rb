@@ -33,9 +33,6 @@ class MailchimpUserSubscribeJob < ApplicationJob
       g.lists(list_id).members(member_id).tags.create(body: {
         tags: [{name:"#{user.region.name}", status:"active"}]
       })
-      g.lists(list_id).members(member_id).tags.create(body: {
-        tags: [{name:"Guest", status:"inactive"}]
-      })
       if user.newsletter?
         g.lists(list_id).members(member_id).tags.create(body: {
           tags: [{name:"NL False", status:"inactive"}]
