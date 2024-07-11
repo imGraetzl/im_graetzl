@@ -49,7 +49,6 @@ class RoomOffer < ApplicationRecord
   validate :has_one_category_at_least
 
   before_validation :smart_add_url_protocol, if: -> { website.present? }
-  after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
   scope :rentable, -> { where(rental_enabled: true) }

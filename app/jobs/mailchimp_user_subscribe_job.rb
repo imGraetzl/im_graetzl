@@ -2,7 +2,7 @@ class MailchimpUserSubscribeJob < ApplicationJob
 
   def perform(user)
     list_id = Rails.application.secrets.mailchimp_list_id
-    member_id = mailchimp_member_id(user)
+    member_id = user.mailchimp_member_id
 
     merge_fields = {
       USERID: user.id,
@@ -15,14 +15,13 @@ class MailchimpUserSubscribeJob < ApplicationJob
       USERNAME: user.username,
       PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
       SIGNUP: user.created_at,
-      ORIGIN: user.origin? ? user.origin : '',
       L_CATEGORY: user_location_category(user),
       NL_STATE: user.newsletter? ? 'true' : 'false',
       REGION: user.region.name,
       REGION_URL: user.region.host,
     }
 
-    merge_fields.merge!(user_location(user))
+    #merge_fields.merge!(user_location(user))
 
     begin
       g = Gibbon::Request.new
@@ -65,35 +64,29 @@ class MailchimpUserSubscribeJob < ApplicationJob
     end
   end
 
-  private
-
-  def mailchimp_member_id(user)
-    Digest::MD5.hexdigest(user.email.downcase)
-  end
-
-  def user_location(user)
-    if user.locations.approved.empty?
-      location_fieds = {
-        LOCATION: "",
-        L_URL: "",
-        L_PLZ: "",
-        L_GRAETZL: "",
-        L_GR_URL: "",
-      }
-    else
-      location = user.locations.approved.last
-      graetzl = location.graetzl
-      location_fieds = {
-        LOCATION: location.name,
-        L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
-        L_CATEGORY: location.location_category.try(:name),
-        L_PLZ: location.address_zip? ? location.address_zip : '',
-        L_GRAETZL: graetzl.name,
-        L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),
-      }
-    end
-    return location_fieds
-  end
+  #def user_location(user)
+  #  if user.locations.approved.empty?
+  #    location_fieds = {
+  #      LOCATION: "",
+  #      L_URL: "",
+  #      L_PLZ: "",
+  #      L_GRAETZL: "",
+  #      L_GR_URL: "",
+  #    }
+  #  else
+  #    location = user.locations.approved.last
+  #    graetzl = location.graetzl
+  #    location_fieds = {
+  #      LOCATION: location.name,
+  #      L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
+  #      L_CATEGORY: location.location_category.try(:name),
+  #      L_PLZ: location.address_zip? ? location.address_zip : '',
+  #      L_GRAETZL: graetzl.name,
+  #      L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),
+  #    }
+  #  end
+  #  return location_fieds
+  #end
 
   def business_user_interests(user)
     mailchimp_interests = {}

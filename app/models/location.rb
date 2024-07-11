@@ -53,8 +53,6 @@ class Location < ApplicationRecord
   before_create { |location| location.last_activity_at = Time.current }
 
   after_update :update_last_activity, if: -> { saved_change_to_goodie? }
-  #after_update :mailchimp_location_update, if: -> { approved?  }
-  #before_destroy :mailchimp_location_delete
 
   def self.include_for_box
     includes(:location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
@@ -113,14 +111,6 @@ class Location < ApplicationRecord
     unless website_url[/\Ahttp:\/\//] || website_url[/\Ahttps:\/\//]
       self.website_url = "https://#{website_url}"
     end
-  end
-
-  def mailchimp_location_update
-    MailchimpLocationUpdateJob.perform_later(self)
-  end
-
-  def mailchimp_location_delete
-    MailchimpLocationDeleteJob.perform_later(self)
   end
 
 end

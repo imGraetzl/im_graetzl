@@ -24,7 +24,6 @@ class RoomOffersController < ApplicationController
 
     if @room_offer.save
       current_user.update(user_params) if params[:user].present?
-      MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
       RoomMailer.room_offer_published(@room_offer).deliver_later
       ActionProcessor.track(@room_offer, :create)
       redirect_to @room_offer
@@ -41,7 +40,6 @@ class RoomOffersController < ApplicationController
     @room_offer = current_user.room_offers.find(params[:id])
     if @room_offer.update(room_offer_params)
       current_user.update(user_params) if params[:user].present?
-      MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
       ActionProcessor.track(@room_offer, :update) if @room_offer.refresh_activity
 
       if params[:tab].present?
@@ -60,7 +58,6 @@ class RoomOffersController < ApplicationController
     @room_offer = current_user.room_offers.find(params[:id])
     @room_offer.update(status: params[:status])
     ActionProcessor.track(@room_offer, :update) if @room_offer.refresh_activity
-    MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
     flash[:notice] = t("activerecord.attributes.room_offer.status_message.#{@room_offer.status}")
     redirect_back(fallback_location: rooms_user_path)
   end

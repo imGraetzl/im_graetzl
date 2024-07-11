@@ -128,10 +128,10 @@ class Subscription < ApplicationRecord
   def update_user
     if user && active?
       user.update_attribute(:subscribed, true)
-      MailchimpUserTagJob.perform_later(user, 'Abo')
+      MailchimpUserTagJob.perform_later(user, 'Abo', 'active')
     elsif user
       user.update_attribute(:subscribed, false)
-      MailchimpUserUntagJob.perform_later(user, 'Abo')
+      MailchimpUserTagJob.perform_later(user, 'Abo', 'inactive')
     end
   end
 
