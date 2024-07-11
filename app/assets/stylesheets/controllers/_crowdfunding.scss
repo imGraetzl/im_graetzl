@@ -144,7 +144,7 @@ section.crowd_campaign {
 
   .last-supporters {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     width:50%;
     @include respond-to(">=medium") {
       width:68%;
