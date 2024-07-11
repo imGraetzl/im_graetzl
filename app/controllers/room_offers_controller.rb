@@ -2,7 +2,8 @@ class RoomOffersController < ApplicationController
   before_action :authenticate_user!, except: [:show, :reactivate, :calculate_price, :available_hours]
 
   def show
-    @room_offer = RoomOffer.in(current_region).find(params[:id])
+    @room_offer = RoomOffer.find(params[:id])
+    redirect_to_region?(@room_offer)
     @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 

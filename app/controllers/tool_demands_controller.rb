@@ -9,7 +9,8 @@ class ToolDemandsController < ApplicationController
   end
 
   def show
-    @tool_demand = ToolDemand.in(current_region).find(params[:id])
+    @tool_demand = ToolDemand.find(params[:id])
+    redirect_to_region?(@tool_demand)
     @comments = @tool_demand.comments.includes(:user, :images).order(created_at: :desc)
   end
 

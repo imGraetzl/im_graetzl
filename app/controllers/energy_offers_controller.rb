@@ -2,7 +2,8 @@ class EnergyOffersController < ApplicationController
   before_action :authenticate_user!, except: [:show, :reactivate]
 
   def show
-    @energy_offer = EnergyOffer.in(current_region).find(params[:id])
+    @energy_offer = EnergyOffer.find(params[:id])
+    redirect_to_region?(@energy_offer)
     @comments = @energy_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
