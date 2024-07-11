@@ -53,8 +53,8 @@ class Location < ApplicationRecord
   before_create { |location| location.last_activity_at = Time.current }
 
   after_update :update_last_activity, if: -> { saved_change_to_goodie? }
-  after_update :mailchimp_location_update, if: -> { approved?  }
-  before_destroy :mailchimp_location_delete
+  #after_update :mailchimp_location_update, if: -> { approved?  }
+  #before_destroy :mailchimp_location_delete
 
   def self.include_for_box
     includes(:location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
