@@ -16,7 +16,6 @@ class MailchimpUserSubscribeJob < ApplicationJob
       PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
       SIGNUP: user.created_at,
       L_CATEGORY: user_location_category(user),
-      NL_STATE: user.newsletter? ? 'true' : 'false',
       REGION: user.region.name,
       REGION_URL: user.region.host,
     }
