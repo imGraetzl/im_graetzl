@@ -149,16 +149,19 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def posts
+    head :ok and return if browser.bot? && !request.format.js?
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     @posts = @crowd_campaign.crowd_campaign_posts.includes(:images, :comments).order(created_at: :desc)
   end
 
   def comments
+    head :ok and return if browser.bot? && !request.format.js?
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
   end
 
   def supporters
+    head :ok and return if browser.bot? && !request.format.js?
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     pledges = @crowd_campaign.crowd_pledges.initialized.visible
     boost_pledges = @crowd_campaign.crowd_boost_pledges.initialized
