@@ -31,8 +31,6 @@ class RoomDemand < ApplicationRecord
   validate :has_one_category_at_least
   validate :has_one_graetzl_at_least # doesn't work for some reason
 
-  after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
-
   LIFETIME_MONTHS = 5
 
   after_update :destroy_activity_and_notifications, if: -> { disabled? }

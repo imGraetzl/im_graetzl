@@ -18,7 +18,6 @@ class RoomDemandsController < ApplicationController
     @room_demand.activate
 
     if @room_demand.save
-      MailchimpRoomDemandUpdateJob.perform_later(@room_demand)
       RoomMailer.room_demand_published(@room_demand).deliver_later
       ActionProcessor.track(@room_demand, :create)
       redirect_to @room_demand
@@ -35,7 +34,6 @@ class RoomDemandsController < ApplicationController
     @room_demand = current_user.room_demands.find(params[:id])
 
     if @room_demand.update(room_demand_params)
-      MailchimpRoomDemandUpdateJob.perform_later(@room_demand)
       ActionProcessor.track(@room_demand, :update) if @room_demand.refresh_activity
       redirect_to @room_demand
     else
@@ -47,7 +45,6 @@ class RoomDemandsController < ApplicationController
     @room_demand = current_user.room_demands.find(params[:id])
     @room_demand.update(status: params[:status])
     ActionProcessor.track(@room_demand, :update) if @room_demand.refresh_activity
-    MailchimpRoomDemandUpdateJob.perform_later(@room_demand)
     flash[:notice] = t("activerecord.attributes.room_demand.status_message.#{@room_demand.status}")
     redirect_back(fallback_location: rooms_user_path)
   end
