@@ -39,4 +39,8 @@ workers ENV.fetch("WEB_CONCURRENCY") { 0 }
 #
 preload_app!
 
+require 'barnes'
 
+before_fork do
+  Barnes.start
+end
