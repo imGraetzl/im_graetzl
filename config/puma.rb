@@ -1,3 +1,9 @@
+require 'barnes'
+
+before_fork do
+  Barnes.start
+end
+
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -38,9 +44,3 @@ workers ENV.fetch("WEB_CONCURRENCY") { 0 }
 # process behavior so workers use less memory.
 #
 preload_app!
-
-require 'barnes'
-
-before_fork do
-  Barnes.start
-end
