@@ -13,7 +13,8 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    @meeting = Meeting.in(current_region).find(params[:id])
+    @meeting = Meeting.find(params[:id])
+    redirect_to_region?(@meeting)
     @graetzl = @meeting.graetzl
     @comments = @meeting.comments.includes(:user, :images).order(created_at: :desc)
   end

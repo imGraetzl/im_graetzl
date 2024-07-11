@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    redirect_to_region?(@user) #Needed for Chargers on show-boost-page. TODO: check if sideeffects...
+    redirect_to_region?(@user)
 
     @graetzl = @user.graetzl
     @wall_comments = @user.wall_comments.includes(:user, :images).order(created_at: :desc)

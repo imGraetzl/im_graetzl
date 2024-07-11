@@ -9,8 +9,9 @@ class LocationsController < ApplicationController
   end
 
   def show
-    @location = Location.in(current_region).find(params[:id])
+    @location = Location.find(params[:id])
     redirect_enqueued and return if @location.pending?
+    redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
     @posts = @location.location_posts.includes(:images, :comments).last(30)

@@ -2,7 +2,8 @@ class ToolOffersController < ApplicationController
   before_action :authenticate_user!, except: [:show, :calculate_price]
 
   def show
-    @tool_offer = ToolOffer.in(current_region).non_deleted.find(params[:id])
+    @tool_offer = ToolOffer.non_deleted.find(params[:id])
+    redirect_to_region?(@tool_offer)
     @comments = @tool_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
