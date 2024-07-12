@@ -113,7 +113,7 @@ GEM
     bb-ruby (1.4.0)
     bcrypt (3.1.20)
     bigdecimal (3.1.7)
-    browser (5.3.1)
+    browser (6.0.0)
     builder (3.3.0)
     capybara (3.35.3)
       addressable

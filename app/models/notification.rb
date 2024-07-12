@@ -18,8 +18,15 @@ class Notification < ApplicationRecord
     order(Arel.sql('(CASE WHEN sort_date >= current_date THEN sort_date END) ASC'))
   }
 
-  ## user 66 for local testing, user 10612 for production
+  ## Next Newsletter Notifications for Active Admin
   next_tuesday = Date.today.next_occurring(:tuesday)
+
+  scope :next_newsletter, -> {
+    where("notify_at <= ?", next_tuesday).
+    where("notify_before IS NULL OR notify_before >= ?", next_tuesday).
+    where(sent: false)
+  }
+
   scope :next_wien, -> {
     where(:user_id => 10612).where("notify_at <= ?", next_tuesday).
     where("notify_before IS NULL OR notify_before >= ?", next_tuesday).

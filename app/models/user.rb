@@ -175,6 +175,13 @@ class User < ApplicationRecord
     end
   end
 
+  def self.admin_newsletter_collection
+    # Inset User-ID for each Region
+    User.where(id: [10612, 10613, 10614, 13782, 16539]).pluck(:id, :region_id).map do |id, region_id|
+      ["#{region_id}", id]
+    end
+  end
+
   def to_s
     full_name
   end

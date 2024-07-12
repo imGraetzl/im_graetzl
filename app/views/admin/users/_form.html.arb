@@ -5,7 +5,6 @@ active_admin_form_for [:admin, resource] do |f|
     input :free_region_zuckerl, as: :select, collection: [1, 2, 3], include_blank: 'Anzahl auswählen', input_html: { :class => 'admin-filter-select'}
     input :graetzl, collection: Graetzl.order(:name), include_blank: false, input_html: { :class => 'admin-filter-select'}
     input :username
-    input :slug unless f.object.new_record?
     input :first_name
     input :last_name
     input :email
