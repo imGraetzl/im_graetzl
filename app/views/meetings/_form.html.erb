@@ -42,6 +42,20 @@
         %>
       </div>
     <% end %>
+
+    <% if @meeting.good_morning_date? || current_user.admin? %>
+
+      <div class="input-field">
+        <%= f.label :max_going_tos do %>
+          <%= icon_tag "users" %>
+          <span>Max. Teilnehmer</span>
+        <% end %>
+        <%= f.number_field :max_going_tos, step: 1, placeholder: 'Möchtest du die Teilnehmeranzahl begrenzen?' %>
+      </div>
+
+    <% end %>
+
+
   </div>
 
   <div class="meet-where">

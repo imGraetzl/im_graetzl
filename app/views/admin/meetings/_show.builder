@@ -8,6 +8,7 @@ context.instance_eval do
           row :graetzl
           row :name
           row :entire_region
+          row :max_going_tos
           row :online_meeting
           row :online_description
           row(:state){|m| status_tag(m.state)}

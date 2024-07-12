@@ -186,7 +186,7 @@ class MeetingsController < ApplicationController
 
   def meeting_params
     list_params_allowed = [
-      :graetzl_id, :group_id, :location_id, :poll_id, :name, :description,
+      :graetzl_id, :group_id, :location_id, :poll_id, :name, :description, :max_going_tos,
       :starts_at_date, :ends_at_date, :starts_at_time, :ends_at_time,
       :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,

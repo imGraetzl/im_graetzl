@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_05_100032) do
+ActiveRecord::Schema.define(version: 2024_07_12_110958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -983,6 +983,7 @@ ActiveRecord::Schema.define(version: 2024_07_05_100032) do
     t.date "last_activated_at"
     t.bigint "poll_id"
     t.boolean "entire_region", default: false, null: false
+    t.integer "max_going_tos"
     t.index ["address_id"], name: "index_meetings_on_address_id"
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"

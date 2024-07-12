@@ -1,28 +1,20 @@
 <div class="participants">
-  <% if meeting.attendees.size > 0 %>
-    <p class="userCount"><span><%= meeting.attendees.size %></span> nehmen teil</p>
+
+  <% if meeting.users.size > 0 %>
+    <p class="userCount">
+      <span><%= meeting.users.size %></span> nehmen teil
+      <% if meeting.max_going_tos %>
+        <span class="maxcount">(von maximal <%= meeting.max_going_tos %>)</span>
+      <% end %>
+    </p>
   <% end %>
+
   <div class="portraitCollection">
-
-    <% if current_user == meeting.user || (current_user && current_user.admin?) %>
-
-      <% meeting.users.each do |user| %>
-        <%= link_to user_path(user), rel: 'nofollow' do %>
-          <% going_to = meeting.going_tos.where(user:user).last %>
-          <% going_to.going_to_date ? additional = "<strong>Termin:</strong> #{going_to.display_starts_at_date}" : nil %>
-          <%= avatar_image_with_tooltip going_to.user, size: :thumb, class: 'img-round show-badge', additional: additional %>
-        <% end %>
+    <% meeting.going_tos.each do |going_to| %>
+      <%= link_to user_path(going_to.user), rel: 'nofollow' do %>
+        <% going_to.going_to_date && (current_user == meeting.user || current_user.admin?) ? additional = "<strong>Termin:</strong> #{going_to.display_starts_at_date}" : nil %>
+        <%= avatar_image_with_tooltip going_to.user, size: :thumb, class: 'img-round show-badge', additional: additional %>
       <% end %>
-
-    <% else %>
-
-      <% meeting.users.each do |user| next if user == meeting.user %>
-        <%= link_to user_path(user), rel: 'nofollow' do %>
-          <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round show-badge' %>
-        <% end %>
-      <% end %>
-
     <% end %>
-
   </div>
 </div>

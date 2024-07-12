@@ -58,10 +58,11 @@ class Meeting < ApplicationRecord
   validates :cover_photo, presence: true, on: :create
   validates :description, presence: true, length: { minimum: 150 }, on: :create
   validate :starts_at_date_cannot_be_in_the_past, on: :create
+  validates :max_going_tos, numericality: { greater_than_or_equal_to: 1, :allow_nil => true }
 
   before_validation :set_graetzl
   before_create :set_privacy
-  before_create :set_entire_region
+  #before_create :set_entire_region
   after_create :update_location_activity
 
   def self.visible_to_all
@@ -88,9 +89,8 @@ class Meeting < ApplicationRecord
     ends_at_date.try(:past?) || (ends_at_date.nil? && starts_at_date.try(:past?))
   end
 
-  def energieteiler?
-    false
-    #self.event_categories.map(&:title).any? { |cat| cat.include?('Energieteiler') }
+  def good_morning_date?
+    self.event_categories.map(&:title).any? { |cat| cat.include?('Good Morning Dates') }
   end
 
   def public?
@@ -131,6 +131,10 @@ class Meeting < ApplicationRecord
     user && going_tos.any?{|gt| gt.user_id == user.id}
   end
 
+  def booked_up?
+    self.max_going_tos && self.users.size >= self.max_going_tos
+  end
+
   def notification_time_range
     if starts_at_date && ends_at_date
       [starts_at_date - 7.days, ends_at_date]
@@ -168,7 +172,7 @@ class Meeting < ApplicationRecord
   end
 
   def set_entire_region
-    self.entire_region = (entire_region? || energieteiler?) ? true : false
+    #self.entire_region = (entire_region? || energieteiler?) ? true : false
   end
 
   def update_location_activity

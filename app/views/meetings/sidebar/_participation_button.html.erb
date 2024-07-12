@@ -33,6 +33,23 @@
         Nicht mehr teilnehmen
       </span>
     <% end %>
+  
+  <% elsif meeting.booked_up? %>
+    
+    <%= link_to 'javascript:', data: { jq_dropdown: "#bookedUp" }, class: 'btn-avatar -grey' do %>
+      Derzeit ausgebucht
+    <% end %>
+
+    <!-- Hint Panel -->
+      <div id="bookedUp" class="jq-dropdown jq-dropdown-relative dropdown-container">
+        <div class="jq-dropdown-panel">
+          <strong>Das Treffen ist aktuell ausgebucht.</strong> (Maximal <%= meeting.max_going_tos %> TeilnehmerInnen)
+          <p class="smallhint">
+            Klicke das Stern-Symbol um dir das Treffen in deinen Favoriten zu speichern und ggf. später wieder vorbeizuschauen.
+          </p>
+        </div>
+      </div>
+    <!-- Hint Panel -->
 
   <% else %>
 

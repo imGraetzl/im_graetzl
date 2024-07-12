@@ -118,6 +118,7 @@ ActiveAdmin.register Meeting do
     :entire_region,
     :slug,
     :state,
+    :max_going_tos,
     :description,
     :cover_photo, :remove_cover_photo,
     :starts_at_date, :starts_at_time,
