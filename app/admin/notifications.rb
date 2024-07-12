@@ -15,8 +15,8 @@ ActiveAdmin.register Notification, as: "Notifications" do
   filter :type, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :sent, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :seen, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user_id, :as => :numeric
+  #filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  #filter :user_id, :as => :numeric
   filter :notify_at
   filter :notify_before
   filter :created_at

@@ -112,6 +112,9 @@ section.meeting {
       margin-right: 0;
     }
   }
+  .smallhint {
+    margin-top:10px;
+  }
 }
 
 .participants {
@@ -124,6 +127,9 @@ section.meeting {
     span {
       color: $color-ambient-rosa;
       margin-right: 5px;
+    }
+    span.maxcount {
+      color: $color-ambient-grey;
     }
   }
 }

@@ -297,6 +297,7 @@ de:
         starts_at_time: Beginn (Zeit)
         ends_at_time: Ende (Zeit)
         event_categories: Kategorien
+        max_going_tos: Maximale Teilmehmeranzahl
       post:
         title: Titel
         content: Text
