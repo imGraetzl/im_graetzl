@@ -4,21 +4,19 @@ ActiveAdmin.register Notification, as: "Notifications" do
 
   #scope :ready_to_be_sent
   scope :all, default: true
-  scope 'Next Wien Mails', :next_wien
-  scope 'Next Graz Mails', :next_graz
-  scope 'Next Linz Mails', :next_linz
-  scope 'Next Kärnten Mails',:next_kaernten
-  scope 'Next Mühlviertel Mails',:next_muehlviertel
+  scope 'Next Newsletter', :next_newsletter
+  #scope 'Next Wien Mails', :next_wien
+  #scope 'Next Graz Mails', :next_graz
+  #scope 'Next Linz Mails', :next_linz
+  #scope 'Next Kärnten Mails',:next_kaernten
+  #scope 'Next Mühlviertel Mails',:next_muehlviertel
 
-  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user, label: 'Next Region Newsletter', collection: proc { User.admin_newsletter_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :type, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  #filter :subject_type, include_blank: true, input_html: { class: 'admin-filter-select'}
-  #filter :subject_id, label: 'Subject ID'
-  #filter :child_type, include_blank: true, input_html: { class: 'admin-filter-select'}
-  #filter :child_id, label: 'Child ID'
   filter :sent, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :seen, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user_id, :as => :numeric
   filter :notify_at
   filter :notify_before
   filter :created_at
