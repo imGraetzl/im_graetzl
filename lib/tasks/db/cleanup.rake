@@ -20,6 +20,7 @@ namespace :db do
     end
 
     
+    
     # Delete going_tos from deleted meeting
     GoingTo.where(meeting_id: nil).destroy_all
 
