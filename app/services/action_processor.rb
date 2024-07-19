@@ -47,7 +47,7 @@ class ActionProcessor
 
         if subject.public? && subject.entire_region?
           Activity.add_public(subject, to: :entire_region)
-          Notifications::NewMeeting.generate(subject, to: User.in(subject.region).all.pluck(:id),
+          Notifications::NewMeeting.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id),
             time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
         elsif subject.public?
           Activity.add_public(subject, to: subject.graetzl)
@@ -165,7 +165,7 @@ class ActionProcessor
       # Delete all pending Notifications for same subject and type
       Notification.where(subject: subject).where(type: 'Notifications::NewRoomOffer').delete_all
       # Notify all Users
-      Notifications::NewRoomOffer.generate(subject, child, to: User.in(subject.region).all.pluck(:id), time_range: child.notification_time_range, sort_date: child.notification_sort_date)
+      Notifications::NewRoomOffer.generate(subject, child, to: User.confirmed.in(subject.region).all.pluck(:id), time_range: child.notification_time_range, sort_date: child.notification_sort_date)
 
     when [RoomOffer, :boost_pushup]
       Activity.add_public(subject, to: :entire_region)
@@ -236,10 +236,10 @@ class ActionProcessor
 
       if subject.entire_platform?
         Activity.add_public(subject, to: :entire_platform)
-        Notifications::NewCrowdCampaign.generate(subject, to: User.all.pluck(:id), time_range: subject.notification_time_range) # Notify in all Regions
+        Notifications::NewCrowdCampaign.generate(subject, to: User.confirmed.all.pluck(:id), time_range: subject.notification_time_range) # Notify in all Regions
       elsif subject.entire_region?
         Activity.add_public(subject, to: :entire_region)
-        Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
+        Notifications::NewCrowdCampaign.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
       else
         Activity.add_public(subject, to: subject.graetzl)
         Notifications::NewCrowdCampaign.generate(subject, to: user_ids(subject.graetzl), time_range: subject.notification_time_range)
@@ -293,10 +293,10 @@ class ActionProcessor
 
       if subject.scope_public? && subject.entire_platform?
         Activity.add_public(subject, child, to: :entire_platform) # All Regions
-        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.all.pluck(:id))      
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.confirmed.all.pluck(:id))      
       elsif subject.scope_public? && subject.entire_region?
         Activity.add_public(subject, child, to: :entire_region) # All Graetzls
-        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id))      
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.confirmed.in(subject.region).all.pluck(:id))      
       else subject.scope_public?
         Activity.add_public(subject, child, to: subject.graetzl) # Only in Graetzl
         Notifications::NewCrowdCampaignPost.generate(subject, child, to: user_ids(subject.graetzl))       
@@ -363,7 +363,7 @@ class ActionProcessor
   end
 
   def user_ids(graetzls)
-    User.where(graetzl_id: Array(graetzls)).pluck(:id) +
+    User.confirmed.where(graetzl_id: Array(graetzls)).pluck(:id) +
     UserGraetzl.where(graetzl_id: Array(graetzls)).pluck(:user_id)
   end
 

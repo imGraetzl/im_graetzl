@@ -10,6 +10,7 @@ ActiveAdmin.register SubscriptionInvoice do
   scope :uncollectible
 
   index { render 'index', context: self }
+  show { render 'show', context: self }
 
   controller do
     def apply_pagination(chain)
