@@ -3,8 +3,8 @@ ActiveAdmin.register Notification, as: "Notifications" do
   actions :all, except: [:new, :create, :edit, :destroy]
 
   #scope :ready_to_be_sent
-  scope :all, default: true
-  scope 'Next Newsletter', :next_newsletter
+  scope :all
+  scope 'Next Newsletter', :next_newsletter, default: true
   #scope 'Next Wien Mails', :next_wien
   #scope 'Next Graz Mails', :next_graz
   #scope 'Next Linz Mails', :next_linz
