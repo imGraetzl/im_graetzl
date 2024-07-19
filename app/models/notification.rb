@@ -58,31 +58,34 @@ class Notification < ApplicationRecord
   }
 
   def self.generate(subject, child = nil, to:, time_range: [], sort_date: nil)
-    user_ids = Array(to)
-    return if user_ids.empty?
+    all_user_ids = Array(to)
+    return if all_user_ids.empty?
 
-    notifications = User.where(id: user_ids).find_each.map do |user|
-      new(
-        user: user,
-        subject: subject,
-        child: child,
-        display_on_website: user.enabled_website_notification?(self),
-        bitmask: class_bitmask,
-        region_id: user.region_id,
-        notify_at: time_range.first || Time.current,
-        notify_before: time_range.last,
-        sort_date: sort_date,
-      )
-    end
+    all_user_ids.each_slice(200) do |user_ids|
+      notifications = User.where(id: user_ids).find_each.map do |user|
+        new(
+          user: user,
+          subject: subject,
+          child: child,
+          display_on_website: user.enabled_website_notification?(self),
+          bitmask: class_bitmask,
+          region_id: user.region_id,
+          notify_at: time_range.first || Time.current,
+          notify_before: time_range.last,
+          sort_date: sort_date,
+        )
+      end
 
-    import(notifications, synchronize: notifications)
+      import(notifications, synchronize: notifications)
 
-    notifications.each do |notification|
-      # Dont send if notify_at is in future
-      if notification.notify_at <= Date.current && notification.user.enabled_mail_notification?(self, :immediate)
-        NotificationMailer.send_immediate(notification).deliver_later
+      notifications.each do |notification|
+        # Dont send if notify_at is in future
+        if notification.notify_at <= Date.current && notification.user.enabled_mail_notification?(self, :immediate)
+          NotificationMailer.send_immediate(notification).deliver_later
+        end
       end
     end
+  
   end
 
   def self.platform_notification?
