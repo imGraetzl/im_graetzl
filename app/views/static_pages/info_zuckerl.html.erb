@@ -59,8 +59,8 @@
   <div class="wrp">
     <h3>Was kostet das Zuckerl?</h3>
     <p>
-      Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.graetzl") %>" kostet <%= number_to_currency(Zuckerl.price(current_region) / 100) %></strong> (inkl. 20% USt.).<br>
-      Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.region") %>" kostet <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong> (inkl. 20% USt.).
+      Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.graetzl") %>" kostet <%= number_to_currency(Zuckerl.price(current_region) / 100) %></strong><span data-behavior="oldpricepreview"><%= " statt #{number_to_currency(Zuckerl.old_price(current_region) / 100)} " if Zuckerl.old_price(current_region) %></span> (inkl. 20% USt.).<br>
+      Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.region") %>" kostet <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong><span data-behavior="oldpricepreview"><%= " statt #{number_to_currency(Zuckerl.region_old_price(current_region) / 100)} " if Zuckerl.region_old_price(current_region) %></span> (inkl. 20% USt.).
     </p>
   </div>
 

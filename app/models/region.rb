@@ -21,8 +21,10 @@ class Region
     @use_districts = data[:use_districts]
     @use_subscription = data[:use_subscription]
     @subscription_goal = data[:subscription_goal]
-    @zuckerl_graetzl_price = data[:zuckerl_graetzl_price]
-    @zuckerl_entire_region_price = data[:zuckerl_entire_region_price]
+    @zuckerl_graetzl_price = data[:zuckerl][:graetzl][:price]
+    @zuckerl_region_price = data[:zuckerl][:region][:price]
+    @zuckerl_graetzl_discount_price = data[:zuckerl][:graetzl][:discount_price] if data[:zuckerl][:graetzl][:discount_price]
+    @zuckerl_region_discount_price = data[:zuckerl][:region][:discount_price] if data[:zuckerl][:region][:discount_price]
     @room_booster_price = data[:room_booster_price]
     @public_group_id = data[:public_group_id]
     @use_energieteiler = data[:navigation][:energieteiler]
@@ -74,11 +76,19 @@ class Region
   end
 
   def zuckerl_graetzl_price
-    @zuckerl_graetzl_price.to_f
+    self.hot_august? && @zuckerl_graetzl_discount_price ? @zuckerl_graetzl_discount_price.to_f : @zuckerl_graetzl_price.to_f
   end
 
-  def zuckerl_entire_region_price
-    @zuckerl_entire_region_price.to_f
+  def zuckerl_region_price
+    self.hot_august? && @zuckerl_region_discount_price ? @zuckerl_region_discount_price.to_f : @zuckerl_region_price.to_f
+  end
+
+  def zuckerl_graetzl_old_price
+    self.hot_august? && @zuckerl_graetzl_discount_price ? @zuckerl_graetzl_price.to_f : false
+  end
+
+  def zuckerl_region_old_price
+    self.hot_august? && @zuckerl_region_discount_price ? @zuckerl_region_price.to_f : false
   end
 
   def room_booster_price

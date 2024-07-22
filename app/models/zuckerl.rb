@@ -34,7 +34,15 @@ class Zuckerl < ApplicationRecord
   end
 
   def self.region_price(region)
-    region.zuckerl_entire_region_price * 1.2
+    region.zuckerl_region_price * 1.2
+  end
+
+  def self.old_price(region)
+    region.zuckerl_graetzl_old_price ? region.zuckerl_graetzl_old_price * 1.2 : nil
+  end
+
+  def self.region_old_price(region)
+    region.zuckerl_region_old_price ? region.zuckerl_region_old_price * 1.2 : nil
   end
 
   aasm do
@@ -97,7 +105,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def basic_price
-    entire_region? ? region.zuckerl_entire_region_price : region.zuckerl_graetzl_price
+    entire_region? ? region.zuckerl_region_price : region.zuckerl_graetzl_price
   end
 
   def tax
