@@ -1,6 +1,6 @@
 APP.components.createzuckerl = (function() {
     var $titleinput, $descriptioninput, $imageinput, $districtinput, $titlepreview,
-        $descriptionpreview, $imagepreview, $pricepreview,
+        $descriptionpreview, $imagepreview, $pricepreview, $oldpricepreview,
         $graetzlpreview, $alldistrictspreview;
 
     function init() {
@@ -14,6 +14,7 @@ APP.components.createzuckerl = (function() {
         $linkpreview = $("a.linkpreview");
         $descriptionpreview = $("[data-behavior=descriptionpreview]");
         $pricepreview = $("[data-behavior=pricepreview]");
+        $oldpricepreview = $("[data-behavior=oldpricepreview]");
         $graetzlpreview = $("[data-behavior=graetzlpreview]");
         $alldistrictspreview = $("[data-behavior=alldistrictspreview]");
         $imagepreview = $("[data-behavior=imagepreview]");
@@ -62,6 +63,12 @@ APP.components.createzuckerl = (function() {
     function updatedistricts() {
       var selected_input = $(".district_visibility input[type='radio']:checked");
       $pricepreview.text(formatPrice(selected_input.data("price")));
+
+      if (selected_input.data("old-price")) {
+        $oldpricepreview.text('(statt ' + formatPrice(selected_input.data("old-price")) + ')');
+      } else {
+        $oldpricepreview.text('');
+      }
 
       if (selected_input.data('behavior') == "entire_region_true") {
         $('.description .graetzl').hide();

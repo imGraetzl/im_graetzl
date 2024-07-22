@@ -15,11 +15,13 @@
         <%= link_to user.graetzl.zip_name, user.graetzl %>
       </div>
     <% end %>
-    <% if user&.locations.present? %>
+    <!--
+    < % if user&.locations.present? %>
       <div class="tt-line">
-        <%= icon_tag "location" %>
-        <%= link_to user.locations.last, user.locations.last %>
+        < %= icon_tag "location" %>
+        < %= link_to user.locations.last, user.locations.last %>
       </div>
-    <% end %>
+    < % end %>
+    -->
   </div>
 </div>

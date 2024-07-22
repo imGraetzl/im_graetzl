@@ -10,14 +10,18 @@
 
     <p>Das Startdatum deines Zuckerls kannst du frei wählen. <strong>Die Laufzeit deines Zuckerls beträgt dann immer genau 1 Monat.</strong></p>
     <p>
-      <strong>Ein Zuckerl kostet dich <%= number_to_currency(Zuckerl.price(current_region) / 100) %></strong> (inkl. USt.).
+      <strong>Ein Zuckerl kostet dich <%= number_to_currency(Zuckerl.price(current_region) / 100) %></strong><span data-behavior="oldpricepreview"><%= " statt #{number_to_currency(Zuckerl.old_price(current_region) / 100)} " if Zuckerl.old_price(current_region) %></span> (inkl. USt.).
       Das Zuckerl erscheint <%= t("region.#{current_region.id}.in_your_graetzl") %><%= ' und im ganzen Bezirk' if current_region.use_districts? %>
       und wird ausserdem in die automatisierten Newsletter eingestreut.
     </p>
 
-    <p><strong><%= t("region.#{current_region.id}.zuckerl.headline") %>.</strong>
+    <p>
+    <% if Zuckerl.region_old_price(current_region) %>
+      <div class="discount-badge badge -small -mint"><div class="inner">Jetzt<br>-<%= discount(Zuckerl.region_old_price(current_region), Zuckerl.region_price(current_region)) %>%</div></div>
+    <% end %>
+    <strong><%= t("region.#{current_region.id}.zuckerl.headline") %>.</strong>
     <%= t("region.#{current_region.id}.zuckerl.subline") %> Sprich einen Monat die volle Sichtbarkeit für dich.
-    <strong>Das Zuckerl kostet dich <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong> (inkl. USt.) und wird ausserdem in die automatisierten Newsletter <%= t("region.#{current_region.id}.in_your_region") %> eingestreut.
+    <strong>Das Zuckerl kostet dich <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong><span data-behavior="oldpricepreview"><%= " statt #{number_to_currency(Zuckerl.region_old_price(current_region) / 100)} " if Zuckerl.region_old_price(current_region) %></span> (inkl. USt.) und wird ausserdem in die automatisierten Newsletter <%= t("region.#{current_region.id}.in_your_region") %> eingestreut.
     </p>
 
     <% if current_user.open_zuckerl? || @subscription&.open_zuckerl? %>
