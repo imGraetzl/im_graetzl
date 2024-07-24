@@ -35,8 +35,14 @@
     <div class="action-card-container" data-behavior="meetings-action-card-container">
       <!--<%= render 'good_morning_date_card' %>-->
     </div>
+
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>
+    <% if current_region.hot_august? %>
+      <%= render 'shared/featured_cards/crowd_booster' %>
+    <% elsif current_region.is?('wien') %>
+      <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>
+    <% end %>
+
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll -mint', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
 

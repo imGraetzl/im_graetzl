@@ -1,0 +1,51 @@
+<% 
+  crowd_boost = CrowdBoost.find(current_region.default_crowd_boost_id)
+  crowd_boost_charge = crowd_boost.crowd_boost_charges.debited.sample
+%>
+
+<div class="cardBox -crowd_boost featuredCard -hidden" data-behavior="masonry-card" data-card-id="boost-<%= crowd_boost.id %>">
+
+  <div class="cardBoxHeader">
+    <%= link_to call_crowd_boost_path(crowd_boost) do %>
+      <div class="coverImgWrapper">
+        <%= image_tag('info/crowd_boost/cardbox.jpg', class: 'coverImg') %>
+      </div>
+    <% end %>
+     <div class="categoryicon">
+      <%= image_tag 'svg/icon-booster.svg', class:'icon' %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+    <div class="userEntry txt">
+      <% if crowd_boost_charge.user %>
+        <%= link_to crowd_boost_charge.user, rel: 'nofollow' do %>
+          <%= avatar_image_with_tooltip crowd_boost_charge.user, size: :thumb, class: 'img-round show-badge' %>
+        <% end %>
+        <span class="userAndType">
+          <%= link_to crowd_boost_charge.contact_name, crowd_boost_charge.user, rel: 'nofollow' %>
+          <span>unterstützt den RaumBooster</span> via <%= charge_type(crowd_boost_charge) %>
+        </span>
+      <% else %>
+        <%= avatar_image crowd_boost_charge.user, size: :thumb, class: 'img-round' %>
+         <span class="userAndType">
+          <strong><%= crowd_boost_charge.contact_name %></strong>
+          <span>unterstützt den RaumBooster</span> via <%= charge_type(crowd_boost_charge) %>
+        </span>
+      <% end %>
+    </div>
+
+    <div class="slogan">
+      <strong><%= crowd_boost.crowd_boost_charges.debited.count %></strong>  Menschen unterstützen den RaumBooster bereits! Gemeinsam schaffen wir im HOT-August einen tollen RaumBooster Start - DANKE!
+    </div>
+
+    <div class="facts icontxt -mint">
+      <%= icon_tag "currency-euro" %>
+      <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
+    </div>
+
+    <%= link_to 'Hier gehts zum HOT-August!', call_crowd_boost_path(crowd_boost), class: 'btn-primary' %>
+
+  </div>
+
+</div>
