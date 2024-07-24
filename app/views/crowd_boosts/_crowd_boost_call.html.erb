@@ -21,12 +21,12 @@
 
     <h4 class="facts-headline">Facts zum Booster-Topf</h4>
 
-    <% if @next_slot.boost_amount? %>
+    <% if @next_slot&.boost_amount? %>
       <div class="facts icontxt -mint">
         <%= icon_tag "rocket" %>
         <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Boost für dein Projekt
       </div>
-    <% elsif @next_slot.boost_percentage? %>
+    <% elsif @next_slot&.boost_percentage? %>
       <div class="facts icontxt -mint">
         <%= icon_tag "rocket" %>
         Bis zu <%= @next_slot.boost_percentage.to_i %>% Boost für dein Projekt
