@@ -1,25 +1,51 @@
 // ----- CrowdBoost Overview ------ //
 section.info {
-  &.crowd-boost-page {
+
+  &.crowd-boost-overview {
     padding-bottom: 0px;
     margin-bottom: -80px;
-
     .imgHeader::after {
       background-image: url(image_path('regions/welocally_header.jpg'));
     }
-
     .paperCard.-top {
       margin-bottom:70px;
       p {
         @include font-size-primaryFont('larger');
       }
     }
-
     .content-main {
       padding-bottom:50px;
     }
-
   }
+
+  &.-boost_call {
+    padding-bottom:0px;
+    margin-bottom: -40px;
+    @include respond-to(">=medium") {
+      margin-bottom: -65px;
+    }
+    @include respond-to(">=large") {
+      margin-bottom: -85px;
+    }
+    .imgHeader {
+      background-image: url(image_path('info/crowd_boost/header.jpg'));
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 180px;
+      @include respond-to(">=medium") {
+        height: 300px;
+      }
+      @include respond-to(">=large") {
+        height: 480px;
+      }
+    }
+    .imgHeader::after {
+      background-image: linear-gradient(to bottom, rgba(252,252,252,0), rgba(252,252,252,1));
+      top: 75%;
+    }
+  }
+
 }
 
 // ----- CrowdBoost Detail Page ------ //
@@ -135,6 +161,13 @@ section.crowd_boost {
         @include font-size-primaryFont('large');
         margin-bottom: 20px;
       }
+    }
+  }
+
+  .introSide .cardBox {
+    z-index:9;
+    .cardBoxHeader {
+      margin-top:-8px;
     }
   }
 

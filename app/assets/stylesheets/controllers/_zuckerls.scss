@@ -16,6 +16,7 @@ section.zuckerl-page {
   }
 
   .district_visibility {
+    position: relative;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -32,6 +33,14 @@ section.zuckerl-page {
       border-top: 1px solid #DBEFEC;
       width:100%;
       text-align: center;
+    }
+    .badge {
+      position: absolute;
+      top:-60px;
+      right:0;
+      @include respond-to(">=medium") {
+        top:-30px;
+      }
     }
   }
 
@@ -140,4 +149,9 @@ section.zuckerl-page {
     }
   }
 
+}
+
+[data-behavior="oldpricepreview"] {
+  text-decoration:line-through;
+  color: $color-ambient-grey;
 }

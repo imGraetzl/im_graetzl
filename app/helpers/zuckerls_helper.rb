@@ -28,4 +28,8 @@ module ZuckerlsHelper
     zuckerl.user.valid_zuckerl_voucher_for(zuckerl) || zuckerl.user.subscription&.valid_zuckerl_voucher_for(zuckerl)
   end
 
+  def discount(old_price, new_price)
+    (100 - (new_price / old_price * 100)).to_i
+  end
+
 end

@@ -267,6 +267,20 @@ section.info {
       }
     }
 
+    .cardBoxCollection {
+      &.-quart {
+        .coverImgWrapper {
+          height:220px;
+          @include respond-to(">=medium") {
+            height:200px;
+          }
+          @include respond-to(">=large") {
+            height:170px;
+          }
+        }
+      }
+    }
+
   }
 
   // ----- INFO STARTPAGE ------ //
