@@ -109,7 +109,7 @@ class Region
   end
 
   def default_crowd_boost_id
-    1
+    Rails.env.staging? ? 2 : 1
   end
 
   def host_id
