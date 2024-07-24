@@ -13,7 +13,8 @@
     },
     "zuckerl":{
       "graetzl":{
-        "price": "16_50"
+        "price": "16_50",
+        "discount_price": "15_00"
       },
       "region":{
         "price": "125_00",
