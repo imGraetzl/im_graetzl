@@ -67,7 +67,7 @@ class CrowdBoost < ApplicationRecord
   end
 
   def can_destroy?
-    if self.crowd_campaigns.boost_initialized.any?
+    if self.crowd_campaigns.boost_initialized.any? || self.crowd_boost_charges.initialized.any? || self.crowd_boost_pledges.initialized.any?
       throw :abort
     end
   end
