@@ -10,16 +10,9 @@
         <h1><em><%= @crowd_boost.title %></em></h1>
         <p><strong>Leerstand beleben und Räumen eine neue Zukunft geben!</strong></p>
       </div>
-      <p>Mehr Räume eröffnen oder halten für lokale Macher*innen und für lebendige Grätzl in Wien. Auf der einen Seite gibt es einen riesigen Raumbedarf, auf der anderen Seite Leerstand. Zudem steigen die Mieten und Energiekosten, Räume müssen deshalb von lokalen Macher*innen aufgegeben werden. </p>
+      <p>Mehr Räume schaffen oder erhalten für lokale Macher*innen und lebendige Grätzl in Wien. Auf der einen Seite gibt es einen großen Bedarf an Räumen, auf der anderen Seite Leerstand. Zudem steigen die Mieten und Energiekosten, weshalb lokale Macher*innen ihre Räume aufgeben müssen.</p>
       <p><strong>Genau darum geht es beim RaumBooster – Der RaumBooster ist ein neues Format, das euch unterstützt, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen!</strong></p>
-      <p>In Calls laden wir euch ein, eure Raumvorhaben einzureichen. Alle, die sich für den RaumBooster qualifizieren und ihr Crowdfunding starten, bekommen einen zusätzlichen <strong>RaumBooster von 500 bis 1.000 € oben drauf</strong>, sobald das Crowdfunding 30% des Mindestziels erreicht hat.</p>
-      <div class="content-block -toggable">
-        <h3>Weitere Vorteile</h3>
-        <div class="-toggle-content">
-          <p>Außerdem erhalten die qualifizierten Projekte eine persönliche Crowdfunding-Begleitung, maximale Sichtbarkeit auf imGrätzl und das RaumBooster-Abzeichen auf ihrer Crowdfunding-Seite.</p>  
-          <p>Das Abzeichen macht für alle sichtbar, dass es sich um ein „besonders unterstützenswertes Vorhaben“ handelt, das schafft Vertrauen und zieht noch mehr Unterstützer*innen an. In Studien wurde außerdem herausgefunden, dass solche Matchfunding-Mechanismen wie der RaumBooster nicht nur schneller zum Ziel führen, sondern ihr Crowdfunding darüber hinaus noch erfolgreicher abschließen.</p>
-        </div>
-      </div>
+      <p>Zunächst füllen wir den RaumBooster Topf. Dann startet im Dezember der erste Call und wir laden euch ein, eure Raumvorhaben einzureichen. Alle, die sich für den RaumBooster qualifizieren und ihr Crowdfunding starten, bekommen einen zusätzlichen <strong>RaumBooster von 500 bis 1.000 € oben drauf</strong>, sobald das Crowdfunding 30% des Mindestziels erreicht hat.</p>
     </div>
     <div class="introSide">
       <%= render 'crowd_boosts/crowd_boost_call', crowd_boost: @crowd_boost %>
@@ -31,7 +24,7 @@
     <div class="wrp-inner">
       <div class="hl-subtext">
         <h1><em>Hot August</em> - Alles muss raus :)</h1>
-        <p>Ab August wird der RaumBooster gefüllt und damit mehr Raum geschaffen! Von lokalen Macher*innen für lokale Macher*innen. <strong>Die Erlöse landen im Topf!</strong></p>
+        <p>Gemeinsam füllen wir ab August den RaumBooster, um mehr Raum zu schaffen – von lokalen Macher*innen für lokale Macher*innen. Wählt einfach aus den verschiedenen Möglichkeiten aus!</p>
       </div>
       
       <div class="cardBoxCollection -quart">
@@ -57,8 +50,8 @@
 
         <div class="paperCard -illuteaser -good-morning-date -cord1RT">
           <div class="wrp">
-            <h3>Besucht zahlreich die <span>Good Morning Dates</span> im Herbst.</h3>
-            <p>Als Dankeschön für die Organisation durch die Gastgeber*innen schmeißt bitte 5 € in den Hut, wenn ihr könnt. Yeah! Das Geld landet zu 100 % im RaumBooster-Topf!</p>
+            <h3>Komm zu einem <span>Good Morning Date</span> im Herbst!</h3>
+            <p>Wenn du kannst, lege dort 5 € in den RaumBooster Hut, den die Gastgeber*innen beim Treffen aufstellen – als Dankeschön für die Organisation.</p>
             <%= link_to 'Termin Übersicht', good_morning_dates_path, class: 'btn-primary -mint -shadow' %>
           </div>
           <div class="card"></div>
@@ -66,7 +59,7 @@
 
         <div class="paperCard -illuteaser -favorites -cord1RT">
           <div class="wrp">
-            <h3><span>Unterstützt direkt</span> den RaumBooster-Topf.</h3>
+            <h3><span>Unterstütze direkt</span> den RaumBooster-Topf.</h3>
             <p>Du kannst natürlich auch direkt einen Betrag deiner Wahl in den Topf einzahlen, jeder Beitrag schafft neuen Raum!</p>
             <%= link_to 'Direkt einzahlen', new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: 'btn-primary -mint -shadow' %>
           </div>
@@ -80,23 +73,27 @@
 
   <div class="toggle-container">
     <div class="content-block -toggable">
-      <h3>Weiterer Ablauf</h3>
+      <h3>Weitere Vorteile</h3>
       <div class="-toggle-content">
-        <p>Der erste RaumBooster Call ist vom 15. Dezember - 15. Januar 2025 geplant und wir laden dann ein die Raumvorhaben einzureichen. Bis dahin wollen wir ein paar tausend Euro im Topf haben, um damit gleich mehrere Raumprojekte gut anschieben zu können! Alle Informationen dazu folgen noch.</p>
+        <p>Außerdem erhalten alle qualifizierten Projekte eine persönliche Crowdfunding-Begleitung, maximale Sichtbarkeit auf imGrätzl und das Abzeichen <strong>"Besonders unterstützenswertes Vorhaben"</strong> auf ihrer Crowdfunding-Seite.</p>  
+        <p>Untersuchungen aus den Niederlanden und England zeigen, dass Crowdfunding-Projekte mit zusätzlicher Fördertopf-Unterstützung ihre <strong>Erfolgsaussichten um bis zu 90% steigern</strong> können. Solche Matchfunding-Mechanismen bewirken zudem höhere Beträge und ziehen mehr Unterstützende an. Eure Raumvorhaben solchen von diesen positiven Effekten profitieren.</p>
       </div>
     </div>
     <div class="content-block -toggable">
-      <h3>Warum der RaumBooster?</h3>
+      <h3>Wie geht es weiter</h3>
       <div class="-toggle-content">
-        <p>Räume zu aktivieren und zu halten wird immer kostspieliger, und dadurch werden die lokalen Macher*innen aus den Stadtteilen verdrängt. Die Macher*innen benötigen leistbare Räume für ihre Ideen, Angebote und Projekte. Bei einer Raumaktivierung kommen schnell ein paar tausend Euro zusammen: Provisionen, Renovierung, Ausstattung. Bestehende Räume möchten ebenfalls gehalten werden, diese müssen zukunftsfit gemacht werden z.B. mit neuen Organisationsmodellen oder anderen Anpassungen. Leerstandsförderungen sind großartig, stehen aber nicht allen offen und  müssen ausfinanziert werden. Kredite sind schwer zu bekommen und teuer.</p>  
-        <p>Durch eine <a href="https://blog.imgraetzl.at/allgemein/raumaktivierung-herausforderungen/" target="_blank">Umfrage im Jahr 2022 unter 599 Macher*innen</a> in Wien wurde deutlich, dass eine Raumaktivierung an den finanziellen Mitteln scheitert, obwohl es einen großen Raumbedarf gibt. Warum das wichtig ist: Unsere Stadtteile brauchen die lokalen Macher*innen und ihre Angebote der Alltagsökonomie, denn ohne sie veröden Grätzln und das Miteinander schwindet. Stadtteile verlieren ihre Identität und ihren Charme, die Lebensqualität sinkt. Und es ist einfach sinnvoll, bereits gebaute Ressourcen voll auszunutzen, jeder leerstehende oder untergenutzte Raum ist einer zu viel.</p>
-        <p>Wir wünschen uns, dass mit dem RaumBooster mehr Vorhaben schneller ihr Crowdfunding Ziel erreichen und dass die Crowdfundings höhere Summen generieren. Denn bereits mit der RaumBooster Qualifizierung können wir den Projektstarter*innen und ihren Unterstützer*innen ein Zeichen geben, dass es sich um ein großartiges und unterstützenswertes Vorhaben handelt. Das motiviert.</p>
+        <p>Der erste RaumBooster Call ist vom 15. Dezember 2024 bis 15. Januar 2025 geplant, und wir laden euch ein, eure Raumvorhaben einzureichen. Bis dahin möchten wir ein paar tausend Euro im Topf haben, um mehrere Raumprojekte gut anschieben zu können!</p>
       </div>
     </div>
     <div class="content-block -toggable">
-      <h3>Darauf arbeiten wir langfristig hin</h3>
+      <h3>Hintergrund RaumBooster</h3>
       <div class="-toggle-content">
-        <p>Der Topf soll so groß werden, dass wir bald 23 Raumvorhaben pro Jahr mit anschieben können – pro Bezirk eins, dann zwei, dann drei ... Statt Verdrängung: eine liebevolle Rückeroberung!</p>
+        <p><strong>Räume zu aktivieren und zu halten wird immer kostspieliger</strong> - Die lokalen Macher*innen in Wien benötigen aber leistbare Räume für ihre Ideen, Angebote und Projekte.</p>  
+        <p><strong>Bei einer Raumaktivierung kommen schnell ein paar tausend Euro zusammen:</strong> Provisionen, Renovierung, Ausstattung. Bestehende Räume möchten ebenfalls gehalten werden, diese müssen zukunftsfit gemacht werden z.B. mit neuen Organisationsmodellen oder anderen Anpassungen. Leerstandsförderungen sind großartig, stehen aber nicht allen offen und müssen ausfinanziert werden. Kredite sind schwer zu bekommen.</p>
+        <p>Eine <a href="https://blog.imgraetzl.at/allgemein/raumaktivierung-herausforderungen/" target="_blank">Umfrage im Jahr 2022 unter 599 Macher*innen</a> in Wien zeigte deutlich, dass eine Raumaktivierung in den meisten Fällen an den finanziellen Mitteln scheitert, obwohl es einen großen Raumbedarf gibt.</p>
+        <p><strong>Leerstand beleben und Räumen eine neue Zukunft geben – genau darum geht es beim RaumBooster.</strong></p>
+        <p>Der RaumBooster ist ein neues Format, das euch unterstützt, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen. Als erstes Matchfunding-Programm zur Leerstandsaktivierung im DACH-Raum, das Crowdfunding mit einem Fördertopf kombiniert, baut der RaumBooster finanzielle Hürden ab und erleichtert das Crowdfunding erheblich. Damit möchten wir auch all diejenigen ermutigen, die sich bisher noch nicht an Crowdfunding zur Umsetzung ihrer Raumvorhaben herangewagt haben.</p>
+        <p>Unsere Stadtteile brauchen eure Angebote der Alltagsökonomie, denn ohne euch und eure Angebote veröden die Grätzln, das Miteinander schwindet und die Lebensqualität sinkt. Deshalb: Statt Verdrängung – eine liebevolle Rückeroberung von Räumen!</p>
       </div>
     </div>
   </div>
