@@ -6,7 +6,7 @@
         <% end %>
         <div class="name">
           <span><%= link_to crowd_boost_charge.contact_name, crowd_boost_charge.user, rel: 'nofollow' %></span><br>
-          <small><em>via  <%= charge_type(crowd_boost_charge) %></small></em><br>
+          <small><em>via  <%= charge_type(crowd_boost_charge) %></em></small><br>
           <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
         </div>
       </div>
@@ -15,6 +15,7 @@
         <%= avatar_image crowd_boost_charge.user, size: :thumb, class: 'img-round' %>
         <div class="name">
           <span><%= crowd_boost_charge.contact_name %></span><br>
+          <small><em>via  <%= charge_type(crowd_boost_charge) %></em></small><br>
           <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
         </div>
       </div>
