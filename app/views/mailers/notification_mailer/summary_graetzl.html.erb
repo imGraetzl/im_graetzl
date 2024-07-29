@@ -46,6 +46,5 @@
 
 <!-- Insert Supporters -->
 <% if @region.is?('wien') && @period == 'weekly' %>
-  <%= render 'summary/new_admin_discussion' if @featured_discussion %>
   <%= render 'featured/subscribers' if Subscription.in(@region).active.present? %>
 <% end %>

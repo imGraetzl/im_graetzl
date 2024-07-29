@@ -15,10 +15,6 @@ class Discussion < ApplicationRecord
 
   scope :sticky, -> { where(sticky: true) }
   scope :regular, -> { where(sticky: false) }
-  scope :include_in_weekly_mail, -> {
-    where(sticky: true).
-    where("created_at >= :lastweek", lastweek: 7.days.ago)
-  }
 
   def open?
     !closed?
