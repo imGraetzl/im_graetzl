@@ -33,6 +33,11 @@
       </div>
     <% end %>
 
+    <div class="facts icontxt -mint">
+      <%= icon_tag "users" %>
+      <div><strong><%= crowd_boost.crowd_boost_charges.debited.count %></strong> Menschen unterstützen bereits.</div>
+    </div>
+
     <div class="facts icontxt -rosa">
       <%= icon_tag "currency-euro" %>
       <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
