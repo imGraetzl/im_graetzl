@@ -101,13 +101,16 @@ section.crowd_boost {
       .hl-subtext {
         margin-bottom:30px;
         .bbcode {
-          @include font-size-primaryFont('larger');
-          text-align: justify;
           strong {
+            @include font-size-primaryFont('larger');
             display: block;
             text-align: center;
           }
         }
+      }
+      .bbcode {
+        @include font-size-primaryFont('large');
+        margin-bottom:30px;
       }
     }
 
