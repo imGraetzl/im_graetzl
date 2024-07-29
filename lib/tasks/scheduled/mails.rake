@@ -36,15 +36,17 @@ namespace :scheduled do
 
     # Lookup for new Admin Discussion Post from Public Group if exists and add to weekly Mails
     discussion = {}
-    Region.all.each do |region|
-      discussion[region.id] = Group.find_by(id: region.public_group_id)&.discussions&.include_in_weekly_mail&.last
-    end
+    #Region.all.each do |region|
+    #  discussion[region.id] = Group.find_by(id: region.public_group_id)&.discussions&.include_in_weekly_mail&.last
+    #end
 
     User.confirmed.find_each do |user|
-      Region.all.each do |region|
-        NotificationMailer.summary_graetzl(user, region, 'weekly', discussion[region.id]).deliver_now if Date.today.tuesday?
-        NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.tuesday?
-      end
+      NotificationMailer.summary_graetzl(user, user.region, 'weekly', discussion).deliver_now if Date.today.tuesday?
+      NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now if Date.today.tuesday?
+      #Region.all.each do |region|
+      #  NotificationMailer.summary_graetzl(user, region, 'weekly', discussion[region.id]).deliver_now if Date.today.tuesday?
+      #  NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.tuesday?
+      #end
     end
   end
 
