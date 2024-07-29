@@ -16,7 +16,7 @@
   <div class="cardBoxContent">
 
     <div class="txt">
-      <h3><%= link_to "Crowdfunding Topf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
+      <h3><%= link_to "Fördertopf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
     </div>
 
     <h4 class="facts-headline">Facts zum Booster-Topf</h4>
@@ -42,7 +42,7 @@
     </div>
 
     <% if @crowd_boost.charge_call? %>
-        <%= link_to "Open Call zur Topf Einzahlung", call_crowd_boost_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
+        <%= link_to "Zur Topf Befüllung", call_crowd_boost_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
     <% elsif crowd_boost.chargeable? %>
         <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
     <% end %>

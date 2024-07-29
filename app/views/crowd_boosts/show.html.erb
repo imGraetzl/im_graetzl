@@ -1,3 +1,13 @@
+<% meta(
+    title: t('.title', title: @crowd_boost.title),
+    description: t('.description', desc: @next_slot ? strip_tags(@next_slot.slot_description.bbcode_to_html.html_safe).truncate(250) : @crowd_boost.slogan.truncate(250)),
+    robots: 'index, follow',
+    og_title: t('.title', title: @crowd_boost.title),
+    og_description: t('.description', desc: @next_slot ? strip_tags(@next_slot.slot_description.bbcode_to_html.html_safe).truncate(250) : @crowd_boost.slogan.truncate(250)),
+    og_image: image_url('meta/crowd_boost.jpg')
+  )
+%>
+
 <section class="crowd_boost">
 
   <div class="introcontainer">
@@ -8,7 +18,7 @@
         <% if @next_slot %>
           <div class="bbcode"><%= @next_slot.slot_description.bbcode_to_html.html_safe %></div>
         <% else %>
-          <p><%= @crowd_boost.slogan %></p>
+          <div class="bbcode"><strong><%= @crowd_boost.slogan %></strong></div>
         <% end %>
       </div>
 
@@ -30,7 +40,7 @@
               </li>
             <% end %>
           </ul>
-          <div class="badge -small"><div class="inner">Neue<br>Runde!</div></div>
+          <div class="badge -small"><div class="inner">Nächste<br>Runde</div></div>
         </div>
         <!-- /Slot Box -->
 
@@ -55,12 +65,16 @@
           </div>
         <% end %>
 
-      <% elsif @crowd_boost.description %>
-        <!-- Show General CrowdBoost Indos if there is no Slot -->
-        <div class="content-block -toggable -open">
-          <h3>Allgemeine Infos</h3>
-          <div class="-toggle-content bbcode"><%= @crowd_boost.description %></div>
-        </div>
+      <% else %>
+
+        <% if @crowd_boost.description.present? %>
+          <div class="bbcode"><%= @crowd_boost.description %></div>
+        <% end %>
+
+        <% if @crowd_boost.charge_description.present? %>
+          <div class="bbcode"><%= @crowd_boost.charge_description %></div>
+        <% end %>
+
       <% end %>
 
     </div>
