@@ -156,11 +156,12 @@ section.crowd_boost {
   
   &.crowd_boost {
     .introtxt {
+      padding-left: 0px !important;
       .hl-subtext {
         h1 {@include font-size-secondaryFont('large');}
         p {@include font-size-primaryFont('larger');}
       }
-      p {
+      p, ul {
         @include font-size-primaryFont('large');
         margin-bottom: 20px;
       }
