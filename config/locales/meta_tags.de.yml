@@ -474,11 +474,14 @@ de:
 
   crowd_boosts:
     index:
-      title: 'Crowdfunding Booster'
-      description: '...'
+      title: 'Aktuelle Crowdfunding Booster'
+      description: 'Mit dem Crowdfunding Booster erreichst du deine Crowdfunding Ziele noch schneller und einfacher.'
     show:
-      title: ''
-      description: ''
+      title: 'Crowdfunding Fördertopf "%{title}"'
+      description: '%{desc}'
+    call:
+      title: '%{title}'
+      description: '%{desc}'
 
   coop_demands:
     show:

@@ -50,7 +50,7 @@ class CrowdBoostSlot < ApplicationRecord
   end
 
   def timerange
-    "#{I18n.localize(self.starts_at, format:'%d. %B %Y')} - #{I18n.localize(self.ends_at, format:'%d. %B %Y')}"
+    "#{I18n.localize(self.starts_at, format:'%e. %B %Y')} - #{I18n.localize(self.ends_at, format:'%e. %B %Y')}"
   end
 
   def title
