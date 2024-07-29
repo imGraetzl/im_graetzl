@@ -66,10 +66,9 @@ class NotificationMailer < ApplicationMailer
     ],
   }
 
-  def summary_graetzl(user, region, period, discussion = nil)
+  def summary_graetzl(user, region, period)
     @user, @period = user, period
     @region = region
-    @featured_discussion = discussion
 
     @notifications = user.pending_notifications(@region, @period).where(
       type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)

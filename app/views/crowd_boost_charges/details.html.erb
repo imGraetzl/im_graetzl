@@ -63,8 +63,8 @@
         </div>
 
         <div class="flex-table row" role="rowgroup">
-          <div class="flex-row xxlarge" role="cell"><strong>Bezahlmethode</strong></div>
-          <div class="flex-row xxxlarge" role="cell"><%= @crowd_boost_charge.payment_method %></div>
+          <div class="flex-row xxlarge" role="cell"><strong>Einzahlung via</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= charge_type(@crowd_boost_charge) %></div>
         </div>
 
         <div class="flex-table row" role="rowgroup">
