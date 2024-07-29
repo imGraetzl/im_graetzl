@@ -41,7 +41,7 @@ namespace :scheduled do
     #end
 
     User.confirmed.find_each do |user|
-      NotificationMailer.summary_graetzl(user, user.region, 'weekly', discussion).deliver_now if Date.today.tuesday?
+      NotificationMailer.summary_graetzl(user, user.region, 'weekly', discussion[region.id]).deliver_now if Date.today.tuesday?
       NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now if Date.today.tuesday?
       #Region.all.each do |region|
       #  NotificationMailer.summary_graetzl(user, region, 'weekly', discussion[region.id]).deliver_now if Date.today.tuesday?
