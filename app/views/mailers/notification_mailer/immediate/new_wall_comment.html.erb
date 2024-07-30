@@ -52,4 +52,5 @@
   </tbody>
 </table>
 
-<%= render 'featured/subscription' if @region.id == 'wien' && !@user.subscribed? %>
+<%= render 'mailers/notification_mailer/featured/raumbooster' if @region.hot_august? %>
+<!-- render 'featured/subscription' if @region.id == 'wien' && !@user.subscribed? -->

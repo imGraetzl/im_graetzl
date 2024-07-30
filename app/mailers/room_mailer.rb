@@ -210,7 +210,7 @@ class RoomMailer < ApplicationMailer
     @room_offer = @room_booster.room_offer
     @region = @room_booster.region
 
-    attachments["RoomBooster_#{@room_booster.invoice_number}.pdf"] = @room_booster.invoice.get.body.read
+    attachments["RoomPusher_#{@room_booster.invoice_number}.pdf"] = @room_booster.invoice.get.body.read
     headers("X-MC-Tags" => "room-booster-invoice")
 
     mail(
