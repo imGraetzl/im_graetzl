@@ -20,7 +20,7 @@
       <p><%= crowd_boost.slogan.truncate(110) %></p>
     </div>
 
-    <% if @next_slot %>
+    <% if @next_slot && !local_assigns[:hide_facts].present? %>
       <div class="facts icontxt -mint">
         <%= icon_tag "time-clock" %>
         Einreichfrist: <%= I18n.localize(@next_slot.ends_at, format:'%d. %b %Y') %>

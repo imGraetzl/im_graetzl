@@ -22,7 +22,7 @@
       </div>
 
       <div class="flex-table" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>CrowdBoost</strong></div>
+        <div class="flex-row xxlarge" role="cell"><strong>Crowdfunding Booster</strong></div>
         <div class="flex-row xxxlarge" role="cell"><%= link_to @crowd_boost_charge.crowd_boost.title, @crowd_boost_charge.crowd_boost, target: '_blank' %></div>
       </div>
 
@@ -74,7 +74,7 @@
 
         <div class="flex-table row" role="rowgroup">
           <div class="flex-row xxlarge" role="cell"><strong>Verwendungszweck</strong></div>
-          <div class="flex-row xxxlarge" role="cell"><%= "#{@crowd_boost_charge.region.host_id} ChargeBoost".upcase %></div>
+          <div class="flex-row xxxlarge" role="cell"><%= "#{@crowd_boost_charge.region.host_id} Booster".upcase %></div>
         </div>
 
         <div class="flex-table row" role="rowgroup">
@@ -88,16 +88,16 @@
 
     <div class="faqs">
       <div class="content-block -toggable -small">
-        <h3>Bekomme ich eine MwSt. Rechnung für meine Aufladung?</h3>
+        <h3>Bekomme ich eine MwSt. Rechnung für die Einzahlung?</h3>
         <div class="-toggle-content">
-          <p>Du kannst einen Zahlungsbeleg für deine Einzahlung downloaden. Hiebei handelt es sich aber nicht um eine MwSt. Rechnung.</p>
+          <p>Du kannst einen Zahlungsbeleg für deine Einzahlung downloaden. Hierbei handelt es sich aber nicht um eine MwSt. Rechnung.</p>
         </div>
       </div>
       <div class="content-block -toggable -small">
         <h3>Wie sieht die Abbuchung auf meiner Kreditkarte / meinem Konto aus?</h3>
         <div class="-toggle-content">
           <p>Bei <strong>Kreditkartenzahlungen</strong> erscheint die Abbuchung mit folgendem Buchungstext:<br>
-            <em><%= "#{@crowd_boost_charge.region.host_id} CrowdBoost".upcase %></em>
+            <em><%= "#{@crowd_boost_charge.region.host_id} Booster".upcase %></em>
           </p>
           <p>Bei <strong>Zahlungen mittels Bankeinzug</strong> erscheint die Abbuchung mit folgendem Buchungstext:
             <em>PPRO Payment Services S.A. (<%= @crowd_boost_charge.region.host_domain_name.upcase %> by Stripe via PPRO)</em>
@@ -109,7 +109,7 @@
   </div>
 
   <div class="col-sidebar">
-    <%= render @crowd_boost %>
+    <%= render @crowd_boost, hide_facts: true %>
     <br>
     <%= link_to "Download Zahlungsbeleg", @crowd_boost_charge.invoice.presigned_url(:get), class: 'btn-secondary -mint -small' if @crowd_boost_charge.invoice_number.present? %>
     <br>

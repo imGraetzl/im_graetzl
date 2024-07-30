@@ -99,11 +99,11 @@ class RoomBoosterService
   end
 
   def statement_descriptor(room_booster)
-    "#{room_booster.region.host_id} RoomBooster".upcase
+    "#{room_booster.region.host_id} RoomPusher".upcase
   end
 
   def generate_invoice(room_booster)
-    invoice_number = "#{Date.current.year}_RoomBooster-#{room_booster.id}_Nr-#{RoomBooster.next_invoice_number}"
+    invoice_number = "#{Date.current.year}_RoomPusher-#{room_booster.id}_Nr-#{RoomBooster.next_invoice_number}"
     room_booster.update(invoice_number: invoice_number)
     room_booster_invoice = RoomBoosterInvoice.new.invoice(room_booster)
     room_booster.invoice.put(body: room_booster_invoice)

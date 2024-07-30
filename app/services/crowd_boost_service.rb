@@ -97,7 +97,7 @@ class CrowdBoostService
   end
 
   def statement_descriptor(crowd_boost_charge)
-    "#{crowd_boost_charge.region.host_id} BoostCharge".upcase
+    "#{crowd_boost_charge.region.host_id} Booster".upcase
   end
 
   def generate_invoice(crowd_boost_charge)
