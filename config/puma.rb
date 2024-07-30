@@ -1,4 +1,4 @@
-require 'barnes'
+#require 'barnes'
 
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
@@ -34,9 +34,9 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 #
 workers ENV.fetch("WEB_CONCURRENCY") { 0 }
 
-before_fork do
-  Barnes.start
-end
+#before_fork do
+#  Barnes.start
+#end
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code

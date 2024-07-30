@@ -24,7 +24,7 @@ gem 'rack-rewrite'
 
 gem 'aasm'
 gem 'acts-as-taggable-on'
-gem 'barnes'
+#gem 'barnes'
 gem 'browser'
 gem 'cocoon'
 gem 'devise'
