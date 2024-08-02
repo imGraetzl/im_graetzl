@@ -1,5 +1,9 @@
 module CrowdCampaignsHelper
 
+  def success_rate
+    (100 * CrowdCampaign.successful.count) / CrowdCampaign.scope_public.count
+  end
+
   def runtime_values
     [15, 30, 45, 60].map do |value|
       ["#{value} Tage", value]

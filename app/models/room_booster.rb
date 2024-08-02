@@ -89,8 +89,8 @@ class RoomBooster < ApplicationRecord
   end
 
   def paused?
-    Rails.env.production? && Date.today < ('2024-08-01').to_datetime
-    #self.room_offer.region_id == 'wien' && Date.today < ('2024-08-01').to_datetime
+    false
+    #Rails.env.production? && Date.today < ('2024-08-01').to_datetime
   end
 
   private

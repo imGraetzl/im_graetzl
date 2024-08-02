@@ -72,9 +72,12 @@ main {
 }
 
 .content-wide {
-  padding-top:35px;
-  padding-bottom:50px;
-
+  padding-top:30px;
+  padding-bottom:30px;
+  @include respond-to(">=large") {
+    padding-top:50px;
+    padding-bottom:50px;
+  }
   position: relative;
   background-color: #eaf2f4;
   width: 100vw;
@@ -102,6 +105,10 @@ main {
 
   &.-grey {
     background-color: #f8f8f8;
+  }
+
+  &.-rosa {
+    background-color: rgba($color-ambient-rosa-light, 0.5);
   }
 
   &.-end {

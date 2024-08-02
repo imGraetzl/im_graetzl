@@ -27,7 +27,7 @@ class AdminMailer < ApplicationMailer
     @region = @room_booster.region
 
     mail(
-      subject: "[#{@region.host_domain_name}] Buchung RoomBooster für #{@room_booster.room_offer}",
+      subject: "[#{@region.host_domain_name}] Buchung RaumPusher für #{@room_booster.room_offer}",
       from: platform_email("no-reply"),
       to: platform_email("wir"),
     )

@@ -64,16 +64,19 @@ class WebhooksController < ApplicationController
     end
 
     if payment_intent.metadata["zuckerl_id"]
+      sleep 1 #hotfix - may crowdboostcharge needs longer to be created
       zuckerl = Zuckerl.find_by(id: payment_intent.metadata.zuckerl_id)
       ZuckerlService.new.payment_succeeded(zuckerl, payment_intent) if zuckerl
     end
 
     if payment_intent.metadata["room_booster_id"]
+      sleep 1 #hotfix - may crowdboostcharge needs longer to be created
       room_booster = RoomBooster.find_by(id: payment_intent.metadata.room_booster_id)
       RoomBoosterService.new.payment_succeeded(room_booster, payment_intent) if room_booster
     end
 
     if payment_intent.metadata["crowd_boost_charge_id"]
+      sleep 1 #hotfix - may crowdboostcharge needs longer to be created
       crowd_boost_charge = CrowdBoostCharge.find_by(id: payment_intent.metadata.crowd_boost_charge_id)
       CrowdBoostService.new.payment_succeeded(crowd_boost_charge, payment_intent) if crowd_boost_charge
     end
