@@ -21,11 +21,8 @@
         <h1><em>Lokales Crowdfunding</em></h1>
         <p><strong>Setze dein Vorhaben mit der Kraft der Gemeinschaft um!</strong></p>
         <p>Starte jetzt mit dem Anlegen deiner Crowdfunding Kampagne.</p>
-        <br>
-        <p>
-          Falls du unsicher bist, ob Crowdfunding etwas für dein Vorhaben ist, ruf kurz durch, dann reden wir darüber: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %>
-        </p>
       </div>
+      <p class="txt">Falls du unsicher bist, ob Crowdfunding etwas für dich ist, ruf kurz durch, dann reden wir über dein Vorhaben: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %></p>
       <p><%= link_to "Los geht's - Neue Kampagne erstellen", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %></p>
     </div>
     <div class="introSide">
