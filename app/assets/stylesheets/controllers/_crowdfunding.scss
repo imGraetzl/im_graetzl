@@ -802,6 +802,11 @@ section.startcampaign {
         margin-bottom: 40px;
         @include font-size-primaryFont('large');
       }
+      p.txt {
+        @include font-size-primaryFont('large');
+        text-align: center;
+        margin-bottom:30px;
+      }
     }
     .introSide {
       margin-bottom:30px;
