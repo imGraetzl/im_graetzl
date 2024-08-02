@@ -8,158 +8,111 @@
   )
 %>
 
+
 <section class="info -crowdfunding">
-  <div class="imgHeader -fullwidth">
-    <div class="wrp">
-      <h1>Lokales Crowdfunding</h1>
-    </div>
-  </div>
+  <div class="imgHeader -fullwidth"></div>
 </section>
 
 <section class="startcampaign">
 
-  <div class="paperCard video -cord1RT">
-    <wrp-element class="wrp">
-      <div class="txt">
-        <h3>Setze dein Vorhaben mit der Kraft der Gemeinschaft um!</h3>
-        Du hast ein Vorhaben, eine Idee, ein Projekt? Aber dir fehlt zur Realisierung noch Geld, vielleicht auch Raum, helfende Hände oder andere Ressourcen? 
-        <strong>Dann könnte Crowdfunding etwas für dich sein.</strong>
+  <div class="introcontainer">
+    <div class="introtxt">
+      <div class="hl-subtext">
+        <h1><em>Lokales Crowdfunding</em></h1>
+        <p><strong>Setze dein Vorhaben mit der Kraft der Gemeinschaft um!</strong></p>
+        <p>Starte jetzt mit dem Anlegen deiner Crowdfunding Kampagne.</p>
+        <br>
+        <p>
+          Falls du unsicher bist, ob Crowdfunding etwas für dein Vorhaben ist, ruf kurz durch, dann reden wir darüber: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %>
+        </p>
       </div>
-      <div class="video-thumb">
-        <%= link_to 'javascript:', class: 'player play-icon jBoxVideo', rel: 'nofollow' do %>
-          <%= image_tag 'videos/academy_intro.jpg', class: 'video', alt:'video-thumb', width:200, height:150 %>
-        <% end %>
-      </div>
-    </wrp-element>
-    <wrp-element class="wrp">
-      <div class="txt">
-        <strong>Unser Tipp!</strong> Unbedingt die Schritt-für-Schritt Erklärung in unserer Crowdfunding Academy anschauen, dann hast du die Basics. 
-        <br><br>
-        <strong>Falls du unsicher bist,</strong> ob Crowdfunding etwas für dein Vorhaben ist, ruf kurz durch, dann reden wir über dein Vorhaben: <%= link_to "0699 / 150 28 277", "tel:004369915028277" %> oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %>
-      </div>
-    </wrp-element>
-    <div class="card"></div>
-  </div>
-  <div id="jBoxVideoContent" class="jBoxHidden">
-    <iframe id="videoIframe" width="800" height="450" src="" data-src="https://player.vimeo.com/video/687848512" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
-  </div>
-
-  <div class="btns">
-    <%= link_to "Zu deinen bestehenden Kampagnen", crowd_campaigns_user_path, class: 'btn-primary -mint -large -shadow btn' if current_user && current_user.crowd_campaigns.present? %>
-    <div class="btn">
-      <%= link_to "Starte jetzt deine Crowdfunding Kampagne", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %>
-      <!--
-      <div class="call-cb">
-        <div class="input-checkbox">
-          <%= check_box_tag 'crowdfunding_call', 'yes', true %>
-          <%= label_tag :crowdfunding_call, 'Ja, ich möchte beim Crowdfunding Call teilnehmen.' %>
+      <p><%= link_to "Los geht's - Neue Kampagne erstellen", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %></p>
+    </div>
+    <div class="introSide">
+      <div class="paperCard -illuteaser -good-morning-date -cord1RT">
+        <div class="wrp">
+          <h3>Jeden Mittwoch, 12:30 Uhr:<br>Kostenlose Crowdfunding Sprechstunde via Zoom!</h3>
+          <p>Die Realisierung deines Vorhabens liegt uns am Herzen! Deshalb freuen wir uns darauf, uns mit dir über dein Vorhaben auszutauschen, dir unsere Crowdfunding-Expertise zur Verfügung zu stellen und deine Fragen persönlich zu beantworten.</p>
+          <% @meeting = Meeting.crowdfunding.in(current_region).last %>
+          <% if @meeting %>
+            <ul>
+              <li><%= link_to "Hier kannst du teilnehmen", [@meeting.graetzl, @meeting] %></li>
+            </ul>
+          <% else %>
+            <ul>
+              <li><%= link_to "Hier kannst du teilnehmen", 'https://us02web.zoom.us/j/89491765878?pwd=aytFTXVjSm5Zb0tiQkorbFJFd1YvZz09' %></li>
+            </ul>
+          <% end %>
         </div>
-      </div>
-      -->
-    </div>
-  </div>
-
-  <!--
-  <div class="cardBox -call">
-    <div class="wrp">
-      <div class="txt">
-        <div class="call-box">
-            <div>
-              <%= image_tag "mailings/crowdfunding-call-sommer-2024.jpg", alt:'call-thumb', class:'call-thumb' %>
-            </div>
-            <div class="call-box-text">
-              <h3>Setze dein Vorhaben mit Begleitung und jede Menge Sichtbarkeit um - Mach mit beim Call!</h3>
-              <p>
-                Falls du ein Vorhaben hast, das nach Umsetzung ruft – gemeinsam bringen wir deine Ideen zum Fliegen! So der Plan :) Mach bei unserem Sommer Crowdfunding-Call mit!
-              </p>
-              <p>
-                <strong>Die Einreichung ist bis Freitag, den 24. Mai 2024 möglich. Beim Call gibt es drei Plätze.</strong>
-              </p>
-            </div>
-        </div>
+        <div class="card"></div>
       </div>
     </div>
-    <div class="card"></div>
   </div>
 
-  <div class="content-block -toggable">
-    <h3>Alle Infos zum Crowdfunding Sommer Call</h3>
-    <div class="-toggle-content">
-      <h3 class="call-toggle-headline">Das Crowdfunding Sommer Call Paket umfasst:</h3>
-      <br>
-      <ul class="list-basic">
-      <li>
-        <strong>3 x Sessions zur Vorbereitung deiner Kampagne.</strong> Wir planen mit dir gemeinsam deine Kampagne, um dein Crowdfunding Vorhaben optimal an den Start zu bringen. Schritt für Schritt.
-      </li>
-      <br>
-      <li>
-        <strong>Wir trommeln für dein Crowdfunding Vorhaben</strong> auf all unseren Kanälen. Wir stellen außerdem dein Vorhaben im redaktionellen Newsletter und in unseren Social Media Kanälen regelmäßig vor.
-      </li>
-      <br>
-      <li>
-        <strong>Wir überlegen gemeinsam,</strong> wer noch von deinem Vorhaben erfahren sollte, z.B. Expert*innen, Presse oder Institutionen oder offizielle Stellen. 
-      </li>
-      </ul>
-      <h3>Unser Crowdfunding Paket hat einen Wert von über 1.000 € YEAH!</h3>
-      <br>
-      <p>
-        Beim Crowdfunding geht es nicht nur darum, finanzielle Mittel zur Umsetzung deiner Idee zu generieren, sondern auch darum ein Netzwerk an Interessierten und Unterstützer*innen um deine Idee zu versammeln. Deine Community! Wir sind dein persönlicher Fanclub, der dich dabei bestärkt, mit deinem Vorhaben den Schritt in die Sichtbarkeit zu gehen!
-      </p>
-      <br>
-      <h3>So nimmst du am Crowdfunding Call teil:</h3>
-      <br>
-      <ul class="list-basic">
-      <li>
-        Du möchtest dein Crowdfunding im <strong>Mai, Juni, Juli</strong> starten? Perfekt! Aktiviere oberhalb beim Starten deiner Kampagne die Checkbox <strong>„Ja, ich möchte beim Crowdfunding Call teilnehmen“</strong> und fülle in der Kampagne die erste Formularseite aus. Schon bist du beim Call dabei! 
-      </li>
-      <br>
-      <li>
-        <strong>Auch wenn dein Projekt nicht ausgewählt wird. Alle Starter*innen erhalten eine persönliche Kurzberatung von uns.</strong>
-      </li>
-      </ul>
 
-    </div>
-  </div>
-  -->
-
-  <div class="content-block -toggable">
-    <h3>Kosten</h3>
-    <div class="-toggle-content">
-      <strong>Wenn deine Kampagne erfolgreich ist, behalten wir 5,0 % des erreichten Betrags (inkl. MwSt.) für den externen Zahlungsdienstleister ein.</strong>
-      Du bestimmst selbst, wie viel du dem <%= t("region.#{current_region.id}.domain_short") %> Team für die Arbeit und den Betrieb der Plattform gibst. Wir glauben an ein faires Geben und Nehmen als Basis für ein starkes WIR.
-      <br><br>
-      <strong>Wenn deine Kampagne nicht erfolgreich ist, kostet sie dich nichts.</strong> Wir übernehmen dann ggf. auch die Kosten, die im Zusammenhang mit dem Zahlungsanbieter aufgetreten sind (z.B. den Legitimations Check etc.).
+  <div class="content-wide">
+    <div class="wrp-inner">
+      <div class="hl-subtext">
+        <h1>Ablauf deiner Crowdfunding Kampagne</h1>
+      </div>
+      <div class="num-items">
+        <div><h3>Kampagne erstellen</h3>Du kannst in Ruhe deine Kampagne ausfüllen, Zwischenstände speichern, bis du damit fertig bist. Sie ist Bearbeitungsmodus nur für dich sichtbar.</div>
+        <div><h3>Kampagne freischalten</h3>Fertig ausgefüllt? Reiche nun deine Kampagne zur Freischaltung ein und erhalte noch wertvolles Feedback.</div>
+        <div><h3>Auszahlungskonto</h3>Verknüfe nun noch deine Kampagne mit unserem Zahlungsdienstleister Stripe, danach kanns losgehen.</div>
+        <div><h3>Kampagnenstart</h3>Jetzt heisst's trommeln, bewerben und allen davon erzählen. Am Besten persönlich und immer wieder!</div>
+        <div><h3>Kampagnenende</h3>Bei Erfolg werden nun die Gelder deiner UnterstützerInnen eingezogen. Bei Nichterfolg wird natürlich nichts abgebucht.</div>
+        <div><h3>Geld erhalten</h3>14 Tage nach Kampagnenende wird deine tatsächlich erreichte Fundingsumme auf dein Konto überwiesen. Yeah!</div>
+      </div>
     </div>
   </div>
 
-  <div class="content-block -toggable">
-    <h3>Lokales Crowdfunding, dein Vorteil</h3>
-    <div class="-toggle-content">
-      <strong>Deine Crowdfunding Kampagne wird in eine bestehenden lokale Gemeinschaft aus lauter Macher*innen platziert.</strong> 
-      Die Menschen freuen sich, wenn bei ihnen ums Eck Vorhaben umgesetzt werden. Dadurch wird dein Vorhaben lokal sichtbarer und kann sich leichter verbreiten. Neue Verbindungen und Chancen entstehen!
+
+  <div class="content-wide -rosa success-container">
+    <div class="wrp-inner">
+      <div class="txt left">Unsere Erfolgsquote<br>bei <%= t("region.#{current_region.id}.domain_short") %> liegt bei:</div>
+      <div class="badge"><div class="inner"><%= success_rate %>%</div></div>
+      <div class="txt">Damit liegen wir im absoluten Spitzenfeld!</div>
     </div>
   </div>
 
-  <div class="content-block -toggable">
-    <h3>Crowd-Academy</h3>
-    <div class="-toggle-content">
-      <p class="crowdstrudel">
-        <span>Du wünscht dir eine intensive Begleitung, dann melde dich beim <strong>Crowdstrudel Team</strong>.
-        Sie haben die <%= link_to 'Crowd-Academy', 'https://www.crowdstrudel.com/crowdfunding-productlaunch', target: '_blank' %> ins Leben gerufen, um euch durch eure Crowdfunding Kampagne zu begleiten.</span>
-        <a href="https://www.crowdstrudel.com/crowdfunding-productlaunch", target="_blank">
-          <%= image_tag 'logo-crowdstrudel.svg', alt:'crowdstrudel', width:130 %>
-        </a>
-      </p>
+
+  <div class="advantage-container">
+    <div class="hl-subtext">
+      <h1>Was für ein <span>Crowdfunding auf <%= t("region.#{current_region.id}.domain_short") %></span> spricht</h1>
     </div>
+    <ul>
+      <li>
+        <h3>Hohe Erfolgsquote</h3>
+        <p>Unsere Begleitung ist der Schlüssel zu einer hohen Erfolgsquote. Wir vereinfachen den komplexen Crowdfunding-Prozess in leicht umsetzbare Arbeitsschritte für dein Projekt.</p>
+      </li>
+      <li>
+        <h3>Lokale Community</h3>
+        <p>Dein Vorhaben wird in unserer lokalen <%= t("region.#{current_region.id}.domain_short") %>-Community <%= t("region.#{current_region.id}.in_region") %> platziert, bestehend aus engagierten Macher*innen, die Interesse an lokalen Entwicklungen ums Eck haben und gegenseitige Unterstützung leben.</p>
+      </li>
+      <li>
+        <h3>Unsere Expertise</h3>
+        <p>Wir teilen unser umfassendes Crowdfunding-Wissen und unterstützen dich mit lokalem Know-how und wertvollen Kontakten.</p>
+      </li>
+      <li>
+        <h3>Kosten</h3>
+        <p>Unsere Fixkosten betragen <strong>5 %</strong> und setzen sich zusammen aus den Gebühren für den Zahlungsprovider, der Mehrwertsteuer und einem Unkostenbeitrag für die Durchführung. Über jeden zusätzlichen Prozentpunkt entscheidest du selbst. Im Durchschnitt geben die Starter*innen 7 % und erhalten dafür z.B. zusätzlich Sichtbarkeit im Newsletter und auf Social Media.</p>
+      </li>
+      <li>
+        <h3>Persönlichen Kontakt</h3>
+        <p>Du kannst uns anrufen oder zu den wöchentlichen Crowdfunding Check-ins kommen.</p>
+      </li>
+      <li>
+        <h3>Premium Zahlungsanbieter</h3>
+        <p>Wir arbeiten mit einem der besten und international verbreitetsten Zahlungsanbieter zusammen.</p>
+      </li>
+      <li>
+        <h3>Extra Services für Unterstützer*innen</h3>
+        <p>Nicht alle Menschen sind so digital affin. Wenn Unterstützer*innen Schwierigkeiten bei der Durchführung von Online-Zahlungen haben, bekommen sie eine E-Mail von uns mit einer Telefonnummer und wir leiten sie dann persönlich durch den Prozess. </p>
+      </li>
+    </ul>
   </div>
 
-  <% @meetings = Meeting.crowdfunding.in(current_region) %>
-  <% if @meetings.any? %>
-    <div class="cardBoxCollection -tripple -meetings">
-      <%= render @meetings.last(2) %>
-      <%= render 'crowd_campaigns/action_card', create_link: true %>
-    </div>
-  <% end %>
+  <%= link_to "Los geht's - Neue Kampagne erstellen", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow' %>
 
 </section>
 

@@ -741,144 +741,153 @@ section.crowd_campaign {
 
 }
 
+// START CAMPAIGN PAGE ----------------
+
 .info.-crowdfunding {
-  .imgHeader::after {
+  z-index: -1;
+  padding-bottom:0px;
+  margin-bottom: -40px;
+  @include respond-to(">=medium") {
+    margin-bottom: -65px;
+  }
+  @include respond-to(">=large") {
+    margin-bottom: -200px;
+  }
+  .imgHeader {
     background-image: url(image_path('info/header-crowdfunding.jpg'));
-    background-position: left 20% center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 180px;
+    @include respond-to(">=medium") {
+      height: 300px;
+    }
     @include respond-to(">=large") {
-      background-position: center center;
+      height: 480px;
     }
   }
-  .wrp {
-    margin-top:110px;
-    @include respond-to(">=medium") {
-      margin-top:125px;
-    }
+  .imgHeader::after {
+    background-image: linear-gradient(to bottom, rgba(252,252,252,0), rgba(252,252,252,1));
+    top: 25%;
   }
 }
 
 section.startcampaign {
 
-  margin-top:-20px;
-  @include respond-to(">=medium") {
-    margin-top:-58px;
+  .btn-primary.-large {
+    display: table;
+    margin: auto;
   }
-
-  .paperCard.video {
-    margin-bottom: 30px;
-    .wrp {
-      @include respond-to("<=medium") {
-        flex-direction: column;
-        .video-thumb {
-          transform: rotate(0deg);
-          margin: 5px 0px 20px 0px;
-        }
-      }
-    }
-    .card {
-      background-color: #fff;
-    }
-    .txt {
-      @include font-size-primaryFont('large');
-    }
-  }
-
-  .btns {
+  ul {
+    @extend .list-arrow;
+  } 
+  .introcontainer {
+    margin-bottom:20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
-    margin-bottom:50px;
-    .btn {
-      align-self: flex-start;
-      margin-top:20px;
-      width:48%;
-      @include respond-to("<=medium") {
-        width:100%;
+    .introtxt {
+      width:100%;
+      margin-bottom:30px;
+      @include respond-to(">=medium") {
+        width: 55%;
+      }
+      @include respond-to(">=large") {
+        width: 60%;
+      }
+      .hl-subtext {
+        margin-bottom:30px;
+      }
+      ul {
+        margin-bottom: 40px;
+        @include font-size-primaryFont('large');
       }
     }
-    .call-cb {
+    .introSide {
+      margin-bottom:30px;
+      width:100%;
+      @include respond-to(">=medium") {
+        width: 40%;
+      }
+      @include respond-to(">=large") {
+        width: 35%;
+      }
+      .paperCard .wrp {
+        padding: 180px 20px 20px 20px;
+      }
+      li {
+        margin-top:10px;
+        font-weight: bold;
+        padding-top: 4px;
+      }
+    }
+  }
+
+  .num-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    div {
+      @include font-size-primaryFont('large');
+      background: url(image_path('num-badge-1.png')) no-repeat left top;
+      background-size: 40px;
+      padding-left:49px;
+      padding-bottom:25px;
+      padding-top:6px;
+      position: relative;
+      width:100%;
+      @include respond-to(">=medium") {
+        width:33.3%;
+      }
+      h3 {
+        @include font-size-primaryFont('larger');
+      }
+      &:nth-child(2) { background-image: url(image_path('num-badge-2.png')); }
+      &:nth-child(3) { background-image: url(image_path('num-badge-3.png')); }
+      &:nth-child(4) { background-image: url(image_path('num-badge-4.png')); }
+      &:nth-child(5) { background-image: url(image_path('num-badge-5.png')); }
+      &:nth-child(6) { background-image: url(image_path('num-badge-6.png')); }
+    }
+  }
+
+  .success-container {
+    padding:30px;
+    .wrp-inner {
       display: flex;
       justify-content: center;
-      .input-checkbox {
-        margin-top:5px;
-        display: inline-block;
-      }
-    }
-  }
-  .call-headline {margin-bottom: 30px;}
-  .-call {
-    /*
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: 6;
-      background-repeat: no-repeat;
-      top: -4px;
-      left: 28px;
-      height: 100px;
-      width: 50px;
-      background-image: url(image_path('svg/medal-flag.svg'));
-    }
-    */
-    margin-bottom:40px;
-    .call-box {
-      p {
-        padding-top: 15px;
-        @include font-size-primaryFont('large');
-        /*
-        &:first-of-type {
-          @include font-size-primaryFont('large');
-        }
-        */
-      }
-      .call-thumb {
-        cursor: pointer;
-      }
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      > div {
-        display: inline-flex;
-        flex-direction: column;
-        width:49%;
-        @include respond-to("<=medium") {
-          width:100%;
-          img {
-            margin-bottom:15px;
+      .txt {
+        width: 40%;
+        max-width: 250px;
+        @include font-size-primaryFont('larger');
+        text-align: center;
+      }
+      .badge {
+        @include font-size-secondaryFont('large');
+        margin-left:5px;
+        margin-right:5px;
+        .inner {
+          margin-top:8px;
+          @include respond-to(">=medium") {
+            margin-top:3px;
           }
         }
       }
-      img {
-        width:100%;
-        height:auto;
-        border-radius: 8px;
-      }
     }
   }
-  .crowdstrudel {
-    display: flex;
-    justify-content: center;
-    img {
-      margin-top:-20px;
-    }
-    @include respond-to("<medium") {
-      flex-wrap: wrap;
-      img {
-        margin-top:0px;
-      }
+
+  .advantage-container {
+    margin-top:50px;
+    margin-bottom:50px;
+    li {
+      @include font-size-primaryFont('large');
+      margin-bottom:20px;
     }
   }
-  .-meetings {
-    margin-top: 75px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    .paperCard .card::before {
-      display: none;
-    }
-  }
+
 }
+
 section.usersetup.-crowd_campaigns {
   .cardBox.-crowd_campaign {
     .updateteaser {display: none;}
