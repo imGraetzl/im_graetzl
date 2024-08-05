@@ -16,9 +16,37 @@ APP.controllers.crowd_campaigns = (function() {
         }
       }).change();
 
-      $(".call-thumb").on("click", function() {
-        $(".call-toggle-headline").click();
-      })
+
+      if ($("#card-slider").exists()) {
+        $('#card-slider').lightSlider({
+          item: 2,
+          slideMove: 2, // slidemove will be 1 if loop is true
+          auto: true,
+          loop: true,
+          pause: 10000,
+          controls: false,
+          pager: true,
+          pauseOnHover: true,
+          responsive : [
+            {
+              breakpoint:850,
+              settings: {
+                item: 2,
+                slideMove: 2,
+              }
+            },
+            {
+              breakpoint:600,
+              settings: {
+                item: 1,
+                slideMove: 1
+              }
+            }
+          ]
+        });
+      }
+
+
     }
 
     function initPreviewMode() {

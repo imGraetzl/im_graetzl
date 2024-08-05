@@ -20,7 +20,7 @@
       <div class="hl-subtext">
         <h1><em>Lokales Crowdfunding</em></h1>
         <p><strong>Setze dein Vorhaben mit der Kraft der Gemeinschaft um!</strong></p>
-        <p>Starte jetzt mit dem Anlegen deiner Crowdfunding Kampagne.</p>
+        <p>Starte jetzt mit dem Anlegen deiner Crowdfunding-Kampagne.</p>
       </div>
       <p class="txt">Falls du unsicher bist, ob Crowdfunding etwas für dich ist, ruf kurz durch, dann reden wir über dein Vorhaben: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %></p>
       <p><%= link_to "Los geht's - Neue Kampagne erstellen", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow', id: 'startproject' %></p>
@@ -28,7 +28,7 @@
     <div class="introSide">
       <div class="paperCard -illuteaser -good-morning-date -cord1RT">
         <div class="wrp">
-          <h3>Jeden Mittwoch, 12:30 Uhr:<br>Kostenlose Crowdfunding Sprechstunde via Zoom!</h3>
+          <h3>Jeden Mittwoch, 12:30 Uhr:<br>Kostenlose Crowdfunding-Sprechstunde via Zoom!</h3>
           <p>Die Realisierung deines Vorhabens liegt uns am Herzen! Deshalb freuen wir uns darauf, uns mit dir über dein Vorhaben auszutauschen, dir unsere Crowdfunding-Expertise zur Verfügung zu stellen und deine Fragen persönlich zu beantworten.</p>
           <% @meeting = Meeting.crowdfunding.in(current_region).last %>
           <% if @meeting %>
@@ -53,11 +53,11 @@
         <h1>Ablauf deiner Crowdfunding Kampagne</h1>
       </div>
       <div class="num-items">
-        <div><h3>Kampagne erstellen</h3>Du kannst in Ruhe deine Kampagne ausfüllen, Zwischenstände speichern, bis du damit fertig bist. Sie ist Bearbeitungsmodus nur für dich sichtbar.</div>
+        <div><h3>Kampagne erstellen</h3>Du kannst in Ruhe deine Kampagne ausfüllen und Zwischenstände speichern, bis du damit zufrieden bist. Sie ist im Bearbeitungsmodus nur für dich sichtbar.</div>
         <div><h3>Kampagne freischalten</h3>Fertig ausgefüllt? Reiche nun deine Kampagne zur Freischaltung ein und erhalte noch wertvolles Feedback.</div>
-        <div><h3>Auszahlungskonto</h3>Verknüfe nun noch deine Kampagne mit unserem Zahlungsdienstleister Stripe, danach kanns losgehen.</div>
-        <div><h3>Kampagnenstart</h3>Jetzt heisst's trommeln, bewerben und allen davon erzählen. Am Besten persönlich und immer wieder!</div>
-        <div><h3>Kampagnenende</h3>Bei Erfolg werden nun die Gelder deiner UnterstützerInnen eingezogen. Bei Nichterfolg wird natürlich nichts abgebucht.</div>
+        <div><h3>Auszahlungskonto</h3>Verknüpfe nun noch deine Kampagne mit unserem Zahlungsdienstleister Stripe, und danach kann es losgehen.</div>
+        <div><h3>Kampagnenstart</h3>Jetzt heißt's trommeln, sichtbar machen und allen davon erzählen. Am besten persönlich und immer wieder!</div>
+        <div><h3>Kampagnenende</h3>Bei Erfolg werden nun die Gelder deiner Supporter eingezogen. Bei Nichterfolg wird natürlich nichts abgebucht.</div>
         <div><h3>Geld erhalten</h3>14 Tage nach Kampagnenende wird deine tatsächlich erreichte Fundingsumme auf dein Konto überwiesen. Yeah!</div>
       </div>
     </div>
@@ -84,7 +84,7 @@
       </li>
       <li>
         <h3>Lokale Community</h3>
-        <p>Dein Vorhaben wird in unserer lokalen <%= t("region.#{current_region.id}.domain_short") %>-Community <%= t("region.#{current_region.id}.in_region") %> platziert, bestehend aus engagierten Macher*innen, die Interesse an lokalen Entwicklungen ums Eck haben und gegenseitige Unterstützung leben.</p>
+        <p>Dein Vorhaben wird in unserer lokalen <%= t("region.#{current_region.id}.domain_short") %>-Community <%= t("region.#{current_region.id}.in_region") %> sichtbar gemacht.</p>
       </li>
       <li>
         <h3>Unsere Expertise</h3>
@@ -92,24 +92,92 @@
       </li>
       <li>
         <h3>Kosten</h3>
-        <p>Unsere Fixkosten betragen <strong>5 %</strong> und setzen sich zusammen aus den Gebühren für den Zahlungsprovider, der Mehrwertsteuer und einem Unkostenbeitrag für die Durchführung. Über jeden zusätzlichen Prozentpunkt entscheidest du selbst. Im Durchschnitt geben die Starter*innen 7 % und erhalten dafür z.B. zusätzlich Sichtbarkeit im Newsletter und auf Social Media.</p>
+        <p>Wenn die Kampagne nicht erfolgreich ist, kostet sie nichts. Unsere Fixkosten betragen <strong>5 %</strong> und setzen sich zusammen aus den Gebühren für den Zahlungsprovider, der Mehrwertsteuer und einem Unkostenbeitrag für die Durchführung. Über jeden zusätzlichen Prozentpunkt entscheidest du selbst. Im Durchschnitt geben die Starter*innen 7 % und erhalten dafür z.B. zusätzliche Sichtbarkeit im Newsletter und auf Social Media.</p>
       </li>
       <li>
-        <h3>Persönlichen Kontakt</h3>
-        <p>Du kannst uns anrufen oder zu den wöchentlichen Crowdfunding Check-ins kommen.</p>
+        <h3>Persönlicher Kontakt</h3>
+        <p>Du kannst uns anrufen oder zu den wöchentlichen Crowdfunding-Check-ins kommen.</p>
       </li>
       <li>
-        <h3>Premium Zahlungsanbieter</h3>
+        <h3>Premium-Zahlungsanbieter</h3>
         <p>Wir arbeiten mit einem der besten und international verbreitetsten Zahlungsanbieter zusammen.</p>
       </li>
       <li>
         <h3>Extra Services für Unterstützer*innen</h3>
-        <p>Nicht alle Menschen sind so digital affin. Wenn Unterstützer*innen Schwierigkeiten bei der Durchführung von Online-Zahlungen haben, bekommen sie eine E-Mail von uns mit einer Telefonnummer und wir leiten sie dann persönlich durch den Prozess. </p>
+        <p>Nicht alle Menschen sind so digital affin. Wenn Unterstützer*innen Schwierigkeiten bei der Durchführung von Online-Zahlungen haben, bekommen sie eine E-Mail von uns mit einer Telefonnummer, und wir leiten sie dann persönlich durch den Prozess.</p>
       </li>
     </ul>
   </div>
+
 
   <%= link_to "Los geht's - Neue Kampagne erstellen", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow' %>
 
 </section>
 
+<!-- SLIDER -->
+<div class="lightSliderWrapper card-slider-container -userquotes">
+
+  <div class="hl-subtext">
+    <h1>... Und sie haben es getan - Wie wars?</h1>
+  </div>
+
+  <div class="cardBoxCollection" id="card-slider">
+
+    <!-- Single Quote -->
+    <div class="cardBox -quote">
+      <div class="user">
+        <div class="avatar">
+            <a href="https://www.imgraetzl.at/crowdfunding/die-hauswirtschaft" target="_blank"><%= image_tag('info/quote-hauswirtschaft.jpg', class: 'attachment user avatar img-round') %></a>
+        </div>
+        <div class="infos">
+          <span>Elia Stefan<br><a href="https://www.imgraetzl.at/crowdfunding/die-hauswirtschaft" target="_blank">Der NordbahnSaal – Bau mit uns das soziale und kulturelle Herz fürs Grätzl!</a></span>
+        </div>
+        <div class="infos">
+          <h3>38.015 €</h3>
+        </div>
+      </div>
+      <blockquote class="txt">
+        &#8222;Im.Grätzl war für uns die ideale Plattform um über eine Crowdfunding Kampagne das lokale Netzwerk und die Bewohner*innen vor Ort für unsere Idee zu begeistern! Es hat funktioniert und wir freuen uns sehr vor allem von Menschen, die im Bezirk wohnen Zuspruch, positives Feedback und letztlich auch die monetäre Unterstützung für unser Projekt bekommen zu haben. Das Team von im.Grätzl hat uns während der aufregenden Crowdfunding Laufzeit kompetent und zielsicher beraten und so konnten wir zum richtigen Zeitpunkt die richten Schritte setzten um das Crowdfunding erfolgreich zu beenden.&#8220;
+      </blockquote>
+    </div>
+
+    <!-- Single Quote -->
+    <div class="cardBox -quote">
+      <div class="user">
+        <div class="avatar">
+            <a href="https://muehlviertler-kernland.welocally.at/crowdfunding/kleines-malwunder" target="_blank"><%= image_tag('info/quote-eva-kriegler.jpg', class: 'attachment user avatar img-round') %></a>
+        </div>
+        <div class="infos">
+          <span>Eva Krieger<br><a href="https://muehlviertler-kernland.welocally.at/crowdfunding/kleines-malwunder" target="_blank">Malraum - Raum für Kreativität - Kleines Malwunder</a></span>
+        </div>
+        <div class="infos">
+          <h3>3.227 €</h3>
+        </div>
+      </div>
+      <blockquote class="txt">
+        &#8222;Es war schon ein wenig Überwindung, die Kampagne zu starten, doch nach dem Motto "Ich habe ja nichts zu verlieren" habe ich mich einfach hineingestürzt. Durch euren Support habe ich mich gut begleitet gefühlt. Vorteilhaft finde ich eure persönliche Note und die Regionalität! Dass ich mit dem Erfolg der Kampagne dann meine ersten Anschaffungen finanzieren konnte, war die eine Freude. Dass ich an Sichtbarkeit gewonnen habe und viele Menschen erreicht habe, war eine zusätzliche Freude. Ich würde es auf jeden Fall genauso nochmal machen!&#8220;
+      </blockquote>
+    </div>
+
+    <!-- Single Quote -->
+    <div class="cardBox -quote">
+      <div class="user">
+        <div class="avatar">
+          <a href="https://www.imgraetzl.at/crowdfunding/keep-it-in-circle-with-a-cycle" target="_blank"><%= image_tag('info/quote-brotpilotinnen.jpg', class: 'attachment user avatar img-round') %></a>
+        </div>
+        <div class="infos">
+          <span>Philipp Guttenbrunner<br><a href="https://www.imgraetzl.at/crowdfunding/keep-it-in-circle-with-a-cycle" target="_blank">Brotpilot:innen - Keep it in circle with a cycle</a></span>
+        </div>
+        <div class="infos">
+          <h3>5.433 €</h3>
+        </div>
+      </div>
+      <blockquote class="txt">
+        &#8222;Schon bei der Kampagnenerstellung wurde uns aktiv Unterstützung angeboten, damit das Crowdfunding ein Erfolg wird. Die persönliche Beratung mit Erfahrungsberichten war extrem hilfreich, vor allem weil es unser erstes Crowdfunding war und man daher noch überhaupt nicht weiß, was bei einem solchen Vorhaben wichtig ist. Auch während des Crowdfundings bekamen wir tatkräftige Unterstützung durch Tipps und aktives Teilen. Neben den einfach verständlichen Erklärvideos und toller Website hat uns zusammenfassend vor allem die persönliche Unterstützung begeistert!&#8220;
+      </blockquote>
+    </div>
+
+
+  </div>
+</div>
+<!-- /SLIDER -->

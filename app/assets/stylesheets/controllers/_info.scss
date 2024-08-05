@@ -806,3 +806,32 @@ section.info {
   }
   
 }
+
+.-userquotes {
+  .-quote {
+    background-color: #eaf2f4;
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
+  .user {
+    img {
+      width:100%;
+      height:auto;
+    }
+    .infos {
+      text-align: center;
+      font-style: italic;
+      margin-bottom:5px;
+      h3 {
+        font-style: normal;
+      }
+    }
+  }
+  .txt {
+    align-self: center;
+    font-style: italic;
+    @include font-size-primaryFont('large');
+    padding-left: 20px;
+    padding-right: 5px;
+  }
+}
