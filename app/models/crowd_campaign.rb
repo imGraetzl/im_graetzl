@@ -329,7 +329,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def can_destroy?
-    if !(self.draft? || self.declined?)
+    unless self.draft? || self.declined?
       throw :abort
     end
   end
