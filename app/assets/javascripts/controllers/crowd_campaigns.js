@@ -21,7 +21,7 @@ APP.controllers.crowd_campaigns = (function() {
         $('#card-slider').lightSlider({
           item: 2,
           slideMove: 2, // slidemove will be 1 if loop is true
-          auto: true,
+          auto: false,
           loop: true,
           pause: 10000,
           controls: false,

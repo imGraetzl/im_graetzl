@@ -10,107 +10,97 @@
 
   <div class="hl-subtext">
     <h1>Lokales <em>Crowdfunding</em></h1>
-    <p>Deine Vorhaben in die Umsetzung bringen</p>
+    <p>Setze dein Vorhaben mit der Kraft der Gemeinschaft um!</p>
   </div>
 
-  <div class="paperCard -cord1RT container -top" id="zero">
+  <div class="paperCard -cord1RT container -top">
     <div class="wrp">
       <p>
-        <strong>Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.</strong>
-        <br>
-        Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen,
-        aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.
-        Alle Vorhaben, von denen außerdem noch andere Menschen profitieren, bekommen auf ihre Kampagne einen extra Sichtbarkeitsboost.
+        <strong>Starte eine Crowdfunding-Kampagne, um dein Vorhaben in die Tat umzusetzen.</strong>
+        Ob eine neue (Geschäfts)idee, Raumaktivierung, Stadtteilfest oder Kunst- und Kulturprojekt – du kannst hier dein Vorhaben via Crowdfunding realisieren.
+        <br><br>
+        <strong>Mit unserem <%= link_to 'Crowdfunding-Tool', start_crowd_campaigns_path %></strong> kannst du eine Kampagne durchführen und Geld-, Zeit- und Sachspenden sammeln. Weitere Effekte: Dein Vorhaben wird mit dem Crowdfunding sichtbar und mitten in einer lokalen Community platziert, du kannst dein Netzwerk erweitern und damit neue Chancen eröffnen. Ein erfolgreiches Crowdfunding ist tatsächlich sehr gut planbar, und wir unterstützen dich gerne in der Vorbereitung.
       </p>
     </div>
     <div class="card"></div>
   </div>
 
-  <aside>
-    <div id="help_nav">
-      <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
-      <a href="#was" class="btn-primary -mint" id="nav-1">Lokales Crowdfunding</a>
-      <a href="#kosten" class="btn-primary -mint" id="nav-2">Was kostet es?</a>
-      <a href="#wie" class="btn-primary -mint" id="nav-3">Wie funktioniert es?</a>
-      <a href="#warum" class="btn-primary -mint" id="nav-4">Warum Crowdfunding?</a>
-      <a href="#voraussetzungen" class="btn-primary -mint" id="nav-5">Voraussetzungen</a>
-    </div>
-  </aside>
-
-  <div class="mainContent">
-
-    <article class="container" id="1">
-      <h2 id="was"><span>Was ist</span> lokales Crowdfunding?</h2>
-      <br>
-      <p><strong>Angenommen,</strong> du möchtest mit deinem Projekt einen Leerstand beziehen, aber dieser Raum ist sehr heruntergekommen und muss zuerst renoviert und hergerichtet werden. Oder ihr seid eine Initiative und möchtet im Stadtteil die Nachbarschaft bei einem Fest zusammenbringen. Egal, wie dein Vorhaben aussieht, ganz häufig fehlt zur Umsetzung der Vorhaben Geld, vielleicht auch helfende Hände, Sachspenden, Raum oder einfach gute Kontakte und Sichtbarkeit.</p>
-      <p><strong>Um diese Lücke zu schließen, wurde Crowdfunding erfunden.</strong> Das heißt: Viele Menschen tun sich zusammen (Crowd), um die Umsetzung eines Vorhabens zu ermöglichen.  Sie geben Geld, Sichtbarkeit, Kontakte, Zeit- oder Sachspenden, vielleicht auch Raum und ermöglichen so die Umsetzung  des Vorhabens (Funding).</p>
-      <p><strong>Die Kampagnenstarter*innen revanchieren sich im Gegenzug für die Unterstützung mit Dankeschöns.</strong> Damit das alles passieren kann, wird dafür eine Crowdfunding Kampagne aufgesetzt. Diese läuft eine bestimmte Zeit z.B. 30 Tage und in dieser Zeit wird so richtig für das Vorhaben getrommelt und dann hoffentlich auch das benötigte Geld und andere Unterstützung eingesammelt.</p>
-      <p><strong>Das hört sich fast zu schön an, um wahr zu sein, deshalb auch der wichtige Hinweis:</strong> Die Durchführung einer Crowdfunding Kampagne ist mit Arbeit verbunden und längst nicht jede Crowdfunding Kampagne erreicht das gesetzte Ziel. Aber es ist eine wirklich großartige Chance Vorhaben in die Umsetzung zu bringen. Manche sagen, und wir teilen diese Ansicht, dass das Sammeln von Geld beim Crowdfunding nicht im Mittelpunkt steht, sondern die Chance sich mit vielen Menschen (Crowd) verbinden zu können. Das ist langfristig gesehen nämlich wesentlich wertvoller.</p>
-      <p><strong>Nachdem du dir die Videos in unserem Crowdfunding Bereich angeschaut hast,</strong> sprich auf jeden Fall mit deiner Steuerexpert*in deines Vertrauens das Thema Crowdfunding durch. Was muss in deinem Fall versteuert werden? Kannst du Rechnungen ausstellen für die Dankeschöns? Das sind z.B. einige der wichtigen Fragen. Das Crowdfunding Modell, das wir anbieten, läuft unter dem Begriff: Reward- und Donation based Crowdfunding.</p>
-      <p>Bei uns können die Unterstützer*innen dein Projekt entweder mit einem von dir festgelegten Dankeschön (Gegenleistung) unterstützen oder einen Betrag in Form einer freien Unterstützung oder eine Spende (wenn du einen Nachweis der Gemeinnützigkeit hast) geben.</p>
-
-    </article>
-
-    <article class="container" id="2">
-      <h2 id="kosten"><span>Kostet</span> die Crowdfunding Kampagne etwas?</h2>
-      <br>
-      <p>
-        <strong>Nur wenn deine Kampagne erfolgreich abgeschlossen ist, behalten wir 5,0 % (inkl. MwSt.) von der eingegangenen Geldsumme ein.</strong> Das ist für den Zahlungsanbieter. Wenn die Kampagne nicht erfolgreich ist, kostet sie dich nichts.
-      </p>
-
-    </article>
-
-    <article class="container" id="3">
-      <h2 id="wie"><span>Wie funktioniert</span> eine Crowdfunding Kampagne?</h2>
-      <br>
-      <p>Du findest alle wichtigen Informationen zum Start deiner eigenen Crowdfunding Kampagne im <%= link_to 'Crowdfunding Bereich', start_crowd_campaigns_path %>.</p>
-      <p>Kurze Videos von unseren Partnern <%= link_to 'Crowdstrudel', 'https://www.crowdstrudel.com', target: '_blank' %> erklären dir Schritt für Schritt, wie du deine Kampagne einrichtest und wie eine Crowdfunding Kampagne grundsätzlich funktioniert. Zusätzlich gibt es Vorlagen, die dich bei den einzelnen Schritten unterstützen.</p>
-      <p>Wir schicken dir außerdem weitere Tipps per Mail zu - etwa, wie du vor Kampagnenstart deine Crowd aufbaust oder wie du deine Crowdfunding Kampagne ins Laufen bringst.</p>
-    </article>
-
-    <article class="container" id="4">
-      <h2 id="warum"><span>Warum eine</span> Crowdfunding Kampagne auf <%= t("region.#{current_region.id}.domain_short") %> starten?</h2>
-      <h3>Wir erweitern das Thema Crowdfunding um ein paar Aspekte, damit noch mehr Vorhaben in die Umsetzung kommen:</h3>
-      <ul>
-        <li>Das Crowdfunding ist bei <%= t("region.#{current_region.id}.domain_short") %> bereits in eine lokale Community, bestehend aus kooperativen und unterstützenden Macher*innen, eingebettet. Also Menschen, die bei dir ums Eck leben und ein gesteigertes Interesse mitbringen, dass gute Dinge in ihrem Umfeld passieren - davon profitieren nämlich alle. Natürlich können aber auch alle anderen Menschen, egal woher, deine Kampagne unterstützen.</li>
-        <li>Bei uns kann nicht nur zu Geld-, sondern auch zu Raum, Zeit- und Sachspenden aufgerufen werden.</li>
-        <li>Die Crowdfunding Kampagnen werden in den Streams auf der Plattform angezeigt und in die Newsletter aufgenommen und verteilt. Das ist extra Sichtbarkeit.</li>
-        <li>Crowdfunding ist für uns kein Geschäftsmodell, daher sind uns kleine Kampagnen (unter 1000 €) genauso wichtig wie die größeren.</li>
-        <li>Und: Ein besonderes Augenmerk legen wir auf lokale Vorhaben, von denen die Allgemeinheit profitiert. Wenn du z.B. Geld benötigst, um einen Leerstand zu aktivieren, dann wirkt sich das auch auf die Umgebung positiv aus, weil du mit deinem Vorhaben Leben in den Stadtteil bringst. Oder du planst ein Parklett als Treffpunkt für die Nachbarschaft vor der Haustür, dann tut das dem Miteinander gut.  Es könnte auch sein, dass du ein Grätzlrad organisieren möchtest, dass dann alle im Grätzl nutzen können. Solche Vorhaben bekommen noch einmal einen extra Sichtbarkeits-Boost von uns.</li>
-      </ul>
-      <h3>Zur Inspiration nun ein paar Beispiele für Vorhaben, die über Crowdfunding in die Umsetzung kommen können:</h3>
-      <ul>
-        <li>Ein Stadtteilfest ist geplant und es fehlt Geld, um eine Bühne anzumieten oder Flyer zu drucken.</li>
-        <li>Drei Schmuck-Künstler*innen haben sich zusammengetan und es ist eine kleine Schmuck-Messe geplant, es fehlen noch ein Raum und Ausstellungstische.</li>
-        <li>Ein Malort soll entstehen - die Küche muss allerdings erneuert werden und dafür fehlt das Geld.</li>
-        <li>Es gibt weit und breit keine Räume in der Nachbarschaft für Vereine, Bewohner*innen und Macher*innen, um sich zu treffen, Kindergeburtstage zu feiern oder die Arbeitstreffen abzuhalten. So ein Raum soll entstehen, die Miete kann jedoch nur zu einem Teil aufgebracht werden.</li>
-        <li>Eine Pilatestrainerin hat ein spezielles Programm für ältere Menschen ausgearbeitet, allerdings müssten dafür die Räumlichkeiten barrierefrei umgebaut werden.</li>
-      </ul>
-      <p>
-        Wenn du Fragen zum Crowdfunding hast und z.B. unsicher bist, ob sich dein Vorhaben dafür eignet, schreib uns doch an <%= t("region.#{current_region.id}.contact_email") %>
-      </p>
-    </article>
-
-    <article class="container" id="5">
-      <h2 id="voraussetzungen"><span>Voraussetzungen,</span> um eine lokale Crowdfunding Kampagne auf <%= t("region.#{current_region.id}.domain_short") %> zu starten</h2>
-
-      <h3>Voraussetzung, um eine Kampagne zu starten</h3>
-      <ol>
-        <li>Kampagnenstarter*in ist mind. 18 Jahre alt</li>
-        <li>Kapagnenstarter*in ist entweder in Wien, in einer der angedockten WeLocally Gemeinden in Kärnten oder in einer der 17 Gemeinden im Mühlviertler Kernland beheimatet.</li>
-        <li>Kampagnenstarter*innen sind bereit, ihre Identität und Kontodaten prüfen zu lassen.</li>
-        <li>Kampagnenstarter*innen treten mit Vor- und Nachname und einem persönlichen Foto auf der Kampagnenseite auf und agieren offen, ehrlich und transparent.</li>
-      </ol>
-
-      <h3>Folgendes wird nicht akzeptiert</h3>
-      <ol>
-        <li>Finanzierung von Studium, Ausbildung, privaten Veranstaltungen oder Reisen, Privateigentum, Wahlkampf sowie Parteifinanzierung.</li>
-        <li>Dankeschöns, die Lose, Unternehmensanteile oder Kapitalanlagen bzw. Kredite sind.</li>
-        <li>Finanzierung von Waffen und/oder vom Gesetzgeber als illegal eingestufte Drogen.</li>
-      </ol>
-    </article>
-    
+  <div class="hl-subtext">
+    <h2><span>Fragen und Antworten</span> zum Crowdfunding</h2>
   </div>
+
+   <div class="wrp">
+    <h3>Allgemeine Informationen</h3>
+    <p><strong>Was ist Crowdfunding?</strong><br>Crowdfunding ist eine Finanzierungsmethode, bei der viele Menschen kleine Geldbeträge beitragen, um die Realisierung eines Projektes zu ermöglichen.</p>
+    <p><strong>Wir bieten reward-based Crowdfunding an.</strong><br>Bei reward-based Crowdfunding erhalten Unterstützer*innen als Gegenleistung für ihre finanzielle Unterstützung eine Belohnung, die ein Produkt oder eine Dienstleistung sein kann, oder auch etwas Ideelles.</p>
+  </div>
+
+  <div class="wrp">
+    <h3>Gebühren</h3>
+    <p>
+      <strong>Welche Gebühren fallen an?</strong> Nur wenn deine Kampagne erfolgreich ist, fallen Gebühren an, wenn sie nicht erfolgreich ist, zahlst du nichts. Wenn die Kampagne erfolgreich ist, dann ziehen wir eine Gebühr von der eingesammelten Summe ab. Unsere Fixkosten betragen 5 % und setzen sich zusammen aus den Gebühren für den Zahlungsprovider, der Umsatzsteuer und einem kleinen Unkostenbeitrag für Serverkosten, Tools und Buchhaltung. 
+    </p>
+    <p>
+      Über jeden zusätzlichen Prozentpunkt entscheidest du selbst. Im Durchschnitt geben die Starter*innen 7 % und erhalten dafür z.B. zusätzlich Sichtbarkeit im Newsletter und auf unseren Social Media Kanälen. Du bekommst über die Gebühr einen Beleg mit ausgewiesener Umsatzsteuer von uns. 
+    </p>
+  </div>
+
+  <div class="wrp">
+    <h3>Alles oder nichts Prinzip</h3>
+    <p>Du setzt in deiner Kampagne zwei Ziele: <strong>Das Mindestziel</strong> muss erreicht werden, wird das Mindestziel nicht erreicht, wird auch kein Geld bei den Unterstützenden eingezogen und es wird das in der Kampagne gesammelte Geld nicht an die Kampagnen Starter*in ausgezahlt. Sobald das Mindestziel erreicht ist, gilt die Kampagne als erfolgreich und der eingesammelte Betrag kommt nach Ende der Kampagnen-Laufzeit zur Auszahlung, abzüglich der Gebühr.</p>
+    <p><strong>Das Optimalziel</strong> ist das zweite Ziel, auf das hingearbeitet wird und beschreibt, was es optimalerweise benötigt, um das Vorhaben gut umzusetzen. Dieses steht im Fokus, sobald das Mindestziel erreicht ist. Auch nach dem Erreichen des Optimalziels kann weiter unterstützt werden.</p>
+  </div>
+
+  <div class="wrp">
+    <h3>Crowdfunding Ablauf</h3>
+    <ul>
+      <li>Du legst die Kampagne an und kannst zwischendurch immer wieder die erstellten Inhalte sichern und später weitermachen.</li>
+      <li>Ruf uns gerne an (0699 / 150 28 277) oder schreib uns (<%= mail_to t("region.#{current_region.id}.contact_email") %>), sobald du diesen Schritt getan hast, damit wir über dein Vorhaben reden und die Crowdfunding Planung durchgehen können. Damit wird die hohe Erfolgsquote sichergestellt, die wir beim Crowdfunding haben. </li>
+      <li>Sobald alle Planungsarbeiten abgeschlossen sind und du fertig bist mit dem Anlegen, schickst du die Kampagne spätestens zwei Tage vor dem Startdatum an uns ab. Danach verbindest du deine Kampagne mit dem Zahlungsanbieter "Stripe". Dazu füllst du das angezeigte Formular aus.</li>
+      <li>Wir prüfen die Kampagne und geben sie frei, wenn alles in Ordnung ist. Sollte es Unklarheiten geben, kontaktieren wir dich.</li>
+      <li>Die Inhalte der Kampagneseite kannst du nicht mehr bearbeiten, sobald du die Kampagne abgeschickt hast. Goodies kannst du während der Kampagne noch hinzufügen oder löschen, wenn diese noch nicht in Anspruch genommen wurden.</li>
+      <li>Wenn alles passt, geht die Kampagne am gewählten Startdatum um Mitternacht online, und Unterstützer*innen können einzahlen. Eine Kampagne läuft im Durchschnitt 30 bis 35 Tage, wobei du die Laufzeit selbst festlegst.</li>
+      <li>Nach einem erfolgreichen Kampagnenende werden die Unterstützungssummen bei den Unterstützenden eingezogen. Wenn die Kampagne nicht erfolgreich ist, werden die zugesagten Beträge nicht eingezogen.</li>
+      <li>Nach Einzug der Gelder ist eine Wartezeit von 14 Tagen gesetzlich vorgeschrieben. In diesem Zeitraum können die Unterstützer*innen ihre Unterstützung stornieren. Falls es zu einer Stornierung kommt, wird der Betrag von der Gesamtsumme abgezogen.</li>
+      <li>Falls der Einzug eines Betrags nicht möglich ist (z.B. weil das Konto nicht gedeckt ist), stellen wir den Unterstützenden andere Zahlungsformen zur Verfügung und bemühen uns, dass die Zahlung dennoch zustande kommt. Sollte dies nicht gelingen, wird der Betrag von der Gesamtsumme abgezogen.</li>
+      <li>Hat die Kampagne ihr Mindestziel erreicht, ist sie erfolgreich und du bekommst den gesammelten Betrag abzüglich der Gebühren und eventuellen Rücktritte bzw. fehlgeschlagener Zahlungen ca. 14-16 Tage nach dem Kampagnenende auf das mit Stripe verknüpfte Konto ausgezahlt.</li>
+      <li>Du hast ein persönliches Kampagnen Dashboard, dort findest du alle Unterstützer*innen mit ihren gewählten Goodies, Status der Zahlungen und deiner angefragten Zusatzinformationen wie z.B. Angabe der Postadresse, falls du diese beim Goodie abfragst. Diese Liste kannst du herunterladen. </li>
+    </ul>
+  </div>
+
+  <div class="wrp">
+    <h3>Belohnungen (Goodies)</h3>
+    <ul>
+      <li><strong>Was sind typische Belohnungen für Unterstützer?</strong> Typische Belohnungen für Unterstützer*innen können ideelle Anerkennungen, Produkte, Dienstleistungen, Erlebnisse umfassen, wobei eine Auswahl von 5-7 Belohnungen in verschiedenen Preisklassen empfohlen wird, um unterschiedliche Unterstützer*innen anzusprechen. Die Auswahl sollte überschaubar bleiben. </li>
+      <li>Prüfe, ob du für die Unterstützungen Rechnungen ausstellen kannst oder z.B. Spendenquittungen, Belege. Das kannst du in der Kampagne kenntlich machen.</li>
+      <li>Jeder Kampagne kann mit einem frei wählbaren Betrag unterstützt werden, d.h. in dem Fall gibt es kein Goodie.</li>
+    </ul>
+  </div>
+
+  <div class="wrp">
+    <h3>Nutze während der Kampagne die Kommunikationstools der Plattform</h3>
+    <ul>
+      <li>Mit der Update-Funktionen auf der Kampagnenseite kannst du mitteilen, was sich bei deinem Vorhaben während der Kampagne tut.</li>
+      <li>Deine bestehenden Unterstützer*innen kannst du ebenfalls auf der Kampagnenseite via E-Mail-Funktion kontaktieren, um wichtige Meilensteine und Entwicklungen zu kommunizieren. Auch nach der Kampagne kannst du auf diesem Weg deine Unterstützer*innen erreichen.</li>
+    </ul>
+  </div>
+
+  <div class="wrp">
+    <h3>Steuern</h3>
+    <p>Bitte sprich mit der/die Steuerexperte*in darüber, wie du die Einnahmen aus dem Crowdfunding steuerlich behandeln solltest. Das ist von Fall zu Fall verschieden und hängt davon ab, ob du beispielsweise das Crowdfunding als ein Verein, ein Kleinunternehmen oder als ein größeres Unternehmen durchführst. Auch die Art der Goodies, die du anbietest, spielen eine Rolle.</p>
+  </div>
+
+  <div class="wrp">
+    <h3>Verantwortlichkeiten</h3>
+    <p>Du bist verpflichtet, die versprochenen Belohnungen zu liefern.</p>
+  </div>
+
+  <div class="wrp">
+    <h3>Nach der Kampagne</h3>
+    <p>Plane und organisiere ggf. die Produktion und Lieferung der Goodies, und setze deine Unterstützer*innen regelmäßig über den Fortschritt in Kenntnis, wann sie mit den Goodies rechnen können. Du kannst auch nach der Kampagne auf das Emailtool auf deiner Kampagnenseite zugreifen, um z.B. deine Unterstützer*innen zu informieren, wie es bei dir weitergeht.</p>
+  </div>
+
+  <%= link_to "Los geht's - Neue Kampagne erstellen", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow letsstart'%>
 
   <div style="clear:both;"></div>
 
