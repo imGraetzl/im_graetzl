@@ -1,7 +1,7 @@
 module CrowdCampaignsHelper
 
   def success_rate
-    (100 * CrowdCampaign.successful.count) / CrowdCampaign.scope_public.count
+    (100 * CrowdCampaign.completed.successful.enabled.count) / CrowdCampaign.completed.enabled.count
   end
 
   def runtime_values

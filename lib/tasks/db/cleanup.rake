@@ -4,10 +4,15 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     # Delete Expired and already sent Notifications
-    Notification.where('notify_at < ?', 10.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).destroy_all
-    Notification.where('notify_at < ?', 10.days.ago).where(sent: true).destroy_all
+    # 1.) Delete all SENT Notifications which are not used for Web
+    # 2.) Delete all OLD Notifications which are not used for Web after 1 week
+    # 3.) Delete all OLD Notifications which are also used for Web after 1 month
+    Notification.where(sent: true, display_on_website: false).delete_all
+    Notification.where('notify_at < ?', 8.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: false).delete_all
+    Notification.where('notify_at < ?', 30.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: true).delete_all
 
-    # Delete WeLocally Activities after 12 Months and Vienna Activities after 6 Months
+
+    # Delete WeLocally Activities after 12 Months and imGraetzl Activities after 6 Months
     Activity.where('created_at < ?', 12.months.ago).destroy_all
     Activity.where('region_id = ?', 'wien').where('created_at < ?', 6.months.ago).destroy_all
 
@@ -20,14 +25,11 @@ namespace :db do
     end
 
     
-    
     # Delete going_tos from deleted meeting
     GoingTo.where(meeting_id: nil).destroy_all
 
-
     # Delete empty UserMessageThreads
     UserMessageThread.where(thread_type: 'general').where(last_message: nil).destroy_all
-
 
     # Reset & Update all Counter Caches to keep in Sync
 

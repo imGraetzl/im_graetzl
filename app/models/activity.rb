@@ -9,6 +9,8 @@ class Activity < ApplicationRecord
 
   def self.add_public(subject, child = nil, to:)
 
+    # TODO: hier evtl return if starts_at_date exists und in 1 monat zukunft? oder if notification_time_range ?!
+
     if to == :entire_platform
       graetzls, entire_platform, entire_region = Graetzl.all, true, true
     elsif to == :entire_region
