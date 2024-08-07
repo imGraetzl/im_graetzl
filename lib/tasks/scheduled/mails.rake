@@ -22,11 +22,18 @@ namespace :scheduled do
   desc 'Send daily summary mail'
   task daily_summary_mail: :environment do
     puts "Rake daily_summary_mail start at #{Time.now}"
-    
+
+    task_starts_at = Time.now
+    AdminMailer.info('daily_summary_mail', 'started', task_starts_at).deliver_now
+
     User.confirmed.find_each do |user|
       NotificationMailer.summary_graetzl(user, user.region, 'daily').deliver_now
       NotificationMailer.summary_personal(user, user.region, 'daily').deliver_now
     end
+
+    task_ends_at = Time.now
+    AdminMailer.info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+    
   end
 
   desc 'Send weekly summary mail'
