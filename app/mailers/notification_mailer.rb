@@ -21,7 +21,9 @@ class NotificationMailer < ApplicationMailer
       template_name: "immediate/#{@notification.mail_template}"
     )
 
-    @notification.update(sent: true)
+    # @notification.update(sent: true)
+    # update direct without validation and callback
+    @notification.update_columns(sent: true)
   end
 
   GRAETZL_SUMMARY_BLOCKS = {
