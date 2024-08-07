@@ -26,10 +26,6 @@ namespace :scheduled do
     User.confirmed.find_each do |user|
       NotificationMailer.summary_graetzl(user, user.region, 'daily').deliver_now
       NotificationMailer.summary_personal(user, user.region, 'daily').deliver_now
-      #Region.all.each do |region|
-      #  NotificationMailer.summary_graetzl(user, region, 'daily').deliver_now
-      #  NotificationMailer.summary_personal(user, region, 'daily').deliver_now
-      #end
     end
   end
 
@@ -37,14 +33,13 @@ namespace :scheduled do
   task weekly_summary_mail: :environment do
     puts "Rake weekly_summary_mail start at #{Time.now}"
 
-    User.confirmed.find_each do |user|
-      NotificationMailer.summary_graetzl(user, user.region, 'weekly').deliver_now if Date.today.tuesday?
-      NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now if Date.today.tuesday?
-      #Region.all.each do |region|
-      #  NotificationMailer.summary_graetzl(user, region, 'weekly').deliver_now if Date.today.tuesday?
-      #  NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.tuesday?
-      #end
+    if Date.today.tuesday?
+      User.confirmed.find_each do |user|
+        NotificationMailer.summary_graetzl(user, user.region, 'weekly').deliver_now
+        NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now
+      end
     end
+    
   end
 
   desc 'Send pending immediate mails'
