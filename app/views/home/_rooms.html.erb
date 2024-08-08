@@ -4,7 +4,14 @@
     <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    <%= render @activity_sample.rooms %>
+    
+    <% if current_region.hot_august? %>
+      <%= render @activity_sample.rooms.first rescue nil %>
+      <%= render 'shared/featured_cards/crowd_booster' %>
+    <% else %>
+      <%= render @activity_sample.rooms %>
+    <% end %>
+
     <%= render 'rooms/action_card', view_all: true %>
   </div>
 </div>
