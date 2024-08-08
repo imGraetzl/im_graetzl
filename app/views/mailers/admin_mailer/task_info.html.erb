@@ -1,0 +1,25 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+        <strong>Task:</strong> <%= @task_name %><br>
+        <strong>Execution:</strong> <%= @execution %> / <%= Time.now %><br>
+
+        <% if @task_ends_at
+          time_diff = (@task_ends_at - @task_starts_at)
+          @duration_seconds = (time_diff / 1.second).round
+          @duration_minutes = (time_diff / 1.minute).round
+        end %>
+
+        <% if @task_ends_at %>
+          <strong>Duration Seconds:</strong> <%= @duration_seconds %><br>
+          <strong>Duration Minutes:</strong> <%= @duration_minutes %><br>
+        <% end %>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+

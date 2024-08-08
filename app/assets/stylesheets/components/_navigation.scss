@@ -120,7 +120,7 @@
       border-right: 1px dotted #c9e7e2;
       &:last-of-type { border-right: none; }
       margin-right:15px;
-      @include respond-to("<440px") {
+      @include respond-to("<430px") {
         display: none;
       }
     }

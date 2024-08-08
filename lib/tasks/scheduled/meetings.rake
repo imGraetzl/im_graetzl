@@ -2,6 +2,9 @@ namespace :scheduled do
   desc 'Set new startDate if in past and additional future Date exists'
   task update_meeting_date: :environment do
 
+    task_starts_at = Time.now
+    AdminMailer.task_info('update_meeting_date', 'started', task_starts_at).deliver_now
+
     # Create Activity for Meetings which had no Activity on Creating
     Meeting.where("starts_at_date = ?", Date.today + 2.month).find_each do |meeting|
 
@@ -23,6 +26,9 @@ namespace :scheduled do
         ActionProcessor.track(meeting, :create) if (meeting.refresh_activity || meeting.entire_region?)
       end
     end
+
+    task_ends_at = Time.now
+    AdminMailer.task_info('update_meeting_date', 'finished', task_starts_at, task_ends_at).deliver_now
 
   end
 
