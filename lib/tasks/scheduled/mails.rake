@@ -2,7 +2,13 @@ namespace :scheduled do
 
   desc 'Send daily Admin Mail'
   task daily_mail: :environment do
-    AdminMailer.daily_mail.deliver_later
+    task_starts_at = Time.now
+    AdminMailer.task_info('daily_mail', 'started', task_starts_at).deliver_now
+
+    AdminMailer.daily_mail.deliver_now
+
+    task_ends_at = Time.now
+    AdminMailer.task_info('daily_mail', 'finished', task_starts_at, task_ends_at).deliver_now
   end
 
   desc 'Send messenger notifications'
