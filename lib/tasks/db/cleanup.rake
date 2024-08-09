@@ -3,6 +3,9 @@ namespace :db do
   task cleanup: :environment do
     puts "Rake db:cleanup start at: #{Time.now}"
 
+    task_starts_at = Time.now
+    AdminMailer.task_info('db:cleanup', 'started', task_starts_at).deliver_now  
+
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web
     # 2.) Delete all OLD Notifications which are not used for Web after 1 week
@@ -44,6 +47,9 @@ namespace :db do
     PollQuestion.find_each do |question|
       PollQuestion.reset_counters(question.id, :poll_user_answers)
     end
+
+    task_ends_at = Time.now
+    AdminMailer.task_info('db:cleanup', 'finished', task_starts_at, task_ends_at).deliver_now
 
   end
 end

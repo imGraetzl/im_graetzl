@@ -2,7 +2,13 @@ namespace :scheduled do
 
   desc 'Send daily Admin Mail'
   task daily_mail: :environment do
-    AdminMailer.daily_mail.deliver_later
+    task_starts_at = Time.now
+    AdminMailer.task_info('daily_mail', 'started', task_starts_at).deliver_now
+
+    AdminMailer.daily_mail.deliver_now
+
+    task_ends_at = Time.now
+    AdminMailer.task_info('daily_mail', 'finished', task_starts_at, task_ends_at).deliver_now
   end
 
   desc 'Send messenger notifications'
@@ -25,15 +31,15 @@ namespace :scheduled do
     puts "Rake daily_summary_mail start at #{Time.now}"
 
     task_starts_at = Time.now
-    AdminMailer.info('daily_summary_mail', 'started', task_starts_at).deliver_now
-
+    AdminMailer.task_info('daily_summary_mail', 'started', task_starts_at).deliver_now
+    
     User.confirmed.find_each do |user|
       NotificationMailer.summary_graetzl(user, user.region, 'daily').deliver_now
       NotificationMailer.summary_personal(user, user.region, 'daily').deliver_now
     end
 
     task_ends_at = Time.now
-    AdminMailer.info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+    AdminMailer.task_info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
     
   end
 
@@ -42,10 +48,18 @@ namespace :scheduled do
     puts "Rake weekly_summary_mail start at #{Time.now}"
 
     if Date.today.tuesday?
+
+      task_starts_at = Time.now
+      AdminMailer.task_info('weekly_summary_mail', 'started', task_starts_at).deliver_now  
+
       User.confirmed.find_each do |user|
         NotificationMailer.summary_graetzl(user, user.region, 'weekly').deliver_now
         NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now
       end
+
+      task_ends_at = Time.now
+      AdminMailer.task_info('weekly_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+  
     end
     
   end

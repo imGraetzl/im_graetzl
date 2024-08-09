@@ -11,15 +11,15 @@ class AdminMailer < ApplicationMailer
     )
   end
 
-  def info(task_name, progress, task_starts_at = nil, task_ends_at = nil)
+  def task_info(task_name, execution, task_starts_at = nil, task_ends_at = nil)
     @region = Region.get('wien')
     @task_name = task_name
-    @progress = progress
+    @execution = execution
     @task_starts_at = task_starts_at
     @task_ends_at = task_ends_at
     
     mail(
-      subject: "[#{@region.host_domain_name}] Task Info: #{task_name} / #{progress} at #{Time.now}",
+      subject: "[#{@region.host_domain_name}] Task Info: [#{task_name}] #{execution} / #{Time.now}",
       from: platform_email("no-reply"),
       to: platform_email("michael", "Michael"),
     )
