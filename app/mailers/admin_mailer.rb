@@ -12,17 +12,19 @@ class AdminMailer < ApplicationMailer
   end
 
   def task_info(task_name, execution, task_starts_at = nil, task_ends_at = nil)
-    @region = Region.get('wien')
-    @task_name = task_name
-    @execution = execution
-    @task_starts_at = task_starts_at
-    @task_ends_at = task_ends_at
-    
-    mail(
-      subject: "[#{@region.host_domain_name}] Task Info: [#{task_name}] #{execution} / #{Time.now}",
-      from: platform_email("no-reply"),
-      to: platform_email("michael", "Michael"),
-    )
+    if Rails.env.production?
+      @region = Region.get('wien')
+      @task_name = task_name
+      @execution = execution
+      @task_starts_at = task_starts_at
+      @task_ends_at = task_ends_at
+      
+      mail(
+        subject: "[#{@region.host_domain_name}] Task Info: [#{task_name}] #{execution} / #{Time.now}",
+        from: platform_email("no-reply"),
+        to: platform_email("michael", "Michael"),
+      )
+    end
   end
 
   def new_zuckerl(zuckerl)
