@@ -5,9 +5,9 @@ module CrowdBoostsHelper
     when "general"
       link_to "Direkteinzahlung", new_crowd_boost_crowd_boost_charge_path(crowd_boost_charge.crowd_boost), class: 'via-link'
     when "zuckerl"
-      link_to "Zuckerl", new_zuckerl_path, class: 'via-link'
+      link_to "Zuckerl", zuckerls_user_path, class: 'via-link'
     when "room_booster"
-      link_to "Raumteiler Pusher", new_room_booster_path, class: 'via-link'
+      link_to "Raumteiler Pusher", room_boosters_user_path, class: 'via-link'
     when "crowd_pledge"
       link_to "Crowdfunding Unterstützung", new_crowd_boost_crowd_boost_charge_path(crowd_boost_charge.crowd_boost), class: 'via-link'
     when "subscription_invoice"
