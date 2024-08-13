@@ -5,7 +5,8 @@
 <% last_year = 1.year.ago.at_beginning_of_year..1.year.ago.at_end_of_year %>
 <% tax = 1.2 %>
 
-<% def calc_pledges(collection)
+<%
+  def calc_pledges(collection)
     crowd_pledges_fee = 0
     stripe_fee = 0
     collection.all.each do |pledge|
@@ -15,6 +16,14 @@
     crowd_pledges_fee_netto = (crowd_pledges_fee / 1.2)
     platform_fee_netto = crowd_pledges_fee_netto - stripe_fee
     return platform_fee_netto
+  end
+
+  def calc_funding_sum(collection)
+    funding_sum = 0
+    collection.all.each do |campaign|
+      funding_sum += campaign.funding_sum
+    end
+    return funding_sum
   end
 %>
 
@@ -39,6 +48,16 @@
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: this_year)), precision: 0 ,unit: "€") %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: last_year)), precision: 0 ,unit: "€") %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection), precision: 0 ,unit: "€") %></td>
+    </tr>
+<% elsif local_assigns[:funding_sum] %>
+    <tr style="font-size:0.8rem; text-align:right;">
+        <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: yesterday)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: this_month)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: last_month)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: this_year)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: last_year)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap; font-weight:bold;"><%= number_to_currency(calc_funding_sum(collection), precision: 0 ,unit: "€") %></td>
     </tr>
 <% elsif local_assigns[:amount] %>
     <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
