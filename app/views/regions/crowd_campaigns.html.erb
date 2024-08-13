@@ -20,7 +20,7 @@
   <%= form_tag crowd_campaigns_path, method: :get, remote: true, class: 'cards-filter' do %>
     <div class="filter-selection-text-jbox">
       Zeige mir Projekte aus <%= link_to 'allen Kategorien', '#filter-modal-category', data: { no_filter_label: 'allen Kategorien'}, class: 'filter-modal-category' %>,
-      in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %>
+      in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %> - <%= link_to 'Neue Kampagne starten', start_crowd_campaigns_path, class: 'plain-link -rosa' %>
     </div>
     <div id="filter-modal-category" class="filter-modal-jbox">
       <%= render 'filters/crowd_campaign_categories' %>
