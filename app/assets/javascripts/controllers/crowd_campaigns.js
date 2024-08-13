@@ -22,11 +22,11 @@ APP.controllers.crowd_campaigns = (function() {
           item: 2,
           slideMove: 2, // slidemove will be 1 if loop is true
           auto: false,
-          loop: true,
-          pause: 10000,
+          loop: false,
           controls: false,
           pager: true,
           pauseOnHover: true,
+          adaptiveHeight:false,
           responsive : [
             {
               breakpoint:850,
