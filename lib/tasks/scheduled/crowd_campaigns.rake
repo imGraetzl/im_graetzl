@@ -2,6 +2,10 @@ namespace :scheduled do
 
   desc 'Daily update to Campaigns'
   task crowd_campaigns_upkeep: :environment do
+
+    task_starts_at = Time.now
+    AdminMailer.task_info('crowd_campaigns_upkeep', 'started', task_starts_at).deliver_now
+
     # Start scheduled campaigns
     campaign_start = Date.tomorrow.in_time_zone("Vienna").beginning_of_day.utc
 
@@ -32,6 +36,10 @@ namespace :scheduled do
         CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
       end
     end
+
+    task_ends_at = Time.now
+    AdminMailer.task_info('crowd_campaigns_upkeep', 'finished', task_starts_at, task_ends_at).deliver_now
+
   end
 
   # Send Crowdfunding Guest Newsletter

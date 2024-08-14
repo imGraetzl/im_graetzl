@@ -52,9 +52,9 @@
 <% elsif local_assigns[:funding_sum] %>
     <tr style="font-size:0.8rem; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: yesterday)), precision: 0 ,unit: "€") %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: this_month)), precision: 0 ,unit: "€") %></td>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: last_month)), precision: 0 ,unit: "€") %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: this_year)), precision: 0 ,unit: "€") %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: last_year)), precision: 0 ,unit: "€") %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap; font-weight:bold;"><%= number_to_currency(calc_funding_sum(collection), precision: 0 ,unit: "€") %></td>
