@@ -3,7 +3,7 @@ namespace :scheduled do
   desc 'Send daily Admin Mail'
   task daily_mail: :environment do
     task_starts_at = Time.now
-    AdminMailer.task_info('daily_mail', 'started', task_starts_at).deliver_now
+    #AdminMailer.task_info('daily_mail', 'started', task_starts_at).deliver_now
 
     AdminMailer.daily_mail.deliver_now
 
@@ -30,7 +30,7 @@ namespace :scheduled do
     puts "Rake daily_summary_mail start at #{Time.now}"
 
     task_starts_at = Time.now
-    AdminMailer.task_info('daily_summary_mail', 'started', task_starts_at).deliver_now
+    #AdminMailer.task_info('daily_summary_mail', 'started', task_starts_at).deliver_now
     
     User.confirmed.find_each do |user|
       NotificationMailer.summary_graetzl(user, user.region, 'daily').deliver_now
@@ -49,7 +49,7 @@ namespace :scheduled do
     if Date.today.tuesday?
 
       task_starts_at = Time.now
-      AdminMailer.task_info('weekly_summary_mail', 'started', task_starts_at).deliver_now  
+      #AdminMailer.task_info('weekly_summary_mail', 'started', task_starts_at).deliver_now  
 
       User.confirmed.find_each do |user|
         NotificationMailer.summary_graetzl(user, user.region, 'weekly').deliver_now
@@ -68,7 +68,7 @@ namespace :scheduled do
     puts "Rake pending_immediate_mails start at #{Time.now}"
 
     task_starts_at = Time.now
-    AdminMailer.task_info('pending_immediate_mails', 'started', task_starts_at).deliver_now
+    #AdminMailer.task_info('pending_immediate_mails', 'started', task_starts_at).deliver_now
 
     Notification.where(type: 'Notifications::NewMeeting').where('notify_at = ?', Date.today).where(sent: false).each do |notification|
       if notification.user.enabled_mail_notification?(notification, :immediate)

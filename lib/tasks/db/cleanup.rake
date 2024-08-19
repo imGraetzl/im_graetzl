@@ -4,7 +4,7 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     task_starts_at = Time.now
-    AdminMailer.task_info('db:cleanup', 'started', task_starts_at).deliver_now  
+    #AdminMailer.task_info('db:cleanup', 'started', task_starts_at).deliver_now  
 
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web
