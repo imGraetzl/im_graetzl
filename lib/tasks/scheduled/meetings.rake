@@ -5,8 +5,8 @@ namespace :scheduled do
     task_starts_at = Time.now
     #AdminMailer.task_info('update_meeting_date', 'started', task_starts_at).deliver_now
 
-    # Create Activity for Meetings which had no Activity on Creating
-    Meeting.where("starts_at_date = ?", Date.today + 2.month).find_each do |meeting|
+    # Create Activity & Notifications for Meetings which had no Activity on Creating
+    Meeting.where("starts_at_date = ?", Date.today + 6.weeks).find_each do |meeting|
 
       if !Notification.where(subject: meeting).where('notify_before > ?', Date.today).any?
         ActionProcessor.track(meeting, :create)

@@ -40,10 +40,10 @@ class ActionProcessor
       notify_comment(subject, child)
 
     when [Meeting, :create] 
-      # Create Activity and Notifications only for Meetings in the next 2 Months
+      # Create Activity and Notifications only for Meetings in the next 6 Weeks
       # Create Activity and Notifications in entrire_region for 'entire_region' Meetings
 
-      if subject.starts_at_date <= Date.today + 2.month
+      if subject.starts_at_date <= Date.today + 6.weeks
 
         if subject.public? && subject.entire_region?
           Activity.add_public(subject, to: :entire_region)
