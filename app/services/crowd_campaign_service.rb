@@ -3,7 +3,7 @@ class CrowdCampaignService
   def start(campaign)
     campaign.update(status: :funding)
     ActionProcessor.track(campaign, :create)
-    CrowdCampaignMailer.funding_started(campaign).deliver_later
+    CrowdCampaignMailer.funding_started(campaign).deliver_now
   end
 
   def complete(campaign)
@@ -35,7 +35,7 @@ class CrowdCampaignService
     invoice_number = "#{Date.current.year}_Crowdfunding-#{campaign.id}_Nr-#{CrowdCampaign.next_invoice_number}"
     campaign.update(invoice_number: invoice_number)
     generate_invoice(campaign)
-    CrowdCampaignMailer.invoice(campaign).deliver_later
+    CrowdCampaignMailer.invoice(campaign).deliver_now
   end
 
   def generate_invoice(campaign)

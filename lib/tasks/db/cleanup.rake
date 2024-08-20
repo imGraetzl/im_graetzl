@@ -4,14 +4,14 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     task_starts_at = Time.now
-    AdminMailer.task_info('db:cleanup', 'started', task_starts_at).deliver_now  
+    #AdminMailer.task_info('db:cleanup', 'started', task_starts_at).deliver_now  
 
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web
     # 2.) Delete all OLD Notifications which are not used for Web after 1 week
     # 3.) Delete all OLD Notifications which are also used for Web after 1 month
     Notification.where(sent: true, display_on_website: false).delete_all
-    Notification.where('notify_at < ?', 8.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: false).delete_all
+    Notification.where('notify_at < ?', 7.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: false).delete_all
     Notification.where('notify_at < ?', 30.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: true).delete_all
 
 
@@ -19,6 +19,7 @@ namespace :db do
     Activity.where('created_at < ?', 12.months.ago).destroy_all
     Activity.where('region_id = ?', 'wien').where('created_at < ?', 6.months.ago).destroy_all
 
+    # Delete expired Meeting Activities
     Activity.where(subject_type: 'Meeting').find_each do |activity|
       if activity.subject.ends_at_date
         activity.destroy if activity.subject.ends_at_date < Date.today
