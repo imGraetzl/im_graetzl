@@ -7,6 +7,7 @@
     og_image: image_url("meta/#{current_region.host_id}/og_logo.png")
   )
 %>
+<% content_for :canonical_url, region_groups_url %>
 
 <section class="districts">
   <%= render 'map' %>

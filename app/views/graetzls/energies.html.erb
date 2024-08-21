@@ -7,7 +7,7 @@
     robots: 'index, follow'
   )
 %>
-<% content_for :canonical_url, region_energies_url(category: @category) if @category %>
+<% content_for :canonical_url, region_energies_url %>
 
 <section class="graetzls energies">
   <%= render 'map' %>

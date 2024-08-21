@@ -43,7 +43,7 @@ class Region
     @use_subscription
   end
 
-  def use_room_booster?
+  def use_room_pusher?
     room_booster_price > 0
   end
 

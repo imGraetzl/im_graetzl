@@ -36,18 +36,14 @@ Region.all.each do |region|
     add region_energies_path, changefreq: 'always', priority: 1.0
     add region_coop_demands_path, changefreq: 'always', priority: 1.0
     add region_crowd_campaigns_path, changefreq: 'always', priority: 1.0
-    add region_groups_path, changefreq: 'daily', priority: 0.6
-    add region_zuckerls_path, changefreq: 'weekly', priority: 0.6
+    add start_crowd_campaigns_path, changefreq: 'always', priority: 1.0
+    add region_groups_path, changefreq: 'daily', priority: 0.5
+    add region_zuckerls_path, changefreq: 'weekly', priority: 0.5
 
     # Room Categories
     add region_rooms_path(category: 'kurzzeitmiete'), changefreq: 'daily', priority: 0.9
     RoomCategory.find_each do |category|
       add region_rooms_path(category: category), changefreq: 'daily', priority: 0.9
-    end
-
-    # CoopDemand Categories
-    CoopDemandCategory.find_each do |category|
-      add region_coop_demands_path(category: category), changefreq: 'daily', priority: 0.9
     end
 
     # Location Categories
@@ -63,6 +59,11 @@ Region.all.each do |region|
       add region_meetings_path(category: category), changefreq: 'daily', priority: 0.7
     end
 
+    # CoopDemand Categories
+    CoopDemandCategory.find_each do |category|
+      add region_coop_demands_path(category: category), changefreq: 'daily', priority: 0.9
+    end
+
     # Districts if used in region
     if region.use_districts?
       District.find_each do |district|
@@ -70,8 +71,6 @@ Region.all.each do |region|
         add district_locations_path(district), changefreq: 'daily', priority: 0.8
         add district_meetings_path(district), changefreq: 'daily', priority: 0.8
         add district_rooms_path(district), changefreq: 'daily', priority: 0.8
-        add district_coop_demands_path(district), changefreq: 'daily', priority: 0.8
-        add district_energies_path(district), changefreq: 'daily', priority: 0.7
         add district_zuckerls_path(district), changefreq: 'weekly', priority: 0.7
 
         # Location Categories
@@ -93,8 +92,6 @@ Region.all.each do |region|
       add locations_graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
       add meetings_graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
       add rooms_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
-      add energies_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
-      add coop_demands_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add zuckerls_graetzl_path(graetzl), changefreq: 'weekly', priority: 0.5
 
       # Locations
@@ -117,6 +114,12 @@ Region.all.each do |region|
     # CrowdCampaigns
     CrowdCampaign.in(region).scope_public.find_each do |crowd_campaign|
       add crowd_campaign_path(crowd_campaign), changefreq: 'daily', priority: 1.0
+    end
+
+    # Crowd Boosts
+    CrowdBoost.in(region).find_each do |crowd_boost|
+      add crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0
+      add call_crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0 if crowd_boost.charge_call?
     end
 
     # Polls
@@ -142,6 +145,7 @@ Region.all.each do |region|
       add energy_demand_path(energy_demand), changefreq: 'daily', priority: 0.8
     end
 
+    # Coop & Share
     CoopDemand.in(region).enabled.find_each do |coop_demand|
       add coop_demand_path(coop_demand), changefreq: 'daily', priority: 0.8
     end
@@ -155,15 +159,16 @@ Region.all.each do |region|
     if region.id == 'wien'
       add good_morning_dates_path, changefreq: 'daily', priority: 0.9
       add balkonsolar_wien_path, changefreq: 'daily', priority: 0.9
-      add subscription_plans_path, changefreq: 'daily', priority: 0.9
     end
 
     if region.id == 'graz'
-      add subscription_plans_path, changefreq: 'daily', priority: 0.9
       add balkonsolar_path, changefreq: 'daily', priority: 0.9
     end
     
     if region.id == 'linz'
+    end
+
+    if region.use_subscription?
       add subscription_plans_path, changefreq: 'daily', priority: 0.9
     end
 
