@@ -3,13 +3,10 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
 
   # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
-  # Get Greatzl Array in Console:
-  # Graetzl.where.not(region_id:'wien').map{|s| "^/#{s.slug}$"}
-  # For now: Without Graz, check if Google can crawl JS already
-  config.middleware.use Rack::Prerender, whitelist: [
-    '^/region/', '/category/',
-    '/treffen$', '/locations$', '/raumteiler$', '/toolteiler$', '/energieteiler$', '/coop-share$', '/crowdfunding$', '/zuckerl$',
-  ]
+  #config.middleware.use Rack::Prerender, whitelist: [
+  #  '^/region/', '/category/',
+  #  '/treffen$', '/locations$', '/raumteiler$', '/toolteiler$', '/energieteiler$', '/coop-share$', '/crowdfunding$', '/zuckerl$',
+  #]
 
   # Taxrates for Stripe
   config.stripe_default_tax_rates = "txr_1M7ePZESnSu3ZRERzwu2VRdq"

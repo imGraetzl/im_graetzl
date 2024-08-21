@@ -45,7 +45,7 @@
             <%= link_to 'Raumteiler Boost ist aktiv', room_boosters_user_path,
               class: 'btn-primary -small' %>
           </div>
-        <% elsif @room_offer.enabled? && current_region.use_room_booster? %>
+        <% elsif @room_offer.enabled? && current_region.use_room_pusher? %>
           <div class="btn-group">
             <%= link_to 'Raumteiler Boost starten', room_boosters_user_path,
               class: 'btn-primary -small'  %>

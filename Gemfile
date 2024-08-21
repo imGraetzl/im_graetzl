@@ -62,7 +62,7 @@ gem 'oj'
 gem 'jquery-ui-rails'
 gem 'bb-ruby'
 gem 'stripe', "~> 8.0"
-gem 'prerender_rails'
+#gem 'prerender_rails'
 
 gem 'caxlsx'
 gem 'caxlsx_rails'
