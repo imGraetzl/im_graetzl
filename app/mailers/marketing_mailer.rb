@@ -13,15 +13,16 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
-  def energieteiler_meeting_invite(user)
-    @user = user
-    @region = @user.region
+  def hot_august_room_pusher(room_offer)
+    @room_offer = room_offer
+    @user = @room_offer.user
+    @region = @room_offer.region
 
-    headers("X-MC-Tags" => "energieteiler-meeting-invite")
+    headers("X-MC-Tags" => "hot-august-room-pusher")
 
     mail(
-      subject: "Sorry, Infotreffen 'Energiegemeinschaften' ist am Mittwoch, nicht Montag...",
-      from: platform_email("wir"),
+      subject: "Dein Raum braucht mehr Aufmerksamkeit? Lass uns das pushen!",
+      from: platform_email("mirjam", "Mirjam Mieschendahl"),
       to: @user.email,
     )
   end
