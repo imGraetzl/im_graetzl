@@ -36,6 +36,7 @@ class Meeting < ApplicationRecord
   scope :online_meeting, -> { where(online_meeting: true) }
   scope :offline_meeting, -> { where(online_meeting: false) }
   scope :crowdfunding, -> { upcoming.joins(:event_categories).where(event_categories: {id: EventCategory.where("title ILIKE :q", q: "%Crowdfunding%").last}) }
+  scope :good_morning_dates, -> { joins(:event_categories).where(event_categories: {id: EventCategory.where("title ILIKE :q", q: "%Good Morning Date%")}) }
 
   scope :by_currentness, -> {
     active.

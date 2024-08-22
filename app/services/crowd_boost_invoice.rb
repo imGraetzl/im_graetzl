@@ -46,6 +46,8 @@ class CrowdBoostInvoice
     case crowd_boost_charge.charge_type
     when "general"
       pdf.text "via Direkteinzahlung"
+    when "good_morning_date"
+      pdf.text "via Good Morning Date"
     when "zuckerl"
       pdf.text "via Zuckerl ID: #{crowd_boost_charge&.zuckerl&.id}"
     when "room_booster"

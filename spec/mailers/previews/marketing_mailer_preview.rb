@@ -4,8 +4,8 @@ class MarketingMailerPreview < ActionMailer::Preview
     MarketingMailer.subscription_meeting_invite(User.last)
   end
 
-  def energieteiler_meeting_invite
-    MarketingMailer.energieteiler_meeting_invite(User.last)
+  def hot_august_room_pusher
+    MarketingMailer.hot_august_room_pusher(RoomOffer.last)
   end
 
   def agb_change_and_welocally

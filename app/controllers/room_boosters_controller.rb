@@ -5,7 +5,7 @@ class RoomBoostersController < ApplicationController
   def new
 
     if @room_offer.disabled?
-      flash[:notice] = "Dein Raumteiler ist aktuell inaktiv und kann nicht geboostert werden. Aktiviere diesen zuvor."
+      flash[:notice] = "Dein Raumteiler ist aktuell inaktiv und kann nicht gepusht werden. Aktiviere diesen zuvor."
       redirect_to @room_offer and return
     end
 
@@ -20,7 +20,7 @@ class RoomBoostersController < ApplicationController
     else
       newest_boosters = RoomBooster.in(@room_offer.region).active_or_pending.sort_by(&:ends_at_date).last(2)
       @next_start_date = newest_boosters.first.ends_at_date + 1.day
-      flash.now[:notice] = "Der nächste freie Booster Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Booster zu aktivieren."  
+      flash.now[:notice] = "Der nächste freie Pusher Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Pusher zu aktivieren."  
     end
 
     @room_booster.starts_at_date = @next_start_date

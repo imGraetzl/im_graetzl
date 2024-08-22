@@ -41,7 +41,7 @@ gem 'prawn-table'
 gem 'gibbon', '~> 3.0', '>= 3.0.2'
 gem 'newrelic_rpm'
 gem 'rollbar'
-gem 'scout_apm'
+#gem 'scout_apm'
 
 gem "shrine", "~> 3.0"
 gem "aws-sdk-s3", "~> 1"
