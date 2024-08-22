@@ -25,6 +25,7 @@ context.instance_eval do
       end
       panel 'Charge Type' do
         attributes_table_for crowd_boost_charge do
+          row :charge_type
           row :zuckerl
           row :room_booster
           row :subscription_invoice

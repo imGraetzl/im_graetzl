@@ -12,6 +12,8 @@ module CrowdBoostsHelper
       link_to "Crowdfunding Unterstützung", new_crowd_boost_crowd_boost_charge_path(crowd_boost_charge.crowd_boost), class: 'via-link'
     when "subscription_invoice"
       link_to "Mitgliedschaft", subscription_plans_path, class: 'via-link'
+    when "good_morning_date"
+      link_to "Good Morning Date", '/good-morning-dates', class: 'via-link'
     else
       link_to "Direkteinzahlung", new_crowd_boost_crowd_boost_charge_path(crowd_boost_charge.crowd_boost), class: 'via-link'
     end

@@ -25,6 +25,17 @@
         data: {action: url_for([:calculate_price, @crowd_boost, @crowd_boost_charge])} %>
     </div>
 
+    <% if @good_morning_date %>
+      <div class="input-select">
+        <%= f.label :charge_type do %>
+          <%= icon_tag "profile-vcard" %>
+          <span>Einzahlung für</span>
+        <% end %>
+        <%= f.select :charge_type, [["Allgemeine Einzahlung", 'general'],["Good Morning Date", 'good_morning_date']],
+            { include_blank: false, required: false }, {class: 'address-graetzl-input' } %>
+      </div>
+    <% end %>
+
     <div class="input-field">
       <%= f.label :name do %>
         <%= icon_tag "user-avatar" %>

@@ -4,6 +4,7 @@ class CrowdBoostChargesController < ApplicationController
   def new
     @crowd_boost_charge = @crowd_boost.crowd_boost_charges.build(initial_charge_params)
     @crowd_boost_charge.assign_attributes(current_user_params) if current_user
+    @good_morning_date = current_user.initiated_meetings.good_morning_dates.any?
 
     unless @crowd_boost.chargeable?
       flash[:notice] = "Sorry, aktuell ist eine Einzahlung in diesen Topf nicht möglich."
@@ -98,7 +99,7 @@ class CrowdBoostChargesController < ApplicationController
 
   def crowd_boost_charge_params
     params.require(:crowd_boost_charge).permit(
-      :amount, :anonym, :terms, :guest_newsletter,
+      :amount, :anonym, :terms, :guest_newsletter, :charge_type,
       :email, :contact_name, :address_street, :address_zip, :address_city
     )
   end
