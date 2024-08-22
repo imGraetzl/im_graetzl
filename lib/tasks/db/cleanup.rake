@@ -9,6 +9,9 @@ namespace :db do
     # Delete unconfirmed OLD Users (older 3 months)
     User.where(confirmed_at:nil).where('created_at < ?', 3.months.ago).delete_all
 
+    # Delete incomplete OLD Items
+    Zuckerl.incomplete.where('created_at < ?', 3.months.ago).where(payment_status:nil).destroy_all
+
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web
     # 2.) Delete all OLD Notifications which are not used for Web after 1 week
