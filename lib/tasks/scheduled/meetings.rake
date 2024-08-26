@@ -5,13 +5,12 @@ namespace :scheduled do
     task_starts_at = Time.now
     #AdminMailer.task_info('update_meeting_date', 'started', task_starts_at).deliver_now
 
-    # Create Activity & Notifications for Meetings which had no Activity on Creating
-    Meeting.where("starts_at_date = ?", Date.today + 6.weeks).find_each do |meeting|
-
-      if !Notification.where(subject: meeting).where('notify_before > ?', Date.today).any?
+    # Create Activity & Notifications for Meetings which had no one on Creating
+    Meeting.where("starts_at_date = ?", 2.weeks.from_now).find_each do |meeting|
+      unless Notification.where(subject: meeting).where(type: "Notifications::NewMeeting").any?
         ActionProcessor.track(meeting, :create)
+        Rails.logger.info("[update_meeting_date task | Meeting created | Slug]: #{meeting.slug}")
       end
-
     end
 
     # Delete all PAST Additonal Dates

@@ -39,28 +39,26 @@ class ActionProcessor
       end
       notify_comment(subject, child)
 
-    when [Meeting, :create] 
-      # Create Activity and Notifications only for Meetings in the next 6 Weeks
-      # Create Activity and Notifications in entrire_region for 'entire_region' Meetings
+    when [Meeting, :create]
+      # Create Notifications only for Meetings in the next 2 Weeks
+      # Create Activities only for Meetings in the next 8 Weeks (if there is none already)
+      # Later ones (2 weeks in future) will be daily created over 'update_meeting_date' rake task
 
-      if subject.starts_at_date <= Date.today + 6.weeks
+      if subject.public? && subject.entire_region?
+        Activity.add_public(subject, to: :entire_region) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
+        Notifications::NewMeeting.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id),
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
 
-        if subject.public? && subject.entire_region?
-          Activity.add_public(subject, to: :entire_region)
-          Notifications::NewMeeting.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id),
-            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
-        elsif subject.public?
-          Activity.add_public(subject, to: subject.graetzl)
-          Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
-        elsif subject.group_id
-          Activity.add_personal(subject, group: subject.group)
-          Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
-            time_range: subject.notification_time_range, sort_date: subject.notification_sort_date)
-        end
-        
+      elsif subject.public?
+        Activity.add_public(subject, to: subject.graetzl) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
+        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
+      elsif subject.group_id
+        Activity.add_personal(subject, group: subject.group) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
+        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
       end
-
+    
     when [Meeting, :update]
       if subject.public?
 

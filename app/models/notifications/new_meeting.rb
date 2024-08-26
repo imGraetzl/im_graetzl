@@ -18,4 +18,8 @@ class Notifications::NewMeeting < Notification
     subject
   end
 
+  def self.immediate_option_enabled?
+    false
+  end
+
 end
