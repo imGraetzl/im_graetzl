@@ -1,10 +1,20 @@
 <div class="input-select">
-  <%= select_tag :notification_interval, options_for_select([
-    ['Nie', :off],
-    ['Sofort', :immediate],
-    ['Täglich', :daily],
-    ['Wöchentlich', :weekly]
-  ], current_user.enabled_mail_notification(type)), data: {
-    behavior: "mail-notification-toggle", type: type.name
-  } %>
+  <% if current_user.admin? || type.immediate_option_enabled? %>
+    <%= select_tag :notification_interval, options_for_select([
+      ['Nie', :off],
+      ['Sofort', :immediate],
+      ['Täglich', :daily],
+      ['Wöchentlich', :weekly]
+    ], current_user.enabled_mail_notification(type)), data: {
+      behavior: "mail-notification-toggle", type: type.name
+    } %>
+  <% else %>
+    <%= select_tag :notification_interval, options_for_select([
+      ['Nie', :off],
+      ['Täglich', :daily],
+      ['Wöchentlich', :weekly]
+    ], current_user.enabled_mail_notification(type)), data: {
+      behavior: "mail-notification-toggle", type: type.name
+    } %>
+  <% end %>
 </div>

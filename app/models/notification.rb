@@ -50,9 +50,6 @@ class Notification < ApplicationRecord
   def self.generate(subject, child = nil, to:, time_range: [], sort_date: nil)
     user_ids = Array(to)
     return if user_ids.empty?
-    # TODO: evtl also return if time_range.first > X ? (1month in zukunft ?!)
-    # dann rausnehmen aus action prozessor und dort kann evtl die activity erstellt werden?
-    # oder auch bei activity erstellung das gleiche rein?
 
     notifications = User.where(id: user_ids).find_each.map do |user|
       new(
@@ -85,6 +82,10 @@ class Notification < ApplicationRecord
 
   def self.dasherized
     self.name.demodulize.underscore.dasherize
+  end
+
+  def self.immediate_option_enabled?
+    true
   end
 
   def to_partial_path
