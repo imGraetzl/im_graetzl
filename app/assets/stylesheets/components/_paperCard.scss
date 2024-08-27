@@ -251,6 +251,15 @@
   }
   .card {
     background-color: #edf7f5;
-    //background-color: $color-ambient-grey-light;
+  }
+}
+.paperCard.-lightblue {
+  .card {
+    background-color: #eaf2f4;
+  }
+}
+.paperCard.-yellow {
+  .card {
+    background-color: #fffde6;
   }
 }

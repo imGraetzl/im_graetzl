@@ -56,6 +56,10 @@ class Region
     #Rails.env.development? || Rails.env.staging? || (self.is?('wien') && Date.today.to_datetime.between?('2024-07-31', '2024-08-31'))
   end
 
+  def crowdfunding_call?
+    Date.today.to_datetime.between?('2024-08-27', '2024-09-22')
+  end
+
   def is?(region_id)
     region_id == id ? true : false
   end

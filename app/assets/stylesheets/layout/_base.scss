@@ -111,6 +111,10 @@ main {
     background-color: rgba($color-ambient-rosa-light, 0.5);
   }
 
+  &.-yellow {
+    background-color: #fffde6;
+  }
+
   &.-end {
     margin-bottom:-80px;
     padding-bottom:80px;
