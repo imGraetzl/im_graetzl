@@ -12,7 +12,7 @@ class NotificationMailer < ApplicationMailer
       "X-MC-GoogleAnalyticsCampaign" => "notification-immediate-#{@notification.mail_template}",
     )
 
-    Rails.logger.info("[Immediate Mail] #{@user.email} - #{@notification.mail_subject}")
+    Rails.logger.info("[Immediate Mail] [#{@user.id}] [#{@user.email}]: #{@notification.mail_subject}")
 
     mail(
       subject: @notification.mail_subject,
@@ -76,10 +76,10 @@ class NotificationMailer < ApplicationMailer
     )
 
     if @notifications.empty?
-      Rails.logger.info("[Graetzl Summary Mail] #{@user.id} / #{@user.email} #{@period}: None found")
+      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@user.email}]: None found")
       return
     else
-      Rails.logger.info("[Graetzl Summary Mail] #{@user.id} / #{@user.email} #{@period}: #{@notifications.size} found")
+      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@user.email}]: #{@notifications.size} found")
     end
 
     headers(
@@ -135,10 +135,10 @@ class NotificationMailer < ApplicationMailer
     )
 
     if @notifications.values.all?(&:empty?)
-      Rails.logger.info("[Personal Summary Mail] #{@user.id} / #{@user.email} #{@period}: None found")
+      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@user.id}] [#{@user.email}]: None found")
       return
     else
-      Rails.logger.info("[Personal Summary Mail] #{@user.id} / #{@user.email} #{@period}: #{@notifications.values.sum(&:size)} found")
+      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@user.id}] [#{@user.email}]: #{@notifications.values.sum(&:size)} found")
     end
 
     headers(

@@ -57,7 +57,7 @@ class Region
   end
 
   def crowdfunding_call?
-    Date.today.to_datetime.between?('2024-08-27', '2024-09-22')
+    Date.today.to_datetime.between?('2024-08-29', '2024-09-22')
   end
 
   def is?(region_id)

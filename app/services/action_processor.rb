@@ -63,7 +63,7 @@ class ActionProcessor
       if subject.public?
 
         # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').where('notify_before > ?', Date.today).any?
+        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').any?
           Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
             notify_at: subject.notification_time_range.first || Time.current,
             notify_before: subject.notification_time_range.last,
@@ -74,7 +74,7 @@ class ActionProcessor
       elsif subject.group_id
 
         # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').where('notify_before > ?', Date.today).any?
+        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').any?
           Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').update_all(
             notify_at: subject.notification_time_range.first || Time.current,
             notify_before: subject.notification_time_range.last,

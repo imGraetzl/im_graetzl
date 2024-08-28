@@ -56,6 +56,8 @@
       <!-- Insert Featured Card -->
       <% if current_region.hot_august? %>
         <%= render 'shared/featured_cards/crowd_booster' %>
+      <% elsif current_region.crowdfunding_call? %>
+        <%= render 'shared/featured_cards/crowdfunding_call' %>
       <% elsif current_region.is?('wien') %>
         <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>
       <% end %>
