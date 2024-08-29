@@ -1,5 +1,5 @@
 <div class="input-select">
-  <% if current_user.admin? || type.immediate_option_enabled? %>
+  <% if type.immediate_option_enabled? %>
     <%= select_tag :notification_interval, options_for_select([
       ['Nie', :off],
       ['Sofort', :immediate],

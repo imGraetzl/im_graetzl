@@ -825,6 +825,33 @@ section.startcampaign {
         font-weight: bold;
         padding-top: 4px;
       }
+      .paperCard.-call {
+        .wrp {
+          padding: 19px;
+          background: none;
+          img {
+            width:100%;
+            height:auto;
+          }
+          h3 {
+            color: $color-font-primary;
+          }
+        }
+      }
+    }
+    .call-cb {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .call-content {
+    ul {
+      margin-bottom:20px;
+      &:last-of-type { margin-bottom:0px; }
+    }
+    h3, p {
+      margin-bottom:20px;
     }
   }
 
