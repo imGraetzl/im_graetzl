@@ -2,6 +2,7 @@ class SubscriptionPlan < ApplicationRecord
 
   belongs_to :crowd_boost, optional: true
 
+  enum status: { enabled: 0, disabled: 1 }
   scope :sorted, ->{ order(amount: :asc) }
   default_scope ->{ sorted }
 

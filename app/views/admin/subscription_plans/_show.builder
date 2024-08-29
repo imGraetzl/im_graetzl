@@ -3,6 +3,7 @@ context.instance_eval do
     row :id
     row :region_id
     row :name
+    row :status
     row :amount
     row :coupon
     row :interval

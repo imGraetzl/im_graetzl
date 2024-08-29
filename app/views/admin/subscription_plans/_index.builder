@@ -3,6 +3,7 @@ context.instance_eval do
   id_column
   column :region_id
   column :name
+  column(:status){|r| status_tag(r.status)}
   column :amount
   column :coupon
   column :interval
