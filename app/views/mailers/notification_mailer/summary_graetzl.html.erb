@@ -32,7 +32,7 @@
     <%= render "summary/#{notification.mail_template}", notification: notification %>
   <% end %>
   
-  <!-- Hack: Insert Footer Text for RoomOffers in Mails in Vienna -->
+  <!-- Hack: Insert Footer Text for RoomOffers in Mails in Vienna --> 
   <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.is?('wien') %>
 
 <% end %>
