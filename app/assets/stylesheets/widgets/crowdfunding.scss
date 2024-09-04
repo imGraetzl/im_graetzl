@@ -1,0 +1,118 @@
+//---------------------------------------------------------------------------------------------*\
+// UTILS
+//---------------------------------------------------------------------------------------------*/
+
+@import "utils/variables";
+@import "utils/mixins";
+@import "utils/include-media";
+
+//---------------------------------------------------------------------------------------------*\
+// COMPONENTS
+//---------------------------------------------------------------------------------------------*/
+
+@mixin font-size-primaryFont($size: 'base') {}
+@mixin font-size-secondaryFont($size: 'base') {}
+@import "components/headlineBarbapapa";
+@import "components/buttons";
+@import "components/fundingBar";
+
+//---------------------------------------------------------------------------------------------*\
+// WIDGET OVERRIDE STYLES
+//---------------------------------------------------------------------------------------------*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border: 0;
+}
+
+.crowdfunding-widget {
+  container: widget-container / inline-size;
+  font-family: $font-primary;
+  color: $color-font-primary;
+  font-size: 1.2rem;
+  background-color: #eaf2f4;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+a {
+  color: $color-font-primary;
+  text-decoration: none;
+}
+
+p {
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: $font-secondary;
+  text-align: center;
+  font-weight: normal;
+  margin-bottom: 1.0rem;
+  line-height: 1.0;
+}
+
+h2 {
+  margin-bottom: 0.2rem;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+}
+
+.header {
+  text-align: center;
+  h2 {
+    @include headlineBarbapapa();
+    @include textShadowHard($color-ambient-rosa-dark);
+    font-style: inherit;
+    display: inline-table;
+    font-weight: 100;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+.titleImg {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.2rem;
+}
+
+.icon {
+  height: 28px;
+  width: 28px;
+  fill: currentColor;
+  display: inline;
+}
+
+.fundingBar {
+  background-color: rgba($color-ambient-mint, 0.2);
+}
+
+.fundingStats {
+  span {
+    font-size: 0.9rem;
+  }
+  // Show Compact View ...
+  // Or make Font Size smaller, or hide Fact in Middle ...
+  // May also make Button Size smaller
+  @container widget-container (min-width: 320px) {
+    // Show Full View ...
+  }
+}
+
+#button {
+  margin-top: 1.2rem;
+}
