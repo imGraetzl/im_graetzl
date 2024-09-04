@@ -94,10 +94,10 @@
     <% funding_track1_percentage = (@crowd_campaign.funding_1_amount / @crowd_campaign.funding_sum) * 100 %>
     <% funding_track2_percentage = 100 - funding_track1_percentage %>
     <% funding_track2_percentage = funding_track2_percentage < 10 ? 10 : funding_track2_percentage %>
-    <% funding_point1_position = funding_track1_percentage %>
+    <% funding_point1_position = funding_track2_percentage <= 10 ? funding_track1_percentage - funding_track2_percentage : funding_track1_percentage %>
 
     <div class="fundingBar_track fundingBar_track-only" style="width:<%= funding_track1_percentage.round(2) %>%;">
-      <div title="<%= title_funding_sum %>" class="fundingBar_bar" style="width:100;">
+      <div title="<%= title_funding_sum %>" class="fundingBar_bar" style="width:100%;">
         <% if @crowd_campaign.boosted? %>
           <div class="fundingBar_bar -boost" style="width:<%= boost_percentage %>%; left: <%= boost_start_percentage %>">
             <div class="label"><%= title_booster %></div>
@@ -105,7 +105,7 @@
         <% end %>
       </div>
     </div>
-    <div class="fundingBar_target fundingBar_target-animated -absolute -first" style="left:<%= funding_point1_position.round(2) %>%;">
+    <div class="fundingBar_target fundingBar_target-animated -absolute -first" style="left:calc(<%= funding_point1_position.round(2) %>% - 0.5em);">
       <div class="label"><%= title_funding_1_amount %></div>
     </div>
     <div class="fundingBar_track fundingBar_track-2nd" style="width:<%= funding_track2_percentage.round(2) %>%">

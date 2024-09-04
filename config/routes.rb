@@ -376,6 +376,9 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:create, :destroy]
 
+  # Widgets
+  get "widgets/cf/:id", to: 'widgets#crowdfunding', as: :crowdfunding_widget
+
   get 'robots.txt' => 'static_pages#robots'
 
   namespace :api do
