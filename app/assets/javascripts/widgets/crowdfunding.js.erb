@@ -17,29 +17,31 @@
   `
     <link rel="stylesheet" id="style" href="${static_asset_url}/widgets/crowdfunding.css" />
     <div class="crowdfunding-widget" id="crowdfunding-widget">
-      <div class="header">
-        <h2 class="title"><a id="host_name" href="" target="_blank"></a></h2>
-      </div>
-      
-      <h1><a id="title" href="" target="_blank"></a></h1>
-      <p id="slogan"></p>
-      <a id="image_href" class="coverImg" href="" target="_blank">
-        <img id="image" src="" loading="lazy" class="titleImg" width="980" height="400" style="width:100%; height:auto;">
-      </a>
-      <div id="fundingBar" class="fundingBar"></div>
-      <div id="fundingStats" class="fundingStats">
-        <div class="left -amount">
-          <h2><strong id="funding_sum"></strong><span class="full-view -percent funding_percentage"></span></h2>
-          <span id="funding_subtitle" class="full-view"></span>
-          <small class="compact-view funding_percentage"></small>
+      <div class="crowdfunding-widget-inner">
+        <div class="header">
+          <h2 class="title"><a id="host_name" href="" target="_blank"></a></h2>
         </div>
-        <div class="middle -supporters">
-          <h2 id="pledges_and_donations_count"></h2>
-          <span>Unterstützer<wbr>Innen</span>
+        
+        <h1><a id="title" href="" target="_blank"></a></h1>
+        <p id="slogan"></p>
+        <a id="image_href" class="coverImg" href="" target="_blank">
+          <img id="image" src="" loading="lazy" class="titleImg" width="980" height="400" style="width:100%; height:auto;">
+        </a>
+        <div id="fundingBar" class="fundingBar"></div>
+        <div id="fundingStats" class="fundingStats">
+          <div class="left -amount">
+            <h2><strong id="funding_sum"></strong><span class="full-view -percent funding_percentage"></span></h2>
+            <span id="funding_subtitle" class="full-view"></span>
+            <small class="compact-view funding_percentage"></small>
+          </div>
+          <div class="middle -supporters">
+            <h2 id="pledges_and_donations_count"></h2>
+            <span>Unterstützer<wbr>Innen</span>
+          </div>
+          <div id="remaining_stats" class="right -ending"></div>
         </div>
-        <div id="remaining_stats" class="right -ending"></div>
+        <a id="button" class="btn-primary -rose -shadow -small" href="" target="_blank" style="display:none;">Dieses Projekt unterstützen!</a>
       </div>
-      <a id="button" class="btn-primary -rose -shadow -small" href="" target="_blank" style="display:none;">Dieses Projekt unterstützen!</a>
     </div>  `
 
   class CrowdfundingProject extends HTMLElement {

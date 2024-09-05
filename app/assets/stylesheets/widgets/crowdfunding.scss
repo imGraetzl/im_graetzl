@@ -35,12 +35,20 @@ img {
 
 .crowdfunding-widget {
   container: widget-container / inline-size;
-  font-family: $font-primary;
-  color: $color-font-primary;
-  font-size: 1.8em;
   background-color: #eaf2f4;
+  color: $color-font-primary;
+  font-family: $font-primary;
   padding: 1rem;
   border-radius: 8px;
+}
+.crowdfunding-widget-inner {
+  font-size: 1.6em;
+  @container widget-container (min-width: 320px) {
+    font-size: 1.8em;
+  }
+  @container widget-container (min-width: 760px) {
+    font-size: 2.0em;
+  }
 }
 
 a {
@@ -60,12 +68,21 @@ h1 {
   font-weight: normal;
   margin-bottom: 1.0rem;
   line-height: 1.0;
-  font-size: 2.2em;
+  font-size: 2.0em;
+  @container widget-container (min-width: 320px) {
+    font-size: 2.2em;
+  }
+  @container widget-container (min-width: 760px) {
+    font-size: 2.4em;
+  }
 }
 
 h2 {
   margin-bottom: 0.2rem;
-  font-size: 1.4em;
+  font-size: 1.3em;
+  @container widget-container (min-width: 320px) {
+    font-size: 1.4em;
+  }
 }
 
 h3 {
@@ -80,8 +97,8 @@ h3 {
     font-style: inherit;
     display: inline-table;
     font-weight: 100;
-    font-size: 1.4em;
     margin-bottom: 0.5rem;
+    font-size: 1.4em;
     a {
       color: white;
       text-decoration: none;
@@ -111,18 +128,26 @@ h3 {
     font-size: 0.9em;
   }
   h2 span {
-    font-size: 0.6em;
+    font-size: 0.7em;
   }
-  // Show Compact View ...
-  // Or make Font Size smaller, or hide Fact in Middle ...
-  // May also make Button Size smaller
+  .-supporters {
+    display: none;
+  }
   @container widget-container (min-width: 320px) {
-    // Show Full View ...
+    span {
+      font-size: 0.8em;
+    }
+    h2 span {
+      font-size: 0.6em;
+    }
+    .-supporters {
+      display: block;
+    }
   }
 }
 
 #button {
   margin-top: 1.2rem;
-  font-size: 1.2em;
   padding: 0.8em;
+  font-size: 1.0em;
 }
