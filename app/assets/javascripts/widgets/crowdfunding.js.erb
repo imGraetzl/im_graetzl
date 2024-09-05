@@ -15,7 +15,7 @@
 
   template.innerHTML = 
   `
-    <link rel="stylesheet" id="style" href="" />
+    <link rel="stylesheet" id="style" href="${static_asset_url}/widgets/crowdfunding.css" />
     <div class="crowdfunding-widget" id="crowdfunding-widget">
       <div class="header">
         <h2 class="title"><a id="host_name" href="" target="_blank"></a></h2>
@@ -69,7 +69,6 @@
       xhr.send(null);
       let response = JSON.parse(xhr.responseText);
 
-      this._shadowRoot.querySelector('#style').href = `${static_asset_url}/widgets/crowdfunding.css`;
       this._shadowRoot.querySelector('#host_name').innerHTML = `- Crowdfunding -`;
       this._shadowRoot.querySelector('#host_name').href = response.href;
       this._shadowRoot.querySelector('#image').src = response.image;
