@@ -19,6 +19,9 @@
 //---------------------------------------------------------------------------------------------*\
 // WIDGET OVERRIDE STYLES
 //---------------------------------------------------------------------------------------------*/
+:host {
+  font-size: 62.5%;
+}
 
 * {
   box-sizing: border-box;
@@ -34,7 +37,7 @@ img {
   container: widget-container / inline-size;
   font-family: $font-primary;
   color: $color-font-primary;
-  font-size: 1.2rem;
+  font-size: 1.8em;
   background-color: #eaf2f4;
   padding: 1rem;
   border-radius: 8px;
@@ -57,10 +60,12 @@ h1 {
   font-weight: normal;
   margin-bottom: 1.0rem;
   line-height: 1.0;
+  font-size: 2.2em;
 }
 
 h2 {
   margin-bottom: 0.2rem;
+  font-size: 1.4em;
 }
 
 h3 {
@@ -75,7 +80,7 @@ h3 {
     font-style: inherit;
     display: inline-table;
     font-weight: 100;
-    font-size: 1.6rem;
+    font-size: 1.4em;
     margin-bottom: 0.5rem;
     a {
       color: white;
@@ -103,7 +108,10 @@ h3 {
 
 .fundingStats {
   span {
-    font-size: 0.9rem;
+    font-size: 0.9em;
+  }
+  h2 span {
+    font-size: 0.6em;
   }
   // Show Compact View ...
   // Or make Font Size smaller, or hide Fact in Middle ...
@@ -115,4 +123,6 @@ h3 {
 
 #button {
   margin-top: 1.2rem;
+  font-size: 1.2em;
+  padding: 0.8em;
 }
