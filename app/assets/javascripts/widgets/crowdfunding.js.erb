@@ -10,6 +10,7 @@
 
 (function() {
   const root_url = '<%= Rails.application.routes.url_helpers.root_url(host: welocally_platform_host) %>';
+  const static_asset_url = '<%= Rails.application.routes.url_helpers.static_asset_url(host: welocally_platform_host) %>';
   const template = document.createElement('template');
 
   template.innerHTML = 
@@ -46,7 +47,7 @@
       super();
 
       const font = document.createElement("link");
-      font.href = `${root_url}/assets/widgets/fonts.css`;
+      font.href = `${static_asset_url}/widgets/fonts.css`;
       font.classList.add('crowdfunding-widget-fonts');
       font.rel = "stylesheet";
       font.crossorigin = true;
@@ -68,7 +69,7 @@
       xhr.send(null);
       let response = JSON.parse(xhr.responseText);
 
-      this._shadowRoot.querySelector('#style').href = `${root_url}/assets/widgets/crowdfunding.css`;
+      this._shadowRoot.querySelector('#style').href = `${static_asset_url}/widgets/crowdfunding.css`;
       this._shadowRoot.querySelector('#host_name').innerHTML = `- Crowdfunding -`;
       this._shadowRoot.querySelector('#host_name').href = response.href;
       this._shadowRoot.querySelector('#image').src = response.image;
