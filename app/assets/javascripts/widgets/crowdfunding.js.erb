@@ -1,0 +1,245 @@
+<%
+  def welocally_platform_host
+    if Rails.env.production?
+      "www.#{Rails.application.config.welocally_host}"
+    else
+      Rails.application.config.welocally_host
+    end
+  end
+%>
+
+(function() {
+  const root_url = '<%= Rails.application.routes.url_helpers.root_url(host: welocally_platform_host) %>';
+  const static_asset_url = '<%= Rails.application.routes.url_helpers.static_asset_url(host: welocally_platform_host) %>';
+  const template = document.createElement('template');
+
+  template.innerHTML = 
+  `
+    <link rel="stylesheet" id="style" href="${static_asset_url}/widgets/crowdfunding.css" />
+    <div class="crowdfunding-widget" id="crowdfunding-widget">
+      <div class="crowdfunding-widget-inner">
+        <div class="header">
+          <h2 class="title"><a id="host_name" href="" target="_blank"></a></h2>
+        </div>
+        
+        <h1><a id="title" href="" target="_blank"></a></h1>
+        <p id="slogan"></p>
+        <a id="image_href" class="coverImg" href="" target="_blank">
+          <img id="image" src="" loading="lazy" class="titleImg" width="980" height="400" style="width:100%; height:auto;">
+        </a>
+        <div id="fundingBar" class="fundingBar"></div>
+        <div id="fundingStats" class="fundingStats">
+          <div class="left -amount">
+            <h2><strong id="funding_sum"></strong><span class="full-view -percent funding_percentage"></span></h2>
+            <span id="funding_subtitle" class="full-view"></span>
+            <small class="compact-view funding_percentage"></small>
+          </div>
+          <div class="middle -supporters">
+            <h2 id="pledges_and_donations_count"></h2>
+            <span>Unterstützer<wbr>Innen</span>
+          </div>
+          <div id="remaining_stats" class="right -ending"></div>
+        </div>
+        <a id="button" class="btn-primary -rose -shadow -small" href="" target="_blank" style="display:none;">Dieses Projekt unterstützen!</a>
+      </div>
+    </div>  `
+
+  class CrowdfundingProject extends HTMLElement {
+    constructor() {
+      super();
+
+      const font = document.createElement("link");
+      font.href = `${static_asset_url}/widgets/fonts.css`;
+      font.classList.add('crowdfunding-widget-fonts');
+      font.rel = "stylesheet";
+      font.crossorigin = true;
+      const welocallyFonts = document.querySelector('.crowdfunding-widget-fonts');
+
+      if (!welocallyFonts) {
+        document.head.appendChild(font);
+      }
+
+      this._shadowRoot = this.attachShadow({ 'mode': 'closed' });
+      this._shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+
+    connectedCallback() {
+
+      let xhr = new XMLHttpRequest();
+      const url = `${root_url}/widgets/cf/${this.slug}.json`;
+      xhr.open("GET", url, false);
+      xhr.send(null);
+      let response = JSON.parse(xhr.responseText);
+
+      this._shadowRoot.querySelector('#host_name').innerHTML = `- Crowdfunding -`;
+      this._shadowRoot.querySelector('#host_name').href = response.href;
+      this._shadowRoot.querySelector('#image').src = response.image;
+      this._shadowRoot.querySelector('#image_href').href = response.href;
+      this._shadowRoot.querySelector('#title').href = response.href;
+      this._shadowRoot.querySelector('#title').innerHTML = response.title;
+      this._shadowRoot.querySelector('#slogan').innerHTML = response.slogan;
+
+      let funding_subtitle = "Erreichte Fundingsumme";
+      let funding_track1_percentage, funding_track2_percentage, funding_track3_percentage, funding_point1_position
+
+      // ----------- Insert Button -----------
+      if (!response.completed) {
+        this._shadowRoot.querySelector('#button').href = response.href;
+        this._shadowRoot.querySelector('#button').style = "display:block;";
+      }
+
+      // ----------- Insert FundingBar Variants -----------
+
+      // Completed & Goal 1 Reached
+      if (response.completed && response.goal_1_reached) {
+
+        funding_track1_percentage = (response.funding_1_amount / response.funding_sum) * 100;
+        funding_track2_percentage = 100 - funding_track1_percentage;
+
+        this._shadowRoot.querySelector('#fundingBar').innerHTML = `
+          <div class="fundingBar_track fundingBar_track-1st" style="width:${funding_track1_percentage}%">
+            <div class="fundingBar_bar"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-success -first"></div>
+          <div class="fundingBar_track fundingBar_track-2nd" style="width:${funding_track2_percentage}%">
+            <div class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
+          </div>`
+
+      // Completed & Goal 2 Reached
+      } else if (response.completed && response.goal_2_reached) {
+
+        funding_track1_percentage = (response.funding_1_amount / response.funding_sum) * 100;
+        funding_track2_percentage = ((response.funding_2_amount / response.funding_sum) * 100) - funding_track1_percentage;
+        funding_track3_percentage = 100 - funding_track1_percentage - funding_track2_percentage;
+
+        this._shadowRoot.querySelector('#fundingBar').innerHTML = `
+          <div class="fundingBar_track fundingBar_track-1st" style="width:${funding_track1_percentage}%">
+            <div class="fundingBar_bar"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-success -first"></div>
+          <div class="fundingBar_track fundingBar_track-2nd" style="width:${funding_track2_percentage}%">
+            <div class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-success"></div>
+          <div class="fundingBar_track fundingBar_track-2nd" style="width:${funding_track3_percentage}%">
+            <div class="fundingBar_bar" style="width: calc(${response.funding_bar_percentage}% + 0.5em);"></div>
+          </div>`
+
+      // Completed & Not Funded
+      } else if (response.completed && response.not_funded) {
+
+        this._shadowRoot.querySelector('#fundingBar').innerHTML = `
+          <div class="fundingBar_track fundingBar_track-finished">
+            <div class="fundingBar_bar fundingBar_bar-unsuccessful" style="width:${response.funding_bar_percentage}%;"></div>
+          </div>
+          <div class="fundingBar_target"></div>`
+
+      // Funding 1
+      } else if (response.funding_1) {
+
+        funding_subtitle = `Mindestziel: ${response.funding_1_amount_readable}`;
+
+        this._shadowRoot.querySelector('#fundingBar').innerHTML = `
+          <div class="fundingBar_track fundingBar_track-only">
+            <div class="fundingBar_bar" style="width:${response.funding_bar_percentage}%;"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-animated"></div>
+          <div class="fundingBar_track"></div>`
+
+      // Over_Funding 1
+      } else if (response.over_funding_1) {
+
+        funding_subtitle = `Mindestziel: ${response.funding_1_amount_readable}`;
+        funding_track1_percentage = (response.funding_1_amount / response.funding_sum) * 100;
+        funding_track2_percentage = 100 - funding_track1_percentage;
+        funding_track2_percentage = (funding_track2_percentage < 10) ? 10 : funding_track2_percentage;
+        funding_point1_position = (funding_track2_percentage <= 10) ? funding_track1_percentage - funding_track2_percentage : funding_track1_percentage;
+
+        this._shadowRoot.querySelector('#fundingBar').innerHTML = `
+          <div class="fundingBar_track fundingBar_track-only" style="width:${funding_track1_percentage}%;">
+            <div class="fundingBar_bar" style="width:100%;"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-animated -absolute -first" style="left:calc(${funding_point1_position}% - 0.5em);"></div>
+          <div class="fundingBar_track fundingBar_track-2nd" style="width:${funding_track2_percentage}%">
+            <div class="fundingBar_bar" style="width:${response.funding_bar_percentage}%;"></div>
+          </div>`
+
+      // Funding 2
+      } else if (response.funding_2) {
+
+        funding_subtitle = `Optimalbetrag: ${response.funding_2_amount_readable}`;
+        funding_track1_percentage = (response.funding_1_amount / response.funding_2_amount) * 100;
+        funding_track2_percentage = 100 - funding_track1_percentage;
+
+        this._shadowRoot.querySelector('#fundingBar').innerHTML = `
+          <div class="fundingBar_track fundingBar_track-1st" style="width:${funding_track1_percentage}%;">
+            <div class="fundingBar_bar"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-success -first"></div>
+          <div class="fundingBar_track fundingBar_track-2nd" style="width:${funding_track2_percentage}%">
+            <div class="fundingBar_bar" style="width: calc(${response.funding_bar_percentage}% + 0.5em);"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-animated"></div>
+          <div class="fundingBar_track"></div>`
+
+      // Over_Funding 2
+      } else if (response.over_funding_2) {
+
+        funding_subtitle = `Optimalbetrag: ${response.funding_2_amount_readable}`;
+        funding_track1_percentage = (response.funding_1_amount / response.funding_sum) * 100;
+        funding_track2_percentage = ((response.funding_2_amount / response.funding_sum) * 100)  - funding_track1_percentage;
+        funding_track3_percentage = 100 - funding_track1_percentage - funding_track2_percentage;
+        funding_track3_percentage = funding_track3_percentage < 10 ? 10 : funding_track3_percentage;
+        funding_point1_position = funding_track1_percentage;
+
+        this._shadowRoot.querySelector('#fundingBar').innerHTML = `
+          <div class="fundingBar_track fundingBar_track-1st" style="width:${funding_track1_percentage}%">
+            <div class="fundingBar_bar"></div>
+          </div>
+          <div class="fundingBar_target fundingBar_target-success -absolute -first" style="left:${funding_point1_position}%;"></div>
+          <div class="fundingBar_track fundingBar_track-2nd" style="width:${funding_track2_percentage}%">
+            <div class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
+            <div class="fundingBar_target fundingBar_target-animated -absolute" style="right:0%;"></div>
+          </div>
+          <div class="fundingBar_track fundingBar_track-2nd" style="width:${funding_track3_percentage}%">
+            <div class="fundingBar_bar" style="width:${response.funding_bar_percentage}%;"></div>
+          </div>`
+
+      }
+
+      // ----------- Insert FundingStats -----------
+      this._shadowRoot.querySelector('#funding_sum').innerHTML = response.funding_sum_readable;
+      this._shadowRoot.querySelector('.funding_percentage').innerHTML = `(${response.funding_percentage}%)`;
+      this._shadowRoot.querySelector('#funding_subtitle').innerHTML = funding_subtitle;
+      this._shadowRoot.querySelector('#pledges_and_donations_count').innerHTML = response.pledges_and_donations_count;
+      
+      if (response.completed && response.successful) {
+        this._shadowRoot.querySelector('#remaining_stats').innerHTML = 
+          `<h2 class="success">
+            <svg id="icon-check" class="icon" viewBox="0 0 512 512">
+              <path d="m454 149c-4-5-6-12-10-16c-2-7-6-11-7-18c-4-5-4-15-9-19c-3-2-8-3-12-1c-2-7-6-11-13-12l-5 0c-2 1-3 1-4 2c-6 2-10 7-16 9c-4 4-11 6-14 11c-6 2-9 7-15 10c-4 4-10 7-13 12c-3 0-5 3-8 5c-2 1-4 3-6 6c-4 4-9 7-13 12c-5 4-8 9-12 13c-5 4-10 8-12 14c-17 17-31 37-44 57c-4 4-7 9-10 15c-3 5-8 9-10 15c-8 9-12 22-20 31c-5-10-8-21-15-28c-2-6-4-10-7-15c-3-4-5-10-9-13c-5-10-11-18-18-26c-7-7-13-17-18-25c-3-3-10 0-13-3c-4 0-6-4-12-3c-1 2-6 1-7 3c-3 1-3 4-6 5c-4 3-10 5-13 9c-11 4-23 7-30 15c0 2 1 4-1 4c2 18 10 29 17 40l0 8c3 1 4 4 5 7c2 2 6 3 7 6c2 11 9 18 11 29c3 5 9-1 10 5c11 19 22 39 34 57c2 6 5 11 7 16c4 5 6 11 10 15c3 5 6 10 10 14c3 5 5 11 12 12c13 2 15-6 21-10c3-8 10-12 13-20c9-12 17-26 28-36c10-12 19-25 29-36c7-9 16-15 23-24c5-2 5-7 10-7c10-12 23-21 34-31c11-11 23-20 34-30c5-6 11-11 16-16c7-4 12-11 20-13c10-11 27-16 39-26c4 0 9 0 12-1c0-2 2-3 3-4c2-1 1-5 3-5c0-9-5-12-6-19z m-275 180c-2 3-3 6-5 8c1 7-2 10-1 16c-3-3-1-11-2-16c-2-3-1-8-4-9c-4-1-5 1-7 3c-3 1 0 7-4 6c1-21-1-30 0-56c-2-6-2-13-9-14c-7 0-8 7-10 13c-2 6-2 14-3 21c-3-2-3-6-5-9c1-18 2-37 2-56c-1 0-1 0-1-1c-2-3-12-4-15-1c-3-4 2-9 0-15c5 0 4 6 6 9c3 3 9 2 9 7c1 0 1 0 1 1c14 15 25 31 34 50c-1 4 6-1 5 3c5 11 9 23 15 33c-1 4-4 5-6 7z m9 58c0 2-1 2-1 4c-3 0-2-4 1-4c0-1 2 0 0 0z m4-3c-1-1 1-2 1-2c1 1-1 2-1 2z m23-34c-2 3-6 5-7 9c-6 6-11 13-13 22c-4-1-1-7 0-10l0-31c-1-5-2-8-3-12c5 0 5-4 7-6c4-2 4-5 6-8c6-3 9-8 13-13c3 1-1 5 0 7l0 21c0 6 5 6 6 11c-4 2-6 6-9 10z m44-49c-3 2-5 4-7 7c-4 1-3 6-8 6c0-13 2-28-3-36c3-7 8-10 13-15c4-5 8-9 12-14c1-1 2 0 2 1c-1 8-4 14-4 23c1 5 3 9 7 11c-3 6-8 11-12 17z m151-136c-13 4-22 13-33 20c-10 8-19 16-28 25c-2-2-1-6-4-8c-6 2-7 9-7 17c-2 3-4 6-7 8c-4 1-4 6-9 6c0-7-1-12-6-14c-11 1-10 13-13 21l0 10c-1 5-6 5-7 9c-3 0-4 2-5 4c-2-1-3 5-4 1c-1-10 4-28-7-29c8-13 17-24 28-35c3-7 10-11 14-17c5-6 10-11 16-16c11-10 23-19 34-29c6-5 13-9 19-14c6-4 13-7 18-12l3 0c2 16 9 26 14 39c-7 3-12 8-16 14z"></path>
+            </svg>
+          </h2>
+          <span class="full-view compact-view">Erfolgreich beendet</span>`
+
+      } else if (response.completed) {
+        this._shadowRoot.querySelector('#remaining_stats').innerHTML = 
+          `<h2></h2>
+          <span class="full-view compact-view">Kampagne beendet</span>`
+      } else {
+        this._shadowRoot.querySelector('#remaining_stats').innerHTML = 
+          `<h2>${response.campaign_remaining_time_number}</h2>
+          <span class="full-view compact-view">${response.campaign_remaining_time_unit}</span>`
+      }
+
+    }
+
+    get slug() {
+      return this.getAttribute('slug');
+    }
+
+  }
+
+  window.customElements.define('crowdfunding-project', CrowdfundingProject);
+
+})();

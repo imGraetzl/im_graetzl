@@ -1,0 +1,154 @@
+//---------------------------------------------------------------------------------------------*\
+// UTILS
+//---------------------------------------------------------------------------------------------*/
+
+@import "utils/variables";
+@import "utils/mixins";
+@import "utils/include-media";
+
+//---------------------------------------------------------------------------------------------*\
+// COMPONENTS
+//---------------------------------------------------------------------------------------------*/
+
+@mixin font-size-primaryFont($size: 'base') {}
+@mixin font-size-secondaryFont($size: 'base') {}
+@import "components/headlineBarbapapa";
+@import "components/buttons";
+@import "components/fundingBar";
+
+//---------------------------------------------------------------------------------------------*\
+// WIDGET OVERRIDE STYLES
+//---------------------------------------------------------------------------------------------*/
+:host {
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border: 0;
+}
+
+.crowdfunding-widget {
+  container: widget-container / inline-size;
+  //background-color: #eaf2f4;
+  background-color: var(--crowdfunding-widget_bg-color, #eaf2f4); 
+  color: $color-font-primary;
+  font-family: $font-primary;
+  padding: 0.8rem;
+  border-radius: 8px;
+}
+.crowdfunding-widget-inner {
+  font-size: 1.6em;
+  @container widget-container (min-width: 350px) {
+    font-size: 1.8em;
+  }
+  @container widget-container (min-width: 750px) {
+    font-size: 2.0em;
+  }
+}
+
+a {
+  color: $color-font-primary;
+  text-decoration: none;
+}
+
+p {
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: $font-secondary;
+  text-align: center;
+  font-weight: normal;
+  margin-bottom: 1.0rem;
+  line-height: 1.0;
+  font-size: 2.0em;
+  @container widget-container (min-width: 350px) {
+    font-size: 2.2em;
+  }
+  @container widget-container (min-width: 750px) {
+    font-size: 2.4em;
+  }
+}
+
+h2 {
+  margin-bottom: 0.2rem;
+  font-size: 1.3em;
+  @container widget-container (min-width: 350px) {
+    font-size: 1.4em;
+  }
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+}
+
+.header {
+  text-align: center;
+  h2 {
+    @include headlineBarbapapa();
+    @include textShadowHard($color-ambient-rosa-dark);
+    font-style: inherit;
+    display: inline-table;
+    font-weight: 100;
+    margin-bottom: 0.5rem;
+    font-size: 1.4em;
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+.titleImg {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.2rem;
+}
+
+.icon {
+  height: 28px;
+  width: 28px;
+  fill: currentColor;
+  display: inline;
+}
+
+.fundingBar {
+  background-color: rgba($color-ambient-mint, 0.2);
+}
+
+.fundingStats {
+  span {
+    font-size: 0.9em;
+  }
+  h2 span {
+    font-size: 0.7em;
+  }
+  .-supporters {
+    display: none;
+  }
+  @container widget-container (min-width: 350px) {
+    span {
+      font-size: 0.8em;
+    }
+    h2 span {
+      font-size: 0.6em;
+    }
+    .-supporters {
+      display: block;
+    }
+  }
+}
+
+#button {
+  margin-top: 1.2rem;
+  padding: 0.8em;
+  font-size: 1.0em;
+}

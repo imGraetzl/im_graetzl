@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   get 'andocken' => 'region_calls#call'
   post 'andocken' => 'region_calls#create'
 
+  # Widgets
+  get "/static-assets(/*path)", to: 'triage#static_asset', format: '', as: 'static_asset'
+  get "widgets/cf/:id", to: 'widgets#crowdfunding', as: :crowdfunding_widget
+
   ActiveAdmin.routes(self)
 
   if Rails.configuration.upload_server == :s3
