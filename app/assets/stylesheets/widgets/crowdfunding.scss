@@ -35,10 +35,11 @@ img {
 
 .crowdfunding-widget {
   container: widget-container / inline-size;
-  background-color: #eaf2f4;
+  //background-color: #eaf2f4;
+  background-color: var(--crowdfunding-widget_bg-color, #eaf2f4); 
   color: $color-font-primary;
   font-family: $font-primary;
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: 8px;
 }
 .crowdfunding-widget-inner {
