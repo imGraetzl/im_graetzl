@@ -43,10 +43,10 @@ img {
 }
 .crowdfunding-widget-inner {
   font-size: 1.6em;
-  @container widget-container (min-width: 320px) {
+  @container widget-container (min-width: 350px) {
     font-size: 1.8em;
   }
-  @container widget-container (min-width: 760px) {
+  @container widget-container (min-width: 750px) {
     font-size: 2.0em;
   }
 }
@@ -69,10 +69,10 @@ h1 {
   margin-bottom: 1.0rem;
   line-height: 1.0;
   font-size: 2.0em;
-  @container widget-container (min-width: 320px) {
+  @container widget-container (min-width: 350px) {
     font-size: 2.2em;
   }
-  @container widget-container (min-width: 760px) {
+  @container widget-container (min-width: 750px) {
     font-size: 2.4em;
   }
 }
@@ -80,7 +80,7 @@ h1 {
 h2 {
   margin-bottom: 0.2rem;
   font-size: 1.3em;
-  @container widget-container (min-width: 320px) {
+  @container widget-container (min-width: 350px) {
     font-size: 1.4em;
   }
 }
@@ -133,7 +133,7 @@ h3 {
   .-supporters {
     display: none;
   }
-  @container widget-container (min-width: 320px) {
+  @container widget-container (min-width: 350px) {
     span {
       font-size: 0.8em;
     }
