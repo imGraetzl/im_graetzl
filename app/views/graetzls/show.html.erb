@@ -8,14 +8,7 @@
   )
 %>
 
-<% if current_region.hot_august? %>
-  <div id="betaflash">
-    „Hot August” für den RaumBooster - <%= link_to 'Mach mit', '/raumbooster' %>!
-    <%= link_to 'javascript:', class: 'close-ico' do %>
-      <%= icon_tag "cross" %>
-    <% end %>
-  </div>
-<% elsif current_region.is?('wien') && user_signed_in? && current_user.show_subscription_hint? %>
+<% if current_region.is?('wien') && user_signed_in? && current_user.show_subscription_hint? %>
   <div id="betaflash">
     Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_url %>!
     <%= link_to 'javascript:', class: 'close-ico' do %>
@@ -54,9 +47,7 @@
       <div class="card-grid" data-behavior="activities-card-container"></div>
       
       <!-- Insert Featured Card -->
-      <% if current_region.hot_august? %>
-        <%= render 'shared/featured_cards/crowd_booster' %>
-      <% elsif current_region.crowdfunding_call? %>
+      <% if current_region.crowdfunding_call? %>
         <%= render 'shared/featured_cards/crowdfunding_call' %>
       <% elsif current_region.is?('wien') %>
         <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>

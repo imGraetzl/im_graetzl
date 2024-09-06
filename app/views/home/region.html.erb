@@ -8,9 +8,9 @@
   )
 %>
 
-<% if current_region.hot_august? %>
+<% if current_region.crowdfunding_call? %>
   <div id="betaflash">
-    „Hot August” für den RaumBooster - <%= link_to 'Mach mit', '/raumbooster' %>!
+    Noch bis 22. Sep - <%= link_to 'Crowdfunding Call', start_crowd_campaigns_path %> - Mach mit!
     <%= link_to 'javascript:', class: 'close-ico' do %>
       <%= icon_tag "cross" %>
     <% end %>

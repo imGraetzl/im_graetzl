@@ -4,4 +4,8 @@ class GoingToMailerPreview < ActionMailer::Preview
     GoingToMailer.going_to_reminder(GoingTo.last)
   end
 
+  def good_morning_date_charge_reminder
+    GoingToMailer.good_morning_date_charge_reminder(GoingTo.last)
+  end
+
 end

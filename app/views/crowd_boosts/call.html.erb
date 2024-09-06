@@ -34,50 +34,6 @@
     </div>
   </div>
 
-  <% if current_region.hot_august? %>
-  <!-- HOT AUGUST -->
-  <div class="content-wide">
-    <div class="wrp-inner">
-      <div class="hl-subtext">
-        <h1><em>Hot August</em> - Alles muss raus :)</h1>
-        <p>Gemeinsam füllen wir ab August den RaumBooster, um mehr Raum zu schaffen – von lokalen Macher*innen für lokale Macher*innen. Wählt einfach aus den verschiedenen Möglichkeiten aus!</p>
-      </div>
-      
-      <div class="cardBoxCollection -tripple">
-
-        <div class="paperCard -illuteaser -zuckerl -cord1RT">
-          <div class="wrp">
-            <h3>Hol dir ein <span>Zuckerl</span> oder pushe deinen <span>Raumteiler</span> nach vorne.</h3>
-            <p>Alle Einnahmen im August landen zu 100% im RaumBooster-Topf.</p>
-            <%= link_to 'Zuckerl vergünstigt im August buchen', zuckerls_user_path, class: 'btn-primary -mint -shadow' %>
-            <%= link_to 'Raumteiler pushen', room_boosters_user_path, class: 'btn-primary -mint -shadow' %>
-          </div>
-          <div class="card"></div>
-        </div>
-
-        <div class="paperCard -illuteaser -good-morning-date -cord1RT">
-          <div class="wrp">
-            <h3>Komm zu einem <span>Good Morning Date</span> im Herbst!</h3>
-            <p>Wenn du kannst, lege dort 5 € in den RaumBooster Hut, den die Gastgeber*innen beim Treffen aufstellen – als Dankeschön für die Organisation.</p>
-            <%= link_to 'Termin Übersicht', good_morning_dates_path, class: 'btn-primary -mint -shadow' %>
-          </div>
-          <div class="card"></div>
-        </div>
-
-        <div class="paperCard -illuteaser -favorites -cord1RT">
-          <div class="wrp">
-            <h3><span>Unterstütze direkt</span> den RaumBooster-Topf.</h3>
-            <p>Du kannst natürlich auch direkt einen Betrag deiner Wahl in den Topf einzahlen, jeder Beitrag schafft neuen Raum!</p>
-            <%= link_to 'Direkt einzahlen', new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: 'btn-primary -mint -shadow' %>
-          </div>
-          <div class="card"></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <% else %>
-  <!-- HOT AUGUST ENDE -->
   <div class="content-wide">
     <div class="wrp-inner">
       <div class="hl-subtext">
@@ -104,10 +60,6 @@
       </div>
     </div>
   </div>
-  <% end %>
-
-  
-
 
   <div class="toggle-container">
     <div class="content-block -toggable">
