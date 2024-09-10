@@ -19,6 +19,7 @@ namespace :db do
     # 3.) Delete all OLD Notifications (also Web) after 2 weeks
     Notification.where(sent: true, display_on_website: false).delete_all
     Notification.where('notify_at < ?', 7.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: false).delete_all
+    Notification.where(type: "Notifications::NewMeeting").where('notify_before < ?', Date.today).delete_all
     Notification.where('notify_at < ?', 14.days.ago).delete_all
 
 
