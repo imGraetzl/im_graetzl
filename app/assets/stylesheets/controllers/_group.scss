@@ -139,23 +139,8 @@
     @include respond-to("<=medium") {
       flex-wrap: wrap;
     }
-
     .main {
       width:100%;
-    }
-    .side {
-      @include respond-to("<=medium") {
-        width:100%;
-      }
-    }
-    .side > div {
-      margin-left:40px;
-      margin-bottom:30px;
-      width:260px;
-      @include respond-to("<=medium") {
-        margin-left:0px;
-        width:100%;
-      }
     }
   }
   .discussions {

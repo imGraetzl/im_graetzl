@@ -5,6 +5,7 @@ context.instance_eval do
         attributes_table_for coop_demand do
           row :id
           row(:status){|r| status_tag(r.status)}
+          row(:entire_region){|r| status_tag(r.entire_region)}
           row :coop_type
           row :coop_demand_category
           row :slogan

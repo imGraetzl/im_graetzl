@@ -8,6 +8,15 @@
   )
 %>
 
+<% if current_region.crowdfunding_call? %>
+  <div id="betaflash">
+    Noch bis 22. Sep - <%= link_to 'Crowdfunding Call', start_crowd_campaigns_path %> - Mach mit!
+    <%= link_to 'javascript:', class: 'close-ico' do %>
+      <%= icon_tag "cross" %>
+    <% end %>
+  </div>
+<% end %>
+
 <section class="region -overview">
 
   <%= render 'map' %>
@@ -29,9 +38,7 @@
       <%= render 'regions/action_card' if !user_signed_in? %>
     </div>
     <!-- Insert Featured Card -->
-    <% if current_region.hot_august? %>
-      <%= render 'shared/featured_cards/crowd_booster' %>
-    <% elsif current_region.crowdfunding_call? %>
+    <% if current_region.crowdfunding_call? %>
       <%= render 'shared/featured_cards/crowdfunding_call' %>
     <% elsif current_region.is?('wien') %>
       <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>

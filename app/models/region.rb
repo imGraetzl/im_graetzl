@@ -53,7 +53,6 @@ class Region
 
   def hot_august?
     self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
-    #Rails.env.development? || Rails.env.staging? || (self.is?('wien') && Date.today.to_datetime.between?('2024-07-31', '2024-08-31'))
   end
 
   def crowdfunding_call?

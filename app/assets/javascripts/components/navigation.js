@@ -61,7 +61,7 @@ APP.components.headerNavigation = (function() {
     var notificationFetch = container.find("#notifications-fetch");
     var notificationCounter = container.find("#notifications-count");
     if (notificationCounter.length) {
-      setInterval(fetchNotificationCount, APP.config.notificationPollInterval);
+       setInterval(fetchNotificationCount, APP.config.notificationPollInterval);
     }
 
     container.find(".nav-user-notification-link").on("click", function() {

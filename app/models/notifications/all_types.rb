@@ -10,7 +10,6 @@ module Notifications
     CommentOnDiscussionPost,
     MeetingUpdated,
     NewGroupDiscussion,
-    NewGroupMeeting,
     NewGroupPost,
     NewLocation,
     NewLocationPost,

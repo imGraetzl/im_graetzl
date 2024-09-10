@@ -56,7 +56,6 @@ ActiveAdmin.register User, as: "User Notification Settings" do
     column(:meeting_attendee) { |u| u.enabled_mail_notification(Notifications::MeetingAttended) }
     column(:meeting_updated) { |u| u.enabled_mail_notification(Notifications::MeetingUpdated) }
     column(:new_group_discussion) { |u| u.enabled_mail_notification(Notifications::NewGroupDiscussion) }
-    column(:new_group_meeting) { |u| u.enabled_mail_notification(Notifications::NewGroupMeeting) }
     column(:new_group_post) { |u| u.enabled_mail_notification(Notifications::NewGroupPost) }
     column(:new_crowd_campaign) { |u| u.enabled_mail_notification(Notifications::NewCrowdCampaign) }
   end

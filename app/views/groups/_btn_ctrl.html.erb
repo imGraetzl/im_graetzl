@@ -9,12 +9,6 @@
         <%= icon_tag "layout-document" %>
         <div class="icontxt">Neues Thema erstellen</div>
       <% end %>
-      <% if !@group.default_joined? %>
-        <%= link_to new_meeting_path(group_id: @group.id) do %>
-          <%= icon_tag "calendar-2" %>
-          <div class="icontxt">Neues Gruppentreffen</div>
-        <% end %>
-      <% end %>
     </div>
   <% end %>
 

@@ -52,16 +52,6 @@
       <%= meeting_place @meeting %>
     </div>
 
-    <% if @meeting.group.present? %>
-      <div class="ico-row">
-        <%= image_tag cover_url(@meeting.group, :thumb), class: 'location avatar img-square' %>
-        <div class="infotxt">
-          <em class="info">Gruppe:</em><br>
-          <span><%= link_to @meeting.group.title, @meeting.group, class: 'infolink' %></span>
-        </div>
-      </div>
-    <% end %>
-
     <div class="ico-row userPortraitName">
       <% if @meeting.location&.owned_by?(@meeting.user) %>
         <%= avatar_image_with_tooltip @meeting.location, size: :thumb, class: 'img-square show-badge' %>

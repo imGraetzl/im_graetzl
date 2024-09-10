@@ -20,16 +20,6 @@
       <%= f.text_area :description, placeholder: 'Beschreibe kurz, um was es bei deinem Treffen geht.' %>
     </div>
 
-    <% if @meeting.group.present? || (current_user.groups.present? && params[:group_id].present?) %>
-      <div class="input-select">
-        <%= f.label :group_id do %>
-          <%= icon_tag "speech-bubble" %>
-          <span>Gruppe verbinden</span>
-        <% end %>
-        <%= f.collection_select(:group_id, current_user.groups, :id, :title, { :id => 'meeting-group-select', :include_blank => 'Gruppe auswählen..'}) %>
-      </div>
-    <% end %>
-
     <% if user_locations.present? %>
       <div class="input-select">
         <%= f.label :location_id do %>
