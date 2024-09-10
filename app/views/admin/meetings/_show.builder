@@ -23,7 +23,6 @@ context.instance_eval do
           row :created_at
           row :last_activated_at
           row :location
-          row :group
           row :user
           row :description
           row :starts_at_date

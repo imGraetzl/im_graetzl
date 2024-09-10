@@ -11,12 +11,6 @@
 
     </div>
 
-    <div class="side">
-      <% if @group.readable_by?(current_user) && @group.next_meeting.present? %>
-        <%= render @group.next_meeting %>
-      <% end %>
-    </div>
-
   </div>
 
   <div class="group-member-section">

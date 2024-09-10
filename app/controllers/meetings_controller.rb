@@ -5,7 +5,6 @@ class MeetingsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @meetings = collection_scope.in(current_region).include_for_box
     @meetings = filter_collection(@meetings)
-    @meetings = @meetings.visible_to(current_user)
     @meetings = @meetings.by_currentness.page(params[:page]).per(params[:per_page] || 30)
     @meetings = @meetings.upcoming if params[:upcoming]
     @meetings = @meetings.past if params[:past]
@@ -20,7 +19,7 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    @meeting = current_user.initiated_meetings.build(group_id: params[:group_id], location_id: params[:location_id])
+    @meeting = current_user.initiated_meetings.build(location_id: params[:location_id])
     @meeting.graetzl = params[:graetzl_id].present? ? Graetzl.find(params[:graetzl_id]) : user_home_graetzl
   end
 
@@ -146,8 +145,6 @@ class MeetingsController < ApplicationController
       Meeting.where(graetzl_id: district.graetzl_ids)
     elsif params[:initiated_user_id].present?
       Meeting.where(user_id: params[:initiated_user_id])
-    elsif params[:group_id].present?
-      Meeting.where(group_id: params[:group_id])
     elsif params[:attended_user_id].present?
       user = User.find(params[:attended_user_id])
       user.attended_meetings
@@ -169,7 +166,6 @@ class MeetingsController < ApplicationController
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if params[:favorites].present? && current_user
       favorite_ids = current_user.followed_graetzl_ids
-      #meetings = meetings.where(graetzl_id: favorite_ids)
       meetings = meetings.where(graetzl_id: favorite_ids).or(meetings.entire_region)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.entire_region)
@@ -186,7 +182,7 @@ class MeetingsController < ApplicationController
 
   def meeting_params
     list_params_allowed = [
-      :graetzl_id, :group_id, :location_id, :poll_id, :name, :description, :max_going_tos,
+      :graetzl_id, :location_id, :poll_id, :name, :description, :max_going_tos,
       :starts_at_date, :ends_at_date, :starts_at_time, :ends_at_time,
       :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,

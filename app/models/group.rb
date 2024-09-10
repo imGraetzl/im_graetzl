@@ -30,8 +30,6 @@ class Group < ApplicationRecord
   accepts_nested_attributes_for :group_join_questions, allow_destroy: true, reject_if: :all_blank
   has_many :group_join_requests, -> { includes(:user) }
 
-  has_many :meetings, dependent: :destroy
-
   has_many :group_graetzls
   has_many :graetzls, through: :group_graetzls
   has_many :districts, -> { distinct }, through: :graetzls
@@ -64,10 +62,6 @@ class Group < ApplicationRecord
   def last_active_members(size)
     user_ids = group_active_members.order("last_activity_at DESC").first(size).pluck(:user_id)
     User.where(id: user_ids)
-  end
-
-  def next_meeting
-    meetings.select{|m| m.starts_at_date >= Date.today}.min_by(&:starts_at_date)
   end
 
   def admin?(user)

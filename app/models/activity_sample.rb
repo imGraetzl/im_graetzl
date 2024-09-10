@@ -8,11 +8,11 @@ class ActivitySample
 
   def meetings
     if @graetzl
-      @graetzl.meetings.in(@current_region).visible_to_all.include_for_box.by_currentness.first(2)
+      @graetzl.meetings.in(@current_region).include_for_box.by_currentness.first(2)
     elsif @district
-      @district.meetings.in(@current_region).visible_to_all.include_for_box.by_currentness.first(2)
+      @district.meetings.in(@current_region).include_for_box.by_currentness.first(2)
     else
-      Meeting.in(@current_region).visible_to_all.include_for_box.by_currentness.first(2)
+      Meeting.in(@current_region).include_for_box.by_currentness.first(2)
     end
   end
 

@@ -1,7 +1,0 @@
-<div class="meetings-section -page">
-
-  <%= form_tag meetings_path(group_id: @group.id, per_page: 9), method: :get, remote: true, id: 'meeting-submit' do; end %>
-  <div class="cardBoxCollection -tripple" data-behavior="meetings-card-container"></div>
-  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
-
-</div>

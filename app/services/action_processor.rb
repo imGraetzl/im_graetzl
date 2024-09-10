@@ -44,63 +44,40 @@ class ActionProcessor
       # Create Activities only for Meetings in the next 8 Weeks (if there is none already)
       # Later ones (2 weeks in future) will be daily created over 'update_meeting_date' rake task
 
-      if subject.public? && subject.entire_region?
+      if subject.entire_region?
         Activity.add_public(subject, to: :entire_region) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
         Notifications::NewMeeting.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id),
           time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
-
-      elsif subject.public?
+      else
         Activity.add_public(subject, to: subject.graetzl) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
         Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
-      elsif subject.group_id
-        Activity.add_personal(subject, group: subject.group) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
-        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
           time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
       end
     
     when [Meeting, :update]
-      if subject.public?
-
-        # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').any?
-          Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
-            notify_at: subject.notification_time_range.first || Time.current,
-            notify_before: subject.notification_time_range.last,
-            sort_date: subject.notification_sort_date,
-          )
-        end
-
-      elsif subject.group_id
-
-        # Update existing Notifications to new Dates
-        if Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').any?
-          Notification.where(subject: subject).where(type: 'Notifications::NewGroupMeeting').update_all(
-            notify_at: subject.notification_time_range.first || Time.current,
-            notify_before: subject.notification_time_range.last,
-            sort_date: subject.notification_sort_date,
-          )
-        end
-        
+      
+      # Update existing Notifications to new Dates
+      if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').any?
+        Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
+          notify_at: subject.notification_time_range.first || Time.current,
+          notify_before: subject.notification_time_range.last,
+          sort_date: subject.notification_sort_date,
+        )
       end
 
     when [Meeting, :attended]
-      if subject.public?
-        if subject.entire_region?
-          Activity.add_public(subject, child, to: :entire_region)
-        else
-          Activity.add_public(subject, child, to: subject.graetzl)
-        end
+      if subject.entire_region?
+        Activity.add_public(subject, child, to: :entire_region)
+      else
+        Activity.add_public(subject, child, to: subject.graetzl)
       end
       Notifications::MeetingAttended.generate(subject, child, to: subject.user_id) if subject.user_id != child.user_id
 
     when [Meeting, :comment]
-      if subject.public?
-        if subject.entire_region?
-          Activity.add_public(subject, child, to: :entire_region)
-        else
-          Activity.add_public(subject, child, to: subject.graetzl)
-        end
+      if subject.entire_region?
+        Activity.add_public(subject, child, to: :entire_region)
+      else
+        Activity.add_public(subject, child, to: subject.graetzl)
       end
       notify_comment(subject, child)
 
