@@ -1,7 +1,7 @@
 var APP = {
 
     config: {
-        notificationPollInterval: 60*1000,
+        notificationPollInterval: 90*1000,
         majorBreakpoints: {
             //breakpoints should be the same like in the file include_media.scss
             //TODO: maybe use one shared JSON config for JS and SASS breakpoints
