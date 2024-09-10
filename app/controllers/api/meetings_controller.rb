@@ -3,9 +3,9 @@ class Api::MeetingsController < Api::ApiController
   def index
 
     if @api_account.full_access?
-      @meetings = Meeting.in(current_region).active.visible_to_all
+      @meetings = Meeting.in(current_region).active
     else
-      @meetings = Meeting.in(current_region).active.visible_to_all.where(approved_for_api: true)
+      @meetings = Meeting.in(current_region).active.where(approved_for_api: true)
     end
 
     # Category ID Filter

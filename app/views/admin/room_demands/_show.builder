@@ -5,6 +5,7 @@ context.instance_eval do
         attributes_table_for room_demand do
           row :id
           row(:status){|r| status_tag(r.status)}
+          row(:entire_region){|r| status_tag(r.entire_region)}
           row :demand_type
           row :slogan
           row :slug

@@ -80,7 +80,7 @@ APP.components.fileUpload = (function() {
       autoProceed: true,
       restrictions: {
         maxFileSize: 5242880,
-        maxNumberOfFiles: 12,
+        maxNumberOfFiles: 8,
         allowedFileTypes: fileInput.attr("accept").split(','),
       },
     })

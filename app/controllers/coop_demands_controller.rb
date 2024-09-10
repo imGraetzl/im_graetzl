@@ -41,7 +41,7 @@ class CoopDemandsController < ApplicationController
 
   def update
     @coop_demand = current_user.coop_demands.find(params[:id])
-
+    
     if @coop_demand.update(coop_demand_params)
       ActionProcessor.track(@coop_demand, :update) if @coop_demand.refresh_activity
       redirect_to @coop_demand
@@ -111,6 +111,7 @@ class CoopDemandsController < ApplicationController
       .require(:coop_demand)
       .permit(
         :coop_type,
+        :entire_region,
         :slogan,
         :demand_description,
         :personal_description,

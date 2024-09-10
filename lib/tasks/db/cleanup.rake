@@ -12,14 +12,16 @@ namespace :db do
     # Delete incomplete OLD Items
     Zuckerl.incomplete.where('created_at < ?', 2.weeks.ago).where(payment_status:nil).destroy_all
     CrowdBoostCharge.general.incomplete.where('created_at < ?', 2.weeks.ago).destroy_all
+    CrowdPledge.incomplete.where(inclomplete_reminder_sent_at: nil).where('created_at < ?', 12.months.ago).destroy_all
 
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web
     # 2.) Delete all OLD Notifications which are not used for Web after 1 week
-    # 3.) Delete all OLD Notifications (also Web) after 3 weeks
+    # 3.) Delete all OLD Notifications (also Web) after 2 weeks
     Notification.where(sent: true, display_on_website: false).delete_all
     Notification.where('notify_at < ?', 7.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: false).delete_all
-    Notification.where('notify_at < ?', 21.days.ago).delete_all
+    Notification.where(type: "Notifications::NewMeeting").where('notify_before < ?', Date.today).delete_all
+    Notification.where('notify_at < ?', 14.days.ago).delete_all
 
 
     # Delete WeLocally Activities after 12 Months and imGraetzl Activities after 6 Months

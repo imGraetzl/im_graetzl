@@ -78,6 +78,7 @@ class RoomDemandsController < ApplicationController
       .require(:room_demand)
       .permit(
         :demand_type,
+        :entire_region,
         :slogan,
         :needed_area,
         :demand_description,

@@ -113,7 +113,6 @@ class NotificationMailer < ApplicationMailer
   }
 
   GROUP_SUMMARY_TYPES = [
-    Notifications::NewGroupMeeting,
     Notifications::NewGroupDiscussion,
     Notifications::NewGroupPost,
     Notifications::CommentOnDiscussionPost,

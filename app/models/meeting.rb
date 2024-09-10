@@ -14,7 +14,6 @@ class Meeting < ApplicationRecord
   belongs_to :poll, optional: true
   belongs_to :location, optional: true
   belongs_to :user, optional: true
-  belongs_to :group, optional: true
   has_and_belongs_to_many :event_categories
 
   has_many :going_tos, dependent: :nullify
@@ -32,7 +31,6 @@ class Meeting < ApplicationRecord
   enum state: { active: 0, disabled: 1 }
 
   scope :entire_region, -> { where(entire_region: true) }
-  scope :non_private, -> { where(private: false) }
   scope :online_meeting, -> { where(online_meeting: true) }
   scope :offline_meeting, -> { where(online_meeting: false) }
   scope :crowdfunding, -> { upcoming.joins(:event_categories).where(event_categories: {id: EventCategory.where("title ILIKE :q", q: "%Crowdfunding%").last}) }
@@ -62,21 +60,7 @@ class Meeting < ApplicationRecord
   validates :max_going_tos, numericality: { greater_than_or_equal_to: 1, :allow_nil => true }
 
   before_validation :set_graetzl
-  before_create :set_privacy
-  #before_create :set_entire_region
   after_create :update_location_activity
-
-  def self.visible_to_all
-    where(private: false)
-  end
-
-  def self.visible_to(user)
-    if user && user.group_ids.present?
-      where(private: false).or(where(group_id: user.group_ids))
-    else
-      where(private: false)
-    end
-  end
 
   def self.include_for_box
     includes(:going_tos, :user, :meeting_additional_dates, location: :user)
@@ -92,10 +76,6 @@ class Meeting < ApplicationRecord
 
   def good_morning_date?
     self.event_categories.map(&:title).any? { |cat| cat.include?('Good Morning Dates') }
-  end
-
-  def public?
-    !private?
   end
 
   def display_starts_at_date
@@ -166,14 +146,6 @@ class Meeting < ApplicationRecord
 
   def set_graetzl
     self.graetzl ||= user&.graetzl
-  end
-
-  def set_privacy
-    self.private = true if group && group.private?
-  end
-
-  def set_entire_region
-    #self.entire_region = (entire_region? || energieteiler?) ? true : false
   end
 
   def update_location_activity

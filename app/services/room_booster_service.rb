@@ -64,11 +64,6 @@ class RoomBoosterService
     true
   end
 
-  def create(room_booster)
-    ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
-    room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
-  end
-
   def start_pending(room_booster)
     room_booster.update(status: 'active')
     room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
