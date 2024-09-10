@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_29_120547) do
+ActiveRecord::Schema.define(version: 2024_09_10_111923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2024_08_29_120547) do
     t.bigint "location_id"
     t.bigint "coop_demand_category_id"
     t.integer "coop_type", default: 0
+    t.boolean "entire_region", default: false, null: false
     t.index ["coop_demand_category_id"], name: "index_coop_demands_on_coop_demand_category_id"
     t.index ["location_id"], name: "index_coop_demands_on_location_id"
     t.index ["region_id"], name: "index_coop_demands_on_region_id"
@@ -1195,6 +1196,7 @@ ActiveRecord::Schema.define(version: 2024_08_29_120547) do
     t.date "last_activated_at"
     t.jsonb "avatar_data"
     t.string "region_id"
+    t.boolean "entire_region", default: false, null: false
     t.index ["location_id"], name: "index_room_demands_on_location_id"
     t.index ["region_id"], name: "index_room_demands_on_region_id"
     t.index ["user_id"], name: "index_room_demands_on_user_id"

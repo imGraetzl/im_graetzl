@@ -18,6 +18,10 @@ class RoomDemandsController < ApplicationController
     @room_demand.region_id = current_region.id
     @room_demand.activate
 
+    if @room_demand.graetzls&.length >= @room_demand.region.graetzls.count
+      @room_demand.entire_region = true
+    end
+
     if @room_demand.save
       RoomMailer.room_demand_published(@room_demand).deliver_later
       ActionProcessor.track(@room_demand, :create)
@@ -33,6 +37,10 @@ class RoomDemandsController < ApplicationController
 
   def update
     @room_demand = current_user.room_demands.find(params[:id])
+
+    if @room_demand.graetzls&.count >= @room_demand.region.graetzls.count
+      @room_demand.entire_region = true
+    end
 
     if @room_demand.update(room_demand_params)
       ActionProcessor.track(@room_demand, :update) if @room_demand.refresh_activity
@@ -78,6 +86,7 @@ class RoomDemandsController < ApplicationController
       .require(:room_demand)
       .permit(
         :demand_type,
+        :entire_region,
         :slogan,
         :needed_area,
         :demand_description,

@@ -7,38 +7,6 @@ class ActionProcessor
   def track(subject, action, child = nil)
     case [subject.class, action]
 
-    when [Location, :create]
-      Activity.add_public(subject, to: subject.graetzl)
-      Notifications::NewLocation.generate(subject, to: user_ids(subject.graetzl))
-
-    when [Location, :post]
-
-      # Delete existing Notifications for LocationPosts (for only having the newest in Mails)
-      # Notification.where(subject: subject).where(child_type: 'LocationPost').delete_all
-      Activity.add_public(subject, child, to: subject.graetzl)
-      Notifications::NewLocationPost.generate(subject, child, to: user_ids(subject.graetzl))
-
-    when [Location, :menu]
-      Activity.add_public(subject, child, to: subject.graetzl)
-      Notifications::NewLocationMenu.generate(subject, child, to: user_ids(subject.graetzl),
-        time_range: child.notification_time_range)
-
-    when [Location, :comment]
-      Activity.add_public(subject, child, to: subject.graetzl)
-      notify_comment(subject, child)
-
-    when [LocationPost, :comment]
-      if subject.user_id != child.user_id
-        Activity.add_public(subject.location, child, to: subject.location.graetzl)
-      end
-      notify_comment(subject, child)
-
-    when [LocationMenu, :comment]
-      if subject.user_id != child.user_id
-        Activity.add_public(subject.location, child, to: subject.location.graetzl)
-      end
-      notify_comment(subject, child)
-
     when [Meeting, :create]
       # Create Notifications only for Meetings in the next 2 Weeks
       # Create Activities only for Meetings in the next 8 Weeks (if there is none already)
@@ -81,52 +49,6 @@ class ActionProcessor
       end
       notify_comment(subject, child)
 
-    when [Discussion, :create]
-      Activity.add_personal(subject, group: subject.group)
-      Notifications::NewGroupDiscussion.generate(subject, to: subject.group.user_ids)
-
-    when [Discussion, :create_without_notify]
-      Activity.add_personal(subject, group: subject.group)
-
-    when [Discussion, :post]
-      Activity.add_personal(subject, group: subject.group)
-
-    when [DiscussionPost, :create]
-      Notifications::NewGroupPost.generate(subject, to: subject.discussion.following_user_ids)
-
-    when [DiscussionPost, :comment]
-      if subject.user_id != child.user_id
-        Notifications::CommentOnDiscussionPost.generate(subject, child, to: subject.user_id)
-      end
-      comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, child.user_id]
-      Notifications::ReplyOnFollowedDiscussionPost.generate(subject, child, to: comment_followers)
-
-    when [EnergyOffer, :create]
-      Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewEnergyOffer.generate(subject, to: user_ids(subject.graetzls))
-
-    when [EnergyOffer, :update]
-      Activity.add_public(subject, to: subject.graetzls)
-
-    when [EnergyOffer, :comment]
-      if subject.enabled?
-        Activity.add_public(subject, child, to: subject.graetzls)
-      end
-      notify_comment(subject, child)
-
-    when [EnergyDemand, :create]
-      Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewEnergyDemand.generate(subject, to: user_ids(subject.graetzls))
-
-    when [EnergyDemand, :update]
-      Activity.add_public(subject, to: subject.graetzls)
-
-    when [EnergyDemand, :comment]
-      if subject.enabled?
-        Activity.add_public(subject, child, to: subject.graetzls)
-      end
-      notify_comment(subject, child)
-
     when [RoomOffer, :create]
       Activity.add_public(subject, to: subject.graetzl)
       Notifications::NewRoomOffer.generate(subject, to: user_ids(subject.graetzl))
@@ -160,7 +82,11 @@ class ActionProcessor
 
     when [RoomDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewRoomDemand.generate(subject, to: user_ids(subject.graetzls))
+      if subject.entire_region?
+        Notifications::NewRoomDemand.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id))
+      else
+        Notifications::NewRoomDemand.generate(subject, to: user_ids(subject.graetzls))
+      end
 
     when [RoomDemand, :update]
       Activity.add_public(subject, to: subject.graetzls)
@@ -171,32 +97,13 @@ class ActionProcessor
       end
       notify_comment(subject, child)
 
-    when [ToolOffer, :create]
-      Activity.add_public(subject, to: subject.graetzl)
-      Notifications::NewToolOffer.generate(subject, to: user_ids(subject.graetzl))
-
-    when [ToolOffer, :comment]
-      if subject.enabled?
-        Activity.add_public(subject, child, to: subject.graetzl)
-      end
-      notify_comment(subject, child)
-
-    when [ToolDemand, :create]
-      Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewToolDemand.generate(subject, to: user_ids(subject.graetzls))
-
-    when [ToolDemand, :update]
-      Activity.add_public(subject, to: subject.graetzls)
-
-    when [ToolDemand, :comment]
-      if subject.enabled?
-        Activity.add_public(subject, child, to: subject.graetzls)
-      end
-      notify_comment(subject, child)
-
     when [CoopDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewCoopDemand.generate(subject, to: user_ids(subject.graetzls))
+      if subject.entire_region?
+        Notifications::NewCoopDemand.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id))
+      else
+        Notifications::NewCoopDemand.generate(subject, to: user_ids(subject.graetzls))
+      end
 
     when [CoopDemand, :update]
       Activity.add_public(subject, to: subject.graetzls)
@@ -289,6 +196,107 @@ class ActionProcessor
       end
       comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, child.user_id]
       Notifications::ReplyOnFollowedComment.generate(subject.commentable, child, to: comment_followers)
+
+    when [Location, :create]
+      Activity.add_public(subject, to: subject.graetzl)
+      Notifications::NewLocation.generate(subject, to: user_ids(subject.graetzl))
+
+    when [Location, :post]
+
+      # Delete existing Notifications for LocationPosts (for only having the newest in Mails)
+      # Notification.where(subject: subject).where(child_type: 'LocationPost').delete_all
+      Activity.add_public(subject, child, to: subject.graetzl)
+      Notifications::NewLocationPost.generate(subject, child, to: user_ids(subject.graetzl))
+
+    when [Location, :menu]
+      Activity.add_public(subject, child, to: subject.graetzl)
+      Notifications::NewLocationMenu.generate(subject, child, to: user_ids(subject.graetzl),
+        time_range: child.notification_time_range)
+
+    when [Location, :comment]
+      Activity.add_public(subject, child, to: subject.graetzl)
+      notify_comment(subject, child)
+
+    when [LocationPost, :comment]
+      if subject.user_id != child.user_id
+        Activity.add_public(subject.location, child, to: subject.location.graetzl)
+      end
+      notify_comment(subject, child)
+
+    when [LocationMenu, :comment]
+      if subject.user_id != child.user_id
+        Activity.add_public(subject.location, child, to: subject.location.graetzl)
+      end
+      notify_comment(subject, child)
+
+    when [Discussion, :create]
+      Activity.add_personal(subject, group: subject.group)
+      Notifications::NewGroupDiscussion.generate(subject, to: subject.group.user_ids)
+
+    when [Discussion, :create_without_notify]
+      Activity.add_personal(subject, group: subject.group)
+
+    when [Discussion, :post]
+      Activity.add_personal(subject, group: subject.group)
+
+    when [DiscussionPost, :create]
+      Notifications::NewGroupPost.generate(subject, to: subject.discussion.following_user_ids)
+
+    when [DiscussionPost, :comment]
+      if subject.user_id != child.user_id
+        Notifications::CommentOnDiscussionPost.generate(subject, child, to: subject.user_id)
+      end
+      comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, child.user_id]
+      Notifications::ReplyOnFollowedDiscussionPost.generate(subject, child, to: comment_followers)
+
+    when [EnergyOffer, :create]
+      Activity.add_public(subject, to: subject.graetzls)
+      Notifications::NewEnergyOffer.generate(subject, to: user_ids(subject.graetzls))
+
+    when [EnergyOffer, :update]
+      Activity.add_public(subject, to: subject.graetzls)
+
+    when [EnergyOffer, :comment]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
+      notify_comment(subject, child)
+
+    when [EnergyDemand, :create]
+      Activity.add_public(subject, to: subject.graetzls)
+      Notifications::NewEnergyDemand.generate(subject, to: user_ids(subject.graetzls))
+
+    when [EnergyDemand, :update]
+      Activity.add_public(subject, to: subject.graetzls)
+
+    when [EnergyDemand, :comment]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
+      notify_comment(subject, child)
+
+    when [ToolOffer, :create]
+      Activity.add_public(subject, to: subject.graetzl)
+      Notifications::NewToolOffer.generate(subject, to: user_ids(subject.graetzl))
+
+    when [ToolOffer, :comment]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzl)
+      end
+      notify_comment(subject, child)
+
+    when [ToolDemand, :create]
+      Activity.add_public(subject, to: subject.graetzls)
+      Notifications::NewToolDemand.generate(subject, to: user_ids(subject.graetzls))
+
+    when [ToolDemand, :update]
+      Activity.add_public(subject, to: subject.graetzls)
+
+    when [ToolDemand, :comment]
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
+      notify_comment(subject, child)
 
     when [Subscription, :create]
       Activity.add_public(subject, to: :entire_region)

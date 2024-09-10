@@ -35,7 +35,7 @@
   <% end %>
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-user-notification-link', data: { dropdown: "nav-user-notifications", anchor: 'right' } do %>
-    <%= icon_with_badge "bell", current_user.new_website_notifications_count,
+    <%= icon_with_badge "bell", 0,
         id: 'notifications-count', data: { url: notifications_unseen_count_url } %>
   <% end %>
 

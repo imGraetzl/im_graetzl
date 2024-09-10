@@ -26,6 +26,10 @@ class CoopDemandsController < ApplicationController
     @coop_demand.region_id = current_region.id
     @coop_demand.activate
 
+    if @coop_demand.graetzls&.length >= @coop_demand.region.graetzls.count
+      @coop_demand.entire_region = true
+    end
+
     if @coop_demand.save
       CoopDemandMailer.coop_demand_published(@coop_demand).deliver_later
       ActionProcessor.track(@coop_demand, :create)
@@ -41,6 +45,10 @@ class CoopDemandsController < ApplicationController
 
   def update
     @coop_demand = current_user.coop_demands.find(params[:id])
+
+    if @coop_demand.graetzls&.count >= @coop_demand.region.graetzls.count
+      @coop_demand.entire_region = true
+    end
 
     if @coop_demand.update(coop_demand_params)
       ActionProcessor.track(@coop_demand, :update) if @coop_demand.refresh_activity
@@ -111,6 +119,7 @@ class CoopDemandsController < ApplicationController
       .require(:coop_demand)
       .permit(
         :coop_type,
+        :entire_region,
         :slogan,
         :demand_description,
         :personal_description,
