@@ -16,10 +16,10 @@ namespace :db do
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web
     # 2.) Delete all OLD Notifications which are not used for Web after 1 week
-    # 3.) Delete all OLD Notifications (also Web) after 3 weeks
+    # 3.) Delete all OLD Notifications (also Web) after 2 weeks
     Notification.where(sent: true, display_on_website: false).delete_all
     Notification.where('notify_at < ?', 7.days.ago).where("notify_before IS NULL OR notify_before < ?", Time.current).where(display_on_website: false).delete_all
-    Notification.where('notify_at < ?', 21.days.ago).delete_all
+    Notification.where('notify_at < ?', 14.days.ago).delete_all
 
 
     # Delete WeLocally Activities after 12 Months and imGraetzl Activities after 6 Months
