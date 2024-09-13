@@ -3,6 +3,11 @@ class RoomBoosterService
   include PaymentHelper
 
   def create_payment_intent(room_booster)
+
+    if room_booster.crowd_boost_charge_amount && room_booster.crowd_boost_charge_amount > 0
+      CrowdBoostService.new.create_charge_from(room_booster)
+    end
+
     stripe_customer_id = room_booster.user.stripe_customer
     Stripe::PaymentIntent.create(
       customer: stripe_customer_id,
@@ -22,10 +27,6 @@ class RoomBoosterService
 
   def payment_authorized(room_booster, payment_intent_id)
 
-    if room_booster.crowd_boost_charge_amount && room_booster.crowd_boost_charge_amount > 0
-      CrowdBoostService.new.create_charge_from(room_booster)
-    end
-
     payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
     if !payment_intent.status.in?(["succeeded", "processing"])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
@@ -38,6 +39,10 @@ class RoomBoosterService
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
+
+    if room_booster.incomplete?
+      room_booster.update(payment_status: 'authorized')
+    end
 
     true
   end

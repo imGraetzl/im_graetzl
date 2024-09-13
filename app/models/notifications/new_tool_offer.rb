@@ -14,4 +14,8 @@ class Notifications::NewToolOffer < Notification
     subject
   end
 
+  def self.immediate_option_enabled?
+    false
+  end
+
 end
