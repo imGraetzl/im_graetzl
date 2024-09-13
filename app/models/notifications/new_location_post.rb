@@ -18,4 +18,8 @@ class Notifications::NewLocationPost < Notification
     child
   end
 
+  def self.immediate_option_enabled?
+    false
+  end
+
 end

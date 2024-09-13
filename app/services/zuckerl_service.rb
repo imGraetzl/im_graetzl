@@ -3,6 +3,11 @@ class ZuckerlService
   include PaymentHelper
 
   def create_setup_intent(zuckerl)
+
+    if zuckerl.crowd_boost_charge_amount && zuckerl.crowd_boost_charge_amount > 0
+      CrowdBoostService.new.create_charge_from(zuckerl)
+    end
+
     stripe_customer_id = zuckerl.user.stripe_customer
     Stripe::SetupIntent.create(
       customer: stripe_customer_id,
@@ -18,10 +23,6 @@ class ZuckerlService
 
 
   def payment_authorized(zuckerl, setup_intent_id)
-
-    if zuckerl.crowd_boost_charge_amount && zuckerl.crowd_boost_charge_amount > 0
-      CrowdBoostService.new.create_charge_from(zuckerl)
-    end
 
     setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
     if !setup_intent.status.in?(["succeeded", "processing"])

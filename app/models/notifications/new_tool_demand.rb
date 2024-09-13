@@ -13,4 +13,9 @@ class Notifications::NewToolDemand < Notification
   def tool_demand
     subject
   end
+
+  def self.immediate_option_enabled?
+    false
+  end
+
 end
