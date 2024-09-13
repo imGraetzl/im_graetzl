@@ -20,4 +20,5 @@ class MailchimpUserEmailDeleteJob < ApplicationJob
   def mailchimp_member_id(email)
     Digest::MD5.hexdigest(email.downcase)
   end
+  
 end
