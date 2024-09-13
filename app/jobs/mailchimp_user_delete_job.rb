@@ -15,6 +15,7 @@ class MailchimpUserDeleteJob < ApplicationJob
       Rails.logger.error("subscribe failed: due to #{e.message}")
       raise e
     end
+    
   end
 
 end
