@@ -123,8 +123,12 @@ namespace :scheduled do
       exit
     end
 
+    zuckerls = Zuckerl.in(region).live.include_for_box
+    subscriptions = Subscription.in(region).active
+    good_morning_dates = Meeting.in(region).good_morning_dates.upcoming
+
     User.where("email like ?", "%@imgraetzl.at%").find_each do |user|
-      NotificationMailer.summary_graetzl(user, region, ENV['period']).deliver_now
+      NotificationMailer.summary_graetzl(user, region, ENV['period'], zuckerls, subscriptions, good_morning_dates).deliver_now
       NotificationMailer.summary_personal(user, region, ENV['period']).deliver_now
     end
 
