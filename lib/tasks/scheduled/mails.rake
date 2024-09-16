@@ -33,17 +33,16 @@ namespace :scheduled do
     #AdminMailer.task_info('daily_summary_mail', 'started', task_starts_at).deliver_now
 
     Region.all.each do |region|
+
       zuckerls = Zuckerl.in(region).live.include_for_box
-      subscriptions = nil
-      good_morning_dates = nil
-      if region.is?('wien')
-        subscriptions = Subscription.in(region).active
-        good_morning_dates = Meeting.in(region).good_morning_dates.upcoming
-      end
+      subscriptions = Subscription.in(region).active
+      good_morning_dates = Meeting.in(region).good_morning_dates.upcoming
+
       User.in(region).confirmed.find_each do |user|
         NotificationMailer.summary_graetzl(user, region, 'daily', zuckerls, subscriptions, good_morning_dates).deliver_now
         NotificationMailer.summary_personal(user, region, 'daily').deliver_now
       end
+      
     end
     
     #User.confirmed.find_each do |user|
