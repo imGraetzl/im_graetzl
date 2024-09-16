@@ -11,6 +11,7 @@ class ToolMailer < ApplicationMailer
       from: platform_email('no-reply'),
       to: @tool_demand.user.email,
     )
+    
   end
 
   def tool_offer_published(tool_offer)
