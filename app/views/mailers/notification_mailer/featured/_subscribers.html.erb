@@ -18,7 +18,7 @@
       <td valign="top" align="center" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-right:18px; padding-bottom:18px; text-align:center; display: flex; flex-wrap: wrap; justify-content:center;">
 
         <%= render partial: 'featured/subscriber_wow', collection: @region.wow, as: :wow %>
-        <%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.sample(6 - @region.wow.size), as: :subscription %>
+        <%= render partial: 'featured/subscriber', collection: @subscriptions.sample(6 - @region.wow.size), as: :subscription %>
 
       </td>
     </tr>
@@ -30,7 +30,7 @@
   <tbody>
     <tr>
       <td valign="top" align="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px; padding-top:0; text-align:center;">
-        <strong><%= Subscription.in(@region).active.size %></strong> Menschen unterstützen <%= @region.is?('wien') ? 'imGrätzl' : 'WeLocally' %> bereits mit einer Fördermitgliedschaft.
+        <strong><%= @subscriptions.size %></strong> Menschen unterstützen <%= @region.is?('wien') ? 'imGrätzl' : 'WeLocally' %> bereits mit einer Fördermitgliedschaft.
         <br><strong>Unser nächstes Ziel: <%= @region.subscription_goal %> Förder*innen.</strong>
       </td>
     </tr>
