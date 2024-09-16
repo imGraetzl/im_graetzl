@@ -100,7 +100,7 @@ class ActionProcessor
     when [CoopDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
       if subject.entire_region?
-        Notifications::NewCoopDemand.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id))
+        # Notifications::NewCoopDemand.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id))
       else
         Notifications::NewCoopDemand.generate(subject, to: user_ids(subject.graetzls))
       end

@@ -9,7 +9,7 @@
 <!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 4 -->
 <% current_position = 0 %>
 <% zuckerl_position = 3 %>
-<% allzuckerls = Zuckerl.in(@region).live.in_area(@user.followed_graetzl_ids).include_for_box %>
+<% allzuckerls = @zuckerls.in_area(@user.followed_graetzl_ids) %>
 <% ownzuckerls = allzuckerls.where(user_id: @user.id) %>
 <% zuckerls = (allzuckerls - ownzuckerls).sample(4) %>
 <% zuckerls += ownzuckerls %>
@@ -25,7 +25,7 @@
   <!-- Insert Feature Boxes -->
   <!-- render 'featured/subscription' if @region.is?('wien') && @period == 'weekly' && current_position == 3 -->
   <%= render 'featured/crowdfunding_call' if @period == 'weekly' && current_position == 2 %>
-  <%= render 'summary/new_good_morning_dates' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
+  <%= render 'summary/new_good_morning_dates', meetings: @good_morning_dates if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>
   <% notifications.each do |notification| %>
@@ -49,5 +49,5 @@
 
 <!-- Insert Supporters -->
 <% if @region.is?('wien') && @period == 'weekly' %>
-  <%= render 'featured/subscribers' if Subscription.in(@region).active.present? %>
+  <%= render 'featured/subscribers' if @subscriptions.present? %>
 <% end %>
