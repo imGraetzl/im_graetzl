@@ -31,11 +31,24 @@ namespace :scheduled do
 
     task_starts_at = Time.now
     #AdminMailer.task_info('daily_summary_mail', 'started', task_starts_at).deliver_now
-    
-    User.confirmed.find_each do |user|
-      NotificationMailer.summary_graetzl(user, user.region, 'daily').deliver_now
-      NotificationMailer.summary_personal(user, user.region, 'daily').deliver_now
+
+    Region.all.each do |region|
+
+      zuckerls = Zuckerl.in(region).live.include_for_box
+      subscriptions = Subscription.in(region).active
+      good_morning_dates = Meeting.in(region).good_morning_dates.upcoming
+
+      User.in(region).confirmed.find_each do |user|
+        NotificationMailer.summary_graetzl(user, region, 'daily', zuckerls, subscriptions, good_morning_dates).deliver_now
+        NotificationMailer.summary_personal(user, region, 'daily').deliver_now
+      end
+      
     end
+    
+    #User.confirmed.find_each do |user|
+    #  NotificationMailer.summary_graetzl(user, user.region, 'daily').deliver_now
+    #  NotificationMailer.summary_personal(user, user.region, 'daily').deliver_now
+    #end
 
     task_ends_at = Time.now
     AdminMailer.task_info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
@@ -48,37 +61,32 @@ namespace :scheduled do
 
     if Date.today.tuesday?
 
-      task_starts_at = Time.now
-      #AdminMailer.task_info('weekly_summary_mail', 'started', task_starts_at).deliver_now  
+      Region.all.each do |region|
 
-      User.confirmed.find_each do |user|
-        NotificationMailer.summary_graetzl(user, user.region, 'weekly').deliver_now
-        NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now
+        task_starts_at = Time.now
+        #AdminMailer.task_info('weekly_summary_mail', 'started', task_starts_at).deliver_now    
+
+        zuckerls = Zuckerl.in(region).live.include_for_box
+        subscriptions = Subscription.in(region).active
+        good_morning_dates = Meeting.in(region).good_morning_dates.upcoming
+
+        User.in(region).confirmed.find_each do |user|
+          NotificationMailer.summary_graetzl(user, region, 'weekly', zuckerls, subscriptions, good_morning_dates).deliver_now
+          NotificationMailer.summary_personal(user, region, 'weekly').deliver_now
+        end
+
+        task_ends_at = Time.now
+        AdminMailer.task_info("weekly_summary_mail_#{region.id}", 'finished', task_starts_at, task_ends_at).deliver_now  
+
       end
 
-      task_ends_at = Time.now
-      AdminMailer.task_info('weekly_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+      #User.confirmed.find_each do |user|
+      #  NotificationMailer.summary_graetzl(user, user.region, 'weekly').deliver_now
+      #  NotificationMailer.summary_personal(user, user.region, 'weekly').deliver_now
+      #end
   
     end
     
-  end
-
-  desc 'Send pending immediate mails'
-  task pending_immediate_mails: :environment do
-    puts "Rake pending_immediate_mails start at #{Time.now}"
-
-    task_starts_at = Time.now
-    #AdminMailer.task_info('pending_immediate_mails', 'started', task_starts_at).deliver_now
-
-    Notification.where(type: 'Notifications::NewMeeting').where('notify_at = ?', Date.today).where(sent: false).each do |notification|
-      if notification.user.enabled_mail_notification?(notification, :immediate)
-        NotificationMailer.send_immediate(notification).deliver_now
-      end
-    end
-
-    task_ends_at = Time.now
-    AdminMailer.task_info('pending_immediate_mails', 'finished', task_starts_at, task_ends_at).deliver_now
-
   end
 
   task test_summary_mail: :environment do
@@ -97,8 +105,12 @@ namespace :scheduled do
       exit
     end
 
+    zuckerls = Zuckerl.in(region).live.include_for_box
+    subscriptions = Subscription.in(region).active
+    good_morning_dates = Meeting.in(region).good_morning_dates.upcoming
+
     User.where("email like ?", "%@imgraetzl.at%").find_each do |user|
-      NotificationMailer.summary_graetzl(user, region, ENV['period']).deliver_now
+      NotificationMailer.summary_graetzl(user, region, ENV['period'], zuckerls, subscriptions, good_morning_dates).deliver_now
       NotificationMailer.summary_personal(user, region, ENV['period']).deliver_now
     end
 

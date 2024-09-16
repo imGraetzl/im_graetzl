@@ -6,7 +6,11 @@ class NotificationMailerPreview < ActionMailer::Preview
   end
 
   def summary_graetzl
-    NotificationMailer.summary_graetzl(prepare_user, prepare_user.region, 'weekly')
+    region = Region.get('wien')
+    zuckerls = Zuckerl.in(region).live.include_for_box
+    subscriptions = Subscription.in(region).active
+    good_morning_dates = Meeting.in(region).good_morning_dates.upcoming
+    NotificationMailer.summary_graetzl(prepare_user, prepare_user.region, 'weekly', zuckerls, subscriptions, good_morning_dates)
   end
 
   def summary_personal
@@ -16,8 +20,8 @@ class NotificationMailerPreview < ActionMailer::Preview
   private
 
   def prepare_user
-    user = User.where(email: 'michael.walchhuetter@gmail.com').first
-    #user = User.where(region_id: 'wien').last
+    #user = User.where(email: 'michael.walchhuetter@gmail.com').first
+    user = User.where(region_id: 'wien').last
     user.notifications.update_all(sent: false)
     user
   end

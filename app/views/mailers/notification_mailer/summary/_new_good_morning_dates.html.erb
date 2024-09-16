@@ -1,6 +1,6 @@
 <!-- Prepare GOOD MORDNING Dates for @user, max 2 -->
 
-<% all_dates = Meeting.in(@region).upcoming.joins(:event_categories).where(event_categories: 14) %>
+<% all_dates = meetings %>
 <% my_dates = all_dates.joins(:districts).where(districts: @user.district) %>
 <% @meetings = (all_dates - my_dates).sample(2) %>
 <% @meetings += my_dates %>
