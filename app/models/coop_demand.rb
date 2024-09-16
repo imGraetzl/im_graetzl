@@ -34,6 +34,7 @@ class CoopDemand < ApplicationRecord
   validate :has_one_graetzl_at_least
 
   after_update :destroy_activity_and_notifications, if: -> { disabled? }
+  before_create :set_entire_region
 
   def to_s
     slogan
@@ -67,4 +68,9 @@ class CoopDemand < ApplicationRecord
       errors.add(:graetzls, "muss ausgewählt werden")
     end
   end
+
+  def set_entire_region
+    self.entire_region = (self.graetzls&.length >= self.region.graetzls.count) ? true : false
+  end
+
 end

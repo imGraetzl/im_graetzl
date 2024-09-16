@@ -23,7 +23,7 @@ ActiveAdmin.register CoopDemand do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :user_id, :slogan, :location_id, :demand_description, :coop_type,
+  permit_params :user_id, :entire_region, :slogan, :location_id, :demand_description, :coop_type,
     :personal_description, :slug, :avatar, :remove_avatar, :coop_demand_category_id,
     :first_name, :last_name, :website, :email, :phone, :status, graetzl_ids: [],
     images_attributes: [:id, :file, :_destroy]

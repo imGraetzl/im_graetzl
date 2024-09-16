@@ -174,9 +174,9 @@
 
 <div class="fundingStats">
   <div class="left -amount">
-    <h2><%= number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€") %><span class="full-view -percent"><%= "(#{@crowd_campaign.funding? ? funding_percentage(@crowd_campaign).floor(1) : funding_percentage(@crowd_campaign).floor}%)" rescue nil %></span></h2>
+    <h2><%= number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€") %><span class="full-view -percent"><%= "(#{funding_percentage(@crowd_campaign).floor}%)" rescue nil %></span></h2>
     <span class="full-view"><%= funding_subtitle %></span>
-    <small class="compact-view"><%= "(#{@crowd_campaign.funding? ? funding_percentage(@crowd_campaign).floor(1) : funding_percentage(@crowd_campaign).floor}%)" rescue nil %></small>
+    <small class="compact-view"><%= "(#{funding_percentage(@crowd_campaign).floor}%)" rescue nil %></small>
   </div>
   <div class="middle -supporters">
     <h2><%= @crowd_campaign.pledges_and_donations_count %></h2>

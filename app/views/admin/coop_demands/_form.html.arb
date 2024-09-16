@@ -8,6 +8,7 @@ active_admin_form_for [:admin, resource] do |f|
     inputs 'Description' do
       input :coop_type
       input :coop_demand_category, include_blank: false
+      input :entire_region
       input :slogan
       input :demand_description
       input :personal_description

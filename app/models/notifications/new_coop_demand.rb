@@ -13,4 +13,9 @@ class Notifications::NewCoopDemand < Notification
   def coop_demand
     subject
   end
+
+  def self.immediate_option_enabled?
+    false
+  end
+  
 end

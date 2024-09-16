@@ -22,7 +22,7 @@ ActiveAdmin.register RoomDemand do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :user_id, :slogan, :location_id, :needed_area, :demand_description,
+  permit_params :user_id, :entire_region, :slogan, :location_id, :needed_area, :demand_description,
     :personal_description, :wants_collaboration, :demand_type, :slug, :avatar, :remove_avatar,
     :first_name, :last_name, :website, :email, :phone, :status, graetzl_ids: [],
     room_category_ids: []

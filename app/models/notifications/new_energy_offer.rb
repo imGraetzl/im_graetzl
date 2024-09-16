@@ -14,4 +14,8 @@ class Notifications::NewEnergyOffer < Notification
     subject
   end
 
+  def self.immediate_option_enabled?
+    false
+  end
+
 end

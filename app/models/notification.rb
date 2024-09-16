@@ -49,6 +49,7 @@ class Notification < ApplicationRecord
 
   def self.generate(subject, child = nil, to:, time_range: [], sort_date: nil)
     user_ids = Array(to)
+    notify_at = time_range.first || Date.current
     return if user_ids.empty?
 
     notifications = User.where(id: user_ids).find_each.map do |user|
@@ -59,7 +60,7 @@ class Notification < ApplicationRecord
         display_on_website: user.enabled_website_notification?(self),
         bitmask: class_bitmask,
         region_id: user.region_id,
-        notify_at: time_range.first || Time.current,
+        notify_at: notify_at,
         notify_before: time_range.last,
         sort_date: sort_date,
       )
@@ -67,10 +68,12 @@ class Notification < ApplicationRecord
 
     import(notifications, synchronize: notifications)
 
-    notifications.each do |notification|
-      # Dont send if notify_at is in future
-      if notification.notify_at <= Date.current && notification.user.enabled_mail_notification?(self, :immediate)
-        NotificationMailer.send_immediate(notification).deliver_later
+    # Dont send immediate if notify_at is in future or immediate_option_enabled of type is false
+    if self.immediate_option_enabled? && notify_at <= Date.current
+      notifications.each do |notification|
+        if notification.user.enabled_mail_notification?(self, :immediate)
+          NotificationMailer.send_immediate(notification).deliver_later
+        end
       end
     end
   

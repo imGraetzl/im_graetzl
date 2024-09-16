@@ -16,7 +16,7 @@ class Meeting < ApplicationRecord
   belongs_to :user, optional: true
   has_and_belongs_to_many :event_categories
 
-  has_many :going_tos, dependent: :nullify
+  has_many :going_tos, dependent: :destroy
   accepts_nested_attributes_for :going_tos, allow_destroy: true
   has_many :users, -> { distinct }, through: :going_tos
 

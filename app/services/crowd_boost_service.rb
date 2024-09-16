@@ -31,8 +31,11 @@ class CrowdBoostService
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
-      payment_status: 'authorized',
     )
+
+    if crowd_boost_charge.incomplete?
+      crowd_boost_charge.update(payment_status: 'authorized')
+    end
 
     true
   end
@@ -61,7 +64,7 @@ class CrowdBoostService
   def create_charge_from(subject)
     crowd_boost_charge = subject.build_crowd_boost_charge(
       amount: subject.crowd_boost_charge_amount,
-      payment_status: "authorized",
+      payment_status: "incomplete",
       charge_type: subject.class.name.underscore,
       crowd_boost_id: subject.crowd_boost_id,
       region_id: subject.user.region_id,
@@ -73,7 +76,6 @@ class CrowdBoostService
       address_city: subject.user.address_city,
     )
     crowd_boost_charge.save
-    generate_invoice(crowd_boost_charge)
   end
 
   private
