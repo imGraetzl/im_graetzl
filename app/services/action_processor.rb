@@ -175,10 +175,10 @@ class ActionProcessor
 
       if subject.scope_public? && subject.entire_platform?
         Activity.add_public(subject, child, to: :entire_platform) # All Regions
-        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.confirmed.all.pluck(:id))      
+        # Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.confirmed.all.pluck(:id))      
       elsif subject.scope_public? && subject.entire_region?
         Activity.add_public(subject, child, to: :entire_region) # All Graetzls
-        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.confirmed.in(subject.region).all.pluck(:id))      
+        # Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.confirmed.in(subject.region).all.pluck(:id))      
       else subject.scope_public?
         Activity.add_public(subject, child, to: subject.graetzl) # Only in Graetzl
         Notifications::NewCrowdCampaignPost.generate(subject, child, to: user_ids(subject.graetzl))       
