@@ -89,24 +89,6 @@ namespace :scheduled do
     
   end
 
-  desc 'Send pending immediate mails'
-  task pending_immediate_mails: :environment do
-    puts "Rake pending_immediate_mails start at #{Time.now}"
-
-    task_starts_at = Time.now
-    #AdminMailer.task_info('pending_immediate_mails', 'started', task_starts_at).deliver_now
-
-    Notification.where(type: 'Notifications::NewMeeting').where('notify_at = ?', Date.today).where(sent: false).each do |notification|
-      if notification.user.enabled_mail_notification?(notification, :immediate)
-        NotificationMailer.send_immediate(notification).deliver_now
-      end
-    end
-
-    task_ends_at = Time.now
-    AdminMailer.task_info('pending_immediate_mails', 'finished', task_starts_at, task_ends_at).deliver_now
-
-  end
-
   task test_summary_mail: :environment do
     #user = User.find_by(email: "michael.walchhuetter@gmail.com")
 
