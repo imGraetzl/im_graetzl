@@ -8,18 +8,18 @@ class ActionProcessor
     case [subject.class, action]
 
     when [Meeting, :create]
-      # Create Notifications only for Meetings in the next 2 Weeks
+      # Create Notifications only for Meetings of next Week
       # Create Activities only for Meetings in the next 8 Weeks (if there is none already)
-      # Later ones (2 weeks in future) will be daily created over 'update_meeting_date' rake task
+      # Later ones (1 weeks in future) will be daily created over 'update_meeting_date' rake task
 
       if subject.entire_region?
         Activity.add_public(subject, to: :entire_region) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
         Notifications::NewMeeting.generate(subject, to: User.confirmed.in(subject.region).all.pluck(:id),
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first <= Date.today
       else
         Activity.add_public(subject, to: subject.graetzl) if subject.notification_time_range.first < 8.weeks.from_now && !Activity.where(subject: subject).any?
         Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
-          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first < 1.week.from_now
+          time_range: subject.notification_time_range, sort_date: subject.notification_sort_date) if subject.notification_time_range.first <= Date.today
       end
     
     when [Meeting, :update]

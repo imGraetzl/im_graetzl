@@ -32,7 +32,7 @@
           <span>Bilder<small class="upload-hint">(max. 5MB / Foto)</small></span>
         <% end %>
         <div class="field-wrp">
-          <%= upload_image_input(pf, :images, multiple: true, live_preview: false) %>
+          <%= upload_image_input(pf, :images, multiple: true, live_preview: false, max_files: 4) %>
         </div>
       </div>
     <% end %>
