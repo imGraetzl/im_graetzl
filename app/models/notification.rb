@@ -102,5 +102,6 @@ class Notification < ApplicationRecord
   def mail_subject
     raise NotImplementedError, "mail_subject method not implemented for #{self.class}"
   end
+  
 
 end
