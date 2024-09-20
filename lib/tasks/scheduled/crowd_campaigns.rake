@@ -49,7 +49,7 @@ namespace :scheduled do
     #AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'started', task_starts_at).deliver_now
     
     scheduled_sending_dates = [
-      '2024-08-31', '2024-09-21', '2024-10-12', '2024-11-02'
+      '2024-09-28', '2024-10-19', '2024-11-09'
     ]
 
     send_date_today = nil
