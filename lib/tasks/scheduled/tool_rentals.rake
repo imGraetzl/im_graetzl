@@ -5,7 +5,7 @@ namespace :scheduled do
     ToolRental.approved.where("rent_to < ?", Date.today).find_each do |tool_rental|
       tool_rental.update(rental_status: :return_pending)
       ToolMailer.rental_return_pending(tool_rental).deliver_now
-      Notifications::ToolRentalPending.generate(tool_rental, to: tool_rental.owner.id)
+      Notifications::ToolRentalPending.generate(tool_rental, to: { user: tool_rental.owner.id })
     end
   end
 

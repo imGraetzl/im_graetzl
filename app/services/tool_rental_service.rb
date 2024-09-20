@@ -33,7 +33,7 @@ class ToolRentalService
 
     UserMessageThread.create_for_tool_rental(tool_rental)
     ToolMailer.new_rental_request(tool_rental).deliver_later
-    Notifications::ToolRentalCreated.generate(tool_rental, to: tool_rental.owner.id)
+    Notifications::ToolRentalCreated.generate(tool_rental, to: { user: tool_rental.owner.id })
     return { success: true }
 
   end
@@ -68,7 +68,7 @@ class ToolRentalService
 
     generate_invoices(tool_rental)
     ToolMailer.rental_approved(tool_rental).deliver_later
-    Notifications::ToolRentalApproved.generate(tool_rental, to: tool_rental.renter.id)
+    Notifications::ToolRentalApproved.generate(tool_rental, to: { user: tool_rental.renter.id })
 
     { success: true }
   rescue Stripe::CardError
@@ -136,13 +136,13 @@ class ToolRentalService
   def reject(tool_rental)
     tool_rental.rejected!
     ToolMailer.rental_rejected(tool_rental).deliver_later
-    Notifications::ToolRentalRejected.generate(tool_rental, to: tool_rental.renter.id)
+    Notifications::ToolRentalRejected.generate(tool_rental, to: { user: tool_rental.renter.id })
   end
 
   def cancel(tool_rental)
     tool_rental.canceled!
     ToolMailer.rental_canceled(tool_rental).deliver_later
-    Notifications::ToolRentalCanceled.generate(tool_rental, to: tool_rental.owner.id)
+    Notifications::ToolRentalCanceled.generate(tool_rental, to: { users: tool_rental.owner.id })
   end
 
   def expire(tool_rental)
@@ -153,7 +153,7 @@ class ToolRentalService
     tool_rental.return_confirmed!
     ToolMailer.return_confirmed_owner(tool_rental).deliver_later
     ToolMailer.return_confirmed_renter(tool_rental).deliver_later
-    Notifications::ToolRentalReturnConfirmed.generate(tool_rental, to: tool_rental.renter.id)
+    Notifications::ToolRentalReturnConfirmed.generate(tool_rental, to: { users: tool_rental.renter.id })
   end
 
   private
