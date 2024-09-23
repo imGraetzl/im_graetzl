@@ -23,15 +23,12 @@ class ActionProcessor
       end
 
     when [Meeting, :update]
-
       # Update existing Notifications to new Dates
-      if Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').any?
-        Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
-          notify_at: subject.notification_time_range.first || Time.current,
-          notify_before: subject.notification_time_range.last,
-          sort_date: subject.notification_sort_date,
-        )
-      end
+      Notification.where(subject: subject).where(type: 'Notifications::NewMeeting').update_all(
+        notify_at: subject.notification_time_range.first || Time.current,
+        notify_before: subject.notification_time_range.last,
+        sort_date: subject.notification_sort_date,
+      )
 
     when [Meeting, :attended]
       if subject.entire_region?
