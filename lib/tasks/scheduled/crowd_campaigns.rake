@@ -44,9 +44,6 @@ namespace :scheduled do
 
   # Send Crowdfunding Guest Newsletter
   task crowd_campaigns_guest_newsletter: :environment do
-
-    task_starts_at = Time.now
-    #AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'started', task_starts_at).deliver_now
     
     scheduled_sending_dates = [
       '2024-09-28', '2024-10-19', '2024-11-09'
@@ -64,17 +61,22 @@ namespace :scheduled do
     end
 
     if send_date_today
+
+      task_starts_at = Time.now
+      #AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'started', task_starts_at).deliver_now  
+
       crowd_campaigns = CrowdCampaign.guest_newsletter.where(enddate: send_date_today..send_date_next)
       if crowd_campaigns.any?
         CrowdPledge.guest_newsletter_recipients.each do |pledge|
           next unless (crowd_campaigns.in(pledge.region).any? || crowd_campaigns.platform.any?)
-          CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(pledge.region).or(crowd_campaigns.platform).map(&:id)).deliver_later
+          CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(pledge.region).or(crowd_campaigns.platform).map(&:id)).deliver_now
         end
       end
-    end
 
-    task_ends_at = Time.now
-    AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'finished', task_starts_at, task_ends_at).deliver_now
+      task_ends_at = Time.now
+      AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'finished', task_starts_at, task_ends_at).deliver_now  
+
+    end
     
   end
 

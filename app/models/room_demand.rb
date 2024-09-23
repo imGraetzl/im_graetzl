@@ -33,7 +33,7 @@ class RoomDemand < ApplicationRecord
 
   LIFETIME_MONTHS = 5
 
-  after_update :destroy_activity_and_notifications, if: -> { disabled? }
+  after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status? }
   before_create :set_entire_region
 
   def to_s

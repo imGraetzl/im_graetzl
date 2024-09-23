@@ -56,7 +56,7 @@ class RoomOffer < ApplicationRecord
 
   LIFETIME_MONTHS = 6
 
-  after_update :destroy_activity_and_notifications, if: -> { disabled? }
+  after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status? }
 
   def to_s
     slogan

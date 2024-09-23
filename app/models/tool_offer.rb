@@ -31,7 +31,7 @@ class ToolOffer < ApplicationRecord
   scope :non_deleted, -> { where.not(status: :deleted) }
   scope :by_currentness, -> { order(created_at: :desc) }
 
-  after_update :destroy_activity_and_notifications, if: -> { disabled? }
+  after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status? }
 
   def self.include_for_box
     includes(:user, :tool_category)

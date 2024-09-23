@@ -22,7 +22,13 @@ namespace :scheduled do
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
       if meeting.meeting_additional_dates.any? 
         meeting.set_next_date!
-        ActionProcessor.track(meeting, :create) if (meeting.refresh_activity || meeting.entire_region?)
+
+        Rails.logger.info("[update_meeting_date task | Meeting set new Date | ID]: #{meeting.id}")
+        if meeting.refresh_activity || meeting.entire_region?
+          ActionProcessor.track(meeting, :create)
+          Rails.logger.info("[update_meeting_date task | Meeting create new Activity | ID]: #{meeting.id}")
+        end
+        
       end
     end
 
