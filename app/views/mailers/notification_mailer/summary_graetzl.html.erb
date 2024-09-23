@@ -24,7 +24,6 @@
 
   <!-- Insert Feature Boxes -->
   <!-- render 'featured/subscription' if @region.is?('wien') && @period == 'weekly' && current_position == 3 -->
-  <%= render 'featured/crowdfunding_call' if @period == 'weekly' && current_position == 2 %>
   <%= render 'summary/new_good_morning_dates', meetings: @good_morning_dates if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>
@@ -34,8 +33,6 @@
   
   <!-- Hack: Insert Footer Text for RoomOffers in Mails in Vienna --> 
   <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.is?('wien') %>
-
-  <%= render 'featured/crowdfunding_call' if @period == 'daily' && @region.crowdfunding_call? && current_position == 1 %>
 
 <% end %>
 
