@@ -54,17 +54,17 @@ class Notification < ApplicationRecord
     if to[:entire_platform].present?
       user_scope = User.confirmed
     elsif to[:region].present?
-      user_scope = User.confirmed.in(subject.region)
-    elsif to[:to_graetzl].present? || to[:to_graetzls].present?
-      graetzl_ids = Array(to[:to_graetzl] || to[:to_graetzls]).map(&:id)
+      user_scope = User.confirmed.in(to[:region])
+    elsif to[:graetzl].present? || to[:graetzls].present?
+      graetzl_ids = Array(to[:graetzl] || to[:graetzls]).map(&:id)
       user_scope = User.confirmed.where("graetzl_id IN (:g_ids) OR id IN (:u_ids)",
         g_ids: graetzl_ids,
         u_ids: UserGraetzl.where(graetzl_id: graetzl_ids).select(:user_id),
       )
-    elsif to[:to_group].present?
-      user_scope = to[:to_group].users
-    elsif to[:to_user].present? || to[:to_users].present?
-      user_scope = User.confirmed.where(id: Array(to[:to_user] || to[:to_users]))
+    elsif to[:group].present?
+      user_scope = to[:group].users
+    elsif to[:user].present? || to[:users].present?
+      user_scope = User.confirmed.where(id: Array(to[:user] || to[:users]))
     else
       return
     end

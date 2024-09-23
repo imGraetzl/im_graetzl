@@ -39,7 +39,7 @@ class ActionProcessor
       else
         Activity.add_public(subject, child, to: subject.graetzl)
       end
-      Notifications::MeetingAttended.generate(subject, child, to: { users: subject.user_id }) if subject.user_id != child.user_id
+      Notifications::MeetingAttended.generate(subject, child, to: { user: subject.user_id }) if subject.user_id != child.user_id
 
     when [Meeting, :comment]
       if subject.entire_region?
@@ -63,7 +63,7 @@ class ActionProcessor
       Notification.where(subject: subject).where(type: 'Notifications::NewRoomOffer').delete_all
       # Notify all Users
       Notifications::NewRoomOffer.generate(subject, child, time_range: child.notification_time_range, sort_date: child.notification_sort_date,
-        to: { region: subject.region },)
+        to: { region: subject.region })
 
     when [RoomOffer, :boost_pushup]
       Activity.add_public(subject, to: :entire_region)
@@ -182,7 +182,7 @@ class ActionProcessor
         # Notifications::NewCrowdCampaignPost.generate(subject, child, to: { region: subject.region })
       elsif subject.scope_public?
         Activity.add_public(subject, child, to: subject.graetzl) # Only in Graetzl
-        Notifications::NewCrowdCampaignPost.generate(subject, child, to: { graetzls: subject.graetzl })
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: { graetzl: subject.graetzl })
       end
 
     when [CrowdCampaignPost, :comment]
@@ -196,7 +196,7 @@ class ActionProcessor
         Notifications::ReplyOnComment.generate(subject.commentable, child, to: { user: subject.user_id })
       end
       comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, child.user_id]
-      Notifications::ReplyOnFollowedComment.generate(subject.commentable, child, to: { user: comment_followers })
+      Notifications::ReplyOnFollowedComment.generate(subject.commentable, child, to: { users: comment_followers })
 
     when [Location, :create]
       Activity.add_public(subject, to: subject.graetzl)
@@ -250,7 +250,7 @@ class ActionProcessor
 
     when [EnergyOffer, :create]
       Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewEnergyOffer.generate(subject, to_graetzls: subject.graetzls)
+      Notifications::NewEnergyOffer.generate(subject, to: { graetzls: subject.graetzls })
 
     when [EnergyOffer, :update]
       Activity.add_public(subject, to: subject.graetzls)

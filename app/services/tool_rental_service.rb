@@ -142,7 +142,7 @@ class ToolRentalService
   def cancel(tool_rental)
     tool_rental.canceled!
     ToolMailer.rental_canceled(tool_rental).deliver_later
-    Notifications::ToolRentalCanceled.generate(tool_rental, to: { users: tool_rental.owner.id })
+    Notifications::ToolRentalCanceled.generate(tool_rental, to: { user: tool_rental.owner.id })
   end
 
   def expire(tool_rental)
@@ -153,7 +153,7 @@ class ToolRentalService
     tool_rental.return_confirmed!
     ToolMailer.return_confirmed_owner(tool_rental).deliver_later
     ToolMailer.return_confirmed_renter(tool_rental).deliver_later
-    Notifications::ToolRentalReturnConfirmed.generate(tool_rental, to: { users: tool_rental.renter.id })
+    Notifications::ToolRentalReturnConfirmed.generate(tool_rental, to: { user: tool_rental.renter.id })
   end
 
   private
