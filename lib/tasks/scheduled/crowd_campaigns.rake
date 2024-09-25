@@ -67,9 +67,10 @@ namespace :scheduled do
 
       crowd_campaigns = CrowdCampaign.guest_newsletter.where(enddate: send_date_today..send_date_next)
       if crowd_campaigns.any?
-        CrowdPledge.guest_newsletter_recipients.each do |pledge|
+        CrowdPledge.guest_newsletter_recipients.sort_by(&:created_at).each do |pledge|
           next unless (crowd_campaigns.in(pledge.region).any? || crowd_campaigns.platform.any?)
           CrowdCampaignMailer.crowd_pledge_newsletter(pledge, crowd_campaigns.in(pledge.region).or(crowd_campaigns.platform).map(&:id)).deliver_now
+          Rails.logger.info("[guest_newsletter for pledge_id: #{pledge.id} sent to: #{pledge.email}]")
         end
       end
 
