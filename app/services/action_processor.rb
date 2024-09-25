@@ -98,7 +98,7 @@ class ActionProcessor
     when [CoopDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
       if subject.entire_region?
-        # Notifications::NewCoopDemand.generate(subject, to: { region: subject.region })
+        Notifications::NewCoopDemand.generate(subject, to: { region: subject.region })
       else
         Notifications::NewCoopDemand.generate(subject, to: { graetzls: subject.graetzls })
       end
@@ -173,10 +173,10 @@ class ActionProcessor
 
       if subject.scope_public? && subject.entire_platform?
         Activity.add_public(subject, child, to: :entire_platform) # All Regions
-        # Notifications::NewCrowdCampaignPost.generate(subject, child, to: { entire_platform: true })
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: { entire_platform: true })
       elsif subject.scope_public? && subject.entire_region?
         Activity.add_public(subject, child, to: :entire_region) # All Graetzls
-        # Notifications::NewCrowdCampaignPost.generate(subject, child, to: { region: subject.region })
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: { region: subject.region })
       elsif subject.scope_public?
         Activity.add_public(subject, child, to: subject.graetzl) # Only in Graetzl
         Notifications::NewCrowdCampaignPost.generate(subject, child, to: { graetzl: subject.graetzl })
