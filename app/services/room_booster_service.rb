@@ -40,9 +40,9 @@ class RoomBoosterService
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
 
-    if room_booster.incomplete?
-      room_booster.update(payment_status: 'authorized')
-    end
+    # Load new Booster - may already debited by webhook
+    room_booster = RoomBooster.find(room_booster.id)
+    room_booster.update(payment_status: 'authorized') if room_booster.incomplete?
 
     true
   end

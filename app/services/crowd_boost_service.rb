@@ -33,9 +33,9 @@ class CrowdBoostService
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
 
-    if crowd_boost_charge.incomplete?
-      crowd_boost_charge.update(payment_status: 'authorized')
-    end
+    # Load new Charge - may already debited by webhook
+    crowd_boost_charge = CrowdBoostCharge.find(crowd_boost_charge.id)
+    crowd_boost_charge.update(payment_status: 'authorized') if crowd_boost_charge.incomplete?
 
     true
   end
