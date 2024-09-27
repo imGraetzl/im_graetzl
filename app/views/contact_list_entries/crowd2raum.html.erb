@@ -1,0 +1,196 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url("meta/og_logo_welocally.png")
+  )
+%>
+
+<section class="homeWeLocally info lp -startpage crowd2raum-page">
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1 class="weLocally">Raum gesucht?<br>Hier ist deine<br>Chance!</h1>
+    </div>
+  </div>
+
+  <div class="paperCard -cord1RT -header -top">
+    <div class="wrp">
+      <p>
+        <strong>Wie klingt das: 50 % Übernahme der Kaltmiete</strong> (max. 1000 €/Monat) für volle drei Jahre, 
+        wenn du einen <strong>Leerstand</strong> im Erdgeschoss im <strong>Pilotgebiet 20+2</strong> aktivierst? Hier findest du alle Informationen, 
+        die zusätzlichen Leistungen und eine Schritt-für-Schritt-Anleitung zum gesamten Ablauf.
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  
+
+  <div class="hl-subtext">
+    <h1><em>So funktioniert es</em></h1>
+    <p>Eine Schritt-für-Schritt-Anleitung zum gesamten Ablauf</p>
+  </div>
+
+  <div class="section -fullwidth -fullwidth-welocally">
+
+    
+
+    <article class="container">
+      <div class="txt">
+        <h2><%= image_tag('num-badge-1.png', loading: 'lazy', width:40, height:40) %>Einreichung deiner Nutzungsidee</h2>
+        <h3>Reiche jetzt deine Nutzungsidee für einen Leerstand im Pilotgebiet ein.</h3>
+        <p>
+          Mit dem Grätzl Call 20 +2 gibt es eine <strong>50 % Mietkostenförderung</strong> für 3 Jahre, wenn du dich mit deinem Nutzungsvorhaben qualifiziert und im <a href="https://wieneuplus.wien.gv.at/graetzl20plus2" target="_blank">Pilotgebiet 20 + 2</a> ein Leerstand im Erdgeschoss bis 30.04.2025 aktivierst.
+        </p>
+         <p>
+          Auf der Seite von WieNeu+ findest du alle Informationen zur Förderung und zur Einreichung. <strong>Die Einreichung ist bis zum 15.11.2024 möglich.</strong>
+        </p>
+        <p>
+          <strong>Wer kann mitmachen?</strong> Gründer*innen, Einzel- und Kleinstunternehmen (&lt;50 Beschäftigte), Genossenschaften und Vereine.
+        </p>
+      </div>
+      <div class="aside -img -illu">
+        <%= image_tag('info/crowd2raum/illu_ideen.png', loading: 'lazy') %>
+      </div>
+    </article>
+
+    
+
+    <article class="container">
+      <div class="txt">
+        <h2><%= image_tag('num-badge-2.png', loading: 'lazy', width:40, height:40) %>Hol dir Unterstützung</h2>
+        <h3>Wir begleitung dich bei der Einreichung</h3>
+        <p>
+          Du hast noch nie eine Förderung beantragt oder bist unsicher, wie du dein Nutzungsvorhaben optimal beschreiben kannst? Kein Problem – wir unterstützen dich gerne bei der Vorbereitung. Trage einfach deine Kontaktdaten unten ein, und wir melden uns in Kürze bei dir.
+        </p>
+
+
+        <%= form_for @contact_list_entry, url: url_for do |f| %>
+        <%= form_errors_for @contact_list_entry if @contact_list_entry %>
+        <%= hidden_field_tag :redirect_path, '/leerstand' %>
+          <div class="form-block cardBox">
+            <div class="input-field">
+              <%= f.label :name do %>
+                <%= icon_tag "user-avatar" %>
+                <span>Name</span>
+              <% end %>
+              <%= f.text_field :name, placeholder: 'Vorname Nachname' %>
+            </div>
+            <div class="input-field">
+              <%= f.label :email do %>
+                <%= icon_tag "at-symbol" %>
+                <span>E-Mail</span>
+              <% end %>
+              <%= f.text_field :email, placeholder: 'E-Mail Adresse' %>
+            </div>
+            <%= submit_tag "Eintragen", class: 'btn-primary -mint' %>
+          </div>
+        <% end %>
+
+        <p>
+          Vom Fördergeber WieNeu+ werden außerdem zwei Online-Sprechstunden zur Klärung von Fragen zum Bewerbungsprozess angeboten:
+        </p>
+        <ul>
+          <li>Termin 1: 21.10. 12-13 Uhr</li>
+          <li>Termin 2: 7.11. 17-18 Uhr </li>
+        </ul>
+        <br>
+        <p>
+          Um einen Link für die Teilnahme an der Online-Sprechstunde zu erhalten, schickt bitte 24 Stunden im Vorhinein ein Mail an: <%= mail_to 'wieneuplus@ma25.wien.gv.at' %>
+        </p>
+      </div>
+      <div class="aside -img -illu">
+        <%= image_tag('info/crowd2raum/illu_fragezeichen.png', loading: 'lazy') %>
+      </div>
+    </article>
+
+
+    <article class="container">
+      <div class="txt">
+        <h2><%= image_tag('num-badge-3.png', loading: 'lazy', width:40, height:40) %>Entscheidung der Jury</h2>
+        <h3>Voraussichtlich Dezember 2024</h3>
+        <p>
+          Voraussichtlich im <strong>Dezember 2024</strong> gibt es den Jury-Bescheid, welche innovativen Nutzungsvorhaben sich qualifiziert haben.
+        </p>
+      </div>
+      <div class="aside -img -illu">
+        <%= image_tag('info/crowd2raum/illu_jury.png', loading: 'lazy') %>
+      </div>
+    </article>
+
+
+    <article class="container">
+      <div class="txt">
+        <h2><%= image_tag('num-badge-4.png', loading: 'lazy', width:40, height:40) %>Dein Leerstand im Pilotgebiet</h2>
+        <h3>Du hast nun bis zum 30.4.2025 Zeit ein passendes Erdgeschoss Lokal zu finden.</h3>
+        <p>
+          Die Macher*innen, die mit ihrem Nutzungsvorhaben die Jury überzeugen konnten, haben nun bis zum <strong>30.4.2025</strong> Zeit ein passendes Erdgeschoss Lokal im <a href="https://wieneuplus.wien.gv.at/graetzl20plus2" target="_blank">Pilotgebiet 20 + 2</a> zu finden und anzumieten. Mit dem fristgerecht abgeschlossenen Mietvertrag kommt auch der Fördervertrag zustande.
+        </p>
+      </div>
+      <div class="aside -img -illu">
+        <%= image_tag('info/crowd2raum/illu_lupe.png', loading: 'lazy') %>
+      </div>
+    </article>
+
+
+    <article class="container">
+      <div class="txt">
+        <h2><%= image_tag('num-badge-5.png', loading: 'lazy', width:40, height:40) %>Hürde 1 - Leerstand zu groß?</h2>
+        <h3>Du hast eine Gewerbefläche gefunden, aber die Fläche ist zu groß für dich alleine.</h3>
+        <p>
+          Du hast eine tolle Gewerbefläche gefunden, aber die Fläche ist zu groß und zu teuer, um sie alleine zu nutzen? Kein Problem! Wir von imGrätzl.at und das Team von WieNeu+ unterstützen dich bei der Suche nach passenden Raumpartner*innen – durch Raumteiler-Calls und Vernetzungsevents.
+        </p>
+      </div>
+      <div class="aside -img -illu">
+        <%= image_tag('info/crowd2raum/illu_muenzen.png', loading: 'lazy') %>
+      </div>
+    </article>
+
+
+    <article class="container">
+      <div class="txt">
+        <h2><%= image_tag('num-badge-6.png', loading: 'lazy', width:40, height:40) %>Hürde 2 - Aktivierung zu kostspielig?</h2>
+        <h3>Leerstand gefunden, aber die Kosten zur Aktivierung übersteigen deine Möglichkeiten?</h3>
+        <p>
+          Du hast eine Gewerbefläche gefunden, aber die Aktivierungskosten (beispielsweise Provisionen, Ausstattung, Renovierungskosten) übersteigen deine finanziellen Möglichkeiten: 
+        </p>
+        <ul>
+          <li>Du bekommst eine Crowdfunding-Begleitung auf imGrätzl</li>
+          <li>WieNeu+ beraten dich zu weiteren Förderungen</li>
+        </ul>
+      </div>
+      <div class="aside -img -illu">
+        <%= image_tag('info/crowd2raum/illu_muenzen.png', loading: 'lazy') %>
+      </div>
+    </article>
+
+
+
+    <article class="container">
+      <div class="txt">
+        <h2><%= icon_tag "flag" %>Im Ziel</h2>
+        <h3>Deine Förderung wird für 3 Jahre aktiviert.</h3>
+        <p>
+          <strong>YEAH! Geschafft!</strong> Dein Nutzungsvorhaben wurde ausgewählt, du hast das passende Erdgeschoss Lokal innerhalb des Zeitraums gefunden und der Mietvertrag ist unterzeichnet? Jetzt startet die Förderung! Nun kannst du dein Vorhaben erfolgreich umsetzen, wachsen lassen und langfristig im Stadtteil etablieren. Du bist nun ein ganz wichtiger Puzzlestein zur Belebung des Grätzls. DANKE!
+        </p>
+      </div>
+      <div class="aside -img -illu">
+        <%= image_tag('info/crowd2raum/illu_muenzen.png', loading: 'lazy') %>
+      </div>
+    </article>
+
+  </div>
+
+  <p>
+    Unser Ziel ist es die Aktivierung von Leerständen für lokale Macher*innen zu erleichtern. Die Kombination aus Förderung, Crowdfunding und weiteren Unterstützungsleistungen, wie der Beratung bei der Antragstellung oder der Unterstützung bei der Raumpartnersuche, sind Bestandteile des Projekts <a href="https://blog.imgraetzl.at/allgemein/leerstandsaktivierung-crowd2raum-in-wien-und-graz/" target="_blank">"crowd2raum"</a>
+  </p>
+  <br>
+  <p>
+    crowd2raum wird im Rahmen von TIKS – Technologien und Innovationen für die klimaneutrale Stadt (2. Ausschreibung, 2023) gefördert. Projektpartner: imGrätzl.at, WieNeu+ und StadtLabor
+  </p>
+
+
+</section>

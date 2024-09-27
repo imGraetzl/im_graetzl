@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   get  'home' => 'home#about', as: 'about_platform'
   post 'geolocation'  => 'home#geolocation'
 
+  get 'leerstand' => 'contact_list_entries#crowd2raum', as: 'crowd2raum'
+  post 'leerstand' => 'contact_list_entries#crowd2raum_create'
+
   get 'andocken' => 'region_calls#call'
   post 'andocken' => 'region_calls#create'
 
@@ -330,7 +333,6 @@ Rails.application.routes.draw do
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
   get 'raumbooster' => redirect('/crowdfunding-booster/raum-booster/call')
-  #get 'unterstuetzer-team', to: 'static_pages#mentoring'
   #get 'popup', to: 'static_pages#popup', as: 'popup'
 
   get 'info', to: 'static_pages#info'

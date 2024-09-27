@@ -672,6 +672,11 @@ de:
       title: 'WeLocally Pop-Up in Graz - Gemeinsam bringen wir mehr zusammen: WeLocally.at startet in Graz!'
       description: 'Lerne uns kennen und komm zum WeLocally Pop-up in Graz. Crowdfunding / Raumteiler / Balkonsolar. Alle WeLocally Sessions sind kostenlos.'
 
+  contact_list_entries:
+    crowd2raum:
+      title: 'crowd2raum'
+      description: 'crowd2raum Description'
+
   region_calls:
     call:
       title: 'WeLocally.at - Innovative Städte & Gemeinden sind herzlich eingeladen sich anzudocken!'

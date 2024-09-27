@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_10_111923) do
+ActiveRecord::Schema.define(version: 2024_09_27_073655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -126,6 +126,16 @@ ActiveRecord::Schema.define(version: 2024_09_10_111923) do
     t.datetime "updated_at"
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "contact_list_entries", force: :cascade do |t|
+    t.string "name"
+    t.string "email", default: "", null: false
+    t.string "phone"
+    t.string "region_id"
+    t.string "via_path"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "contacts", id: :serial, force: :cascade do |t|
@@ -1018,7 +1028,11 @@ ActiveRecord::Schema.define(version: 2024_09_10_111923) do
     t.integer "child_id"
     t.string "region_id"
     t.date "sort_date"
+    t.date "daily_send_at"
+    t.date "weekly_send_at"
+    t.bigint "graetzl_id"
     t.index ["child_type", "child_id"], name: "index_notifications_on_child_type_and_child_id"
+    t.index ["graetzl_id"], name: "index_notifications_on_graetzl_id"
     t.index ["region_id"], name: "index_notifications_on_region_id"
     t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
     t.index ["user_id", "notify_at"], name: "index_notifications_on_user_id_and_notify_at"

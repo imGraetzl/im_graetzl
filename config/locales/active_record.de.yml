@@ -31,6 +31,9 @@ de:
         one: Kategorie
         other: Kategorien
       contact: Kontakt
+      contact_list_entry:
+        one: Kontakt
+        other: Kontakte
       region_call:
         one: Call
         other: Calls
