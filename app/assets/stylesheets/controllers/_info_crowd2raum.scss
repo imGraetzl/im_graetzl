@@ -20,11 +20,17 @@ section.info {
     }
     
     h1.weLocally {
-      left:unset;
-      right: -120px;
+      padding: 40px 20px 70px 20px; // top, right, bottom, left
+      background-image: url(image_path('svg/speech-bubble-small-flip.svg'));
+      top:0;
+      left:70px;
+      @include respond-to(">=medium") {
+        padding: 50px 20px 90px 20px; // top, right, bottom, left
+      }
       @include respond-to(">=large") {
-        right: -240px;
-        top: -50px;
+        padding: 50px 30px 100px 30px; // top, right, bottom, left
+        top:-50px;
+        left:100px;
       }
     }
 
@@ -46,6 +52,12 @@ section.info {
 
     .form-block {
       margin-bottom: 20px;
+    }
+
+    .hint {
+      @include font-size-primaryFont('small');
+      font-style: italic;
+      color: $color-ambient-grey-dark;
     }
 
     ul {

@@ -74,10 +74,21 @@ class AdminMailer < ApplicationMailer
 
   def new_region_call(region_call)
     @region_call = region_call
-    @region = Region.get('kaernten')
+    @region = Region.get('graz')
 
     mail(
       subject: "[WeLocally] #{@region_call.gemeinden} möchte andocken!",
+      from: platform_email("no-reply"),
+      to: platform_email("wir"),
+    )
+  end
+
+  def new_contact_list_entry(contact_list_entry)
+    @contact_list_entry = contact_list_entry
+    @region = contact_list_entry.region || Region.get('graz')
+
+    mail(
+      subject: "[New Contact] für #{@contact_list_entry.via_path}",
       from: platform_email("no-reply"),
       to: platform_email("wir"),
     )
