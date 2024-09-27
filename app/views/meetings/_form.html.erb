@@ -177,7 +177,7 @@
         <span>Weitere Fotos<small class="upload-hint">(max. 5MB / Foto)</small></span>
       <% end %>
       <div class="field-wrp">
-        <%= upload_image_input(f, :images, multiple: true) %>
+        <%= upload_image_input(f, :images, multiple: true, max_files: 4) %>
       </div>
     </div>
   </div>

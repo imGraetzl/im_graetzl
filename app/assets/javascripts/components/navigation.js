@@ -56,13 +56,14 @@ APP.components.headerNavigation = (function() {
       $('html, body').animate({ scrollTop: 0 }, 'fast'); // Scroll to top intoView
     }
 
-    // Notifications
-
+    // Notifications (Disable for now // Performance)
     var notificationFetch = container.find("#notifications-fetch");
     var notificationCounter = container.find("#notifications-count");
+    /*
     if (notificationCounter.length) {
        setInterval(fetchNotificationCount, APP.config.notificationPollInterval);
     }
+    */
 
     container.find(".nav-user-notification-link").on("click", function() {
       if (!notificationFetch.hasClass('active')) return;

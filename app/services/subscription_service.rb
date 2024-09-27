@@ -148,7 +148,7 @@ class SubscriptionService
         stripe_payment_intent_id: object.payment_intent,
       )
     end
-    
+
   end
 
   def update_payment_intent(subscription)
@@ -167,10 +167,8 @@ class SubscriptionService
     return false unless coupon.present?
     coupon_retrieved = Stripe::Coupon.retrieve(coupon)
     coupon_retrieved.valid == true
-  rescue => error
+  rescue
     false
   end
-
-  private
 
 end

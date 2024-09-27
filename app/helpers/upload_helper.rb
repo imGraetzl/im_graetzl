@@ -1,10 +1,10 @@
 module UploadHelper
 
-  def upload_image_input(f, field_name, multiple: false, live_preview: true, disabled:false)
+  def upload_image_input(f, field_name, multiple: false, live_preview: true, disabled: false, max_files: 8)
     content_tag(:div, class: 'upload-container') do
       concat f.file_field(field_name, multiple: multiple, class: 'direct-upload-input',
         accept: ImageUploader::ALLOWED_TYPES.join(","),
-        data: { upload_server: Rails.application.config.upload_server }, disabled: disabled
+        data: { upload_server: Rails.application.config.upload_server, max_files: max_files }, disabled: disabled
       )
 
       if multiple

@@ -33,7 +33,7 @@ class RoomRentalService
 
     UserMessageThread.create_for_room_rental(room_rental)
     RoomMailer.new_rental_request(room_rental).deliver_later
-    Notifications::RoomRentalCreated.generate(room_rental, to: room_rental.owner.id)
+    Notifications::RoomRentalCreated.generate(room_rental, to: { user: room_rental.owner.id })
     return { success: true }
 
   end
@@ -69,7 +69,7 @@ class RoomRentalService
     generate_invoices(room_rental)
     RoomMailer.rental_approved_renter(room_rental).deliver_later
     RoomMailer.rental_approved_owner(room_rental).deliver_later
-    Notifications::RoomRentalApproved.generate(room_rental, to: room_rental.renter.id)
+    Notifications::RoomRentalApproved.generate(room_rental, to: { user: room_rental.renter.id })
 
     { success: true }
   rescue Stripe::CardError
@@ -137,13 +137,13 @@ class RoomRentalService
   def reject(room_rental)
     room_rental.rejected!
     RoomMailer.rental_rejected(room_rental).deliver_later
-    Notifications::RoomRentalRejected.generate(room_rental, to: room_rental.renter.id)
+    Notifications::RoomRentalRejected.generate(room_rental, to: { user: room_rental.renter.id })
   end
 
   def cancel(room_rental)
     room_rental.canceled!
     RoomMailer.rental_canceled(room_rental).deliver_later
-    Notifications::RoomRentalCanceled.generate(room_rental, to: room_rental.owner.id)
+    Notifications::RoomRentalCanceled.generate(room_rental, to: { user: room_rental.owner.id })
   end
 
   def expire(room_rental)

@@ -6,10 +6,10 @@ namespace :scheduled do
     #AdminMailer.task_info('update_meeting_date', 'started', task_starts_at).deliver_now
 
     # Create Activity & Notifications for Meetings which had no one on Creating
-    Meeting.where("starts_at_date = ?", 2.weeks.from_now).find_each do |meeting|
+    Meeting.where("starts_at_date = ?", 1.week.from_now).find_each do |meeting|
       unless Notification.where(subject: meeting).where(type: "Notifications::NewMeeting").any?
         ActionProcessor.track(meeting, :create)
-        Rails.logger.info("[update_meeting_date task | Meeting created | Slug]: #{meeting.slug}")
+        Rails.logger.info("[update_meeting_date task | Meeting created | ID]: #{meeting.id}")
       end
     end
 
@@ -22,7 +22,13 @@ namespace :scheduled do
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
       if meeting.meeting_additional_dates.any? 
         meeting.set_next_date!
-        ActionProcessor.track(meeting, :create) if (meeting.refresh_activity || meeting.entire_region?)
+
+        Rails.logger.info("[update_meeting_date task | Meeting set new Date | ID]: #{meeting.id}")
+        if meeting.refresh_activity || meeting.entire_region?
+          ActionProcessor.track(meeting, :create)
+          Rails.logger.info("[update_meeting_date task | Meeting create new Activity | ID]: #{meeting.id}")
+        end
+        
       end
     end
 

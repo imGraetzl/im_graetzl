@@ -33,7 +33,7 @@ class CoopDemand < ApplicationRecord
   validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email, :coop_demand_category, :coop_type
   validate :has_one_graetzl_at_least
 
-  after_update :destroy_activity_and_notifications, if: -> { disabled? }
+  after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status? }
   before_create :set_entire_region
 
   def to_s

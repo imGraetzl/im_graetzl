@@ -116,20 +116,6 @@ APP.components.stripePayment = (function() {
       // Clear Error Msg / Disable the button and show a spinner
       form.find(".error-message").text("");
       form.find("#payment-submit").attr("disabled", true).text('Autorisierung läuft. Bitte warten ...');
-
-      // [TODO: Remove this in future times] // Track non opening Modal 3dsecure bug
-      setTimeout(() => {        
-        let modal3dsecure = document.querySelector('body').firstElementChild;
-        let hidden3dsecure = modal3dsecure.querySelector('iframe') && modal3dsecure.style.display == 'none';
-        if (hidden3dsecure) {
-          gtag(
-            'event', 'Error :: Payment :: Autorisierung', {
-            'event_label' : form.attr('action')
-          });
-        }
-      }, 7000);
-      // End of track
-
     } else {
       form.find("#payment-submit").removeAttr("disabled").text(btntext);
     }
