@@ -61,7 +61,7 @@ class CrowdCampaign < ApplicationRecord
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: :disabled)) }
   scope :region_or_platform, -> { where(visibility_status: [:region, :platform]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
-  scope :guest_newsletter, -> {funding.region_or_platform.where(guest_newsletter: true).order(enddate: :desc)}
+  scope :guest_newsletter, -> {funding.region_or_platform.where(guest_newsletter: true)}
   
   scope :by_currentness, -> {
     order(Arel.sql('CASE WHEN enddate >= current_date THEN 0 WHEN funding_status != 0 THEN 1 ELSE 2 END')).
