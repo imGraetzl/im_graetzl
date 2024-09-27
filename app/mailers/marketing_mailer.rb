@@ -1,5 +1,18 @@
 class MarketingMailer < ApplicationMailer
 
+  def contact_list_entry(contact_list_entry)
+    @contact_list_entry = contact_list_entry
+    @region = contact_list_entry.region || Region.get('wien')
+
+    headers("X-MC-Tags" => "contact-list-entry")
+
+    mail(
+      subject: "Interesse am Call zur Aktivierung von Leerstand – Nächste Schritte",
+      from: platform_email("wir"),
+      to: @contact_list_entry.email,
+    )
+  end
+
   def subscription_meeting_invite(user)
     @user = user
     @region = @user.region

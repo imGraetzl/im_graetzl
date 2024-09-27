@@ -12,6 +12,7 @@ class ContactListEntriesController < ApplicationController
     if @contact_list_entry.save
       redirect_to params[:redirect_path]
       flash[:notice] = "Vielen Dank für deine Anmeldung! Wir melden uns in Kürze!"
+      MarketingMailer.contact_list_entry(@contact_list_entry).deliver_later
       AdminMailer.new_contact_list_entry(@contact_list_entry).deliver_later
     else
       render 'crowd2raum'
