@@ -59,7 +59,7 @@ namespace :scheduled do
   task weekly_summary_mail: :environment do
     puts "Rake weekly_summary_mail start at #{Time.now}"
 
-    if Date.today.tuesday?
+    if Date.today.wednesday?
 
       Region.all.each do |region|
 
