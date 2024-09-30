@@ -34,6 +34,8 @@ class Graetzl < ApplicationRecord
   has_many :reverse_neighbour_graetzls, :class_name => :NeighbourGraetzl, :foreign_key => :neighbour_graetzl_id, :dependent => :destroy
   has_many :neighbours, :through => :neighbour_graetzls, :source => :neighbour_graetzl
 
+  has_many :notifications, dependent: :destroy
+
   def self.all_memoized
     @@memoized ||= includes(:districts).to_h{|g| [g.id.to_s, g] }.freeze
   end

@@ -71,9 +71,11 @@ class NotificationMailer < ApplicationMailer
   def summary_graetzl(user, region, period, zuckerls, subscriptions, good_morning_dates)
     @user, @region, @period, @zuckerls, @subscriptions, @good_morning_dates = user, region, period, zuckerls, subscriptions, good_morning_dates
 
-    @notifications = user.pending_notifications(@region, @period).where(
-      type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
-    )
+    #@notifications = user.pending_notifications(@region, @period).where(
+    #  type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
+    #)
+
+    @notifications = user.pending_notifications(@region, @period).select{|n| n.type.in?(GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s))}
 
     if @notifications.empty?
       Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@user.email}]: None found")
@@ -94,7 +96,14 @@ class NotificationMailer < ApplicationMailer
       to: @user.email,
     )
 
-    @notifications.update_all(sent: true)
+    # Nachdem auch persönlich vorkommen können, müsste dies noch drinnen bleiben und persönliche auf sent true zu setzen.
+    # Wenn mal kiene mehr vorkommen, bzw. NL getrennt bleiben, dann kann das raus.
+    @notifications = @notifications.select { |n| n.personal? }
+    @notifications.each do |notification|
+      notification.update(sent: true)
+    end
+    # before it was:
+    #@notifications.update_all(sent: true)
   end
 
   PERSONAL_SUMMARY_BLOCKS = {

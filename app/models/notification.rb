@@ -4,16 +4,31 @@ class Notification < ApplicationRecord
   DEFAULT_INTERVAL = :off
   DEFAULT_WEBSITE_NOTIFICATION = :off
 
-  belongs_to :user
+  belongs_to :user, optional: true
+  belongs_to :graetzl, optional: true
   belongs_to :subject, polymorphic: true
   belongs_to :child, optional: true, polymorphic: true
 
-  # notify_at >= CURRENT_DATE for Local Testing Preview
-  scope :ready_to_be_sent, -> {
+  scope :personal, -> { where.not(user_id: nil) }
+  scope :graetzl, ->  { where.not(graetzl_id: nil) }
+
+  # Personal Abfrage in Zukunft vereinfachen auf NUR personal.where(sent:false) ????
+  # Auch send_at berücksichtigen ???
+  scope :ready_to_be_sent_personal, -> {
+    personal.
     where("notify_at <= CURRENT_DATE").where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
     where(sent: false)
   }
 
+  # Graetzl Notifications
+  scope :ready_to_be_sent_graetzl, ->(graetz_ids = [], period, send_date) {
+    graetzl.
+    where(graetzl_id: graetz_ids).
+    where("#{period}_send_at": send_date).
+    select('DISTINCT ON (subject_id, type) *')
+  }
+
+  # Not needed in future
   scope :by_currentness, -> {
     order(Arel.sql('(CASE WHEN sort_date >= current_date THEN sort_date END) ASC'))
   }
@@ -51,16 +66,26 @@ class Notification < ApplicationRecord
     notify_at = time_range.first || Time.current
     notify_before = time_range.last
 
+    return if notify_before && notify_before <= Date.today
+
+    daily_send_at = notify_at <= Date.today ? Date.tomorrow : notify_at
+    weekly_send_at = daily_send_at.tuesday? ? daily_send_at : daily_send_at.next_occurring(:tuesday)
+
+    if notify_before && weekly_send_at > notify_before
+      weekly_send_at = nil
+    end
+
     if to[:entire_platform].present?
-      user_scope = User.confirmed
+      graetzl_scope = Graetzl.all
     elsif to[:region].present?
-      user_scope = User.confirmed.in(to[:region])
+      graetzl_scope = Graetzl.in(to[:region])
     elsif to[:graetzl].present? || to[:graetzls].present?
       graetzl_ids = Array(to[:graetzl] || to[:graetzls]).map(&:id)
-      user_scope = User.confirmed.where("graetzl_id IN (:g_ids) OR id IN (:u_ids)",
-        g_ids: graetzl_ids,
-        u_ids: UserGraetzl.where(graetzl_id: graetzl_ids).select(:user_id),
-      )
+      graetzl_scope = Graetzl.where(id: graetzl_ids)
+      #user_scope = User.confirmed.where("graetzl_id IN (:g_ids) OR id IN (:u_ids)",
+      #  g_ids: graetzl_ids,
+      #  u_ids: UserGraetzl.where(graetzl_id: graetzl_ids).select(:user_id),
+      #)
     elsif to[:group].present?
       user_scope = to[:group].users
     elsif to[:user].present? || to[:users].present?
@@ -69,13 +94,38 @@ class Notification < ApplicationRecord
       return
     end
 
-    user_scope.find_in_batches(batch_size: 100) do |users|
-      notifications = create_batch(users, subject, child, notify_at, notify_before, sort_date)
+    user_scope&.find_in_batches(batch_size: 100) do |users|
+      notifications = create_user_batch(users, subject, child, notify_at, notify_before, sort_date)
       send_immediate_emails(notifications)
+    end
+
+    graetzl_scope&.find_in_batches(batch_size: 100) do |graetzls|
+      notifications = create_graetzl_batch(graetzls, subject, child, notify_at, notify_before, sort_date, daily_send_at, weekly_send_at)
     end
   end
 
-  def self.create_batch(users, subject, child, notify_at, notify_before, sort_date)
+  def self.create_graetzl_batch(graetzls, subject, child, notify_at, notify_before, sort_date, daily_send_at, weekly_send_at)
+    notifications_batch = graetzls.map do |graetzl|
+      new(
+        graetzl: graetzl,
+        subject: subject,
+        child: child,
+        display_on_website: false,
+        bitmask: class_bitmask,
+        region_id: graetzl.region_id,
+        notify_at: notify_at,
+        notify_before: notify_before,
+        sort_date: sort_date,
+        daily_send_at: daily_send_at,
+        weekly_send_at: weekly_send_at,
+      )
+    end
+
+    import(notifications_batch, synchronize: notifications_batch)
+    notifications_batch
+  end
+
+  def self.create_user_batch(users, subject, child, notify_at, notify_before, sort_date)
     notifications_batch = users.map do |user|
       new(
         user: user,
@@ -101,6 +151,14 @@ class Notification < ApplicationRecord
       next if !notification.user.enabled_mail_notification?(self, :immediate)
       NotificationMailer.send_immediate(notification).deliver_later
     end
+  end
+
+  def personal?
+    !user_id.nil?
+  end
+
+  def graetzl?
+    !graetzl_id.nil?
   end
 
   def self.platform_notification?

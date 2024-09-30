@@ -69,11 +69,28 @@ module UserNotifiable
     save
   end
 
-  def pending_notifications(region, period)
+  #def pending_notifications(region, period)
+  #  if period == 'daily'
+  #    notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", daily_mail_notifications]).by_currentness
+  #  elsif period == 'weekly'
+  #    notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", weekly_mail_notifications]).by_currentness
+  #  else
+  #    notifications.none
+  #  end
+  #end
+
+  # sort_by n Zukunft vereinfachen - sort_date setzen bei erstellen auf created_at - später gibts dann kein nil mehr
+  def pending_notifications(region, period, send_date = Date.today.next_occurring(:tuesday))
     if period == 'daily'
-      notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", daily_mail_notifications]).by_currentness
+      (
+        notifications.in(region).ready_to_be_sent_personal.where(["bitmask & ? > 0", daily_mail_notifications]) +
+        Notification.ready_to_be_sent_graetzl(followed_graetzl_ids, period, send_date).where(["bitmask & ? > 0", daily_mail_notifications])
+      ).sort_by { |n| n.sort_date.nil? ? Float::INFINITY : n.sort_date}
     elsif period == 'weekly'
-      notifications.in(region).ready_to_be_sent.where(["bitmask & ? > 0", weekly_mail_notifications]).by_currentness
+      (
+        notifications.in(region).ready_to_be_sent_personal.where(["bitmask & ? > 0", weekly_mail_notifications]) +
+        Notification.ready_to_be_sent_graetzl(followed_graetzl_ids, period, send_date).where(["bitmask & ? > 0", weekly_mail_notifications])
+      ).sort_by { |n| n.sort_date.nil? ? Float::INFINITY : n.sort_date}
     else
       notifications.none
     end
