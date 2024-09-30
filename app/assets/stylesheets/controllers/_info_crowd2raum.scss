@@ -4,6 +4,12 @@ section.info {
 
     margin-bottom: unset;
 
+    .paperCard .wrp {
+      @include respond-to("<=medium") {
+        padding: 25px 30px 10px 30px;
+      }
+    }
+
     .paperCard p {
       text-align: center;
       @include font-size-primaryFont('larger');
