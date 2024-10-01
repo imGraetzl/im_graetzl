@@ -26,6 +26,19 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
+  def crowd2raum(room_demand)
+    @user = room_demand.user
+    @region = @user.region
+
+    headers("X-MC-Tags" => "crowd2raum")
+
+    mail(
+      subject: "Brauchst du Raum? Hier ist deine Chance!",
+      from: platform_email("wir"),
+      to: @user.email,
+    )
+  end
+
   def hot_august_room_pusher(room_offer)
     @room_offer = room_offer
     @user = @room_offer.user
