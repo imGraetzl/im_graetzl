@@ -1,0 +1,31 @@
+<%= render 'mailers/notification_mailer/summary/block_header', title: "Raum gesucht? Hier ist deine Chance!" %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+
+        <%= link_to leerstand_url, target:'_blank' do %>
+          <%= image_tag 'info/crowd2raum/illu_ideen.png', style: "width:200px; min-width:200px; float:left; margin-right:18px;", class: "mcnImage" %>
+        <% end %>
+
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+          <tr>
+            <td>
+              <p>
+                <strong>Deine Chance auf 50% Übernahme der Mietkosten für volle drei Jahre</strong>, wenn du einen Leerstand im Erdgeschoss im Pilotgebiet Grätzl 20 + 2 aktivierst.
+              </p>
+              <p>
+                <%= link_to 'Hier findest du alle Informationen', leerstand_url, target:'_blank', style:'font-weight:bold;' %> und eine Schritt-für-Schritt-Anleitung zum gesamten Ablauf.
+              </p>
+              <p>
+                
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
