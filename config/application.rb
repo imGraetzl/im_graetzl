@@ -48,6 +48,7 @@ module ImGraetzl
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
 
     config.skylight.environments << "staging"
+    config.skylight.probes << 'delayed_job'
 
   end
 end
