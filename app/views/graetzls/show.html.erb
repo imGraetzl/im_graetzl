@@ -48,7 +48,7 @@
       
       <!-- Insert Featured Card -->
       <% if current_region.is?('wien') %>
-        <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>
+        <%= render 'shared/featured_cards/crowd2raum' %>
       <% end %>
 
       <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>

@@ -41,6 +41,7 @@ gem 'prawn-table'
 gem 'gibbon', '~> 3.0', '>= 3.0.2'
 gem 'newrelic_rpm'
 gem 'rollbar'
+gem "skylight"
 #gem 'scout_apm'
 
 gem "shrine", "~> 3.0"

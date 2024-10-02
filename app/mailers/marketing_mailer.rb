@@ -1,5 +1,18 @@
 class MarketingMailer < ApplicationMailer
 
+  def contact_list_entry(contact_list_entry)
+    @contact_list_entry = contact_list_entry
+    @region = contact_list_entry.region || Region.get('wien')
+
+    headers("X-MC-Tags" => "contact-list-entry")
+
+    mail(
+      subject: "Interesse am Call zur Aktivierung von Leerstand – Nächste Schritte",
+      from: platform_email("wir"),
+      to: @contact_list_entry.email,
+    )
+  end
+
   def subscription_meeting_invite(user)
     @user = user
     @region = @user.region
@@ -8,6 +21,19 @@ class MarketingMailer < ApplicationMailer
 
     mail(
       subject: "Erinnerung: Einladung zum Jahrestreffen für imGrätzl Förder*innen am 23.11.",
+      from: platform_email("wir"),
+      to: @user.email,
+    )
+  end
+
+  def crowd2raum(room_demand)
+    @user = room_demand.user
+    @region = @user.region
+
+    headers("X-MC-Tags" => "crowd2raum")
+
+    mail(
+      subject: "Brauchst du Raum? Hier ist deine Chance!",
       from: platform_email("wir"),
       to: @user.email,
     )
