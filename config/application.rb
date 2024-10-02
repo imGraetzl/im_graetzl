@@ -47,5 +47,7 @@ module ImGraetzl
     # gzip compression
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
 
+    config.skylight.environments << "staging"
+
   end
 end
