@@ -40,6 +40,8 @@
     <!-- Insert Featured Card -->
     <% if current_region.is?('wien') %>
       <%= render 'shared/featured_cards/crowd2raum' %>
+    <% elsif current_region.is?('graz') %>
+      <%= render 'shared/featured_cards/crowd2raum_graz' %>
     <% end %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
