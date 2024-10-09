@@ -125,7 +125,7 @@
     <%= render 'crowd_campaigns/show/support_box' %>
 
     <% if @crowd_campaign.crowd_rewards.exists? %>
-      <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
+      <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.enabled.sort_by(&:amount), as: :crowd_reward %>
     <% end %>
     <% if @crowd_campaign.crowd_donations.material.exists? %>
       <h3 class="reward-headlines">Material Spenden</h3>
