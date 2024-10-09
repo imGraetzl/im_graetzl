@@ -10,6 +10,7 @@ gem 'activerecord-postgis-adapter'
 gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 gem 'activerecord-import'
 gem 'active_link_to'
 
