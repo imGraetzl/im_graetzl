@@ -2,6 +2,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
 
+  config.middleware.use Rack::Attack
+
   # Taxrates for Stripe
   config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
 
