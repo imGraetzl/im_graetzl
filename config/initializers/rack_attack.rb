@@ -12,8 +12,9 @@ class Rack::Attack
     req.path&.start_with?('/wp-content')
   end
 
-  #blocklist('block blacklisted IPs') do |req|
-  #  req.ip == '185.242.85.222'
-  #end
+  # Block GET requests to /attend and /comment_post
+  blocklist('block GET requests to /attend and /comment_post') do |req|
+    req.path =~ /\/(attend|comment_post)$/ && req.get?
+  end
 
 end
