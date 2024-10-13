@@ -7,7 +7,7 @@ namespace :scheduled do
     two_days_ago = (2.days.ago.beginning_of_day)..(2.days.ago.end_of_day)
     RoomRental.pending.where(created_at: two_days_ago).includes(:room_rental_slots).find_each do |room_rental|
       if room_rental.rental_start >= Date.today
-        RoomMailer.new_rental_request_reminder(room_rental).deliver_now
+        RoomMailer.new_rental_request_reminder(room_rental).deliver_later
       end
     end
 
