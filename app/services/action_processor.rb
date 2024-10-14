@@ -1,7 +1,7 @@
 class ActionProcessor
 
   def self.track(subject, action, child = nil)
-    new.delay.track(subject, action, child)
+    new.delay(queue: 'action-processor').track(subject, action, child)
   end
 
   def track(subject, action, child = nil)
