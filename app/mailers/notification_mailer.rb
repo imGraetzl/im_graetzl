@@ -105,6 +105,8 @@ class NotificationMailer < ApplicationMailer
       Rails.logger.error e.backtrace.join("\n")
       # Optional: Fehler an Monitoring-Tool wie Sentry senden
       # Sentry.capture_exception(e)
+      # Fehler erneut auslösen, um Delayed Job zu signalisieren, dass der Job fehlschlug
+      raise e
     end
   end
 
@@ -171,6 +173,8 @@ class NotificationMailer < ApplicationMailer
       Rails.logger.error e.backtrace.join("\n")
       # Optional: Fehler an Monitoring-Tool wie Sentry senden
       # Sentry.capture_exception(e)
+      # Fehler erneut auslösen, um Delayed Job zu signalisieren, dass der Job fehlschlug
+      raise e
     end
   end
 
