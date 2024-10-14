@@ -81,7 +81,7 @@ class NotificationMailer < ApplicationMailer
         Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: None found")
         return
       else
-        Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: #{@notifications.size} found")
+        Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: Found: #{@notifications.size}")
         @zuckerls = Zuckerl.in(@region).live.include_for_box
         @subscriptions = Subscription.in(@region).active
         @good_morning_dates = Meeting.in(@region).good_morning_dates.upcoming  
@@ -152,7 +152,7 @@ class NotificationMailer < ApplicationMailer
         Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: None found")
         return
       else
-        Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: #{@notifications.values.sum(&:size)} found")
+        Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: Found: #{@notifications.values.sum(&:size)}")
       end
 
       headers(
