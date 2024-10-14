@@ -4,7 +4,6 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     task_starts_at = Time.now
-    #AdminMailer.task_info('db:cleanup', 'started', task_starts_at).deliver_now
 
     # Delete unconfirmed OLD Users (older 3 months)
     User.where(confirmed_at: nil).where('created_at < ?', 3.months.ago).delete_all

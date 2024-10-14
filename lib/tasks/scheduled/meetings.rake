@@ -3,7 +3,6 @@ namespace :scheduled do
   task update_meeting_date: :environment do
 
     task_starts_at = Time.now
-    #AdminMailer.task_info('update_meeting_date', 'started', task_starts_at).deliver_now
 
     # Create Activity & Notifications for Meetings which had no one on Creating
     Meeting.where("starts_at_date = ?", 1.week.from_now).find_each do |meeting|
@@ -42,7 +41,7 @@ namespace :scheduled do
     already_sent = []
     Meeting.where(starts_at_date: 30.days.ago).find_each do |meeting|
       next if meeting.user.nil? || meeting.user.initiated_meetings.where("starts_at_date > ?", 30.days.ago).present? || already_sent.include?(meeting.user.id)
-      MeetingMailer.create_meeting_reminder(meeting).deliver_now
+      MeetingMailer.create_meeting_reminder(meeting).deliver_later
       already_sent.push(meeting.user.id)
     end
   end
@@ -58,7 +57,7 @@ namespace :scheduled do
       next if meeting.id == 17614 # Exclude this Meeting (already full)
       User.confirmed.in(region).where(newsletter: true).joins(:districts).where(districts: {id: meeting.graetzl.district.id}).find_each do |user|
         next if meeting.users.include?(user)
-        MeetingMailer.good_morning_date_invite(user, meeting).deliver_now
+        MeetingMailer.good_morning_date_invite(user, meeting).deliver_later
       end
     end
   end

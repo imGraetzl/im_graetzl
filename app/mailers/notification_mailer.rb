@@ -68,18 +68,22 @@ class NotificationMailer < ApplicationMailer
     ],
   }
 
-  def summary_graetzl(user, region, period, zuckerls, subscriptions, good_morning_dates)
-    @user, @region, @period, @zuckerls, @subscriptions, @good_morning_dates = user, region, period, zuckerls, subscriptions, good_morning_dates
+  def summary_graetzl(user, region_id, period)
+    @user, @period = user, period
+    @region = Region.get(region_id)
 
     @notifications = user.pending_notifications(@region, @period).where(
       type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
     )
 
     if @notifications.empty?
-      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@user.email}]: None found")
+      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: None found")
       return
     else
-      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@user.email}]: #{@notifications.size} found")
+      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: #{@notifications.size} found")
+      @zuckerls = Zuckerl.in(@region).live.include_for_box
+      @subscriptions = Subscription.in(@region).active
+      @good_morning_dates = Meeting.in(@region).good_morning_dates.upcoming  
     end
 
     headers(
@@ -119,8 +123,9 @@ class NotificationMailer < ApplicationMailer
     Notifications::ReplyOnFollowedDiscussionPost,
   ]
 
-  def summary_personal(user, region, period)
-    @user, @region, @period = user, region, period
+  def summary_personal(user, region_id, period)
+    @user, @period = user, period
+    @region = Region.get(region_id)
 
     @notifications = {}
     @notifications[:attendees] = user.pending_notifications(@region, @period).where(
@@ -134,10 +139,10 @@ class NotificationMailer < ApplicationMailer
     )
 
     if @notifications.values.all?(&:empty?)
-      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@user.id}] [#{@user.email}]: None found")
+      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: None found")
       return
     else
-      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@user.id}] [#{@user.email}]: #{@notifications.values.sum(&:size)} found")
+      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: #{@notifications.values.sum(&:size)} found")
     end
 
     headers(

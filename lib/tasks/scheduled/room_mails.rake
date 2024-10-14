@@ -5,12 +5,12 @@ namespace :scheduled do
 
     RoomOffer.where("DATE(created_at) = ?", Date.today - 5).find_each do |room_offer|
       next if room_offer.user.nil?
-      RoomMailer.room_offer_info_mail(room_offer).deliver_now
+      RoomMailer.room_offer_info_mail(room_offer).deliver_later
     end
 
     RoomDemand.where("DATE(created_at) = ?", Date.today - 5).find_each do |room_demand|
       next if room_demand.user.nil?
-      RoomMailer.room_demand_info_mail(room_demand).deliver_now
+      RoomMailer.room_demand_info_mail(room_demand).deliver_later
     end
 
   end
@@ -24,7 +24,7 @@ namespace :scheduled do
     RoomOffer.enabled.where("last_activated_at < ?", room_offer_lifetime_months.months.ago).find_each do |room_offer|
       room_offer.update_attribute(:status, "disabled")
       room_offer.destroy_activity_and_notifications
-      RoomMailer.room_offer_activate_reminder(room_offer).deliver_now if room_offer.valid?
+      RoomMailer.room_offer_activate_reminder(room_offer).deliver_later if room_offer.valid?
     end
 
     room_demand_lifetime_months = RoomDemand::LIFETIME_MONTHS
@@ -33,7 +33,7 @@ namespace :scheduled do
     RoomDemand.enabled.where("last_activated_at < ?", room_demand_lifetime_months.months.ago).find_each do |room_demand|
       room_demand.update_attribute(:status, "disabled")
       room_demand.destroy_activity_and_notifications
-      RoomMailer.room_demand_activate_reminder(room_demand).deliver_now if room_demand.valid?
+      RoomMailer.room_demand_activate_reminder(room_demand).deliver_later if room_demand.valid?
     end
 
   end

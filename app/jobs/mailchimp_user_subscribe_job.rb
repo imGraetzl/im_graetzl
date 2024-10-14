@@ -15,7 +15,6 @@ class MailchimpUserSubscribeJob < ApplicationJob
       USERNAME: user.username,
       PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
       SIGNUP: user.created_at,
-      L_CATEGORY: user_location_category(user),
       REGION: user.region.name,
       REGION_URL: user.region.host,
     }
@@ -75,7 +74,6 @@ class MailchimpUserSubscribeJob < ApplicationJob
   #    location_fieds = {
   #      LOCATION: location.name,
   #      L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
-  #      L_CATEGORY: location.location_category.try(:name),
   #      L_PLZ: location.address_zip? ? location.address_zip : '',
   #      L_GRAETZL: graetzl.name,
   #      L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),

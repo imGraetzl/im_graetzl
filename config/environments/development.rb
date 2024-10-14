@@ -9,6 +9,8 @@ Rails.application.configure do
   #  '/treffen$', '/locations$', '/raumteiler$', '/toolteiler$', '/energieteiler$', '/coop-share$', '/crowdfunding$', '/zuckerl$',
   #]
 
+  config.middleware.use Rack::Attack
+
   # Taxrates for Stripe
   config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
 

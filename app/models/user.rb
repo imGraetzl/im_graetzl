@@ -299,11 +299,11 @@ class User < ApplicationRecord
   end
 
   def mailchimp_user_newsletter_changed
-    MailchimpUserDeleteJob.perform_later(self) if !newsletter?
+    MailchimpUserEmailDeleteJob.perform_later(self.email) if !newsletter?
   end
 
   def mailchimp_user_delete
-    MailchimpUserDeleteJob.perform_later(self)
+    MailchimpUserEmailDeleteJob.perform_later(self.email)
   end
 
   def cancel_subscription

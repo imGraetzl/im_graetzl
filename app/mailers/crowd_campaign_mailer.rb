@@ -205,6 +205,7 @@ class CrowdCampaignMailer < ApplicationMailer
     else
       @subject = "Crowdfunding News: Ein neues Projekt endet bald. Zusammen schaffen wir das!"
     end
+    Rails.logger.info("[guest_newsletter for pledge_id: #{@crowd_pledge.id} sent to: #{@crowd_pledge.email}]")
     headers("X-MC-Tags" => "crowd-pledge-newsletter")
     mail(
       subject: @subject,

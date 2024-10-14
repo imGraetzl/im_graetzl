@@ -11,7 +11,7 @@ namespace :scheduled do
     # user.find_each do |user|
 
     User.in(region).confirmed.find_each do |user|
-      MarketingMailer.agb_change_and_crowdfunding(user).deliver_now
+      MarketingMailer.agb_change_and_crowdfunding(user).deliver_later
     end
 
   end
