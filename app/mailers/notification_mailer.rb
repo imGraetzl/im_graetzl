@@ -69,36 +69,43 @@ class NotificationMailer < ApplicationMailer
   }
 
   def summary_graetzl(user, region_id, period)
-    @user, @period = user, period
-    @region = Region.get(region_id)
+    begin
+      @user, @period = user, period
+      region = Region.get(region_id)
 
-    @notifications = user.pending_notifications(@region, @period).where(
-      type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
-    )
+      @notifications = user.pending_notifications(@region, @period).where(
+        type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
+      )
 
-    if @notifications.empty?
-      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: None found")
-      return
-    else
-      Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: #{@notifications.size} found")
-      @zuckerls = Zuckerl.in(@region).live.include_for_box
-      @subscriptions = Subscription.in(@region).active
-      @good_morning_dates = Meeting.in(@region).good_morning_dates.upcoming  
+      if @notifications.empty?
+        Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: None found")
+        return
+      else
+        Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: #{@notifications.size} found")
+        @zuckerls = Zuckerl.in(@region).live.include_for_box
+        @subscriptions = Subscription.in(@region).active
+        @good_morning_dates = Meeting.in(@region).good_morning_dates.upcoming  
+      end
+
+      headers(
+        "X-MC-Tags" => "summary-graetzl-#{@region.id}",
+        "X-MC-GoogleAnalytics" => @region.host,
+        "X-MC-GoogleAnalyticsCampaign" => "summary-graetzl-mail",
+      )
+
+      mail(
+        subject: t("region.#{@region.id}.mailers.summary_graetzl.subject", graetzl: @user.graetzl.name), 
+        from: platform_email('no-reply'),
+        to: @user.email,
+      )
+
+      @notifications.update_all(sent: true)
+    rescue => e
+      Rails.logger.error "[Error Graetzl Summary Mail]: #{@user&.email}: #{e.message}"
+      Rails.logger.error e.backtrace.join("\n")
+      # Optional: Fehler an Monitoring-Tool wie Sentry senden
+      # Sentry.capture_exception(e)
     end
-
-    headers(
-      "X-MC-Tags" => "summary-graetzl-#{@region.id}",
-      "X-MC-GoogleAnalytics" => @region.host,
-      "X-MC-GoogleAnalyticsCampaign" => "summary-graetzl-mail",
-    )
-
-    mail(
-      subject: t("region.#{@region.id}.mailers.summary_graetzl.subject", graetzl: @user.graetzl.name), 
-      from: platform_email('no-reply'),
-      to: @user.email,
-    )
-
-    @notifications.update_all(sent: true)
   end
 
   PERSONAL_SUMMARY_BLOCKS = {
@@ -124,40 +131,47 @@ class NotificationMailer < ApplicationMailer
   ]
 
   def summary_personal(user, region_id, period)
-    @user, @period = user, period
-    @region = Region.get(region_id)
+    begin
+      @user, @period = user, period
+      @region = Region.get(region_id)
 
-    @notifications = {}
-    @notifications[:attendees] = user.pending_notifications(@region, @period).where(
-      type: "Notifications::MeetingAttended"
-    )
-    @notifications[:personal] = user.pending_notifications(@region, @period).where(
-      type: PERSONAL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
-    )
-    @notifications[:groups] = user.pending_notifications(@region, @period).where(
-      type: GROUP_SUMMARY_TYPES.map(&:to_s)
-    )
+      @notifications = {}
+      @notifications[:attendees] = user.pending_notifications(@region, @period).where(
+        type: "Notifications::MeetingAttended"
+      )
+      @notifications[:personal] = user.pending_notifications(@region, @period).where(
+        type: PERSONAL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
+      )
+      @notifications[:groups] = user.pending_notifications(@region, @period).where(
+        type: GROUP_SUMMARY_TYPES.map(&:to_s)
+      )
 
-    if @notifications.values.all?(&:empty?)
-      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: None found")
-      return
-    else
-      Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: #{@notifications.values.sum(&:size)} found")
+      if @notifications.values.all?(&:empty?)
+        Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: None found")
+        return
+      else
+        Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: #{@notifications.values.sum(&:size)} found")
+      end
+
+      headers(
+        "X-MC-Tags" => "summary-personal-#{@region.id}",
+        "X-MC-GoogleAnalytics" => @region.host,
+        "X-MC-GoogleAnalyticsCampaign" => "summary-personal-mail",
+      )
+
+      mail(
+        subject: "Persönliche Neuigkeiten für #{@user.first_name} zusammengefasst",
+        from: platform_email('no-reply'),
+        to: @user.email,
+      )
+
+      @notifications.values.each { |n| n.update_all(sent: true) }
+    rescue => e
+      Rails.logger.error "[Error Personal Summary Mail]: #{@user&.email}: #{e.message}"
+      Rails.logger.error e.backtrace.join("\n")
+      # Optional: Fehler an Monitoring-Tool wie Sentry senden
+      # Sentry.capture_exception(e)
     end
-
-    headers(
-      "X-MC-Tags" => "summary-personal-#{@region.id}",
-      "X-MC-GoogleAnalytics" => @region.host,
-      "X-MC-GoogleAnalyticsCampaign" => "summary-personal-mail",
-    )
-
-    mail(
-      subject: "Persönliche Neuigkeiten für #{@user.first_name} zusammengefasst",
-      from: platform_email('no-reply'),
-      to: @user.email,
-    )
-
-    @notifications.values.each { |n| n.update_all(sent: true) }
   end
 
   private
