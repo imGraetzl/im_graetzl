@@ -46,6 +46,24 @@ namespace :scheduled do
     AdminMailer.task_info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
     
   end
+ 
+   # TASK JUST FOR DELAYED_JOB TESTING - CAN BE REMOVED LATER:
+  desc 'Send daily personal summary mail'
+  task daily_personal_summary_mail: :environment do
+    puts "Rake daily_personal_summary_mail start at #{Time.now}"
+
+    task_starts_at = Time.now
+
+    User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
+      users_batch.each do |user|
+        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', priority: 1)
+      end
+    end
+
+    task_ends_at = Time.now
+    AdminMailer.task_info('daily_personal_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+    
+  end
 
   desc 'Send weekly summary mail'
   task weekly_summary_mail: :environment do
