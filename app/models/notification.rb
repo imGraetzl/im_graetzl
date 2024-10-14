@@ -28,23 +28,24 @@ class Notification < ApplicationRecord
   }
 
   scope :next_wien, -> {
-    User.find_by_id(10612)&.notifications&.next_newsletter
+    #User.find_by_id(10612)&.notifications&.next_newsletter
+    where(user_id: 10612).next_newsletter
   }
 
   scope :next_graz, -> {
-    User.find_by_id(13782)&.notifications&.next_newsletter
+    where(user_id: 13782).next_newsletter
   }
 
   scope :next_linz, -> {
-    User.find_by_id(16539)&.notifications&.next_newsletter
+    where(user_id: 16539).next_newsletter
   }
 
   scope :next_kaernten, -> {
-    User.find_by_id(10613)&.notifications&.next_newsletter
+    where(user_id: 10613).next_newsletter
   }
 
   scope :next_muehlviertel, -> {
-    User.find_by_id(10614)&.notifications&.next_newsletter
+    where(user_id: 10614).next_newsletter
   }
 
   def self.generate(subject, child = nil, time_range: [], sort_date: nil, to: {})
