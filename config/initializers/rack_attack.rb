@@ -9,7 +9,8 @@ class Rack::Attack
 
   blocklist('block script kiddies') do |req|
     req.path =~ /\.(php|asp|aspx|jsp|cgi|exe|jsf)$/i ||
-    req.path&.start_with?('/wp-content')
+    req.path&.start_with?('/wp-') ||
+    req.path.include?('.git')
   end
 
   # Block GET requests to /attend and /comment_post

@@ -1,4 +1,5 @@
 class MailchimpUserEmailDeleteJob < ApplicationJob
+  queue_as :mailchimp # Spezielle Warteschlange für Mailchimp-Jobs
 
   def perform(email)
     list_id = Rails.application.secrets.mailchimp_list_id
@@ -9,10 +10,17 @@ class MailchimpUserEmailDeleteJob < ApplicationJob
       g.timeout = 30
       g.lists(list_id).members(member_id).delete()
     rescue Gibbon::MailChimpError => mce
-      Rails.logger.error("subscribe failed: due to #{mce.message}")
+      Rails.logger.error("Mailchimp Error: #{mce.message}")
+
+      if mce.status_code == 405
+        Rails.logger.error("Mailchimp Kontakt kann nicht gelöscht werden, Fehler 405: #{email}")
+        # Skip Job
+        return
+      end
+
       raise mce
     rescue => e
-      Rails.logger.error("subscribe failed: due to #{e.message}")
+      Rails.logger.error("Mailchimp Error: #{e.message}")
       raise e
     end
   end
