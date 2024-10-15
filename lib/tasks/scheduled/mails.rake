@@ -31,14 +31,14 @@ namespace :scheduled do
     task_starts_at = Time.now
 
     #User.confirmed.find_each do |user|
-    #  NotificationMailer.summary_graetzl(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', priority: 1)
-    #  NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', priority: 1)
+    #  NotificationMailer.summary_graetzl(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
+    #  NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
     #end
 
     User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
       users_batch.each do |user|
-        NotificationMailer.summary_graetzl(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', priority: 1)
-        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', priority: 1)
+        NotificationMailer.summary_graetzl(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
+        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
       end
     end
 
@@ -56,7 +56,7 @@ namespace :scheduled do
 
     User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
       users_batch.each do |user|
-        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', priority: 1)
+        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
       end
     end
 
@@ -74,14 +74,14 @@ namespace :scheduled do
       task_starts_at = Time.now
 
       #User.confirmed.find_each do |user|
-      #  NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails', priority: 1)
-      #  NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails', priority: 1)
+      #  NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
+      #  NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
       #end
 
       User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
         users_batch.each do |user|
-          NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails', priority: 1)
-          NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails', priority: 1)
+          NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
+          NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
         end
       end
 
