@@ -36,4 +36,31 @@ ActiveAdmin.register CrowdPledge do
   show { render 'show', context: self }
   form partial: 'form'
 
+  controller do
+    def apply_pagination(chain)
+      chain = super unless formats.include?(:json) || formats.include?(:csv)
+      chain
+    end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
+  end
+
+  csv do
+    column :status
+    column :created_at
+    column :debited_at
+    column :total_price
+    column :donation_amount
+    column(:campaign_start) { |pledge| pledge&.crowd_campaign&.startdate }
+    column(:campaign_end) { |pledge| pledge&.crowd_campaign&.enddate }
+    column :crowd_campaign_id
+    column(:campaign) { |pledge| pledge&.crowd_campaign&.title }
+    column :user_id
+    column :guest_newsletter
+    column :anonym
+    column :region_id
+    column :id
+  end
+
 end
