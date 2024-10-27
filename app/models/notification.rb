@@ -49,31 +49,40 @@ class Notification < ApplicationRecord
   }
 
   def self.generate(subject, child = nil, time_range: [], sort_date: nil, to: {})
-    notify_at = time_range.first || Time.current
-    notify_before = time_range.last
+    begin
+      notify_at = time_range.first || Time.current
+      notify_before = time_range.last
 
-    if to[:entire_platform].present?
-      user_scope = User.confirmed
-    elsif to[:region].present?
-      user_scope = User.confirmed.in(to[:region])
-    elsif to[:graetzl].present? || to[:graetzls].present?
-      graetzl_ids = Array(to[:graetzl] || to[:graetzls]).map(&:id)
-      user_scope = User.confirmed.where("graetzl_id IN (:g_ids) OR id IN (:u_ids)",
-        g_ids: graetzl_ids,
-        u_ids: UserGraetzl.where(graetzl_id: graetzl_ids).select(:user_id),
-      )
-    elsif to[:group].present?
-      user_scope = to[:group].users
-    elsif to[:user].present? || to[:users].present?
-      user_scope = User.confirmed.where(id: Array(to[:user] || to[:users]))
-    else
-      return
-    end
+      if to[:entire_platform].present?
+        user_scope = User.confirmed
+      elsif to[:region].present?
+        user_scope = User.confirmed.in(to[:region])
+      elsif to[:graetzl].present? || to[:graetzls].present?
+        graetzl_ids = Array(to[:graetzl] || to[:graetzls]).map(&:id)
+        user_scope = User.confirmed.where("graetzl_id IN (:g_ids) OR id IN (:u_ids)",
+          g_ids: graetzl_ids,
+          u_ids: UserGraetzl.where(graetzl_id: graetzl_ids).select(:user_id),
+        )
+      elsif to[:group].present?
+        user_scope = to[:group].users
+      elsif to[:user].present? || to[:users].present?
+        user_scope = User.confirmed.where(id: Array(to[:user] || to[:users]))
+      else
+        return
+      end
 
-    user_scope.find_in_batches(batch_size: 100) do |users|
-      notifications = create_batch(users, subject, child, notify_at, notify_before, sort_date)
-      send_immediate_emails(notifications)
+      user_scope.find_in_batches(batch_size: 100) do |users|
+        notifications = create_batch(users, subject, child, notify_at, notify_before, sort_date)
+        send_immediate_emails(notifications)
+      end
+
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error "Notification Generate: Record not found: #{e.message} - Subject: #{subject.class.name}, Child: #{child.try(:class).try(:name)}"
+  
+    rescue StandardError => e
+      Rails.logger.error "Notification Generate: Error in generate method: #{e.message}"
     end
+    
   end
 
   def self.create_batch(users, subject, child, notify_at, notify_before, sort_date)
