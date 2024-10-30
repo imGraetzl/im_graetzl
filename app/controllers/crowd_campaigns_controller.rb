@@ -182,6 +182,7 @@ class CrowdCampaignsController < ApplicationController
     users = users.uniq { |s| s.email }
 
     users.each do |user|
+      next if user.email == 'gdaniel@sz-enterprise.eu' # HACK, Exclude this User
       CrowdCampaignMailer.message_to_user(
         @crowd_campaign, user, params[:subject], params[:body]
       ).deliver_later
