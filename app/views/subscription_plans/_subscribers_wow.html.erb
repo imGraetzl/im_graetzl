@@ -1,5 +1,5 @@
 <% user_id, name, url, starts_at = wow.values_at(:user_id, :name, :url, :starts_at) %>
-<% user = User.find_by_id(user_id) %>
+<% user = User.registered.find_by_id(user_id) %>
 <div class="subscriber-wrp cardBox">
   <div class="tt-img">
     <picture class="abo user">

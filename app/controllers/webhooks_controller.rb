@@ -37,7 +37,7 @@ class WebhooksController < ApplicationController
     elsif request.post? && params[:type].present? && params[:data].present?
       type, data = params['type'], params['data']
       if type == 'unsubscribe'
-        user = User.find_by_email(data['email'])
+        user = User.registered.find_by_email(data['email'])
         user.update(newsletter: false) if !user.nil?
       end
     end

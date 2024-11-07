@@ -26,7 +26,7 @@ namespace :db do
       user.location_category.try(:name) ? user.location_category.try(:name) : ''
     end
 
-    User.where(id: user_from..user_to).each do |user|
+    User.registered.where(id: user_from..user_to).each do |user|
       next if !user.confirmed_at?
 
       # USER MERGE FIELDS

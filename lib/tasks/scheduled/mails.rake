@@ -108,7 +108,7 @@ namespace :scheduled do
       exit
     end
 
-    User.where("email like ?", "%@imgraetzl.at%").find_each do |user|
+    User.registered.where("email like ?", "%@imgraetzl.at%").find_each do |user|
       NotificationMailer.summary_graetzl(user, region.id, ENV['period']).deliver_now
       NotificationMailer.summary_personal(user, region.id, ENV['period']).deliver_now
     end

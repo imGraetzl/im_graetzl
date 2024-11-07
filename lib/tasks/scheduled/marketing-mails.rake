@@ -7,10 +7,9 @@ namespace :scheduled do
     # heroku rake scheduled:agb_change_and_crowdfunding -a imgraetzl-staging
 
     # For Testing
-    # user = User.where(email: ['michael.walchhuetter@gmail.com'])
-    # user.find_each do |user|
+    # user = User.registered.where(email: ['michael.walchhuetter@gmail.com'])
 
-    User.in(region).confirmed.find_each do |user|
+    User.confirmed.in(region).find_each do |user|
       MarketingMailer.agb_change_and_crowdfunding(user).deliver_later
     end
 
