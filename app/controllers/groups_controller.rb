@@ -135,7 +135,7 @@ class GroupsController < ApplicationController
     @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
-    User.where(id: params[:user_ids]).find_each do |user|
+    User.registered.where(id: params[:user_ids]).find_each do |user|
       GroupMailer.message_to_user(
         @group, current_user, user, params[:subject], params[:body]
       ).deliver_later

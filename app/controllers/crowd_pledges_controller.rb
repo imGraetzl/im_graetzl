@@ -1,9 +1,10 @@
 class CrowdPledgesController < ApplicationController
   before_action :load_active_campaign, only: [:new, :create, :login, :calculate_price, :choose_amount]
+  before_action :manage_guest_user_session
 
   def new
     @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
-    @crowd_pledge.assign_attributes(current_user_params) if current_user
+    @crowd_pledge.assign_attributes(current_user_params) if current_or_session_guest_user
     @crowd_pledge.calculate_price
   end
 
@@ -14,12 +15,14 @@ class CrowdPledgesController < ApplicationController
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
     end
 
-    @crowd_pledge.user_id = current_user.id if current_user
+    user = current_or_guest_user_by(crowd_pledge_params['email'])
+    @crowd_pledge.user_id = user&.id
     @crowd_pledge.calculate_price
     @crowd_pledge.status = "incomplete"
     @crowd_pledge.user_agent = user_agent
 
     if @crowd_pledge.save
+      update_guest_user?(user, @crowd_pledge) if user&.guest?
       redirect_to [:choose_payment, @crowd_pledge]
     else
       render :new
@@ -147,11 +150,11 @@ class CrowdPledgesController < ApplicationController
 
   def current_user_params
     {
-      email: current_user.email,
-      contact_name: current_user.full_name,
-      address_street: current_user.address_street,
-      address_zip: current_user.address_zip,
-      address_city: current_user.address_city,
+      email: current_or_session_guest_user.email,
+      contact_name: current_or_session_guest_user.full_name,
+      address_street: current_or_session_guest_user.address_street,
+      address_zip: current_or_session_guest_user.address_zip,
+      address_city: current_or_session_guest_user.address_city,
     }
   end
 
@@ -161,6 +164,42 @@ class CrowdPledgesController < ApplicationController
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer,
       :user_agent
     )
+  end
+
+  def guest_user_params
+    { 
+      email: crowd_pledge_params['email'],
+      first_name: crowd_pledge_params['contact_name']&.split&.first,
+      last_name: crowd_pledge_params['contact_name']&.split(' ')[1..-1]&.join(' '),
+      address_street: crowd_pledge_params['address_street'],
+      address_zip: crowd_pledge_params['address_zip'],
+      address_city: crowd_pledge_params['address_city'],
+      business: false,
+      origin: request.path,
+      region_id: current_region.id,
+    }
+  end
+
+  def update_guest_user?(guest_user, crowd_pledge)
+    begin
+      changes = {}
+      changes[:first_name] = crowd_pledge.first_name if guest_user.first_name != crowd_pledge.first_name
+      changes[:last_name] = crowd_pledge.last_name if guest_user.last_name != crowd_pledge.last_name
+      changes[:address_street] = crowd_pledge.address_street if guest_user.address_street != crowd_pledge.address_street
+      changes[:address_zip] = crowd_pledge.address_zip if guest_user.address_zip != crowd_pledge.address_zip
+      changes[:address_city] = crowd_pledge.address_city if guest_user.address_city != crowd_pledge.address_city
+
+      if changes.present?
+        guest_user.update_columns(changes)
+        Rails.logger.info "Guest user with ID: #{guest_user.id} was successfully updated with changes: #{changes}. Via CrowdPledge ID: #{crowd_pledge.id}"
+        true
+      else
+        false
+      end
+    rescue => e
+      Rails.logger.error "An error occurred while updating guest user with ID: #{guest_user.id}. Via CrowdPledge ID: #{crowd_pledge.id}. Error: #{e.message}"
+      false
+    end
   end
 
 end

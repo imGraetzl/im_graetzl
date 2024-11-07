@@ -4,7 +4,8 @@ context.instance_eval do
       panel 'User Details' do
         attributes_table_for user do
           row :id
-          if current_user.email == 'michael.walchhuetter@gmail.com'
+          row :guest
+          if current_user.email == 'michael.walchhuetter@gmail.com' && user.confirmed_user?
             row "Login als User" do |u|
               link_to "Login As", masquerade_path(user)
             end
@@ -149,6 +150,15 @@ context.instance_eval do
           end
         end
       end
+
+      panel 'Crowdfunding Unterstützungen' do
+        table_for user.crowd_pledges.order(created_at: :desc) do
+          column :total_price
+          column(:status){|c| status_tag(c.status)}
+          column(''){|c| link_to c.crowd_campaign, admin_crowd_pledge_path(c) }
+        end
+      end
+
     end
   end
 end

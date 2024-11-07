@@ -5,7 +5,7 @@ class UsersMailerPreview < ActionMailer::Preview
   end
 
   def user_confirmation_reminder
-    UsersMailer.user_confirmation_reminder(User.where(:confirmed_at => nil).last)
+    UsersMailer.user_confirmation_reminder(User.registered.where(:confirmed_at => nil).last)
   end
 
 end

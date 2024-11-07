@@ -101,7 +101,7 @@ class SearchService
   end
 
   def search_users
-    User.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct
+    User.registered.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct
   end
 
 end
