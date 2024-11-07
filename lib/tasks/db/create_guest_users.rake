@@ -17,11 +17,11 @@ namespace :db do
         # Wähle den ältesten CrowdPledge pro E-Mail
         oldest_pledge = pledges.min_by(&:created_at)
 
-        # Überprüfe, ob ein Gast-Benutzer mit der E-Mail existiert
-        user = User.find_by(email: email, guest: true)
-        
+        # Prüfe, ob ein Benutzer mit der E-Mail existiert
+        user = User.find_by(email: email)
+
         if user.nil?
-          # Falls kein Gast-Benutzer existiert, erstelle einen neuen Gast-Benutzer
+          # Erstelle einen neuen Gast-Benutzer, wenn keiner existiert
           user = User.create!(
             guest: true,
             email: email,
@@ -37,8 +37,13 @@ namespace :db do
           )
           created_users_count += 1
           Rails.logger.info "Guest user created with email #{user.email} and ID #{user.id}"
-        else
+        elsif user.guest?
+          # Wenn ein Gast-Benutzer existiert, verwende diesen Benutzer
           Rails.logger.info "Existing guest user found with email #{user.email} and ID #{user.id}. Using this user."
+        else
+          # Überspringe reguläre Benutzer
+          Rails.logger.info "Skipping email #{email} because it is assigned to a regular (non-guest) user."
+          next
         end
 
         # Aktualisiere alle CrowdPledges mit derselben E-Mail und ohne user_id
