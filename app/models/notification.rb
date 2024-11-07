@@ -28,7 +28,6 @@ class Notification < ApplicationRecord
   }
 
   scope :next_wien, -> {
-    #User.find_by_id(10612)&.notifications&.next_newsletter
     where(user_id: 10612).next_newsletter
   }
 

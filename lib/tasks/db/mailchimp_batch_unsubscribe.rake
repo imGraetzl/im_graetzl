@@ -4,8 +4,6 @@ namespace :db do
 
     ARGV.each { |a| task a.to_sym do ; end }
 
-    # User.where(:newsletter => true).count
-    # User.where(:newsletter => false).count
     # heroku run rake db:mailchimp_batch_unsubscribe 0 1000 -a imgraetzl-staging
     list_id = Rails.application.secrets.mailchimp_list_id
     offset = ARGV[1].to_i
@@ -22,8 +20,8 @@ namespace :db do
 
     members.each do |member|
       email = member['email_address']
-      next if User.find_by_email(email).nil?
-      user = User.find_by_email(email)
+      next if User.registered.find_by_email(email).nil?
+      user = User.registered.find_by_email(email)
       if user.newsletter?
         user.update_columns(newsletter: false)
         Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{email}: set newsletter to FALSE")

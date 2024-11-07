@@ -12,9 +12,9 @@ namespace :scheduled do
     user_range_start = ARGV[1].to_i
     user_range_end = ARGV[2].to_i
 
-    sender = User.where("email" => "wir@imgraetzl.at").last
+    sender = User.confirmed.where("email" => "wir@imgraetzl.at").last
 
-    User.where(id: user_range_start..user_range_end).each do |user|
+    User.confirmed.where(id: user_range_start..user_range_end).each do |user|
       next if user.id == sender.id
       thread = UserMessageThread.create_general(sender, user)
       user_message = thread.user_messages.create(user: sender, message: chat_message(user))

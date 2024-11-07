@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :not_found_if_guest_user, only: [:show]
 
   def show
-    @user = User.find(params[:id])
+    @user = User.registered.find(params[:id])
     redirect_to_region?(@user)
 
     @graetzl = @user.graetzl
@@ -15,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.registered.find(params[:id])
     if @user.update(user_params)
       bypass_sign_in @user
 
@@ -128,16 +127,11 @@ class UsersController < ApplicationController
 
   def tooltip
     head :ok and return if browser.bot? && !request.format.js?
-    @user = User.find(params[:id])
+    @user = User.registered.find(params[:id])
     render layout: false
   end
 
   private
-
-  def not_found_if_guest_user
-    user = User.find(params[:id])
-    raise ActiveRecord::RecordNotFound if user.guest?
-  end
 
   def user_params
     params[:user].delete(:password) if params[:user][:password].blank?

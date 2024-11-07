@@ -6,7 +6,7 @@ namespace :db do
     task_starts_at = Time.now
 
     # Delete unconfirmed OLD Users (older 3 months)
-    User.where(confirmed_at: nil).where('created_at < ?', 3.months.ago).delete_all
+    User.registered.where(confirmed_at: nil).where('created_at < ?', 3.months.ago).delete_all
 
     # Delete incomplete OLD Items
     Zuckerl.incomplete.where('created_at < ?', 2.weeks.ago).where(payment_status: nil).destroy_all

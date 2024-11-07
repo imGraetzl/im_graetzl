@@ -30,6 +30,8 @@ class CrowdCampaign < ApplicationRecord
   has_many :crowd_donation_pledges
   has_many :crowd_boost_pledges
 
+  has_many :supporters, through: :crowd_pledges, source: :user
+
   has_many :crowd_campaign_posts, dependent: :destroy
   has_many :comments, through: :crowd_campaign_posts
   has_many :comments, as: :commentable, dependent: :destroy
