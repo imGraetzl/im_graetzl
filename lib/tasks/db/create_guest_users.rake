@@ -5,6 +5,7 @@ namespace :db do
 
     created_users_count = 0
     failed_users_count = 0
+    failed_emails = []
   
     begin
       CrowdPledge.initialized.where(user_id: nil)
@@ -13,7 +14,6 @@ namespace :db do
   
         # Wähle den ältesten CrowdPledge pro E-Mail
         oldest_pledge = pledges.min_by(&:created_at)
-        Rails.logger.info "Processing pledges for email: #{email}, oldest pledge ID: #{oldest_pledge.id}"
   
         # Erstelle oder finde den Gast-Benutzer für die E-Mail
         user = User.create!(
@@ -38,6 +38,7 @@ namespace :db do
       end
     rescue ActiveRecord::RecordInvalid => e
       failed_users_count += 1
+      failed_emails << email
       Rails.logger.error "Failed to create guest user for email #{email}. Error: #{e.message}"
     rescue StandardError => e
       Rails.logger.error "An error occurred during the task: #{e.message}"
@@ -45,6 +46,7 @@ namespace :db do
   
     Rails.logger.info "Task complete: create_guests_from_pledges"
     Rails.logger.info "Summary: #{created_users_count} guest users created, #{failed_users_count} failed to create."
+    Rails.logger.info "Failed emails: #{failed_emails.join(', ')}" unless failed_emails.empty?
 
   end
   
