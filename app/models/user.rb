@@ -323,7 +323,7 @@ class User < ApplicationRecord
     confirmable = where(email: attributes[:email], guest: false).first
 
     if confirmable
-      confirmable.send_confirmation_instructions
+      #confirmable.send_confirmation_instructions
       confirmable
     else
       # Falls kein regulärer Benutzer mit dieser E-Mail existiert, Devise-Fehlermeldung auslösen
