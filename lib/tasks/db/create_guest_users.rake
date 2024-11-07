@@ -17,10 +17,14 @@ namespace :db do
         # Wähle den ältesten CrowdPledge pro E-Mail
         oldest_pledge = pledges.min_by(&:created_at)
 
-        # Überprüfe, ob bereits ein Gast-Benutzer mit der E-Mail existiert
-        user = User.find_or_initialize_by(email: email, guest: true)
-        if user.new_record?
-          user.assign_attributes(
+        # Überprüfe, ob ein Gast-Benutzer mit der E-Mail existiert
+        user = User.find_by(email: email, guest: true)
+        
+        if user.nil?
+          # Falls kein Gast-Benutzer existiert, erstelle einen neuen Gast-Benutzer
+          user = User.create!(
+            guest: true,
+            email: email,
             first_name: oldest_pledge.first_name,
             last_name: oldest_pledge.last_name,
             address_street: oldest_pledge.address_street,
@@ -31,11 +35,10 @@ namespace :db do
             stripe_customer_id: oldest_pledge.stripe_customer_id,
             created_at: oldest_pledge.created_at
           )
-          user.save!
           created_users_count += 1
           Rails.logger.info "Guest user created with email #{user.email} and ID #{user.id}"
         else
-          Rails.logger.info "Guest user with email #{user.email} already exists. Skipping creation."
+          Rails.logger.info "Existing guest user found with email #{user.email} and ID #{user.id}. Using this user."
         end
 
         # Aktualisiere alle CrowdPledges mit derselben E-Mail und ohne user_id
