@@ -24,6 +24,33 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_region, :region_root_url, :user_home_graetzl
 
+  def current_or_guest_user_by(email)
+    return current_user if current_user
+  
+    user = User.guests.find_by_email(email)
+    if user
+      session[:guest_user_id] = user.id
+      session[:guest_user_created_at] ||= Time.current
+      return user
+    end
+  
+    guest = create_guest_user
+    session[:guest_user_id] = guest.id
+    session[:guest_user_created_at] = Time.current
+    guest
+  rescue => e
+    Rails.logger.error("current_or_guest_user_by: Error occurred - #{e.message}")
+    raise # Optional, um den Fehler weiterzugeben
+  end
+
+  def current_or_session_guest_user
+    current_user || session_guest_user
+  end
+
+  def session_guest_user
+    User.guests.find_by(id: session[:guest_user_id]) if session[:guest_user_id]
+  end
+
   def current_region
     if request.host.end_with?(Rails.application.config.welocally_host)
       region_domain = request.host.split(".").first
@@ -45,6 +72,28 @@ class ApplicationController < ActionController::Base
     if record.region != current_region
       redirect_to url_for(request.params.merge(host: record.region.host)), :status => 301
     end
+  end
+
+  private
+
+  def guest_login_authentication_key(key)
+    key &&= nil unless key.to_s.match(/^guest/)
+    key ||= "guest_" + 9.times.map { SecureRandom.rand(0..9) }.join
+  end
+
+  def manage_guest_user_session
+    # Prüfen, ob eine Gast-Session abgelaufen ist und gelöscht werden soll
+    if session[:guest_user_id] && session[:guest_user_last_seen_at] && session[:guest_user_last_seen_at].to_time < 15.minutes.ago
+      reset_guest_session
+    else
+      # Aktualisiere den Zeitstempel für die letzte Aktivität oder setze ihn neu
+      session[:guest_user_last_seen_at] = Time.current
+    end
+  end
+
+  def reset_guest_session
+    session.delete(:guest_user_id)
+    session.delete(:guest_user_last_seen_at)
   end
 
 end

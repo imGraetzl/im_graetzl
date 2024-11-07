@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :not_found_if_guest_user, only: [:show]
 
   def show
     @user = User.find(params[:id])
@@ -132,6 +133,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def not_found_if_guest_user
+    user = User.find(params[:id])
+    raise ActiveRecord::RecordNotFound if user.guest?
+  end
 
   def user_params
     params[:user].delete(:password) if params[:user][:password].blank?

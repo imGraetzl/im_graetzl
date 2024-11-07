@@ -10,10 +10,6 @@ class CrowdDonationPledge < ApplicationRecord
 
   validates_presence_of :email, :contact_name
 
-  def guest_user?
-    user_id.nil?
-  end
-
   def email=(val)
     super(val&.strip.presence)
   end
