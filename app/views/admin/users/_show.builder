@@ -21,6 +21,7 @@ context.instance_eval do
           row :first_name
           row :last_name
           row :email
+          row :guest
           row :business
           row(:newsletter){|u| status_tag(u.newsletter)}
           row(:role){|u| status_tag(u.role)}
@@ -149,6 +150,15 @@ context.instance_eval do
           end
         end
       end
+
+      panel 'Crowdfunding Unterstützungen' do
+        table_for user.crowd_pledges.order(created_at: :desc) do
+          column :total_price
+          column(:status){|c| status_tag(c.status)}
+          column(''){|c| link_to c.crowd_campaign, admin_crowd_pledge_path(c) }
+        end
+      end
+
     end
   end
 end

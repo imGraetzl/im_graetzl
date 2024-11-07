@@ -9,7 +9,7 @@
           <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
         </div>
       </div>
-    <% elsif crowd_pledge.user %>
+    <% elsif crowd_pledge.user? %>
       <div class="supporter cardBox">
         <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
           <%= avatar_image_with_tooltip crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>

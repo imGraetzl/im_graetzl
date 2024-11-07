@@ -9,14 +9,14 @@ class User < ApplicationRecord
   attr_accessor :login # virtual attribute to login with username or email
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :masqueradable
+         :recoverable, :rememberable, :trackable, :confirmable, :masqueradable
 
   enum role: { admin: 0, beta: 1 }
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
 
-  belongs_to :graetzl, counter_cache: true
+  belongs_to :graetzl, counter_cache: true, optional: true
   has_many :districts, through: :graetzl
   has_many :user_graetzls
   has_many :favorite_graetzls, through: :user_graetzls, source: :graetzl
@@ -71,31 +71,46 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :billing_address, reject_if: :all_blank
 
   before_validation :smart_add_url_protocol, if: -> { website.present? }
-
-  validates :email, presence: true, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
-  validates :first_name, presence: true, length: { maximum: 50 }
-  validates :last_name, presence: true, length: { maximum: 50 }
-  validates :terms_and_conditions, acceptance: true
-  validates :website, url: true, allow_blank: true
-
-  validates :location_category, presence: true, on: :create, if: :business?
-  #validates :business_interests, presence: true, on: :create
-
   before_validation { self.username.squish! if self.username }
+  
+  # E-Mail-Validierungen
+  validates :email, presence: true, if: :email_required?
+  validates :email, uniqueness: { scope: :guest, case_sensitive: false }, if: :email_changed?
+  validates :email, format: { with: Devise.email_regexp }, if: :email_changed?, allow_blank: true
+
+  # Passwort-Validierungen
+  validates :password, presence: true, if: :password_required?
+  validates :password, confirmation: true, if: :password_required?
+  validates :password, length: { in: Devise.password_length }, allow_blank: true
+  
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }, unless: :guest?
+  validates :first_name, presence: true, length: { maximum: 50 }, unless: :guest?
+  validates :last_name, presence: true, length: { maximum: 50 }, unless: :guest?
+  validates :terms_and_conditions, acceptance: true, unless: :guest?
+  validates :website, url: true, allow_blank: true, unless: :guest?
+  validates :graetzl, presence: true, unless: :guest?
+  validates :location_category, presence: true, on: :create, if: :business?, unless: :guest?
 
   before_update :mailchimp_user_email_changed, if: -> { email != email_was }
   after_update :mailchimp_user_newsletter_changed, if: -> { saved_change_to_newsletter? }
   after_update :mailchimp_user_update, if: -> { saved_change_to_newsletter? || saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
   after_update :update_user_graetzls, if: -> { saved_change_to_graetzl_id? }
+  
   before_destroy :mailchimp_user_delete
   before_destroy :cancel_subscription
+  before_create :skip_confirmation_for_guests
 
   scope :business, -> { where(business: true) }
-  scope :confirmed, -> { where("confirmed_at IS NOT NULL") }
+  scope :guests, -> { where(guest: true) }
+  scope :registered, -> { where(guest: false) }
+  scope :confirmed, -> { where.not(confirmed_at: nil).where(guest: false) }
 
   def beta_user?
     admin? || beta?
+  end
+
+  def confirmed_user?
+    confirmed_at.present? && !guest?
   end
 
   def valid_zuckerl_voucher_for(zuckerl)
@@ -160,6 +175,7 @@ class User < ApplicationRecord
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)
+    conditions[:guest] = false
     if login
       where(conditions.to_h).
         where(["lower(username) = :value OR lower(email) = :value", { value: login.downcase }]).
@@ -278,7 +294,67 @@ class User < ApplicationRecord
     stripe_customer_id
   end
 
+  def merge_with_guest_user
+    guest_user = User.guests.find_by(email: self.email)
+    if guest_user
+      transfer_data_from_guest(guest_user)
+      guest_user_id = guest_user.id
+      guest_user.destroy
+      Rails.logger.info "Guest user with ID: #{guest_user_id} was successfully merged and destroyed. New registered User ID: #{self.id}, email: #{self.email}"
+    end
+  end
+
+  # Devise Overwrites for Guest User Handling
+
+  def self.send_reset_password_instructions(attributes = {})
+    # Konvertiere in einen normalen Hash und erlaube nur :email
+    attributes = attributes.permit(:email).to_h if attributes.is_a?(ActionController::Parameters)
+    attributes[:guest] = false
+
+    recoverable = where(email: attributes[:email], guest: false).first
+
+    if recoverable
+      recoverable.send_reset_password_instructions
+      recoverable
+    else
+      # Falls kein regulärer Benutzer mit dieser E-Mail existiert, Devise-Fehlermeldung auslösen
+      new(attributes).tap { |user| user.errors.add(:email, :not_found) }
+    end
+  end
+
+  def self.send_confirmation_instructions(attributes = {})
+    # Erlaube nur den :email Parameter und konvertiere in einen regulären Hash
+    attributes = attributes.permit(:email).to_h if attributes.is_a?(ActionController::Parameters)
+    attributes[:guest] = false
+
+    confirmable = where(email: attributes[:email], guest: false).first
+
+    if confirmable
+      confirmable.send_confirmation_instructions
+      confirmable
+    else
+      # Falls kein regulärer Benutzer mit dieser E-Mail existiert, Devise-Fehlermeldung auslösen
+      new(attributes).tap { |user| user.errors.add(:email, :not_found) }
+    end
+  end
+
+  protected
+
+  # Prüft, ob ein Passwort erforderlich ist
+  def password_required?
+    !guest? && (!persisted? || !password.nil? || !password_confirmation.nil?)
+  end
+
+  # Prüft, ob eine E-Mail erforderlich ist
+  def email_required?
+    true
+  end
+
   private
+
+  def email_changed?
+    will_save_change_to_email?
+  end
 
   def smart_add_url_protocol
     unless website[/\Ahttp:\/\//] || website[/\Ahttps:\/\//]
@@ -291,23 +367,48 @@ class User < ApplicationRecord
   end
 
   def mailchimp_user_update
-    MailchimpUserSubscribeJob.perform_later(self) if newsletter? && confirmed_at?
+    MailchimpUserSubscribeJob.perform_later(self) if newsletter? && confirmed_user?
   end
 
   def mailchimp_user_email_changed
-    MailchimpUserEmailDeleteJob.perform_later(self.email_was)
+    MailchimpUserEmailDeleteJob.perform_later(self.email_was) if confirmed_user?
   end
 
   def mailchimp_user_newsletter_changed
-    MailchimpUserEmailDeleteJob.perform_later(self.email) if !newsletter?
+    MailchimpUserEmailDeleteJob.perform_later(self.email) if !newsletter? && confirmed_user?
   end
 
   def mailchimp_user_delete
-    MailchimpUserEmailDeleteJob.perform_later(self.email)
+    MailchimpUserEmailDeleteJob.perform_later(self.email) if confirmed_user?
   end
 
   def cancel_subscription
-    self.subscriptions.active.last.cancel_now! if self.subscribed?
+    self.subscriptions.active.last.cancel_now! if subscribed?
   end
+
+  def skip_confirmation_for_guests
+    if guest?
+      skip_confirmation!
+      skip_confirmation_notification!
+      self.confirmed_at = nil
+    end
+  end
+
+  def transfer_data_from_guest(guest_user)
+    # Nur 'origin' übertragen, wenn es beim Gast gesetzt ist
+    self.origin = guest_user.origin if guest_user.origin.present?
+  
+    # 'stripe_customer_id' nur übertragen, wenn es beim Gast gesetzt ist und beim Zielbenutzer noch leer ist
+    if guest_user.stripe_customer_id.present? && self.stripe_customer_id.blank?
+      self.stripe_customer_id = guest_user.stripe_customer_id
+    end
+  
+    # crowd_pledges-Beziehungen aktualisieren
+    guest_user.crowd_pledges.update_all(user_id: self.id)
+  
+    # Speichern ohne Validierung, um sicherzustellen, dass der Transfer erfolgreich ist
+    self.save!(validate: false)
+  end
+  
 
 end

@@ -2,16 +2,6 @@ class Users::PasswordsController < Devise::PasswordsController
 
   layout :set_layout
 
-  private
-
-  def set_layout
-    if current_region.nil?
-      'platform'
-    else
-      'application'
-    end
-  end
-
   # GET /resource/password/new
   # def new
   #   super
@@ -42,4 +32,15 @@ class Users::PasswordsController < Devise::PasswordsController
   # def after_sending_reset_password_instructions_path_for(resource_name)
   #   super(resource_name)
   # end
+
+  private
+
+  def set_layout
+    if current_region.nil?
+      'platform'
+    else
+      'application'
+    end
+  end
+
 end

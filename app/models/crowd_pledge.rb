@@ -28,8 +28,8 @@ class CrowdPledge < ApplicationRecord
     !anonym
   end
 
-  def guest_user?
-    user_id.nil?
+  def user?
+    user.present? && !user.guest?
   end
 
   def unsubscribe_code

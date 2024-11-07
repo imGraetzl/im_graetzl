@@ -3,11 +3,12 @@ ActiveAdmin.register User do
   menu priority: 2
   includes :graetzl, :location_category, :business_interests
 
-  scope :all, default: true
+  scope :registered, default: true
+  scope :guests
   scope :admin
   scope :beta
   Region.all.each do |region|
-    scope(region.name) { |scope| scope.where(region_id: region.id) }
+    scope(region.name) { |scope| scope.registered.where(region_id: region.id) }
   end
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
