@@ -7,9 +7,10 @@
   <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
     <%= render 'mailers/admin_mailer/daily_mail_row', title: "Registrierungen", thead: true %>
     <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Gesamt", collection: User %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Gesamt (Registriert)", collection: User.registered %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Gesamt (Guests)", collection: User.guests %>
       <% Region.all.each do |region| %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: region, collection: User.in(region) %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: region, collection: User.registered.in(region) %>
       <% end %>
     </tbody>
   </table>
