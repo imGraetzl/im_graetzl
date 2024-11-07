@@ -6,32 +6,38 @@ namespace :db do
     created_users_count = 0
     failed_users_count = 0
     failed_emails = []
-  
+    email = nil # Definiere die Variable außerhalb des Blocks
+
     begin
       CrowdPledge.initialized.where(user_id: nil)
                  .group_by(&:email)
-                 .each do |email, pledges|
-  
+                 .each do |current_email, pledges|
+        email = current_email # Setze die `email`-Variable innerhalb des Blocks
+
         # Wähle den ältesten CrowdPledge pro E-Mail
         oldest_pledge = pledges.min_by(&:created_at)
-  
-        # Erstelle oder finde den Gast-Benutzer für die E-Mail
-        user = User.create!(
-          guest: true,
-          email: email,
-          first_name: oldest_pledge.first_name,
-          last_name: oldest_pledge.last_name,
-          address_street: oldest_pledge.address_street,
-          address_zip: oldest_pledge.address_zip,
-          address_city: oldest_pledge.address_city,
-          business: false,
-          region_id: oldest_pledge.region_id,
-          stripe_customer_id: oldest_pledge.stripe_customer_id,
-          created_at: oldest_pledge.created_at
-        )
-        created_users_count += 1
-        Rails.logger.info "Guest user created with email #{user.email} and ID #{user.id}"
-  
+
+        # Überprüfe, ob bereits ein Gast-Benutzer mit der E-Mail existiert
+        user = User.find_or_initialize_by(email: email, guest: true)
+        if user.new_record?
+          user.assign_attributes(
+            first_name: oldest_pledge.first_name,
+            last_name: oldest_pledge.last_name,
+            address_street: oldest_pledge.address_street,
+            address_zip: oldest_pledge.address_zip,
+            address_city: oldest_pledge.address_city,
+            business: false,
+            region_id: oldest_pledge.region_id,
+            stripe_customer_id: oldest_pledge.stripe_customer_id,
+            created_at: oldest_pledge.created_at
+          )
+          user.save!
+          created_users_count += 1
+          Rails.logger.info "Guest user created with email #{user.email} and ID #{user.id}"
+        else
+          Rails.logger.info "Guest user with email #{user.email} already exists. Skipping creation."
+        end
+
         # Aktualisiere alle CrowdPledges mit derselben E-Mail und ohne user_id
         updated_count = CrowdPledge.where(email: email, user_id: nil).update_all(user_id: user.id)
         Rails.logger.info "Updated #{updated_count} CrowdPledges for user ID: #{user.id}, email: #{email}"
@@ -43,11 +49,9 @@ namespace :db do
     rescue StandardError => e
       Rails.logger.error "An error occurred during the task: #{e.message}"
     end
-  
+
     Rails.logger.info "Task complete: create_guests_from_pledges"
     Rails.logger.info "Summary: #{created_users_count} guest users created, #{failed_users_count} failed to create."
     Rails.logger.info "Failed emails: #{failed_emails.join(', ')}" unless failed_emails.empty?
-
   end
-  
 end
