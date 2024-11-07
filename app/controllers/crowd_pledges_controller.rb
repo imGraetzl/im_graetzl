@@ -183,8 +183,8 @@ class CrowdPledgesController < ApplicationController
   def update_guest_user?(guest_user, crowd_pledge)
     begin
       changes = {}
-      changes[:first_name] = crowd_pledge.contact_name&.split&.first if guest_user.first_name != crowd_pledge.contact_name&.split&.first
-      changes[:last_name] = crowd_pledge.contact_name&.split(' ')[1..-1]&.join(' ') if guest_user.last_name != crowd_pledge.contact_name&.split(' ')[1..-1]&.join(' ')
+      changes[:first_name] = crowd_pledge.first_name if guest_user.first_name != crowd_pledge.first_name
+      changes[:last_name] = crowd_pledge.last_name if guest_user.last_name != crowd_pledge.last_name
       changes[:address_street] = crowd_pledge.address_street if guest_user.address_street != crowd_pledge.address_street
       changes[:address_zip] = crowd_pledge.address_zip if guest_user.address_zip != crowd_pledge.address_zip
       changes[:address_city] = crowd_pledge.address_city if guest_user.address_city != crowd_pledge.address_city
