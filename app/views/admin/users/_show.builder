@@ -4,7 +4,8 @@ context.instance_eval do
       panel 'User Details' do
         attributes_table_for user do
           row :id
-          if current_user.email == 'michael.walchhuetter@gmail.com'
+          row :guest
+          if current_user.email == 'michael.walchhuetter@gmail.com' && !user.guest?
             row "Login als User" do |u|
               link_to "Login As", masquerade_path(user)
             end
@@ -21,7 +22,6 @@ context.instance_eval do
           row :first_name
           row :last_name
           row :email
-          row :guest
           row :business
           row(:newsletter){|u| status_tag(u.newsletter)}
           row(:role){|u| status_tag(u.role)}
