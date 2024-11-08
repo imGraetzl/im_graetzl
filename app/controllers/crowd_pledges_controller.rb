@@ -15,13 +15,16 @@ class CrowdPledgesController < ApplicationController
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
     end
 
-    user = current_or_guest_user_by(crowd_pledge_params['email'])
-    @crowd_pledge.user_id = user&.id
     @crowd_pledge.calculate_price
     @crowd_pledge.status = "incomplete"
     @crowd_pledge.user_agent = user_agent
 
     if @crowd_pledge.save
+      # Only create or find the user after the pledge is saved successfully
+      user = current_or_guest_user_by(crowd_pledge_params['email'])
+      @crowd_pledge.update_column(:user_id, user&.id) # Direct update to avoid callbacks or timestamps
+  
+      # Update Guest User if User Data has changed
       update_guest_user?(user, @crowd_pledge) if user&.guest?
       redirect_to [:choose_payment, @crowd_pledge]
     else
