@@ -323,6 +323,7 @@ class User < ApplicationRecord
     confirmable = where(email: attributes[:email], guest: false).first
 
     if confirmable
+      #devise already sends the mail via confirmable (deswegen auskommentiert, sonst doppelt)
       #confirmable.send_confirmation_instructions
       confirmable
     else
