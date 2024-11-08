@@ -6,6 +6,7 @@ class CrowdPledge < ApplicationRecord
   has_one :crowd_boost_charge
 
   before_create :set_region
+  before_save :normalize_email
 
   validates_presence_of :email, :contact_name
   validates :terms, acceptance: true
@@ -68,6 +69,10 @@ class CrowdPledge < ApplicationRecord
 
   def set_region
     self.region_id = crowd_campaign.region_id
+  end
+
+  def normalize_email
+    self.email = email.strip.downcase if email.present?
   end
 
 end

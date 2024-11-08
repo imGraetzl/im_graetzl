@@ -7,6 +7,7 @@ class CrowdDonationPledge < ApplicationRecord
   enum donation_type: { material: 0, assistance: 1 , room: 2 }
 
   before_create :set_region_and_type
+  before_save :normalize_email
 
   validates_presence_of :email, :contact_name
 
@@ -27,6 +28,10 @@ class CrowdDonationPledge < ApplicationRecord
   def set_region_and_type
     self.region_id = crowd_campaign.region_id
     self.donation_type = crowd_donation.donation_type
+  end
+
+  def normalize_email
+    self.email = email.strip.downcase if email.present?
   end
 
 end

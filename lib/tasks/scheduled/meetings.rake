@@ -32,7 +32,7 @@ namespace :scheduled do
     end
 
     task_ends_at = Time.now
-    AdminMailer.task_info('update_meeting_date', 'finished', task_starts_at, task_ends_at).deliver_now
+    #AdminMailer.task_info('update_meeting_date', 'finished', task_starts_at, task_ends_at).deliver_now
 
   end
 

@@ -7,7 +7,7 @@ namespace :scheduled do
     AdminMailer.daily_mail.deliver_now
 
     task_ends_at = Time.now
-    AdminMailer.task_info('daily_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+    #AdminMailer.task_info('daily_mail', 'finished', task_starts_at, task_ends_at).deliver_now
   end
 
   desc 'Send messenger notifications'
@@ -44,7 +44,7 @@ namespace :scheduled do
     end
 
     task_ends_at = Time.now
-    AdminMailer.task_info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+    #AdminMailer.task_info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
     
   end
  
@@ -62,7 +62,7 @@ namespace :scheduled do
     end
 
     task_ends_at = Time.now
-    AdminMailer.task_info('daily_personal_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
+    #AdminMailer.task_info('daily_personal_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
     
   end
 
@@ -87,7 +87,7 @@ namespace :scheduled do
       end
 
       task_ends_at = Time.now
-      AdminMailer.task_info("weekly_summary_mail_#{region.id}", 'finished', task_starts_at, task_ends_at).deliver_now  
+      #AdminMailer.task_info("weekly_summary_mail_#{region.id}", 'finished', task_starts_at, task_ends_at).deliver_now  
   
     end
     
