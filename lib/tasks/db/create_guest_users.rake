@@ -18,11 +18,11 @@ namespace :db do
         # Wähle den ältesten CrowdPledge pro E-Mail
         oldest_pledge = pledges.min_by(&:created_at)
 
-        # Prüfe, ob ein Benutzer mit der Kleinbuchstaben-E-Mail existiert
-        user = User.find_by(email: email)
+        # Prüfe, ob ein Gast-Benutzer mit der Kleinbuchstaben-E-Mail existiert
+        user = User.find_by(email: email, guest: true)
 
         if user.nil?
-          # Erstelle einen neuen Gast-Benutzer, wenn keiner existiert und speichere die E-Mail in Kleinbuchstaben
+          # Erstelle einen neuen Gast-Benutzer, wenn keiner existiert
           user = User.create!(
             guest: true,
             email: email, # Kleinbuchstaben-E-Mail verwenden
@@ -38,13 +38,9 @@ namespace :db do
           )
           created_users_count += 1
           Rails.logger.info "Guest user created with email #{user.email} and ID #{user.id}"
-        elsif user.guest?
+        else
           # Wenn ein Gast-Benutzer existiert, verwende diesen Benutzer
           Rails.logger.info "Existing guest user found with email #{user.email} and ID #{user.id}. Using this user."
-        else
-          # Überspringe reguläre Benutzer
-          Rails.logger.info "Skipping email #{email} because it is assigned to a regular (non-guest) user."
-          next
         end
 
         # Aktualisiere alle CrowdPledges mit derselben Kleinbuchstaben-E-Mail und ohne user_id
