@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   def current_or_guest_user_by(email)
     return current_user if current_user
   
+    email = email.strip.downcase
     user = User.guests.find_by_email(email)
     if user
       session[:guest_user_id] = user.id
