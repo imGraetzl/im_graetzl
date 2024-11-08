@@ -275,7 +275,7 @@ class User < ApplicationRecord
       end
 
       args = {
-        email: email,
+        email: email.strip.downcase,
         name: full_name,
       }.merge(billing_address_args)
 
