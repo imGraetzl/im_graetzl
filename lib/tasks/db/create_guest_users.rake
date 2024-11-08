@@ -12,19 +12,20 @@ namespace :db do
       CrowdPledge.initialized.where(user_id: nil)
                  .group_by(&:email)
                  .each do |current_email, pledges|
-        email = current_email # Setze die `email`-Variable innerhalb des Blocks
+        # Konvertiere die E-Mail in Kleinbuchstaben
+        email = current_email.downcase
 
         # Wähle den ältesten CrowdPledge pro E-Mail
         oldest_pledge = pledges.min_by(&:created_at)
 
-        # Prüfe, ob ein Benutzer mit der E-Mail existiert
+        # Prüfe, ob ein Benutzer mit der Kleinbuchstaben-E-Mail existiert
         user = User.find_by(email: email)
 
         if user.nil?
-          # Erstelle einen neuen Gast-Benutzer, wenn keiner existiert
+          # Erstelle einen neuen Gast-Benutzer, wenn keiner existiert und speichere die E-Mail in Kleinbuchstaben
           user = User.create!(
             guest: true,
-            email: email,
+            email: email, # Kleinbuchstaben-E-Mail verwenden
             first_name: oldest_pledge.first_name,
             last_name: oldest_pledge.last_name,
             address_street: oldest_pledge.address_street,
@@ -46,7 +47,7 @@ namespace :db do
           next
         end
 
-        # Aktualisiere alle CrowdPledges mit derselben E-Mail und ohne user_id
+        # Aktualisiere alle CrowdPledges mit derselben Kleinbuchstaben-E-Mail und ohne user_id
         updated_count = CrowdPledge.where(email: email, user_id: nil).update_all(user_id: user.id)
         Rails.logger.info "Updated #{updated_count} CrowdPledges for user ID: #{user.id}, email: #{email}"
       end
