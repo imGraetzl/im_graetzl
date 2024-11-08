@@ -44,7 +44,9 @@ namespace :db do
         end
 
         # Aktualisiere alle CrowdPledges mit derselben Kleinbuchstaben-E-Mail und ohne user_id
-        updated_count = CrowdPledge.where(email: email, user_id: nil).update_all(user_id: user.id)
+        updated_count = CrowdPledge.where("LOWER(email) = ?", email.downcase)
+                           .where(user_id: nil)
+                           .update_all(user_id: user.id)
         Rails.logger.info "Updated #{updated_count} CrowdPledges for user ID: #{user.id}, email: #{email}"
       end
     rescue ActiveRecord::RecordInvalid => e
