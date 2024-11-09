@@ -1,8 +1,10 @@
 # config/initializers/delayed_job_error_handler.rb
 
-module DelayedJobErrorHandler
-  def self.included(base)
-    base.around_perform do |job, &block|
+require 'delayed/plugin'
+
+class DelayedJobErrorHandler < Delayed::Plugin
+  callbacks do |lifecycle|
+    lifecycle.around(:perform) do |job, &block|
       begin
         block.call
       rescue ActiveRecord::RecordNotFound => e
@@ -13,10 +15,11 @@ module DelayedJobErrorHandler
       rescue StandardError => e
         # Allgemeine Fehlerbehandlung
         Rails.logger.error("Fehler im Job #{job.id}: #{e.message}")
-        raise e # Wirft den Fehler erneut, um Standard-Fehlerbehandlung zuzulassen
+        raise e # Wirft den Fehler erneut, um die Standard-Fehlerbehandlung zuzulassen
       end
     end
   end
 end
 
+# Registrieren des Plugins bei DelayedJob
 Delayed::Worker.plugins << DelayedJobErrorHandler
