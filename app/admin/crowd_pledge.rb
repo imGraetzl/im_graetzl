@@ -56,11 +56,12 @@ ActiveAdmin.register CrowdPledge do
     column(:campaign_end) { |pledge| pledge&.crowd_campaign&.enddate }
     column :crowd_campaign_id
     column(:campaign) { |pledge| pledge&.crowd_campaign&.title }
+    column(:category)  { |pledge| pledge&.crowd_campaign&.crowd_categories&.map(&:title)&.join(", ") }
     column :user_id
     column :guest_newsletter
     column :anonym
     column :region_id
-    column :id
+    #column :id
   end
 
 end

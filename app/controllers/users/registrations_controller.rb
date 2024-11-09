@@ -24,6 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_up(resource_name, resource)
         respond_with resource, location: after_sign_up_path_for(resource)
       else
+        # Nur Bestätigungs-E-Mail senden, wenn sie noch nicht gesendet wurde
         resource.send_confirmation_instructions
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
         expire_data_after_sign_in!
