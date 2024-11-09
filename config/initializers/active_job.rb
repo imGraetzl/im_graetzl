@@ -10,11 +10,12 @@ Delayed::Worker.queue_attributes = {
   'summary-mails' => { priority: 2 }
 }
 
-module ErrorHandlerPlugin
-  def around_perform(job)
-    super do
+# Plugin-Klasse für Delayed Job
+class ErrorHandlerPlugin < Delayed::Plugin
+  callbacks do |lifecycle|
+    lifecycle.around(:invoke_job) do |job, &block|
       begin
-        yield
+        block.call
       rescue ActiveRecord::RecordNotFound => e
         Rails.logger.error("Fehler: #{e.message}. Der Job wird abgebrochen.")
       end
