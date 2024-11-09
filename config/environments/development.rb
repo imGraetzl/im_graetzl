@@ -3,12 +3,6 @@ require "active_support/core_ext/integer/time"
 Rails.application.default_url_options = { port: 3000 }
 Rails.application.configure do
 
-  # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
-  #config.middleware.use Rack::Prerender, whitelist: [
-  #  '^/region/', '/category/',
-  #  '/treffen$', '/locations$', '/raumteiler$', '/toolteiler$', '/energieteiler$', '/coop-share$', '/crowdfunding$', '/zuckerl$',
-  #]
-
   config.middleware.use Rack::Attack
 
   # Taxrates for Stripe

@@ -8,9 +8,29 @@ layout :set_layout
   # end
 
   # POST /resource/confirmation
-  # def create
-  #   super
-  # end
+  def create
+    self.resource = resource_class.new(email: params[:user][:email]&.strip&.downcase)
+    email = params[:user][:email]&.strip&.downcase
+    user = User.find_by(email: email, guest: false)
+  
+    if user
+      if user.confirmed?
+        # Benutzer ist bereits bestätigt
+        flash.now[:notice] = I18n.t("devise.confirmations.already_confirmed")
+      else
+        # Bestätigungsmail erneut senden, da Nutzer noch unbestätigt ist
+        user.send_confirmation_instructions
+        flash.now[:notice] = I18n.t("devise.confirmations.send_instructions")
+      end
+    else
+      # Fehler, wenn kein Benutzer gefunden wird
+      flash.now[:alert] = I18n.t("devise.failure.email_not_found_in_database", authentication_keys: "Email")
+    end
+  
+    respond_with_navigational(user) { render :new }
+  end
+  
+  
 
   # GET /resource/confirmation?confirmation_token=abcdef
   # def show

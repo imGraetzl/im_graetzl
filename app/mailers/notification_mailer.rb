@@ -14,16 +14,20 @@ class NotificationMailer < ApplicationMailer
 
     Rails.logger.info("[Immediate Mail] [#{@user.id}] [#{@user.email}]: #{@notification.mail_subject}")
 
-    mail(
-      subject: @notification.mail_subject,
-      from: platform_email('no-reply'),
-      to: @user.email,
-      template_name: "immediate/#{@notification.mail_template}"
-    )
+    begin
+      mail(
+        subject: @notification.mail_subject,
+        from: platform_email('no-reply'),
+        to: @user.email,
+        template_name: "immediate/#{@notification.mail_template}"
+      )
 
-    # @notification.update(sent: true)
-    # update direct without validation and callback
-    @notification.update_columns(sent: true)
+      @notification.update_columns(sent: true)
+
+    rescue StandardError => e
+      Rails.logger.error("[Immediate Mail] Error sending immediate mail to #{@user.email}: #{e.message}")
+    end
+
   end
 
   GRAETZL_SUMMARY_BLOCKS = {

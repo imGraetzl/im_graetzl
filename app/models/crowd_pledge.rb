@@ -8,6 +8,7 @@ class CrowdPledge < ApplicationRecord
   before_create :set_region
   before_save :normalize_email
 
+  validates :email, format: { with: Devise.email_regexp }
   validates_presence_of :email, :contact_name
   validates :terms, acceptance: true
   validates :donation_amount, numericality: { greater_than_or_equal_to: 1 }, if: :donation_amount?
