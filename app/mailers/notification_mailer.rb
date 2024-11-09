@@ -2,14 +2,7 @@ class NotificationMailer < ApplicationMailer
   before_action :prepend_view_paths
 
   def send_immediate(notification)
-    @notification = Notification.find_by(id: notification.id)
-  
-    # Abbrechen, falls die Notification bereits gelöscht wurde
-    if @notification.nil?
-      Rails.logger.warn("[Immediate Mail] Abbruch: Notification #{notification.id} wurde vor dem Senden gelöscht.")
-      return
-    end
-    
+    @notification = notification
     @user = @notification.user
     @region = @notification.region
 
