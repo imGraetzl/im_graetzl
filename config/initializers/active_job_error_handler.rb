@@ -1,17 +1,15 @@
-# config/initializers/active_job_error_handler.rb
-
-Rails.logger.info("Active Job Error Handler Initializer geladen")
-
-Delayed::Worker.lifecycle.around(:error) do |job, &block|
+Delayed::Worker.lifecycle.before(:perform) do |job|
   begin
-    block.call
-  rescue Delayed::DeserializationError => e
-    Rails.logger.error("Globaler DeserializationError-Handler: #{e.message}. Job wird übersprungen.")
-    # Überspringen, um Neustarts zu verhindern.
-    nil
+    job.payload_object # Versucht, den Job zu deserialisieren
   rescue ActiveRecord::RecordNotFound => e
-    Rails.logger.error("Globaler RecordNotFound-Handler: #{e.message}. Job wird übersprungen.")
-    # Weitere Behandlung hinzufügen falls nötig
-    nil
+    # Ausführliche Informationen über den verwaisten Job ins Log schreiben
+    Rails.logger.error("Verwaister Job entdeckt und entfernt:")
+    Rails.logger.error("Job ID: #{job.id}")
+    Rails.logger.error("Queue: #{job.queue}")
+    Rails.logger.error("Handler: #{job.handler}")
+    Rails.logger.error("Fehlermeldung: #{e.message}")
+    
+    job.destroy # Entfernt den verwaisten Job
+    nil # Verhindert, dass der Job erneut ausgeführt wird
   end
 end
