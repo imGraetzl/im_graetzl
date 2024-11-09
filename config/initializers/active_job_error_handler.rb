@@ -1,15 +1,22 @@
-Delayed::Worker.lifecycle.before(:perform) do |job|
-  begin
-    job.payload_object # Versucht, den Job zu deserialisieren
-  rescue ActiveRecord::RecordNotFound => e
-    # Ausführliche Informationen über den verwaisten Job ins Log schreiben
-    Rails.logger.error("Verwaister Job entdeckt und entfernt:")
-    Rails.logger.error("Job ID: #{job.id}")
-    Rails.logger.error("Queue: #{job.queue}")
-    Rails.logger.error("Handler: #{job.handler}")
-    Rails.logger.error("Fehlermeldung: #{e.message}")
-    
-    job.destroy # Entfernt den verwaisten Job
-    nil # Verhindert, dass der Job erneut ausgeführt wird
+# config/initializers/delayed_job_error_handler.rb
+
+module DelayedJobErrorHandler
+  def self.included(base)
+    base.around_perform do |job, &block|
+      begin
+        block.call
+      rescue ActiveRecord::RecordNotFound => e
+        # Verwaisten Job loggen und überspringen
+        Rails.logger.error("Verwaister Job (RecordNotFound) ignoriert: #{e.message}")
+        Rails.logger.error("Job ID: #{job.id}, Handler: #{job.handler}, Queue: #{job.queue}")
+        job.destroy # Entfernt den Job, um erneute Versuche zu vermeiden
+      rescue StandardError => e
+        # Allgemeine Fehlerbehandlung
+        Rails.logger.error("Fehler im Job #{job.id}: #{e.message}")
+        raise e # Wirft den Fehler erneut, um Standard-Fehlerbehandlung zuzulassen
+      end
+    end
   end
 end
+
+Delayed::Worker.plugins << DelayedJobErrorHandler
