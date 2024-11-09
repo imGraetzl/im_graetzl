@@ -3,9 +3,23 @@ Delayed::Worker.delay_jobs = Rails.env.staging? || Rails.env.production?
 Delayed::Worker.destroy_failed_jobs = false
 Delayed::Worker.raise_signal_exceptions = false
 Delayed::Worker.max_attempts = 3
-Delayed::Worker.max_run_time = 1.minute
+Delayed::Worker.max_run_time = 5.minutes
 Delayed::Worker.default_priority = 1
 Delayed::Worker.queue_attributes = {
   'action-processor' => { priority: 0 },
   'summary-mails' => { priority: 2 }
 }
+
+module ErrorHandlerPlugin
+  def around_perform(job)
+    super do
+      begin
+        yield
+      rescue ActiveRecord::RecordNotFound => e
+        Rails.logger.error("Fehler: #{e.message}. Der Job wird abgebrochen.")
+      end
+    end
+  end
+end
+
+Delayed::Worker.plugins << ErrorHandlerPlugin
