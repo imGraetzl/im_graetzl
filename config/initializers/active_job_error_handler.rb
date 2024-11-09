@@ -3,6 +3,7 @@
 # Bei ActiveRecord::RecordNotFound, wird er geloggt, und der Job wird verworfen (nil zurückgegeben).
 
 require 'delayed/psych_ext'
+Rails.logger.info("Active Job Error Handler Initializer geladen")
 
 module Delayed
   module PsychExt
