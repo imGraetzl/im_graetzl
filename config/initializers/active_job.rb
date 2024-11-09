@@ -9,18 +9,3 @@ Delayed::Worker.queue_attributes = {
   'action-processor' => { priority: 0 },
   'summary-mails' => { priority: 2 }
 }
-
-# Plugin-Klasse für Delayed Job
-class ErrorHandlerPlugin < Delayed::Plugin
-  callbacks do |lifecycle|
-    lifecycle.around(:invoke_job) do |job, &block|
-      begin
-        block.call
-      rescue ActiveRecord::RecordNotFound => e
-        Rails.logger.error("Fehler: #{e.message}. Der Job wird abgebrochen.")
-      end
-    end
-  end
-end
-
-Delayed::Worker.plugins << ErrorHandlerPlugin
