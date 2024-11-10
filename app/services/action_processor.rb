@@ -319,7 +319,7 @@ class ActionProcessor
       end
 
     rescue ActiveRecord::RecordNotFound => e
-      Rails.logger.error "Action Processor: Record not found: #{e.message} - Subject: #{subject.class.name}, Action: #{action}, Child: #{child.try(:class).try(:name)}"
+      Rails.logger.error "Action Processor: Error Record not found: #{e.message}"
     
     rescue StandardError => e
       Rails.logger.error "Action Processor: Error in track method: #{e.message}"
