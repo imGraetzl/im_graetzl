@@ -5,6 +5,9 @@ class ActionProcessor
   end
 
   def track(subject, action, child = nil)
+
+    return Rails.logger.warn("ActionProcessor Aborted track method: subject or child not persisted") unless subject.persisted? && (child.nil? || child.persisted?)
+
     begin
       case [subject.class, action]
 
