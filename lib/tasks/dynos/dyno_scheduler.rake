@@ -4,17 +4,18 @@ namespace :dyno do
   task schedule: :environment do
     require 'platform-api'
 
+    # Heroku API-Token und App-Name aus ENV-Variablen
     heroku = PlatformAPI.connect_oauth(ENV['HEROKU_API_TOKEN'])
     APP_NAME = ENV['HEROKU_APP_NAME']
 
-    def scale_dyno(heroku, type, target_size, target_quantity)
-      target_size = target_size.capitalize # Anpassung für Konsistenz
+    def scale_dyno(heroku, type, target_size, target_quantity, target_time)
+      target_size = target_size.capitalize
 
       # Aktuelle Konfiguration abrufen
       current_config = heroku.formation.info(APP_NAME, type)
       current_size = current_config['size']
       current_quantity = current_config['quantity']
-      current_time = Time.now.in_time_zone('Vienna') # Aktuelle Uhrzeit für das Logging
+      current_time = Time.now.in_time_zone('Vienna')
 
       Rails.logger.info("Current time: #{current_time}")
       Rails.logger.info("Target time for configuration change: #{target_time}")
@@ -41,16 +42,24 @@ namespace :dyno do
       day_of_week = current_time.strftime('%A')
       hour = current_time.hour
 
-      # Beispiel: Worker-Dynos am Dienstag
-      if day_of_week == 'Tuesday' && hour == 0
-        scale_dyno(heroku, 'worker', 'Standard-2x', 2)
+      # Zielzeiten für Dyno-Konfigurationen
+      worker_increase_time = current_time.change(hour: 5)  # Zielzeit: 05:00 Uhr für Worker
+      worker_reset_time = current_time.change(hour: 8)     # Zielzeit: 08:00 Uhr für Worker-Reset
+      night_target_time = current_time.change(hour: 23)    # Zielzeit: 23:00 Uhr für Nachtkonfiguration
+      day_target_time = current_time.change(hour: 7)       # Zielzeit: 07:00 Uhr für Tageskonfiguration
+
+      # Worker-Dynos am Dienstag zwischen 05:00 und 08:00 Uhr auf 2 Dynos setzen und danach wieder auf 1 reduzieren
+      if day_of_week == 'Tuesday' && hour >= 5 && hour < 8
+        scale_dyno(heroku, 'worker', 'Standard-2x', 2, worker_increase_time)
+      elsif day_of_week == 'Tuesday' && hour >= 8
+        scale_dyno(heroku, 'worker', 'Standard-1x', 1, worker_reset_time)
       end
 
-      # Web Dynos nachts auf 1 Dyno reduzieren
+      # Nachtkonfiguration für Web Dynos (1 Dyno zwischen 23:00 und 07:00)
       if hour >= 23 || hour < 7
-        scale_dyno(heroku, 'web', 'Standard-2x', 1)
+        scale_dyno(heroku, 'web', 'Standard-1x', 1, night_target_time)
       else
-        scale_dyno(heroku, 'web', 'Standard-2x', 2)
+        scale_dyno(heroku, 'web', 'Standard-1x', 2, day_target_time)
       end
     end
 
