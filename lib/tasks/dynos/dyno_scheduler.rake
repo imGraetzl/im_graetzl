@@ -6,7 +6,7 @@ namespace :dyno do
 
     # Heroku API-Token und App-Name aus ENV-Variablen
     heroku = PlatformAPI.connect_oauth(ENV['HEROKU_API_TOKEN'])
-    APP_NAME = ENV['HEROKU_APP_NAME']
+    APP_NAME = 'imgraetzl'
 
     def scale_dyno(heroku, type, target_size, target_quantity)
 
