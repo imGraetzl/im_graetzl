@@ -48,7 +48,7 @@ namespace :dyno do
       end
 
       # Nachtkonfiguration für Web Dynos (1 Dyno zwischen 22:00 und 06:00)
-      if hour >= 22 || hour <= 6
+      if hour >= 22 || hour <= 5
         scale_dyno(heroku, 'web', 'Standard-2X', 1)
       else
         scale_dyno(heroku, 'web', 'Standard-2X', 2)
