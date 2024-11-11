@@ -25,7 +25,6 @@ gem 'rack-rewrite'
 
 gem 'aasm'
 gem 'acts-as-taggable-on'
-#gem 'barnes'
 gem 'browser'
 gem 'cocoon'
 gem 'devise'
@@ -41,17 +40,16 @@ gem 'prawn'
 gem 'prawn-table'
 
 gem 'gibbon', '~> 3.0', '>= 3.0.2'
-#gem 'newrelic_rpm'
 gem 'rollbar'
 gem "skylight"
+gem 'platform-api'
+#gem 'newrelic_rpm'
 #gem 'scout_apm'
 
 gem "shrine", "~> 3.0"
 gem "aws-sdk-s3", "~> 1"
 gem "image_processing", "~> 1.8"
 gem 'marcel'
-
-#gem 'mini_racer'
 
 gem 'sassc-rails'
 gem 'terser'
@@ -65,7 +63,6 @@ gem 'oj'
 gem 'jquery-ui-rails'
 gem 'bb-ruby'
 gem 'stripe', "~> 8.0"
-#gem 'prerender_rails'
 
 gem 'caxlsx'
 gem 'caxlsx_rails'
