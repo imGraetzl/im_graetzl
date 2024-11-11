@@ -4,23 +4,28 @@ namespace :dyno do
   task schedule: :environment do
     require 'platform-api'
 
+    # Heroku API-Token und App-Name aus ENV-Variablen
     heroku = PlatformAPI.connect_oauth(ENV['HEROKU_API_TOKEN'])
-    APP_NAME = 'imgraetzl-staging' # Dein App-Name
-
-    def log_current_config(heroku, type)
-      current_config = heroku.formation.info(APP_NAME, type)
-      Rails.logger.info "[#{Time.now}] Current configuration for #{type} dyno: Size=#{current_config['size']}, Quantity=#{current_config['quantity']}"
-    end
+    APP_NAME = ENV['HEROKU_APP_NAME']
 
     def scale_dyno(heroku, type, size, quantity)
+      # Aktuelle Konfiguration abrufen
       current_config = heroku.formation.info(APP_NAME, type)
-      log_current_config(heroku, type)
-      # Prüfen, ob eine Änderung notwendig ist
-      if current_config['size'] != size || current_config['quantity'] != quantity
-        heroku.formation.update(APP_NAME, type, { size: size, quantity: quantity })
-        Rails.logger.info "[#{Time.now}] Dyno scaled: Type=#{type}, Size=#{size}, Quantity=#{quantity}"
+      current_size = current_config['size']
+      current_quantity = current_config['quantity']
+
+      # Nur skalieren, wenn die Konfiguration abweicht
+      if current_size == size && current_quantity == quantity
+        Rails.logger.info("No scaling needed for #{type} dyno. Current configuration matches: Size=#{size}, Quantity=#{quantity}")
       else
-        Rails.logger.info "[#{Time.now}] No scaling needed for #{type} dyno. Already at desired configuration."
+        Rails.logger.info("Attempting to scale #{type} dyno to Size=#{size}, Quantity=#{quantity}")
+        begin
+          response = heroku.formation.update(APP_NAME, type, { size: size, quantity: quantity })
+          Rails.logger.info("Scale successful: #{response.inspect}")
+        rescue Excon::Error::UnprocessableEntity => e
+          Rails.logger.error("Error scaling dyno: #{e.message}")
+          Rails.logger.error("Parameters used: Size=#{size}, Quantity=#{quantity}")
+        end
       end
     end
 
@@ -29,13 +34,13 @@ namespace :dyno do
       day_of_week = current_time.strftime('%A')
       hour = current_time.hour
 
-      # Worker-Dynos am Dienstag
+      # Beispiel: Worker-Dynos am Dienstag
       if day_of_week == 'Tuesday' && hour == 0
         scale_dyno(heroku, 'worker', 'Standard-2x', 2)
       end
 
       # Web Dynos nachts auf 1 Dyno reduzieren
-      if hour >= 22 || hour < 6
+      if hour >= 23 || hour < 7
         scale_dyno(heroku, 'web', 'Standard-1x', 1)
       else
         scale_dyno(heroku, 'web', 'Standard-1x', 2)
