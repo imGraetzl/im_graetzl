@@ -47,8 +47,9 @@ module ImGraetzl
     # gzip compression
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
 
-    config.skylight.environments << "staging"
-    config.skylight.probes << 'delayed_job'
+    # skylight gem config -> needed if skylight gem is used:
+    #config.skylight.environments << "staging"
+    #config.skylight.probes << 'delayed_job'
 
   end
 end

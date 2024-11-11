@@ -39,10 +39,10 @@ gem 'sitemap_generator'
 gem 'prawn'
 gem 'prawn-table'
 
+gem 'platform-api'
 gem 'gibbon', '~> 3.0', '>= 3.0.2'
 gem 'rollbar'
-gem "skylight"
-gem 'platform-api'
+#gem "skylight"
 #gem 'newrelic_rpm'
 #gem 'scout_apm'
 
