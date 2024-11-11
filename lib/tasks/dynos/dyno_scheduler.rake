@@ -4,23 +4,26 @@ namespace :dyno do
   task schedule: :environment do
     require 'platform-api'
 
-    # Heroku API-Token und App-Name aus ENV-Variablen
     heroku = PlatformAPI.connect_oauth(ENV['HEROKU_API_TOKEN'])
     APP_NAME = ENV['HEROKU_APP_NAME']
 
     def scale_dyno(heroku, type, target_size, target_quantity)
+      target_size = target_size.capitalize # Anpassung für Konsistenz
+
       # Aktuelle Konfiguration abrufen
       current_config = heroku.formation.info(APP_NAME, type)
       current_size = current_config['size']
       current_quantity = current_config['quantity']
+      current_time = Time.now.in_time_zone('Vienna') # Aktuelle Uhrzeit für das Logging
 
-      # Logging der aktuellen und angestrebten Konfiguration
+      Rails.logger.info("Current time: #{current_time}")
+      Rails.logger.info("Target time for configuration change: #{target_time}")
       Rails.logger.info("Current configuration for #{type} dyno: Size=#{current_size}, Quantity=#{current_quantity}")
       Rails.logger.info("Target configuration for #{type} dyno: Size=#{target_size}, Quantity=#{target_quantity}")
 
-      # Vergleich und Entscheidung
+      # Nur skalieren, wenn die Konfiguration abweicht
       if current_size == target_size && current_quantity == target_quantity
-        Rails.logger.info("No scaling needed for #{type} dyno. Current configuration matches the target.")
+        Rails.logger.info("No scaling needed for #{type} dyno. Current configuration matches.")
       else
         Rails.logger.info("Scaling needed for #{type} dyno. Proceeding with scale action.")
         begin
@@ -45,9 +48,9 @@ namespace :dyno do
 
       # Web Dynos nachts auf 1 Dyno reduzieren
       if hour >= 23 || hour < 7
-        scale_dyno(heroku, 'web', 'Standard-1x', 1)
+        scale_dyno(heroku, 'web', 'Standard-2x', 1)
       else
-        scale_dyno(heroku, 'web', 'Standard-1x', 2)
+        scale_dyno(heroku, 'web', 'Standard-2x', 2)
       end
     end
 
