@@ -14,9 +14,7 @@ namespace :dyno do
       current_config = heroku.formation.info(APP_NAME, type)
       current_size = current_config['size'].downcase
       current_quantity = current_config['quantity']
-      current_time = Time.now.in_time_zone('Vienna')
 
-      Rails.logger.info("[Dyno-Scale]: Current time: #{current_time}")
       Rails.logger.info("[Dyno-Scale]: Current configuration for #{type} dyno: Size=#{current_config['size']}, Quantity=#{current_quantity}")
       Rails.logger.info("[Dyno-Scale]: Target configuration for #{type} dyno: Size=#{target_size}, Quantity=#{target_quantity}")
 
@@ -40,18 +38,18 @@ namespace :dyno do
       day_of_week = current_time.strftime('%A')
       hour = current_time.hour
 
-      # Worker-Dynos am Dienstag zwischen 05:00 und 08:00 Uhr auf 2 Dynos setzen und danach wieder auf 1 reduzieren
-      if day_of_week == 'Tuesday' && hour >= 5 && hour <= 8
+      # Worker-Dynos Dienstag zwischen 05:00 und 07:00 Uhr 2 Dynos
+      if day_of_week == 'Tuesday' && hour >= 5 && hour <= 7
         scale_dyno(heroku, 'worker', 'Standard-2X', 2)
       elsif day_of_week == 'Tuesday' && hour >= 8
         scale_dyno(heroku, 'worker', 'Standard-1X', 1)
       end
 
-      # Nachtkonfiguration für Web Dynos (1 Dyno zwischen 22:00 und 06:00)
-      if hour >= 22 || hour <= 5
-        scale_dyno(heroku, 'web', 'Standard-2X', 1)
-      else
+      # Web-Dynos tagsüber 2 Dynos zwischen 06:00 und 22:00 Uhr (Nachts 1 Dyno)
+      if hour >= 6 || hour <= 22
         scale_dyno(heroku, 'web', 'Standard-2X', 2)
+      else
+        scale_dyno(heroku, 'web', 'Standard-2X', 1)
       end
     end
 
