@@ -39,14 +39,14 @@ namespace :dyno do
       hour = current_time.hour
 
       # Worker-Dynos Dienstag zwischen 05:00 und 07:00 Uhr 2 Dynos
-      if day_of_week == 'Tuesday' && hour >= 5 && hour <= 7
+      if day_of_week == 'Tuesday' && hour >= 5 && hour < 7
         scale_dyno(heroku, 'worker', 'Standard-2X', 2)
-      elsif day_of_week == 'Tuesday' && hour >= 8
+      elsif day_of_week == 'Tuesday'
         scale_dyno(heroku, 'worker', 'Standard-1X', 1)
       end
 
       # Web-Dynos tagsüber 2 Dynos zwischen 06:00 und 22:00 Uhr (Nachts 1 Dyno)
-      if hour >= 6 || hour <= 22
+      if hour >= 6 && hour < 22
         scale_dyno(heroku, 'web', 'Standard-2X', 2)
       else
         scale_dyno(heroku, 'web', 'Standard-2X', 1)
