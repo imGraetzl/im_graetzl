@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_21_095131) do
+ActiveRecord::Schema.define(version: 2024_11_13_221303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -453,6 +453,8 @@ ActiveRecord::Schema.define(version: 2024_10_21_095131) do
     t.jsonb "user_agent"
     t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
     t.bigint "crowd_boost_id"
+    t.integer "comment_id"
+    t.index ["comment_id"], name: "index_crowd_pledges_on_comment_id"
     t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
@@ -1691,6 +1693,7 @@ ActiveRecord::Schema.define(version: 2024_10_21_095131) do
     t.integer "free_graetzl_zuckerl", default: 0
     t.boolean "subscribed", default: false
     t.string "payment_wallet"
+    t.datetime "deleted_at"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"

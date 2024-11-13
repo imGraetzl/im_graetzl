@@ -98,6 +98,7 @@ class User < ApplicationRecord
   
   before_destroy :mailchimp_user_delete
   before_destroy :cancel_subscription
+  before_destroy :convert_to_guest?
   before_create :skip_confirmation_for_guests
 
   scope :business, -> { where(business: true) }
@@ -379,6 +380,30 @@ class User < ApplicationRecord
   def cancel_subscription
     self.subscriptions.active.last.cancel_now! if subscribed?
   end
+
+  def convert_to_guest?
+    return if guest || !crowd_pledges.initialized.exists?
+    User.transaction do
+      guest_user = User.new(
+        guest: true,
+        business: false,
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        address_street: address_street,
+        address_zip: address_zip,
+        address_city: address_city,
+        graetzl_id: graetzl_id,
+        region_id: region_id,
+        stripe_customer_id: stripe_customer_id,
+        created_at: created_at,
+        deleted_at: Time.current
+      )
+      guest_user.save!(validate: false)
+      crowd_pledges.initialized.update_all(user_id: guest_user.id)
+    end
+  end
+  
 
   def skip_confirmation_for_guests
     if guest?
