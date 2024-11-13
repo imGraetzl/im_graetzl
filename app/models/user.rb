@@ -96,10 +96,11 @@ class User < ApplicationRecord
   after_update :mailchimp_user_update, if: -> { saved_change_to_newsletter? || saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
   after_update :update_user_graetzls, if: -> { saved_change_to_graetzl_id? }
   
+  before_create :skip_confirmation_for_guests
   before_destroy :mailchimp_user_delete
   before_destroy :cancel_subscription
   before_destroy :convert_to_guest?
-  before_create :skip_confirmation_for_guests
+  before_destroy :log_user_deletion
 
   scope :business, -> { where(business: true) }
   scope :guests, -> { where(guest: true) }
@@ -404,6 +405,9 @@ class User < ApplicationRecord
     end
   end
   
+  def log_user_deletion
+    Rails.logger.info "[User Deleted]:#{id} (#{email})"
+  end
 
   def skip_confirmation_for_guests
     if guest?
