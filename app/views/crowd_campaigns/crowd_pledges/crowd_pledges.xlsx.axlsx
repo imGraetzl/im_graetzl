@@ -13,6 +13,7 @@ wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
     'Freie Unterstützung (€)',
     'Dankeschön (€)',
     'Dankeschön',
+    'ID',
     'Strasse',
     'PLZ',
     'Stadt',
@@ -29,6 +30,7 @@ wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
       crowd_pledge.donation_amount,
       crowd_pledge.crowd_reward&.amount,
       crowd_pledge.crowd_reward&.title,
+      crowd_pledge.crowd_reward&.id,
       crowd_pledge.address_street,
       crowd_pledge.address_zip,
       crowd_pledge.address_city,
@@ -42,6 +44,12 @@ wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
       euro,
       euro,
       euro,
+      nil,
+      nil,
+      nil,
+      nil,
+      nil,
+      nil,
       nil,
     ]
   end
