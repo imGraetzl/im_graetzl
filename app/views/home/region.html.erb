@@ -53,21 +53,11 @@
 
   </div>
 
-  <% if current_region.is?('wien')|| current_region.is?('graz') %>
-    <%= render 'rooms' %>
-    <%= render 'crowd_campaigns' %>
-    <%= render 'meetings' %>
-    <%= render 'locations' %>
-    <%= render 'coop_demands' %>
-    <%= render 'energieteiler' %>
-  <% else %>
-    <%= render 'meetings' %>
-    <%= render 'rooms' %>
-    <%= render 'crowd_campaigns' %>
-    <%= render 'locations' %>
-    <%= render 'coop_demands' %>
-    <%= render 'tools' %>
-  <% end %>
+  <%= render 'rooms' %>
+  <%= render 'crowd_campaigns' %>
+  <%= render 'meetings' %>
+  <%= render 'locations' %>
+  <%= render 'coop_demands' %>
 
   <%= link_to "Kostenlos #{ t("region.#{current_region.id}.in_your_graetzl") } registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register' if !user_signed_in? %>
 
