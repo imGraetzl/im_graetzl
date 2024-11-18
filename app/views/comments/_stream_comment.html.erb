@@ -2,7 +2,7 @@
 
   <div class="entryContent">
 
-    <% if comment.edit_permission?(current_user) %>
+    <% if comment.edit_permission?(current_or_session_guest_user) %>
       <div class="editControls">
         <%= link_to comment, { method: :delete, remote: true, data: { confirm: 'Kommentar wirklich löschen?', disable_with: 'lädt...' } } do %>
           <div class="btn-delete">
@@ -13,16 +13,25 @@
     <% end %>
 
     <div class="userEntry -parentComment">
-      <%= link_to comment.user, rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round show-badge' %>
+      <% if comment.user.guest? %>
+        <%= avatar_image comment.user, size: :thumb, class: 'img-round show-badge' %>
+      <% else %>
+        <%= link_to comment.user, rel: 'nofollow' do %>
+          <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round show-badge' %>
+        <% end %>
       <% end %>
       <div class="infos">
-        <div class="name"><%= link_to comment.user.full_name, comment.user, rel: 'nofollow' %></div>
+        <% if comment.user.guest? %>
+          <div class="guest"><%= comment.user.full_name %></div>
+        <% else %>
+          <div class="name"><%= link_to comment.user.full_name, comment.user, rel: 'nofollow' %></div>
+        <% end %>
         <div class="date">
           <%= I18n.localize(comment.created_at, format:'%a, %d. %B %Y, %H:%M') %>
         </div>
       </div>
     </div>
+
 
     <div class="txt txtlinky"><%= comment.content %></div>
 

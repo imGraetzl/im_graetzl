@@ -75,6 +75,18 @@ class CrowdPledgesController < ApplicationController
     @crowd_pledge = CrowdPledge.find(params[:id])
   end
 
+  def pledge_comment
+    @crowd_pledge = CrowdPledge.find(params[:id])
+    @comment = Comment.new(comment_params)
+    @comment.user = @crowd_pledge.user
+
+    if @comment.save
+      @crowd_pledge.update(comment_id: @comment.id)
+      ActionProcessor.track(@crowd_pledge.crowd_campaign, :pledge_comment, @comment)
+    end
+    render 'crowd_pledges/new/pledge_comment'
+  end
+
   def details
     @crowd_pledge = CrowdPledge.find(params[:id])
     redirect_to @crowd_pledge.crowd_campaign if @crowd_pledge.incomplete?
@@ -167,6 +179,10 @@ class CrowdPledgesController < ApplicationController
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer,
       :user_agent
     )
+  end
+
+  def comment_params
+    params.require(:comment).permit(:content, :commentable_id, :commentable_type)
   end
 
   def guest_user_params

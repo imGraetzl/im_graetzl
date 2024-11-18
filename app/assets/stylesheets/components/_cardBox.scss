@@ -510,6 +510,16 @@
     }
   }
 
+  .pledge_comment {
+    display: block;
+    margin-top: 4px;
+    margin-left: 43px;
+    a {
+      color: $color-font-primary;
+      text-decoration: none;
+    }
+  }
+
   .streamElement .txt {
       margin-top:0px;
       margin-left: 43px;

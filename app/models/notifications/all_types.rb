@@ -6,6 +6,7 @@ module Notifications
     MeetingAttended,
     CommentInAttending,
     CommentOnOwnedContent,
+    CommentOnCrowdCampaign,
     ReplyOnComment,
     CommentOnDiscussionPost,
     MeetingUpdated,

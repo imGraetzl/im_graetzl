@@ -1,0 +1,10 @@
+(function() {
+  var $streamForm = $("[data-behavior='stream-form']");
+
+  <% if @comment.persisted? %>
+    $streamForm.replaceWith('<div class="comment-success">Lieben Dank, dein <%= link_to("Kommentar", crowd_campaign_path(@crowd_pledge.crowd_campaign, target: @comment.target_url_params)) %> wurde erfolgreich veröffentlicht.</div>');
+  <% else %>
+    alert('<%= @comment.errors.full_messages.first %>');
+  <% end %>
+
+})();

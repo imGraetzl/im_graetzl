@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_or_guest_user!
 
   def create
     @comment = current_user.comments.new(comment_params)
@@ -13,6 +13,10 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def authenticate_or_guest_user!
+    head :unauthorized unless current_or_session_guest_user
+  end
 
   def comment_params
     params.require(:comment).permit(

@@ -164,7 +164,10 @@ class ActionProcessor
       elsif subject.scope_public?
         Activity.add_public(subject, child, to: subject.graetzl)
       end
-      notify_comment(subject, child)
+      Notifications::CommentOnCrowdCampaign.generate(subject, child, to: { user: subject.user_id })
+
+    when [CrowdCampaign, :pledge_comment]
+      Notifications::CommentOnCrowdCampaign.generate(subject, child, to: { user: subject.user_id })
 
     when [CrowdCampaign, :post]
 

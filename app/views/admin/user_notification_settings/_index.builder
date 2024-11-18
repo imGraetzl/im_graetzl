@@ -17,12 +17,13 @@ context.instance_eval do
   }
   column("Betrifft Mich") { |u|
     [
+      "<span class='mailtype'>New Meeting Attendee: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::MeetingAttended)}'>#{u.enabled_mail_notification(Notifications::MeetingAttended)}</span>",
       "<span class='mailtype'>Commented Content: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentOnOwnedContent)}'>#{u.enabled_mail_notification(Notifications::CommentOnOwnedContent)}</span>",
-      "<span class='mailtype'>Also Commented C.: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentOnFollowedContent)}'>#{u.enabled_mail_notification(Notifications::CommentOnFollowedContent)}</span>",
-      "<span class='mailtype'>Commented Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::ReplyOnComment)}'>#{u.enabled_mail_notification(Notifications::ReplyOnComment)}</span>",
-      "<span class='mailtype'>Also Commented Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::ReplyOnFollowedComment)}'>#{u.enabled_mail_notification(Notifications::ReplyOnFollowedComment)}</span>",
+      "<span class='mailtype'>Commented Campaign: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentOnCrowdCampaign)}'>#{u.enabled_mail_notification(Notifications::CommentOnCrowdCampaign)}</span>",
+      "<span class='mailtype'>Commented Followed: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentOnFollowedContent)}'>#{u.enabled_mail_notification(Notifications::CommentOnFollowedContent)}</span>",
+      "<span class='mailtype'>Reply On Comment: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::ReplyOnComment)}'>#{u.enabled_mail_notification(Notifications::ReplyOnComment)}</span>",
+      "<span class='mailtype'>Reply On Followed: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::ReplyOnFollowedComment)}'>#{u.enabled_mail_notification(Notifications::ReplyOnFollowedComment)}</span>",
       "<span class='mailtype'>Comment in Attending: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::CommentInAttending)}'>#{u.enabled_mail_notification(Notifications::CommentInAttending)}</span>",
-      "<span class='mailtype'>Meeting New Attendee: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::MeetingAttended)}'>#{u.enabled_mail_notification(Notifications::MeetingAttended)}</span>",
       "<span class='mailtype'>Commented Wall: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewWallComment)}'>#{u.enabled_mail_notification(Notifications::NewWallComment)}</span>",
     ].join("<br>").html_safe
   }

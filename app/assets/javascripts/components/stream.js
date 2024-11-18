@@ -59,7 +59,7 @@ APP.components.stream = (function() {
             .addClass('js-initialized')
             .find('textarea')
             .on("focusin touch", function(){
-                (APP.utils.isLoggedIn()) ? $parent.addClass("is-focused") : injectFormBlocker($parent);
+                (APP.utils.isLoggedIn() || $(this).hasClass("guest-enabled")) ? $parent.addClass("is-focused") : injectFormBlocker($parent);
             });
     }
 

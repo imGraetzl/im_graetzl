@@ -10,14 +10,14 @@ class NotificationMailerPreview < ActionMailer::Preview
   end
 
   def summary_personal
-    NotificationMailer.summary_personal(prepare_user, prepare_user.region_id, 'weekly')
+    NotificationMailer.summary_personal(prepare_user, prepare_user.region_id, 'daily')
   end
 
   private
 
   def prepare_user
-    #user = User.registered.where(email: 'michael.walchhuetter@gmail.com').first
-    user = User.registered.where(region_id: 'graz').last
+    user = User.registered.where(email: 'michael.walchhuetter@gmail.com').first
+    #user = User.registered.where(region_id: 'wien').last
     user.notifications.update_all(sent: false)
     user
   end
