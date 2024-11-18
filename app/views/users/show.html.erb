@@ -79,7 +79,7 @@
     </ul>
 
     <div id="tab-crowdfunding">
-      <%= form_tag crowd_campaigns_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'crowdfunding-submit' do; end %>
+      <%= form_tag load_collections_crowd_campaigns_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'crowdfunding-submit' do; end %>
       <div class="cardBoxCollection -tripple" data-behavior="crowd-campaigns-card-container"></div>
       <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'crowd-campaigns-paginate-link' }, rel: 'nofollow' %>
     </div>
