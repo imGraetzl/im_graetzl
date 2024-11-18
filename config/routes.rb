@@ -150,13 +150,17 @@ Rails.application.routes.draw do
   end
 
   resources :crowd_campaigns, path: 'crowdfunding' do
+    collection do
+      get '/', action: :start, as: :start              # /crowdfunding calls the start method
+      get 'start', to: redirect('/crowdfunding')       # Redirect /crowdfunding/start to /crowdfunding
+      get 'load_collections', action: :load_collections # Separate route for Ajax request
+    end
     post :add_post, on: :member
     post :update_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
     post :send_mail, on: :member
     post :set_percentage, on: :member
-    get 'start', on: :collection
     get 'edit_description', on: :member
     get 'edit_finance', on: :member
     get 'edit_rewards', on: :member

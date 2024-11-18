@@ -1,5 +1,5 @@
 class CrowdCampaignsController < ApplicationController
-  before_action :authenticate_user!, except: [:redirect, :index, :show, :supporters, :posts, :comments, :start]
+  before_action :authenticate_user!, except: [:redirect, :load_collections, :show, :supporters, :posts, :comments, :start]
 
   def redirect
     # Take Location Slug and Redirect to CrowdCampaign if there is any
@@ -13,7 +13,7 @@ class CrowdCampaignsController < ApplicationController
     end
   end
 
-  def index
+  def load_collections
     head :ok and return if browser.bot? && !request.format.js?
     @crowd_campaigns = collection_scope.includes(:user)
     @crowd_campaigns = filter_collection(@crowd_campaigns)
