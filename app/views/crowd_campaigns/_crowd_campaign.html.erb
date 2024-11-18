@@ -62,6 +62,11 @@
             </span>
           </div>
         <% end %>
+        <% if crowd_pledge.comment_id.present? %>
+          <div class="pledge_comment">
+            <%= link_to crowd_pledge.comment.content.truncate(100), crowd_campaign_path(crowd_campaign, target: crowd_pledge.comment.target_url_params), rel: 'nofollow' %>
+          </div>
+        <% end %>
       <% else %>
         <div class="userEntry userPledge">
           <%= image_tag("fallbacks/user_avatar.png", loading: 'lazy', alt: 'Anonymer Unterstützer', class: 'img-round') %>

@@ -214,6 +214,29 @@
 
 }
 
+.crowd-pledges-page {
+  &.summary-screen {
+    .pledge-comment-container {
+      margin-top:20px;
+      margin-bottom:20px;
+      padding-top:20px;
+      padding-bottom:20px;
+      border-top: 1px solid $color-ambient-mint-light;
+      border-bottom: 1px solid $color-ambient-mint-light;
+      p, .comment-success {
+        @include font-size-primaryFont('large');
+        text-align: center;
+      }
+      .entryCreate {
+        margin: 30px auto auto auto;
+      }
+    }
+    .comment-success {
+     margin-top:20px;
+    }
+  }
+}
+
 .subscriptions-page {
   &.summary-screen {
     .img-round {

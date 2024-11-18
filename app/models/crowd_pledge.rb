@@ -4,6 +4,7 @@ class CrowdPledge < ApplicationRecord
   belongs_to :crowd_campaign
   belongs_to :crowd_reward, optional: true
   has_one :crowd_boost_charge
+  belongs_to :comment, optional: true
 
   before_create :set_region
   before_save :normalize_email

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     session[:region_id] = current_region.id if current_region
   end
 
-  helper_method :current_region, :region_root_url, :user_home_graetzl
+  helper_method :current_region, :region_root_url, :user_home_graetzl, :current_or_session_guest_user
 
   def current_or_guest_user_by(email)
     return current_user if current_user

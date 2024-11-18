@@ -115,14 +115,23 @@ class NotificationMailer < ApplicationMailer
   end
 
   PERSONAL_SUMMARY_BLOCKS = {
+    'Neuer Kommentar bei deiner Crowdfunding Kampagne' => [
+      Notifications::CommentOnCrowdCampaign,
+    ],
     'Neuer Kommentar auf deiner Pinnwand' => [
       Notifications::NewWallComment,
     ],
     "Änderungen an einem Treffen" => [
       Notifications::MeetingUpdated,
     ],
-    "Neuer Kommentar bei" => [
-      Notifications::CommentInAttending, Notifications::ReplyOnComment,
+    "Neuer Kommentar bei einem Treffen an dem du teilnimmst" => [
+      Notifications::CommentInAttending,
+    ],
+    "Neuer Kommentar bei deinen erstellten Inhalten" => [
+      Notifications::CommentOnOwnedContent,
+    ],
+    "Neue Antworten auf dein Kommentar" => [
+      Notifications::ReplyOnComment,
     ],
     'Ebenfalls kommentiert' => [
       Notifications::CommentOnFollowedContent, Notifications::ReplyOnFollowedComment,
