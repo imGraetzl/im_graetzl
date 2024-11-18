@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_13_221303) do
+ActiveRecord::Schema.define(version: 2024_11_18_144327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1782,6 +1782,7 @@ ActiveRecord::Schema.define(version: 2024_11_13_221303) do
   add_foreign_key "crowd_donation_pledges", "crowd_donations", on_delete: :nullify
   add_foreign_key "crowd_donation_pledges", "users", on_delete: :nullify
   add_foreign_key "crowd_donations", "crowd_campaigns", on_delete: :cascade
+  add_foreign_key "crowd_pledges", "comments", on_delete: :nullify
   add_foreign_key "crowd_pledges", "crowd_campaigns", on_delete: :nullify
   add_foreign_key "crowd_pledges", "crowd_rewards", on_delete: :nullify
   add_foreign_key "crowd_pledges", "users", on_delete: :nullify
