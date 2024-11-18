@@ -10,7 +10,7 @@ class NotificationMailerPreview < ActionMailer::Preview
   end
 
   def summary_personal
-    NotificationMailer.summary_personal(prepare_user, prepare_user.region_id, 'weekly')
+    NotificationMailer.summary_personal(prepare_user, prepare_user.region_id, 'daily')
   end
 
   private

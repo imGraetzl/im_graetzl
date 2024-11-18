@@ -180,6 +180,7 @@ Rails.application.routes.draw do
       get 'choose_amount', on: :collection
       get 'login', on: :collection
       post 'calculate_price', on: :collection
+      post 'pledge_comment', on: :member
     end
 
     resources :crowd_donation_pledges, only: [:new, :create] do

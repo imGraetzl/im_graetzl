@@ -7,6 +7,24 @@
     </p>
 
     <% if @crowd_pledge.crowd_campaign.funding? %>
+
+      <% unless @crowd_pledge.anonym? %>
+        <div class="pledge-comment-container">
+          <p>Schreib noch kurz, was du an diesem Projekt unterstützenswert findest oder warum du es unterstützt hast.</p>
+          <div class="entryCreate" data-behavior="stream-form" id="comments-block">
+            <%= avatar_image current_user, size: :thumb, class: 'img-round show-badge' %>
+            <%= form_for Comment.new, url: pledge_comment_crowd_campaign_crowd_pledge_path(@crowd_pledge.crowd_campaign, @crowd_pledge), method: :post, html: { class: 'textEditor', remote: true } do |f| %>
+              <%= f.hidden_field :commentable_id, value: @crowd_pledge.crowd_campaign.id %>
+              <%= f.hidden_field :commentable_type, value: 'CrowdCampaign' %>
+              <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Neuen Kommentar schreiben ..', class: "input-plain #{current_or_session_guest_user.present? ? 'guest-enabled' : ''}" %>
+              <div class="hideBlock">
+                <%= f.button 'Kommentar senden', data: { disable_with: 'sendet...' }, class: 'btn-secondary' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
       <div class="share">
         <p><em>- Weitersagen hilft -</em></p>
         <div class="social-icons">
@@ -20,6 +38,7 @@
           <%= link_to crowd_campaign_url(@crowd_pledge.crowd_campaign), @crowd_pledge.crowd_campaign %>
         </p>
       </div>
+
     <% end %>
 
   </div>
