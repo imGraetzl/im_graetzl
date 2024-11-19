@@ -428,7 +428,8 @@ class User < ApplicationRecord
   
     # crowd_pledges-Beziehungen aktualisieren
     guest_user.crowd_pledges.update_all(user_id: self.id)
-  
+    guest_user.comments.update_all(user_id: self.id)
+
     # Speichern ohne Validierung, um sicherzustellen, dass der Transfer erfolgreich ist
     self.save!(validate: false)
   end
