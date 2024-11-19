@@ -4,10 +4,12 @@ class NotificationsController < ApplicationController
   NOTIFICATIONS_PER_PAGE = 6
 
   def unseen_count
-    # Still some requests - if we use it in future again, make sure to stop fetch loop after x loops
-    Rails.logger.info("[Request Unseen Count for User: #{current_user.id}]")
-    render json: { count: 0 }
-    #render json: { count: current_user.new_website_notifications_count }
+    # If disabled for performance
+    # Rails.logger.info("[Request Unseen Count for User: #{current_user.id}]")
+    # render json: { count: 0 }
+    # current_user.new_website_notifications_count -> set to 0 in _user_menu
+    # disable setInterval in navigation.js
+    render json: { count: current_user.new_website_notifications_count }
   end
 
   def fetch
