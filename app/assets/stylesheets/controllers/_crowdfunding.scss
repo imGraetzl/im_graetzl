@@ -625,15 +625,27 @@ section.crowd_campaign {
 .crowd-pledges-page .-crowdRewardBox {
   margin-bottom: 20px;
   .left {
-    //cursor: unset;
     width:165px !important;
     min-width:165px !important;
   }
   .right {
-    //cursor: unset;
+    cursor: pointer;
     width:100%;
-    padding-bottom: unset;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    .content-block {
+      flex: 1;
+    }
+    .more-line {
+      padding-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .delivery-hint {
+      display: none;
+    }
   }
   .right small {
     @include font-size-primaryFont('base');
@@ -644,32 +656,35 @@ section.crowd_campaign {
   .right .description {
     @include font-size-primaryFont('base');
     white-space: pre-wrap;
+    max-height:100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Maximal 2 Zeilen anzeigen */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+  &.-open {
+    .right {
+      cursor: auto;
+      .description {
+        -webkit-line-clamp: unset;
+        a {
+          text-decoration: none;
+          color: $color-font-primary;
+          &:hover {
+            color: $color-ambient-rosa;
+            text-decoration: underline;
+          }
+        }
+      }
+      .delivery-hint {
+        display: block;
+      }
+    }
   }
 }
 
 .crowd-pledges-page, .crowd-boost-charge-page {
   .pricing-summary li div.cost {min-width:75px;}
-  .-freeamount {
-    label {
-      min-width:165px;
-    }
-  }
-  .question {
-    margin-top:30px;
-    margin-bottom:10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    p {
-      display: inline-block;
-      padding-bottom:10px;
-      text-align: justify;
-    }
-    p.title {
-      text-align: center;
-      @include font-size-primaryFont('larger');
-    }
-  }
   .share {
     margin-top:30px;
     text-align: center;
