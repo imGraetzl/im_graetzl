@@ -96,9 +96,11 @@ class User < ApplicationRecord
   after_update :mailchimp_user_update, if: -> { saved_change_to_newsletter? || saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
   after_update :update_user_graetzls, if: -> { saved_change_to_graetzl_id? }
   
+  before_create :skip_confirmation_for_guests
   before_destroy :mailchimp_user_delete
   before_destroy :cancel_subscription
-  before_create :skip_confirmation_for_guests
+  before_destroy :convert_to_guest?
+  before_destroy :log_user_deletion
 
   scope :business, -> { where(business: true) }
   scope :guests, -> { where(guest: true) }
@@ -380,6 +382,33 @@ class User < ApplicationRecord
     self.subscriptions.active.last.cancel_now! if subscribed?
   end
 
+  def convert_to_guest?
+    return if guest || !crowd_pledges.initialized.exists?
+    User.transaction do
+      guest_user = User.new(
+        guest: true,
+        business: false,
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        address_street: address_street,
+        address_zip: address_zip,
+        address_city: address_city,
+        graetzl_id: graetzl_id,
+        region_id: region_id,
+        stripe_customer_id: stripe_customer_id,
+        created_at: created_at,
+        deleted_at: Time.current
+      )
+      guest_user.save!(validate: false)
+      crowd_pledges.initialized.update_all(user_id: guest_user.id)
+    end
+  end
+  
+  def log_user_deletion
+    Rails.logger.info "[User Deleted]:#{id} (#{email})"
+  end
+
   def skip_confirmation_for_guests
     if guest?
       skip_confirmation!
@@ -399,7 +428,8 @@ class User < ApplicationRecord
   
     # crowd_pledges-Beziehungen aktualisieren
     guest_user.crowd_pledges.update_all(user_id: self.id)
-  
+    guest_user.comments.update_all(user_id: self.id)
+
     # Speichern ohne Validierung, um sicherzustellen, dass der Transfer erfolgreich ist
     self.save!(validate: false)
   end

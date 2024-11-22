@@ -56,14 +56,20 @@ APP.components.headerNavigation = (function() {
       $('html, body').animate({ scrollTop: 0 }, 'fast'); // Scroll to top intoView
     }
 
-    // Notifications (Disable for now // Performance)
     var notificationFetch = container.find("#notifications-fetch");
     var notificationCounter = container.find("#notifications-count");
-    /*
+    
+    // Notifications - Clear Interval after 5 Runs
     if (notificationCounter.length) {
-       setInterval(fetchNotificationCount, APP.config.notificationPollInterval);
+      let runs = 0;
+      const interval = setInterval(() => {
+          fetchNotificationCount();
+          if (++runs >= 5) {
+              clearInterval(interval);
+          }
+      }, APP.config.notificationPollInterval);
     }
-    */
+    
 
     container.find(".nav-user-notification-link").on("click", function() {
       if (!notificationFetch.hasClass('active')) return;

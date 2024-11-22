@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_11_130233) do
+ActiveRecord::Schema.define(version: 2024_11_18_144327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1693,6 +1693,7 @@ ActiveRecord::Schema.define(version: 2024_11_11_130233) do
     t.integer "free_graetzl_zuckerl", default: 0
     t.boolean "subscribed", default: false
     t.string "payment_wallet"
+    t.datetime "deleted_at"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
@@ -1781,6 +1782,7 @@ ActiveRecord::Schema.define(version: 2024_11_11_130233) do
   add_foreign_key "crowd_donation_pledges", "crowd_donations", on_delete: :nullify
   add_foreign_key "crowd_donation_pledges", "users", on_delete: :nullify
   add_foreign_key "crowd_donations", "crowd_campaigns", on_delete: :cascade
+  add_foreign_key "crowd_pledges", "comments", on_delete: :nullify
   add_foreign_key "crowd_pledges", "crowd_campaigns", on_delete: :nullify
   add_foreign_key "crowd_pledges", "crowd_rewards", on_delete: :nullify
   add_foreign_key "crowd_pledges", "users", on_delete: :nullify

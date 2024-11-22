@@ -70,6 +70,9 @@
     }
     textarea {
       min-height:150px;
+      &.-slim {
+        min-height: 120px;
+      }
     }
     .input-field, .input-textarea, .input-select {
       margin-bottom: 15px;

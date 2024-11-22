@@ -16,7 +16,17 @@ body.region-graz {
 
 // ---------- REGION KÄRNTEN ------------
 body.region-kaernten {
-
+  .homeRegion .graetzl-switch-wrapper {
+    @include respond-to(">medium") {
+      .input-select {
+        width:75%;
+        max-width: unset;
+      }
+      .region-logos {
+        width:20%;
+      }
+    }
+  }
 }
 
 // ---------- REGION WIEN ------------
