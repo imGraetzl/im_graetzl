@@ -641,7 +641,15 @@ section.crowd_campaign {
       padding-top: 5px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      :last-child {
+        text-align: right;
+       }
+      @media screen and (max-width: 360px) {
+        justify-content: flex-end;
+        .claimed {
+          display: none;
+        }
+      }
     }
     .delivery-hint {
       display: none;
