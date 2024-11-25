@@ -101,7 +101,7 @@ section.crowd_boost {
       .hl-subtext {
         margin-bottom:30px;
         .bbcode {
-          strong {
+          strong:first-child {
             @include font-size-primaryFont('larger');
             display: block;
             text-align: center;
