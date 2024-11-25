@@ -3,6 +3,9 @@ class ContactListEntriesController < ApplicationController
 
   def crowd2raum
     @contact_list_entry = ContactListEntry.new
+    if current_region.is?('graz')
+      render 'crowd2raum_graz'
+    end
   end
 
   def crowd2raum_create
