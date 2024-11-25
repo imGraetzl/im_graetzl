@@ -11,11 +11,11 @@
 
     <%= render 'crowd_pledges/new/rewards', crowd_reward: @crowd_pledge.crowd_reward, f: f if @crowd_pledge.crowd_reward %>
 
-    <div class="input-field -freeamount">
+    <div class="input-field -vertical">
       <%= label_tag :donation_amount do %>
-        <span>Möchtest du einen freien Unterstützungsbetrag hinzufügen?</span>
+        <span>Möchtest du noch einen freien Unterstützungsbetrag hinzufügen?</span>
       <% end %>
-      <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Dein Betrag in Euro',
+      <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Dein Betrag in Euro ..',
         class: 'calculate-price', maxlength: 6,
         data: {action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, crowd_reward_id: params[:crowd_reward_id]])} %>
     </div>

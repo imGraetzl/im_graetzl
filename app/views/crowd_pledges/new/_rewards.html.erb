@@ -7,21 +7,22 @@
     <% end %>
   </div>
   <div class="right">
-    <h4><%= crowd_reward.title %></h4>
-    <small><%= crowd_reward.claimed %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
-    <% if crowd_reward.delivery_weeks %>
-      <small>Voraussichtliche Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %><br>(nach Beendigung der Kampagne)</small>
-    <% end %>
-    <div class="description txtlinky"><%= crowd_reward.description %></div>
+    <div class="content-block">
+      <h4><%= crowd_reward.title %></h4>
+      <div class="description"><%= crowd_reward.description %><% if crowd_reward.delivery_weeks %><small class="delivery-hint">Voraussichtliche Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %><br>(nach Beendigung der Kampagne)</small><% end %></div>
+    </div>
+    <div class="more-line">
+      <small class="claimed"><%= crowd_reward.claimed %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
+      <% if crowd_reward.description %><small><a href="javascript:void(0)" class="more-link">Mehr anzeigen</a></small><% end %>
+    </div>
   </div>
 </div>
 
 <% if crowd_reward.question.present? %>
-<div class="question">
-  <p class="title">Beantworte bitte noch folgende Frage zu deinem ausgewählten Dankeschön:</p>
-  <p><%= crowd_reward.question %></p>
-</div>
-  <div class="input-textarea">
-    <%= f.text_area :answer, placeholder: 'Gib bitte hier deine Antwort ein ...', required: true %>
+  <div class="input-textarea -vertical">
+    <%= f.label :answer do %>
+      <span><strong>Beantworte bitte noch folgende Frage:</strong><%= crowd_reward.question %></span>
+    <% end %>
+    <%= f.text_area :answer, placeholder: 'Gib hier deine Antwort ein ..', required: true, class: '-slim' %>
   </div>
 <% end %>

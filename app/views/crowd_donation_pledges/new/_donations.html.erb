@@ -11,25 +11,35 @@
     </div>
   </div>
   <div class="right">
-    <h4><%= crowd_donation.title %></h4>
-    <% if crowd_donation.startdate %>
-      <small>
-        Benötigt: Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d. %b %Y') %>
-        <% if crowd_donation.enddate %>
-          - Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d. %b %Y') %>
+    <div class="content-block">
+      <h4><%= crowd_donation.title %></h4>
+      <div class="description"><%= crowd_donation.description %></div>
+    </div>
+    <% if crowd_donation.startdate || crowd_donation.enddate %>
+      <div class="delivery-hint">
+      <small>Benötigt im Zeitraum:</small>
+      <p><em>
+        <% if crowd_donation.startdate %>
+          Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d.%m.%y') %><br>
         <% end %>
-      </small>
+        <% if crowd_donation.enddate %>
+          Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d.%m.%y') %>
+        <% end %>
+      </em></p>
+      </div>
     <% end %>
-    <div class="description"><%= crowd_donation.description %></div>
+    <div class="more-line">
+      <small class="claimed"><%= crowd_donation.claimed %> mal bisher zugesagt</small>
+      <% if crowd_donation.description %><small><a href="javascript:void(0)" class="more-link">Mehr anzeigen</a></small><% end %>
+    </div>
   </div>
 </div>
 
 <% if crowd_donation.question.present? %>
-<div class="question">
-  <p class="title">Beantworte bitte noch folgende Frage zur <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %>:</p>
-  <p><%= crowd_donation.question %></p>
-</div>
-  <div class="input-textarea">
-    <%= f.text_area :answer, placeholder: 'Gib bitte hier deine Antwort ein ...', required: true %>
+  <div class="input-textarea -vertical">
+    <%= f.label :answer do %>
+      <span><strong>Beantworte bitte noch folgende Frage zur <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %>:</strong><%= crowd_donation.question %></span>
+    <% end %>
+    <%= f.text_area :answer, placeholder: 'Gib hier deine Antwort ein ..', required: true, class: '-slim' %>
   </div>
 <% end %>

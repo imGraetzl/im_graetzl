@@ -8,12 +8,29 @@ APP.controllers.crowd_donation_pledges = (function() {
 
     function initChoiceScreen() {
       APP.components.tabs.setTab('step1');
-      $('.-crowdRewardBox .left, .-crowdRewardBox .right').on("click", function() {
-        $(this).closest('.-crowdRewardBox').toggleClass('-open');
-      });
-      $('.-crowdRewardBox .right .txtlinky a').on("click", function() {
-        // Keep it open
-        $(this).closest('.-crowdRewardBox').toggleClass('-open');
+      $('.-crowdRewardBox').on("click", function(event) {
+        const $rewardBox = $(this);
+        const $morelink = $rewardBox.find(".more-link");
+        const $rewardDesc = $rewardBox.find(".description");
+
+        if ($(event.target).is("a[target='_blank']")) {
+          event.stopPropagation();
+          return;
+        }
+
+        $rewardBox.toggleClass('-open');
+        if ($rewardBox.hasClass("-open")) {
+          $morelink.text("Weniger anzeigen");
+          // Set Linkify (dont work initial because of css -webkit-line-clamp)
+          $rewardDesc.linkify({target: "_blank"});
+        } else {
+          $morelink.text("Mehr anzeigen");
+          // Remove Linkify
+          $rewardDesc.find("a").each(function () {
+            const text = $(this).text();
+            $(this).replaceWith(text);
+          });
+        }
       });
     }
 

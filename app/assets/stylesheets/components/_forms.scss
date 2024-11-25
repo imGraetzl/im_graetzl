@@ -247,7 +247,26 @@ input, select, textarea {
     margin-top: 20px;
   }
   @include respond-to(">=medium") {
-    @include field-HorizontalLayout;
+    &:not(.-vertical) {
+      @include field-HorizontalLayout;
+    }
+  }
+
+  &.-vertical {
+    > label {
+      > span {
+        width:100%;
+        display: block;
+        padding:7px;
+      }
+      span > strong {
+        display: block;
+        text-align: center;
+        margin-bottom: 7px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid $color-ambient-mint-light;
+      }
+    }
   }
 
 }
