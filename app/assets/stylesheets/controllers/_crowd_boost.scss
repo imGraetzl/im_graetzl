@@ -79,6 +79,16 @@ section.crowd_boost {
     }
     margin-bottom: 30px;
 
+    h1 {
+      @include font-size-secondaryFont('base');
+      font-family: $font-secondary;
+      margin-bottom: 20px;
+      text-align: center;
+      span {
+        color: $color-ambient-rosa;
+      }
+    }
+
     .introtxt {
       margin-bottom: 40px;
       @include respond-to(">=large") {
@@ -88,15 +98,6 @@ section.crowd_boost {
         padding-right: 20px;
         margin-bottom: 0;
         width: 65%;
-      }
-      h1 {
-        @include font-size-secondaryFont('base');
-        font-family: $font-secondary;
-        margin-bottom: 20px;
-        text-align: center;
-        span {
-          color: $color-ambient-rosa;
-        }
       }
       .hl-subtext {
         margin-bottom:30px;
@@ -157,6 +158,8 @@ section.crowd_boost {
   &.crowd_boost {
     .introtxt {
       padding-left: 0px !important;
+    }
+    .introcontainer {
       .hl-subtext {
         h1 {@include font-size-secondaryFont('large');}
         p {@include font-size-primaryFont('larger');}
@@ -212,6 +215,21 @@ section.crowd_boost {
       }
       p:last-child {
         margin-bottom: 0px;
+      }
+    }
+  }
+
+  &.crowd2raum-graz {
+    .-pilotgebiet {
+      padding-bottom: 20px;
+    }
+    .-toggable h3 {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right:10px;
+        width:35px;
+        height:auto;
       }
     }
   }
