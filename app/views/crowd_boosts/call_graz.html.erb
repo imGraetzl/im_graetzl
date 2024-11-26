@@ -1,0 +1,103 @@
+<% meta(
+    title: t('.title', title: "#{@crowd_boost.title} - Leerstand rund um den Jakominiplatz beleben und Räumen eine neue Zukunft geben!"),
+    description: t('.description', desc: "Rund um den Jakomini Platz bleiben leerstehende Geschäftslokale ungenutzt, weil die Aktivierungskosten die finanziellen Möglichkeiten der lokalen Macher*innen übersteigen. Deshalb rufen wir den ViertelFonds ins Leben! Der ViertelFonds unterstützt die lokalen Macher*innen dabei, Leerstände zu aktivieren."),
+    robots: 'index, follow',
+    og_title: t('.title', title: "#{@crowd_boost.title} - Leerstand rund um den Jakominiplatz beleben und Räumen eine neue Zukunft geben!"),
+    og_description: t('.description', desc: "Rund um den Jakomini Platz bleiben leerstehende Geschäftslokale ungenutzt, weil die Aktivierungskosten die finanziellen Möglichkeiten der lokalen Macher*innen übersteigen. Deshalb rufen wir den ViertelFonds ins Leben! Der ViertelFonds unterstützt die lokalen Macher*innen dabei, Leerstände zu aktivieren."),
+    og_image: image_url('meta/crowd_boost.jpg')
+  )
+%>
+
+<section class="info -boost_call">
+  <div class="imgHeader -fullwidth"></div>
+</section>
+
+<section class="crowd_boost boost_call">
+
+  <div class="introcontainer">
+    <div class="introtxt">
+      <div class="hl-subtext">
+        <h1><em><%= @crowd_boost.title %></em></h1>
+        <p><strong>Leerstand rund um den Jakominiplatz beleben und Räumen eine neue Zukunft geben!</strong></p>
+      </div>
+      <ul> 
+        <li>Rund um den Jakomini Platz bleiben leerstehende Geschäftslokale ungenutzt, weil die Aktivierungskosten (Renovierung, Sanierung und Provisionen) die finanziellen Möglichkeiten der lokalen Macher*innen übersteigen.</li>
+        <li>Auch hohe Mieten sorgen dafür, dass der Leerstand steigt.</li>
+        <li>Auf der anderen Seite besteht ein großer Bedarf an leistbaren Räumen für lokale Macher*innen in Graz.</li>
+      </ul>
+      <p><strong>Deshalb rufen wir den ViertelFonds ins Leben!</strong> Der ViertelFonds unterstützt die lokalen Macher*innen dabei, Leerstände zu aktivieren.</p>
+      <p><strong>So funktioniert’s:</strong>  Im ersten Schritt wird der ViertelFonds gefüllt. Dann startet im Januar der erste Call und wir laden die lokalen Macher*innen ein, ihre Raumvorhaben einzureichen. Alle, die sich qualifizieren, bekommen ein Crowdfunding und einen zusätzlichen <strong>Betrag aus dem ViertelFonds von 500 bis 1.000 € oben drauf</strong>, sobald ihr Crowdfunding 30% des Mindestziels erreicht hat.</p>
+      <p>Untersuchungen zeigen, dass Crowdfunding-Projekte mit zusätzlicher Fördertopf-Unterstützung ihre <strong>Erfolgsaussichten um bis zu 90 % steigern</strong> können.</p>
+    </div>
+    <div class="introSide">
+      <%= render 'crowd_boosts/crowd_boost_call', crowd_boost: @crowd_boost %>
+    </div>
+  </div>
+
+  <div class="content-wide">
+    <div class="wrp-inner">
+      <div class="hl-subtext">
+        <h1>Mit dem ViertelFonds Leerstand beleben!</h1>
+        <p>Machen Sie mit! Unterstützen Sie direkt den ViertelFonds. Jeder Beitrag schafft neuen Raum!</p>
+      </div>
+      <div class="cardBoxCollection -single">
+        <div class="paperCard -illuteaser -favorites -cord1RT">
+          <div class="wrp">
+            <h3>Direkt in den ViertelFonds einzahlen.</h3>
+            <p>Machen Sie mit! Unterstützen Sie direkt den ViertelFonds. Jeder Beitrag schafft neuen Raum!</p>
+            <%= link_to 'In den Topf einzahlen', new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: 'btn-primary -mint -shadow' %>
+          </div>
+          <div class="card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toggle-container">
+    <div class="content-block -toggable">
+      <h3>Hintergrund ViertelFonds</h3>
+      <div class="-toggle-content">
+        <p><strong>Räume zu aktivieren und zu halten wird immer kostspieliger</strong> - Die lokalen Macher*innen in Graz benötigen leistbare Räume für ihre Ideen, Angebote und Projekte.</p>  
+        <p><strong>Bei einer Raumaktivierung kommen schnell ein paar tausend Euro zusammen:</strong> Provisionen, Renovierung, Ausstattung. Bestehende Räume möchten ebenfalls gehalten werden, diese müssen zukunftsfit gemacht werden z.B. mit neuen Organisationsmodellen oder anderen Anpassungen. Leerstandsförderungen sind großartig, stehen aber nicht allen offen und müssen ausfinanziert werden. Kredite sind schwer zu bekommen.</p>
+        <p><strong>Eine Umfrage im Jahr 2024 unter 195 lokalen Macher*innen</strong> in Graz zeigte deutlich, dass eine Leerstandsaktivierung in den meisten Fällen an den finanziellen Mitteln scheitert, obwohl es einen großen Raumbedarf gibt.</p>
+        <p><strong>Leerstand rund um den Jakomini Platz beleben – genau darum geht es beim ViertelFonds.</strong></p>
+        <p>Der ViertelFonds ist ein neues Format, das lokale Macher*innen  unterstützt, ihre Raumvorhaben in den Leerständen rund um den Jakominiplatz  via Crowdfunding umzusetzen. Als erstes Matchfunding-Programm zur Leerstandsaktivierung im DACH-Raum, das Crowdfunding mit einem Fördertopf kombiniert, baut der ViertelFonds finanzielle Hürden ab und erleichtert das Crowdfunding erheblich.</p>
+        <p>Untersuchungen aus den Niederlanden und England zeigen, dass Crowdfunding-Projekte mit zusätzlicher Fördertopf-Unterstützung ihre Erfolgsaussichten um bis zu 90 % steigern können. Solche Matchfunding-Mechanismen bewirken zudem höhere Beträge und ziehen mehr Unterstützende an. Die Raumvorhaben der lokalen Macher*innen  sollen von diesen positiven Effekten profitieren.</p>
+        <p>Außerdem erhalten alle qualifizierten Projekte eine persönliche Crowdfunding-Begleitung, maximale Sichtbarkeit und das Abzeichen <strong>"Besonders unterstützenswertes Vorhaben"</strong> auf ihrer Crowdfunding-Seite. Damit möchten wir auch all diejenigen ermutigen, die sich bisher noch nicht an Crowdfunding zur Umsetzung ihrer Raumvorhaben herangewagt haben.</p>
+      </div>
+    </div>
+    <div class="content-block -toggable">
+      <h3>Ablauf ViertelFonds</h3>
+      <div class="-toggle-content">
+        <p>Der erste Leerstand Call ist im Januar 2025 geplant, und wir laden die lokalen Macher*innen ein ihre  Raumvorhaben einzureichen. Bis dahin möchten wir einen schönen Betrag im Topf haben, um gleich mehrere Leerstandsaktivierungen rund um den Jakominiplatz gut anschieben zu können!</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="tabs-container" class="content-wide -grey -end">
+    <div class="hl-subtext">
+      <h1>Ihr ermöglicht den ViertelFonds - Danke!</h1>
+      <p>Tausend Dank an euch, dass ihr den ViertelFonds möglich macht!</p>
+    </div>
+    <div id="tab-charges" class="wrp-inner charges">
+      <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+      <div class="charges-container">
+        <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  <div class="content-wide -end logo-footer">
+    <div class="wrp-inner">
+      <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
+        <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
+      </a>
+      <p>
+        Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
+      </p>
+    </div>
+  </div>
+  -->
+
+</section>

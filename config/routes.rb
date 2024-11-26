@@ -342,6 +342,7 @@ Rails.application.routes.draw do
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
   get 'raumbooster' => redirect('/crowdfunding-booster/raum-booster/call')
+  get 'viertelfonds' => redirect('http://graz.welocally.at/crowdfunding-booster/viertelfonds/call')
   #get 'popup', to: 'static_pages#popup', as: 'popup'
 
   get 'info', to: 'static_pages#info'
