@@ -28,9 +28,9 @@ active_admin_form_for [:admin, resource] do |f|
   #inputs "Users" do
   #  has_many :group_users, allow_destroy: true, new_record: 'Add User' do |gu|
   #    if gu.object.new_record?
-  #      gu.input :user, collection: User.admin_select_collection, include_blank: "Select User", input_html: { class: 'admin-filter-select' }
+  #      gu.input :user, collection: User.registered.admin_select_collection, include_blank: "Select User", input_html: { class: 'admin-filter-select' }
   #    else
-  #      gu.input :user, collection: User.admin_select_collection, input_html: { disabled: true }
+  #      gu.input :user, collection: User.registered.admin_select_collection, input_html: { disabled: true }
   #    end
   #    gu.input :role, include_blank: false
   #  end

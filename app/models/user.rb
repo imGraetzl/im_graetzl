@@ -188,7 +188,7 @@ class User < ApplicationRecord
   end
 
   def self.admin_select_collection
-    User.all.pluck(:id, :first_name, :last_name, :username).map do |id, first_name, last_name, username|
+    order(created_at: :desc).pluck(:id, :first_name, :last_name, :username).map do |id, first_name, last_name, username|
       ["#{first_name} #{last_name} (#{username})", id]
     end
   end

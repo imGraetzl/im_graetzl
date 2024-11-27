@@ -17,7 +17,7 @@ ActiveAdmin.register CrowdBoostCharge do
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :charge_type, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_boost, collection: proc { CrowdBoost.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :id, :as => :numeric

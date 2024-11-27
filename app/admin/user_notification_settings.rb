@@ -8,7 +8,7 @@ ActiveAdmin.register User, as: "User Notification Settings" do
   scope :business
   scope :admin
 
-  filter :id, label: 'User', as: :select, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :id, label: 'User', as: :select, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
 
   filter :user_mail_setting, as: :select, collection: proc {[
     ['New Meeting - Weekly','weekly_NewMeeting'],['New Meeting - Daily','daily_NewMeeting'],['New Meeting - Immediate','immediate_NewMeeting'],['New Meeting - Off','off_NewMeeting'],
