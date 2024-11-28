@@ -110,6 +110,13 @@ class SubscriptionService
     )
   end
 
+  def invoice_disputed(subscription_invoice, object)
+    subscription_invoice.subscription.cancel_now!
+    subscription_invoice.update(
+      status: 'refunded'
+    )
+  end
+
   def invoice_uncollectible(subscription_invoice, object)
     subscription_invoice.update(
       status: 'uncollectible'

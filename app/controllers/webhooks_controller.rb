@@ -26,6 +26,8 @@ class WebhooksController < ApplicationController
       invoice_marked_uncollectible(event.data.object)
     when "charge.refunded"
       charge_refunded(event.data.object)
+    when "charge.dispute.closed"
+      charge_dispute_closed(event.data.object)
     end
 
     head :ok
@@ -201,6 +203,16 @@ class WebhooksController < ApplicationController
 
     end
 
+  end
+
+  def charge_dispute_closed(dispute)
+    if dispute.status == 'lost'
+      charge = Stripe::Charge.retrieve(id: dispute.charge)
+      if charge.invoice
+        invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
+        SubscriptionService.new.invoice_disputed(invoice, charge) if invoice
+      end
+    end
   end
 
 end
