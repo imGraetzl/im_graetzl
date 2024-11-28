@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="crowd_boost">
+<section class="crowd_boost -<%= current_region.id %>">
 
   <div class="introcontainer">
     <div class="introtxt">
@@ -81,6 +81,16 @@
 
     <div class="introSide">
       <%= render 'crowd_boosts/crowd_boost_detail', crowd_boost: @crowd_boost %>
+
+      <% if @crowd_boost.title.include?("ViertelFonds") %>
+        <div class="logo-side">
+          <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
+            <%= image_tag 'logo-brjakomini.png', width:380, height:200 %>
+          </a>
+          <p>In Kooperation mit dem Bezirksrat Jakomini</p>
+        </div>
+      <% end %>
+
     </div>
     
 
@@ -108,15 +118,50 @@
     <% end %>
   </div>
 
-  <div class="content-wide -end logo-footer">
-    <div class="wrp-inner">
-      <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
-        <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
-      </a>
-      <p>
-        Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
-      </p>
+  <% if @crowd_boost.title.include?("ViertelFonds") %>
+    <div class="content-wide -end logo-footer">
+      <div class="wrp-inner">
+        <div class="logos">
+          <a href="https://www.welocally.at/home" target="_blank">
+            <%= image_tag("regions/logo.svg", class: 'logo-desktop', alt:'logo', width:120, height:84) %>
+          </a>
+          <a href="https://stadtlaborgraz.at/de/" target="_blank">
+            <%= image_tag 'logo-stadtlabor.png', width:76, height:65 %>
+          </a>
+          <a href="https://wieneuplus.wien.gv.at/" target="_blank">
+            <%= image_tag 'logo-wieneuplus.png', width:190, height:100 %>
+          </a>
+        </div>
+        <p>
+          Der „ViertelFonds“ wird im Rahmen des Forschungsprojektes „crowd2raum“ eingerichtet zur gezielten Leerstandsaktivierung und Schaffung von Raumnutzungen für lokale Macher*innen.
+          Projektkonsortium: <a href="https://www.welocally.at/home" target="_blank">WeLocally</a> / morgenjungs GmbH (Konsortialführer); <a href="https://stadtlaborgraz.at/de/" target="_blank">StadtLABOR</a> - Innovationen für urbane Lebensqualität GmbH; <a href="https://wieneuplus.wien.gv.at/" target="_blank">Stadt Wien</a> – MA25 Technische Stadterneuerung
+        </p>
+      </div>
+      <div class="wrp-inner">
+        <div class="logos">
+          <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
+            <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
+          </a>
+          <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
+            <%= image_tag 'logo-brjakomini.png', width:190, height:100 %>
+          </a>
+        </div>
+        <p>
+          Fördergeber: Klima- und Energiefonds & BMK im Rahmen der Sondierung für die Ausschreibung „Technologien und Innovationen für die Klimaneutrale Stadt 2023“ 
+        </p>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="content-wide -end logo-footer">
+      <div class="wrp-inner">
+        <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
+          <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
+        </a>
+        <p>
+          Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
+        </p>
+      </div>
+    </div>
+  <% end %>
 
 </section>

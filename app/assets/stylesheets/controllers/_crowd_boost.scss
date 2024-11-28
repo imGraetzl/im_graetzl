@@ -147,7 +147,69 @@ section.crowd_boost {
         padding-left:20px;
       }
     }
-    
+  }
+
+  &.-graz {
+    .logo-footer {
+      .wrp-inner {
+        padding-bottom:20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .logos {
+          text-align: right;
+        }
+        div, p {
+          width:49%;
+        }
+        @include respond-to("<=large") {
+          div {
+            width:30%;
+          }
+          p {
+            width:68%;
+          }
+        }
+      }
+      img {
+        height:60px;
+        width:auto;
+        margin-right:10px;
+        @include respond-to("<=large") {
+          height:40px;
+          display: block;
+          margin-left:auto;
+          margin-bottom:15px;
+        }
+        
+      }
+      p {
+        padding-left:unset !important;
+      }
+    }
+  }
+
+  .logo-side {
+    margin-top:20px;
+    display: flex;
+    align-items: center;
+    a {
+      width:52%;
+      img {
+        display: block;
+        width:100%;
+        height:auto;
+        border-right: 1px solid $color-ambient-grey;
+        padding-right:10px;
+        margin-right:10px;
+      }
+    }
+    p {
+      width:48%;
+      margin-left:10px;
+      margin-bottom: unset;
+      @include font-size-primaryFont('small');
+    }
   }
 
 }

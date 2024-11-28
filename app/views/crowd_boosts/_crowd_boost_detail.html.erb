@@ -19,22 +19,26 @@
       <h3><%= link_to "Fördertopf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
     </div>
 
-    <h4 class="facts-headline">Facts zum Fördertopf</h4>
+    <% if crowd_boost.crowd_boost_slots.expired.count > 0 %>
 
-    <div class="facts icontxt -mint">
-      <%= icon_tag "slots" %>
-      <div><%= crowd_boost.crowd_boost_slots.expired.count %> Runden bisher durchgeführt.</div>
-    </div>
+      <h4 class="facts-headline">Facts zum Fördertopf</h4>
 
-    <div class="facts icontxt -mint">
-      <%= icon_tag "flag" %>
-      <div><%= crowd_boost.crowd_campaigns.boost_initialized.count %> Projekte bisher unterstützt.</div>
-    </div>
+      <div class="facts icontxt -mint">
+        <%= icon_tag "slots" %>
+        <div><%= crowd_boost.crowd_boost_slots.expired.count %> Runden bisher durchgeführt.</div>
+      </div>
 
-    <div class="facts icontxt -mint">
-      <%= icon_tag "currency-euro" %>
-      <div><%= number_to_currency(crowd_boost.total_amount_pledged, precision: 2, unit: "€") %> bisher ausgeschüttet.</div>
-    </div>
+      <div class="facts icontxt -mint">
+        <%= icon_tag "flag" %>
+        <div><%= crowd_boost.crowd_campaigns.boost_initialized.count %> Projekte bisher unterstützt.</div>
+      </div>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "currency-euro" %>
+        <div><%= number_to_currency(crowd_boost.total_amount_pledged, precision: 2, unit: "€") %> bisher ausgeschüttet.</div>
+      </div>
+
+    <% end %>
 
     <div class="facts icontxt -rosa">
       <%= icon_tag "currency-euro" %>
