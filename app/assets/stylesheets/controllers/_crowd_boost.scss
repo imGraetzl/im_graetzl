@@ -194,7 +194,7 @@ section.crowd_boost {
     display: flex;
     align-items: center;
     a {
-      width:52%;
+      width:50%;
       img {
         display: block;
         width:100%;
@@ -204,8 +204,8 @@ section.crowd_boost {
         margin-right:10px;
       }
     }
-    p {
-      width:48%;
+    p.side-txt {
+      width:50%;
       margin-left:10px;
       margin-bottom: unset;
       @include font-size-primaryFont('small');
