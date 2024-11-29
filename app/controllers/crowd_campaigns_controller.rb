@@ -181,8 +181,10 @@ class CrowdCampaignsController < ApplicationController
     users += @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
     users = users.uniq { |s| s.email }
 
+    excluded_emails = ['gdaniel@sz-enterprise.eu', 'presch.hedwig@gmx.at']
+
     users.each do |user|
-      next if user.email == 'gdaniel@sz-enterprise.eu' # HACK, Exclude this User
+      next if excluded_emails.include?(user.email) # HACK, Exclude these Users
       CrowdCampaignMailer.message_to_user(
         @crowd_campaign, user, params[:subject], params[:body]
       ).deliver_later
