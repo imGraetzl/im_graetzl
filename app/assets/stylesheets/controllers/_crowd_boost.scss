@@ -284,6 +284,13 @@ section.crowd_boost {
   &.crowd2raum-graz {
     .-pilotgebiet {
       padding-bottom: 20px;
+      .paperCard .wrp {
+        background: none;
+        padding-top:20px;
+        p {
+          padding-bottom:unset;
+        }
+      }
     }
     .-toggable h3 {
       display: flex;
