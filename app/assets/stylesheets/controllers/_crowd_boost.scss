@@ -267,6 +267,14 @@ section.crowd_boost {
 
   }
 
+  .roomCardImg {
+    z-index: 9;
+    position: relative;
+    transform: rotate(1deg) translate3d(0,0,0);
+    width: 100%;
+    height: auto;
+  }
+
   .toggle-container {
     margin-top:50px;
     margin-bottom:50px;
@@ -286,9 +294,12 @@ section.crowd_boost {
       padding-bottom: 20px;
       .paperCard .wrp {
         background: none;
-        padding-top:20px;
+        padding-top:10px;
         p {
           padding-bottom:unset;
+        }
+        p.facts {
+          margin-top:10px;
         }
       }
     }
