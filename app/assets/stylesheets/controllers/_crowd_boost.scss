@@ -302,6 +302,12 @@ section.crowd_boost {
           margin-top:10px;
         }
       }
+      p.hint {
+        @include font-size-primaryFont('larger');
+        text-align: center;
+        padding-top:20px;
+        padding-bottom:20px;
+      }
     }
     .-toggable h3 {
       display: flex;
