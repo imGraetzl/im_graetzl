@@ -53,7 +53,7 @@
 
         <% if @next_slot.slot_terms %>
           <div class="content-block -toggable">
-            <h3>So kannst du teilnehmen</h3>
+            <h3>Welche Vorhaben können teilnehmen</h3>
             <div class="-toggle-content bbcode"><%= @next_slot.slot_terms.bbcode_to_html.html_safe %></div>
           </div>
          <% end %>
@@ -70,7 +70,6 @@
         <% if @crowd_boost.description.present? %>
           <div class="bbcode"><%= @crowd_boost.description %></div>
         <% end %>
-
         <% if @crowd_boost.charge_description.present? %>
           <div class="bbcode"><%= @crowd_boost.charge_description %></div>
         <% end %>
@@ -80,7 +79,12 @@
     </div>
 
     <div class="introSide">
-      <%= render 'crowd_boosts/crowd_boost_detail', crowd_boost: @crowd_boost %>
+
+      <% if @next_slot && @next_slot.open? %>
+        <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true %>
+      <% else %>
+        <%= render 'crowd_boosts/crowd_boost', crowd_boost: @crowd_boost %>
+      <% end %>
 
       <% if @crowd_boost.title.include?("ViertelFonds") %>
         <div class="logo-side">
@@ -93,7 +97,6 @@
 
     </div>
     
-
   </div>
 
   <div class="tabs-ctrl -plain">
@@ -110,6 +113,9 @@
     </div>
     <% if @crowd_boost.chargeable? %>
       <div id="tab-charges" class="wrp-inner charges">
+        <% if @crowd_boost.charge_call? %>
+          <div class="payline">Du möchtest auch etwas beitragen? <%= link_to "Hier kannst du in den Topf einzahlen", call_crowd_boost_path(@crowd_boost) %>.</div>
+         <% end %>
         <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
         <div class="charges-container">
           <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>

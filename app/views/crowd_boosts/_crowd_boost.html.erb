@@ -16,29 +16,40 @@
   <div class="cardBoxContent">
 
     <div class="txt">
-      <h3><%= link_to crowd_boost.title.truncate(110), crowd_boost %></h3>
-      <p><%= crowd_boost.slogan.truncate(110) %></p>
+      <h3><%= link_to "Fördertopf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
     </div>
 
-    <% if @next_slot && !local_assigns[:hide_facts].present? %>
+    <% if crowd_boost.crowd_boost_slots.expired.count > 0 %>
+
+      <h4 class="facts-headline">Facts zum Fördertopf</h4>
+
       <div class="facts icontxt -mint">
-        <%= icon_tag "time-clock" %>
-        Einreichfrist: <%= I18n.localize(@next_slot.ends_at, format:'%d. %b %Y') %>
+        <%= icon_tag "slots" %>
+        <div><%= crowd_boost.crowd_boost_slots.expired.count %> Runden bisher durchgeführt.</div>
       </div>
-      <% if @next_slot.boost_amount? %>
-        <div class="facts icontxt -rosa">
-          <%= icon_tag "rocket" %>
-          <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Boost für dein Projekt
-        </div>
-      <% elsif @next_slot.boost_percentage? %>
-        <div class="facts icontxt -rosa">
-          <%= icon_tag "rocket" %>
-          Bis zu <%= @next_slot.boost_percentage.to_i %>% Boost für dein Projekt
-        </div>
-      <% end %>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "flag" %>
+        <div><%= crowd_boost.crowd_campaigns.boost_initialized.count %> Projekte bisher unterstützt.</div>
+      </div>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "currency-euro" %>
+        <div><%= number_to_currency(crowd_boost.total_amount_pledged, precision: 2, unit: "€") %> bisher ausgeschüttet.</div>
+      </div>
+
     <% end %>
 
-    <%= link_to 'Mehr Infos', crowd_boost, class: 'btn-primary -mint' %>
+    <div class="facts icontxt -rosa">
+      <%= icon_tag "currency-euro" %>
+      <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
+    </div>
+
+    <% if @crowd_boost.charge_call? %>
+        <%= link_to "Zur Topf Befüllung", call_crowd_boost_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
+    <% elsif crowd_boost.chargeable? %>
+        <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
+    <% end %>
 
   </div>
 </div>

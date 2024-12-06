@@ -60,6 +60,22 @@ section.crowd_boost {
     }
   }
 
+  .payline {
+    text-align: center;
+    margin-top:-20px;
+    margin-bottom:30px;
+  }
+
+  .introSide .-crowd_boost.-open {
+    h3 {
+      @include font-size-primaryFont('larger');
+      margin-bottom:15px;
+    }
+    p {
+      padding-bottom:15px;
+    }
+  }
+
   .slotBox {
     margin-top:30px;
     margin-bottom:30px;
@@ -102,7 +118,7 @@ section.crowd_boost {
       .hl-subtext {
         margin-bottom:30px;
         .bbcode {
-          strong:first-child {
+          > strong:first-child {
             @include font-size-primaryFont('larger');
             display: block;
             text-align: center;
@@ -112,6 +128,10 @@ section.crowd_boost {
       .bbcode {
         @include font-size-primaryFont('large');
         margin-bottom:30px;
+        ol {
+          //margin-left:0px;
+          list-style:disc;
+        }
       }
     }
 
