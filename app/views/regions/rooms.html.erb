@@ -56,7 +56,7 @@
     <!-- Insert Featured Card -->
     <% if current_region.raum_booster_open? %>
       <%= render 'shared/featured_cards/raum_booster_open', crowd_boost_id: current_region.default_crowd_boost_id %>
-    <% elsif current_region.is?('wien') %>
+    <% elsif current_region.is?('wien') || current_region.is?('graz') %>
       <%= render 'shared/featured_cards/crowd_booster' %>
     <% end %>
 
