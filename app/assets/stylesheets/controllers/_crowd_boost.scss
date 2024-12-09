@@ -73,6 +73,9 @@ section.crowd_boost {
     }
     p {
       padding-bottom:15px;
+      &:last-of-type {
+        padding-bottom:0px;
+      }
     }
   }
 
@@ -86,6 +89,9 @@ section.crowd_boost {
     }
     li:first-of-type {
       padding-right:30px;
+    }
+    ul {
+      margin-bottom: 0px !important;
     }
   }
 
@@ -129,8 +135,10 @@ section.crowd_boost {
         @include font-size-primaryFont('large');
         margin-bottom:30px;
         ol {
-          //margin-left:0px;
           list-style:disc;
+        }
+        ol, ul {
+          margin-bottom:0px;
         }
       }
     }
@@ -250,6 +258,7 @@ section.crowd_boost {
         @include font-size-primaryFont('large');
         margin-bottom: 20px;
       }
+      
     }
   }
 
