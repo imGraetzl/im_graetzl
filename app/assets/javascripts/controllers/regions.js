@@ -8,7 +8,13 @@ APP.controllers.regions = (function() {
             $select.append("<option value="+target+">"+text+"</option>");
         });
         $select.on("change", function() {
-            window.location.href = $(this).val();
+          // Hole die URL-Pfad-Informationen
+          const path = window.location.pathname;
+          // Zerlege den Pfad in Teile
+          const pathParts = path.split('/');
+          // Extrahiere alles nach der ersten Ebene (index 1 im Array)
+          const extractedPath = pathParts.slice(2).join('/');
+          window.location.href = $(this).val() + `/${extractedPath}`;
         });
 
         if ($('.cards-filter').exists()) {

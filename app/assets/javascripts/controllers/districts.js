@@ -14,7 +14,13 @@ APP.controllers.districts = (function() {
     });
 
     $select.on("change", function() {
-      window.location.href = $(this).val();
+      // Hole die URL-Pfad-Informationen
+      const path = window.location.pathname;
+      // Zerlege den Pfad in Teile
+      const pathParts = path.split('/');
+      // Extrahiere alles nach der zweiten Ebene (index 2 im Array)
+      const extractedPath = pathParts.slice(3).join('/');
+      window.location.href = $(this).val() + `/${extractedPath}`;
     });
   }
 
