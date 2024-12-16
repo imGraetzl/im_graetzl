@@ -1,11 +1,11 @@
-<%= render 'mailers/notification_mailer/summary/block_header', title: "Neu - Der Viertelfonds" %>
+<%= render 'mailers/notification_mailer/summary/block_header', title: "Raum gesucht? - Dann ist das deine Chance!" %>
 
 <table border="0" cellpadding="0" cellspacing="0" style="width:100%; max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
   <tbody>
     <tr>
       <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
 
-        <%= link_to 'https://graz.welocally.at/crowdfunding-booster/viertelfonds/call', target:'_blank' do %>
+        <%= link_to 'https://graz.welocally.at/leerstand', target:'_blank' do %>
           <%= image_tag 'info/crowd_boost/cardbox.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
         <% end %>
 
@@ -13,10 +13,10 @@
           <tr>
             <td>
               <p>
-                <strong>Leerstand rund um den Jakominiplatz beleben und Räumen eine neue Zukunft geben!</strong>
+                <strong>Der Space <a href="https://graz.welocally.at/leerstand" target="_blank" style="font-weight:bold; color:#ec776a;">‚NOW WOW‘, oder dein Wunschleerstand</a> warten darauf, mit Leben gefüllt zu werden</strong> - und das an einem der zentralsten und lebendigsten Orte in Graz: rund um den <strong>Jakominiplatz</strong>.
               </p>
               <p>
-                Mit dem ViertelFonds werden lokale Macher*innen dabei unterstützt, Leerstand rund um den Jakominiplatz zu beleben – hilf jetzt mit, den Topf zu füllen!
+                Bis zum 31. Januar 2025 kannst du dein Nutzungsvorhaben einreichen.
               </p>
             </td>
           </tr>
@@ -25,7 +25,7 @@
       </td>
     </tr>
     <tr>
-      <td><%= render 'mailers/shared/button', title: "Zum ViertelFonds", url: "https://graz.welocally.at/crowdfunding-booster/viertelfonds/call", style: "width:100%;" %></td>
+      <td><%= render 'mailers/shared/button', title: "Alle Infos zur Einreichung", url: "https://graz.welocally.at/leerstand", style: "width:100%;" %></td>
     </tr>
   </tbody>
 </table>
