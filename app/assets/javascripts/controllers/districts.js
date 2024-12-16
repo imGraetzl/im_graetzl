@@ -16,11 +16,19 @@ APP.controllers.districts = (function() {
     $select.on("change", function() {
       // Hole die URL-Pfad-Informationen
       const path = window.location.pathname;
-      // Zerlege den Pfad in Teile
-      const pathParts = path.split('/');
-      // Extrahiere alles nach der zweiten Ebene (index 2 im Array)
-      const extractedPath = pathParts.slice(3).join('/');
-      window.location.href = $(this).val() + `/${extractedPath}`;
+      const selectedValue = $(this).val();
+    
+      if (path.endsWith('/karte') || selectedValue.endsWith('/karte')) {
+        // Navigiere nur zur ausgewählten URL ohne 'extractedPath'
+        window.location.href = selectedValue;
+      } else {
+        // Zerlege den Pfad in Teile
+        const pathParts = path.split('/');
+        // Extrahiere alles nach der ersten Ebene (index 1 im Array)
+        const extractedPath = pathParts.slice(3).join('/');
+        // Navigiere zur ausgewählten URL mit 'extractedPath'
+        window.location.href = selectedValue + `/${extractedPath}`;
+      }
     });
   }
 

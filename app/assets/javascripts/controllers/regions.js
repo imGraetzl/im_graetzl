@@ -10,11 +10,19 @@ APP.controllers.regions = (function() {
         $select.on("change", function() {
           // Hole die URL-Pfad-Informationen
           const path = window.location.pathname;
-          // Zerlege den Pfad in Teile
-          const pathParts = path.split('/');
-          // Extrahiere alles nach der ersten Ebene (index 1 im Array)
-          const extractedPath = pathParts.slice(2).join('/');
-          window.location.href = $(this).val() + `/${extractedPath}`;
+          const selectedValue = $(this).val();
+        
+          if (path.endsWith('/karte') || selectedValue.endsWith('/karte')) {
+            // Navigiere nur zur ausgewählten URL ohne 'extractedPath'
+            window.location.href = selectedValue;
+          } else {
+            // Zerlege den Pfad in Teile
+            const pathParts = path.split('/');
+            // Extrahiere alles nach der ersten Ebene (index 1 im Array)
+            const extractedPath = pathParts.slice(2).join('/');
+            // Navigiere zur ausgewählten URL mit 'extractedPath'
+            window.location.href = selectedValue + `/${extractedPath}`;
+          }
         });
 
         if ($('.cards-filter').exists()) {
