@@ -37,7 +37,6 @@
     </div>
 
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/crowd_booster' if current_region.is?('wien') %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll -mint', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
