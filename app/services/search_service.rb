@@ -58,9 +58,19 @@ class SearchService
     "%#{@query.gsub(/\s/, "%")}%"
   end
 
+  def exact_query
+    @query.strip
+  end
+
   def search_rooms
-    room_offers = RoomOffer.in(@region).enabled.joins(:room_categories).where("slogan ILIKE :q OR room_categories.name ILIKE :q", q: like_query).distinct
-    room_demands = RoomDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query)
+    room_offer_title_matches = RoomOffer.in(@region).enabled.joins(:room_categories).where("slogan ILIKE :q OR room_categories.name ILIKE :q", q: like_query).distinct
+    room_offer_tag_matches = RoomOffer.in(@region).enabled.tagged_with(exact_query, any: true)
+    room_offers = RoomOffer.where(id: room_offer_title_matches.pluck(:id) + room_offer_tag_matches.pluck(:id))
+
+    room_demand_title_matches = RoomDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query)
+    room_demand_tag_matches = RoomDemand.in(@region).enabled.tagged_with(exact_query, any: true)
+    room_demands = RoomDemand.where(id: room_demand_title_matches.pluck(:id) + room_demand_tag_matches.pluck(:id))
+
     (room_offers + room_demands).sort_by(&:last_activated_at).reverse
   end
 
@@ -73,7 +83,9 @@ class SearchService
   end
 
   def search_locations
-    Location.in(@region).approved.where("name ILIKE :q OR slogan ILIKE :q", q: like_query).order('created_at DESC')
+    title_matches = Location.in(@region).approved.where("name ILIKE :q OR slogan ILIKE :q", q: like_query)
+    tag_matches = Location.in(@region).approved.tagged_with(exact_query, any: true)
+    Location.where(id: title_matches.pluck(:id) + tag_matches.pluck(:id)).sort_by(&:last_activity_at).reverse
   end
 
   def search_polls
