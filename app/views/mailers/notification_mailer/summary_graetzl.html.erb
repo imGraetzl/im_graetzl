@@ -24,7 +24,8 @@
 
   <!-- Insert Feature Boxes -->
   <%# render 'featured/subscription' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
-  <%= render 'featured/raum_booster' if @region.is?('wien') && @period == 'weekly' && current_position == 2 %>
+  <%= render 'featured/raum_booster' if @region.is?('wien') && @period == 'weekly' && current_position == 1 %>
+  <%= render 'featured/viertel_fonds' if @region.is?('graz') && @period == 'weekly' && current_position == 1 %>
 
   <%= render 'summary/block_header', title: block_title %>
   <% notifications.each do |notification| %>
@@ -35,7 +36,6 @@
   <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.is?('wien') %>
 
   <!-- Insert Feature Boxes -->
-  <%= render 'featured/viertel_fonds' if @region.is?('graz') && @period == 'weekly' && current_position == 1 %>
 
 <% end %>
 
