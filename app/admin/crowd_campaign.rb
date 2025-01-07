@@ -1,5 +1,5 @@
 ActiveAdmin.register CrowdCampaign do
-  include ViewInApp
+  #include ViewInApp
   menu parent: 'Crowdfunding'
 
   includes :location, :user, :comments
@@ -7,12 +7,13 @@ ActiveAdmin.register CrowdCampaign do
 
   scope :initialized, default: true
   scope :draft
+  scope :re_draft
   scope :pending
   scope :approved
   scope :funding
   scope :completed
   scope :declined
-  scope :all
+  #scope :all
   scope :guest_newsletter
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -37,16 +38,25 @@ ActiveAdmin.register CrowdCampaign do
   form partial: 'form'
 
   # action buttons
-  action_item :approve, only: :show, if: proc{ crowd_campaign.pending? } do
-    link_to 'Kampagne freischalten', approve_admin_crowd_campaign_path(crowd_campaign), { method: :put }
+
+  action_item :draft, only: :show, if: proc{ crowd_campaign.pending? } do
+    link_to 'Draft', draft_admin_crowd_campaign_path(crowd_campaign), { method: :put, data: { confirm: 'Kampagne auf Draft setzen | NutzerIn wird nicht darüber informiert.' } }
+  end
+
+  action_item :re_draft, only: :show, if: proc{ crowd_campaign.pending? } do
+    link_to 'Re-Draft', re_draft_admin_crowd_campaign_path(crowd_campaign), { method: :put, data: { confirm: 'Kampagne auf Re-Draft setzen | NutzerIn wird darüber informiert.' } }
   end
 
   action_item :decline, only: :show, if: proc{ crowd_campaign.pending? } do
-    link_to 'Kampagne ablehnen', decline_admin_crowd_campaign_path(crowd_campaign), { method: :put }
+    link_to 'Decline', decline_admin_crowd_campaign_path(crowd_campaign), { method: :put, data: { confirm: 'Kampagne auf Declined setzen | NutzerIn wird nicht darüber informiert.' } }
   end
 
-  action_item :draft, only: :show, if: proc{ crowd_campaign.pending? } do
-    link_to 'Kampagne zurück auf Draft setzen', draft_admin_crowd_campaign_path(crowd_campaign), { method: :put }
+  action_item :approve, only: :show, if: proc{ crowd_campaign.pending? } do
+    link_to 'Freischalten', approve_admin_crowd_campaign_path(resource), method: :put, data: { confirm: 'Kampagne jetzt freischalten | NutzerIn wird darüber informiert.' }
+  end
+
+  action_item :view_in_app, only: :show, priority: 20 do
+    link_to 'App Vorschau', crowd_campaign_path(resource), target: '_blank'
   end
 
   # member actions
@@ -73,10 +83,21 @@ ActiveAdmin.register CrowdCampaign do
 
   member_action :draft, method: :put do
     if resource.draft!
-      flash[:success] = 'Crowdfunding Kampagne wurde zurückgesetzt auf Draft.'
+      flash[:success] = 'Crowdfunding Kampagne wurde auf Draft gesetzt.'
       redirect_to admin_crowd_campaigns_path
     else
-      flash[:error] = 'Crowdfunding Kampagne kann nicht auf Draft zurückgesetzt werden'
+      flash[:error] = 'Crowdfunding Kampagne kann nicht auf Draft gesetzt werden'
+      redirect_to resource_path
+    end
+  end
+
+  member_action :re_draft, method: :put do
+    if resource.re_draft!
+      CrowdCampaignMailer.re_draft(resource).deliver_now
+      flash[:success] = 'Crowdfunding Kampagne wurde auf Überarbeitung gesetzt.'
+      redirect_to admin_crowd_campaigns_path
+    else
+      flash[:error] = 'Crowdfunding Kampagne kann nicht auf Überarbeitung gesetzt werden'
       redirect_to resource_path
     end
   end

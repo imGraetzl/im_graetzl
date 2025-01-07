@@ -16,6 +16,10 @@
 // For example, to change the default status-tag color:
 // 
 
+span.empty {
+  display: none;
+}
+
 .mailtype {
   display: inline-block;
   width:130px;
@@ -29,30 +33,33 @@
     display: none;
   }
 
-  &.deleted, &.off, &.failed, &.boost_declined {
+  &.deleted, &.off, &.failed {
     background: red;
   }
   &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded, &.boost_cancelled {
     background: orange;
   }
-  &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free, &.boost_debited {
+  &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free, &.boost_authorized, &.boost_debited {
     background: green;
   }
-  &.public_space, &.rejected, &.storno {
+  &.public_space, &.rejected, &.storno, &.boost_declined {
     background: LightCoral;
   }
-  &.weekly, &.authorized, &.refunded, &.boost_authorized {
+  &.weekly, &.authorized, &.refunded {
     background: LightBlue;
   }
   &.vacancy, &.daily, &.processing, &.boost_approved {
     background: LightSeaGreen;
   }
-  &.draft {
+  &.re_draft {
     background: Grey;
   }
   &.funding, &.approved  {
     background: #6090DB;
   }
+}
+.col-ende {
+  white-space: nowrap;
 }
 
 a.btn-light {

@@ -12,6 +12,18 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def re_draft(crowd_campaign)
+    @crowd_campaign = crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-campaign-redraft")
+    mail(
+      subject: "Bevor deine Kampagne starten kann, ist noch etwas zu tun.",
+      from: platform_email('no-reply'),
+      to: @crowd_campaign.user.email,
+      bcc: 'wir@imgraetzl.at',
+    )
+  end
+
   def approved(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
@@ -20,6 +32,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne ist freigegeben, die nächsten Schritte",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+      bcc: 'wir@imgraetzl.at',
     )
   end
 

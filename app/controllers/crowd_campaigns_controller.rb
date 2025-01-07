@@ -23,11 +23,11 @@ class CrowdCampaignsController < ApplicationController
   def show
 
     @crowd_campaign = CrowdCampaign.find(params[:id])
-    redirect_to_region?(@crowd_campaign)
 
     if @crowd_campaign&.disabled?
       redirect_to region_crowd_campaigns_path, notice: "Die Kampagne '#{@crowd_campaign.title}' wurde deaktiviert."
     else
+      redirect_to_region?(@crowd_campaign)
       @crowd_pledges = @crowd_campaign.crowd_pledges
       @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges
       @preview = params[:preview] == 'true' ?  true : false
@@ -309,6 +309,7 @@ class CrowdCampaignsController < ApplicationController
 
   def form_status_message?
     flash.now[:alert] = "Deine Kampagne wird gerade überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
+    flash.now[:alert] = "Deine Kampagne muss noch überarbeitet werden. Sobald du fertig bist, reiche diese erneut ein. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.re_draft?
     flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime} | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
     flash.now[:alert] = "Deine Kampagne läuft gerade und kann daher nur mehr eingeschränkt bearbeitet werden. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.funding?
     flash.now[:alert] = "Deine Kampagne ist abgeschlossen | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.completed?
@@ -316,11 +317,11 @@ class CrowdCampaignsController < ApplicationController
 
   def show_status_message?
     if @crowd_campaign.user == current_user
-      flash.now[:alert] = "Deine Kampagne ist noch im Bearbeitungsmodus. | #{ActionController::Base.helpers.link_to('Kampagne bearbeiten', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.draft? || @crowd_campaign.submit? || @crowd_campaign.declined?
+      flash.now[:alert] = "Deine Kampagne ist noch im Bearbeitungsmodus. | #{ActionController::Base.helpers.link_to('Kampagne bearbeiten', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.draft? || @crowd_campaign.re_draft? || @crowd_campaign.submit? || @crowd_campaign.declined?
       flash.now[:alert] = "Deine Kampagne wird überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
       flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime}. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
     else
-      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.submit? || @crowd_campaign.pending? || @crowd_campaign.declined?
+      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.re_draft? || @crowd_campaign.submit? || @crowd_campaign.pending? || @crowd_campaign.declined?
       flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne läuft von #{@crowd_campaign.runtime}." if @crowd_campaign.approved?
     end
   end
