@@ -1,6 +1,32 @@
 namespace :scheduled do
 
-  desc "Erstelle und verschicke Gutscheincodes für die Zielgruppe"
+  desc 'Superfan Coupon Reminder Mail'
+  task coupons_reminder_task: :environment do
+    # Suche alle CouponHistories mit valid_until in 2 Tagen, sent_at gesetzt und redeemed_at leer (noch nicht eingelöst)
+    expiring_coupons = CouponHistory.where(valid_until: 2.days.from_now.all_day)
+                                   .where.not(sent_at: nil)
+                                   .where(redeemed_at: nil)
+
+    sent_count = 0
+
+    expiring_coupons.each do |history|
+      user = history.user
+      coupon = history.coupon
+
+      # Nur gültige Coupons berücksichtigen
+      next unless coupon.valid?
+
+      # Reminder-E-Mail senden
+      CouponMailer.coupon_mail_reminder(user, coupon).deliver_later
+      sent_count += 1
+
+      Rails.logger.info("[coupons reminder task]: sent to #{user.email} | #{coupon.code}")
+    end
+
+    Rails.logger.info("[coupons reminder task]: Total reminders sent: #{sent_count}")
+  end
+
+  desc "Superfan Coupon Mail"
   task coupons_task: :environment do
 
     # return unless Date.today.saturday?
@@ -105,6 +131,7 @@ namespace :scheduled do
 
         # E-Mail an Nutzer verschicken
         CouponMailer.coupon_mail(user, coupon).deliver_later
+        Rails.logger.info("[coupons task]: sent to #{user.email} | #{coupon.code}")
       end
 
       Rails.logger.info("[coupons task]: Gutscheinaktion abgeschlossen. #{region_target_users.length} Nutzer beschickt.")

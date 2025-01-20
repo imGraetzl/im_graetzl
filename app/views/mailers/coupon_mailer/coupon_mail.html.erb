@@ -15,9 +15,11 @@
 
         <strong style="color:#ec776a;">Dein exklusives Superfan-Angebot:</strong>
 
-        <p><strong>
-          Als Dankeschön bieten wir dir die <strong>JUHU! Fördermitgliedschaft</strong> zum Sonderpreis von <strong>85 € im Jahr</strong> (statt 100 €) – <strong>nur bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>!
-        </strong></p>
+        <p>
+          <strong>
+          Als Dankeschön bieten wir dir die JUHU! Fördermitgliedschaft zum Sonderpreis von 85 € (statt 100 €) – nur bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %>!
+          </strong>
+        </p>
 
 
         <p>Das bekommst du als JUHU-Fördermitglied:</p>
@@ -32,7 +34,7 @@
         </p>
 
         <p>
-          <strong>Löse deinen persönlichen Gutscheincode "</strong><strong style="color:#69a8a7;"><%= @coupon.code %></strong><strong>" für deine JUHU-Mitgliedschaft bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst JUHU-Mitgliedschaft auswählen, dann einlösen.) Dein Abo ist natürlich jederzeit mit einem Klick kündbar.
+          <strong>Löse deinen persönlichen Gutscheincode "</strong><strong style="color:#69a8a7;"><%= @coupon.code %></strong><strong>" für deine JUHU-Mitgliedschaft bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst JUHU-Mitgliedschaft auswählen, dann einlösen.) Dein Abo ist natürlich jederzeit mit nur einem Klick kündbar.
         </p>
 
         <p>
