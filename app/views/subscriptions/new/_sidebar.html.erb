@@ -28,14 +28,37 @@
           <% end %>
         </div>
       </li>
-      <li class="sum">
-        <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
-        <div class="costname">
-          Gesamtbetrag
-          <br>
-          <small>inkl. MwSt.</small>
-        </div>
-      </li>
+      <% if @subscription.coupon %>
+        <% if @subscription.coupon.amount_off.present? %>
+          <li>
+            <div class="rabatt">- <%= number_to_currency(@subscription.coupon.amount_off, unit: "€") %></div>
+            <div class="costname"><%= @subscription.coupon.discount_description %></div>
+          </li>
+        <% end %>
+        <% if @subscription.coupon.percent_off.present? %>
+          <li>
+            <div class="rabatt">- <%= @subscription.coupon.percent_off %>%</div>
+            <div class="costname"><%= @subscription.coupon.discount_description %></div>
+          </li>
+        <% end %>
+        <li class="sum">
+          <div class="cost"><%= number_to_currency(@plan.discounted_amount(amount_off: @subscription.coupon.amount_off, percent_off: @subscription.coupon.percent_off), unit: "€") %></div>
+          <div class="costname">
+            Gesamtbetrag
+            <br>
+            <small>inkl. MwSt.</small>
+          </div>
+        </li>
+      <% else %>
+        <li class="sum">
+          <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
+          <div class="costname">
+            Gesamtbetrag
+            <br>
+            <small>inkl. MwSt.</small>
+          </div>
+        </li>
+      <% end %>
     </ul>
 
   </div>

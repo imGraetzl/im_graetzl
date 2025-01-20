@@ -4,6 +4,7 @@ class Subscription < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :subscription_plan
   belongs_to :crowd_boost, optional: true
+  belongs_to :coupon, optional: true
   has_many :subscription_invoices
   has_many :zuckerls
   string_enum status: ["incomplete", "active", "canceled", "past_due"]
@@ -129,7 +130,7 @@ class Subscription < ApplicationRecord
     if user && active?
       user.update_attribute(:subscribed, true)
       MailchimpUserTagJob.perform_later(user, 'Abo', 'active')
-    elsif user
+    elsif user && !incomplete?
       user.update_attribute(:subscribed, false)
       MailchimpUserTagJob.perform_later(user, 'Abo', 'inactive')
     end

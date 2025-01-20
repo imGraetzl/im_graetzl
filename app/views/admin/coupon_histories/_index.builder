@@ -2,10 +2,10 @@ context.instance_eval do
   selectable_column
   id_column
   column :user
-  column(:status){|r| status_tag(r.status)}
-  column :amount
   column :coupon
-  column :debited_at
+  column :stripe_id
+  column :sent_at
+  column :redeemed_at
   column :created_at
   actions
 end
