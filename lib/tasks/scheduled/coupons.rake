@@ -21,8 +21,9 @@ namespace :scheduled do
       .distinct
 
     # Aktive User mit den Bedingungen
-    all_target_users = User.where("email LIKE ?", "%michael.walchhuetter%")
+    all_target_users = User.confirmed.where("email LIKE ?", "%michael.walchhuetter%")
     #all_target_users = User
+    #  .confirmed
     #  .joins(:initiated_meetings)
     #  .where(subscribed: false)
     #  .where('users.created_at <= ?', minimum_registration_date)
