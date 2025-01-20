@@ -6,7 +6,7 @@
         <p>Servus <%= @user.first_name %>,
 
         <p>
-          du bist ein echter <strong><%= t("region.#{@user.region.id}.domain_short") %> Superfan</strong> :) Du gehörst zu den 10% der aktivsten Nutzer*innen auf <%= t("region.#{@user.region.id}.domain_short") %> und bist damit ein ganz wichtiger Teil unserer Community. Mit deinen Angeboten und Treffen schaffst du echte Begegnungen – dafür möchten wir dir von Herzen Danke sagen!
+          du bist ein echter <strong><%= t("region.#{@user.region.id}.domain_short") %> Superfan</strong> :) Du gehörst zu den aktivsten Nutzer*innen auf <%= t("region.#{@user.region.id}.domain_short") %> und bist damit ein ganz wichtiger Teil unserer Community. Mit deinen Treffen und Angeboten schaffst du echte Begegnungen – dafür möchten wir dir von Herzen Danke sagen!
         </p>
 
         <p>
@@ -16,7 +16,7 @@
         <strong style="color:#ec776a;">Dein exklusives Superfan-Angebot:</strong>
 
         <p><strong>
-          Als Dankeschön bieten wir dir die <strong>JUHU! Fördermitgliedschaft</strong> zum Sonderpreis von <strong>90€ im ersten Jahr</strong> (statt 100€) – <strong>nur bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>!
+          Als Dankeschön bieten wir dir die <strong>JUHU! Fördermitgliedschaft</strong> zum Sonderpreis von <strong>85 € im Jahr</strong> (statt 100 €) – <strong>nur bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>!
         </strong></p>
 
 
@@ -31,10 +31,8 @@
           <strong>Und das Beste</strong>: Dein Beitrag sorgt dafür, dass <%= t("region.#{@user.region.id}.domain_short") %> bestehen bleibt – als Plattform in Wien, auf der Macher*innen wie du sichtbar werden, ihre Ideen verwirklichen und sich vernetzen können.
         </p>
 
-        <p><strong>Hier geht’s zu deinem Superfan-Angebot:</strong></p>
-
         <p>
-          Löse deinen persönlichen Gutscheincode "<strong style="color:#69a8a7;"><%= @coupon.code %></strong>" für deine JUHU-Mitgliedschaft <strong>bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst Mitgliedschaft auswählen, dann einlösen.)
+          <strong>Löse deinen persönlichen Gutscheincode "</strong><strong style="color:#69a8a7;"><%= @coupon.code %></strong><strong>" für deine JUHU-Mitgliedschaft bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst JUHU-Mitgliedschaft auswählen, dann einlösen.) Dein Abo ist natürlich jederzeit mit einem Klick kündbar.
         </p>
 
         <p>
@@ -43,7 +41,7 @@
 
         <p>
           Herzliche Grüße,<br>
-          Mirjam
+          Mirjam vom imGrätzl Team
         </p>
 
       </td>

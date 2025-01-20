@@ -18,6 +18,10 @@ class SubscriptionPlan < ApplicationRecord
     amount / 12
   end
 
+  def discounted_equals_monthly_price(amount_off: nil, percent_off: nil)
+    discounted_amount(amount_off: amount_off, percent_off: percent_off) / 12
+  end
+
   def discounted_amount(amount_off: nil, percent_off: nil)
     discounted_price = amount
   

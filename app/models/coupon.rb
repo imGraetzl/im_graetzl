@@ -32,9 +32,9 @@ class Coupon < ApplicationRecord
     when "once"
       "Rabatt auf die erste Rechnung"
     when "forever"
-      "Rabatt"
+      "Rabatt (Gutscheincode)"
     else
-      "Rabatt"
+      "Rabatt (Gutscheincode)"
     end
   end
 

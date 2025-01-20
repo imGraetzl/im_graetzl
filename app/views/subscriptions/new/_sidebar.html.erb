@@ -19,16 +19,28 @@
       </p>
     </ul>
     <ul class="pricing-summary">
-      <li>
-        <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
-        <div class="costname">
-          <%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %>
-          <% if @plan.interval == 'year' %>
-          <br><small>(entspricht <%= number_to_currency(@plan.equals_monthly_price, unit: "€") %> pro Monat)</small>
-          <% end %>
-        </div>
-      </li>
       <% if @subscription.coupon %>
+        <% if @subscription.coupon.once? %>
+          <li>
+            <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
+            <div class="costname">
+              <%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %>
+              <% if @plan.interval == 'year' %>
+              <br><small>(entspricht <%= number_to_currency(@plan.equals_monthly_price, unit: "€") %> pro Monat)</small>
+              <% end %>
+            </div>
+          </li>
+        <% else %>
+          <li>
+            <div class="cost linethrough"><%= number_to_currency(@plan.amount, unit: "€") %></div>
+            <div class="costname linethrough">
+              <%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %>
+              <% if @plan.interval == 'year' %>
+              <br><small>(entspricht <%= number_to_currency(@plan.equals_monthly_price, unit: "€") %> pro Monat)</small>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
         <% if @subscription.coupon.amount_off.present? %>
           <li>
             <div class="rabatt">- <%= number_to_currency(@subscription.coupon.amount_off, unit: "€") %></div>
@@ -41,6 +53,17 @@
             <div class="costname"><%= @subscription.coupon.discount_description %></div>
           </li>
         <% end %>
+        <% if @subscription.coupon.forever? %>
+          <li>
+            <div class="cost"><%= number_to_currency(@plan.discounted_amount(amount_off: @subscription.coupon.amount_off, percent_off: @subscription.coupon.percent_off), unit: "€") %></div>
+            <div class="costname">
+              <%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %>
+              <% if @plan.interval == 'year' %>
+              <br><small>(entspricht <%= number_to_currency(@plan.discounted_equals_monthly_price(amount_off: @subscription.coupon.amount_off, percent_off: @subscription.coupon.percent_off), unit: "€") %> pro Monat)</small>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
         <li class="sum">
           <div class="cost"><%= number_to_currency(@plan.discounted_amount(amount_off: @subscription.coupon.amount_off, percent_off: @subscription.coupon.percent_off), unit: "€") %></div>
           <div class="costname">
@@ -50,6 +73,15 @@
           </div>
         </li>
       <% else %>
+        <li>
+          <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
+          <div class="costname">
+            <%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %>
+            <% if @plan.interval == 'year' %>
+            <br><small>(entspricht <%= number_to_currency(@plan.equals_monthly_price, unit: "€") %> pro Monat)</small>
+            <% end %>
+          </div>
+        </li>
         <li class="sum">
           <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
           <div class="costname">

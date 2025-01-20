@@ -33,6 +33,11 @@
     list-style:initial;
   }
 
+  .linethrough {
+    text-decoration: line-through;
+    color: $color-font-primary !important;
+  }
+
   li {
     display: flex;
     clear:both;

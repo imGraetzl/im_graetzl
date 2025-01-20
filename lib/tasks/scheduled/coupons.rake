@@ -21,22 +21,22 @@ namespace :scheduled do
       .distinct
 
     # Aktive User mit den Bedingungen
-    all_target_users = User.confirmed.where("email LIKE ?", "%michael.walchhuetter%")
-    #all_target_users = User
-    #  .confirmed
-    #  .joins(:initiated_meetings)
-    #  .where(subscribed: false)
-    #  .where('users.created_at <= ?', minimum_registration_date)
-    #  .group(:id)
-    #  .having('COUNT(CASE WHEN meetings.starts_at_date >= ? AND meetings.created_at >= ? THEN 1 ELSE NULL END) >= 1', meeting_start_date, meeting_created_at_date)
-    #  .having('COUNT(meetings.id) >= 10')
+    #all_target_users = User.confirmed.where("email LIKE ?", "%michael.walchhuetter%")
+    all_target_users = User
+      .confirmed
+      .joins(:initiated_meetings)
+      .where(subscribed: false)
+      .where('users.created_at <= ?', minimum_registration_date)
+      .group(:id)
+      .having('COUNT(CASE WHEN meetings.starts_at_date >= ? AND meetings.created_at >= ? THEN 1 ELSE NULL END) >= 1', meeting_start_date, meeting_created_at_date)
+      .having('COUNT(meetings.id) >= 10')
 
     # Filtere die User, um nur die zu behalten, die keine Coupons in den letzten 6 Monaten haben
     target_users = all_target_users.where.not(id: excluded_users_with_recent_coupons.pluck(:id))
 
-    Rails.logger.info("[coupons task]: all_target_users: #{all_target_users.count}")
+    Rails.logger.info("[coupons task]: all_target_users: #{all_target_users.length}")
     Rails.logger.info("[coupons task]: excluded_users_with_recent_coupons: #{excluded_users_with_recent_coupons.count}")
-    Rails.logger.info("[coupons task]: target_users: #{target_users.count}")
+    Rails.logger.info("[coupons task]: target_users: #{target_users.length}")
 
     # ------------------------ SEND LOGIC
 
@@ -44,7 +44,7 @@ namespace :scheduled do
       next unless region.id == "wien" # only wien for now
 
       region_target_users = target_users.in(region)
-      Rails.logger.info("[coupons task]: region_target_users: #{region_target_users.count}")
+      Rails.logger.info("[coupons task]: region_target_users: #{region_target_users.length}")
 
       next if region_target_users.empty?
 
@@ -58,16 +58,16 @@ namespace :scheduled do
       next if product_ids.empty?
 
       # Gutschein erstellen
-      coupon_code = "#{abo_short_name}-#{Time.current.strftime('%Y%m%d')}-#{SecureRandom.hex(4).upcase}"
+      coupon_code = "#{abo_short_name}-#{Time.current.strftime('%d%m%y')}-#{SecureRandom.hex(3).upcase}"
 
       begin
         stripe_coupon = Stripe::Coupon.create(
           id: coupon_code,
-          amount_off: (10.00 * 100).to_i,     # Betrag in Cent umrechnen (10 € → 1000 Cent)
+          amount_off: (15.00 * 100).to_i,     # Betrag in Cent umrechnen (15 € → 1000 Cent)
           currency: 'eur',                    # Währung: Euro
-          duration: 'once',                   # Gilt nur für die erste Rechnung
-          name: "10 € Rabatt auf #{abo_short_name}",  # Name des Coupons
-          redeem_by: 8.days.from_now.end_of_day.to_i, # Gültig bis 1 Woche ab jetzt
+          duration: 'forever',                # Erste Rechnung oder immer (once / forever)
+          name: "15 € Rabatt auf #{abo_short_name}",  # Name des Coupons
+          redeem_by: 7.days.from_now.end_of_day.to_i, # Gültig bis 1 Woche ab jetzt
           applies_to: {                       # Optional: Beschränkung auf Produkte
             products: product_ids             # Ersetze mit der Stripe-Produkt-ID
           }
@@ -77,7 +77,7 @@ namespace :scheduled do
         coupon = Coupon.create!(
           code: coupon_code,
           stripe_id: stripe_coupon.id,
-          amount_off: 10.00,               # Betrag in Euro (Schema berücksichtigt decimal)
+          amount_off: 15.00,               # Betrag in Euro (Schema berücksichtigt decimal)
           percent_off: nil,                # Kein Prozent-Rabatt
           duration: stripe_coupon.duration,
           name: stripe_coupon.name,
@@ -99,14 +99,15 @@ namespace :scheduled do
         CouponHistory.create!(
           user: user,
           coupon: coupon,
-          sent_at: Time.current
+          sent_at: Time.current,
+          valid_until: coupon.valid_until
         )
 
         # E-Mail an Nutzer verschicken
         CouponMailer.coupon_mail(user, coupon).deliver_later
       end
 
-      Rails.logger.info("[coupons task]: Gutscheinaktion abgeschlossen. #{region_target_users.count} Nutzer beschickt.")
+      Rails.logger.info("[coupons task]: Gutscheinaktion abgeschlossen. #{region_target_users.length} Nutzer beschickt.")
 
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_10_143922) do
+ActiveRecord::Schema.define(version: 2025_01_20_144604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 2025_01_10_143922) do
     t.datetime "redeemed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "valid_until"
     t.index ["coupon_id"], name: "index_coupon_histories_on_coupon_id"
     t.index ["user_id"], name: "index_coupon_histories_on_user_id"
   end
