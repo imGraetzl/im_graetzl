@@ -58,7 +58,8 @@ class CrowdPledgesController < ApplicationController
 
   def payment_authorized
     @crowd_pledge = CrowdPledge.find(params[:id])
-    redirect_to [:choose_payment, @crowd_pledge] if params[:setup_intent].blank?
+    redirect_to [:choose_payment, @crowd_pledge] and return if params[:setup_intent].blank?
+    redirect_to [:summary, @crowd_pledge] and return unless @crowd_pledge.incomplete? # Abfangen falls Page replaod später?
 
     success, error = CrowdPledgeService.new.payment_authorized(@crowd_pledge, params[:setup_intent])
 

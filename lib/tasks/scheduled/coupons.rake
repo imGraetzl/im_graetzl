@@ -49,7 +49,7 @@ namespace :scheduled do
       next if region_target_users.empty?
 
       # Get stripe_product_ids as array (z.b. juhu abos, oder alle ...)
-      abo_short_name = "JUHU!"
+      abo_short_name = "JUHU"
       product_ids = SubscriptionPlan.in(region)
                       .enabled
                       .where("UPPER(short_name) LIKE ?", "%#{abo_short_name}%")
@@ -58,7 +58,7 @@ namespace :scheduled do
       next if product_ids.empty?
 
       # Gutschein erstellen
-      coupon_code = "#{abo_short_name}_#{Time.current.strftime('%Y%m%d')}_#{SecureRandom.hex(4).upcase}"
+      coupon_code = "#{abo_short_name}-#{Time.current.strftime('%Y%m%d')}-#{SecureRandom.hex(4).upcase}"
 
       begin
         stripe_coupon = Stripe::Coupon.create(
