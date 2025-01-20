@@ -6,7 +6,7 @@ class Coupon < ApplicationRecord
   validates :code, presence: true, uniqueness: true
   validates :duration, presence: true
 
-  before_destroy :nullify_coupon_histories
+  before_destroy :nullify_associations
 
   string_enum duration: ["once","forever"]
 
@@ -67,7 +67,9 @@ class Coupon < ApplicationRecord
     end
   end
 
-  def nullify_coupon_histories
+  def nullify_associations
     coupon_histories.update_all(coupon_id: nil)
+    subscriptions.update_all(coupon_id: nil)
+    subscription_invoices.update_all(coupon_id: nil)
   end
 end
