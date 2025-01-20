@@ -2,6 +2,7 @@ class SubscriptionInvoice < ApplicationRecord
   belongs_to :user
   belongs_to :subscription
   belongs_to :crowd_boost, optional: true
+  belongs_to :coupon, optional: true
   has_one :crowd_boost_charge
 
   scope :sorted, -> { order(created_at: :desc) }

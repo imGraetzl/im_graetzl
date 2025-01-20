@@ -37,7 +37,7 @@
     display: flex;
     clear:both;
     margin-bottom: 17px;
-    div.cost, div.duration {
+    div.cost, div.duration, div.rabatt {
       display:table;
       color: $color-ambient-orange;
       min-width: 60px;
@@ -47,6 +47,10 @@
       font-weight: bold;
     }
     div.duration {
+      color: $color-font-primary;
+    }
+    div.rabatt {
+      font-weight: normal;
       color: $color-font-primary;
     }
   }

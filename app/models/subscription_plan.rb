@@ -18,6 +18,23 @@ class SubscriptionPlan < ApplicationRecord
     amount / 12
   end
 
+  def discounted_amount(amount_off: nil, percent_off: nil)
+    discounted_price = amount
+  
+    # Betrag in Euro abziehen, falls vorhanden
+    if amount_off.present?
+      discounted_price -= amount_off
+    end
+  
+    # Prozentualen Rabatt abziehen, falls vorhanden
+    if percent_off.present?
+      discounted_price -= (discounted_price * percent_off / 100.0).round
+    end
+  
+    # Betrag darf nicht negativ sein
+    [discounted_price, 0].max
+  end
+
   private
 
   def helper

@@ -26,8 +26,7 @@ class SubscriptionService
       status: sub.status,
       ends_at: nil,
       current_period_start: Time.at(sub.current_period_start),
-      current_period_end: Time.at(sub.current_period_end),
-      coupon: sub&.discount&.coupon&.id,
+      current_period_end: Time.at(sub.current_period_end)
     )
 
     sub
@@ -90,6 +89,11 @@ class SubscriptionService
     return if user.nil?
     return if user.subscription_invoices.where(stripe_id: object.id).any?
 
+    # Coupon aus dem Stripe-Response extrahieren
+    stripe_coupon_id = object.discount&.coupon&.id
+    coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
+    CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(redeemed_at: Time.current, stripe_id: coupon.stripe_id) if coupon
+
     user.subscription_invoices.create(
       subscription_id: subscription.id,
       crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
@@ -101,6 +105,7 @@ class SubscriptionService
       invoice_pdf: object.invoice_pdf,
       invoice_number: object.number,
       stripe_payment_intent_id: object.payment_intent,
+      coupon_id: coupon&.id # Zuweisung der Coupon-ID, falls vorhanden
     )
   end
 
@@ -127,35 +132,29 @@ class SubscriptionService
     user = subscription.user
     return if user.nil?
 
-    if user.subscription_invoices.where(stripe_id: object.id).any?
-      subscription_invoice = user.subscription_invoices.where(stripe_id: object.id)
-      subscription_invoice.update_all(
-        subscription_id: subscription.id,
-        crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
-        crowd_boost_id: subscription.crowd_boost_id,
-        stripe_id: object.id,
-        status:object.status,
-        amount:object.amount_paid / 100,
-        created_at: Time.at(object.created),
-        invoice_pdf: object.invoice_pdf,
-        invoice_number: object.number,
-        stripe_payment_intent_id: object.payment_intent,
-      )
-    else
-      user.subscription_invoices.create(
-        subscription_id: subscription.id,
-        crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
-        crowd_boost_id: subscription.crowd_boost_id,
-        stripe_id: object.id,
-        status:object.status,
-        amount:object.amount_paid / 100,
-        created_at: Time.at(object.created),
-        invoice_pdf: object.invoice_pdf,
-        invoice_number: object.number,
-        stripe_payment_intent_id: object.payment_intent,
-      )
-    end
+    # Coupon aus dem Stripe-Response extrahieren
+    stripe_coupon_id = object.discount&.coupon&.id
+    coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
+    CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(redeemed_at: Time.current, stripe_id: coupon.stripe_id) if coupon
+  
+    subscription_invoice = user.subscription_invoices.find_or_initialize_by(stripe_id: object.id)
 
+    attributes = {
+      subscription_id: subscription.id,
+      crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
+      crowd_boost_id: subscription.crowd_boost_id,
+      stripe_id: object.id,
+      status: object.status,
+      amount: object.amount_paid / 100.0, # Betrag in Euro
+      created_at: Time.at(object.created), # Timestamp von Stripe
+      invoice_pdf: object.invoice_pdf,
+      invoice_number: object.number,
+      stripe_payment_intent_id: object.payment_intent,
+      coupon_id: coupon&.id # Zuweisung der Coupon-ID, falls vorhanden
+    }
+  
+    subscription_invoice.assign_attributes(attributes)
+    subscription_invoice.save
   end
 
   def update_payment_intent(subscription)
@@ -169,13 +168,4 @@ class SubscriptionService
       }
     )
   end
-
-  def valid_coupon?(coupon)
-    return false unless coupon.present?
-    coupon_retrieved = Stripe::Coupon.retrieve(coupon)
-    coupon_retrieved.valid == true
-  rescue
-    false
-  end
-
 end

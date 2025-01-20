@@ -1,0 +1,52 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+        <p>Servus <%= @user.first_name %>,
+
+        <p>
+          du bist ein echter <strong><%= t("region.#{@user.region.id}.domain_short") %> Superfan</strong> :) Du gehörst zu den 10% der aktivsten Nutzer*innen auf <%= t("region.#{@user.region.id}.domain_short") %> und bist damit ein ganz wichtiger Teil unserer Community. Mit deinen Angeboten und Treffen schaffst du echte Begegnungen – dafür möchten wir dir von Herzen Danke sagen!
+        </p>
+
+        <p>
+          Wir feiern heuer <strong>10 Jahre <%= t("region.#{@user.region.id}.domain_short") %></strong> und sind mächtig stolz, dass imGrätzl nach wie vor unabhängig und kostenlos für die lokalen Macher*innen ist. Das ist nur dank der Unterstützung unserer Förder*innen möglich. Jetzt hast du die Chance, dich diesem besonderen Kreis anzuschließen und <%= t("region.#{@user.region.id}.domain_short") %> aktiv zu unterstützen.
+        </p>
+
+        <strong style="color:#ec776a;">Dein exklusives Superfan-Angebot:</strong>
+
+        <p><strong>
+          Als Dankeschön bieten wir dir die <strong>JUHU! Fördermitgliedschaft</strong> zum Sonderpreis von <strong>90€ im ersten Jahr</strong> (statt 100€) – <strong>nur bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>!
+        </strong></p>
+
+
+        <p>Das bekommst du als JUHU-Fördermitglied:</p>
+
+        <ul>
+          <li><strong>Ein Grätzlzuckerl</strong>: einen Monat lang <strong>wienweite Sichtbarkeit</strong> für dein Angebot in allen vier Newslettern und auf der Plattform.</li>
+          <li><strong>Ein zweites Schaufenster</strong>: ideal, wenn du auch in anderen Bezirken sichtbarer sein möchtest.</li>
+        </ul>
+
+        <p>
+          <strong>Und das Beste</strong>: Dein Beitrag sorgt dafür, dass <%= t("region.#{@user.region.id}.domain_short") %> bestehen bleibt – als Plattform in Wien, auf der Macher*innen wie du sichtbar werden, ihre Ideen verwirklichen und sich vernetzen können.
+        </p>
+
+        <p><strong>Hier geht’s zu deinem Superfan-Angebot:</strong></p>
+
+        <p>
+          Löse deinen persönlichen Gutscheincode "<strong style="color:#69a8a7;"><%= @coupon.code %></strong>" für deine JUHU-Mitgliedschaft <strong>bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst Mitgliedschaft auswählen, dann einlösen.)
+        </p>
+
+        <p>
+          Deine Unterstützung macht einen echten Unterschied – für dein Grätzl und alle Macher*innen, die es zu einem lebendigen Ort der Begegnung machen.
+        </p>
+
+        <p>
+          Herzliche Grüße,<br>
+          Mirjam
+        </p>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
