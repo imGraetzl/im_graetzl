@@ -10,7 +10,7 @@ ActiveAdmin.register GroupJoinRequest do
   scope :accepted
   scope :rejected
 
-  filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :group, collection: proc { Group.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
 
   index { render 'index', context: self }

@@ -149,8 +149,28 @@
     $webp1x: image_path('illu/illu-2frauen.webp'),
   );
 }
+.paperCard.-gassenlokal .wrp {
+  padding-top:190px !important;
+  @include bg-url(
+    image_path('info/crowd2raum/illu_laden.png'),
+    $webp1x: image_path('info/crowd2raum/illu_laden.webp'),
+  );
+}
+.paperCard.-ideen .wrp {
+  padding-top:190px !important;
+  @include bg-url(
+    image_path('info/crowd2raum/illu_ideen.png'),
+    $webp1x: image_path('info/crowd2raum/illu_ideen.webp'),
+  );
+}
+.paperCard.-fragen .wrp {
+  padding-top:190px !important;
+  @include bg-url(
+    image_path('info/crowd2raum/illu_fragezeichen.png'),
+    $webp1x: image_path('info/crowd2raum/illu_fragezeichen.webp'),
+  );
+}
 .paperCard.-crowd_campaign .wrp {
-  //background-image: url(image_path('mailings/call.png')) !important;
   @include bg-url(
     image_path('illu/illu-crowd1.png'),
     $webp1x: image_path('illu/illu-crowd1.webp'),

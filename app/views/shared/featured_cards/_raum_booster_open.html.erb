@@ -1,0 +1,26 @@
+<% 
+  crowd_boost = CrowdBoost.where(id: crowd_boost_id).last
+  crowd_boost_charge = crowd_boost.crowd_boost_charges.debited.sample if crowd_boost
+%>
+<% if crowd_boost %>
+  <div class="cardBox -raum_booster featuredCard -hidden" data-behavior="masonry-card" data-card-id="boost-<%= crowd_boost.id %>">
+
+    <div class="cardBoxHeader">
+      <%= link_to crowd_boost do %>
+        <div class="coverImgWrapper">
+          <%= avatar_image(crowd_boost, class: 'coverImg') %>
+        </div>
+      <% end %>
+      <div class="categoryicon">
+        <%= image_tag 'svg/icon-booster.svg', class:'icon' %>
+      </div>
+    </div>
+
+    <div class="cardBoxContent">
+      <h3>Bring jetzt dein Raumvorhaben ins Rollen – mit dem RaumBooster!</h3>
+      <p>Planst du zur Umsetzung ein Crowdfunding? Dann reiche jetzt ein und hol dir <strong>1.000 € extra Zuschuss</strong> für dein Raumvorhaben.</p>
+      <p>Deadline: 31.01.2025.</p>
+      <%= link_to 'Zum RaumBooster', crowd_boost, class: 'btn-primary -mint -shadow' %>
+    </div>
+  </div>
+<% end %>

@@ -55,6 +55,10 @@ class Region
     self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
   end
 
+  def raum_booster_open?
+    self.is?('wien') && Date.today.to_datetime.between?('2024-12-10', '2025-01-31')
+  end
+
   def crowdfunding_call?
     Date.today.to_datetime.between?('2024-08-29', '2024-09-22')
   end
@@ -113,7 +117,13 @@ class Region
   end
 
   def default_crowd_boost_id
-    Rails.env.staging? ? 2 : 1
+    if id == 'wien'
+      1 # raumbooster
+    elsif id == 'graz'
+      2 # viertelfonds
+    else
+      mil
+    end
   end
 
   def host_id

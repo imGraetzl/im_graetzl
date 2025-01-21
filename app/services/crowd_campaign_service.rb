@@ -43,4 +43,24 @@ class CrowdCampaignService
     campaign.invoice.put(body: invoice)
   end
 
+  def manual_boost(campaign)
+    case campaign.check_boosting
+    when :boost_authorized
+      boost_amount = campaign.crowd_boost_slot.calculate_boost(campaign)
+      crowd_boost_pledge = CrowdBoostPledge.create(
+        amount: boost_amount,
+        status: "authorized",
+        crowd_campaign_id: campaign.id,
+        crowd_boost_id: campaign.crowd_boost.id,
+        crowd_boost_slot_id: campaign.crowd_boost_slot.id,
+        region_id: campaign.region_id
+      )
+      if crowd_boost_pledge
+        campaign.update(boost_status: 'boost_authorized')
+        ActionProcessor.track(crowd_boost_pledge, :create)
+        AdminMailer.new_crowd_booster(campaign, boost_amount).deliver_later
+      end
+    end
+  end
+
 end

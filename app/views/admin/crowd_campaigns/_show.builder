@@ -78,6 +78,8 @@ context.instance_eval do
     end
     column do
 
+      active_admin_comments
+
       if crowd_campaign.crowd_boost_slot.present?
         panel 'Crowd Boost' do
           attributes_table_for crowd_campaign do

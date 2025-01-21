@@ -496,10 +496,11 @@ de:
         contact_email: E-Mailadresse
         billable: Rechnung/Beleg Auswahl
         statuses:
-          draft: In Bearbeitung
-          declined: In Bearbeitung
-          submit: In Bearbeitung
-          pending: In Prüfung
+          draft: Bearbeitung
+          declined: Bearbeitung
+          submit: Bearbeitung
+          re_draft: Überarbeitung
+          pending: Prüfung
           approved: Freigegeben
           funding: Funding
           completed: Abgeschlossen

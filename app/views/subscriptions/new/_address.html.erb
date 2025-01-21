@@ -78,17 +78,17 @@
 
   <% end %>
 
-  <% if current_user.beta_user? %>
-    <p class="coupon">Hast du einen Gutscheincode zum Einlösen?</p>
+  
+   <p class="coupon">Hast du einen Gutscheincode zum Einlösen?</p>
 
-    <div class="input-field">
-      <%= f.label :coupon do %>
-        <%= icon_tag "sale-label" %>
-        <span>Gutschein</span>
-      <% end %>
-      <%= f.text_field :coupon, placeholder: 'Dein Gutscheincode' %>
-    </div>
-  <% end %>
+   <div class="input-field">
+     <%= f.label :coupon_code do %>
+       <%= icon_tag "sale-label" %>
+       <span>Gutschein</span>
+     <% end %>
+     <%= f.text_field :coupon_code, placeholder: 'Dein Gutscheincode' %>
+   </div>
+  
 
   <%= submit_tag "Weiter", class: 'btn-primary' %>
   <% end %>

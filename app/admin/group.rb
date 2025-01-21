@@ -10,7 +10,7 @@ ActiveAdmin.register Group do
   scope :featured
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :users, collection: proc {User.admin_select_collection}, include_blank: true, input_html: {class: 'admin-filter-select'}
+  filter :users, collection: proc {User.registered.admin_select_collection}, include_blank: true, input_html: {class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :districts, collection: proc { District.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :group_categories

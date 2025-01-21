@@ -6,9 +6,9 @@ active_admin_form_for [:admin, resource] do |f|
     input :status
     input :short_name
     input :amount
-    input :coupon
     input :interval, collection: ['year', 'month'], include_blank: true, input_html: { :class => 'admin-filter-select'}
     input :stripe_id
+    input :stripe_product_id
     input :crowd_boost, collection: CrowdBoost.all, include_blank: true, input_html: { :class => 'admin-filter-select'}
     input :crowd_boost_charge_amount
     input :image_url

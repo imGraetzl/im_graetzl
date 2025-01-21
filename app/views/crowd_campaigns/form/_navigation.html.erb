@@ -55,6 +55,12 @@
         <%= icon_tag "slots" %>
         <div class="txt">Projekt wird<br> geprüft ...</div>
       <% end %>
+    <% elsif @crowd_campaign.re_draft? %>
+      <div class="step-line"></div>
+      <%= active_link_to status_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+        <%= icon_tag "slots" %>
+        <div class="txt">Projekt<br>Status</div>
+      <% end %>
     <% elsif @crowd_campaign.approved? %>
       <div class="step-line"></div>
       <%= active_link_to status_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>

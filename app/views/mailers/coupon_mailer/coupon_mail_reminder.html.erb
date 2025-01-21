@@ -1,0 +1,55 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+        <p>Servus <%= @user.first_name %>,
+
+        <p>
+          wir wollten dich nur kurz daran erinnern: Dein exklusives <strong>Superfan-Angebot für die JUHU! Fördermitgliedschaft</strong> endet bald – am <strong><%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>.
+        </p>
+
+        <p>
+          Warum das wichtig ist? Du bist jemand, der <%= t("region.#{@user.region.id}.domain_short") %> liebt und nutzt wie kein anderer. Du schaffst echte Begegnungen und lässt dein Grätzl lebendiger werden – und genau das möchten wir auch weiterhin möglich machen. <%= @user.region.subscription_goal %> Förder*innen sind unser Ziel, viele haben sich bereits angeschlossen.
+        </p>
+
+        <p>
+          <strong>Warum jetzt? Feier mit uns 10 Jahre <%= t("region.#{@user.region.id}.domain_short") %>!</strong>
+        </p>
+
+        <p>
+          Dieses Angebot gibt es <strong>nur noch bis <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>. Danach endet der Aktionspreis von <strong>85 €</strong> (statt 100 €).
+        </p>
+
+        <strong style="color:#ec776a;">Hier geht’s direkt zu deinem Superfan-Angebot:</strong>
+
+        <p>
+          <strong>Löse deinen persönlichen Gutscheincode "</strong><strong style="color:#69a8a7;"><%= @coupon.code %></strong><strong>" für deine JUHU-Mitgliedschaft bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst JUHU-Mitgliedschaft auswählen, dann einlösen.) Dein Abo ist natürlich jederzeit mit nur einem Klick kündbar.
+        </p>
+
+        <p>
+          <strong>Was dir die JUHU! Fördermitgliedschaft bringt:</strong>
+        </p>
+
+        <ul>
+          <li><strong>Ein Grätzlzuckerl</strong>: einen Monat lang <strong>wienweite Sichtbarkeit</strong> für dein Angebot in allen vier Newslettern und auf der Plattform.</li>
+          <li><strong>Ein zweites Schaufenster</strong>: ideal, wenn du auch in anderen Bezirken sichtbarer sein möchtest.</li>
+        </ul>
+
+        <p>
+          Mit deinem Beitrag stellst du sicher, dass <%= t("region.#{@user.region.id}.domain_short") %> unabhängig und kostenlos bleibt – ein Ort, an dem lokale Macher*innen wie du sich vernetzen und ihre Projekte verwirklichen können. 
+        </p>
+
+        <p>
+          Wenn du Fragen hast, melde dich gerne!
+        </p>
+
+        <p>
+          Herzliche Grüße,<br>
+          Mirjam vom imGrätzl Team
+        </p>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

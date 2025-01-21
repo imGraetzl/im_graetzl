@@ -1,0 +1,44 @@
+<% @next_slot = crowd_boost.next_slot(current_region) %>
+
+<div class="cardBox -crowd_boost <%= @next_slot ? "-active" : "" %>" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
+  
+  <div class="cardBoxHeader">
+    <%= link_to crowd_boost do %>
+      <div class="coverImgWrapper">
+        <%= avatar_image(crowd_boost, class: 'coverImg') %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= image_tag 'svg/icon-booster.svg', class:'icon' %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+
+    <div class="txt">
+      <h3><%= link_to crowd_boost.title.truncate(110), crowd_boost %></h3>
+      <p><%= crowd_boost.slogan.truncate(110) %></p>
+    </div>
+
+    <% if @next_slot && !local_assigns[:hide_facts].present? %>
+      <div class="facts icontxt -mint">
+        <%= icon_tag "time-clock" %>
+        Einreichfrist: <%= I18n.localize(@next_slot.ends_at, format:'%d. %b %Y') %>
+      </div>
+      <% if @next_slot.boost_amount? %>
+        <div class="facts icontxt -rosa">
+          <%= icon_tag "rocket" %>
+          <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Boost für dein Projekt
+        </div>
+      <% elsif @next_slot.boost_percentage? %>
+        <div class="facts icontxt -rosa">
+          <%= icon_tag "rocket" %>
+          Bis zu <%= @next_slot.boost_percentage.to_i %>% Boost für dein Projekt
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= link_to 'Mehr Infos', crowd_boost, class: 'btn-primary -mint' %>
+
+  </div>
+</div>

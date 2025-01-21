@@ -1,0 +1,77 @@
+<% content_for(:above_title, "Servus #{@crowd_campaign.user.first_name}") %>
+<% content_for(:title, "Infos zu deiner Crowdfunding Kampagne.") %>
+
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:30px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Bevor deine Kampagne starten kann, ist noch etwas zu tun.
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+
+<!-- --------------- CONTENT --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
+        <%= link_to crowd_campaign_url(@crowd_campaign) do %>
+          <%= cover_photo_image(@crowd_campaign, size: :small, class: 'mcnImage', style: "width:290px; border-radius:5px; max-width:290px; min-width:100px;") %>
+         <% end %>
+      </td>
+      <td valign="center" class="mcnTextContent" width="100%">
+        <p>
+          <%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a; font-size:18px;" %>
+        </p>
+        <p>
+          <strong><%= I18n.localize(@crowd_campaign.startdate, format:'%d. %b %Y') if @crowd_campaign.startdate %> - <%= I18n.localize(@crowd_campaign.enddate, format:'%d. %b %Y') if @crowd_campaign.enddate %></strong>
+        </p>
+        <p>
+          <em>Benötigter Mindestbetrag: <strong><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></strong></em>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= render 'mailers/shared/button', title: "Kampagne bearbeiten", url: edit_crowd_campaign_url(@crowd_campaign) %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-bottom:5px;"></td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          <strong>Wenn du bereits mit dem Team von <%= t("region.#{@crowd_campaign.region.id}.domain_short") %> im persönlichen Austausch bist, weißt du, was noch zu tun ist.</strong>
+        </p>
+        <p>
+          Solltest du noch keinen Kontakt gehabt haben oder keine E-Mail von uns erhalten haben, melde dich bitte kurz unter <%= mail_to t("region.#{@region.id}.contact_email"), nil %>, damit wir dir persönlich Feedback geben können.
+        </p>
+        <p>
+          <strong><u>Wichtig:</u></strong> Sobald du mit deiner Überarbeitung fertig bist, reiche deine Kampagne im Kampagnen-Setup unter 'Projekt Abschluss' <strong>erneut zur Freigabe</strong> ein!
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

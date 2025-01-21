@@ -1,0 +1,17 @@
+active_admin_form_for [:admin, resource] do |f|
+  inputs do
+    f.semantic_errors
+    input :name
+    input :region_id, as: :select, multiple: false, include_blank: false, label: 'Region', collection: Region.all.map{|r| [r.name, r.id,] }, input_html: { class: 'admin-filter-select'}
+    input :description
+    input :code
+    input :stripe_id
+    input :duration, as: :select, collection: Coupon.durations.keys, include_blank: true
+    input :enabled
+    input :amount_off
+    input :percent_off
+    input :valid_from, as: :datepicker
+    input :valid_until, as: :datepicker
+  end
+  actions
+end

@@ -21,6 +21,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
+    current_user.update(user_params) if params[:user].present?
     @plan = SubscriptionPlan.find_by(id: subscription_params[:subscription_plan_id])
     @subscription = current_user.subscriptions.build(
       subscription_params.merge(
@@ -31,37 +32,32 @@ class SubscriptionsController < ApplicationController
       )
     )
 
-    # Valid Coupon used?
-    if subscription_params[:coupon].present? && subscription_params[:coupon] != @plan.coupon
-      redirect_to new_subscription_path(subscription_plan_id: @plan.id), notice: "Der eingegebene Gutscheincode ist ungültig" and return
-    elsif subscription_params[:coupon].present? && subscription_params[:coupon] == @plan.coupon
-      valid_coupon = true
-    else
-      valid_coupon = false
-    end
+    coupon_code = subscription_params[:coupon_code]
 
-    if @subscription.save
-      current_user.update(user_params) if params[:user].present?
-
-      # Create Stripe Subscription
-      if valid_coupon
-        subscription = SubscriptionService.new.create(@subscription, coupon: subscription_params[:coupon])
-      else
-        subscription = SubscriptionService.new.create(@subscription)
+    if coupon_code.present?
+      coupon = Coupon.find_by(code: coupon_code)
+      unless coupon&.valid?(@plan.stripe_product_id)
+        redirect_to new_subscription_path(subscription_plan_id: @plan.id), notice: "Der Gutscheincode ist ungültig oder nicht für dieses Produkt gültig." and return
       end
+    end
+    
+    # Speichere die Subscription nur, wenn der Gutscheincode gültig ist oder keiner angegeben wurde
+    if @subscription.save
+      
+      subscription = SubscriptionService.new.create(@subscription, coupon: coupon_code.presence)
 
+      if coupon_code.present? && coupon
+        @subscription.update(coupon: coupon)
+      end
+    
       if subscription.latest_invoice.payment_intent
         redirect_to [:choose_payment, @subscription, client_secret: subscription.latest_invoice.payment_intent.client_secret]
       else
-
-        # May improve and outsource this or other trigger place
-        # Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
-        # ActionProcessor.track(@subscription, :create)
         SubscriptionMailer.created(@subscription).deliver_later
-
         redirect_to [:summary, @subscription]
       end
     else
+      # Fehler beim Speichern der Subscription
       render :new
     end
   end
@@ -157,7 +153,7 @@ class SubscriptionsController < ApplicationController
     params.require(:subscription).permit(
       :stripe_plan,
       :subscription_plan_id,
-      :coupon
+      :coupon_code
     )
   end
 

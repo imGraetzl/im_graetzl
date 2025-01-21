@@ -19,7 +19,9 @@ class CrowdBoostsController < ApplicationController
   def call
     @crowd_boost = CrowdBoost.find(params[:id])
     @next_slot = @crowd_boost.next_slot(current_region)
-    #@remaining_days = (Date.new(2024, 8, 1) - Date.today).to_i
+    if current_region.is?('graz')
+      render 'call_graz'
+    end
   end
 
   def charges

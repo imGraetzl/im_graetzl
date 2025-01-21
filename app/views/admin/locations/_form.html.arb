@@ -70,7 +70,7 @@ active_admin_form_for [:admin, resource] do |f|
     end
     column do
       inputs 'User' do
-        input :user, collection: User.admin_select_collection, include_blank: "Select User", input_html: { class: 'admin-filter-select'}
+        input :user, collection: User.registered.admin_select_collection, include_blank: "Select User", input_html: { class: 'admin-filter-select'}
       end
     end
   end

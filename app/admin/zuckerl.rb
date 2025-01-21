@@ -12,16 +12,17 @@ ActiveAdmin.register Zuckerl do
   scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :title
-  filter :description
   filter :entire_region, input_html: { class: 'admin-filter-select'}
   filter :aasm_state, as: :select, collection: Zuckerl.aasm.states_for_select, input_html: { class: 'admin-filter-select'}
   filter :payment_status, as: :select, collection: Zuckerl.payment_statuses.keys, input_html: { class: 'admin-filter-select'}
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :stripe_payment_intent_id
+  filter :invoice_number
+  filter :title
+  filter :description
   filter :created_at
   filter :debited_at
   filter :starts_at

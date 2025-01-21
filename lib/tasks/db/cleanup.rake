@@ -62,7 +62,7 @@ namespace :db do
     end
 
     task_ends_at = Time.now
-    AdminMailer.task_info('db:cleanup', 'finished', task_starts_at, task_ends_at).deliver_now
+    #AdminMailer.task_info('db:cleanup', 'finished', task_starts_at, task_ends_at).deliver_now
 
   end
 end

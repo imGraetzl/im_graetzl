@@ -849,17 +849,9 @@ section.startcampaign {
         font-weight: bold;
         padding-top: 4px;
       }
-      .paperCard.-call {
-        .wrp {
-          padding: 19px;
-          background: none;
-          img {
-            width:100%;
-            height:auto;
-          }
-          h3 {
-            color: $color-font-primary;
-          }
+      .paperCard.-crowd_boost {
+        p:not(:last-child) {
+          margin-bottom: 20px;
         }
       }
     }
@@ -939,6 +931,9 @@ section.startcampaign {
     li {
       @include font-size-primaryFont('large');
       margin-bottom:20px;
+      h3 span {
+        color: rgba($color-ambient-rosa, 1)
+      }
     }
   }
 

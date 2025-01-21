@@ -17,10 +17,11 @@ ActiveAdmin.register RoomRental do
   filter :rental_status, as: :select, collection: RoomRental.rental_statuses, input_html: { class: 'admin-filter-select'}
   filter :payment_status, as: :select, collection: RoomRental.payment_statuses.keys, input_html: { class: 'admin-filter-select'}
   filter :room_offer, collection: proc { RoomOffer.order(:slogan).pluck(:slogan, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :stripe_payment_intent_id
+  filter :invoice_number
   filter :debited_at
   filter :created_at
   filter :updated_at

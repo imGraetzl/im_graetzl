@@ -8,7 +8,11 @@
   )
 %>
 
-<section class="crowd_boost">
+<section class="info -crowdfunding">
+  <div class="imgHeader -fullwidth"></div>
+</section>
+
+<section class="crowd_boost boost_call -<%= current_region.id %>">
 
   <div class="introcontainer">
     <div class="introtxt">
@@ -53,7 +57,7 @@
 
         <% if @next_slot.slot_terms %>
           <div class="content-block -toggable">
-            <h3>So kannst du teilnehmen</h3>
+            <h3>Welche Vorhaben können teilnehmen</h3>
             <div class="-toggle-content bbcode"><%= @next_slot.slot_terms.bbcode_to_html.html_safe %></div>
           </div>
          <% end %>
@@ -70,7 +74,6 @@
         <% if @crowd_boost.description.present? %>
           <div class="bbcode"><%= @crowd_boost.description %></div>
         <% end %>
-
         <% if @crowd_boost.charge_description.present? %>
           <div class="bbcode"><%= @crowd_boost.charge_description %></div>
         <% end %>
@@ -80,10 +83,24 @@
     </div>
 
     <div class="introSide">
-      <%= render 'crowd_boosts/crowd_boost_detail', crowd_boost: @crowd_boost %>
+
+      <% if @next_slot && @next_slot.open? %>
+        <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true %>
+      <% else %>
+        <%= render 'crowd_boosts/crowd_boost', crowd_boost: @crowd_boost %>
+      <% end %>
+
+      <% if @crowd_boost.title.include?("ViertelFonds") %>
+        <div class="logo-side">
+          <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
+            <%= image_tag 'logo-graz.png', width:363, height:100 %>
+          </a>
+          <p class="side-txt">In Kooperation mit dem Bezirksrat Jakomini</p>
+        </div>
+      <% end %>
+
     </div>
     
-
   </div>
 
   <div class="tabs-ctrl -plain">
@@ -100,6 +117,9 @@
     </div>
     <% if @crowd_boost.chargeable? %>
       <div id="tab-charges" class="wrp-inner charges">
+        <% if @crowd_boost.charge_call? %>
+          <div class="payline">Du möchtest auch etwas beitragen? <%= link_to "Hier kannst du in den Topf einzahlen", call_crowd_boost_path(@crowd_boost) %>.</div>
+         <% end %>
         <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
         <div class="charges-container">
           <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
@@ -108,15 +128,50 @@
     <% end %>
   </div>
 
-  <div class="content-wide -end logo-footer">
-    <div class="wrp-inner">
-      <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
-        <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
-      </a>
-      <p>
-        Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
-      </p>
+  <% if @crowd_boost.title.include?("ViertelFonds") %>
+    <div class="content-wide -end logo-footer">
+      <div class="wrp-inner">
+        <div class="logos">
+          <a href="https://www.welocally.at/home" target="_blank">
+            <%= image_tag("regions/logo.svg", class: 'logo-desktop', alt:'logo', width:120, height:84) %>
+          </a>
+          <a href="https://stadtlaborgraz.at/de/" target="_blank">
+            <%= image_tag 'logo-stadtlabor.png', width:76, height:65 %>
+          </a>
+          <a href="https://wieneuplus.wien.gv.at/" target="_blank">
+            <%= image_tag 'logo-wieneuplus.png', width:190, height:100 %>
+          </a>
+        </div>
+        <p>
+          Der „ViertelFonds“ wird im Rahmen des Forschungsprojektes „crowd2raum“ eingerichtet zur gezielten Leerstandsaktivierung und Schaffung von Raumnutzungen für lokale Macher*innen.
+          Projektkonsortium: <a href="https://www.welocally.at/home" target="_blank">WeLocally</a> / morgenjungs GmbH (Konsortialführer); <a href="https://stadtlaborgraz.at/de/" target="_blank">StadtLABOR</a> - Innovationen für urbane Lebensqualität GmbH; <a href="https://wieneuplus.wien.gv.at/" target="_blank">Stadt Wien</a> – MA25 Technische Stadterneuerung
+        </p>
+      </div>
+      <div class="wrp-inner">
+        <div class="logos">
+          <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
+            <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
+          </a>
+          <a href="https://www.bmk.gv.at" target="_blank">
+            <%= image_tag 'logo-bmk.png', width:556, height:200 %>
+          </a>
+        </div>
+        <p>
+          Fördergeber: Klima- und Energiefonds & BMK im Rahmen der Sondierung für die Ausschreibung „Technologien und Innovationen für die Klimaneutrale Stadt 2023“ 
+        </p>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="content-wide -end logo-footer">
+      <div class="wrp-inner">
+        <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
+          <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
+        </a>
+        <p>
+          Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
+        </p>
+      </div>
+    </div>
+  <% end %>
 
 </section>

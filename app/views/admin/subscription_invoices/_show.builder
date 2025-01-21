@@ -12,6 +12,7 @@ context.instance_eval do
     row :updated_at
     row :subscription
     row :amount
+    row :coupon
     row :crowd_boost_charge_amount
     row :crowd_boost
   end

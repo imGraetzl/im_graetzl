@@ -247,8 +247,9 @@ input, select, textarea {
     margin-top: 20px;
   }
   @include respond-to(">=medium") {
-    &:not(.-vertical) {
-      @include field-HorizontalLayout;
+    @include field-HorizontalLayout;
+    &.-vertical {
+      display: block;
     }
   }
 

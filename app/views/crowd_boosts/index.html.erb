@@ -29,11 +29,11 @@
   <div class="content-main">
     <div class="hl-subtext">
       <h1>Aktuelle Crowdfunding Booster</h1>
-      <p><%= link_to 'Starte jetzt dein Crowdfunding', new_crowd_campaign_path %> und qualifiziere dich für einen der aktuellen Booster!</p>
+      <p><%= link_to 'Starte jetzt dein Crowdfunding', start_crowd_campaigns_path %> und qualifiziere dich für einen der aktuellen Booster!</p>
     </div>
     <div class="cardBoxCollection -tripple -meetings">
       <% @crowd_boosts.each do |crowd_boost| %>
-        <%= render crowd_boost %>
+        <%= render 'crowd_boosts/crowd_boost_info', crowd_boost: crowd_boost %>
       <% end %>
     </div>
   </div>

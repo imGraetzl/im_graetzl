@@ -5,9 +5,9 @@ context.instance_eval do
     row :name
     row :status
     row :amount
-    row :coupon
     row :interval
     row :stripe_id
+    row :stripe_product_id
     row :crowd_boost_charge_amount
     row :crowd_boost
     row :short_name

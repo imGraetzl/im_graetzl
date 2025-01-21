@@ -4,6 +4,10 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.pending(CrowdCampaign.last)
   end
 
+  def re_draft
+    CrowdCampaignMailer.re_draft(CrowdCampaign.last)
+  end
+
   def approved
     CrowdCampaignMailer.approved(CrowdCampaign.last)
   end

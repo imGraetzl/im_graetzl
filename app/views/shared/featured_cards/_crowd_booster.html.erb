@@ -1,8 +1,8 @@
 <% 
-  crowd_boost = CrowdBoost.find(current_region.default_crowd_boost_id)
-  crowd_boost_charge = crowd_boost.crowd_boost_charges.debited.sample
+  crowd_boost = CrowdBoost.where(id: current_region.default_crowd_boost_id).last
+  crowd_boost_charge = crowd_boost&.crowd_boost_charges&.debited&.sample
 %>
-
+<% if crowd_boost_charge %>
 <div class="cardBox -crowd_boost featuredCard -hidden" data-behavior="masonry-card" data-card-id="boost-<%= crowd_boost.id %>">
 
   <div class="cardBoxHeader">
@@ -24,19 +24,19 @@
         <% end %>
         <span class="userAndType">
           <%= link_to crowd_boost_charge.contact_name, crowd_boost_charge.user, rel: 'nofollow' %>
-          <span>unterstützt den RaumBooster</span> via <%= charge_type(crowd_boost_charge) %>
+          <span>unterstützt den <%= crowd_boost.title %></span> via <%= charge_type(crowd_boost_charge) %>
         </span>
       <% else %>
         <%= avatar_image crowd_boost_charge.user, size: :thumb, class: 'img-round' %>
          <span class="userAndType">
           <strong><%= crowd_boost_charge.contact_name %></strong>
-          <span>unterstützt den RaumBooster</span> via <%= charge_type(crowd_boost_charge) %>
+          <span>unterstützt den <%= crowd_boost.title %></span> via <%= charge_type(crowd_boost_charge) %>
         </span>
       <% end %>
     </div>
 
     <div class="slogan">
-      <strong><%= crowd_boost.crowd_boost_charges.debited.count %></strong> Menschen unterstützen den RaumBooster bereits! Gemeinsam Leerstand beleben, mach mit - DANKE!
+      <strong><%= crowd_boost.crowd_boost_charges.debited.count %></strong> Menschen unterstützen den <%= crowd_boost.title %> bereits! Gemeinsam Leerstand beleben, mach mit - DANKE!
     </div>
 
     <div class="facts icontxt -mint">
@@ -44,8 +44,9 @@
       <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
     </div>
 
-    <%= link_to 'Zum RaumBooster', call_crowd_boost_path(crowd_boost), class: 'btn-primary' %>
+    <%= link_to "Zum #{crowd_boost.title}", call_crowd_boost_path(crowd_boost), class: 'btn-primary' %>
 
   </div>
 
 </div>
+<% end %>

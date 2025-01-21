@@ -67,6 +67,9 @@ class User < ApplicationRecord
 
   has_many :poll_users
 
+  has_many :coupon_histories, dependent: :destroy
+  has_many :coupons, through: :coupon_histories
+
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, reject_if: :all_blank
 
@@ -188,7 +191,7 @@ class User < ApplicationRecord
   end
 
   def self.admin_select_collection
-    User.all.pluck(:id, :first_name, :last_name, :username).map do |id, first_name, last_name, username|
+    order(created_at: :desc).pluck(:id, :first_name, :last_name, :username).map do |id, first_name, last_name, username|
       ["#{first_name} #{last_name} (#{username})", id]
     end
   end
@@ -332,6 +335,20 @@ class User < ApplicationRecord
       # Falls kein regulärer Benutzer mit dieser E-Mail existiert, Devise-Fehlermeldung auslösen
       new(attributes).tap { |user| user.errors.add(:email, :not_found) }
     end
+  end
+
+  # Coupon Methoden
+  def active_coupons
+    coupons
+      .where('valid_until > ?', Time.current)
+      .where(enabled: true)
+      .joins(:coupon_histories)
+      .where(coupon_histories: { redeemed_at: nil })
+      .distinct
+  end
+
+  def redeemed_coupons
+    coupon_histories.where.not(redeemed_at: nil).map(&:coupon)
   end
 
   protected

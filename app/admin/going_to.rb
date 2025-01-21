@@ -9,7 +9,7 @@ ActiveAdmin.register GoingTo do
   scope :initiator
 
   filter :meeting, collection: proc { Meeting.order(:starts_at_date).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
 
   index { render 'index', context: self }
 

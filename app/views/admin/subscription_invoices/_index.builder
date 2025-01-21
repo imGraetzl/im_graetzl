@@ -4,6 +4,7 @@ context.instance_eval do
   column :user
   column(:status){|r| status_tag(r.status)}
   column :amount
+  column :coupon
   column :debited_at
   column :created_at
   actions

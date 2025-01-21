@@ -482,6 +482,9 @@ de:
     call:
       title: '%{title}'
       description: '%{desc}'
+    call_graz:
+      title: '%{title}'
+      description: '%{desc}'
 
   coop_demands:
     show:

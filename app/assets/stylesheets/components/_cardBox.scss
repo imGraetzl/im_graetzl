@@ -814,6 +814,16 @@ section.locations .goodieteasertxt {
       object-fit: contain;
     }
   }
+  &.-raum_booster {
+    .coverImg {
+      object-fit: cover;
+      object-position: 100% 70%;
+    }
+    h3 {
+      @include font-size-primaryFont('larger');
+      margin-bottom:10px;
+    }
+  }
 }
 
 .homeRegion {

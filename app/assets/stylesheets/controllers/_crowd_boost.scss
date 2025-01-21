@@ -60,6 +60,25 @@ section.crowd_boost {
     }
   }
 
+  .payline {
+    text-align: center;
+    margin-top:-20px;
+    margin-bottom:30px;
+  }
+
+  .introSide .-crowd_boost.-open {
+    h3 {
+      @include font-size-primaryFont('larger');
+      margin-bottom:15px;
+    }
+    p {
+      padding-bottom:15px;
+      &:last-of-type {
+        padding-bottom:0px;
+      }
+    }
+  }
+
   .slotBox {
     margin-top:30px;
     margin-bottom:30px;
@@ -70,6 +89,9 @@ section.crowd_boost {
     }
     li:first-of-type {
       padding-right:30px;
+    }
+    ul {
+      margin-bottom: 0px !important;
     }
   }
 
@@ -102,7 +124,7 @@ section.crowd_boost {
       .hl-subtext {
         margin-bottom:30px;
         .bbcode {
-          strong:first-child {
+          > strong:first-child {
             @include font-size-primaryFont('larger');
             display: block;
             text-align: center;
@@ -112,6 +134,12 @@ section.crowd_boost {
       .bbcode {
         @include font-size-primaryFont('large');
         margin-bottom:30px;
+        ol {
+          list-style:disc;
+        }
+        ol, ul {
+          margin-bottom:0px;
+        }
       }
     }
 
@@ -147,7 +175,69 @@ section.crowd_boost {
         padding-left:20px;
       }
     }
-    
+  }
+
+  &.-graz {
+    .logo-footer {
+      .wrp-inner {
+        padding-bottom:20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .logos {
+          text-align: right;
+        }
+        div, p {
+          width:49%;
+        }
+        @include respond-to("<=large") {
+          div {
+            width:30%;
+          }
+          p {
+            width:68%;
+          }
+        }
+      }
+      img {
+        height:60px;
+        width:auto;
+        margin-right:10px;
+        @include respond-to("<=large") {
+          height:40px;
+          display: block;
+          margin-left:auto;
+          margin-bottom:15px;
+        }
+        
+      }
+      p {
+        padding-left:unset !important;
+      }
+    }
+  }
+
+  .logo-side {
+    margin-top:20px;
+    display: flex;
+    align-items: center;
+    a {
+      width:50%;
+      img {
+        display: block;
+        width:100%;
+        height:auto;
+        border-right: 1px solid $color-ambient-grey;
+        padding-right:10px;
+        margin-right:10px;
+      }
+    }
+    p.side-txt {
+      width:50%;
+      margin-left:10px;
+      margin-bottom: unset;
+      @include font-size-primaryFont('small');
+    }
   }
 
 }
@@ -168,6 +258,7 @@ section.crowd_boost {
         @include font-size-primaryFont('large');
         margin-bottom: 20px;
       }
+      
     }
   }
 
@@ -205,6 +296,14 @@ section.crowd_boost {
 
   }
 
+  .roomCardImg {
+    z-index: 9;
+    position: relative;
+    transform: rotate(1deg) translate3d(0,0,0);
+    width: 100%;
+    height: auto;
+  }
+
   .toggle-container {
     margin-top:50px;
     margin-bottom:50px;
@@ -222,6 +321,22 @@ section.crowd_boost {
   &.crowd2raum-graz {
     .-pilotgebiet {
       padding-bottom: 20px;
+      .paperCard .wrp {
+        background: none;
+        padding-top:10px;
+        p {
+          padding-bottom:unset;
+        }
+        p.facts {
+          margin-top:10px;
+        }
+      }
+      p.hint {
+        @include font-size-primaryFont('larger');
+        text-align: center;
+        padding-top:20px;
+        padding-bottom:20px;
+      }
     }
     .-toggable h3 {
       display: flex;

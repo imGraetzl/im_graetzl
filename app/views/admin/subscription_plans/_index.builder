@@ -5,7 +5,6 @@ context.instance_eval do
   column :name
   column(:status){|r| status_tag(r.status)}
   column :amount
-  column :coupon
   column :interval
   column :stripe_id
   column :created_at
