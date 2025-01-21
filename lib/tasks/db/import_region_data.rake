@@ -7,6 +7,7 @@ namespace :db do
       'wien' => { graetzls: 'ckh0g7hga08kl26o5b1tu57nz' },
       'graz' => { graetzls: 'clisuzool0kjd2bkf7tmhi3l3' },
       'linz' => { graetzls: 'clui6os6j715s1vs1zjx1avt5' },
+      'innsbruck' => { graetzls: 'cm5f6tv4o0txd1oo3cqgdlfon' },
       'kaernten' => { graetzls: 'ckqhr5awa0djj21p9wbz10jkb' },
       'muehlviertler-kernland' => { graetzls: 'cks61e5tj3p4c20l45zuefvy5' }
     }
