@@ -39,6 +39,10 @@ class Notification < ApplicationRecord
     where(user_id: 16539).next_newsletter
   }
 
+  scope :next_innsbruck, -> {
+    where(user_id: 16539).next_newsletter
+  }
+
   scope :next_kaernten, -> {
     where(user_id: 10613).next_newsletter
   }
