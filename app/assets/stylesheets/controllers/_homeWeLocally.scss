@@ -84,21 +84,22 @@ section.homeWeLocally {
 
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
     .bigicontext-element {
       background-image: url(image_path('svg/kringel-grey-mint.svg'));
       justify-content: center;
 
-      height: 70px;
-      min-width: 70px;
-      max-width: 70px;
-      background-size: 70px 70px;
+      height: 110px;
+      min-width: 110px;
+      max-width: 110px;
+      background-size: 110px 110px;
 
       @include respond-to(">=medium") {
-        height: 130px;
-        min-width: 130px;
-        max-width: 130px;
-        background-size: 130px 130px;
+        height: 135px;
+        min-width: 135px;
+        max-width: 135px;
+        background-size: 135px 135px;
       }
 
       svg {
@@ -110,7 +111,7 @@ section.homeWeLocally {
     }
 
     .region-button {
-      width:175px;
+      width:155px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -118,13 +119,7 @@ section.homeWeLocally {
       text-decoration: none;
       color: $color-font-primary;
       .bigicontext-element {
-        //color: $color-ambient-rosa-dark;
         color: $color-ambient-mint-dark;
-      }
-      @include respond-to("<=medium") {
-        .title {
-          @include font-size-primaryFont('base');
-        }
       }
       &:hover {
         svg {
@@ -132,9 +127,6 @@ section.homeWeLocally {
         }
         .bigicontext-element {
           color: $color-ambient-rosa;
-        }
-        .title {
-          //text-decoration: underline;
         }
       }
     }
@@ -149,9 +141,8 @@ section.homeWeLocally {
       @include font-size-primaryFont('larger');
       font-weight: bold;
       margin-top:10px;
-      height: 60px;
+      height: 50px;
       display: flex;
-      align-items: center;
     }
 
     .badge {
