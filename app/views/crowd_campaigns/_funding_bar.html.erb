@@ -1,10 +1,12 @@
+<% show_boost_state = (local_assigns[:show_booster] && @crowd_campaign.boosted?) || false %>
+
 <% funding_subtitle = "Erreichte Fundingsumme" %>
 <% title_funding_sum = "Erreichte Fundingsumme: #{number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€")}" %>
 <% title_funding_1_amount = "Mindestziel: #{number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€")}" %>
 <% title_funding_2_amount = "Optimalziel: #{number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€")}" if @crowd_campaign.funding_2_amount.present? %>
 
 <%
-  if @crowd_campaign.boosted?
+  if show_boost_state
     title_booster = "#{number_to_currency(@crowd_campaign.crowd_boost_pledges_sum, precision: 0 ,unit: "€")} Booster"
     boost_percentage = @crowd_campaign&.crowd_boost_pledges_sum / (@crowd_campaign.funding_1_amount / 100)
     over_boosting_1 = (@crowd_campaign&.crowd_boost_slot&.threshold_funding_percentage + boost_percentage) >= 100
@@ -12,7 +14,7 @@
   end
 %>
 
-<div class="fundingBar <%= @crowd_campaign.boosted? ? '-boosted' : '' %> <%= over_boosting_1 ? '-over_boosting_1' : '' %>">
+<div class="fundingBar <%= show_boost_state ? '-boosted' : '' %> <%= over_boosting_1 ? '-over_boosting_1' : '' %>">
   <% if @crowd_campaign.completed? && @crowd_campaign.goal_1_reached? %>
 
     <% funding_track1_percentage = (@crowd_campaign.funding_1_amount / @crowd_campaign.funding_sum) * 100 %>
@@ -20,7 +22,7 @@
 
     <div class="fundingBar_track fundingBar_track-1st" style="width:<%= funding_track1_percentage.round(2) %>%">
       <div title="<%= title_funding_sum %>" class="fundingBar_bar">
-        <% if @crowd_campaign.boosted? %>
+        <% if show_boost_state %>
           <div class="fundingBar_bar -boost" style="width:<%= boost_percentage %>%; left: <%= boost_start_percentage %>">
             <div class="label"><%= title_booster %></div>
           </div>
@@ -42,7 +44,7 @@
 
     <div class="fundingBar_track fundingBar_track-1st" style="width:<%= funding_track1_percentage.round(2) %>%">
       <div title="<%= title_funding_sum %>" class="fundingBar_bar">
-        <% if @crowd_campaign.boosted? %>
+        <% if show_boost_state %>
           <div class="fundingBar_bar -boost" style="width:<%= boost_percentage %>%; left: <%= boost_start_percentage %>">
             <div class="label"><%= title_booster %></div>
           </div>
@@ -72,11 +74,11 @@
   <% elsif @crowd_campaign.funding_1? %>
 
     <% funding_subtitle = "Mindestziel: #{number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€")}" %>
-    <% boost_percentage = @crowd_campaign&.crowd_boost_pledges_sum / (@crowd_campaign.funding_sum / 100) if @crowd_campaign.boosted? %>
+    <% boost_percentage = @crowd_campaign&.crowd_boost_pledges_sum / (@crowd_campaign.funding_sum / 100) if show_boost_state %>
 
     <div class="fundingBar_track fundingBar_track-only">
       <div title="<%= title_funding_sum %>" class="fundingBar_bar" style="width:<%= funding_bar_percentage(@crowd_campaign) %>%;">
-        <% if @crowd_campaign.boosted? %>
+        <% if show_boost_state %>
           <div class="fundingBar_bar -boost" style="width:<%= boost_percentage %>%; left: <%= boost_start_percentage %>">
             <div class="label"><%= title_booster %></div>
           </div>
@@ -98,7 +100,7 @@
 
     <div class="fundingBar_track fundingBar_track-only" style="width:<%= funding_track1_percentage.round(2) %>%;">
       <div title="<%= title_funding_sum %>" class="fundingBar_bar" style="width:100%;">
-        <% if @crowd_campaign.boosted? %>
+        <% if show_boost_state %>
           <div class="fundingBar_bar -boost" style="width:<%= boost_percentage %>%; left: <%= boost_start_percentage %>">
             <div class="label"><%= title_booster %></div>
           </div>
@@ -120,7 +122,7 @@
 
     <div class="fundingBar_track fundingBar_track-1st" style="width:<%= funding_track1_percentage.round(2) %>%;">
       <div class="fundingBar_bar">
-        <% if @crowd_campaign.boosted? %>
+        <% if show_boost_state %>
           <div class="fundingBar_bar -boost" style="width:<%= boost_percentage %>%; left: <%= boost_start_percentage %>">
             <div class="label"><%= title_booster %></div>
           </div>
@@ -149,7 +151,7 @@
 
     <div class="fundingBar_track fundingBar_track-1st" style="width:<%= funding_track1_percentage.round(2) %>%">
       <div title="<%= title_funding_sum %>" class="fundingBar_bar">
-        <% if @crowd_campaign.boosted? %>
+        <% if show_boost_state %>
           <div class="fundingBar_bar -boost" style="width:<%= boost_percentage %>%; left: <%= boost_start_percentage %>">
             <div class="label"><%= title_booster %></div>
           </div>
@@ -182,7 +184,7 @@
     <h2><%= @crowd_campaign.pledges_and_donations_count %></h2>
     <span>Unterstützer<wbr>Innen</span>
   </div>
-  <% if @crowd_campaign.boosted? %>
+  <% if show_boost_state %>
     <div class="middle -booster full-view">
       <%= image_tag 'svg/icon-booster.svg', width:32, height:32 %>
       <span><em><%= number_to_currency(@crowd_campaign&.crowd_boost_pledges_sum, precision: 0 ,unit: "€") %></em> Booster</span>

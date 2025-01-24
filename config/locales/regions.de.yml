@@ -27,6 +27,7 @@ de:
       wish_graetzl: "Wunschgemeinden"
       favorite_graetzl: "Lieblingsgemeinden"
       favorite_graetzls: "Lieblingsgemeinden"
+      your_favorite_graetzl: "deinen Lieblingsgemeinden"
       from_your_favorite_graetzl: "aus deinen Lieblingsgemeinden"
       dem: "der"
       zuckerl:
@@ -73,6 +74,7 @@ de:
       wish_graetzl: "Wunschgrätzln"
       favorite_graetzl: "Lieblingsgrätzl"
       favorite_graetzls: "Lieblingsgrätzln"
+      your_favorite_graetzl: "deinen Lieblingsgrätzln"
       from_your_favorite_graetzl: "aus deinen Lieblingsgrätzln"
       region_wide_newsletter: "im wienweiten imGrätzl Newsletter"
       dem: "dem"
@@ -118,6 +120,7 @@ de:
       wish_graetzl: "Wunschbezirke"
       favorite_graetzl: "Lieblingsbezirk"
       favorite_graetzls: "Lieblingsbezirke"
+      your_favorite_graetzl: "deinen Lieblingsbezirken"
       from_your_favorite_graetzl: "aus deinen Lieblingsbezirken"
       region_wide_newsletter: "im grazweiten WeLocally Newsletter"
       dem: "der"
@@ -164,6 +167,7 @@ de:
       wish_graetzl: "Wunschbezirke"
       favorite_graetzl: "Lieblingsbezirk"
       favorite_graetzls: "Lieblingsbezirke"
+      your_favorite_graetzl: "deinen Lieblingsbezirken"
       from_your_favorite_graetzl: "aus deinen Lieblingsbezirken"
       region_wide_newsletter: "im linzweiten WeLocally Newsletter"
       dem: "der"
@@ -188,6 +192,53 @@ de:
       mailers:
         summary_graetzl:
           subject: "Neues aus Linz / %{graetzl}"
+
+    innsbruck:
+      <<: *default
+      district: "Bezirk"
+      district_graetzl: "Bezirk"
+      graetzl: "Stadtteil"
+      graetzln: "Stadtteile"
+      your_graetzl: "deinem Stadtteil"
+      in_graetzl: "im Stadtteil"
+      in_your_graetzl: "in deinem Stadtteil"
+      from_graetzl: "aus dem Stadtteil"
+      from_your_graetzl: "aus deinem Stadtteil"
+      region: "Innsbruck"
+      in_region: "in Innsbruck"
+      in_your_region: "in Innsbruck"
+      your_homegraetzl: "Deinen Heimatstadtteil"
+      your_homegraetzl_lower: "dein Heimatstadtteil"
+      from_your_homegraetzl: "aus deinem Heimatstadtteil"
+      homegraetzl: "Heimatstadtteil"
+      wish_graetzl: "Heimatstadtteile"
+      favorite_graetzl: "Lieblingsstadtteil"
+      favorite_graetzls: "Lieblingsstadtteile"
+      your_favorite_graetzl: "deinen Lieblingsstadtteilen"
+      from_your_favorite_graetzl: "aus deinen Lieblingsstadtteilen"
+      region_wide_newsletter: "im innsbruckweiten WeLocally Newsletter"
+      dem: "der"
+      zuckerl:
+        headline: "Das Zuckerl für ganz Innsbruck"
+        subline: "Dieses wird in allen Stadtteilen in Innsbruck angezeigt."
+        graetzl: "Stadtteil"
+        region: "Ganz Innsbruck"
+        visibility_graetzl: "im Stadtteil"
+        visibility_info: "im Stadtteil & ganz Innsbruck"
+      info:
+        meeting:
+          subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
+          description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
+        subscription:
+          subline: "Uns gibt es nur dank eurer Unterstützung!"
+          description: "Damit wir weiterhin WeLocally für euch in Innsbruck zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das WeLocally Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen. Werdet Unterstützer*innen unserer Arbeit!"
+      subscription:
+        subline: "Liebe lokale Macher*innen, uns gibt es nur dank eurer Unterstützung!"
+        description: "Damit wir weiterhin WeLocally für euch in Innsbruck zur Verfügung stellen können, sind wir auf jeden Euro angewiesen. Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss - weshalb wir keine Paywalls haben - also unterstützt euer Beitrag nicht nur das WeLocally Team, sondern auch alle anderen lokalen Macher*innen und die lokalen Strukturen."
+      footer_graetzl_headline: "Entdecke deinen Stadtteil in Innsbruck"
+      mailers:
+        summary_graetzl:
+          subject: "Neues aus Innsbruck / %{graetzl}"
 
     kaernten:
       <<: *default

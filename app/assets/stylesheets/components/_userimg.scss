@@ -32,6 +32,30 @@
   }
 }
 
+.img-booster {
+  position: relative;
+  .img-round {
+    background-color: $color-ambient-mint-light;
+  }
+  &.boosted {
+    &::before {
+      content: '';
+      background-image: url(image_path('svg/icon-booster.svg'));
+      background-repeat: no-repeat;
+      background-size: cover;
+      width:40%;
+      height:40%;
+      top: -2px;
+      right: -5px;
+      position: absolute;
+      z-index: 9;
+    }
+    .img-round {
+      background-color: $color-ambient-mint-light;
+    }
+  }
+}
+
 .portraitCollection {
   display: flex;
   flex-wrap: wrap;
