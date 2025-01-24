@@ -22,7 +22,7 @@ class CouponMailer < ApplicationMailer
     headers("X-MC-Tags" => "coupon-mail-reminder")
 
     mail(
-      subject: "Fast vorbei: Dein Superfan-Angebot endet bald!",
+      subject: "Fast vorbei: Dein Superfan-Angebot endet morgen!",
       from: platform_email("mirjam", "Mirjam Mieschendahl"),
       to: @user.email,
     )
