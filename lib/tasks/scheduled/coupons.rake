@@ -16,6 +16,9 @@ namespace :scheduled do
       # Nur gültige Coupons berücksichtigen
       next unless coupon.valid?
 
+      # Nutzer überspringen, wenn bereits Abo vorhanden
+      next if user.subscribed?
+
       # Reminder-E-Mail senden
       CouponMailer.coupon_mail_reminder(user, coupon).deliver_later
       sent_count += 1
