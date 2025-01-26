@@ -26,7 +26,7 @@ APP.controllers_loggedin.zuckerls = (function() {
         format: 'd. mmm, yyyy',
         hiddenName: true,
         min: 1,
-        max: 180,
+        max: 365,
         onSet: function(context) {
           if (typeof context.select !== 'undefined') {
             var enddate = new Date(context.select);
