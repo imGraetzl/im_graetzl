@@ -23,6 +23,7 @@ class Zuckerl < ApplicationRecord
 
   string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
 
+  scope :redeemed, -> { free.where.not(aasm_state: [:storno]) }
   scope :initialized, -> { where.not(aasm_state: [:incomplete, :cancelled, :storno]) }
   scope :entire_region, -> { where(entire_region: true) }
   scope :graetzl, -> { where(entire_region: false) }
