@@ -36,6 +36,10 @@
   position: relative;
   .img-round {
     background-color: $color-ambient-mint-light;
+    color: $color-font-primary;
+    &:hover {
+      color: $color-ambient-rosa-dark;
+    }
   }
   &.boosted {
     &::before {
@@ -49,13 +53,6 @@
       right: -5px;
       position: absolute;
       z-index: 9;
-    }
-    .img-round {
-      background-color: $color-ambient-mint-light;
-      color: $color-font-primary;
-      &:hover {
-        color: $color-ambient-rosa-dark;
-      }
     }
   }
 }
