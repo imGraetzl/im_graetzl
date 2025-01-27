@@ -165,7 +165,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def can_destroy?
-    if self.invoice_number?
+    if self.invoice_number? || self.aasm_state != "incomplete"
       throw :abort
     end
   end
