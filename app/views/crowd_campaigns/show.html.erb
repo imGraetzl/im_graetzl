@@ -106,11 +106,11 @@
             <% end %>
           </div>
           <div class="name">
+            <span class="boost-title"></span>
+            <br>
             <% if @crowd_campaign.boosted? %>
-              <span>Herausragendes Vorhaben</span><br>
               <small><strong><%= number_to_currency(@crowd_campaign.crowd_boost_pledges_sum, precision: 0, unit: "€") %></strong> Extra aus dem <%= link_to @crowd_campaign.crowd_boost, @crowd_campaign.crowd_boost %>.</small>
             <% else %>
-              <span>Besonders unterstützenswert</span><br>
               <small>Qualifiziert für den <%= link_to @crowd_campaign.crowd_boost, @crowd_campaign.crowd_boost %>.</small>
             <% end %>
           </div>
