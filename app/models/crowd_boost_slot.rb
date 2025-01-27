@@ -17,6 +17,10 @@ class CrowdBoostSlot < ApplicationRecord
     Date.today >= starts_at && Date.today <= ends_at
   end
 
+  def closed?
+    !open?
+  end
+
   def amount_limit_reached?(campaign)
     total_amount_initialized + calculate_boost(campaign) >= slot_amount_limit
   end
