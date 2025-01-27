@@ -73,7 +73,7 @@
     <% end %>
   </div>
 
-  <% if @subscription&.zuckerls&.initialized.present? %>
+  <% if @subscription&.zuckerls&.redeemed.present? %>
     <h3>Bereits eingelöste Zuckerl</h3>
 
     <div class="table-container -light" role="table">
@@ -83,7 +83,7 @@
         <div class="flex-row xxxlarge" role="columnheader">Zuckerl</div>
       </div>
 
-      <% @subscription.zuckerls.order(created_at: :desc).each do |zuckerl| %>
+      <% @subscription.zuckerls.redeemed.order(created_at: :desc).each do |zuckerl| %>
         <div class="flex-table" role="rowgroup">
           <div class="flex-row medium" role="cell"><%= zuckerl_runtime(zuckerl) %></div>
           <div class="flex-row large" role="cell"><%= zuckerl.visibility %></div>
