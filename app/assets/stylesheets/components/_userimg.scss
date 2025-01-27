@@ -38,7 +38,9 @@
     background-color: $color-ambient-mint-light;
     color: $color-font-primary;
     &:hover {
+      background-color: $color-ambient-rosa-light;
       color: $color-ambient-rosa-dark;
+      border-color: $color-ambient-rosa-light;
     }
   }
   &.boosted {

@@ -135,6 +135,9 @@ section.crowd_campaign {
     &.items-3 .lightSlider {
       .supporter {
         width:50%;
+        @media (max-width: 435px) {
+          width:44%;
+        }
       }
     }
     &.items-4 {
@@ -200,6 +203,9 @@ section.crowd_campaign {
   .last-boosters {
     display: flex;
     width:50%;
+    @media (max-width: 435px) {
+      width:56%;
+    }
     @include respond-to(">=medium") {
       width:32%;
       border-left: 1px dotted $color-ambient-grey;
@@ -208,8 +214,13 @@ section.crowd_campaign {
     a {
       color: $color-ambient-mint-dark;
     }
-    strong {
-      //color: $color-ambient-rosa-dark;
+    .boost-title::after {
+      content: "Besonders unterstützenswert";
+    }
+    @media (max-width: 435px) {
+      .boost-title::after {
+        content: "Unterstützenswert";
+      }
     }
   }
 
