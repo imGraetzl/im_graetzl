@@ -84,7 +84,7 @@
     </div>
   </div>
 
-  <% pledges_count = @crowd_campaign.boostable? ? 3 : 4 %>
+  <% pledges_count = (@crowd_campaign.boostable? && @crowd_campaign&.crowd_boost_slot&.closed?) ? 3 : 4 %>
   <div class="last-supporters-container <%= "items-#{pledges_count}" %>">
     <div class="last-supporters <%= "items-#{pledges_count}" %>">
       <% @crowd_campaign.crowd_pledges.initialized.visible.order(created_at: :desc).first(pledges_count).each do |crowd_pledge| %>

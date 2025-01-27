@@ -1,7 +1,7 @@
 <div class='tabs-ctrl -plain'>
   <ul class="tabs-nav">
     <li><a href="#tab-supporters">UnterstützerInnen<small><%= @crowd_campaign.funding_count %></small></a></li>
-    <% if @crowd_campaign.boostable? %>
+    <% if @crowd_campaign.boostable? && @crowd_campaign&.crowd_boost_slot&.closed? %>
       <li><a href="#tab-boost">Booster<small><%= @crowd_boost_pledges.count %></small></a></li>
     <% end %>
     <% if @crowd_campaign.crowd_donations.material.exists? %>

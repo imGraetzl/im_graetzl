@@ -113,7 +113,7 @@
 
       <div class="hl-subtext">
         <h2>Deine Kampagne ist aktiv und <span>läuft gerade</span></h2>
-        <% if @crowd_campaign.boostable? %>
+        <% if @crowd_campaign.boostable? && @crowd_campaign&.crowd_boost_slot&.closed? %>
           <p><%= t("activerecord.attributes.crowd_campaign.boost_status_info.#{@crowd_campaign.boost_status}") %> "<%= link_to @crowd_campaign.crowd_boost, @crowd_campaign.crowd_boost %>"</p>
         <% end %>
         <p>

@@ -46,7 +46,7 @@
 <% if available_slots_for(f.object).any? %>
   <div class="hl-subtext">
     <h2><span>Bewirb dich</span> für einen Booster-Platz!</h2>
-    <% if f.object&.boost_status? %>
+    <% if f.object&.boost_status? && f.object&.crowd_boost_slot&.closed? %>
       <p><%= t("activerecord.attributes.crowd_campaign.boost_status_info.#{f.object.boost_status}") %></p>
     <% else %>
       <p>Nach dem Kampagnen-Check und Jury-Entscheid geben wir dir Bescheid, ob dein Projekt ausgewählt wurde. (<%= link_to 'Mehr Infos', crowd_boosts_path, target: '_blank' %>)</p>
