@@ -100,12 +100,17 @@
     <% if pledges_count == 3 %>
       <div class="last-boosters">
         <div class="supporter">
-          <div class="img-booster <%= @crowd_campaign.boosted? ? 'boosted' : '' %>"><%= icon_tag "boosted", class: 'img-round' %></div>
+          <div class="img-booster <%= @crowd_campaign.boosted? ? 'boosted' : '' %>">
+            <%= link_to @crowd_campaign.crowd_boost do %>
+              <%= icon_tag "boosted", class: 'img-round' %>
+            <% end %>
+          </div>
           <div class="name">
-            <span>Wertvolles Vorhaben!</span><br>
             <% if @crowd_campaign.boosted? %>
+              <span>Herausragendes Vorhaben</span><br>
               <small><strong><%= number_to_currency(@crowd_campaign.crowd_boost_pledges_sum, precision: 0, unit: "€") %></strong> Extra aus dem <%= link_to @crowd_campaign.crowd_boost, @crowd_campaign.crowd_boost %>.</small>
             <% else %>
+              <span>Besonders unterstützenswert</span><br>
               <small>Qualifiziert für den <%= link_to @crowd_campaign.crowd_boost, @crowd_campaign.crowd_boost %>.</small>
             <% end %>
           </div>

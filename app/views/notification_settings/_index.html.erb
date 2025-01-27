@@ -1,6 +1,6 @@
 <div class="cardBox -notification-hint">
   <p>
-    Als registrierter Nutzer bekommst du <strong>wöchentlich Neuigkeiten</strong> <%= t("region.#{current_region.id}.from_your_homegraetzl") %> (<%= current_user.graetzl.name %>) und deinen <%= t("region.#{current_region.id}.favorite_graetzls") %> zugesandt. Deine <%= t("region.#{current_region.id}.favorite_graetzls") %> kannst du <%= link_to "hier anpassen", favorite_graetzls_user_path %>.
+    Als registrierter Nutzer bekommst du <strong>wöchentlich Neuigkeiten</strong> <%= t("region.#{current_region.id}.from_your_homegraetzl") %> (<%= current_user.graetzl.name %>) und <%= t("region.#{current_region.id}.your_favorite_graetzl") %> zugesandt. Deine <%= t("region.#{current_region.id}.favorite_graetzls") %> kannst du <%= link_to "hier anpassen", favorite_graetzls_user_path %>.
   </p>
   <p>
     Definiere ausserdem, welche Inhalte du erhalten möchtest und welche nicht.

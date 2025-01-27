@@ -64,12 +64,12 @@ class Subscription < ApplicationRecord
   end
 
   def open_zuckerl_count_entire_region
-    count = subscription_plan.free_region_zuckerl.to_i - zuckerls.initialized.entire_region.where(created_at: current_region_zuckerl_period).count
+    count = subscription_plan.free_region_zuckerl.to_i - zuckerls.redeemed.entire_region.where(created_at: current_region_zuckerl_period).count
     count < 0 ? 0 : count
   end
 
   def open_zuckerl_count_graetzl
-    count = subscription_plan.free_graetzl_zuckerl.to_i - zuckerls.initialized.graetzl.where(created_at: current_graetzl_zuckerl_period).count
+    count = subscription_plan.free_graetzl_zuckerl.to_i - zuckerls.redeemed.graetzl.where(created_at: current_graetzl_zuckerl_period).count
     count < 0 ? 0 : count
   end
 

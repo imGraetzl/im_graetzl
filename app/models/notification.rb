@@ -40,7 +40,7 @@ class Notification < ApplicationRecord
   }
 
   scope :next_innsbruck, -> {
-    where(user_id: 16539).next_newsletter
+    where(user_id: 23568).next_newsletter
   }
 
   scope :next_kaernten, -> {

@@ -80,6 +80,20 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def boost_authorized(crowd_campaign, crowd_boost_pledge)
+    @crowd_campaign = crowd_campaign
+    @crowd_boost_pledge = crowd_boost_pledge
+    @crowd_boost = crowd_campaign.crowd_boost
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-campaign-boost-authorized")
+    mail(
+      subject: "Glückwunsch zum Boost für eure Crowdfunding-Kampagne!",
+      from: platform_email('no-reply'),
+      to: @crowd_campaign.user.email,
+      bcc: 'wir@imgraetzl.at',
+    )
+  end
+
   def completed_successful(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
@@ -88,6 +102,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne ist erfolgreich beendet! Dein Vorhaben kann bald starten!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -99,6 +114,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Diesmal hat es leider nicht geklappt",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 

@@ -10,15 +10,15 @@ class CrowdCampaignService
     campaign.update(status: :completed)
 
     if campaign.successful?
+      if campaign.boost_authorized?
+        campaign.crowd_boost_pledges.authorized.update_all(status: 'debited', debited_at: Time.current)
+        campaign.update(boost_status: 'boost_debited')
+      end
       campaign.crowd_pledges.authorized.find_each do |pledge|
         CrowdPledgeService.new.delay.charge(pledge)
       end
       campaign.crowd_donation_pledges.find_each do |pledge|
         CrowdCampaignMailer.crowd_donation_pledge_success(pledge).deliver_later
-      end
-      if campaign.boost_authorized?
-        campaign.crowd_boost_pledges.authorized.update_all(status: 'debited', debited_at: Time.current)
-        campaign.update(boost_status: 'boost_debited')
       end
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else
@@ -58,7 +58,6 @@ class CrowdCampaignService
       if crowd_boost_pledge
         campaign.update(boost_status: 'boost_authorized')
         ActionProcessor.track(crowd_boost_pledge, :create)
-        AdminMailer.new_crowd_booster(campaign, boost_amount).deliver_later
       end
     end
   end

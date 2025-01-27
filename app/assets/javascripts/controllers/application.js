@@ -199,6 +199,8 @@ APP.controllers.application = (function() {
     let graetzl = "Grätzl"
     if ($('body').data('region') == 'graz') {
       graetzl = "Bezirk"
+    } else if ($('body').data('region') == 'innsbruck') {
+      graetzl = "Stadtteil"
     } else if ($('body').data('region') != 'wien') {
       graetzl = "Gemeinde"
     }

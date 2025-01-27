@@ -50,8 +50,8 @@ de:
         description: 'Entdecke deinen Bezirk in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Bezirk. Die nächsten Workshops und Termine bei dir ums Eck ...'
       innsbruck:
         <<: *default
-        title: 'Bezirke & Stadtviertel in %{region}'
-        description: 'Entdecke deinen Bezirk in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Bezirk. Die nächsten Workshops und Termine bei dir ums Eck ...'
+        title: 'Stadtteile in %{region}'
+        description: 'Entdecke deinen Stadtteil in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Stadtteil. Die nächsten Workshops und Termine bei dir ums Eck ...'
 
       kaernten:
         <<: *default
@@ -72,7 +72,7 @@ de:
         description: 'Neuigkeiten von lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Bezirk...'
       innsbruck:
         <<: *default
-        description: 'Neuigkeiten von lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Bezirk...'
+        description: 'Neuigkeiten von lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Viertel...'
 
       kaernten:
         <<: *default
@@ -182,8 +182,8 @@ de:
         description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Bezirk %{name}. Bist du wirtschaftlich oder kreativ im Bezirk tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus Linz.'
       innsbruck:
         <<: *default
-        title: 'Bezirk „%{name}“ in %{region}'
-        description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Bezirk %{name}. Bist du wirtschaftlich oder kreativ im Bezirk tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus Innsbruck.'
+        title: 'Stadtteil „%{name}“ in %{region}'
+        description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Stadtteil %{name}. Bist du wirtschaftlich oder kreativ im Stadtteil tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus Innsbruck.'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -206,8 +206,8 @@ de:
         description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem Bezirk %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
       innsbruck:
         <<: *default
-        title: 'Workshops, Events & Veranstaltungen im Bezirk %{graetzl} in %{region}'
-        description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem Bezirk %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
+        title: 'Workshops, Events & Veranstaltungen im Stadtteil %{graetzl} in %{region}'
+        description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem Stadtteil %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -230,8 +230,8 @@ de:
         description: 'Neuigkeiten von lokalen Anbietern & Kreativen aus dem Bezirk %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
       innsbruck:
         <<: *default
-        title: 'Lokale Geschäfte, Kreative & AnbieterInnen im Bezirk %{graetzl} in %{region}'
-        description: 'Neuigkeiten von lokalen Anbietern & Kreativen aus dem Bezirk %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
+        title: 'Lokale Geschäfte, Kreative & AnbieterInnen im Stadtteil %{graetzl} in %{region}'
+        description: 'Neuigkeiten von lokalen Anbietern & Kreativen aus dem Stadtteil %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -254,8 +254,8 @@ de:
         description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Bezirk %{graetzl} finden ...'
       innsbruck:
         <<: *default
-        title: 'Raumteiler im Bezirk %{graetzl} in %{region} | Neue Räume & Raumsuchende'
-        description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Bezirk %{graetzl} finden ...'
+        title: 'Raumteiler im Stadtteil %{graetzl} in %{region} | Neue Räume & Raumsuchende'
+        description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Stadtteil %{graetzl} finden ...'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -278,8 +278,8 @@ de:
         description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft im Bezirk %{graetzl} ...'
       innsbruck:
         <<: *default
-        title: 'Energieteiler & Energiegemeinschaften im Bezirk %{graetzl} in %{region}'
-        description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft im Bezirk %{graetzl} ...'
+        title: 'Energieteiler & Energiegemeinschaften im Stadtteil %{graetzl} in %{region}'
+        description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft im Stadtteil %{graetzl} ...'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -299,7 +299,7 @@ de:
         title: 'Geräteteiler im Bezirk %{graetzl} in %{region} - Arbeitsequipment leihen & Geräte am Standort nutzen'
       innsbruck:
         <<: *default
-        title: 'Geräteteiler im Bezirk %{graetzl} in %{region} - Arbeitsequipment leihen & Geräte am Standort nutzen'
+        title: 'Geräteteiler im Stadtteil %{graetzl} in %{region} - Arbeitsequipment leihen & Geräte am Standort nutzen'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -320,7 +320,7 @@ de:
         title: 'Gruppen im Bezirk %{graetzl} in %{region}'
       innsbruck:
         <<: *default
-        title: 'Gruppen im Bezirk %{graetzl} in %{region}'
+        title: 'Gruppen im Stadtteil %{graetzl} in %{region}'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -343,8 +343,8 @@ de:
         description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Bezirk %{graetzl}.'
       innsbruck:
         <<: *default
-        title: 'Zuckerl & Angebote im Bezirk %{graetzl} in %{region}'
-        description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Bezirk %{graetzl}.'
+        title: 'Zuckerl & Angebote im Stadtteil %{graetzl} in %{region}'
+        description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Stadtteil %{graetzl}.'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -364,7 +364,7 @@ de:
         title: 'Coop & Share Marktplatz Angebote im Bezirk %{graetzl} in %{region}'
       innsbruck:
         <<: *default
-        title: 'Coop & Share Marktplatz Angebote im Bezirk %{graetzl} in %{region}'
+        title: 'Coop & Share Marktplatz Angebote im Stadtteil %{graetzl} in %{region}'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -387,8 +387,8 @@ de:
         description: 'Entdecke lokale Crowdfunding Kampagnen aus dem Bezirk %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
       innsbruck:
         <<: *default
-        title: 'Lokales Crowdfunding aus dem Bezirk %{graetzl} in %{region}'
-        description: 'Entdecke lokale Crowdfunding Kampagnen aus dem Bezirk %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+        title: 'Lokales Crowdfunding aus dem Stadtteil %{graetzl} in %{region}'
+        description: 'Entdecke lokale Crowdfunding Kampagnen aus dem Stadtteil %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -428,8 +428,8 @@ de:
         description: '%{name}s Heimatbezirk in %{region} ist %{graetzl}'
       innsbruck:
         <<: *default
-        title: '%{name} aus dem Bezirk %{graetzl}'
-        description: '%{name}s Heimatbezirk in %{region} ist %{graetzl}'
+        title: '%{name} aus dem Stadtteil %{graetzl}'
+        description: '%{name}s Heimatstatteil in %{region} ist %{graetzl}'
       kaernten:
         <<: *default
       muehlviertler-kernland:

@@ -49,18 +49,6 @@ class AdminMailer < ApplicationMailer
     )
   end
 
-  def new_crowd_booster(campaign, boost_amount)
-    @boost_amount = boost_amount
-    @campaign = campaign
-    @region = @campaign.region
-
-    mail(
-      subject: "[#{@region.host_domain_name}] Kampagnen Booster für #{@campaign}",
-      from: platform_email("no-reply"),
-      to: platform_email("wir"),
-    )
-  end
-
   def new_crowd_boost_charge(crowd_boost_charge)
     @crowd_boost_charge = crowd_boost_charge
     @region = @crowd_boost_charge.region

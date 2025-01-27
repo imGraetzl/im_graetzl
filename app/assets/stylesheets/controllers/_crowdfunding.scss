@@ -512,6 +512,9 @@ section.crowd_campaign {
         text-decoration: underline;
       }
     }
+    a.boost {
+      color: $color-ambient-mint-dark;
+    }
     @include respond-to("<medium") {
       width: 100%;
     }

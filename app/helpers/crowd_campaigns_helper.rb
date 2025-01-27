@@ -82,15 +82,24 @@ module CrowdCampaignsHelper
   end
 
   def campaign_remaining_time(campaign)
-    if campaign.remaining_days > 2
-      return [campaign.remaining_days, "Tage"]
+
+    if campaign.funding?
+      # Zeit bis zum Ende der Kampagne berechnen
+      if campaign.remaining_days > 2
+        return [campaign.remaining_days, "Tage"]
+      end
+      
+      end_time = campaign.enddate.in_time_zone('Vienna').end_of_day
+      current_time = Time.current.in_time_zone('Vienna')
+      hours_left = ((end_time - current_time) / 1.hour).ceil
+  
+      [hours_left, 'Stunden']
+    else
+      # Gesamtdauer der Kampagne in Tagen
+      total_days = ((campaign.enddate - campaign.startdate) + 1).to_i
+      [total_days, "Tage"]
     end
 
-    end_time = campaign.enddate.in_time_zone('Vienna').end_of_day
-    our_time = Time.current.in_time_zone('Vienna')
-    hours_left = ((end_time - our_time) / 1.hour).ceil
-
-    [hours_left, 'Stunden']
   end
 
   def funding_percentage(c)

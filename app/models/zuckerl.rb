@@ -23,6 +23,7 @@ class Zuckerl < ApplicationRecord
 
   string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
 
+  scope :redeemed, -> { free.where.not(aasm_state: [:storno]) }
   scope :initialized, -> { where.not(aasm_state: [:incomplete, :cancelled, :storno]) }
   scope :entire_region, -> { where(entire_region: true) }
   scope :graetzl, -> { where(entire_region: false) }
@@ -164,7 +165,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def can_destroy?
-    if self.invoice_number?
+    if self.invoice_number? || self.aasm_state != "incomplete"
       throw :abort
     end
   end
