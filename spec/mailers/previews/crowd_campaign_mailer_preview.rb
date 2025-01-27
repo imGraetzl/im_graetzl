@@ -28,6 +28,10 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.goal_2_reached(CrowdCampaign.last)
   end
 
+  def boost_authorized
+    CrowdCampaignMailer.boost_authorized(CrowdBoostPledge.last.crowd_campaign, CrowdBoostPledge.last)
+  end
+
   def completed_successful
     CrowdCampaignMailer.completed_successful(CrowdCampaign.last)
   end

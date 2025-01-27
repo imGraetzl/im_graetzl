@@ -1,11 +1,13 @@
   <% @supporters.each do |crowd_pledge| %>
     <% if crowd_pledge.is_a?(CrowdBoostPledge) %>
       <div class="supporter cardBox">
-        <%= link_to crowd_pledge.crowd_boost, rel: 'nofollow' do %>
-          <%= avatar_image crowd_pledge.crowd_boost, size: :thumb, class: 'img-round show-badge' %>
-        <% end %>
+        <div class="img-booster <%= @crowd_campaign.boosted? ? 'boosted' : '' %>">
+          <%= link_to @crowd_campaign.crowd_boost do %>
+            <%= icon_tag "boosted", class: 'img-round' %>
+          <% end %>
+        </div>
         <div class="name">
-          <span><%= link_to crowd_pledge.crowd_boost.title, crowd_pledge.crowd_boost, rel: 'nofollow' %></span><br>
+          <span><strong><%= number_to_currency(crowd_pledge.amount, precision: 0, unit: "€") %></strong> Extra aus dem <%= link_to crowd_pledge.crowd_boost.title, crowd_pledge.crowd_boost, rel: 'nofollow', class: 'boost' %></span><br>
           <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
         </div>
       </div>

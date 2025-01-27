@@ -1,0 +1,24 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_campaign.user.first_name %>,
+        </p>
+        <p>
+          genial – herzlichen Glückwunsch! Eure Crowdfunding-Kampagne "<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %>" hat gerade eine erste ganz wichtige Zielmarke überschritten. <strong>Es gibt für euer Crowdfunding einen Boost in Höhe von <%= number_to_currency(@crowd_boost_pledge.amount, unit: "€") %>!</strong>
+        </p>
+        <p>
+          Wir freuen uns riesig über euren Erfolg und möchten euch gratulieren. Weiter so! Erzählt es gerne auch euren Fans und Unterstützer*innen, damit sie ebenfalls erfahren, wie gut euer Vorhaben ankommt. Toi, toi, toi für den nächsten Abschnitt eurer Kampagne. 
+        </p>
+        <p>
+          Falls ihr bei etwas Unterstützung benötigt oder Fragen habt, meldet euch jederzeit gerne.
+        </p>
+        <p>
+          Alles Liebe und weiterhin viel Erfolg,<br>
+          dein Team von <%= t("region.#{@crowd_campaign.region.id}.domain_full") %><br>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

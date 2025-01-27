@@ -52,6 +52,10 @@
     }
     .img-round {
       background-color: $color-ambient-mint-light;
+      color: $color-font-primary;
+      &:hover {
+        color: $color-ambient-rosa-dark;
+      }
     }
   }
 }
