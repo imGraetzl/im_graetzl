@@ -11,6 +11,16 @@ ActiveAdmin.register Subscription do
   scope :canceled
   scope :all
 
+  controller do
+    before_action :set_default_order, only: :index
+
+    def set_default_order
+      if params[:scope] == 'upcoming_invoice' && params[:order].blank?
+        params[:order] = 'current_period_end_asc'
+      end
+    end
+  end
+
   #filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   #filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   #filter :subscription_plan, include_blank: true, input_html: { class: 'admin-filter-select'}
