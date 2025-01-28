@@ -1,7 +1,9 @@
 module CrowdCampaignsHelper
 
   def success_rate
-    (100 * CrowdCampaign.completed.successful.enabled.count) / CrowdCampaign.completed.enabled.count
+    total_count = CrowdCampaign.completed.enabled.count
+    return 0 if total_count.zero? # Verhindert Division durch 0
+    (100 * CrowdCampaign.completed.successful.enabled.count) / total_count
   end
 
   def runtime_values
