@@ -36,7 +36,7 @@ span.empty {
   &.deleted, &.off, &.failed {
     background: red;
   }
-  &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded, &.boost_cancelled, &.boost_approved {
+  &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded, &.boost_cancelled {
     background: orange;
   }
   &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free, &.boost_debited {
@@ -54,7 +54,7 @@ span.empty {
   &.re_draft {
     background: Grey;
   }
-  &.funding, &.approved  {
+  &.funding, &.approved, &.boost_approved {
     background: #6090DB;
   }
 }
