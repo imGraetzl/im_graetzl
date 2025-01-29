@@ -17,6 +17,8 @@ ActiveAdmin.register Subscription do
     def set_default_order
       if params[:scope] == 'upcoming_invoice' && params[:order].blank?
         params[:order] = 'current_period_end_asc'
+      elsif params[:scope] == 'auslaufend' && params[:order].blank?
+        params[:order] = 'ends_at_asc'
       end
     end
   end
