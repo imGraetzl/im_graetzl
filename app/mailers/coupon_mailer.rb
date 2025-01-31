@@ -9,7 +9,7 @@ class CouponMailer < ApplicationMailer
 
     mail(
       subject: "Unser Dankeschön an dich als #{I18n.t("region.#{@user.region.id}.domain_short")} Superfan",
-      from: platform_email("mirjam", "Mirjam Mieschendahl"),
+      from: platform_email("wir"),
       to: @user.email,
     )
   end
@@ -23,7 +23,7 @@ class CouponMailer < ApplicationMailer
 
     mail(
       subject: "Fast vorbei: Dein Superfan-Angebot endet morgen!",
-      from: platform_email("mirjam", "Mirjam Mieschendahl"),
+      from: platform_email("wir"),
       to: @user.email,
     )
   end
