@@ -71,8 +71,8 @@
       <% end %>
       <% if current_user.admin? %>
         <%= nav_menu_item("magic-wand", 'Admin', admin_root_path, class: 'half first last-row') %>
-        <!--<%= nav_menu_item("checklist", 'Newsletter', notifications_admin_path, class: 'half last-row') %>-->
-        <%= nav_menu_item("bar-chart-growth", 'Reports', "/reports", class: 'half last-row') %>
+        <%= nav_menu_item("checklist", 'Newsletter', notifications_admin_path, class: 'half last-row') %>
+        <!--<%= nav_menu_item("bar-chart-growth", 'Reports', "/reports", class: 'half last-row') %>-->
       <% end %>
     </div>
 

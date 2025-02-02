@@ -72,6 +72,8 @@ class NotificationsController < ApplicationController
     #  graetzl_ids = DistrictGraetzl.where(district_id: params[:filter][:district_ids]).distinct.pluck(:graetzl_id)
     #end
     #notifications = notifications.where(graetzl_id: graetzl_ids) if graetzl_ids.present?
+    
+    @notifications_count = notifications.count
 
     @notifications = notifications.map { |n| { notification: n, subject: n.subject } }
     @notifications = Kaminari.paginate_array(@notifications).page(params[:page]).per(params[:per_page] || 21)

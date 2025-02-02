@@ -2,7 +2,7 @@
   var $cardContainer = $("[data-behavior='notification-card-container']");
   var $paginateLink = $("[data-behavior='notification-paginate-link']");
 
-  $('.notification-count').text(<%= @notifications.count %>);
+  $('.notification-count').text(<%= @notifications_count %>);
 
   <% if params[:page].blank? %>
     <% if @notifications.empty? %>
