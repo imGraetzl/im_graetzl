@@ -28,7 +28,11 @@ class Notification < ApplicationRecord
   }
 
   scope :next_wien, -> {
-    where(user_id: 10612).next_newsletter
+    if Rails.env.production?
+      where(user_id: 10612).next_newsletter
+    else
+      next_newsletter
+    end
   }
 
   scope :next_graz, -> {
@@ -47,7 +51,7 @@ class Notification < ApplicationRecord
     where(user_id: 10613).next_newsletter
   }
 
-  scope :next_muehlviertel, -> {
+  scope :muehlviertler_kernland, -> {
     where(user_id: 10614).next_newsletter
   }
 

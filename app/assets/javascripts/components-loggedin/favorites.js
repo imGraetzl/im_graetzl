@@ -8,12 +8,20 @@ APP.components.favorites = (function() {
 
     $('.no-touch [data-behavior="masonry-card"] .cardBoxHeader').on('mouseover', function(event){
       $(this).find('.fav-exchange').hide();
-      $(this).find('.toggle-fav-ico').show();
+      if ($(this).find('.toggle-admin-ico').exists()) {
+        $(this).find('.toggle-admin-ico').show();
+      } else {
+        $(this).find('.toggle-fav-ico').show();
+      }
     });
 
     $('.no-touch [data-behavior="masonry-card"] .cardBoxHeader').on('mouseleave', function(event){
       $(this).find('.fav-exchange').show();
-      $(this).find('.toggle-fav-ico').hide();
+      if ($(this).find('.toggle-admin-ico').exists()) {
+        $(this).find('.toggle-admin-ico').hide();
+      } else {
+        $(this).find('.toggle-fav-ico').hide();
+      }
     });
 
   }

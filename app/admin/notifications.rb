@@ -8,7 +8,7 @@ ActiveAdmin.register Notification, as: "Notifications" do
   scope 'Next Linz Mails', :next_linz
   scope 'Next Innsbruck Mails', :next_innsbruck
   scope 'Next Kärnten Mails',:next_kaernten
-  scope 'Next Mühlviertel Mails',:next_muehlviertel
+  scope 'Next Mühlviertel Mails',:muehlviertler_kernland
 
   filter :type, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :sent, include_blank: true, input_html: { class: 'admin-filter-select'}

@@ -1,0 +1,14 @@
+(function() {
+
+  var subjectType = "<%= @subject.class.name.underscore %>";
+  var subjectId = "<%= @subject.id %>";
+
+  // Wähle das entsprechende Element anhand von `data-card-id`
+  var $subjectElement = $('[data-card-id="' + subjectType + '-' + subjectId + '"]');
+
+  // Falls das Element existiert, aus Masonry entfernen und verstecken
+  if ($subjectElement.length > 0) {
+    $('.card-grid').masonry('remove', $subjectElement).masonry('layout');
+  }
+
+})();
