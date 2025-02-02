@@ -57,7 +57,7 @@ class NotificationsController < ApplicationController
     notifications = notifications
       .where(type: admin_types)
       .includes(:subject)
-      .order(sort_date: :asc)
+      .order(id: :desc)
 
     if params.dig(:filter, :type).present?
       type_classes = params.dig(:filter, :type)
