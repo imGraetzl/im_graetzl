@@ -1,0 +1,9 @@
+<% default_region_id = "wien" %>
+
+<% Region.all.each do |region| %>
+  <div class="input-radio filter-input region-type">
+    <%= radio_button :filter, :region, region.id, data: { label: region.name, filter_label: 'Region' }, 
+        checked: (params[:region] == region.id || (params[:region].blank? && region.id == default_region_id)) %>
+    <%= label_tag "filter_region_#{region.id}", region.name %>
+  </div>
+<% end %>

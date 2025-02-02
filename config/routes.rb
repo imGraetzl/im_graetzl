@@ -371,6 +371,14 @@ Rails.application.routes.draw do
 
   get 'notifications/unseen_count'
   get 'notifications/fetch'
+  get 'notifications/admin'
+  get 'notifications/admin_result'
+
+  resources :notifications, only: [] do
+    member do
+      delete :notification_destroy
+    end
+  end
 
   get 'navigation/load_content'
 
