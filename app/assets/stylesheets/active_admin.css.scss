@@ -45,16 +45,16 @@ span.empty {
   &.public_space, &.rejected, &.storno, &.boost_declined {
     background: LightCoral;
   }
-  &.weekly, &.authorized, &.refunded, &.boost_authorized {
+  &.weekly, &.authorized, &.refunded, &.boost_waitlist {
     background: LightBlue;
   }
-  &.vacancy, &.daily, &.processing {
+  &.vacancy, &.daily, &.processing, &.boost_approved {
     background: LightSeaGreen;
   }
   &.re_draft {
     background: Grey;
   }
-  &.funding, &.approved, &.boost_approved {
+  &.funding, &.approved, &.boost_authorized {
     background: #6090DB;
   }
 }

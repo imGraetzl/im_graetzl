@@ -512,6 +512,7 @@ de:
           disabled: Deine Kampagne ist nun deaktiviert und nicht mehr sichtbar.
         boost_status_info:
           boost_declined: Deine Bewerbung für den Booster wurde leider abgelehnt - Wir können dir keinen Booster-Platz geben.
+          boost_waitlist: "Du bist für folgenden Booster auf der Warteliste:"
           boost_approved: "Du wurdest für folgenden Booster zugelassen:"
           boost_authorized: "Du wurdest für folgenden Booster zugelassen:"
           boost_debited: "Du wurdest für folgenden Booster zugelassen:"
@@ -519,6 +520,7 @@ de:
       crowd_boost:
         boost_status:
           boost_declined: abgelehnt
+          boost_waitlist: auf der Warteliste
           boost_approved: zugelassen
           boost_authorized: autorisiert
           boost_debited: erfolgreich geboostert
