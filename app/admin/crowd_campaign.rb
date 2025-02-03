@@ -47,6 +47,10 @@ ActiveAdmin.register CrowdCampaign do
     link_to 'Re-Draft', re_draft_admin_crowd_campaign_path(crowd_campaign), { method: :put, data: { confirm: 'Kampagne auf Re-Draft setzen | NutzerIn wird darüber informiert.' } }
   end
 
+  action_item :re_draft_without_mail, only: :show, if: proc{ crowd_campaign.pending? } do
+    link_to 'Re-Draft (ohne Mail)', re_draft_without_mail_admin_crowd_campaign_path(crowd_campaign), { method: :put, data: { confirm: 'Kampagne auf Re-Draft setzen | NutzerIn wird nicht darüber informiert.' } }
+  end
+
   action_item :decline, only: :show, if: proc{ crowd_campaign.pending? } do
     link_to 'Decline', decline_admin_crowd_campaign_path(crowd_campaign), { method: :put, data: { confirm: 'Kampagne auf Declined setzen | NutzerIn wird nicht darüber informiert.' } }
   end
@@ -94,6 +98,16 @@ ActiveAdmin.register CrowdCampaign do
   member_action :re_draft, method: :put do
     if resource.re_draft!
       CrowdCampaignMailer.re_draft(resource).deliver_now
+      flash[:success] = 'Crowdfunding Kampagne wurde auf Überarbeitung gesetzt.'
+      redirect_to admin_crowd_campaigns_path
+    else
+      flash[:error] = 'Crowdfunding Kampagne kann nicht auf Überarbeitung gesetzt werden'
+      redirect_to resource_path
+    end
+  end
+
+  member_action :re_draft_without_mail, method: :put do
+    if resource.re_draft!
       flash[:success] = 'Crowdfunding Kampagne wurde auf Überarbeitung gesetzt.'
       redirect_to admin_crowd_campaigns_path
     else
