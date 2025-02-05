@@ -66,15 +66,25 @@ APP.controllers.application = (function() {
   // END INIT
   // BEGIN OFTEN USED PUBLIC FUNCTIONS
 
+  // Scroll Animation to Target
+  let isScrolling = false;
+
   function scrollToTarget() {
     var target = APP.controllers.application.getUrlVars()["target"];
-    if (typeof target !== 'undefined') {
+    if (typeof target !== 'undefined' && $('#'+target).exists()) {
+
+      if (isScrolling) return;
+      isScrolling = true;
+
       // Open all Comments
       $("#"+target).parents(".post-comments").find(".show-all-comments").click();
+
       // Scroll to Comment
       $('html, body').animate({
-        scrollTop: $('#'+target).offset().top
-      }, 600);
+        scrollTop: $('#' + target).offset().top
+      }, 600, function () {
+          isScrolling = false;
+      });
     }
   }
 

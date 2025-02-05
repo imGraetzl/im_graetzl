@@ -1,15 +1,16 @@
 class CouponMailer < ApplicationMailer
 
-  def coupon_mail(user, coupon)
+  def coupon_mail(user, coupon, type)
     @user = user
     @coupon = coupon
+    @type = type
     @region = @user.region
 
     headers("X-MC-Tags" => "coupon-mail")
 
     mail(
       subject: "Unser Dankeschön an dich als #{I18n.t("region.#{@user.region.id}.domain_short")} Superfan",
-      from: platform_email("mirjam", "Mirjam Mieschendahl"),
+      from: platform_email("wir"),
       to: @user.email,
     )
   end
@@ -23,7 +24,7 @@ class CouponMailer < ApplicationMailer
 
     mail(
       subject: "Fast vorbei: Dein Superfan-Angebot endet morgen!",
-      from: platform_email("mirjam", "Mirjam Mieschendahl"),
+      from: platform_email("wir"),
       to: @user.email,
     )
   end

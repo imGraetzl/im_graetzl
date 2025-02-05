@@ -5,10 +5,23 @@ ActiveAdmin.register Subscription do
 
   scope :initialized, default: true
   scope :active
-  scope :canceled
+  scope :upcoming_invoice
   scope "Überfällig", :past_due
   scope "Auslaufend", :on_grace_period
+  scope :canceled
   scope :all
+
+  controller do
+    before_action :set_default_order, only: :index
+
+    def set_default_order
+      if params[:scope] == 'upcoming_invoice' && params[:order].blank?
+        params[:order] = 'current_period_end_asc'
+      elsif params[:scope] == 'auslaufend' && params[:order].blank?
+        params[:order] = 'ends_at_asc'
+      end
+    end
+  end
 
   #filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   #filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}

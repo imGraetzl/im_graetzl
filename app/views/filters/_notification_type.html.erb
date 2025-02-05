@@ -1,0 +1,6 @@
+<% filter_notification_types.each do |label, filterlabel, value| %>
+  <div class="input-radio filter-input filter-type">
+    <%= radio_button :filter, :type, value, data: { label: filterlabel, filter_label: 'Notification :: Type' }, :checked => (params[:type] == value || value == '') %>
+    <%= label_tag "filter_type_#{value.parameterize(separator: '_')}", label %>
+  </div>
+<% end %>

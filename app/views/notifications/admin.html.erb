@@ -1,0 +1,31 @@
+<% meta(
+    title: 'Newsletter Check',
+    robots: 'noindex, nofollow',
+  )
+%>
+
+<section class="usersetup notification-container">
+
+  <%= form_with url: notifications_admin_result_path, remote: true, method: :get, class: 'cards-filter' do |f| %>
+
+    <div class="hl-subtext">
+      <h1>Nächster <span>Newsletter</span></h1>
+      <div class="filter-selection-text-jbox">
+        für <%= link_to 'Wien', '#filter-modal-region', data: { no_filter_label: 'Wien'} %> aus <%= link_to 'allen Bereichen', '#filter-modal-type', data: { no_filter_label: 'allen Bereichen'} %>
+        - <a class="plain-link notification-count -rosa" href="javascript:">0</a>
+      </div>
+    </div>
+    <div id="filter-modal-type" class="filter-modal-jbox oneclick">
+      <%= render 'filters/notification_type' %>
+    </div>
+    <div id="filter-modal-region" class="filter-modal-jbox oneclick">
+      <%= render 'filters/region' %>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="notification-card-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'notification-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

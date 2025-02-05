@@ -2,7 +2,9 @@ context.instance_eval do
   #selectable_column
   id_column
   #column :region
-  column('Start') {|c| I18n.localize(c.startdate, format:'%d.%m.%y') if c.startdate?}
+  column('Start', sortable: :startdate) do |c|
+    I18n.localize(c.startdate, format: '%d.%m.%y') if c.startdate?
+  end
   column('Ende') do |c|
     "#{campaign_remaining_time(c).first} #{campaign_remaining_time(c).last}" if c.enddate && c.enddate >= Date.today
   end

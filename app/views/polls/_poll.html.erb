@@ -18,6 +18,7 @@
           </span>
         </div>
         <%= toggle_favorite_icon(poll) if current_user %>
+        <%= toggle_admin_icon(subject, notification) if local_assigns[:notification_admin] %>
       </div>
       <div class="sideflag -R -label"><%= link_to 'Umfrage', poll_type_path(poll.poll_type) %></div>
   </div>

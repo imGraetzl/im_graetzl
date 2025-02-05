@@ -2,6 +2,7 @@ class Coupon < ApplicationRecord
   has_many :coupon_histories
   has_many :subscriptions
   has_many :subscription_invoices
+  has_many :users, through: :coupon_histories
 
   validates :code, presence: true, uniqueness: true
   validates :duration, presence: true

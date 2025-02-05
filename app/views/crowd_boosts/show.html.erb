@@ -72,10 +72,10 @@
       <% else %>
 
         <% if @crowd_boost.description.present? %>
-          <div class="bbcode"><%= @crowd_boost.description %></div>
+          <div class="bbcode"><%= @crowd_boost.description.bbcode_to_html.html_safe %></div>
         <% end %>
         <% if @crowd_boost.charge_description.present? %>
-          <div class="bbcode"><%= @crowd_boost.charge_description %></div>
+          <div class="bbcode"><%= @crowd_boost.charge_description.bbcode_to_html.html_safe %></div>
         <% end %>
 
       <% end %>

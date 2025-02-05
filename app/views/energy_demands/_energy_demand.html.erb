@@ -9,6 +9,7 @@
     <div class="categoryicon">
       <%= icon_tag "sun", class: 'fav-exchange' %>
       <%= toggle_favorite_icon(energy_demand) if current_user %>
+      <%= toggle_admin_icon(subject, notification) if local_assigns[:notification_admin] %>
     </div>
   </div>
 

@@ -11,7 +11,8 @@ class Subscription < ApplicationRecord
 
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :on_grace_period, -> { where("ends_at > ?", Time.zone.now) }
-
+  scope :upcoming_invoice, -> { active.where('current_period_end >= ? AND ends_at IS NULL', Date.today) }
+  
   after_update :update_user, if: -> { saved_change_to_status? || saved_change_to_current_period_end? }
 
   # For better Performance use "active?" from status and not def below:

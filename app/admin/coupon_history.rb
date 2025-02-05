@@ -3,8 +3,8 @@ ActiveAdmin.register CouponHistory do
 
   index { render 'index', context: self }
 
-  scope :valid, default: true
-  scope :redeemed
+  scope :redeemed, default: true
+  scope :valid
   scope :expired
   scope :all
 

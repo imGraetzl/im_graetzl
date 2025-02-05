@@ -38,13 +38,13 @@
   display: block;
 }
 
-.toggle-fav-ico {
+.toggle-fav-ico, .toggle-admin-ico {
   color: $color-ambient-mint-dark;
   &.-faved {
     color: $color-ambient-rosa-dark;
   }
 }
-.cardBox .toggle-fav-ico {
+.cardBox .toggle-fav-ico, .cardBox .toggle-admin-ico {
   display: none;
 }
 .touch .favorites-container {
@@ -52,6 +52,14 @@
     display: none !important;
   }
   .toggle-fav-ico {
+    display: block !important;
+  }
+}
+.touch .notification-container {
+  .fav-exchange {
+    display: none !important;
+  }
+  .toggle-admin-ico {
     display: block !important;
   }
 }
