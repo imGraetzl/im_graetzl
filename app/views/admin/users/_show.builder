@@ -44,8 +44,9 @@ context.instance_eval do
           end
           row :created_at
           row :confirmed_at
-          row :updated_at
+          row :current_sign_in_at
           row :last_sign_in_at
+          row :sign_in_count
           row :deleted_at
           row :origin
         end

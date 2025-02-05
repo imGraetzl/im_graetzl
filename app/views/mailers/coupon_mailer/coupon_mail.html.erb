@@ -2,12 +2,18 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-
+        
         <p>Servus <%= @user.first_name %>,
 
-        <p>
-          du bist ein echter <strong><%= t("region.#{@user.region.id}.domain_short") %> Superfan</strong> :) Du gehörst zu den aktivsten Nutzer*innen auf <%= t("region.#{@user.region.id}.domain_short") %> und bist damit ein ganz wichtiger Teil unserer Community. Mit deinen Treffen und Angeboten schaffst du echte Begegnungen – dafür möchten wir dir von Herzen Danke sagen!
-        </p>
+        <% if @type == :meeting %>
+          <p>
+            du bist ein echter <strong><%= t("region.#{@user.region.id}.domain_short") %> Superfan</strong> :) Du gehörst zu den aktivsten Nutzer*innen auf <%= t("region.#{@user.region.id}.domain_short") %> und bist damit ein ganz wichtiger Teil unserer Community. Mit deinen Treffen und Angeboten schaffst du echte Begegnungen – dafür möchten wir dir von Herzen Danke sagen!
+          </p>
+        <% elsif @type == :location %>
+          <p>
+            du bist ein echter <strong><%= t("region.#{@user.region.id}.domain_short") %> Superfan</strong> :) Du gehörst zu den aktiven Nutzer*innen auf <%= t("region.#{@user.region.id}.domain_short") %> und bist ein wichtiger Teil unserer Community. Mit deinem Schaufenster machst du nicht nur dein eigenes Angebot sichtbar – du hilfst auch, die Vielfalt lokaler Angebote in Wien zu vergrößern. Dafür möchten wir dir von ganzem Herzen Danke sagen!
+          </p>
+        <% end %>
 
         <p>
           Wir feiern heuer <strong>10 Jahre <%= t("region.#{@user.region.id}.domain_short") %></strong> und sind mächtig stolz, dass imGrätzl nach wie vor unabhängig und kostenlos für die lokalen Macher*innen ist. Das ist nur dank der Unterstützung unserer Förder*innen möglich. Jetzt hast du die Chance, dich diesem besonderen Kreis anzuschließen und <%= t("region.#{@user.region.id}.domain_short") %> aktiv zu unterstützen.
@@ -20,7 +26,6 @@
           Als Dankeschön bieten wir dir die JUHU! Fördermitgliedschaft zum Sonderpreis von 85 € (statt 100 €) – nur bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %>!
           </strong>
         </p>
-
 
         <p>Das bekommst du als JUHU-Fördermitglied:</p>
 

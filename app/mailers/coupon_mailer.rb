@@ -1,8 +1,9 @@
 class CouponMailer < ApplicationMailer
 
-  def coupon_mail(user, coupon)
+  def coupon_mail(user, coupon, type)
     @user = user
     @coupon = coupon
+    @type = type
     @region = @user.region
 
     headers("X-MC-Tags" => "coupon-mail")

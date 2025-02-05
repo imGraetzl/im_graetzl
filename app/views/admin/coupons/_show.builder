@@ -9,8 +9,10 @@ context.instance_eval do
     row :amount_off
     row :percent_off
     row :duration
+    row :created_at
     row :valid_from
     row :valid_until
     row :enabled
+    row(:coupon_histroy_count){|c| c.users.count}
   end
 end
