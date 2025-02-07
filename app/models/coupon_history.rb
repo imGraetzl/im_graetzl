@@ -5,5 +5,10 @@ class CouponHistory < ApplicationRecord
   scope :valid, -> { where('valid_until >= ?', Time.current) }
   scope :expired, -> { where('valid_until < ?', Time.current) }
   scope :redeemed, -> { where.not(redeemed_at: nil) }
+  scope :sent, -> { where.not(sent_at: nil) }
+
+  def to_s
+    user
+  end
 
 end
