@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_27_073655) do
+ActiveRecord::Schema.define(version: 2025_02_08_210627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -200,6 +200,36 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.datetime "updated_at", null: false
     t.bigint "coop_demand_category_id"
     t.index ["coop_demand_category_id"], name: "index_coop_suggested_tags_on_coop_demand_category_id"
+  end
+
+  create_table "coupon_histories", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "coupon_id"
+    t.string "stripe_id"
+    t.datetime "sent_at"
+    t.datetime "redeemed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "valid_until"
+    t.index ["coupon_id"], name: "index_coupon_histories_on_coupon_id"
+    t.index ["user_id"], name: "index_coupon_histories_on_user_id"
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "stripe_id"
+    t.decimal "amount_off", precision: 10, scale: 2
+    t.integer "percent_off"
+    t.string "duration", null: false
+    t.datetime "valid_from"
+    t.datetime "valid_until"
+    t.string "name"
+    t.string "description"
+    t.boolean "enabled", default: true
+    t.string "region_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_coupons_on_code", unique: true
   end
 
   create_table "crowd_boost_charges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -453,6 +483,8 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.jsonb "user_agent"
     t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
     t.bigint "crowd_boost_id"
+    t.integer "comment_id"
+    t.index ["comment_id"], name: "index_crowd_pledges_on_comment_id"
     t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
@@ -473,6 +505,7 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "claimed", default: 0
+    t.integer "status", default: 0
     t.index ["crowd_campaign_id"], name: "index_crowd_rewards_on_crowd_campaign_id"
   end
 
@@ -958,7 +991,9 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.time "ends_at_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["meeting_id", "starts_at_date"], name: "idx_meeting_additional_dates_meeting_id_starts_at_date"
     t.index ["meeting_id"], name: "index_meeting_additional_dates_on_meeting_id"
+    t.index ["starts_at_date"], name: "idx_meeting_additional_dates_starts_at_date"
   end
 
   create_table "meetings", id: :serial, force: :cascade do |t|
@@ -1003,6 +1038,7 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.index ["poll_id"], name: "index_meetings_on_poll_id"
     t.index ["region_id"], name: "index_meetings_on_region_id"
     t.index ["slug"], name: "index_meetings_on_slug"
+    t.index ["starts_at_date"], name: "idx_meetings_starts_at_date"
     t.index ["user_id"], name: "index_meetings_on_user_id"
   end
 
@@ -1384,6 +1420,8 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.decimal "amount", precision: 10, scale: 2
     t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
     t.bigint "crowd_boost_id"
+    t.bigint "coupon_id"
+    t.index ["coupon_id"], name: "index_subscription_invoices_on_coupon_id"
     t.index ["crowd_boost_id"], name: "index_subscription_invoices_on_crowd_boost_id"
     t.index ["subscription_id"], name: "index_subscription_invoices_on_subscription_id"
     t.index ["user_id"], name: "index_subscription_invoices_on_user_id"
@@ -1407,11 +1445,11 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.integer "free_region_zuckerl_monthly_interval", default: 0
     t.integer "free_graetzl_zuckerl_monthly_interval", default: 0
     t.string "image_url"
-    t.string "coupon"
     t.string "region_id"
     t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
     t.bigint "crowd_boost_id"
     t.integer "status", default: 0
+    t.string "stripe_product_id"
     t.index ["crowd_boost_id"], name: "index_subscription_plans_on_crowd_boost_id"
     t.index ["region_id"], name: "index_subscription_plans_on_region_id"
   end
@@ -1426,11 +1464,13 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.bigint "subscription_plan_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "coupon"
     t.datetime "current_period_start"
     t.datetime "current_period_end"
     t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
     t.bigint "crowd_boost_id"
+    t.string "coupon_code"
+    t.bigint "coupon_id"
+    t.index ["coupon_id"], name: "index_subscriptions_on_coupon_id"
     t.index ["crowd_boost_id"], name: "index_subscriptions_on_crowd_boost_id"
     t.index ["region_id"], name: "index_subscriptions_on_region_id"
     t.index ["subscription_plan_id"], name: "index_subscriptions_on_subscription_plan_id"
@@ -1690,10 +1730,11 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
     t.integer "free_graetzl_zuckerl", default: 0
     t.boolean "subscribed", default: false
     t.string "payment_wallet"
+    t.datetime "deleted_at"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email", "guest"], name: "index_users_on_email_and_guest", unique: true
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id"
     t.index ["location_category_id"], name: "index_users_on_location_category_id"
     t.index ["region_id"], name: "index_users_on_region_id"
@@ -1756,6 +1797,8 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
   add_foreign_key "coop_demands", "locations", on_delete: :nullify
   add_foreign_key "coop_demands", "users", on_delete: :cascade
   add_foreign_key "coop_suggested_tags", "coop_demand_categories", on_delete: :nullify
+  add_foreign_key "coupon_histories", "coupons"
+  add_foreign_key "coupon_histories", "users", on_delete: :cascade
   add_foreign_key "crowd_boost_charges", "crowd_boosts", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "crowd_pledges", on_delete: :nullify
   add_foreign_key "crowd_boost_charges", "room_boosters", on_delete: :nullify
@@ -1778,6 +1821,7 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
   add_foreign_key "crowd_donation_pledges", "crowd_donations", on_delete: :nullify
   add_foreign_key "crowd_donation_pledges", "users", on_delete: :nullify
   add_foreign_key "crowd_donations", "crowd_campaigns", on_delete: :cascade
+  add_foreign_key "crowd_pledges", "comments", on_delete: :nullify
   add_foreign_key "crowd_pledges", "crowd_campaigns", on_delete: :nullify
   add_foreign_key "crowd_pledges", "crowd_rewards", on_delete: :nullify
   add_foreign_key "crowd_pledges", "users", on_delete: :nullify
@@ -1851,7 +1895,9 @@ ActiveRecord::Schema.define(version: 2024_09_27_073655) do
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify
+  add_foreign_key "subscription_invoices", "coupons"
   add_foreign_key "subscription_invoices", "users", on_delete: :nullify
+  add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "subscription_plans", on_delete: :nullify
   add_foreign_key "subscriptions", "users", on_delete: :nullify
   add_foreign_key "tool_demand_graetzls", "graetzls", on_delete: :cascade
