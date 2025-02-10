@@ -9,7 +9,12 @@
       </div>
     <% end %>
 
-    <% if meeting.starts_at_date %>
+    <% if meeting.display_date %>
+      <div class="calendarSheet -startDate">
+        <div class="day"><%= meeting.display_date.day %></div>
+        <div class="month"><%= I18n.localize(meeting.display_date, format:'%b') %></div>
+      </div>
+    <% elsif meeting.starts_at_date %>
       <div class="calendarSheet -startDate">
         <div class="day"><%= meeting.starts_at_date.day %></div>
         <div class="month"><%= I18n.localize(meeting.starts_at_date, format:'%b') %></div>

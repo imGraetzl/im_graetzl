@@ -67,7 +67,7 @@ APP.components.categoryFilter = (function() {
          filterForm.find("[name=special_category_id]").val("");
          updateFilterLabels($(this));
          APP.components.cardBoxFilter.submitForm();
-         history && history.replaceState({}, '', location.pathname.split('/category/')[0]);
+         history.replaceState({}, '', location.pathname.split('/category/')[0] + location.search);
 
      } else {
 
@@ -78,13 +78,13 @@ APP.components.categoryFilter = (function() {
              // Special Filter Selected
              filterForm.find("[name=category_id]").val("");
              filterForm.find("[name=special_category_id]").val($(this).attr("data-id"));
-             history && history.replaceState({}, '', location.pathname.split('/category/')[0] + "/category/" + $(this).attr("data-slug"));
+             history.replaceState({}, '', location.pathname.split('/category/')[0] + "/category/" + $(this).attr("data-slug") + location.search);
          } else {
              // Normal Filter Selected
              filterForm.find("[name=special_category_id]").val("");
              filterForm.find("[name=category_id]").val($(this).attr("data-id"));
              if ($(this).attr("data-slug")) {
-               history && history.replaceState({}, '', location.pathname.split('/category/')[0] + "/category/" + $(this).attr("data-slug"));
+               history.replaceState({}, '', location.pathname.split('/category/')[0] + "/category/" + $(this).attr("data-slug") + location.search);
              }
          }
 

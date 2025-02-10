@@ -70,6 +70,10 @@ class Meeting < ApplicationRecord
     name
   end
 
+  def display_date
+    self[:display_date] || starts_at_date
+  end
+
   def past?
     ends_at_date.try(:past?) || (ends_at_date.nil? && starts_at_date.try(:past?))
   end

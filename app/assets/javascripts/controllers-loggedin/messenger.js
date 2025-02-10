@@ -99,7 +99,7 @@ APP.controllers_loggedin.messenger = (function() {
           success: function(){
             $("#chat-container").addClass("show-messages");
             var thread_id = $(".chat-panel").data("thread-id");
-            history && history.replaceState({}, '', location.pathname + "?thread_id=" + thread_id);
+            history.replaceState({}, '', location.pathname + "?thread_id=" + thread_id);
             scrollToLastMessage();
             APP.components.initUserTooltip();
             $('.txtlinky').linkify({target: "_blank"});
@@ -158,7 +158,7 @@ APP.controllers_loggedin.messenger = (function() {
     $('#main-content').on("click", '.back-btn', function() {
       $("#chat-container").removeClass("show-messages");
       $("#side-bar .message-thread").removeClass("-active");
-      history && history.replaceState({}, '', location.pathname);
+      history.replaceState({}, '', location.pathname);
       return false;
     });
   }

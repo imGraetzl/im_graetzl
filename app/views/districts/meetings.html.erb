@@ -39,7 +39,8 @@
     <%= hidden_field_tag :category_id, @category.try(:id) %>
     <%= hidden_field_tag :special_category_id, @special_category %>
     <div class="filter-selection-text-jbox">
-      Zeige mir <%= link_to 'online & offline Events', '#filter-modal-type', data: { no_filter_label: 'online & offline Events'} %>,
+      Zeige mir <%= link_to 'alle Events', '#filter-modal-type', data: { no_filter_label: 'alle Events'} %>,
+      <%= link_to 'von', 'javascript:', data: { no_filter_label: 'von'}, class: 'plain-link date_from' %> - <%= link_to 'bis', 'javascript:', data: { no_filter_label: 'bis'}, class: 'plain-link date_to' %>, 
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       in <%= link_to @district.zip_name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-areas filter-applied' %>
     </div>

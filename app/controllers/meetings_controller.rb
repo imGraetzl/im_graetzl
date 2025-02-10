@@ -5,7 +5,7 @@ class MeetingsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @meetings = collection_scope.in(current_region).include_for_box
     @meetings = filter_collection(@meetings)
-    @meetings = @meetings.by_currentness.page(params[:page]).per(params[:per_page] || 30)
+    @meetings = @meetings.page(params[:page]).per(params[:per_page] || 30)
     @meetings = @meetings.upcoming if params[:upcoming]
     @meetings = @meetings.past if params[:past]
     @meetings = @meetings.where.not(id: params[:exclude].to_i) if params[:exclude]
@@ -175,6 +175,40 @@ class MeetingsController < ApplicationController
       meetings = meetings.joins(:event_categories).where(event_categories: {slug: params[:special_category_id]})
     elsif params[:category_id].present?
       meetings = meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]})
+    end
+
+    # DATE FILTER
+    date_from = params[:date_from_submit].presence
+    date_to = params[:date_to_submit].presence
+
+    # Falls mindestens ein Datum gesetzt ist, Filter anwenden
+    if date_from.present? || date_to.present?
+      safe_date_from = date_from.presence || Date.today.to_s
+      safe_date_to = date_to.presence || '9999-12-31'
+      
+      meetings = meetings
+        .left_joins(:meeting_additional_dates)
+        .where(
+          "(meetings.starts_at_date BETWEEN ? AND ?) 
+          OR (meeting_additional_dates.id IS NOT NULL AND meeting_additional_dates.starts_at_date BETWEEN ? AND ?)",
+          safe_date_from, safe_date_to, safe_date_from, safe_date_to
+        )
+
+      # Sicherstellen, dass das Meeting-Datum priorisiert wird, falls es in den Filter passt
+      meetings = meetings.select(
+        "meetings.*, 
+        CASE 
+          WHEN meetings.starts_at_date BETWEEN '#{safe_date_from}' AND '#{safe_date_to}' THEN meetings.starts_at_date 
+          WHEN meeting_additional_dates.id IS NOT NULL AND meeting_additional_dates.starts_at_date BETWEEN '#{safe_date_from}' AND '#{safe_date_to}' THEN meeting_additional_dates.starts_at_date
+          ELSE NULL
+        END AS display_date, 
+        COALESCE(meetings.starts_at_date, meeting_additional_dates.starts_at_date) AS sort_date"
+      )
+
+      # Sortierung nach der berechneten Spalte `sort_date`
+      meetings = meetings.order("sort_date ASC").distinct
+    else
+      meetings = meetings.by_currentness
     end
 
     meetings
