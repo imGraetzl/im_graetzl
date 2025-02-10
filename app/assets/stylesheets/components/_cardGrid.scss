@@ -230,7 +230,7 @@
   z-index: 2;
 
   &:has(.picker) {
-    z-index: 99;
+    z-index: 10;
   }
 
   @include font-size-primaryFont('larger');
