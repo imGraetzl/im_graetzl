@@ -355,6 +355,7 @@ Rails.application.routes.draw do
   get 'info/events-und-workshops', to: 'static_pages#info_meetings'
   get 'info/energieteiler', to: 'static_pages#info_energieteiler'
   get 'info/zuckerl', to: 'static_pages#info_zuckerl'
+  get 'info/newsletter', to: 'static_pages#info_newsletter'
   get 'info/agb', to: 'static_pages#agb'
   get 'info/datenschutz', to: 'static_pages#datenschutz'
   get 'info/impressum', to: 'static_pages#impressum'
