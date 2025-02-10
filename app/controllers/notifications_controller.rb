@@ -69,7 +69,9 @@ class NotificationsController < ApplicationController
       graetzl_ids = Graetzl.where(id: params[:filter][:graetzl_ids]).pluck(:id)
       notifications = notifications.select do |n|
         subject = n.subject
-        next false unless subject.present?
+        next true if subject.respond_to?(:entire_region) && subject.entire_region
+        next true if subject.respond_to?(:visibility_status) && ([subject.visibility_status].flatten & ["region", "platform"]).any?
+        next false unless subject.present? && (subject.respond_to?(:graetzl_id) || subject.respond_to?(:graetzl) || subject.respond_to?(:graetzls))
 
         if subject.respond_to?(:graetzl_id)
           graetzl_ids.include?(subject.graetzl_id)
