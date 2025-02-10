@@ -198,15 +198,19 @@ class MeetingsController < ApplicationController
       meetings = meetings.select(
         "meetings.*, 
         CASE 
-          WHEN meetings.starts_at_date BETWEEN '#{safe_date_from}' AND '#{safe_date_to}' THEN meetings.starts_at_date 
+          WHEN meetings.starts_at_date BETWEEN '#{safe_date_from}' AND '#{safe_date_to}' THEN 1 
+          WHEN meeting_additional_dates.id IS NOT NULL AND meeting_additional_dates.starts_at_date BETWEEN '#{safe_date_from}' AND '#{safe_date_to}' THEN 2
+          ELSE 3
+        END AS date_source_priority, 
+        CASE 
+          WHEN meetings.starts_at_date BETWEEN '#{safe_date_from}' AND '#{safe_date_to}' THEN meetings.starts_at_date
           WHEN meeting_additional_dates.id IS NOT NULL AND meeting_additional_dates.starts_at_date BETWEEN '#{safe_date_from}' AND '#{safe_date_to}' THEN meeting_additional_dates.starts_at_date
           ELSE NULL
-        END AS display_date, 
-        COALESCE(meetings.starts_at_date, meeting_additional_dates.starts_at_date) AS sort_date"
+        END AS display_date"
       )
 
-      # Sortierung nach der berechneten Spalte `sort_date`
-      meetings = meetings.order("sort_date ASC").distinct
+      # Sortierung nach `display_date`, dann nach Priorität, dann nach Erstellungsdatum
+      meetings = meetings.order(Arel.sql("display_date ASC, date_source_priority ASC, meetings.created_at DESC")).distinct
     else
       meetings = meetings.by_currentness
     end
