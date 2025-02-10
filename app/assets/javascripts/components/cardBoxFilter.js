@@ -6,6 +6,150 @@ APP.components.cardBoxFilter = (function() {
   var masonrySetup = false;
   var modals = []
 
+  if ($(".date_from").exists() && $(".date_to").exists()) dateFilter();
+
+  function dateFilter() {
+   // Funktion zum Abrufen eines URL-Parameters
+   function getUrlParam(name) {
+     const params = new URLSearchParams(window.location.search);
+     return params.get(name);
+   }
+
+   // URL-Werte nach from and to abrufen
+   let dateFromUrl = getUrlParam('von');
+   let dateToUrl = getUrlParam('bis');
+
+   // Falls `dateTo` kleiner als `dateFrom` ist, `dateFrom` als Fallback setzen
+   if (dateFromUrl && dateToUrl && new Date(dateToUrl) < new Date(dateFromUrl)) {
+     dateToUrl = dateFromUrl;
+   }
+
+   // Helper für fokus entziehen, datepicker springt sonst manchmal auf
+   function removeFocus() {
+     setTimeout(function() {
+         document.activeElement.blur(); // Fokus entziehen
+     }, 10);
+   }
+
+   // URL Param setzen nach manueller Date Auswahl
+   function updateUrlParam(key, value) {
+     let url = new URL(window.location);
+     if (value) {
+         url.searchParams.set(key, value);
+     } else {
+         url.searchParams.delete(key);
+     }
+     window.history.replaceState({}, '', url);
+   }
+
+   // Date Format aufbereiten für URL Param
+   function getFormattedDate(selector) {
+     let pickerValue = $(selector).pickadate('picker').get('select');
+     if (!pickerValue || !pickerValue.pick) return null;
+     let year = pickerValue.year;
+     let month = String(pickerValue.month + 1).padStart(2, '0');
+     let day = String(pickerValue.date).padStart(2, '0');
+     return `${year}-${month}-${day}`;
+   }
+
+   // Datepicker Date From
+   $('.date_from').pickadate({
+       formatSubmit: 'yyyy-mm-dd',
+       hiddenPrefix: 'date_from',
+       min: true,
+       clear: 'Löschen',
+       today: 'Heute',
+       close: '',
+       onClose: function() {
+         submitForm();
+       },
+       onSet: function(context) {
+           if (context.clear !== undefined) {
+              updateUrlParam('von', null);
+              $('.date_from').text('von'); // Text zurücksetzen
+              removeFocus();
+              return;
+           }
+           if (typeof context.select !== 'undefined') {
+             updateUrlParam('von', getFormattedDate('.date_from'));
+           }
+           if (typeof context.select !== 'undefined') {
+               var mindate = new Date(context.select);
+               mindate.setDate(mindate.getDate()); // Minimum 1 Day after Startdate
+
+               var selectedDate = new Date(context.select);
+               var formattedDate = selectedDate.toLocaleDateString('de-AT', {
+                   day: '2-digit',
+                   month: '2-digit'
+               }).replace(/\.$/, '');
+               if (!isNaN(Date.parse(selectedDate))) {
+                 $('.date_from').text(formattedDate);
+               }
+               
+               // Enddatum-Selektor abrufen
+               var endDatePicker = $('.date_to').pickadate('picker');
+               if (endDatePicker) {
+                 var endDateSelected = endDatePicker.get('select');
+               
+                 // Min-Date für Enddatum setzen
+                 endDatePicker.set('min', mindate);
+
+                 // Falls Enddatum kleiner als Startdatum ist, anpassen
+                 if (endDateSelected && endDateSelected.pick < context.select) {
+                     endDatePicker.set('select', mindate);
+                     $('.date_to').text(formattedDate); // Text im <a> anpassen
+                 }
+               }
+           }
+           removeFocus();
+       }
+   }).pickadate('picker').set('select', dateFromUrl && !isNaN(Date.parse(dateFromUrl)) ? new Date(dateFromUrl) : undefined);
+
+   // Datepicker Date To
+   $('.date_to').pickadate({
+       formatSubmit: 'yyyy-mm-dd',
+       hiddenPrefix: 'date_to',
+       min: true,
+       clear: 'Löschen',
+       today: 'Heute',
+       close: '',
+       onStart: function() {
+           var startDatePicker = $('.date_from').pickadate('picker');
+           var startDateSelected = startDatePicker.get('select');
+           
+           if (startDateSelected) {
+               var mindate = new Date(startDateSelected.pick);
+               mindate.setDate(mindate.getDate());
+               $('.date_to').pickadate('picker').set('min', mindate);
+           }
+       },
+       onClose: function() {
+         submitForm();
+       },
+       onSet: function(context) {
+           if (context.clear !== undefined) {
+              updateUrlParam('bis', null);
+              $('.date_to').text('bis'); // Text zurücksetzen
+              removeFocus();
+              return;
+           }
+           if (typeof context.select !== 'undefined') {
+             updateUrlParam('bis', getFormattedDate('.date_to'));
+           }
+           if (typeof context.select !== 'undefined') {
+               var selectedDate = new Date(context.select);
+               var formattedDate = selectedDate.toLocaleDateString('de-AT', {
+                   day: '2-digit',
+                   month: '2-digit'
+               }).replace(/\.$/, '');
+               $('.date_to').text(formattedDate);
+           }
+           removeFocus();
+       }
+     }).pickadate('picker').set('select', dateToUrl && !isNaN(Date.parse(dateToUrl)) ? new Date(dateToUrl) : undefined);
+  }
+
+  // Main Filter Script
   function init() {
 
     // JBOX Standard Filter MODAL
@@ -287,10 +431,10 @@ APP.components.cardBoxFilter = (function() {
       // Set Browser Address Bar:
       var matchedLabelId = matchedLabel.data('cat-id');
       if (typeof matchedLabelId == 'number'){
-        history && history.pushState({}, '', location.pathname + '?category=' + matchedLabelId);
+        history.pushState({}, '', location.pathname + '?category=' + matchedLabelId);
       }
       else {
-        history && history.replaceState({}, '', location.pathname);
+        history.replaceState({}, '', location.pathname);
       }
     }
 

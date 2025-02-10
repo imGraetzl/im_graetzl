@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_20_144604) do
+ActiveRecord::Schema.define(version: 2025_02_08_210627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -991,7 +991,9 @@ ActiveRecord::Schema.define(version: 2025_01_20_144604) do
     t.time "ends_at_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["meeting_id", "starts_at_date"], name: "idx_meeting_additional_dates_meeting_id_starts_at_date"
     t.index ["meeting_id"], name: "index_meeting_additional_dates_on_meeting_id"
+    t.index ["starts_at_date"], name: "idx_meeting_additional_dates_starts_at_date"
   end
 
   create_table "meetings", id: :serial, force: :cascade do |t|
@@ -1036,6 +1038,7 @@ ActiveRecord::Schema.define(version: 2025_01_20_144604) do
     t.index ["poll_id"], name: "index_meetings_on_poll_id"
     t.index ["region_id"], name: "index_meetings_on_region_id"
     t.index ["slug"], name: "index_meetings_on_slug"
+    t.index ["starts_at_date"], name: "idx_meetings_starts_at_date"
     t.index ["user_id"], name: "index_meetings_on_user_id"
   end
 
