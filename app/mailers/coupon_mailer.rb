@@ -9,7 +9,7 @@ class CouponMailer < ApplicationMailer
     headers("X-MC-Tags" => "coupon-mail")
 
     mail(
-      subject: "Unser Dankeschön an dich als #{I18n.t("region.#{@user.region.id}.domain_short")} Superfan",
+      subject: "Unser Dankeschön für dich - wir feiern 10 Jahre imGrätzl",
       from: platform_email("wir"),
       to: @user.email,
     )
@@ -23,7 +23,7 @@ class CouponMailer < ApplicationMailer
     headers("X-MC-Tags" => "coupon-mail-reminder")
 
     mail(
-      subject: "Fast vorbei: Dein Superfan-Angebot endet morgen!",
+      subject: "Fast vorbei: Dein “10 Jahre imGrätzl” Angebot endet bald!",
       from: platform_email("wir"),
       to: @user.email,
     )
