@@ -35,6 +35,7 @@ context.instance_eval do
           end
           row :created_at
           row :updated_at
+          row :last_activity_at
           row :address_street
           row :address_zip
           row :address_city

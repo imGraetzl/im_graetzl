@@ -125,6 +125,8 @@ class ActionProcessor
         Notifications::NewCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { graetzl: subject.graetzl })
       end
 
+      subject.update(last_activity_at: Time.current)
+
     when [CrowdPledge, :create]
 
       if subject.crowd_campaign.entire_platform?
@@ -134,6 +136,8 @@ class ActionProcessor
       else
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
+
+      subject.crowd_campaign.update(last_activity_at: Time.current)
 
     when [CrowdBoostPledge, :create]
 
@@ -145,6 +149,8 @@ class ActionProcessor
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
 
+      subject.crowd_campaign.update(last_activity_at: Time.current)
+
     when [CrowdDonationPledge, :create]
 
       if subject.crowd_campaign.entire_platform?
@@ -154,6 +160,8 @@ class ActionProcessor
       else
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
+
+      subject.crowd_campaign.update(last_activity_at: Time.current)
 
     when [CrowdCampaign, :comment]
 
