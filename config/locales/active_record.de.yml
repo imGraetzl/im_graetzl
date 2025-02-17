@@ -519,7 +519,7 @@ de:
         transfer_status:
           payout_ready: ready
           payout_processing: processing
-          payout_completed: completed
+          payout_completed: paid
           payout_failed: failed
       crowd_boost:
         boost_status:

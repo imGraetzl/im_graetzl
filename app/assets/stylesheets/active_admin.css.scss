@@ -39,7 +39,7 @@ span.empty {
   &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded, &.boost_cancelled {
     background: orange;
   }
-  &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free, &.boost_debited {
+  &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free, &.boost_debited, &.paid {
     background: green;
   }
   &.public_space, &.rejected, &.storno, &.boost_declined {
@@ -48,7 +48,7 @@ span.empty {
   &.weekly, &.authorized, &.refunded, &.boost_waitlist {
     background: LightBlue;
   }
-  &.vacancy, &.daily, &.processing, &.boost_approved {
+  &.vacancy, &.daily, &.processing, &.boost_approved, &.ready {
     background: LightSeaGreen;
   }
   &.re_draft {
