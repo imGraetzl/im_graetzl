@@ -35,6 +35,7 @@ context.instance_eval do
           end
           row :created_at
           row :updated_at
+          row :last_activity_at
           row :address_street
           row :address_zip
           row :address_city
@@ -109,6 +110,10 @@ context.instance_eval do
             row :crowd_pledges_payout
             row :invoice_number
             row(:invoice) { |r| link_to "PDF", r.invoice.presigned_url(:get) } if crowd_campaign.invoice_number?
+            row(:stripe_transfer_id){|c| status_tag(c.transfer_status)}
+            row(:stripe_transfer_id){|c| c.stripe_payout_transfer_id}
+            row :payout_attempted_at
+            row :payout_completed_at
           end
         end
       end

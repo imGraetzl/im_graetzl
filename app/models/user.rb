@@ -11,7 +11,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :confirmable, :masqueradable
 
-  enum role: { admin: 0, beta: 1 }
+  enum role: { admin: 0, beta: 1, superadmin: 2 }
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
@@ -105,10 +105,15 @@ class User < ApplicationRecord
   before_destroy :convert_to_guest?
   before_destroy :log_user_deletion
 
+  scope :admin, -> { where(role: [:admin, :superadmin]) }
   scope :business, -> { where(business: true) }
   scope :guests, -> { where(guest: true) }
   scope :registered, -> { where(guest: false) }
   scope :confirmed, -> { where.not(confirmed_at: nil).where(guest: false) }
+
+  def admin?
+    superadmin? || super
+  end
 
   def beta_user?
     admin? || beta?
@@ -450,6 +455,5 @@ class User < ApplicationRecord
     # Speichern ohne Validierung, um sicherzustellen, dass der Transfer erfolgreich ist
     self.save!(validate: false)
   end
-  
 
 end
