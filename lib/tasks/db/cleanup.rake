@@ -43,9 +43,13 @@ namespace :db do
       end
     end
 
-    
     # Delete empty UserMessageThreads
     UserMessageThread.where(thread_type: 'general').where(last_message: nil).destroy_all
+
+    # Delete empty Favorites (sometimes dependent destroy doesnt have effect...)
+    Favorite.find_each do |favorite|
+      favorite.destroy if favorite.favoritable.nil?
+    end
 
     # Reset & Update all Counter Caches to keep in Sync
 

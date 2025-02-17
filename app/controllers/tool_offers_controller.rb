@@ -65,7 +65,7 @@ class ToolOffersController < ApplicationController
 
   def destroy
     @tool_offer = current_user.tool_offers.find(params[:id])
-    @tool_offer.deleted!
+    @tool_offer.destroy
     redirect_to tools_user_path
   end
 

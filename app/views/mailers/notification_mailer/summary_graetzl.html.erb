@@ -23,7 +23,7 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
 
   <!-- Insert Feature Boxes -->
-  <%= render 'featured/good_morning_date_call' if @region.is?('wien') && @period == 'weekly' && current_position == 2 %>
+  <%= render 'featured/good_morning_date_call' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
   <%# render 'featured/subscription' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>

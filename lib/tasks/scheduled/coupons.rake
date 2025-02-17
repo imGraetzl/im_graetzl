@@ -125,7 +125,7 @@ namespace :scheduled do
     next unless Date.today.friday?
 
     minimum_registration_date = 6.months.ago
-    minimum_sign_in_count = 10
+    minimum_sign_in_count = 15
     max_last_login_date = 1.months.ago
 
     target_users = User

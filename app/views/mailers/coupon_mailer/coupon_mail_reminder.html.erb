@@ -6,11 +6,11 @@
         <p>Servus <%= @user.first_name %>,
 
         <p>
-          wir wollten dich nur kurz daran erinnern: Dein exklusives <strong>Superfan-Angebot für die JUHU! Fördermitgliedschaft</strong> endet morgen – am <strong><%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>.
+          wir wollten dich nur kurz daran erinnern: Dein exklusives <strong>10 Jahre imGrätzl-Angebot für die JUHU! Fördermitgliedschaft</strong> endet morgen – am <strong><%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>.
         </p>
 
         <p>
-          Warum das wichtig ist? Du bist jemand, der <%= t("region.#{@user.region.id}.domain_short") %> liebt und nutzt wie kein anderer. Du schaffst echte Begegnungen und lässt dein Grätzl lebendiger werden – und genau das möchten wir auch weiterhin möglich machen. <%= @user.region.subscription_goal %> Förder*innen sind unser Ziel, viele haben sich bereits angeschlossen.
+          Warum das wichtig ist? Du bist jemand, der <%= t("region.#{@user.region.id}.domain_short") %> aktiv nutzt. Du schaffst echte Begegnungen und lässt dein Grätzl lebendiger werden – und genau das möchten wir auch weiterhin möglich machen. <%= @user.region.subscription_goal %> Förder*innen sind unser Ziel, viele haben sich bereits angeschlossen.
         </p>
 
         <p>
