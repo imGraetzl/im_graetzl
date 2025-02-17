@@ -4,7 +4,19 @@ class WebhooksController < ApplicationController
   def stripe
     head :bad_request and return if params[:type].blank? || params[:id].blank?
 
-    event = Stripe::Event.retrieve(params[:id])
+    begin
+      if params[:account].present?
+        # Event für verbundene Stripe-Accounts abrufen
+        event = Stripe::Event.retrieve(params[:id], { stripe_account: params[:account] })
+      else
+        # Standard-Event für Hauptkonto abrufen
+        event = Stripe::Event.retrieve(params[:id])
+      end
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.error "[stripe webhook] Stripe Event Abruf fehlgeschlagen: #{e.message}"
+      return head :bad_request
+    end
+  
     case event.type
     when "payment_intent.succeeded"
       payment_intent_succeded(event.data.object)
@@ -28,10 +40,46 @@ class WebhooksController < ApplicationController
       charge_refunded(event.data.object)
     when "charge.dispute.closed"
       charge_dispute_closed(event.data.object)
+    else
+      Rails.logger.warn "[stripe webhook] Unhandled event type: #{event.type}"
     end
 
     head :ok
+  rescue StandardError => e
+    Rails.logger.error "[stripe webhook] processing error: #{e.full_message}"
+    head :internal_server_error
   end
+
+
+  def stripe_connected
+    head :bad_request and return if params[:type].blank? || params[:id].blank?
+
+    begin
+      if params[:account].present?
+        # Event für verbundene Stripe-Accounts abrufen
+        event = Stripe::Event.retrieve(params[:id], { stripe_account: params[:account] })
+      else
+        # Standard-Event für Hauptkonto abrufen
+        event = Stripe::Event.retrieve(params[:id])
+      end
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.error "[stripe webhook connected] Stripe Event Abruf fehlgeschlagen: #{e.message}"
+      return head :bad_request
+    end
+
+    case event.type
+    when "payout.paid"
+      payout_paid(event.data.object, params[:account])
+    else
+      Rails.logger.warn "[stripe webhook connected] Unhandled event type: #{event.type}"
+    end
+
+    head :ok
+  rescue StandardError => e
+    Rails.logger.error "[stripe webhook connected] processing error: #{e.full_message}"
+    head :internal_server_error
+  end
+
 
   def mailchimp
     if request.get?
@@ -212,6 +260,14 @@ class WebhooksController < ApplicationController
         invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
         SubscriptionService.new.invoice_disputed(invoice, charge) if invoice
       end
+    end
+  end
+
+  def payout_paid(object, account)
+    Rails.logger.info "[stripe webhook connected] Payout for Account: #{account}"
+    if object.metadata["campaign_id"]
+      campaign = CrowdCampaign.find_by(id: object.metadata.campaign_id)
+      campaign.update!(transfer_status: 'payout_completed', payout_completed_at: Time.current) if campaign
     end
   end
 

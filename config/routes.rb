@@ -367,6 +367,7 @@ Rails.application.routes.draw do
 
 
   post 'webhooks/stripe'
+  post 'webhooks/stripe_connected'
   post 'webhooks/mailchimp'
   get 'webhooks/mailchimp'
 

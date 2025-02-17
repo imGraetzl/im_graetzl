@@ -59,6 +59,10 @@ ActiveAdmin.register CrowdCampaign do
     link_to 'Freischalten', approve_admin_crowd_campaign_path(resource), method: :put, data: { confirm: 'Kampagne jetzt freischalten | NutzerIn wird darüber informiert.' }
   end
 
+  action_item :payout, only: :show, if: proc{ crowd_campaign.payout_ready? && current_user.superadmin? } do
+    link_to 'Kampagne auszahlen', payout_admin_crowd_campaign_path(resource), method: :put, data: { confirm: 'Kampagne jetzt auszahlen?' }
+  end
+
   action_item :view_in_app, only: :show, priority: 20 do
     link_to 'App Vorschau', crowd_campaign_path(resource), target: '_blank'
   end
@@ -114,6 +118,24 @@ ActiveAdmin.register CrowdCampaign do
       flash[:error] = 'Crowdfunding Kampagne kann nicht auf Überarbeitung gesetzt werden'
       redirect_to resource_path
     end
+  end
+
+  member_action :payout, method: :put do
+
+    unless current_user.superadmin?
+      flash[:error] = 'Keine Berechtigung für diese Aktion'
+      redirect_to admin_crowd_campaigns_path
+    else
+      result = CrowdCampaignService.new.payout(resource)
+      if result == :success
+        flash[:notice] = 'Crowdfunding Kampagne wurde zur Auszahlung eingereicht.'
+      else
+        flash[:error] = 'Fehler beim Auszahlungsprozess. Bitte überprüfen ...'
+      end
+
+      redirect_to resource_path
+    end
+    
   end
 
   permit_params :active_state, :visibility_status, :status, :guest_newsletter, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
