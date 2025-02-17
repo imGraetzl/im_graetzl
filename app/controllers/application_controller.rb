@@ -18,6 +18,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_superadmin_user!
+    authenticate_user!
+    unless current_user.superadmin?
+      flash[:alert] = 'Keine Superadmin-Rechte.'
+      redirect_to root_path
+    end
+  end
+
   def remember_region
     session[:region_id] = current_region.id if current_region
   end

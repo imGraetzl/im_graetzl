@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_08_210627) do
+ActiveRecord::Schema.define(version: 2025_02_11_095247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -392,8 +392,14 @@ ActiveRecord::Schema.define(version: 2025_02_08_210627) do
     t.string "boost_status"
     t.bigint "crowd_boost_slot_id"
     t.string "vat_id"
+    t.datetime "last_activity_at"
+    t.datetime "payout_attempted_at"
+    t.datetime "payout_completed_at"
+    t.string "transfer_status"
+    t.string "stripe_payout_transfer_id"
     t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
+    t.index ["last_activity_at"], name: "index_crowd_campaigns_on_last_activity_at"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
     t.index ["room_offer_id"], name: "index_crowd_campaigns_on_room_offer_id"

@@ -516,6 +516,11 @@ de:
           boost_authorized: "Du wurdest für folgenden Booster zugelassen:"
           boost_debited: "Du wurdest für folgenden Booster zugelassen:"
           boost_cancelled: "Du wurdest für folgenden Booster zugelassen:"
+        transfer_status:
+          payout_ready: ready
+          payout_processing: processing
+          payout_completed: completed
+          payout_failed: failed
       crowd_boost:
         boost_status:
           boost_declined: abgelehnt

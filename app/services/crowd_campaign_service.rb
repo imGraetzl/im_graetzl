@@ -33,10 +33,62 @@ class CrowdCampaignService
 
   def close(campaign)
     invoice_number = "#{Date.current.year}_Crowdfunding-#{campaign.id}_Nr-#{CrowdCampaign.next_invoice_number}"
-    campaign.update(invoice_number: invoice_number)
+    campaign.update(invoice_number: invoice_number, transfer_status: 'payout_ready')
     generate_invoice(campaign)
     CrowdCampaignMailer.invoice(campaign).deliver_now
   end
+
+  def payout(campaign)
+    Rails.logger.info "[CrowdCampaign Payout] Start payout process for campaign ##{campaign.id}, payout_ready?: #{campaign.payout_ready?}"
+  
+    return :failed unless campaign.payout_ready?
+  
+    payout_amount = (campaign.crowd_pledges_payout * 100).to_i
+    payout_destination = campaign.user.stripe_connect_account_id
+
+    metadata = {
+      type: 'CrowdCampaign',
+      campaign_id: campaign.id,
+      invoice_number: campaign.invoice_number
+    }
+
+    if campaign.boosted?
+      metadata[:crowd_boost_id] = campaign.crowd_boost&.id
+      metadata[:crowd_boost_pledge_id] = campaign.crowd_boost_pledges.initialized.last&.id
+      metadata[:crowd_boost_pledge_amount] = campaign.crowd_boost_pledges_sum
+    end
+
+    metadata.compact!
+  
+    begin
+      transfer = Stripe::Transfer.create(
+        amount: payout_amount,
+        currency: 'eur',
+        destination: payout_destination,
+        metadata: metadata
+      )
+  
+      if transfer.id.present? && !transfer.reversed
+        campaign.update!(
+          transfer_status: 'payout_processing', 
+          stripe_payout_transfer_id: transfer.id,
+          payout_attempted_at: Time.current
+        )
+        Rails.logger.info "[CrowdCampaign Payout] Processing payout, Transfer-ID: #{transfer.id}, Campaign-ID: #{campaign.id}"  
+          
+        return :success
+      end
+  
+    rescue Stripe::StripeError => e
+      Rails.logger.error "[CrowdCampaign Payout] Stripe API error: #{e.class} - #{e.message}"
+      campaign.update(transfer_status: 'payout_failed', payout_error_message: e.message)
+    rescue StandardError => e
+      Rails.logger.error "[CrowdCampaign Payout] Unexpected error: #{e.class} - #{e.message}"
+      campaign.update(transfer_status: 'payout_failed', payout_error_message: e.message)
+    end
+
+    :failed
+  end  
 
   def generate_invoice(campaign)
     invoice = CrowdCampaignInvoice.new.invoice(campaign)

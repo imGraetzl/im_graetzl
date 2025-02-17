@@ -31,8 +31,11 @@ context.instance_eval do
     end
   end
   #column(:call){|c| status_tag(c.crowdfunding_call)}
+  #column 'Closed', :closed?
+  column(:'Payout') do |c|
+    status_tag(I18n.t("activerecord.attributes.crowd_campaign.transfer_status.#{c.transfer_status}")) if c.transfer_status
+  end
   column(:stripe){|c| status_tag(c.user.stripe_connect_ready?)}
-  column 'Closed', :closed?
   column "" do |resource|
     count = AdminComment.where(resource_type: 'CrowdCampaign', resource_id: resource.id).count
     link_to count, admin_crowd_campaign_path(resource)

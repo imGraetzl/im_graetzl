@@ -64,14 +64,26 @@ class NotificationsController < ApplicationController
       notifications = notifications.select { |n| type_classes.include?(n.subject_type) }
     end
 
-    # Hierfür müsste ich graetzl_id in der notification setzen, evtl später ...
-    #graetzl_ids = nil
-    #if params.dig(:filter, :graetzl_ids)&.compact_blank.present?
-    #  graetzl_ids = Graetzl.where(id: params[:filter][:graetzl_ids]).pluck(:id)
-    #elsif params.dig(:filter, :district_ids)&.compact_blank.present?
-    #  graetzl_ids = DistrictGraetzl.where(district_id: params[:filter][:district_ids]).distinct.pluck(:graetzl_id)
-    #end
-    #notifications = notifications.where(graetzl_id: graetzl_ids) if graetzl_ids.present?
+    # Filtern nach graetzl_id über die Subjects
+    if params.dig(:filter, :graetzl_ids)&.compact_blank.present?
+      graetzl_ids = Graetzl.where(id: params[:filter][:graetzl_ids]).pluck(:id)
+      notifications = notifications.select do |n|
+        subject = n.subject
+        next true if subject.respond_to?(:entire_region) && subject.entire_region
+        next true if subject.respond_to?(:visibility_status) && ([subject.visibility_status].flatten & ["region", "platform"]).any?
+        next false unless subject.present? && (subject.respond_to?(:graetzl_id) || subject.respond_to?(:graetzl) || subject.respond_to?(:graetzls))
+
+        if subject.respond_to?(:graetzl_id)
+          graetzl_ids.include?(subject.graetzl_id)
+        elsif subject.respond_to?(:graetzl) && subject.graetzl.respond_to?(:id)
+          graetzl_ids.include?(subject.graetzl.id)
+        elsif subject.respond_to?(:graetzls) && subject.graetzls.respond_to?(:pluck)
+          (subject.graetzls.pluck(:id) & graetzl_ids).any?
+        else
+          false
+        end
+      end
+    end
     
     @notifications_count = notifications.count
 

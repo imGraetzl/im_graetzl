@@ -141,6 +141,13 @@ namespace :scheduled do
       .where(locations: { state: Location.states[:approved] })
       .where('users.weekly_mail_notifications & ? > 0', 2**0) # User bekommt wöchentliche Mails (meetings)
       .distinct
+      .left_joins(:room_offers, :room_demands)
+      .where(
+        'room_offers.id IS NULL OR room_offers.status != ?', RoomOffer.statuses[:enabled]
+      )
+      .where(
+        'room_demands.id IS NULL OR room_demands.status != ?', RoomDemand.statuses[:enabled]
+      )
 
     # target_users = User.confirmed.where("email LIKE ?", "%michael.walchhuetter%")
     # puts "[coupons_task_location]: all target_users: #{target_users.length}"

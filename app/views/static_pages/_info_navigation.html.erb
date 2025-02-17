@@ -31,21 +31,14 @@
       <div class="txt">Markt<br/>platz</div>
     <% end %>
 
-    <% if current_region.use_energieteiler? %>
-      <%= active_link_to info_energieteiler_path, class: "iconfilter" do %>
-        <%= icon_tag "sun" %>
-        <div class="txt">Energie<br/>teiler</div>
-      <% end %>
-    <% else %>
-      <%= active_link_to info_toolteiler_path, class: "iconfilter" do %>
-        <%= icon_tag "tacker" %>
-        <div class="txt">Geräte<br/>teiler</div>
-      <% end %>
-    <% end %>
-
     <%= active_link_to info_zuckerl_path, class: "iconfilter" do %>
       <%= icon_tag "shopping-bag" %>
       <div class="txt">Zuckerl &<br/>Angebote</div>
+    <% end %>
+
+    <%= active_link_to info_newsletter_path, class: "iconfilter" do %>
+      <%= icon_tag "mail-1" %>
+      <div class="txt">News<br/>letter</div>
     <% end %>
 
   </div>

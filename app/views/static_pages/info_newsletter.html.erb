@@ -1,0 +1,122 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+  )
+%>
+
+<section class="info -detail">
+
+  <div class="hl-subtext">
+    <h1><em>Newsletter Guidelines</em></h1>
+  </div>
+
+  <div class="paperCard -cord1RT container -top" id="zero">
+    <div class="wrp">
+      <p>
+        Unser Ziel ist es, dir und den anderen <%= t("region.#{current_region.id}.domain_short") %> Nutzer*innen einen <strong>abwechslungsreichen und spannenden <%= t("region.#{current_region.id}.domain_short") %>-Newsletter <%= current_region.use_districts? ? "aus dem Bezirk" : t("region.#{current_region.id}.from_graetzl") %></strong> zu bieten – vollgepackt mit den interessantesten Treffen, Raumteilern, Initiativen, Angeboten und Crowdfundings. Damit das gelingt, legen wir Wert auf Vielfalt und Qualität. Deshalb kuratieren wir den wöchentlichen <%= t("region.#{current_region.id}.domain_short") %>-Newsletter.
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <aside>
+    <div id="help_nav">
+      <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
+      <a href="#inhalte" class="btn-primary -mint" id="nav-1">Inhalte im Newsletter</a>
+      <a href="#planung" class="btn-primary -mint" id="nav-2">Planung</a>
+      <a href="#vielfalt" class="btn-primary -mint" id="nav-3">Vielfalt</a>
+      <a href="#qualitaet" class="btn-primary -mint" id="nav-4">Qualität</a>
+      <a href="#unerwuenscht" class="btn-primary -mint" id="nav-5">Unerwünschte Inhalte</a>
+      <a href="#haftungsausschluss" class="btn-primary -mint" id="nav-6">Haftungsausschluss</a>
+    </div>
+  </aside>
+
+  <div class="mainContent">
+
+    <article class="container" id="1">
+      <h2 id="inhalte"><span>Inhalte</span> im Newsletter</h2>
+      <p>
+        In folgenden Kategorien kann dein Inhalt im wöchentlichen <%= t("region.#{current_region.id}.domain_short") %> Newsletter erscheinen:
+      </p>
+      <ul>
+        <li><strong>Treffen & Events:</strong> beispielsweise Workshops, Kurse oder Veranstaltungen</li>
+        <li><strong>Raumteiler:</strong> Suche und biete Raum, suche Raumpartner*innen</li>
+        <li><strong>Raumteiler Pusher:</strong> Du hast für deinen Raumteiler den Raumteiler Pusher gebucht, dann erscheint der Raumteiler im Buchungszeitraum <%= t("region.#{current_region.id}.region_wide_newsletter") %>.</li>
+        <li><strong>Crowdfunding:</strong> Vorhaben der lokalen Macher*innen, die sich über Unterstützung bei der Umsetzung ihrer Vorhaben freuen.</li>
+        <li><strong>Coop & Share:</strong> Suche und biete Kooperationen, Schnuppersessions und alles, was nichts kostet</li>
+        <li><strong>Schaufenster:</strong> Vorstellung der Neuzugänge im Bezirk. Lokale Macher*innen stellen sich und ihre Arbeit vor. <strong>Schaufenster-Update:</strong> Platz für News!</li>
+        <li><strong>Zuckerl:</strong> Wenn du ein schönes Angebot oder einen Kurs oder Workshop hast, bei dem du sicher gehen willst, dass es im Newsletter erscheint, kannst du es mit dem Zuckerl bekannt machen. Das ist eine kostenpflichtige Einbuchung und sichert dir vier Wochen Sichtbarkeit im Newsletter und auf der Plattform – <%= t("region.#{current_region.id}.zuckerl.visibility_info") %> (je nach Einstellung).</li>
+      </ul>
+    </article>
+
+    <article class="container" id="2">
+      <h2 id="planung">Planung</h2>
+      <p>
+        <strong>Rechtzeitige Erstellung:</strong> Der <%= t("region.#{current_region.id}.domain_short") %> Newsletter wird regulär am Dienstag verschickt. Achte bitte darauf, dass deine Treffen mindestens zwei Wochen vor Start des Termins auf <%= t("region.#{current_region.id}.domain_short") %> eingetragen sind. Damit die Chancen gut stehen, dass der Termin in den Newsletter ausgespielt wird.
+      </p>
+    </article>
+
+    <article class="container" id="3">
+      <h2 id="vielfalt">Vielfalt <span>und ausgewogene Verteilung</span></h2>
+      <p>
+        <strong>Ausgewogenheit:</strong> Wir sorgen dafür, dass nicht nur ein*e Anbieter*in z. B. mit mehreren Treffen in einem Newsletter dominiert. Stattdessen möchten wir eine breite Auswahl an Treffen zur Verfügung stellen, damit jeder Macher*in und jedes Event die Chance bekommt, ins Rampenlicht zu rücken. Wenn ein*e Anbieter*in gleichzeitig viele Termine hat, wählen wir beispielsweise einen oder zwei daraus für den Newsletter aus. So stellen wir sicher, dass auch die Treffen anderer Anbieter*innen Aufmerksamkeit bekommen und der Newsletter nicht zu eintönig wird.  
+      </p>
+      <p>
+        <strong>Wiederkehrende Termine:</strong> Wenn ein Kurs wiederkehrend z. B. wöchentlich stattfindet, nehmen wir nicht jeden einzelnen Termin in den Newsletter auf. Stattdessen sorgen wir für eine gute Verteilung und schalten die Kurstermine immer mal wieder in den Newsletter.
+      </p>
+    </article>
+
+    <article class="container" id="4">
+      <h2 id="qualitaet">Qualität <span>und ansprechende Darstellung</span></h2>
+      <p>
+        <strong>Gestaltung:</strong> Bitte erstelle deine Beiträge sorgfältig, mit Bildern ohne Text und klaren, aussagekräftigen Beschreibungen. Beiträge, die nicht unseren Qualitätsstandards entsprechen, behalten wir uns vor, nicht in den Newsletter aufzunehmen. Bei regelmäßig stattfindenden Treffen empfehlen wir, das Bild oder die Darstellung gelegentlich zu ändern, um visuelle Abwechslung zu schaffen.
+      </p>
+    </article>
+
+    <article class="container">
+      <h2><span>Warum werden Updates mit Angeboten entfernt?</span></h2>
+      <p>
+        Schaufenster-Updates, die Angebote enthalten, werden aus dem Newsletter entfernt. Für Angebote gibt es das kleine oder große Zuckerl, das den Betrieb von <%= t("region.#{current_region.id}.domain_short") %> sichert.
+      </p>
+    </article>
+
+    <article class="container" id="5">
+      <h2 id="unerwuenscht">Unerwünschte <span>Inhalte</span></h2>
+      <p>
+        Wir behalten uns vor, Inhalte aus dem Newsletter und von der Plattform zu entfernen, wenn sie nicht mit den <%= t("region.#{current_region.id}.domain_short") %>-Richtlinien (AGB) übereinstimmen. Dazu gehören insbesondere:
+      </p>
+      <ul>
+        <li>Sexistische, hetzerische, rassistische oder diskriminierende Inhalte</li>
+        <li>Angebote, die auf Netzwerkmarketing, Schneeballsysteme oder fragwürdige Geschäftspraktiken abzielen</li>
+        <li>Irreführende Inhalte, wie z. B. dubiose Heilsversprechen und ähnliche Angebote</li>
+      </ul>
+      <br>
+      <p>
+        Unser Ziel ist ein sicherer und wertvoller Austausch – mit relevanten, inspirierenden und authentischen Angeboten von lokalen Macher*innen.
+      </p>
+    </article>
+
+    <article class="container" id="6">
+      <h2 id="haftungsausschluss">Haftungsausschluss <span>für Inhalte im Newsletter</span></h2>
+      <p>
+        <%= t("region.#{current_region.id}.domain_short") %> behält sich das Recht vor, Inhalte nach qualitativen und redaktionellen Kriterien auszuwählen und für den Newsletter zu kuratieren. Die Aufnahme eines Beitrags in den Newsletter stellt jedoch keine inhaltliche Überprüfung oder Zustimmung seitens <%= t("region.#{current_region.id}.domain_short") %> dar.
+      </p>
+      <p>
+        Die Verantwortung für die Richtigkeit, Vollständigkeit und Rechtmäßigkeit der Inhalte liegt ausschließlich bei den jeweiligen Ersteller*innen. <%= t("region.#{current_region.id}.domain_short") %> übernimmt keine Gewähr für die in den Beiträgen enthaltenen Informationen und haftet nicht für Schäden, die aus der Nutzung oder Verbreitung dieser Inhalte entstehen.
+      </p>
+      <p>
+        <%= t("region.#{current_region.id}.domain_short") %> distanziert sich ausdrücklich von jeglichen rechtswidrigen, diskriminierenden oder irreführenden Inhalten. Sollten uns solche Inhalte bekannt werden oder Beschwerden eingehen, behalten wir uns das Recht vor, entsprechende Inhalte zu entfernen oder von der Veröffentlichung auszuschließen.
+      </p>
+      <p>
+        Wie in den <a href="/info/agb">AGB</a> von <%= t("region.#{current_region.id}.domain_short") %> geregelt, sind die Inhalteersteller*innen verpflichtet, sicherzustellen, dass ihre veröffentlichten Inhalte auf <%= t("region.#{current_region.id}.domain_short") %> keine Rechte Dritter verletzen, insbesondere in Bezug auf Urheberrechte, Markenrechte oder Datenschutzbestimmungen.
+      </p>
+    </article>
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+</section>
+
+<%= render 'info_navigation' %>

@@ -25,6 +25,7 @@
 }
 
 .category-slider-container {
+  z-index: 3;
 
   .lSSlideWrapper {
     text-align: -webkit-center;
@@ -230,7 +231,7 @@
   z-index: 2;
 
   &:has(.picker) {
-    z-index: 99;
+    z-index: 10;
   }
 
   @include font-size-primaryFont('larger');
