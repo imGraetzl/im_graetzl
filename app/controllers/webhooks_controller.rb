@@ -265,7 +265,7 @@ class WebhooksController < ApplicationController
 
   def payout_paid(object, account)
     Rails.logger.info "[stripe webhook connected] Incoming Payout for Account: #{account}"
-    campaign = CrowdCampaign.payout_processing.joins(:user).where(users: { stripe_connect_account_id: stripe_account_id }).first
+    campaign = CrowdCampaign.payout_processing.joins(:user).where(users: { stripe_connect_account_id: account }).first
     
     if campaign
       campaign.update(transfer_status: 'payout_completed', payout_completed_at: Time.current)
