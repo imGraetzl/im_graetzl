@@ -5,7 +5,7 @@ context.instance_eval do
         attributes_table_for user do
           row :id
           row :guest
-          if current_user.email == 'michael.walchhuetter@gmail.com' && user.confirmed_user?
+          if current_user.superadmin?
             row "Login als User" do |u|
               link_to "Login As", masquerade_path(user)
             end

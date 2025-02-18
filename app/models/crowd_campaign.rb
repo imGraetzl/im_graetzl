@@ -39,7 +39,7 @@ class CrowdCampaign < ApplicationRecord
 
   string_enum visibility_status: ["graetzl","region", "platform"]
   string_enum boost_status: ["boost_declined", "boost_waitlist", "boost_approved", "boost_authorized", "boost_debited", "boost_cancelled"]
-  string_enum transfer_status: ["payout_ready", "payout_processing", "payout_completed", "payout_failed"]
+  string_enum transfer_status: ["payout_waiting", "payout_ready", "payout_processing", "payout_completed", "payout_failed"]
   enum active_state: { enabled: 0, disabled: 1 }
   enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6, re_draft: 7 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
