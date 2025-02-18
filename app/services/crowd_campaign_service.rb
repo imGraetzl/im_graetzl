@@ -12,7 +12,9 @@ class CrowdCampaignService
     if campaign.successful?
       if campaign.boost_authorized?
         campaign.crowd_boost_pledges.authorized.update_all(status: 'debited', debited_at: Time.current)
-        campaign.update(boost_status: 'boost_debited')
+        campaign.update(boost_status: 'boost_debited', transfer_status: 'payout_waiting')
+      else
+        campaign.update(transfer_status: 'payout_waiting')
       end
       campaign.crowd_pledges.authorized.find_each do |pledge|
         CrowdPledgeService.new.delay.charge(pledge)

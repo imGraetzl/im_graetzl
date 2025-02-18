@@ -517,6 +517,7 @@ de:
           boost_debited: "Du wurdest für folgenden Booster zugelassen:"
           boost_cancelled: "Du wurdest für folgenden Booster zugelassen:"
         transfer_status:
+          payout_waiting: waiting
           payout_ready: ready
           payout_processing: processing
           payout_completed: paid

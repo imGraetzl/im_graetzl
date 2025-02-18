@@ -33,28 +33,28 @@ span.empty {
     display: none;
   }
 
-  &.deleted, &.off, &.failed {
+  &.deleted, &.off, &.failed, &.payout_failed {
     background: red;
   }
   &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded, &.boost_cancelled {
     background: orange;
   }
-  &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free, &.boost_debited, &.paid {
+  &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited, &.free, &.boost_debited, &.paid, &.payout_completed {
     background: green;
   }
   &.public_space, &.rejected, &.storno, &.boost_declined {
     background: LightCoral;
   }
-  &.weekly, &.authorized, &.refunded, &.boost_waitlist {
+  &.weekly, &.authorized, &.refunded, &.boost_waitlist, &.waiting, &.payout_waiting {
     background: LightBlue;
   }
-  &.vacancy, &.daily, &.processing, &.boost_approved, &.ready {
+  &.vacancy, &.daily, &.processing, &.boost_approved, &.payout_processing {
     background: LightSeaGreen;
   }
   &.re_draft {
     background: Grey;
   }
-  &.funding, &.approved, &.boost_authorized {
+  &.funding, &.approved, &.boost_authorized, &.ready, &.payout_ready {
     background: #6090DB;
   }
 }
