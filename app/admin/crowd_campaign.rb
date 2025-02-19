@@ -4,6 +4,7 @@ ActiveAdmin.register CrowdCampaign do
 
   includes :location, :user, :comments
   actions :all, except: [:new, :create]
+  config.batch_actions = false
 
   scope :initialized, default: true
   scope :draft
@@ -11,10 +12,12 @@ ActiveAdmin.register CrowdCampaign do
   scope :pending
   scope :approved
   scope :funding
+  scope 'Payout Process', :payout
   scope :completed
+  scope 'Paid', :payout_completed
   scope :declined
   #scope :all
-  scope :guest_newsletter
+  scope 'Newsletter', :guest_newsletter
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}

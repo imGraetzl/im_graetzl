@@ -64,6 +64,7 @@ class CrowdCampaign < ApplicationRecord
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: :disabled)) }
   scope :region_or_platform, -> { where(visibility_status: [:region, :platform]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
+  scope :payout, -> { where(transfer_status: [:payout_waiting, :payout_ready, :payout_processing, :payout_failed]) }
   scope :guest_newsletter, -> {funding.region_or_platform.where(guest_newsletter: true)}
   
   scope :by_currentness, -> {
