@@ -124,7 +124,6 @@ ActiveAdmin.register CrowdCampaign do
   end
 
   member_action :payout, method: :put do
-
     unless current_user.superadmin?
       flash[:error] = 'Keine Berechtigung für diese Aktion'
       redirect_to admin_crowd_campaigns_path
@@ -135,10 +134,8 @@ ActiveAdmin.register CrowdCampaign do
       else
         flash[:error] = 'Fehler beim Auszahlungsprozess. Bitte überprüfen ...'
       end
-
       redirect_to resource_path
     end
-    
   end
 
   permit_params :active_state, :visibility_status, :status, :guest_newsletter, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
