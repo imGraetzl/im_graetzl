@@ -37,7 +37,7 @@ namespace :scheduled do
     end
 
     task_ends_at = Time.now
-    AdminMailer.task_info('crowd_campaigns_upkeep', 'finished', task_starts_at, task_ends_at).deliver_now
+    #AdminMailer.task_info('crowd_campaigns_upkeep', 'finished', task_starts_at, task_ends_at).deliver_now
 
   end
 
@@ -72,7 +72,7 @@ namespace :scheduled do
       end
 
       task_ends_at = Time.now
-      AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'finished', task_starts_at, task_ends_at).deliver_now  
+      #AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'finished', task_starts_at, task_ends_at).deliver_now  
 
     end
     
