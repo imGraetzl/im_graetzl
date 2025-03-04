@@ -115,7 +115,7 @@ class User < ApplicationRecord
     superadmin? || super
   end
 
-  def beta_user?
+  def admin_or_beta?
     admin? || beta?
   end
 

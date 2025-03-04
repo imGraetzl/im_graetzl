@@ -28,7 +28,7 @@ class MeetingsController < ApplicationController
     @meeting.clear_address if @meeting.online_meeting?
     @meeting.assign_attributes(ends_at_date: nil) if params[:date_option] != 'range' || @meeting.starts_at_date == @meeting.ends_at_date
     @meeting.meeting_additional_dates.delete_all if params[:date_option] != 'multiple'
-    @meeting.user = current_user.admin? ? User.registered.find(params[:user_id]) : current_user
+    @meeting.user = current_user.admin_or_beta? ? User.confirmed.find(params[:user_id]) : current_user
     @meeting.region_id = current_region.id
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
     @meeting.last_activated_at = Time.now
