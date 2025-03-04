@@ -233,7 +233,7 @@ class CrowdCampaign < ApplicationRecord
 
   def check_boosting
     if boost_approved? && crowd_boost_slot &&
-      crowd_pledges.count >= crowd_boost_slot.threshold_pledge_count &&
+      crowd_pledges.initialized.count >= crowd_boost_slot.threshold_pledge_count &&
       funding_percentage >= crowd_boost_slot.threshold_funding_percentage &&
       !crowd_boost_slot.amount_limit_reached?(self)
       return :boost_authorized

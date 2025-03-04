@@ -22,7 +22,7 @@ class CrowdBoostSlot < ApplicationRecord
   end
 
   def amount_limit_reached?(campaign)
-    total_amount_initialized + calculate_boost(campaign) >= slot_amount_limit
+    total_amount_initialized + calculate_boost(campaign) > slot_amount_limit
   end
 
   def total_amount_initialized
