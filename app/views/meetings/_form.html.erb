@@ -221,7 +221,7 @@
       <div class="user-autocomplete autocomplete-wrp">
         <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
         <% selected_user = f.object.user || current_user %>
-        <%= hidden_field_tag :user_id, current_user.id, data:{behavior:"user-autocomplete-id"} %>
+        <%= hidden_field_tag :user_id, selected_user.id, data:{behavior:"user-autocomplete-id"} %>
         <%= text_field_tag :q, selected_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
       </div>
     </div>
