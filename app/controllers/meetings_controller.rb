@@ -232,6 +232,7 @@ class MeetingsController < ApplicationController
       ],
     ]
     list_params_allowed << :entire_region if current_user.admin?
+    list_params_allowed << :user_id if current_user.admin_or_beta?
     params.require(:meeting).permit(list_params_allowed)
   end
 
