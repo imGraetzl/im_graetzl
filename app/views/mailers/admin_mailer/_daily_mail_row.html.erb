@@ -1,8 +1,8 @@
-<% yesterday   = Time.zone.yesterday.beginning_of_day..Time.zone.yesterday.end_of_day %>
-<% this_month  = Time.zone.today.beginning_of_month..Time.zone.today.end_of_month %>
-<% this_year   = Time.zone.today.beginning_of_year..Time.zone.today.end_of_year %>
-<% last_month  = 1.month.ago.beginning_of_month..1.month.ago.end_of_month %>
-<% last_year   = 1.year.ago.beginning_of_year..1.year.ago.end_of_year %>
+<% yesterday  = Time.current.yesterday.beginning_of_day..Time.current.yesterday.end_of_day %>
+<% this_month = Time.current.beginning_of_month..Time.current.end_of_month %>
+<% this_year  = Time.current.beginning_of_year..Time.current.end_of_year %>
+<% last_month = Time.current.last_month.beginning_of_month..Time.current.last_month.end_of_month %>
+<% last_year  = Time.current.last_year.beginning_of_year..Time.current.last_year.end_of_year %>
 <% tax = 1.2 %>
 
 <%
