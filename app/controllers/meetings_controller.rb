@@ -56,6 +56,7 @@ class MeetingsController < ApplicationController
     starts_at_date_before = @meeting.starts_at_date
     starts_at_time_before = @meeting.starts_at_time
 
+    @meeting.user = current_user.admin_or_beta? ? User.confirmed.find(params[:user_id]) : current_user
     @meeting.assign_attributes(meeting_params)
     @meeting.state = :active
     @meeting.clear_address if @meeting.online_meeting?

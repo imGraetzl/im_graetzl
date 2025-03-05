@@ -194,36 +194,35 @@
     </div>
   </div>
 
-  <% if current_user.admin? %>
-
+  <% if current_user.admin_or_beta? %>
     <div class="meet-admin">
       <p><span>Admin</span> Funktionen</p>
-      <div class="cardBox">
-        <div class="input-checkbox">
-          <%= f.check_box :entire_region %>
-          <label for="meeting_entire_region">
-            Ganz <%= current_region.name %>
-            <small>(Treffen wird in alle Streams und E-Mails in der Region aufgenommen.)</small>
-          </label>
-          
+
+      <% if current_user.admin? %>
+        <div class="cardBox">
+          <div class="input-checkbox">
+            <%= f.check_box :entire_region %>
+            <label for="meeting_entire_region">
+              Ganz <%= current_region.name %>
+              <small>(Treffen wird in alle Streams und E-Mails in der Region aufgenommen.)</small>
+            </label>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="input-field">
+        <%= f.label :user_id do %>
+          <%= icon_tag "user-avatar" %>
+          <span>Treffen Ersteller</span>
+        <% end %>
+        <div class="user-autocomplete autocomplete-wrp">
+          <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
+          <% selected_user = f.object.user || current_user %>
+          <%= hidden_field_tag :user_id, selected_user.id, data:{behavior:"user-autocomplete-id"} %>
+          <%= text_field_tag :q, selected_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
         </div>
       </div>
-    </div>
-    
-  <% end %>
 
-  <% if current_user.admin_or_beta? && f.object.new_record? %>
-    <div class="input-field">
-      <%= f.label :user_id do %>
-        <%= icon_tag "user-avatar" %>
-        <span>Treffen Ersteller</span>
-      <% end %>
-      <div class="user-autocomplete autocomplete-wrp">
-        <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
-        <% selected_user = f.object.user || current_user %>
-        <%= hidden_field_tag :user_id, selected_user.id, data:{behavior:"user-autocomplete-id"} %>
-        <%= text_field_tag :q, selected_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
-      </div>
     </div>
   <% end %>
 
