@@ -9,37 +9,27 @@ section.zuckerl-page {
     }
   }
 
-  &.-edit {
-    .district_visibility .input-radio label::before {
-      opacity: .5;
-    }
-  }
-
-  .district_visibility {
+  .visibility_select {
+    padding:0;
     position: relative;
-    display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    .input-radio {
-      margin-left:10px;
-      margin-right: 10px;
-      label {
-        min-width: 0px;
-      }
+    .input-select {
+      margin-bottom:0;
     }
     .description {
-      margin-top:20px;
-      padding-top:10px;
+      padding:15px 5px 15px 5px;
       border-top: 1px solid #DBEFEC;
       width:100%;
       text-align: center;
     }
     .badge {
+      z-index: 99;
       position: absolute;
-      top:-60px;
+      top:-0px;
       right:0;
       @include respond-to(">=medium") {
-        top:-30px;
+        top:-20px;
       }
     }
   }

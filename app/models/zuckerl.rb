@@ -1,5 +1,5 @@
 class Zuckerl < ApplicationRecord
-  extend FriendlyId
+  #extend FriendlyId
   include AASM
   include ActionView::Helpers
 
@@ -7,12 +7,14 @@ class Zuckerl < ApplicationRecord
 
   include CoverImageUploader::Attachment(:cover_photo)
 
-  friendly_id :title
+  #friendly_id :title
 
+  has_many :zuckerl_graetzls, dependent: :destroy
+  has_many :graetzls, through: :zuckerl_graetzls
+  has_many :districts, -> { distinct }, through: :graetzls
   belongs_to :location, optional: true
   belongs_to :user, optional: true
   belongs_to :subscription, optional: true
-  has_one :graetzl, through: :location
   belongs_to :crowd_boost, optional: true
   has_one :crowd_boost_charge
 
@@ -81,16 +83,23 @@ class Zuckerl < ApplicationRecord
   end
 
   def self.in_area(graetzl_ids)
-    ids = joins(:location).where("zuckerls.entire_region = 't' OR locations.graetzl_id IN (?)", graetzl_ids).pluck(:id)
-    where(id: ids)
+    # Subquery: Holt nur die IDs der passenden Zuckerls
+    subquery = select('zuckerls.id')
+                 .left_joins(:graetzls)
+                 .where("zuckerls.entire_region = TRUE OR graetzls.id IN (?)", graetzl_ids)
+                 .distinct
+  
+    # Äußere Query: Zufällige Sortierung nur in der äußeren Query
+    Zuckerl.where(id: subquery)
   end
+  
 
   def self.include_for_box
     includes(location: [:location_category])
   end
 
   def self.random(n)
-    order(Arel.sql("RANDOM()")).first(n)
+    reorder(Arel.sql("RANDOM()")).first(n)
   end
 
   def self.next_invoice_number
@@ -136,10 +145,10 @@ class Zuckerl < ApplicationRecord
   def visibility
     if entire_region?
       "Ganz #{region.name}"
-    elsif region.use_districts?
-      "#{graetzl.name} und gesamter #{graetzl.district.numeric}. Bezirk"
-    else
-      graetzl.name
+    elsif region.use_districts? && graetzls.present?
+      District.find(saved_main_district).zip_name
+    elsif graetzls.present?
+      graetzls.first.name
     end
   end
 
@@ -155,6 +164,42 @@ class Zuckerl < ApplicationRecord
   def can_edit?
     ["pending"].include?(self.aasm_state)
   end
+
+  def location?
+    location.present?
+  end
+
+  def default_graetzl
+    location&.graetzl || user.graetzl
+  end
+
+  def saved_main_district
+    return "entire_region" if entire_region?
+    graetzls
+      .joins(:districts)
+      .group('districts.id')
+      .order('COUNT(districts.id) DESC')
+      .limit(1)
+      .pluck('districts.id')
+      .first
+  end
+
+  def saved_graetzl
+    return "entire_region" if entire_region?
+    graetzls
+      .limit(1)
+      .pluck('id')
+      .first
+  end
+
+  def saved_or_default_district(params_district_id = nil)
+    (params_district_id.to_i if params_district_id.present?) || saved_main_district || default_graetzl&.district&.id
+  end
+
+  def saved_or_default_graetzl(params_graetzl_id = nil)
+    (params_graetzl_id.to_i if params_graetzl_id.present?) || saved_graetzl || default_graetzl&.id
+  end
+  
 
   private
 

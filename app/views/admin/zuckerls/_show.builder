@@ -1,9 +1,7 @@
 context.instance_eval do
   attributes_table do
     row :id
-    row :user do
-      link_to zuckerl.location.user.username, admin_user_path(zuckerl.location.user) if zuckerl.location
-    end
+    row :user
     row :location
     row :subscription
     row :created_at
@@ -18,12 +16,15 @@ context.instance_eval do
       row(:zuckerl_invoice) { |z| link_to "PDF Rechnung", z.zuckerl_invoice.presigned_url(:get) }
     end
     row :entire_region
-    row :visibility if zuckerl.location
+    row :visibility
     row :title
     row :description
     row :link
     row :cover_photo do |z|
       z.cover_photo && image_tag(z.cover_photo_url(:thumb))
+    end
+    row :graetzls do |z|
+      z.graetzls.map(&:name).join(', ')
     end
   end
 

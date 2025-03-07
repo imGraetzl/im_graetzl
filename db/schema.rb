@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_11_095247) do
+ActiveRecord::Schema.define(version: 2025_02_25_144615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1749,6 +1749,16 @@ ActiveRecord::Schema.define(version: 2025_02_11_095247) do
     t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id"
   end
 
+  create_table "zuckerl_graetzls", force: :cascade do |t|
+    t.bigint "zuckerl_id", null: false
+    t.bigint "graetzl_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["graetzl_id"], name: "index_zuckerl_graetzls_on_graetzl_id"
+    t.index ["zuckerl_id", "graetzl_id"], name: "index_zuckerl_graetzls_on_zuckerl_id_and_graetzl_id", unique: true
+    t.index ["zuckerl_id"], name: "index_zuckerl_graetzls_on_zuckerl_id"
+  end
+
   create_table "zuckerls", id: :serial, force: :cascade do |t|
     t.integer "location_id"
     t.string "title"
@@ -1926,5 +1936,7 @@ ActiveRecord::Schema.define(version: 2025_02_11_095247) do
   add_foreign_key "user_messages", "user_message_threads", on_delete: :cascade
   add_foreign_key "user_messages", "users", on_delete: :cascade
   add_foreign_key "users", "location_categories", on_delete: :nullify
+  add_foreign_key "zuckerl_graetzls", "graetzls"
+  add_foreign_key "zuckerl_graetzls", "zuckerls"
   add_foreign_key "zuckerls", "users", on_delete: :nullify
 end
