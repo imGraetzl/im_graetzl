@@ -76,9 +76,9 @@ class Subscription < ApplicationRecord
 
   def valid_zuckerl_voucher_for(zuckerl)
     if zuckerl.entire_region?
-      open_zuckerl_count_entire_region > 0
+      active? && open_zuckerl_count_entire_region > 0
     else
-      open_zuckerl_count_graetzl > 0
+      active? && open_zuckerl_count_graetzl > 0
     end
   end
 

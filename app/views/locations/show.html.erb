@@ -26,7 +26,7 @@
         <%= link_to new_meeting_path(location_id: @location.id), class: 'icontxt' do %>
           <%= icon_tag "calendar-2" %> Treffen erstellen
         <% end %>
-        <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
+        <%= link_to new_zuckerl_path(location_id: @location.id), class: 'icontxt' do %>
           <%= icon_tag "shopping-bag" %> Zuckerl buchen
         <% end %>
       </div>

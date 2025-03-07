@@ -32,9 +32,7 @@
     <td class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
 
       <p>
-        Dein Zuckerl <strong>'<%= @zuckerl.title %>'</strong> für das Schaufenster
-        <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
-        wurde freigeschalten und ist somit im Zeitraum <%= @zuckerl.runtime %> auf der Plattform <%= t("region.#{@zuckerl.region_id}.domain_full") %> aktiv!
+        Dein Zuckerl <strong>'<%= @zuckerl.title %>'</strong> wurde freigeschalten und ist somit im Zeitraum <%= @zuckerl.runtime %> auf der Plattform <%= t("region.#{@zuckerl.region_id}.domain_full") %> aktiv!
       </p>
 
       <% if !@zuckerl.free? %>

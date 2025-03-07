@@ -26,6 +26,8 @@ class Graetzl < ApplicationRecord
   has_many :energy_demands, through: :energy_demand_graetzls
   has_many :crowd_boost_slot_graetzls
   has_many :crowd_boost_slots, through: :crowd_boost_slot_graetzls
+  has_many :zuckerl_graetzls
+  has_many :zuckerls, through: :zuckerl_graetzls
 
   has_many :district_graetzls
   has_many :districts, through: :district_graetzls

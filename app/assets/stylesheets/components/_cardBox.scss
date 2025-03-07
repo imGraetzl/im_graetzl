@@ -99,6 +99,17 @@
 
   // -------------------------- Zuckerl Cardbox
   &.-zuckerl {
+    .avatar-block {
+      &.-hide {display: none;}
+    }
+    .avatarImg {
+      //display: flex !important;
+      .img-round {
+        width:80px;
+        height:80px;
+        margin-right: 0px;
+      }
+    }
     .btn-icon {
       display: flex;
       justify-content: center;

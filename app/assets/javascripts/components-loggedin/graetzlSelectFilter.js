@@ -44,6 +44,7 @@ APP.components.graetzlSelectFilter = (function() {
 
     $districtSelect.on('change', function() {
       var districtIds = $districtSelect.val();
+      districtIds = Array.isArray(districtIds) ? districtIds : [].concat(districtIds); // Needed for multiple: false selectd
       showDistrictGraetzls(districtIds);
       deselectGraetzlsNotIn(districtIds);
 

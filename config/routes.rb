@@ -132,10 +132,9 @@ Rails.application.routes.draw do
     post 'send_mail', on: :member
   end
 
-  resources :zuckerls, only: [:index]
+  resources :zuckerls, path: 'zuckerl', except: [:show]
 
   resources :locations do
-    resources :zuckerls, path: 'zuckerl', except: [:index, :show]
     post :add_post, on: :member
     post :update_post, on: :member
     post :remove_post, on: :member

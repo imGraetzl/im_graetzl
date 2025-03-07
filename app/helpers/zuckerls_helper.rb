@@ -32,4 +32,110 @@ module ZuckerlsHelper
     (100 - (new_price / old_price * 100)).to_i
   end
 
+  def address_short_for(record)
+    case record
+    when Location
+      return unless record.using_address?
+      address_zip = record.address_zip
+      address_street = record.address_street
+      address_city = record.address_city
+    when User
+      address_zip = record.address_zip
+      address_street = record.graetzl
+      address_city = record.graetzl
+    else
+      return ""
+    end
+    use_districts = record.respond_to?(:region) && record.region&.use_districts?
+    use_districts ? "#{address_zip}, #{address_street}" : "#{address_street || address_city}"
+  end
+  
+  def graetzl_select_options_zuckerl(zuckerl)
+
+    price = Zuckerl.price(current_region)
+    old_price = Zuckerl.old_price(current_region)
+    region_price = Zuckerl.region_price(current_region)
+    region_old_price = Zuckerl.region_old_price(current_region)
+
+    sorted_graetzls = current_region.graetzls.sort_by(&:zip_name)
+
+    # ---------------- Zuckerl Create
+    if zuckerl.new_record?
+      return sorted_graetzls.map { |g| [g.name, g.id, { 'data-label' => "#{t("region.#{current_region.id}.in_graetzl")} #{g.name}", 'data-price' => price, 'data-old-price' => old_price }] }
+                             .unshift(["Ganz #{current_region.name}", "entire_region", { 'data-label' => "in ganz #{current_region.name}", 'data-price' => region_price, 'data-old-price' => region_old_price }])
+    end
+  
+    # ---------------- Zuckerl Edit
+    options = sorted_graetzls.map do |g|
+      [
+        g.name,
+        g.id,
+        {
+          'data-label' => "#{t("region.#{current_region.id}.in_graetzl")} #{g.name}",
+          'data-price' => price,
+          'data-old-price' => old_price,
+          disabled: zuckerl.entire_region?
+        }
+      ]
+    end
+  
+    entire_region_option = [
+      "Ganz #{current_region.name}",
+      "entire_region",
+      {
+        'data-label' => "in ganz #{current_region.name}",
+        'data-price' => region_price,
+        'data-old-price' => region_old_price,
+        disabled: !zuckerl.entire_region?
+      }
+    ]
+  
+    options.unshift(entire_region_option)
+
+  end
+
+  def district_select_options_zuckerl(zuckerl)
+
+    price = Zuckerl.price(current_region)
+    old_price = Zuckerl.old_price(current_region)
+    region_price = Zuckerl.region_price(current_region)
+    region_old_price = Zuckerl.region_old_price(current_region)
+  
+    sorted_districts = current_region.districts.sort_by(&:zip)
+  
+    # ---------------- Zuckerl Create
+    if zuckerl.new_record?
+      return sorted_districts.map { |d| [d.zip_name, d.id, { 'data-label' => "im gesamten #{d.numeric}. Bezirk", 'data-price' => price, 'data-old-price' => old_price }] }
+                             .unshift(["Ganz #{current_region.name}", "entire_region", { 'data-label' => "in ganz #{current_region.name}", 'data-price' => region_price, 'data-old-price' => region_old_price }])
+    end
+  
+    # ---------------- Zuckerl Edit
+    options = sorted_districts.map do |d|
+      [
+        d.zip_name,
+        d.id,
+        {
+          'data-label' => "im gesamten #{d.numeric}. Bezirk",
+          'data-price' => price,
+          'data-old-price' => old_price,
+          disabled: zuckerl.entire_region?
+        }
+      ]
+    end
+  
+    entire_region_option = [
+      "Ganz #{current_region.name}",
+      "entire_region",
+      {
+        'data-label' => "in ganz #{current_region.name}",
+        'data-price' => region_price,
+        'data-old-price' => region_old_price,
+        disabled: !zuckerl.entire_region?
+      }
+    ]
+  
+    options.unshift(entire_region_option)
+  end
+  
+
 end

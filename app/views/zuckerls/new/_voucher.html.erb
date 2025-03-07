@@ -7,7 +7,7 @@
 
 
 <% if @subscription&.valid_zuckerl_voucher_for(@zuckerl) %>
-  <%= form_for [@location, @zuckerl] do |f| %>
+  <%= form_for [@zuckerl] do |f| %>
     <%= f.hidden_field :subscription_id, value: current_user.subscription.id %>
     <div class="cardBox -subscriptionzuckerls">
       <div class="item">
@@ -27,7 +27,7 @@
 <% end %>
 
 <% if current_user.valid_zuckerl_voucher_for(@zuckerl) %>
-  <%= form_for [@location, @zuckerl] do |f| %>
+  <%= form_for [@zuckerl] do |f| %>
     <%= f.hidden_field :user_zuckerl, value: true %>
     <div class="cardBox -subscriptionzuckerls">
       <div class="item">
