@@ -145,9 +145,9 @@ class Zuckerl < ApplicationRecord
   def visibility
     if entire_region?
       "Ganz #{region.name}"
-    elsif region.use_districts?
+    elsif region.use_districts? && graetzls.present?
       District.find(saved_main_district).zip_name
-    else
+    elsif graetzls.present?
       graetzls.first.name
     end
   end
