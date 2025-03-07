@@ -5,22 +5,23 @@ class ZuckerlsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @zuckerls = collection_scope.in(current_region).include_for_box
     @zuckerls = filter_collection(@zuckerls)
-    @zuckerls = @zuckerls.page(params[:page]).per(15).order(Arel.sql("RANDOM()"))
+    @zuckerls = @zuckerls.page(params[:page]).per(15).reorder(Arel.sql("RANDOM()"))
 
   end
 
   def new
-    set_location_for_new or return
-    @zuckerl = @location.zuckerls.new
+    @zuckerl = current_user.zuckerls.new
+    @zuckerl.location = set_location_for_new
+    @zuckerl.user = current_user
+    @zuckerl.region_id = current_user.region_id
     @zuckerl.starts_at = Date.tomorrow + 1
     @zuckerl.ends_at = @zuckerl.starts_at + 1.month - 1.day
   end
 
   def create
-    @location = current_user.locations.find(params[:location_id])
-    @zuckerl = @location.zuckerls.new(zuckerl_params)
+    @zuckerl = current_user.zuckerls.new(zuckerl_params)
     @zuckerl.user = current_user
-    @zuckerl.region_id = @location.region_id
+    @zuckerl.region_id = current_user.region_id
     @zuckerl.amount = @zuckerl.total_price / 100
 
     if current_region.hot_august?
@@ -30,6 +31,9 @@ class ZuckerlsController < ApplicationController
 
     if @zuckerl.save
       @zuckerl.link ||= nil
+
+      set_zuckerl_graetzls
+
       if valid_zuckerl_voucher_for(@zuckerl)
         redirect_to [:voucher, @zuckerl]
       else
@@ -41,7 +45,6 @@ class ZuckerlsController < ApplicationController
   end
 
   def update
-    set_location
     set_zuckerl_or_redirect or return
 
     if params[:zuckerl][:subscription_id].present?
@@ -61,6 +64,7 @@ class ZuckerlsController < ApplicationController
       @zuckerl.update zuckerl_params_edit
 
       if @zuckerl.save
+        set_zuckerl_graetzls
         redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde aktualisiert'
       else
         render :edit
@@ -140,17 +144,46 @@ class ZuckerlsController < ApplicationController
   end
 
   def edit
-    set_location
     set_zuckerl_or_redirect
   end
 
   def destroy
-    set_location
-    @location.zuckerls.find(params[:id]).cancel!
+    current_user.zuckerls.find(params[:id]).cancel!
     redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde gelöscht'
   end
 
   private
+
+  def set_zuckerl_graetzls
+
+    has_graetzl_ids = params[:zuckerl].key?(:graetzl_ids) && params[:zuckerl][:graetzl_ids].present?
+    has_district_ids = params[:zuckerl].key?(:district_ids) && params[:zuckerl][:district_ids].present?
+
+    if has_graetzl_ids
+
+      if Array(params[:zuckerl][:graetzl_ids]).include?("entire_region")
+        @zuckerl.update_column(:entire_region, true)
+        @zuckerl.graetzl_ids = []
+      else
+        graetzl_ids = Array(params[:zuckerl][:graetzl_ids])
+        @zuckerl.graetzl_ids = graetzl_ids
+        @zuckerl.update_column(:entire_region, false)
+      end
+
+    elsif has_district_ids
+
+      if Array(params[:zuckerl][:district_ids]).include?("entire_region")
+        @zuckerl.update_column(:entire_region, true)
+        @zuckerl.graetzl_ids = []
+      else
+        district_ids = Array(params[:zuckerl][:district_ids])
+        graetzl_ids = District.where(id: district_ids).joins(:graetzls).pluck('graetzls.id').uniq
+        @zuckerl.graetzl_ids = graetzl_ids
+        @zuckerl.update_column(:entire_region, false)
+      end
+
+    end
+  end
 
   def collection_scope
     Zuckerl.live
@@ -161,23 +194,16 @@ class ZuckerlsController < ApplicationController
   end
 
   def set_location_for_new
-    case
-    when params[:location_id].present?
-      @location = current_user.locations.in(current_region).approved.find(params[:location_id])
-    when current_user.locations.in(current_region).approved.count == 1
-      @location = current_user.locations.in(current_region).approved.first
+    locations = current_user.locations.in(current_region).approved
+    if params[:location_id].present?
+      locations.find_by(id: params[:location_id])
     else
-      @locations = current_user.locations.in(current_region).approved
-      render :new_location and return
+      locations.first
     end
   end
 
-  def set_location
-  @location = current_user.zuckerls.find(params[:id]).location
-  end
-
   def set_zuckerl_or_redirect
-    @zuckerl = @location.zuckerls.where(aasm_state: ['incomplete', 'pending']).find params[:id]
+    @zuckerl = current_user.zuckerls.where(aasm_state: ['incomplete', 'pending']).find params[:id]
   rescue ActiveRecord::RecordNotFound
     redirect_to zuckerls_user_path, alert: 'Bereits freigeschaltene Zuckerl können nicht mehr bearbeitet werden.' and return
   end
@@ -237,16 +263,24 @@ class ZuckerlsController < ApplicationController
       :remove_cover_photo,
       :entire_region,
       :link,
+      :location_id,
+      graetzl_ids: [],
+      district_ids: []
     )
   end
 
   def zuckerl_params_edit
     params.require(:zuckerl).permit(
       :title,
+      :starts_at,
+      :ends_at,
       :description,
       :cover_photo,
       :remove_cover_photo,
       :link,
+      :location_id,
+      graetzl_ids: [],
+      district_ids: []
     )
   end
 end

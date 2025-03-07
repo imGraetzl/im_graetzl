@@ -1,10 +1,28 @@
 <% if zuckerls.any? %>
 
+  <% 
+    def address_short_for(zuckerl)
+      case zuckerl
+      when Location
+        return unless zuckerl.using_address?
+        address_zip = zuckerl.address_zip
+        address_street = zuckerl.address_street
+        address_city = zuckerl.address_city
+      when User
+        address_zip = zuckerl.address_zip
+        address_street = zuckerl.graetzl
+        address_city = zuckerl.graetzl
+      else
+        return ""
+      end
+      use_districts = zuckerl.respond_to?(:region) && zuckerl.region&.use_districts?
+      use_districts ? "#{address_zip}, #{address_street}" : "#{address_street || address_city}"
+    end
+  %>
+
   <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'}" %>
 
   <% zuckerls.last(2).each do |zuckerl| %>
-  <% location = zuckerl.location %>
-  <% graetzl = Graetzl.memoized(location.graetzl_id) %>
 
   <!-- Zuckerl Card-->
   <table border="0" cellpadding="0" cellspacing="0" style="float:left; max-width:300px; margin-bottom:20px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef;" width="100%" class="mcnTextContentContainer">
@@ -14,21 +32,22 @@
           <table>
             <tr>
               <td style="min-width:70px;">
-                <%= avatar_image location, size: :thumb, style: "width:60px; height:60px; max-width:60px; max-height:60px; border-radius: 4px; border: 1px solid #83C7BD; background-color: #ffffff; padding: 2px; margin-right:8px;", class: "mcnImage" %>
+                <%= avatar_image zuckerl.location? ? zuckerl.location : zuckerl.user , size: :thumb, style: "width:60px; height:60px; max-width:60px; max-height:60px; border-radius: 4px; border: 1px solid #83C7BD; background-color: #ffffff; padding: 2px; margin-right:8px;", class: "mcnImage" %>
               </td>
               <td style="font-size:12px; line-height:16px; vertical-valign:center;">
-                <%= link_to location.name, graetzl_location_url(location.graetzl, location), style: "color:#69a8a7;" %>
-                <br>
-                <%= location.location_category.name if location.location_category %>
-                <% if location.using_address? %>
-                  <div class="address">
-                    <%= location.address_street %>
-                  </div>
+                <% if zuckerl.location? %>
+                  <%= link_to zuckerl.location.name.truncate(55), graetzl_location_url(zuckerl.location.graetzl, zuckerl.location), style: "color:#69a8a7;" %><br>
+                  <%= zuckerl.location.location_category.name if zuckerl.location.location_category %>
+                <% else %>
+                  <%= link_to zuckerl.user.full_name, user_url(zuckerl.user), style: "color:#69a8a7;" %>
                 <% end %>
+                <div class="address">
+                  <%= address_short_for(zuckerl.location? ? zuckerl.location : zuckerl.user) %>
+                </div>
               </td>
             </tr>
           </table>
-          <%= link_to [graetzl, location, anchor: dom_id(zuckerl)] do %>
+          <%= link_to zuckerl.link.present? ? zuckerl.link : region_zuckerls_url, target: '_blank' do %>
             <%= cover_photo_image zuckerl, size: :small, style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage" %>
           <% end %>
           <table style="width:100%;">
@@ -37,7 +56,7 @@
             </tr>
             <tr>
               <td>
-                <%= link_to zuckerl.title, [graetzl, location, anchor: dom_id(zuckerl)], style: "color:#ec776a;" %>
+                <%= link_to zuckerl.title, zuckerl.link.present? ? zuckerl.link : region_zuckerls_url, style: "color:#ec776a;", target: '_blank' %>
               </td>
             </tr>
             <tr>

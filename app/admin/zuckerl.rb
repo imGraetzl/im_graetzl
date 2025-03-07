@@ -1,5 +1,5 @@
 ActiveAdmin.register Zuckerl do
-  menu parent: :locations
+  menu parent: :users
 
   scope :initialized, default: true
   scope :pending

@@ -10,19 +10,30 @@
     </div>
   </div>
   <div class="cardBoxContent">
-    <div class="avatar-block">
+    <% @zuckerl.user.locations.each do |location| %>
+      <div class="avatar-block" id="location_<%= location.id %>">
+        <div class="avatarImg">
+          <%= avatar_image location, size: :small, class: 'avatar img-square show-badge' %>
+        </div>
+        <div class="typetxt">
+          <div class="name"><%= location.name %></div>
+          <div class="category"><%= location&.location_category&.name %></div>
+          <div class="address">
+            <%= address_short_for(location) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="avatar-block" id="user-avatar-block">
       <div class="avatarImg">
-        <%= avatar_image @zuckerl.location, size: :small, class: 'avatar img-square' %>
+         <%= avatar_image @zuckerl.user, size: :small, class: 'avatar img-round show-badge' %>
       </div>
       <div class="typetxt">
-        <div class="name"><%= @zuckerl.location.name %></div>
-        <div class="category"><%= @zuckerl.location.location_category.name if @zuckerl.location.location_category %></div>
-        <% if @zuckerl.location.using_address? %>
-          <div class="address">
-            <%= icon_tag "location" %>
-            <%= @zuckerl.location.address_street %>
-          </div>
-        <% end %>
+        <div class="name"><%= @zuckerl.user.first_name %></div>
+        <div class="category name"><%= @zuckerl.user.last_name %></div>
+        <div class="address">
+          <%= address_short_for(@zuckerl.user) %>
+        </div>
       </div>
     </div>
     <div class="zuckerlteasertxt">
@@ -44,17 +55,8 @@
 <div class="zuckerl-keydata">
   <div class="headline">Eckdaten</div>
   <ul class="facts">
-    <li><strong>Laufzeit:</strong> <%= zuckerl_runtime(@zuckerl) %></li>
-    <li>
-      <strong>Sichtbarkeit:</strong>
-        <span data-behavior="graetzlpreview">
-          <%= @zuckerl.location.graetzl.name %>
-          <% if current_region.use_districts? %> und gesamter <%= @zuckerl.location.graetzl.district.numeric %>. Bezirk <% end %>
-        </span>
-        <span data-behavior="alldistrictspreview">
-          Ganz <%= current_region %>
-        </span>
-      </li>
+    <li><strong>Laufzeit:</strong> <span data-behavior="runtimepreview"><%= zuckerl_runtime(@zuckerl) %></span></li>
+    <li><strong>Sichtbarkeit:</strong> <span data-behavior="graetzlpreview"></span></li>
     <li><strong>Preis:</strong> <span data-behavior="pricepreview"></span> (inkl. 20% USt.) <span data-behavior="oldpricepreview"></span></li>
   </ul>
 </div>

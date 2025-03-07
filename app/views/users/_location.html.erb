@@ -39,7 +39,7 @@
         data: { confirm: 'Bist du dir sicher?' },
         method: :delete,
         class: 'btn-secondary -mint -small' %>
-      <%= link_to('Zuckerl buchen', new_location_zuckerl_path(location), class: 'btn-primary -mint -small') unless location.pending? %>
+      <%= link_to('Zuckerl buchen', new_zuckerl_path(location_id: location.id), class: 'btn-primary -mint -small') unless location.pending? %>
     </div>
   </div>
 </div>

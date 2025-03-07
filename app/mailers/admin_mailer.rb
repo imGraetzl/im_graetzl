@@ -32,7 +32,7 @@ class AdminMailer < ApplicationMailer
     @region = @zuckerl.region
 
     mail(
-      subject: "[#{@region.host_domain_name}] Buchung Zuckerl von #{@zuckerl.location.name}",
+      subject: "[#{@region.host_domain_name}] Buchung Zuckerl von #{@zuckerl.user.full_name}",
       from: platform_email("no-reply"),
       to: platform_email("wir"),
     )

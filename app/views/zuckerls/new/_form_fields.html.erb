@@ -71,40 +71,48 @@
   </div>
 </div>
 
+<div class="input-select">
+  <%= f.label :location_id do %>
+    <%= icon_tag "location" %>
+    <span>Schaufenster</span>
+  <% end %>
+  <%= f.collection_select(:location_id, current_user.locations.approved, :id, :name, {:include_blank => 'Schaufenster verknüpfen..'}, { class: "location-selector" }) %>
+</div>
+
 <div class="input-labledcheckbox">
   <%= f.label :entire_region do %>
     <%= icon_tag "map-location" %>
     <span>Sichtbarkeit</span>
   <% end %>
-  <div class="field-wrp district_visibility">
-    <div class="input-radio">
-      <%= f.radio_button :entire_region, false, data: { behavior: 'entire_region_false', price: Zuckerl.price(current_region), old_price: Zuckerl.old_price(current_region) } %>
-      <%= f.label "entire_region_false", current_region.use_districts? ?
-          "#{@location.graetzl.district.numeric}. Bezirk" : @location.graetzl %>
+  <div class="field-wrp visibility_select">
+
+    <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzln") %>">
+      <% if current_region.use_districts? %>
+        <div class="input-select">
+          <%= f.select :district_ids, district_select_options_zuckerl(@zuckerl), { selected: @zuckerl.saved_or_default_district(params.dig(:zuckerl, :district_ids)) }, { multiple: false, class: 'district-select' } %>
+        </div>
+      <% else %>
+        <div class="input-select">
+          <%= f.select :graetzl_ids, graetzl_select_options_zuckerl(@zuckerl), { selected: @zuckerl.saved_or_default_graetzl(params.dig(:zuckerl, :graetzl_ids)) }, { multiple: false, class: 'graetzl-select' } %>
+        </div>
+      <% end %>
     </div>
-    <div class="input-radio">
-      <%= f.radio_button :entire_region, true, data: { behavior: 'entire_region_true', price: Zuckerl.region_price(current_region), old_price: Zuckerl.region_old_price(current_region) } %>
-      <%= f.label "entire_region_true", "Ganz #{current_region}" %>
-    </div>
+
     <div class="description">
       <small class="graetzl">
         <% if Zuckerl.old_price(current_region) %>
           <div class="badge -small"><div class="inner">Jetzt<br>-<%= discount(Zuckerl.old_price(current_region), Zuckerl.price(current_region)) %>%</div></div>
         <% end %>
-        Dein Zuckerl läuft
-        <% if current_region.use_districts? %>
-          im gesamten <%= @location.districts.first.numeric %>. Bezirk
-        <% else %>
-          <%= t("region.#{current_region.id}.in_graetzl") %> <%= @location.graetzl %>
-        <% end %>
-        und kostet <span data-behavior="pricepreview"></span> <span data-behavior="oldpricepreview"></span>
       </small>
       <small class="entire_region">
         <% if Zuckerl.region_old_price(current_region) %>
           <div class="badge -small"><div class="inner">Jetzt<br>-<%= discount(Zuckerl.region_old_price(current_region), Zuckerl.region_price(current_region)) %>%</div></div>
         <% end %>
-        Dein Zuckerl läuft in ganz <%= current_region %> und kostet <span data-behavior="pricepreview"></span> <span data-behavior="oldpricepreview"></span>
+      </small>
+      <small>
+        Dein Zuckerl läuft <span data-behavior="gratzl_visibility"></span> und kostet <span data-behavior="pricepreview"></span> <span data-behavior="oldpricepreview"></span>
       </small>
     </div>
+    
   </div>
 </div>

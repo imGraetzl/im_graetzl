@@ -34,24 +34,19 @@
       Dein Zuckerl '<strong><%= @zuckerl.title %></strong>' läuft nun für einen Monat auf <%= t("region.#{@zuckerl.region_id}.domain_full") %>
       mit folgender Sichtbarkeit: '<strong><%= @zuckerl.visibility %></strong>'.
 
-      <% if @zuckerl.entire_region %>
-        <p>
-          <strong>Zu den Zuckerln:</strong><br/>
-          <%= link_to region_zuckerls_url(host: @zuckerl.region.host), region_zuckerls_url(host: @zuckerl.region.host), style: "color:#f48a85;" %>
-        </p>
-      <% else %>
-        <p>
-          <strong>Zu den Zuckerln im <%= @zuckerl.location.graetzl.name %>:</strong><br/>
-          <%= link_to zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), style: "color:#f48a85;" %>
-        </p>
-      <% end %>
+      <p>
+        <strong>Zu den Zuckerln:</strong><br/>
+        <%= link_to region_zuckerls_url(host: @zuckerl.region.host), region_zuckerls_url(host: @zuckerl.region.host), style: "color:#f48a85;" %>
+      </p>
 
+      <% if @zuckerl.location? %>
       <p>
         <strong>Auf deinem Schaufenster:</strong><br/>
         <%= link_to graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
       </p>
+      <% end %>
 
-      <% if @zuckerl.entire_region %>
+      <% if @zuckerl.entire_region? %>
         <p>
           Dein Zuckerl wird ausserdem im Zeitraum <%= @zuckerl.runtime %> <strong>in alle wöchentlichen Newsletter in '<%= @zuckerl.visibility.camelize(:lower) %>'</strong> eingestreut.
         </p>

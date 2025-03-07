@@ -16,7 +16,8 @@ class ZuckerlService
       metadata: {
         type: 'Zuckerl',
         zuckerl_id: zuckerl.id,
-        location_id: zuckerl.location.id
+        location_id: zuckerl.location&.id,
+        user_id: zuckerl.user.id
       },
     )
   end
@@ -77,7 +78,8 @@ class ZuckerlService
       metadata: {
         type: 'Zuckerl',
         zuckerl_id: zuckerl.id,
-        location_id: zuckerl.location.id,
+        location_id: zuckerl.location&.id,
+        user_id: zuckerl.user.id,
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
         crowd_boost_id: zuckerl.crowd_boost_id,
       },
@@ -124,7 +126,8 @@ class ZuckerlService
       metadata: {
         type: 'Zuckerl',
         zuckerl_id: zuckerl.id,
-        location_id: zuckerl.location.id,
+        location_id: zuckerl.location&.id,
+        user_id: zuckerl.user.id,
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
         crowd_boost_id: zuckerl.crowd_boost_id,
       },

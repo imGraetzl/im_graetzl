@@ -45,8 +45,8 @@ class ZuckerlInvoice
     pdf.move_down 20
 
     table_data = []
-    table_data << ["ID ", "Zuckerl für Schaufenster", "Laufzeit", "Sichtbarkeit", "Preis"]
-    table_data << [zuckerl.id, zuckerl.location.name, zuckerl.runtime, zuckerl.visibility, zuckerl.basic_price_with_currency]
+    table_data << ["ID ", "Zuckerl", "Laufzeit", "Sichtbarkeit", "Preis"]
+    table_data << [zuckerl.id, zuckerl.title.truncate(50), zuckerl.runtime, zuckerl.visibility, zuckerl.basic_price_with_currency]
     table_data << [nil, nil, nil, "(20% MwSt.)", zuckerl.tax_with_currency]
     table_data << [nil, nil, nil, "Gesamt", zuckerl.total_price_with_currency]
 
