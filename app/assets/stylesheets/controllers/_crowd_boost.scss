@@ -51,6 +51,10 @@ section.info {
 // ----- CrowdBoost Detail Page ------ //
 section.crowd_boost {
 
+  .card-grid-container {
+    max-width:1005px;
+  }
+
   .badge {
     position: absolute;
     top:-40px;

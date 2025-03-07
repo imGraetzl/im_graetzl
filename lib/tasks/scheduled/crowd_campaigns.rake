@@ -29,15 +29,15 @@ namespace :scheduled do
       CrowdCampaignService.new.close(campaign)
     end
 
-    # Send Reminder email to failed Pledges after 5 Days
-    CrowdCampaign.completed.where(enddate: 4.days.ago).find_each do |campaign|
+    # Send Reminder email to failed Pledges after X Days
+    CrowdCampaign.completed.where(enddate: 3.days.ago).find_each do |campaign|
       campaign.crowd_pledges.failed.find_each do |pledge|
         CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
       end
     end
 
     task_ends_at = Time.now
-    AdminMailer.task_info('crowd_campaigns_upkeep', 'finished', task_starts_at, task_ends_at).deliver_now
+    #AdminMailer.task_info('crowd_campaigns_upkeep', 'finished', task_starts_at, task_ends_at).deliver_now
 
   end
 
@@ -72,7 +72,7 @@ namespace :scheduled do
       end
 
       task_ends_at = Time.now
-      AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'finished', task_starts_at, task_ends_at).deliver_now  
+      #AdminMailer.task_info('crowd_campaigns_guest_newsletter', 'finished', task_starts_at, task_ends_at).deliver_now  
 
     end
     

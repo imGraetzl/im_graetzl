@@ -113,7 +113,7 @@ class SearchService
   end
 
   def search_users
-    User.registered.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct
+    User.in(@region).registered.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct
   end
 
 end

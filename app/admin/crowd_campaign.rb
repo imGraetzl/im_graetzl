@@ -4,6 +4,7 @@ ActiveAdmin.register CrowdCampaign do
 
   includes :location, :user, :comments
   actions :all, except: [:new, :create]
+  config.batch_actions = false
 
   scope :initialized, default: true
   scope :draft
@@ -11,10 +12,12 @@ ActiveAdmin.register CrowdCampaign do
   scope :pending
   scope :approved
   scope :funding
+  scope 'Payout Process', :payout
   scope :completed
+  scope 'Paid', :payout_completed
   scope :declined
   #scope :all
-  scope :guest_newsletter
+  scope 'Newsletter', :guest_newsletter
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -121,7 +124,6 @@ ActiveAdmin.register CrowdCampaign do
   end
 
   member_action :payout, method: :put do
-
     unless current_user.superadmin?
       flash[:error] = 'Keine Berechtigung für diese Aktion'
       redirect_to admin_crowd_campaigns_path
@@ -132,10 +134,8 @@ ActiveAdmin.register CrowdCampaign do
       else
         flash[:error] = 'Fehler beim Auszahlungsprozess. Bitte überprüfen ...'
       end
-
       redirect_to resource_path
     end
-    
   end
 
   permit_params :active_state, :visibility_status, :status, :guest_newsletter, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,

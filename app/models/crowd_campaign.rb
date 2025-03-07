@@ -64,6 +64,7 @@ class CrowdCampaign < ApplicationRecord
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: :disabled)) }
   scope :region_or_platform, -> { where(visibility_status: [:region, :platform]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
+  scope :payout, -> { where(transfer_status: [:payout_waiting, :payout_ready, :payout_processing, :payout_failed]) }
   scope :guest_newsletter, -> {funding.region_or_platform.where(guest_newsletter: true)}
   
   scope :by_currentness, -> {
@@ -232,7 +233,7 @@ class CrowdCampaign < ApplicationRecord
 
   def check_boosting
     if boost_approved? && crowd_boost_slot &&
-      crowd_pledges.count >= crowd_boost_slot.threshold_pledge_count &&
+      crowd_pledges.initialized.count >= crowd_boost_slot.threshold_pledge_count &&
       funding_percentage >= crowd_boost_slot.threshold_funding_percentage &&
       !crowd_boost_slot.amount_limit_reached?(self)
       return :boost_authorized
@@ -336,7 +337,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def can_destroy?
-    unless self.draft? || self.declined?
+    unless self.draft? || self.re_draft? || self.declined?
       throw :abort
     end
   end

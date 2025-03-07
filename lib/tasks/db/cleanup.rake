@@ -51,6 +51,11 @@ namespace :db do
       favorite.destroy if favorite.favoritable.nil?
     end
 
+    # Delete empty Activities (sometimes dependent destroy doesnt have effect...)
+    Activity.find_each do |activity|
+      activity.destroy if activity.subject.nil?
+    end
+
     # Reset & Update all Counter Caches to keep in Sync
 
     Group.find_each do |group|
