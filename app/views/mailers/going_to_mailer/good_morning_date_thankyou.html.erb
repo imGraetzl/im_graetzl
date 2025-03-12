@@ -1,0 +1,51 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        
+        <p>Liebe Good Morning Date Runde,</p>
+        <p>
+          wir hoffen, das Treffen war inspirierend – mit tollen Gesprächen und spannenden neuen Kontakten. Falls ihr Fotos gemacht habt, schickt sie uns gerne!
+        </p>
+        <p>
+          Es gibt noch einige <%= link_to "Good Morning Dates", "https://www.imgraetzl.at/good-morning-dates", target:"_blank", style: "color:#ec776a;" %> in anderen Bezirken. Vielleicht kennt ihr ja dort Macher*innen, die Lust haben, sich zu vernetzen? Ladet sie gerne ein! Und natürlich: Ihr seid auch herzlich willkommen!
+        </p>
+
+        <% if @coupon.present? && !@user.subscribed? %>
+
+          <p>
+            Für alle Good Morning Date Teilnehmer*innen haben wir noch etwas und zwar ein Dankeschön von unserer Seite, wir feiern nämlich heuer 10 Jahre imGrätzl!
+          </p>
+
+          <p>
+            <strong>
+            Als Dankeschön gibt es die JUHU! Fördermitgliedschaft zum Sonderpreis von 85 € (statt 100 €) – gültig bis Ende Juni 2025.
+            </strong>
+          </p>
+
+          <p>Das bekommst du als JUHU-Fördermitglied:</p>
+
+          <ul>
+            <li><strong>Ein Grätzlzuckerl</strong>: einen Monat lang <strong>wienweite Sichtbarkeit</strong> für dein Angebot in allen vier Newslettern und auf der Plattform.</li>
+            <li><strong>Ein zweites Schaufenster</strong>: ideal, wenn du auch in anderen Bezirken sichtbarer sein möchtest.</li>
+          </ul>
+
+          <p>
+            <strong>Und das Beste</strong>: Dein Beitrag sorgt dafür, dass <%= t("region.#{@user.region.id}.domain_short") %> bestehen bleibt – als Plattform in Wien, auf der Macher*innen wie du sichtbar werden, ihre Ideen verwirklichen und sich <strong>vernetzen</strong> können.
+          </p>
+
+          <p>
+            <strong>Löse deinen persönlichen Gutscheincode "</strong><strong style="color:#69a8a7;"><%= @coupon.code %></strong><strong>" für deine JUHU-Mitgliedschaft bis 30. Juni </strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst JUHU-Mitgliedschaft auswählen, dann einlösen.) Dein Abo ist natürlich jederzeit mit nur einem Klick kündbar.
+          </p>
+
+        <% end %>
+
+        <p>
+          Danke und ganz viel Freude noch mit imGrätzl<br>
+          Dein imGrätzl-Team
+        </p>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
