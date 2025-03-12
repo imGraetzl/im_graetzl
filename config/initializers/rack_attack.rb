@@ -18,4 +18,12 @@ class Rack::Attack
     req.path =~ /\/(attend|comment_post)$/ && req.get?
   end
 
+  # **BLOCKLIST: Bestimmte IP-Adressen**
+  blocklist('block specific IPs') do |req|
+    blocked_ips = [
+      '103.121.39.54',  # Scanner/Bot
+    ]
+    blocked_ips.include?(req.ip)
+  end
+
 end

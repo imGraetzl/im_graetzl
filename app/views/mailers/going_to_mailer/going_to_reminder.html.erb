@@ -88,15 +88,17 @@
   </tbody>
 </table>
 
-<% if @going_to.attendee? && @going_to.meeting.good_morning_date? %>
-  <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
-    <tr>
-      <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-        <strong>Wenn du kannst, lege doch bitte 5 € in den RaumBooster-Hut</strong>, den die Gastgeber*innen beim Treffen aufstellen – als Dankeschön für die Organisation der Good Morning Dates. 
-        Alternativ kannst du auch <%= link_to 'direkt hier', 'https://www.imgraetzl.at/crowdfunding-booster/raum-booster/charge/new', target:'_blank', style: "color:#ec776a; font-weight:bold;" %> vorab die 5 € ganz bequem online einzahlen.
-        <br><br>
-        Das Schöne daran: Jeder Beitrag fließt in den <%= link_to 'RaumBooster-Topf', 'https://www.imgraetzl.at/raumbooster', target:'_blank', style: "color:#ec776a;" %> und unterstützt die Belebung von Leerständen. Und für uns ist es eine wunderbare Wertschätzung unserer Arbeit! Vielen Dank für deine Unterstützung!
-      </td>
-    </tr>
-  </table>
+<% if false %>
+  <% if @going_to.attendee? && @going_to.meeting.good_morning_date? %>
+    <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+      <tr>
+        <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
+          <strong>Wenn du kannst, lege doch bitte 5 € in den RaumBooster-Hut</strong>, den die Gastgeber*innen beim Treffen aufstellen – als Dankeschön für die Organisation der Good Morning Dates. 
+          Alternativ kannst du auch <%= link_to 'direkt hier', 'https://www.imgraetzl.at/crowdfunding-booster/raum-booster/charge/new', target:'_blank', style: "color:#ec776a; font-weight:bold;" %> vorab die 5 € ganz bequem online einzahlen.
+          <br><br>
+          Das Schöne daran: Jeder Beitrag fließt in den <%= link_to 'RaumBooster-Topf', 'https://www.imgraetzl.at/raumbooster', target:'_blank', style: "color:#ec776a;" %> und unterstützt die Belebung von Leerständen. Und für uns ist es eine wunderbare Wertschätzung unserer Arbeit! Vielen Dank für deine Unterstützung!
+        </td>
+      </tr>
+    </table>
+  <% end %>
 <% end %>
