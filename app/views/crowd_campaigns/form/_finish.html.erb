@@ -169,13 +169,13 @@
 
       <div class="range">
         <input id="percentage" type="range" min="0" max="5" value="<%= percentage_to_value(@crowd_campaign.service_fee_percentage) %>" data-url="<%= set_percentage_crowd_campaign_path(@crowd_campaign) %>" <%= @crowd_campaign.editable? ? '' : 'disabled=true' %> /> 
-        <ul>
-          <li class="percent-0">5,0 %</li>
-          <li class="percent-1">6,0 %</li>
-          <li class="percent-2">7,0 %</li>
-          <li class="percent-3">8,0 %</li>
-          <li class="percent-4">9,0 %</li>
-          <li class="percent-5">10,0 %</li>
+        <ul class="<%= @crowd_campaign.editable? ? 'editable' : '' %>">
+          <li class="percent-0" data-value="0">5,0 %</li>
+          <li class="percent-1" data-value="1">6,0 %</li>
+          <li class="percent-2" data-value="2">7,0 %</li>
+          <li class="percent-3" data-value="3">8,0 %</li>
+          <li class="percent-4" data-value="4">9,0 %</li>
+          <li class="percent-5" data-value="5">10,0 %</li>
         </ul>
       </div>
 
@@ -183,55 +183,86 @@
       
       <div class="percent-info-container">
         <div class="percent-0 cardBox">
-          <h3>Das Minimum ist gegeben.</h3>
-          Was können wir mit <%= t("region.#{current_region.id}.domain_short") %> noch besser machen, um dich zu überzeugen?
+          <h3>Do-it-yourself</h3>
+          <div class="facts">
+            <ul>
+              <li class="check"><strong>Abdeckung Grundkosten</strong> (Transaktionsgebühren inkl. Mwst.)</li>
+              <li class="uncheck"><strong>Crowdfunding Coaching</strong><small>ab 6%</small></li>
+              <li class="uncheck"><strong>Plattformübergreifende Platzierung und Sichtbarkeit der Kampagne</strong><small>ab 6%</small></li>
+              <li class="uncheck"><strong>Prominente Darstellung der Kampagne im Newsletter</strong><small>ab 7%</small></li>
+              <li class="uncheck"><strong>Platzierung der Kampagne via Social Media</strong><small>ab 8%</small></li>
+              <li class="uncheck"><strong>Pressearbeit</strong><small>ab 9%</small></li>
+              <li class="uncheck"><strong>Widget für deine Website</strong><small>ab 10%</small></li>
+            </ul>
+          </div>
         </div>
         <div class="percent-1 cardBox">
-          <h3>Es ist ein Anfang.</h3>
-          Wie können wir dich für noch mehr Unterstützung begeistern?
+          <h3>Starter</h3>
+          <div class="facts">
+            <ul>
+              <li class="check"><strong>Abdeckung Grundkosten</strong> (Transaktionsgebühren inkl. Mwst.)</li>
+              <li class="check"><strong>Crowdfunding Coaching:</strong> Kurze individuelle Crowdfunding Einführung</li>
+              <li class="check"><strong>Plattformübergreifende Platzierung und Sichtbarkeit der Kampagne</strong></li>
+              <li class="uncheck"><strong>Prominente Darstellung der Kampagne im Newsletter</strong><small>ab 7%</small></li>
+              <li class="uncheck"><strong>Platzierung der Kampagne via Social Media</strong><small>ab 8%</small></li>
+              <li class="uncheck"><strong>Pressearbeit</strong><small>ab 9%</small></li>
+              <li class="uncheck"><strong>Widget für deine Website</strong><small>ab 10%</small></li>
+            </ul>
+          </div>
         </div>
         <div class="percent-2 cardBox">
-          <h3>Herzlichen Dank!</h3>
-          Dein Beitrag ermöglicht es uns, an <%= t("region.#{current_region.id}.domain_short") %> dran zu bleiben.
+          <h3>Booster</h3>
           <div class="facts">
-            <h3>Du bekommst von uns:</h3>
             <ul>
-              <li><strong>Sichtbarkeits-Boost:</strong> Dein Projekt wird zum Start <%= t("region.#{current_region.id}.region_wide_newsletter") %> prominent platziert, um eine breite Aufmerksamkeit zu erzielen!</li>
-              <li><strong>Exklusiver Crowdfunding Check:</strong> Profitiere von 15 Minuten individueller Beratung und erhalte wertvolle Tipps für den Erfolg deiner Kampagne.</li>
+              <li class="check"><strong>Abdeckung Grundkosten</strong> (Transaktionsgebühren inkl. Mwst.)</li>
+              <li class="check"><strong>Crowdfunding Coaching:</strong> 1 x individuelle Session Crowdfunding Grundlagen & Erfolgsstrategie</li>
+              <li class="check"><strong>Plattformübergreifende Platzierung und Sichtbarkeit der Kampagne</strong></li>
+              <li class="check"><strong>Prominente Darstellung der Kampagne im Newsletter:</strong> 1 x enthalten</li>
+              <li class="uncheck"><strong>Platzierung der Kampagne via Social Media</strong><small>ab 8%</small></li>
+              <li class="uncheck"><strong>Pressearbeit</strong><small>ab 9%</small></li>
+              <li class="uncheck"><strong>Widget für deine Website</strong><small>ab 10%</small></li>
             </ul>
           </div>
         </div>
         <div class="percent-3 cardBox">
-          <h3>1000 Dank an dich!</h3>
-          Mit jedem zusätzlichen Prozentpunkt unterstützt du <%= t("region.#{current_region.id}.domain_short") %> entscheidend.
+          <h3>Pro (unser Bestseller)</h3>
           <div class="facts">
-            <h3>Du bekommst von uns:</h3>
             <ul>
-              <li><strong>Sichtbarkeits-Boost:</strong> Dein Projekt wird zum Start <%= t("region.#{current_region.id}.region_wide_newsletter") %> prominent platziert, um eine breite Aufmerksamkeit zu erzielen!</li>
-              <li><strong>Exklusiver Crowdfunding Check:</strong> Profitiere von 15 Minuten individueller Beratung und erhalte wertvolle Tipps für den Erfolg deiner Kampagne.</li>
+              <li class="check"><strong>Abdeckung Grundkosten</strong> (Transaktionsgebühren inkl. Mwst.)</li>
+              <li class="check"><strong>Crowdfunding Coaching:</strong> 3 Sessions individuelles Crowdfunding Coaching (Kampagnen mit ausführlicher Begleitung haben eine Erfolgsquote von über 80%)</li>
+              <li class="check"><strong>Plattformübergreifende Platzierung und Sichtbarkeit der Kampagne</strong></li>
+              <li class="check"><strong>Prominente Darstellung der Kampagne im Newsletter:</strong> 2 x enthalten</li>
+              <li class="check"><strong>Platzierung der Kampagne via Social Media</strong></li>
+              <li class="uncheck"><strong>Pressearbeit</strong><small>ab 9%</small></li>
+              <li class="uncheck"><strong>Widget für deine Website</strong><small>ab 10%</small></li>
             </ul>
           </div>
         </div>
         <div class="percent-4 cardBox">
-          <h3>Alles für die Gemeinschaft!</h3>
-            Danke, dass du die Ziele von <%= t("region.#{current_region.id}.domain_short") %> so großartig unterstützt. Herzlichen Dank dafür!
+          <h3>Expert</h3>
             <div class="facts">
-              <h3>Du bekommst von uns:</h3>
-              <ul>
-              <li><strong>Sichtbarkeits-Boost:</strong> Dein Projekt wird zum Start <%= t("region.#{current_region.id}.region_wide_newsletter") %> prominent platziert, um eine breite Aufmerksamkeit zu erzielen!</li>
-              <li><strong>Exklusiver Crowdfunding Check:</strong> Profitiere von 15 Minuten individueller Beratung und erhalte wertvolle Tipps für den Erfolg deiner Kampagne.</li>
+            <ul>
+              <li class="check"><strong>Abdeckung Grundkosten</strong> (Transaktionsgebühren inkl. Mwst.)</li>
+              <li class="check"><strong>Crowdfunding Coaching:</strong> Aufbau maßgeschneiderte Erfolgsstrategie: Grundlagen, Erarbeitung Kampagnenseite, Aufbau des Buddy-Systems und Drehbuch inkl. Arbeitspakete und Zeitplan plus Begleitung der Kampagne.</li>
+              <li class="check"><strong>Plattformübergreifende Platzierung und Sichtbarkeit der Kampagne</strong></li>
+              <li class="check"><strong>Prominente Darstellung der Kampagne im Newsletter:</strong> 2 x enthalten</li>
+              <li class="check"><strong>Platzierung der Kampagne via Social Media</strong></li>
+              <li class="check"><strong>Pressearbeit</strong></li>
+              <li class="uncheck"><strong>Widget für deine Website</strong><small>ab 10%</small></li>
             </ul>
-            </div>
+          </div>
         </div>
         <div class="percent-5 cardBox">
-          <h3>Zusammen bauen wir eine starke Plattform.</h3>
-          Deine Unterstützung sichert die Zukunft von <%= t("region.#{current_region.id}.domain_short") %> und hilft uns dabei Projekte für die lokalen Macher*innen umzusetzen. Ein riesengroßes Dankeschön an dich!
+          <h3>All-in (für große Kampagnen geeignet)</h3>
           <div class="facts">
-            <h3>Du bekommst von uns:</h3>
             <ul>
-              <li><strong>Sichtbarkeits-Boost:</strong> Dein Projekt wird zum Start <%= t("region.#{current_region.id}.region_wide_newsletter") %> prominent platziert, um eine breite Aufmerksamkeit zu erzielen!</li>
-              <li><strong>3x Workshops:</strong> Erhalte drei Workshops à 45 Minuten, um mit fundiertem Wissen und praktischen Tipps deine Kampagne zum Erfolg zu führen.</li>
-              <li><strong>Premium Sichtbarkeit in unserer Community & Social Media Spotlight:</strong> Dein Projekt wird in unserer imGrätzl Community via Social Media Postings hervorgehoben.</li>
+              <li class="check"><strong>Abdeckung Grundkosten</strong> (Transaktionsgebühren inkl. Mwst.)</li>
+              <li class="check"><strong>Crowdfunding Coaching:</strong> Aufbau maßgeschneiderte Erfolgsstrategie: Grundlagen, Erarbeitung Kampagnenseite, Aufbau des Buddy-Systems und Drehbuch inkl. Arbeitspakete und Zeitplan plus Begleitung der Kampagne.</li>
+              <li class="check"><strong>Plattformübergreifende Platzierung und Sichtbarkeit der Kampagne</strong></li>
+              <li class="check"><strong>Prominente Darstellung der Kampagne im Newsletter:</strong> 3 x enthalten (inkl. redaktioneller Newsletter)</li>
+              <li class="check"><strong>Platzierung der Kampagne via Social Media</strong></li>
+              <li class="check"><strong>Pressearbeit:</strong> Öffentlichkeitsarbeit abgestimmt auf Kampagne (Social Media, Presse etc.)</li>
+              <li class="check"><strong>Widget für deine Website</strong></li>
             </ul>
           </div>
         </div>    

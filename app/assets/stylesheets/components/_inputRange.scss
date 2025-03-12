@@ -76,6 +76,9 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      &.editable li {
+        cursor: pointer;
+      }
     }
 
     li {
@@ -87,6 +90,7 @@
       &.-show {
         font-weight: bold;
         color: $color-ambient-rosa-dark;
+        cursor: default;
       }
     }
 
@@ -111,6 +115,16 @@
         text-align: left;
         margin-bottom:7px;
         &:last-of-type { margin-bottom:0px; }
+        small {
+          float:right;
+        }
+      }
+      li.check {
+        background: url(image_path('svg/icon-check.svg')) no-repeat left -3px;
+      }
+      li.uncheck {
+        background: url(image_path('svg/icon-uncheck.svg')) no-repeat left -3px;
+        color: $color-ambient-grey;
       }
     }
   }
@@ -151,6 +165,8 @@
 
 }
 
+/*
 .region-graz {
   .input-range .percent-info-container .facts { display: none; }
 }
+*/

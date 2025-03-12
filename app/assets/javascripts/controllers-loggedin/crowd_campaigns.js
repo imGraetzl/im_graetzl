@@ -187,6 +187,19 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
 
       // Slider Input Range
       if ($(".input-range").exists()) {
+
+        const slider = document.getElementById("percentage");
+        const listItems = document.querySelectorAll(".range ul.editable li");
+
+        listItems.forEach(li => {
+            li.addEventListener("click", function() {
+                const value = this.getAttribute("data-value");
+                slider.value = value;
+                // Slider Event auslösen
+                slider.dispatchEvent(new Event("input"));
+            });
+        });
+
         const blockElement = document.querySelector(".percentage-block");
         const sliderElement = document.querySelector("#percentage");
         const sliderURL = sliderElement.getAttribute('data-url');
