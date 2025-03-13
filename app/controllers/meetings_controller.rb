@@ -95,10 +95,14 @@ class MeetingsController < ApplicationController
       going_to.going_to_date = @meeting.starts_at_date
       going_to.going_to_time = @meeting.starts_at_time
     elsif params[:meeting_additional_date_id].present?
-      additional_date = MeetingAdditionalDate.find(params[:meeting_additional_date_id])
+      additional_date = @meeting.meeting_additional_dates.find(params[:meeting_additional_date_id])
       going_to.going_to_date = additional_date.starts_at_date
       going_to.going_to_time = additional_date.starts_at_time
       going_to.meeting_additional_date_id = additional_date.id
+    elsif !@meeting.meeting_additional_dates.exists?
+      # Fallback: Kein Datum ausgewählt aber nur Originaldatum vorhanden, nimm das
+      going_to.going_to_date = @meeting.starts_at_date
+      going_to.going_to_time = @meeting.starts_at_time
     end
 
     going_to.save
