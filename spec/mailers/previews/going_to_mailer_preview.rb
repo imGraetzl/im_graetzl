@@ -5,7 +5,7 @@ class GoingToMailerPreview < ActionMailer::Preview
   end
 
   def good_morning_date_thankyou
-    GoingToMailer.good_morning_date_thankyou(GoingTo.last)
+    GoingToMailer.good_morning_date_thankyou(GoingTo.first)
   end
 
 end

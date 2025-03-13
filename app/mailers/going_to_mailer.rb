@@ -19,6 +19,7 @@ class GoingToMailer < ApplicationMailer
     @user = @going_to.user
     @region = @user.region
     @coupon = Coupon.in(@region).currently_valid.where("code LIKE ?", "%GMD%").last
+    #@coupon = Coupon.last
 
     headers("X-MC-Tags" => "good-morning-date-thankyou")
 
