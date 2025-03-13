@@ -9,7 +9,7 @@ namespace :scheduled do
   desc 'Thanks to Attendees 1 Day after Good Morning Date'
   task good_morning_date_thankyou: :environment do
     GoingTo.where("going_to_date = ?", Date.today).find_each do |going_to|
-      next unless going_to.attendee? && going_to.meeting.good_morning_date?
+      next unless going_to.meeting.good_morning_date?
       GoingToMailer.good_morning_date_thankyou(going_to).deliver_later
     end
   end
