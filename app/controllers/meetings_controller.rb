@@ -65,6 +65,9 @@ class MeetingsController < ApplicationController
 
     if @meeting.save
 
+      # Update Initiator GoingTo if Meeting Initiator changed
+      @meeting.going_tos.where(role: :initiator).where.not(user_id: @meeting.user_id).update_all(user_id: @meeting.user_id) if current_user.admin_or_beta?
+
       # Create new Activity and Notifications if StartDate has changed from past into future
       if starts_at_date_before < Date.today && starts_at_date_before != @meeting.starts_at_date
         
