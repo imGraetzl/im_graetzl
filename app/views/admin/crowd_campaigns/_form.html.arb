@@ -9,6 +9,7 @@ active_admin_form_for [:admin, resource] do |f|
         #input :status, as: :select, collection: CrowdCampaign.statuses.keys, include_blank: false
         #input :slug unless f.object.new_record?
         input :visibility_status, as: :select, include_blank: false, input_html: { class: 'admin-filter-select'}
+        input :newsletter_status, as: :select, include_blank: false, input_html: { class: 'admin-filter-select'}
         input :active_state, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
         input :guest_newsletter
         input :slogan

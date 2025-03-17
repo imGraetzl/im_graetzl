@@ -17,7 +17,8 @@ ActiveAdmin.register CrowdCampaign do
   scope 'Paid', :payout_completed
   scope :declined
   #scope :all
-  scope 'Newsletter', :guest_newsletter
+  scope 'Guest NL', :guest_newsletter
+  scope 'End NL', :ending_newsletter
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -27,6 +28,7 @@ ActiveAdmin.register CrowdCampaign do
   filter :crowd_categories, input_html: { class: 'admin-filter-select'}
   filter :active_state, as: :select, collection: CrowdCampaign.active_states, input_html: { class: 'admin-filter-select'}
   filter :visibility_status, as: :select, collection: CrowdCampaign.visibility_statuses, input_html: { class: 'admin-filter-select'}
+  filter :newsletter_status, as: :select, collection: CrowdCampaign.newsletter_statuses.keys, input_html: { class: 'admin-filter-select'}
   filter :boost_status, as: :select, collection: CrowdCampaign.boost_statuses, input_html: { class: 'admin-filter-select'}
   filter :crowd_boost, collection: proc { CrowdBoost.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
 
@@ -138,7 +140,7 @@ ActiveAdmin.register CrowdCampaign do
     end
   end
 
-  permit_params :active_state, :visibility_status, :status, :guest_newsletter, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
+  permit_params :active_state, :visibility_status, :newsletter_status, :status, :guest_newsletter, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
     :startdate, :enddate, :billable, :service_fee_percentage,
     :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
     :contact_company, :vat_id, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_instagram, :contact_facebook, :contact_email, :contact_phone,

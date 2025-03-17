@@ -1,0 +1,9 @@
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to notification.crowd_campaign do %>
+    <%= cover_photo_image notification.crowd_campaign, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      Die Crowdfunding Kampagne <span class="username"><%= notification.crowd_campaign %></span> endet bald.
+    </div>
+  <% end %>
+<% end %>

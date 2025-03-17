@@ -1,0 +1,40 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px;">
+        <%= link_to crowd_campaign_url(notification.crowd_campaign), target: "_blank" do %>
+          <%= cover_photo_image notification.crowd_campaign, size: :small, style: "border-radius: 10px; width:264px; min-width:264px; float:left; margin-right:18px; margin-top:10px; margin-bottom:10px;", class: "mcnImage" %>
+        <% end %>
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; width:282px;" class="mcnImage">
+          <tr>
+            <td>
+              <h3 style="font-size:18px; font-style:normal; font-weight:normal; line-height:130%; letter-spacing:normal; margin-top:10px; margin-right:0; margin-bottom:2px;">
+                <%= link_to notification.crowd_campaign.title, crowd_campaign_url(notification.crowd_campaign), style: "color:#ec776a;", target: "_blank" %>
+              </h3>
+              <p style="margin-top:12px;">
+                Läuft noch <strong><%= notification.crowd_campaign.remaining_days > 1 ? "#{notification.crowd_campaign.remaining_days} Tage" : "#{notification.crowd_campaign.remaining_days} Tag"%></strong><br>
+                <% if notification.crowd_campaign.funding_1? || notification.crowd_campaign.over_funding_1? %>
+                  Benötigter Mindestbetrag: <strong><%= number_to_currency(notification.crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %></strong>
+                <% elsif notification.crowd_campaign.funding_2? || notification.crowd_campaign.over_funding_2?%>
+                  Benötigter Optimalbetrag: <strong><%= number_to_currency(notification.crowd_campaign.funding_2_amount, precision: 0 ,unit: "€") %></strong>
+                <% end %>
+                <br>
+                Bisher erreicht:
+              </p>
+              <% percentage_width = funding_percentage(notification.crowd_campaign) > 100 ? 100 : funding_percentage(notification.crowd_campaign) %>
+              <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
+                <tr>
+                  <td bgcolor="#f0f0f0" width="100%" style="height:24px; border-radius: 25px; padding:0px 0px 0px 0px; border-bottom:7px solid white; background-color: #f0f0f0;">
+                    <div style="height:24px; line-height:24px; border-radius: 25px; width:<%= percentage_width %>%; background-color:#83C7BD; white-space:nowrap;" nowrap="nowrap">
+                      <span style="padding-left:10px; font-size: 15px;"><strong><%= funding_percentage(notification.crowd_campaign).floor %>%</strong> (<%= number_to_currency(notification.crowd_campaign.funding_sum, precision: 0 ,unit: "€") %>)</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

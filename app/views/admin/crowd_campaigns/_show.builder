@@ -12,6 +12,7 @@ context.instance_eval do
           row(:stripe_connect_ready){|l| l.user.stripe_connect_ready}
           row(:active_state){|l| status_tag(l.active_state)}
           row(:visibility_status){|l| status_tag(l.visibility_status)}
+          row(:newsletter_status){|l| status_tag(l.newsletter_status)}
           row(:status){|l| status_tag(l.status)}
           row(:funding_status){|l| status_tag(l.funding_status)}
           row(:guest_newsletter){|l| status_tag(l.guest_newsletter)}

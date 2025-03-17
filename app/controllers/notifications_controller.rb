@@ -70,7 +70,7 @@ class NotificationsController < ApplicationController
       notifications = notifications.select do |n|
         subject = n.subject
         next true if subject.respond_to?(:entire_region) && subject.entire_region
-        next true if subject.respond_to?(:visibility_status) && ([subject.visibility_status].flatten & ["region", "platform"]).any?
+        next true if subject.respond_to?(:newsletter_status) && ([subject.newsletter_status].flatten & ["region", "platform"]).any?
         next false unless subject.present? && (subject.respond_to?(:graetzl_id) || subject.respond_to?(:graetzl) || subject.respond_to?(:graetzls))
 
         if subject.respond_to?(:graetzl_id)
