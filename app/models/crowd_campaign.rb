@@ -67,7 +67,7 @@ class CrowdCampaign < ApplicationRecord
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
   scope :payout, -> { where(transfer_status: [:payout_waiting, :payout_ready, :payout_processing, :payout_failed]) }
   scope :guest_newsletter, -> { funding.where(guest_newsletter: true) }
-  scope :ending_newsletter, -> { funding.where("service_fee_percentage >= ?", 8) }
+  scope :ending_newsletter, -> { funding.where(ending_newsletter: true) }
   scope :by_currentness, -> {
     order(Arel.sql('CASE WHEN enddate >= current_date THEN 0 WHEN funding_status != 0 THEN 1 ELSE 2 END')).
     order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.last_activity_at END) DESC, 
@@ -76,8 +76,8 @@ class CrowdCampaign < ApplicationRecord
   }
 
   after_create :set_transaction_fee
-  after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
-  #after_update :set_visibility_and_newsletter
+  #after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
+  after_update :set_visibility_and_newsletter
 
   def entire_graetzl?
     self.graetzl?
@@ -356,12 +356,14 @@ class CrowdCampaign < ApplicationRecord
 
   def set_visibility_and_newsletter
     attributes = case transaction_fee_percentage
-                when 7.0..10.0 # Ab 7.0%
-                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true }
+                when 8.0..10.0 # Ab 8.0%
+                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: true }
+                when 7.0...8.0 # Ab 7.0%
+                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: false }
                 when 6.0...7.0 # Ab 6.0% 
-                  { visibility_status: "region", newsletter_status: "graetzl", guest_newsletter: false }
+                  { visibility_status: "region", newsletter_status: "graetzl", guest_newsletter: false, ending_newsletter: false }
                 else # Ab 5.0% 
-                  { visibility_status: "graetzl", newsletter_status: "none", guest_newsletter: false }
+                  { visibility_status: "graetzl", newsletter_status: "none", guest_newsletter: false, ending_newsletter: false }
                 end
   
     update_columns(attributes)
