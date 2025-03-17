@@ -76,8 +76,7 @@ class CrowdCampaign < ApplicationRecord
   }
 
   after_create :set_transaction_fee
-  #after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
-  after_update :set_visibility_and_newsletter
+  after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
 
   def entire_graetzl?
     self.graetzl?
@@ -329,6 +328,21 @@ class CrowdCampaign < ApplicationRecord
     user&.subscribed?
   end
 
+  def set_visibility_and_newsletter
+    attributes = case transaction_fee_percentage
+                when 8.0..10.0 # Ab 8.0%
+                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: true }
+                when 7.0...8.0 # Ab 7.0%
+                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: false }
+                when 6.0...7.0 # Ab 6.0% 
+                  { visibility_status: "region", newsletter_status: "graetzl", guest_newsletter: false, ending_newsletter: false }
+                else # Ab 5.0% 
+                  { visibility_status: "graetzl", newsletter_status: "none", guest_newsletter: false, ending_newsletter: false }
+                end
+  
+    update_columns(attributes)
+  end
+
   private
 
   def smart_add_url_protocol_website
@@ -353,20 +367,5 @@ class CrowdCampaign < ApplicationRecord
     self.service_fee_percentage = self.transaction_fee_percentage
     self.save
   end
-
-  def set_visibility_and_newsletter
-    attributes = case transaction_fee_percentage
-                when 8.0..10.0 # Ab 8.0%
-                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: true }
-                when 7.0...8.0 # Ab 7.0%
-                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: false }
-                when 6.0...7.0 # Ab 6.0% 
-                  { visibility_status: "region", newsletter_status: "graetzl", guest_newsletter: false, ending_newsletter: false }
-                else # Ab 5.0% 
-                  { visibility_status: "graetzl", newsletter_status: "none", guest_newsletter: false, ending_newsletter: false }
-                end
-  
-    update_columns(attributes)
-  end  
 
 end
