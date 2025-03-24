@@ -40,7 +40,7 @@ namespace :dyno do
 
       # Worker-Dynos Dienstag zwischen 05:00 und 07:00 Uhr 2 Dynos
       if day_of_week == 'Tuesday' && hour >= 5 && hour < 7
-        scale_dyno(heroku, 'worker', 'Standard-2X', 2)
+        scale_dyno(heroku, 'worker', 'Standard-2X', 3)
       elsif day_of_week == 'Tuesday'
         scale_dyno(heroku, 'worker', 'Standard-1X', 1)
       end

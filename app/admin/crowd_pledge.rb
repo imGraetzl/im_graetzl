@@ -56,11 +56,13 @@ ActiveAdmin.register CrowdPledge do
     column(:campaign_end) { |pledge| pledge&.crowd_campaign&.enddate }
     column :crowd_campaign_id
     column(:campaign) { |pledge| pledge&.crowd_campaign&.title }
-    column(:category)  { |pledge| pledge&.crowd_campaign&.crowd_categories&.map(&:title)&.join(", ") }
+    #column(:category)  { |pledge| pledge&.crowd_campaign&.crowd_categories&.map(&:title)&.join(", ") }
+    column(:first_name) { |pledge| pledge&.user&.first_name }
+    column(:last_name) { |pledge| pledge&.user&.last_name }
     column :user_id
     column(:user_type) { |pledge| pledge&.user&.guest ? 'Guest User' : 'Registered User' }
-    column(:unique_person) { |pledge| Digest::SHA256.hexdigest(pledge&.user&.email) if pledge.user.present? }
-    column :guest_newsletter
+    #column(:unique_person) { |pledge| Digest::SHA256.hexdigest(pledge&.user&.email) if pledge.user.present? }
+    #column :guest_newsletter
     column :anonym
     column :region_id
   end
