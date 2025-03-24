@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_17_091103) do
+ActiveRecord::Schema.define(version: 2025_03_18_121541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -492,6 +492,8 @@ ActiveRecord::Schema.define(version: 2025_03_17_091103) do
     t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2
     t.bigint "crowd_boost_id"
     t.integer "comment_id"
+    t.decimal "total_overall_price", precision: 10, scale: 2
+    t.decimal "crowd_boost_charge_percentage", precision: 5, scale: 2
     t.index ["comment_id"], name: "index_crowd_pledges_on_comment_id"
     t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"

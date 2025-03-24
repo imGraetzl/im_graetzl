@@ -52,6 +52,79 @@ APP.controllers_loggedin.crowd_pledges = (function() {
           $("#flash .notice").text(flashText + ' Danach gehts weiter mit deiner Crowdfunding Unterstützung.');
         }
       }
+
+      // Slider Input Range
+      if ($(".input-range").exists()) {
+
+        const slider = document.getElementById("percentage");
+        const listItems = document.querySelectorAll(".range ul.editable li");
+
+        listItems.forEach(li => {
+            li.addEventListener("click", function() {
+                const value = this.getAttribute("data-value");
+                slider.value = value;
+                // Slider Event auslösen
+                slider.dispatchEvent(new Event("input"));
+            });
+        });
+
+        const sliderElement = document.querySelector("#percentage");
+        const sliderURL = sliderElement.getAttribute('data-url');
+        const sliderTotalPrice = sliderElement.getAttribute('data-total-price');
+        let sliderColor = "#83C7BD";
+        //let sliderColor = "#EC776A";
+
+        sliderElement.addEventListener("input", (event) => {
+            const tempSliderValue = event.target.value; 
+            const progress = (tempSliderValue / sliderElement.max) * 100;
+            sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${progress}%, #f0f0f0 ${progress}%)`;
+            percentageConverter(tempSliderValue);
+            savePercentage(tempSliderValue);
+        })
+
+        function percentageConverter(value) {
+          $("[class^='percent']").removeClass('-show');
+          value = parseFloat(value).toFixed(1);
+          value = value.toString().replace('.', '_');
+          $(".percent-"+value).addClass('-show');
+          if (parseFloat(value) === 0) { return };
+          $(".percent-info-container .cardBox").removeClass().addClass("percent-" + value + " cardBox -show");
+        }
+
+        function calculateBoostChargeForAll(totalPrice) {
+          listItems.forEach((listItem) => {
+              let boostPercentage = parseFloat(listItem.dataset.value) || 0; // Prozentwert aus data-value holen
+              let boostCharge = (totalPrice * (boostPercentage / 100.0)).toFixed(2);
+              boostCharge = parseFloat(boostCharge);
+              boostCharge = Math.ceil(boostCharge / 0.25) * 0.25;
+              listItem.querySelector("small").textContent = `${boostCharge.toFixed(2)} €`; // Mit 2 Nachkommastellen formatieren
+          });
+        }
+
+        function savePercentage(value) {
+          $.ajax({
+            url: sliderURL,
+            type: "POST",
+            data: { crowd_boost_charge_percentage: value }
+           });
+        }
+
+        function initSlider() {
+            const sliderValue = (sliderElement.value / sliderElement.max) * 100;
+            sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${sliderValue}%, #f0f0f0 ${sliderValue}%)`;
+            percentageConverter(sliderElement.value);
+        }
+
+        $(".percent-info-container .open-more").on('click', function() {
+          $('.open-more-content').slideToggle();
+        });
+
+        initSlider();
+
+      }
+
+
+
     }
 
     function initPaymentScreen() {
@@ -64,29 +137,20 @@ APP.controllers_loggedin.crowd_pledges = (function() {
     }
 
     function initAmount() {
-      /*
-      $(".calculate-price").on("focusout", function() {
-        var submit_url = $(this).data('action');
-        var donation_amount = $(this).val();
-        $.ajax({
-            type: "POST",
-            url: submit_url,
-            data: "donation_amount=" + donation_amount
-        });
-      });
-      */
-
       // Set Amount on Input
       let timeout = null;
       $(".calculate-price").on("keyup focusout", function() {
         var submit_url = $(this).data('action');
-        var donation_amount = $(this).val();
+        var amount = $(this).val();
+        var dataType = $(this).data("type"); // Data-type auslesen
+        var paramName = (dataType === "crowd_boost_charge") ? "crowd_boost_charge_amount" : "donation_amount";
+
         clearTimeout(timeout);
         timeout = setTimeout(function () {
           $.ajax({
             type: "POST",
             url: submit_url,
-            data: "donation_amount=" + donation_amount
+            data: paramName + "=" + amount
           });
         }, 750);
       });

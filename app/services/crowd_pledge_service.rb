@@ -6,6 +6,10 @@ class CrowdPledgeService
 
     CrowdCampaignMailer.crowd_pledge_incomplete(crowd_pledge).deliver_later(wait: 5.minutes)
 
+    if crowd_pledge.crowd_boost_charge_amount && crowd_pledge.crowd_boost_charge_amount > 0
+      CrowdBoostService.new.create_charge_from(crowd_pledge)
+    end
+
     stripe_customer_id = get_stripe_customer_id(crowd_pledge)
     Stripe::SetupIntent.create(
       customer: stripe_customer_id,
@@ -93,7 +97,9 @@ class CrowdPledgeService
       metadata: {
         type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
-        campaign_id: crowd_pledge.crowd_campaign.id
+        campaign_id: crowd_pledge.crowd_campaign.id,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
+        crowd_boost_id: crowd_pledge.crowd_boost_id
       },
       off_session: true,
       confirm: true,
@@ -138,7 +144,9 @@ class CrowdPledgeService
       metadata: {
         type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
-        campaign_id: crowd_pledge.crowd_campaign.id
+        campaign_id: crowd_pledge.crowd_campaign.id,
+        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
+        crowd_boost_id: crowd_pledge.crowd_boost_id
       },
     )
   end

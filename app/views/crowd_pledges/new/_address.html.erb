@@ -20,6 +20,8 @@
     <%= f.hidden_field :answer %>
     <%= f.hidden_field :crowd_reward_id %>
     <%= f.hidden_field :donation_amount %>
+    <%= f.hidden_field :crowd_boost_charge_amount %>
+    <%= f.hidden_field :crowd_boost_charge_percentage %>
 
     <div class="input-field">
       <%= f.label :email do %>
@@ -64,6 +66,7 @@
       </div>
     </div>
 
+
     <div class="input-checkbox">
       <%= f.check_box :anonym %>
       <%= f.label :anonym, 'Ich möchte anonym bleiben und nicht als Unterstützer*in gelistet werden.' %>
@@ -80,6 +83,37 @@
       <%= f.check_box :terms %>
       <%= f.label :terms, ("Ich akzeptiere die #{link_to 'Nutzungsbestimmungen', info_agb_path} und bestätige, dass ich mindestens 16 Jahre alt bin.").html_safe %>
     </div>
+
+    
+    <div class="input-field percentage-block">
+      <div class="input-range -mint">
+        <div class="range">
+          <input id="percentage" type="range" min="0" max="15" step="2.5" data-total-price="<%= @crowd_pledge.total_price %>" value="<%= @crowd_pledge.crowd_boost_charge_percentage %>" data-url="<%= url_for([:calculate_price, @crowd_campaign, :crowd_pledges, crowd_reward_id: @crowd_pledge.crowd_reward&.id, donation_amount: @crowd_pledge.donation_amount]) %>" /> 
+          <ul class="editable">
+            <li class="percent-0_0" data-value="0.0">0%</li>
+            <li class="percent-2_5" data-value="2.5">2,5%</li>
+            <li class="percent-5_0" data-value="5.0">5%</li>
+            <li class="percent-7_5" data-value="7.5">7,5%</li>
+            <li class="percent-10_0" data-value="10.0">10%</li>
+            <li class="percent-12_5" data-value="12.5">12,5%</li>
+            <li class="percent-15_0" data-value="15.0">15%</li>
+          </ul>
+        </div>
+        <div class="percent-info-container">
+          <div class="cardBox">
+            <div class="plain">
+              <h3>Freiwillig - Wenn du kannst!</h3>
+              Durch deine Unterstützung von <span class="charge_percent"><%= @crowd_pledge.crowd_boost_charge_percentage %></span>% befüllst du zusätzlich unseren Fördertopf für Leerstandsaktivierung in Wien mit <span class="charge_amount"><%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: "€") %></span>.
+              - <%= link_to 'Mehr Infos', 'javascript:', class: 'open-more' %>
+              <div class="open-more-content">
+                Dieser Topf wird laufend von der Community befüllt und zweimal im Jahr an sorgfältig ausgewählte Crowdfunding-Projekte vergeben, die leerstehende Räume in Wien mit neuem Leben füllen möchten. Danke für deinen Beitrag!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <%= submit_tag "Weiter", class: 'btn-primary' %>
   <% end %>

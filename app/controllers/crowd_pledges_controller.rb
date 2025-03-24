@@ -5,6 +5,7 @@ class CrowdPledgesController < ApplicationController
   def new
     @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
     @crowd_pledge.assign_attributes(current_user_params) if current_or_session_guest_user
+    @crowd_pledge.crowd_boost_charge_percentage = 7.5
     @crowd_pledge.calculate_price
   end
 
@@ -13,6 +14,10 @@ class CrowdPledgesController < ApplicationController
 
     if @crowd_pledge.crowd_reward&.fully_claimed?
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
+    end
+
+    if @crowd_pledge.crowd_boost_charge_amount.to_i > 0
+      @crowd_pledge.crowd_boost_id = current_region.default_crowd_boost_id
     end
 
     @crowd_pledge.calculate_price
@@ -161,7 +166,7 @@ class CrowdPledgesController < ApplicationController
   end
 
   def initial_pledge_params
-    params.permit(:crowd_reward_id, :donation_amount, :answer)
+    params.permit(:crowd_reward_id, :donation_amount, :crowd_boost_charge_amount, :crowd_boost_charge_percentage, :answer)
   end
 
   def current_user_params
@@ -176,7 +181,7 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
-      :crowd_reward_id, :donation_amount, :anonym, :terms, :guest_newsletter,
+      :crowd_reward_id, :donation_amount, :crowd_boost_charge_amount, :crowd_boost_charge_percentage, :anonym, :terms, :guest_newsletter,
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer,
       :user_agent
     )

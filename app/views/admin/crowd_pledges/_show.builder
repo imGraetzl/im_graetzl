@@ -9,6 +9,7 @@ context.instance_eval do
           end
           row(:status){|r| status_tag(r.status)}
           row :debited_at
+          row :total_overall_price
           row :total_price
           row :donation_amount
           row :inclomplete_reminder_sent_at
@@ -34,7 +35,9 @@ context.instance_eval do
       end
       panel 'Crowd Boost Charge' do
         attributes_table_for crowd_pledge do
+          row :crowd_boost_charge_percentage
           row :crowd_boost_charge_amount
+          row :crowd_boost_id
         end
       end
     end

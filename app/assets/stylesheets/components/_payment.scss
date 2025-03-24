@@ -218,6 +218,17 @@
 }
 
 .crowd-pledges-page {
+  &.address-screen {
+    .percentage-block {
+      width:100%;
+      .input-range {
+        width:100%;
+        .range {
+          margin-top:25px;
+        }
+      }
+    }
+  }
   &.summary-screen {
     .pledge-comment-container {
       margin-top:20px;

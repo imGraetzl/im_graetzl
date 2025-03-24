@@ -1,1 +1,5 @@
 $("#calculated-price-container").html("<%= j render('crowd_pledges/new/calculated_price') %>");
+$("input[name='crowd_pledge[crowd_boost_charge_amount]']").val(<%= @crowd_pledge.crowd_boost_charge_amount %>);
+$("input[name='crowd_pledge[crowd_boost_charge_percentage]']").val(<%= @crowd_pledge.crowd_boost_charge_percentage %>);
+$(".charge_amount").text("<%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: '€') %>");
+$(".charge_percent").text("<%= @crowd_pledge.crowd_boost_charge_percentage %>");

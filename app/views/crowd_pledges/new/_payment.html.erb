@@ -28,7 +28,7 @@
 
   <div class="footer-txt payment-method-info card">
     <strong>Im ersten Schritt wird deine Kreditkarte registriert, indem <em>0,00 €</em> reserviert werden.</strong><br>
-    Der Gesamtbetrag (<%= number_to_currency(@crowd_pledge.total_price, unit: "€") %>) wird erst nach Ende der Finanzierungsphase und nur wenn das Mindestziel erreicht wurde, von deiner Kreditkarte abgebucht. Sollte die Crowdfundingkampagne scheitern, so wird dir auch nichts abgebucht.
+    Der Gesamtbetrag (<%= number_to_currency(@crowd_pledge.total_overall_price, unit: "€") %>) wird erst nach Ende der Finanzierungsphase und nur wenn das Mindestziel erreicht wurde, von deiner Kreditkarte abgebucht. Sollte die Crowdfundingkampagne scheitern, so wird dir auch nichts abgebucht.
 
     <% if @crowd_pledge.total_price > 500 %>
     <br><small><em><strong>Info:</strong> Für Unterstützungen bis 500,00 €, steht dir auch die Zahlungsform Lastschrift zur Verfügung.</em></small>
@@ -36,7 +36,7 @@
   </div>
 
   <div class="footer-txt payment-method-info sepa_debit">
-    Der Gesamtbetrag deiner Unterstützung (<%= number_to_currency(@crowd_pledge.total_price, unit: "€") %>) wird erst nach Ende der Finanzierungsphase und nur wenn das Mindestziel erreicht wurde, von deinem Konto eingezogen. Sollte die Crowdfundingkampagne scheitern, so wird dir auch nichts abgebucht.
+    Der Gesamtbetrag deiner Unterstützung (<%= number_to_currency(@crowd_pledge.total_overall_price, unit: "€") %>) wird erst nach Ende der Finanzierungsphase und nur wenn das Mindestziel erreicht wurde, von deinem Konto eingezogen. Sollte die Crowdfundingkampagne scheitern, so wird dir auch nichts abgebucht.
     <br>
     <strong>Die Abbuchung erfolgt druch: PPRO Payment Services S.A. (<%= @crowd_pledge.crowd_campaign.region.host_domain_name.upcase %> by Stripe via PPRO)</strong><br>
     <div class="legal">

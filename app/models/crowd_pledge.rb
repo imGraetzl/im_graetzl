@@ -8,6 +8,7 @@ class CrowdPledge < ApplicationRecord
 
   before_create :set_region
   before_save :normalize_email
+  after_update :update_crowd_boost_charge, if: -> { crowd_boost_charge.present? && saved_change_to_status? }
 
   validates :email, format: { with: Devise.email_regexp }
   validates_presence_of :email, :contact_name
@@ -43,12 +44,24 @@ class CrowdPledge < ApplicationRecord
     super if val.to_i >= 0
   end
 
+  def crowd_boost_charge_amount=(val)
+    super if val.to_i >= 0
+  end
+
   def email=(val)
     super(val&.strip.presence)
   end
 
+  def total_overall_price
+    super || total_price + (crowd_boost_charge_amount || 0).to_i
+  end  
+
   def calculate_price
     self.total_price = (crowd_reward&.amount || 0) + donation_amount.to_i
+    boost_percentage = self.crowd_boost_charge_percentage.to_f
+    self.crowd_boost_charge_amount = (self.total_price * (boost_percentage / 100.0)).round(2)
+    self.crowd_boost_charge_amount = (self.crowd_boost_charge_amount / 0.25).ceil * 0.25
+    self.total_overall_price = self.total_price + self.crowd_boost_charge_amount
   end
 
   def contact_name_and_type
@@ -75,6 +88,13 @@ class CrowdPledge < ApplicationRecord
 
   def normalize_email
     self.email = email.strip.downcase if email.present?
+  end
+
+  def update_crowd_boost_charge
+    self.crowd_boost_charge.update(
+      payment_status: self.status,
+      debited_at: self.debited_at,
+    )
   end
 
 end
