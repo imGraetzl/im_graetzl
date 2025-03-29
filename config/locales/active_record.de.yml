@@ -552,6 +552,9 @@ de:
           assistance: Zeit
           room: Raum
       crowd_pledge:
+        crowd_boost_charge_amount: Charge Amount
+        total_overall_price: Total Overall
+        total_price: Gesamtbetrag
         contact_name: Name
         donation_amount: Freie Unterstützung
         terms: Nutzungsbedingungen
