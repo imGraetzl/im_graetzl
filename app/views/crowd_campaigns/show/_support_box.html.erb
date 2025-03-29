@@ -12,7 +12,12 @@
           <%= label_tag :donation_amount do %>
             <%= icon_tag "currency-euro" %>
           <% end %>
-          <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Dein Betrag', required: true %>
+          <%= f.number_field :donation_amount,
+            placeholder: 'Dein Betrag', 
+            class: 'amount', 
+            maxlength: 5, 
+            inputmode: "decimal", 
+            required: true %>
         </div>
         <%= f.submit 'Jetzt unterstützen', class: 'btn-primary' %>
       <% end %>

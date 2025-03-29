@@ -1,6 +1,5 @@
 class CrowdPledgesController < ApplicationController
   before_action :set_active_campaign, only: [:new, :create, :login, :calculate_price, :choose_amount]
-  before_action :set_crowd_pledge, only: [:crowd_boost_charge, :update_crowd_boost_charge, :summary, :pledge_comment]
   before_action :manage_guest_user_session
 
   def new
@@ -87,12 +86,17 @@ class CrowdPledgesController < ApplicationController
   end
 
   def crowd_boost_charge
+    @crowd_pledge = CrowdPledge.find(params[:id])
+    return redirect_to [:summary, @crowd_pledge] if @crowd_pledge.saved_charge? || !@crowd_pledge.authorized?
+
     @crowd_campaign = @crowd_pledge.crowd_campaign
-    return redirect_to summary_crowd_pledge_path(@crowd_pledge) if @crowd_pledge.has_charge?
     @crowd_pledge.calculate_price
   end
 
   def update_crowd_boost_charge
+    @crowd_pledge = CrowdPledge.find(params[:id])
+    return redirect_to [:summary, @crowd_pledge] unless @crowd_pledge.authorized?
+
     if @crowd_pledge.update(crowd_boost_charge_params)
       CrowdBoostService.new.create_charge_from(@crowd_pledge, :authorized) if @crowd_pledge.has_charge?
       CrowdCampaignMailer.crowd_pledge_authorized(@crowd_pledge).deliver_now
@@ -103,9 +107,11 @@ class CrowdPledgesController < ApplicationController
   end
 
   def summary
+    @crowd_pledge = CrowdPledge.find(params[:id])
   end
 
   def pledge_comment
+    @crowd_pledge = CrowdPledge.find(params[:id])
     @comment = Comment.new(comment_params)
     @comment.user = @crowd_pledge.user
 
@@ -186,13 +192,6 @@ class CrowdPledgesController < ApplicationController
         error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."
       }
     end
-  end
-
-  def set_crowd_pledge
-    user = current_or_session_guest_user
-    return head :not_found unless user
-
-    @crowd_pledge = user.crowd_pledges.find(params[:id])
   end
 
   def initial_pledge_params
