@@ -23,6 +23,12 @@ class CrowdDonationPledgesController < ApplicationController
 
   def choice
     @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
+    
+    unless @crowd_campaign.crowd_donations.exists?(id: @crowd_donation_pledge.crowd_donation_id)
+      flash[:notice] = "Ausgewählte Material- Zeit- oder Raumspende konnte nicht gefunden werden.."
+      return redirect_to @crowd_campaign
+    end    
+
     @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
