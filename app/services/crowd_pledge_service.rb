@@ -31,6 +31,7 @@ class CrowdPledgeService
       payment_card_last4: payment_method_last4(setup_intent.payment_method),
       payment_wallet: payment_wallet(setup_intent.payment_method),
       status: 'authorized',
+      authorized_at: Time.current
     )
 
     crowd_pledge.crowd_reward&.increment!(:claimed)
