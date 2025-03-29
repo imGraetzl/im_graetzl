@@ -44,6 +44,10 @@ class CrowdPledge < ApplicationRecord
     crowd_boost_charge_amount.to_i > 0
   end
 
+  def saved_charge?
+    crowd_boost_charge_amount.present?
+  end
+
   def unsubscribe_code
     self.created_at.to_i
   end
