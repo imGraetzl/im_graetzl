@@ -39,19 +39,6 @@
     }
   }
 
-  &.-mint {
-    input[type="range"]::-webkit-slider-thumb{
-      background-color: $color-ambient-mint-dark;
-    }
-    input[type="range"]::-moz-range-thumb {
-      background-color: $color-ambient-rosa-dark;
-    }
-    .range li.-show {
-      //color: $color-ambient-mint-dark !important;
-      @include font-size-primaryFont('large');
-    }
-  }
-
   /* Hover, active & focus Thumb: Webkit */
 
   input[type="range"]::-webkit-slider-thumb:hover {
@@ -140,25 +127,6 @@
         color: $color-ambient-grey;
       }
     }
-    .plain {
-      h3 {
-        margin-bottom:5px;
-      }
-      font-weight: normal;
-      .charge_amount {
-        font-weight: bold;
-      }
-      .open-more {
-        color: $color-font-primary;
-      }
-      .open-more-content {
-        //@include font-size-primaryFont('small');
-        display: none;
-        border-top:1px solid rgba($color-ambient-mint, 0.25);
-        margin-top:10px;
-        padding-top:10px;
-      }
-    }
   }
 
   .cardBox {
@@ -192,36 +160,6 @@
       &.percent-5::before {
         left:unset;
         right:6px;
-      }
-      // CrowdPledge
-      &.percent-2_5::before {
-        left: calc(16.67% - 6px);
-      }
-      &.percent-5_0::before {
-        left: calc(33.33% - 12px);
-      }
-      &.percent-7_5::before {
-        left: calc(50.00% - 18px);
-      }
-      &.percent-10_0::before {
-        left: calc(66.67% - 24px);
-      }
-      &.percent-12_5::before {
-        left: calc(83.33% - 24px);
-      }
-      &.percent-15_0::before {
-        left:unset;
-        right:6px;
-      }
-    }
-  }
-  .-up {
-    .cardBox {
-      &:before {
-        border:unset;
-        @include triangleSingle($direction: "down", $color: $color-ambient-mint-light, $size: 15px);
-        top: unset;
-        bottom: -15px;
       }
     }
   }

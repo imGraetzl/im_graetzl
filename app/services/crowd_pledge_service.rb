@@ -6,10 +6,6 @@ class CrowdPledgeService
 
     CrowdCampaignMailer.crowd_pledge_incomplete(crowd_pledge).deliver_later(wait: 5.minutes)
 
-    if crowd_pledge.crowd_boost_charge_amount && crowd_pledge.crowd_boost_charge_amount > 0
-      CrowdBoostService.new.create_charge_from(crowd_pledge)
-    end
-
     stripe_customer_id = get_stripe_customer_id(crowd_pledge)
     Stripe::SetupIntent.create(
       customer: stripe_customer_id,
@@ -39,7 +35,7 @@ class CrowdPledgeService
 
     crowd_pledge.crowd_reward&.increment!(:claimed)
 
-    CrowdCampaignMailer.crowd_pledge_authorized(crowd_pledge).deliver_later
+    CrowdCampaignMailer.crowd_pledge_authorized(crowd_pledge).deliver_later(wait: 2.minutes)
     ActionProcessor.track(crowd_pledge, :create)
 
     case crowd_pledge.crowd_campaign.check_boosting
@@ -91,13 +87,14 @@ class CrowdPledgeService
       customer: crowd_pledge.stripe_customer_id,
       payment_method_types: available_payment_methods(crowd_pledge),
       payment_method: crowd_pledge.stripe_payment_method_id,
-      amount: (crowd_pledge.total_price * 100).to_i,
+      amount: (crowd_pledge.total_overall_price * 100).to_i,
       currency: 'eur',
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
       metadata: {
         type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id,
+        total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
         crowd_boost_id: crowd_pledge.crowd_boost_id
       },
@@ -118,7 +115,16 @@ class CrowdPledgeService
   end
 
   def payment_succeeded(crowd_pledge, payment_intent)
-    crowd_pledge.update(status: 'debited', debited_at: Time.current)
+
+    charge = payment_intent.charges.data.first
+    balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+    stripe_fee = balance_transaction.fee.to_d / 100
+
+    crowd_pledge.update(
+      status: 'debited',
+      debited_at: Time.current,
+      stripe_fee: stripe_fee
+    )
 
     # Maybe send crowd_pledge_debited email here?
     { success: true }
@@ -137,7 +143,7 @@ class CrowdPledgeService
     stripe_customer_id = get_stripe_customer_id(crowd_pledge)
     Stripe::PaymentIntent.create(
       customer: stripe_customer_id,
-      amount: (crowd_pledge.total_price * 100).to_i,
+      amount: (crowd_pledge.total_overall_price * 100).to_i,
       currency: 'eur',
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
       payment_method_types: retry_payment_methods(crowd_pledge),
@@ -145,6 +151,7 @@ class CrowdPledgeService
         type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id,
+        total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
         crowd_boost_id: crowd_pledge.crowd_boost_id
       },

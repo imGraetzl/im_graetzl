@@ -12,21 +12,23 @@
 
     <ul class="pricing-summary">
       <% if @crowd_pledge.crowd_reward %>
-        <li>
+        <li class="amount-reward">
           <div class="cost"><%= number_to_currency(@crowd_pledge.crowd_reward.amount, unit: "€") %></div>
           <div class="costname">Dein ausgewähltes Dankeschön</div>
         </li>
       <% end %>
-      <li>
+      <li class="amount-donation">
         <div class="cost"><%= number_to_currency(@crowd_pledge.donation_amount.to_i, unit: "€") %></div>
         <div class="costname">Freie Unterstützung</div>
       </li>
-      <% if @crowd_pledge.crowd_boost_charge_amount.to_f > 0 %>
-        <li class="lined">
-          <div class="cost"><%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: "€") %></div>
-          <div class="costname">Fördertopf Spende</div>
-        </li>
-      <% end %>
+      <li class="amount-total">
+        <div class="cost"><%= number_to_currency(@crowd_pledge.total_price.to_i, unit: "€") %></div>
+        <div class="costname">Deine Crowdfunding Unterstützung</div>
+      </li>
+      <li class="lined amount-boost">
+        <div class="cost"><%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: "€") %></div>
+        <div class="costname">Fördertopf-Spende</div>
+      </li>
       <li class="sum">
         <div class="cost"><%= number_to_currency(@crowd_pledge.total_overall_price, unit: "€") %></div>
         <div class="costname">

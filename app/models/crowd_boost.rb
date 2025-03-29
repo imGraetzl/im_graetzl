@@ -16,6 +16,8 @@ class CrowdBoost < ApplicationRecord
   before_destroy :can_destroy?
   validates_presence_of :title
 
+  scope :pledge_charge, -> { where(pledge_charge: true) }
+
   def chargeable?
     charge_enabled? || charge_call?
   end

@@ -4,9 +4,9 @@ APP.controllers_loggedin.crowd_pledges = (function() {
       if      ($(".crowd-pledges-page.amount-screen").exists())  {initAmountScreen();}
       else if ($(".crowd-pledges-page.address-screen").exists()) {initAddressScreen();}
       else if ($(".crowd-pledges-page.payment-screen").exists()) {initPaymentScreen();}
+      else if ($(".crowd-pledges-page.crowd-boost-charge-screen").exists()) {initBoostChargeScreen();}
       else if ($(".crowd-pledges-page.detail-screen").exists()) {initDetailScreen();}
       else if ($(".crowd-pledges-page.change-payment-screen").exists()) {initPaymentChangeScreen();}
-
     }
 
     function initAmountScreen() {
@@ -40,7 +40,6 @@ APP.controllers_loggedin.crowd_pledges = (function() {
 
     function initAddressScreen() {
       APP.components.tabs.setTab('step2');
-      initAmount();
 
       // Change Wording of Notice Message for CrowdPledge Registrations
       if ($("#flash .notice").exists()) {
@@ -52,78 +51,114 @@ APP.controllers_loggedin.crowd_pledges = (function() {
           $("#flash .notice").text(flashText + ' Danach gehts weiter mit deiner Crowdfunding Unterstützung.');
         }
       }
+    }
 
-      // Slider Input Range
-      if ($(".input-range").exists()) {
+    function initBoostChargeScreen() {
 
-        const slider = document.getElementById("percentage");
-        const listItems = document.querySelectorAll(".range ul.editable li");
+      const calculateURL = document.querySelector("#charge-amount-radios").dataset.url;
+      const systemRadios = document.querySelectorAll('.system-radios input[name="crowd_pledge[crowd_boost_charge_amount]"]');
+      const customWrapper = document.querySelector(".custom-amount-option");
+      const customInput = document.getElementById('custom_crowd_boost_charge_amount');
+      const customRadio = document.getElementById('crowd_pledge_amount_custom');
 
-        listItems.forEach(li => {
-            li.addEventListener("click", function() {
-                const value = this.getAttribute("data-value");
-                slider.value = value;
-                // Slider Event auslösen
-                slider.dispatchEvent(new Event("input"));
-            });
-        });
+      let saveTimeout = null;
 
-        const sliderElement = document.querySelector("#percentage");
-        const sliderURL = sliderElement.getAttribute('data-url');
-        const sliderTotalPrice = sliderElement.getAttribute('data-total-price');
-        let sliderColor = "#83C7BD";
-        //let sliderColor = "#EC776A";
-
-        sliderElement.addEventListener("input", (event) => {
-            const tempSliderValue = event.target.value; 
-            const progress = (tempSliderValue / sliderElement.max) * 100;
-            sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${progress}%, #f0f0f0 ${progress}%)`;
-            percentageConverter(tempSliderValue);
-            savePercentage(tempSliderValue);
-        })
-
-        function percentageConverter(value) {
-          $("[class^='percent']").removeClass('-show');
-          value = parseFloat(value).toFixed(1);
-          value = value.toString().replace('.', '_');
-          $(".percent-"+value).addClass('-show');
-          if (parseFloat(value) === 0) { return };
-          $(".percent-info-container .cardBox").removeClass().addClass("percent-" + value + " cardBox -show");
-        }
-
-        function calculateBoostChargeForAll(totalPrice) {
-          listItems.forEach((listItem) => {
-              let boostPercentage = parseFloat(listItem.dataset.value) || 0; // Prozentwert aus data-value holen
-              let boostCharge = (totalPrice * (boostPercentage / 100.0)).toFixed(2);
-              boostCharge = parseFloat(boostCharge);
-              boostCharge = Math.ceil(boostCharge / 0.25) * 0.25;
-              listItem.querySelector("small").textContent = `${boostCharge.toFixed(2)} €`; // Mit 2 Nachkommastellen formatieren
-          });
-        }
-
-        function savePercentage(value) {
-          $.ajax({
-            url: sliderURL,
-            type: "POST",
-            data: { crowd_boost_charge_percentage: value }
-           });
-        }
-
-        function initSlider() {
-            const sliderValue = (sliderElement.value / sliderElement.max) * 100;
-            sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${sliderValue}%, #f0f0f0 ${sliderValue}%)`;
-            percentageConverter(sliderElement.value);
-        }
-
-        $(".percent-info-container .open-more").on('click', function() {
-          $('.open-more-content').slideToggle();
-        });
-
-        initSlider();
-
+      function handleDelayedSave(inputValue) {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(function () {
+          saveBoostAmount(inputValue);
+        }, 750);
       }
 
+      function handleInput(event) {
+        
+        let value = event.target.value;
 
+        // Punkt in Komma umwandeln (z. B. 12.3 → 12,3)
+        value = value.replace(/\./g, ',');
+
+        // Alle Zeichen außer Ziffern und Komma entfernen
+        value = value.replace(/[^0-9,]/g, '');
+
+        // Split bei Komma (max. 1 erlaubt)
+        const parts = value.split(',');
+
+        const beforeComma = parts[0].slice(0, 4); // Max. 4 Stellen vor dem Komma
+        const afterComma = parts[1] ? parts[1].slice(0, 2) : ''; // Max. 2 Stellen nach dem Komma (optional)
+
+        const newValue = parts.length > 1 ? `${beforeComma},${afterComma}` : beforeComma;
+
+        event.target.value = newValue;
+        customRadio.value = newValue;
+
+        handleDelayedSave(newValue);
+      }
+
+      function handleFocusIn() {
+        customRadio.checked = true;
+        customInput.value = '';
+        customRadio.value = '';
+        saveBoostAmount(0);
+      }
+
+      function handleFocusOut() {
+        let value = customInput.value;
+      
+        if (!value) return;
+      
+        // Punkt durch Komma ersetzen (für Sicherheit)
+        value = value.replace(/\./g, ',');
+      
+        // Nur Ziffern und max. 1 Komma
+        value = value.replace(/[^0-9,]/g, '');
+        const parts = value.split(',');
+      
+        let beforeComma = parts[0].slice(0, 4); // Max 4 Ziffern
+        if (!beforeComma) beforeComma = '0';
+
+        // Führende Nullen entfernen (z. B. 0001 → 1)
+        beforeComma = beforeComma.replace(/^0+/, '') || '0';
+            
+        customInput.value = `${beforeComma},00`;
+      }
+
+      customInput.addEventListener("input", handleInput);
+      customInput.addEventListener("focusin", handleFocusIn);
+      customInput.addEventListener("focusout", handleFocusOut);
+
+      customInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          customInput.blur();
+        }
+      });
+
+      customWrapper.addEventListener("click", function () {
+        customInput.focus();
+      });
+
+      systemRadios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          if (radio !== customRadio) {
+            customInput.value = '';
+          }
+          saveBoostAmount(radio.value);
+        });
+      });
+
+      const initiallyChecked = document.querySelector('input[name="crowd_pledge[crowd_boost_charge_amount]"]:checked');
+      if (initiallyChecked) {
+        saveBoostAmount(initiallyChecked.value);
+      }
+
+      function saveBoostAmount(value) {
+        const amount = value && value.trim() !== '' ? value : '0';
+        $.ajax({
+          url: calculateURL,
+          type: "POST",
+          data: { crowd_boost_charge_amount: amount }
+         });
+      }
 
     }
 

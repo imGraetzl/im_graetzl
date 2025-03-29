@@ -136,10 +136,9 @@ class CrowdCampaignMailer < ApplicationMailer
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @region = @crowd_campaign.region
 
-    already_sent = @crowd_campaign.crowd_pledges.where(email: crowd_pledge.email).where.not(inclomplete_reminder_sent_at: nil).any?
-    #already_pledged = @crowd_campaign.crowd_pledges.authorized.where(email: crowd_pledge.email).any?
-    return if already_sent || !crowd_pledge.incomplete?
-    crowd_pledge.update(inclomplete_reminder_sent_at: Time.current)
+    already_sent = @crowd_campaign.crowd_pledges.where(email: @crowd_pledge.email).where.not(inclomplete_reminder_sent_at: nil).any?
+    return if already_sent || !@crowd_pledge.incomplete?
+    @crowd_pledge.update_column(:inclomplete_reminder_sent_at, Time.current)
 
     headers("X-MC-Tags" => "crowd-pledge-incomplete")
     mail(
@@ -151,6 +150,8 @@ class CrowdCampaignMailer < ApplicationMailer
   end
 
   def crowd_pledge_authorized(crowd_pledge)
+    return if crowd_pledge.confirmation_sent_at.present?
+
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @region = @crowd_campaign.region
@@ -160,6 +161,7 @@ class CrowdCampaignMailer < ApplicationMailer
       from: platform_email('no-reply'),
       to: @crowd_pledge.email,
     )
+    @crowd_pledge.update_column(:confirmation_sent_at, Time.current)
   end
 
   def crowd_pledge_goal_1_reached(crowd_pledge)

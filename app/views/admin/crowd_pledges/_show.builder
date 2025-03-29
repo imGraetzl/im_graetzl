@@ -8,11 +8,14 @@ context.instance_eval do
             link_to('User Unterstützungsdetail Seite','/crowd_pledges/'+crowd_pledge.id+'/details', target: 'blank')
           end
           row(:status){|r| status_tag(r.status)}
+          row :inclomplete_reminder_sent_at
+          row :confirmation_sent_at
           row :debited_at
+          row :stripe_fee
           row :total_overall_price
+          row :crowd_boost_charge_amount
           row :total_price
           row :donation_amount
-          row :inclomplete_reminder_sent_at
         end
         attributes_table_for crowd_pledge.crowd_reward do
           row :amount
@@ -35,9 +38,9 @@ context.instance_eval do
       end
       panel 'Crowd Boost Charge' do
         attributes_table_for crowd_pledge do
-          row :crowd_boost_charge_percentage
           row :crowd_boost_charge_amount
-          row :crowd_boost_id
+          row :crowd_boost
+          row :crowd_boost_charge
         end
       end
     end

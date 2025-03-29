@@ -36,7 +36,7 @@
     <div class="introSide">
 
       <% if current_region.raum_booster_open? %>
-        <% @crowd_boost = CrowdBoost.find(current_region.default_crowd_boost_id) %>
+        <% @crowd_boost = CrowdBoost.where(id: current_region.default_crowd_boost_id).last %>
         <div class="paperCard -lightblue -illuteaser -ideen -crowd_boost -cord1RT">
           <div class="wrp">
             <h3>Reiche jetzt dein Vorhaben für den RaumBooster ein!</h3>

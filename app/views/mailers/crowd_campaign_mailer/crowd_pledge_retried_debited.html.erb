@@ -17,7 +17,7 @@
           </p>
           <p>
             <strong>So wirst du den Einzug auf deiner Kreditkarte sehen:</strong><br><br>
-            <em>Betrag: <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
+            <em>Betrag: <%= number_to_currency(@crowd_pledge.total_overall_price, unit: "EUR") %><br>
             Verwendungszweck: <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
           </p>
         <% elsif @crowd_pledge.payment_method == 'sofort' %>
@@ -27,7 +27,7 @@
           <p>
             <strong>So wird der Einzug auf deinem Bankkonto erscheinen:</strong><br><br>
             <em><strong>Einzug von:</strong> morgenjungs GmbH<br>
-            <strong>Betrag:</strong> <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
+            <strong>Betrag:</strong> <%= number_to_currency(@crowd_pledge.total_overall_price, unit: "EUR") %><br>
             <strong>Verwendungszweck:</strong> <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
           </p>
         <% else %>
@@ -37,7 +37,7 @@
           <p>
             <strong>So wird der Einzug auf deinem Bankkonto erscheinen:</strong><br><br>
             <em><strong>Einzug von:</strong> PPRO Payment Services S.A. (<%= @crowd_pledge.crowd_campaign.region.host_domain_name.upcase %> by Stripe via PPRO)<br>
-            <strong>Betrag:</strong> <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
+            <strong>Betrag:</strong> <%= number_to_currency(@crowd_pledge.total_overall_price, unit: "EUR") %><br>
             <strong>Verwendungszweck:</strong> <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
           </p>
         <% end %>
@@ -53,7 +53,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Deine Unterstützungsdetails:
+         Deine Crowdfunding Unterstützung:
        </h4>
      </td>
    </tr>
@@ -118,6 +118,53 @@
      </tr>
    </tbody>
  </table>
+
+
+
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<% if @crowd_pledge.has_charge? %>
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:10px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Deine <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_short") %> Fördertopf-Spende
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+        <table>
+          <tr>
+            <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: "€") %></strong></td>
+            <td>Fördertopf-Spende</td>
+          </tr>
+        </table>
+
+       </td>
+     </tr>
+   </tbody>
+ </table>
+<% end %>
+
+
 
  <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
     <tr>

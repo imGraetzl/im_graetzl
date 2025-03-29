@@ -52,15 +52,13 @@ class Region
   end
 
   def hot_august?
-    self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
+    false
+    #self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
   end
 
   def raum_booster_open?
-    self.is?('wien') && Date.today.to_datetime.between?('2024-12-10', '2025-01-31')
-  end
-
-  def crowdfunding_call?
-    Date.today.to_datetime.between?('2024-08-29', '2024-09-22')
+    false
+    #self.is?('wien') && Date.today.to_datetime.between?('2024-12-10', '2025-01-31')
   end
 
   def is?(region_id)
@@ -107,23 +105,17 @@ class Region
     @public_group_id
   end
 
+  def default_crowd_boost_id
+    CrowdBoost.in(self).pledge_charge.last&.id
+  end
+
   def wow
     @wow
   end
 
   def wow?
-    @wow.present?
-    #@wow.present? && @wow.any? { |w| w[:starts_at].to_date < Date.today && w[:ends_at].to_date > Date.today }
-  end
-
-  def default_crowd_boost_id
-    if id == 'wien'
-      1 # raumbooster
-    elsif id == 'graz'
-      2 # viertelfonds
-    else
-      mil
-    end
+    false
+    #@wow.present? && @wow.any? { |w| w[:starts_at].to_date < Date.today && w[:ends_at].to_date > Date.today }    
   end
 
   def host_id
