@@ -45,31 +45,31 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
   end
 
   def crowd_pledge_incomplete
-    CrowdCampaignMailer.crowd_pledge_incomplete(CrowdPledge.order(:created_at).last)
+    CrowdCampaignMailer.crowd_pledge_incomplete(CrowdPledge.incomplete.order(:created_at).last)
   end
 
   def crowd_pledge_authorized
-    CrowdCampaignMailer.crowd_pledge_authorized(CrowdPledge.order(:created_at).last)
+    CrowdCampaignMailer.crowd_pledge_authorized(CrowdPledge.charges.last)
+  end
+
+  def crowd_pledge_debited
+    CrowdCampaignMailer.crowd_pledge_debited(CrowdPledge.charges.debited.order(:created_at).last)
+  end
+
+  def crowd_pledge_failed
+    CrowdCampaignMailer.crowd_pledge_failed(CrowdPledge.charges.order(:created_at).last)
+  end
+
+  def crowd_pledge_failed_reminder
+    CrowdCampaignMailer.crowd_pledge_failed_reminder(CrowdPledge.charges.order(:created_at).last)
+  end
+
+  def crowd_pledge_retried_debited
+    CrowdCampaignMailer.crowd_pledge_retried_debited(CrowdPledge.charges.order(:created_at).last)
   end
 
   def crowd_pledge_goal_1_reached
     CrowdCampaignMailer.crowd_pledge_goal_1_reached(CrowdPledge.order(:created_at).last)
-  end
-
-  def crowd_pledge_debited
-    CrowdCampaignMailer.crowd_pledge_debited(CrowdPledge.debited.order(:created_at).last)
-  end
-
-  def crowd_pledge_failed
-    CrowdCampaignMailer.crowd_pledge_failed(CrowdPledge.failed.order(:created_at).last)
-  end
-
-  def crowd_pledge_failed_reminder
-    CrowdCampaignMailer.crowd_pledge_failed_reminder(CrowdPledge.order(:created_at).last)
-  end
-
-  def crowd_pledge_retried_debited
-    CrowdCampaignMailer.crowd_pledge_retried_debited(CrowdPledge.processing.order(:created_at).last)
   end
 
   def crowd_pledge_newsletter

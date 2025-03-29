@@ -2,6 +2,7 @@ ActiveAdmin.register CrowdPledge do
   menu parent: 'Crowdfunding'
   includes :crowd_campaign, :user, :crowd_reward
   actions :all, except: [:new, :create, :destroy, :edit]
+  config.batch_actions = false
 
   config.sort_order = 'created_at_desc'
 
@@ -9,6 +10,7 @@ ActiveAdmin.register CrowdPledge do
   scope :authorized
   scope :processing
   scope :debited
+  scope :charges
   scope :failed
   scope :refunded
   scope :canceled
@@ -23,6 +25,8 @@ ActiveAdmin.register CrowdPledge do
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :id, :as => :numeric
+  filter :total_price
+  filter :crowd_boost_charge_amount
   filter :contact_name
   filter :email
   filter :stripe_customer_id

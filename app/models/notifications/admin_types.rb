@@ -12,6 +12,7 @@ module Notifications
     NewToolDemand,
     NewCoopDemand,
     NewCrowdCampaign,
+    EndingCrowdCampaign,
     NewCrowdCampaignPost,
   ]
 end

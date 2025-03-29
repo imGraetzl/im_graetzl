@@ -1,1 +1,2 @@
 $("#calculated-price-container").html("<%= j render('crowd_pledges/new/calculated_price') %>");
+$(".charge_amount").text("<%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: '€') %>");

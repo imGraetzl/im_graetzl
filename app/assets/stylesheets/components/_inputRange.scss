@@ -93,10 +93,10 @@
         cursor: default;
       }
     }
-
   }
 
   .percent-info-container {
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -144,6 +144,7 @@
     }
     &.-show {
       display: block;
+      // CrowdCampaign
       &.percent-1::before {
         left: calc(20% - 6px);
       }
@@ -164,9 +165,3 @@
   }
 
 }
-
-/*
-.region-graz {
-  .input-range .percent-info-container .facts { display: none; }
-}
-*/

@@ -116,16 +116,31 @@ class ActionProcessor
 
       if subject.entire_platform?
         Activity.add_public(subject, to: :entire_platform)
-        Notifications::NewCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { entire_platform: true })
       elsif subject.entire_region?
         Activity.add_public(subject, to: :entire_region)
-        Notifications::NewCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { region: subject.region })
-      else
+      elsif subject.entire_graetzl?
         Activity.add_public(subject, to: subject.graetzl)
+      end
+
+      if subject.newsletter_platform?
+        Notifications::NewCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { entire_platform: true })
+      elsif subject.newsletter_region?
+        Notifications::NewCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { region: subject.region })
+      elsif subject.newsletter_graetzl?
         Notifications::NewCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { graetzl: subject.graetzl })
       end
 
       subject.update(last_activity_at: Time.current)
+
+    when [CrowdCampaign, :ending]
+
+      if subject.newsletter_platform?
+        Notifications::EndingCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { entire_platform: true })
+      elsif subject.newsletter_region?
+        Notifications::EndingCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { region: subject.region })
+      elsif subject.newsletter_graetzl?
+        Notifications::EndingCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { graetzl: subject.graetzl })
+      end
 
     when [CrowdPledge, :create]
 

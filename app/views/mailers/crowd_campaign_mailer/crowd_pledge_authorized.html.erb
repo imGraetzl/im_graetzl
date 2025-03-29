@@ -50,7 +50,7 @@ end %>
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Deine Unterstützung:
+         Deine Crowdfunding Unterstützung:
        </h4>
      </td>
    </tr>
@@ -114,6 +114,53 @@ end %>
      </tr>
    </tbody>
  </table>
+
+
+
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<% if @crowd_pledge.has_charge? %>
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:10px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Deine <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_short") %> Fördertopf-Spende
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+        <table>
+          <tr>
+            <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: "€") %></strong></td>
+            <td>Fördertopf-Spende</td>
+          </tr>
+        </table>
+
+       </td>
+     </tr>
+   </tbody>
+ </table>
+<% end %>
+
+
 
  <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
     <tr>

@@ -3,6 +3,7 @@ context.instance_eval do
   id_column
   column(:status){|b| status_tag(b.status)}
   column('Chargeable'){|b| status_tag(b.chargeable_status)}
+  column :pledge_charge
   column :title
   column(:balance){|b| b.balance}
   column(:active_slots){|b| b.crowd_boost_slots.active.count}

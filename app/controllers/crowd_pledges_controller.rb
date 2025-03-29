@@ -1,5 +1,6 @@
 class CrowdPledgesController < ApplicationController
-  before_action :load_active_campaign, only: [:new, :create, :login, :calculate_price, :choose_amount]
+  before_action :set_active_campaign, only: [:new, :create, :login, :calculate_price, :choose_amount]
+  before_action :set_crowd_pledge, only: [:crowd_boost_charge, :update_crowd_boost_charge, :summary, :pledge_comment]
   before_action :manage_guest_user_session
 
   def new
@@ -34,7 +35,13 @@ class CrowdPledgesController < ApplicationController
 
   def calculate_price
     head :ok and return if browser.bot? && !request.format.js?
-    @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
+    if params[:id].present?
+      @crowd_pledge = CrowdPledge.find(params[:id])
+      @crowd_pledge.assign_attributes(calculate_crowd_boost_charge_params)
+    else
+      @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
+    end
+
     @crowd_pledge.calculate_price
   end
 
@@ -65,19 +72,40 @@ class CrowdPledgesController < ApplicationController
 
     if success
       flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
-      redirect_to [:summary, @crowd_pledge]
+      if current_region.default_crowd_boost_id
+        # Charge Boost Step
+        redirect_to [:crowd_boost_charge, @crowd_pledge]
+      else
+        # No Charge Boost Step - Skip and Send Mail Immediate
+        CrowdCampaignMailer.crowd_pledge_authorized(@crowd_pledge).deliver_now
+        redirect_to [:summary, @crowd_pledge]
+      end
     else
       flash[:error] = error
       redirect_to [:choose_payment, @crowd_pledge]
     end
   end
 
+  def crowd_boost_charge
+    @crowd_campaign = @crowd_pledge.crowd_campaign
+    return redirect_to summary_crowd_pledge_path(@crowd_pledge) if @crowd_pledge.has_charge?
+    @crowd_pledge.calculate_price
+  end
+
+  def update_crowd_boost_charge
+    if @crowd_pledge.update(crowd_boost_charge_params)
+      CrowdBoostService.new.create_charge_from(@crowd_pledge, :authorized) if @crowd_pledge.has_charge?
+      CrowdCampaignMailer.crowd_pledge_authorized(@crowd_pledge).deliver_now
+      redirect_to [:summary, @crowd_pledge]
+    else
+      render :crowd_boost_charge
+    end
+  end
+
   def summary
-    @crowd_pledge = CrowdPledge.find(params[:id])
   end
 
   def pledge_comment
-    @crowd_pledge = CrowdPledge.find(params[:id])
     @comment = Comment.new(comment_params)
     @comment.user = @crowd_pledge.user
 
@@ -148,7 +176,7 @@ class CrowdPledgesController < ApplicationController
     }
   end
 
-  def load_active_campaign
+  def set_active_campaign
     redirect_to root_url and return if params[:crowd_campaign_id].blank?
 
     @crowd_campaign = CrowdCampaign.find(params[:crowd_campaign_id])
@@ -158,6 +186,13 @@ class CrowdPledgesController < ApplicationController
         error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."
       }
     end
+  end
+
+  def set_crowd_pledge
+    user = current_or_session_guest_user
+    return head :not_found unless user
+
+    @crowd_pledge = user.crowd_pledges.find(params[:id])
   end
 
   def initial_pledge_params
@@ -180,6 +215,17 @@ class CrowdPledgesController < ApplicationController
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer,
       :user_agent
     )
+  end
+
+  def calculate_crowd_boost_charge_params
+    params.permit(:crowd_boost_charge_amount)
+  end
+
+  def crowd_boost_charge_params
+    permitted = params.require(:crowd_pledge).permit(:crowd_boost_id, :crowd_boost_charge_amount)
+    permitted[:crowd_boost_charge_amount] = 0 if permitted[:crowd_boost_charge_amount].blank?
+    permitted[:crowd_boost_id] = nil if permitted[:crowd_boost_charge_amount].to_d.zero?
+    permitted
   end
 
   def comment_params

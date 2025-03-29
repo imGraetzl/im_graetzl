@@ -496,6 +496,8 @@ de:
       title: 'Crowdfunding Untestützung - Zahlungsart wählen'
     change_payment:
       title: 'Crowdfunding Untestützung - Zahlungsart ändern'
+    crowd_boost_charge:
+      title: 'Crowdfunding Untestützung - Fördertopf-Spende'
     summary:
       title: 'Crowdfunding Untestützung - Zusammenfassung'
     details:

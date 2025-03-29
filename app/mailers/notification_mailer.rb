@@ -37,6 +37,9 @@ class NotificationMailer < ApplicationMailer
     'Neue Schaufenster' => [
       Notifications::NewLocation
     ],
+    'Diese Crowdfunding Kampagnen enden bald!' => [
+      Notifications::EndingCrowdCampaign
+    ],
     'Neue Räume zum Andocken' => [
       Notifications::NewRoomOffer
     ],

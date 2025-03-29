@@ -1,0 +1,53 @@
+<div>
+
+  <div class="hl-subtext">
+    <h1>Freiwillige Fördertopf-Spende</h1>
+    <p>
+      Hilf mit – wenn du kannst.
+    </p>
+    <p class="subline">
+      Deine Unterstützung hilft, leerstehende Räume in Wien mit neuem Leben zu füllen. Der Fördertopf wird regelmäßig an Projekte vergeben, die Räume via Crowdfunding aktivieren und unsere Stadt lebendiger machen.
+      Danke, dass du Wien mitgestaltest!
+    </p>
+  </div>
+
+  <%= form_with model: @crowd_pledge, url: crowd_boost_charge_crowd_pledge_path(@crowd_pledge), method: :patch do |f| %>
+    <%= form_errors_for @crowd_pledge %>
+    <%= f.hidden_field :crowd_boost_id, value: current_region.default_crowd_boost_id %>
+
+    <div class="charge-amount-radios" id="charge-amount-radios" data-url="<%= url_for([:calculate_price, @crowd_campaign, :crowd_pledges, id: @crowd_pledge.id]) %>">
+      <% crowd_boost_charge_amount_values(@crowd_pledge.total_price).each do |value| %>
+        <div class="input-radio system-radios">
+          <%= f.radio_button :crowd_boost_charge_amount, value[:amount], id: "crowd_pledge_amount_#{value[:amount].to_s.tr('.', '_')}", checked: value[:default] %>
+          <%= f.label :"amount_#{value[:amount].to_s.tr('.', '_')}" do %>
+            <div class="amount"><%= number_to_currency(value[:amount], unit: "€") %></div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="input-radio custom-amount-option">
+        <%= f.radio_button :crowd_boost_charge_amount, 'custom', id: "crowd_pledge_amount_custom" %>
+        <%= f.label :amount_custom do %>
+          <div class="amount custom-amount-wrapper">
+            <%= f.text_field :custom_crowd_boost_charge_amount,
+              min: 1,
+              step: 1,
+              maxlength: 7,
+              placeholder: "",
+              class: "custom-amount-input",
+              id: "custom_crowd_boost_charge_amount",
+              inputmode: "decimal",
+              data: { action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, id: @crowd_pledge.id]), type: "crowd_boost_charge" }
+            %> €
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= button_tag type: 'submit', class: 'btn-primary -rose -shadow' do %>
+      Weiter mit <span class="charge_amount"></span>
+    <% end %>
+    
+  <% end %>
+  
+</div>
+

@@ -37,9 +37,10 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  string_enum visibility_status: ["graetzl","region", "platform"]
   string_enum boost_status: ["boost_declined", "boost_waitlist", "boost_approved", "boost_authorized", "boost_debited", "boost_cancelled"]
   string_enum transfer_status: ["payout_waiting", "payout_ready", "payout_processing", "payout_completed", "payout_failed"]
+  string_enum visibility_status: ["graetzl","region", "platform"]
+  enum newsletter_status: { none: "none", graetzl: "graetzl", region: "region", platform: "platform" }, _prefix: :newsletter
   enum active_state: { enabled: 0, disabled: 1 }
   enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6, re_draft: 7 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
@@ -65,8 +66,8 @@ class CrowdCampaign < ApplicationRecord
   scope :region_or_platform, -> { where(visibility_status: [:region, :platform]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
   scope :payout, -> { where(transfer_status: [:payout_waiting, :payout_ready, :payout_processing, :payout_failed]) }
-  scope :guest_newsletter, -> {funding.region_or_platform.where(guest_newsletter: true)}
-  
+  scope :guest_newsletter, -> { funding.where(guest_newsletter: true) }
+  scope :ending_newsletter, -> { funding.where(ending_newsletter: true) }
   scope :by_currentness, -> {
     order(Arel.sql('CASE WHEN enddate >= current_date THEN 0 WHEN funding_status != 0 THEN 1 ELSE 2 END')).
     order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.last_activity_at END) DESC, 
@@ -74,14 +75,19 @@ class CrowdCampaign < ApplicationRecord
                     (CASE WHEN enddate < current_date THEN crowd_campaigns.enddate END) DESC'))
   }
 
-  after_create :set_transaction_fee_and_visibility_status
+  after_create :set_transaction_fee
+  after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
+
+  def entire_graetzl?
+    self.graetzl?
+  end
+
+  def entire_region?
+    self.region?
+  end
 
   def entire_platform?
     self.platform?
-  end
-  
-  def entire_region?
-    self.region?
   end
 
   def closed?
@@ -322,6 +328,21 @@ class CrowdCampaign < ApplicationRecord
     user&.subscribed?
   end
 
+  def set_visibility_and_newsletter
+    attributes = case transaction_fee_percentage
+                when 8.0..10.0 # Ab 8.0%
+                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: true }
+                when 7.0...8.0 # Ab 7.0%
+                  { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: false }
+                when 6.0...7.0 # Ab 6.0% 
+                  { visibility_status: "region", newsletter_status: "graetzl", guest_newsletter: false, ending_newsletter: false }
+                else # Ab 5.0% 
+                  { visibility_status: "graetzl", newsletter_status: "none", guest_newsletter: false, ending_newsletter: false }
+                end
+  
+    update_columns(attributes)
+  end
+
   private
 
   def smart_add_url_protocol_website
@@ -342,8 +363,7 @@ class CrowdCampaign < ApplicationRecord
     end
   end
 
-  def set_transaction_fee_and_visibility_status
-    self.visibility_status = :region
+  def set_transaction_fee
     self.service_fee_percentage = self.transaction_fee_percentage
     self.save
   end

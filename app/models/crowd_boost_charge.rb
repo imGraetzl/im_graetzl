@@ -13,7 +13,10 @@ class CrowdBoostCharge < ApplicationRecord
 
   scope :expected, -> { where(payment_status: [:authorized, :processing, :debited]) }
   scope :initialized, -> { where.not(payment_status: :incomplete) }
-
+  scope :debited_without_crowd_pledges, -> {
+    where(payment_status: :debited).where.not(charge_type: :crowd_pledge)
+  }
+  
   def invoice
     bucket = Aws::S3::Resource.new.bucket('invoices.imgraetzl.at')
     bucket.object("#{Rails.env}/crowd_boost_charges/#{invoice_number}.pdf")

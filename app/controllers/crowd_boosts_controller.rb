@@ -26,7 +26,7 @@ class CrowdBoostsController < ApplicationController
 
   def charges
     @crowd_boost = CrowdBoost.find(params[:id])
-    @charges = @crowd_boost.crowd_boost_charges.debited.order(created_at: :desc)
+    @charges = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.order(created_at: :desc)
   end
 
   def campaigns

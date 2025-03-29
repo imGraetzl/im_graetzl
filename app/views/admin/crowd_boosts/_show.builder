@@ -14,6 +14,7 @@ context.instance_eval do
           end
           row(:status){|b| status_tag(b.status)}
           row(:chargeable_status){|b| status_tag(b.chargeable_status)}
+          row :pledge_charge
           row :title
           row :slogan
           row :description

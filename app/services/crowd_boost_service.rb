@@ -61,10 +61,10 @@ class CrowdBoostService
     true
   end
 
-  def create_charge_from(subject)
+  def create_charge_from(subject, status = :incomplete)
     crowd_boost_charge = subject.build_crowd_boost_charge(
       amount: subject.crowd_boost_charge_amount,
-      payment_status: "incomplete",
+      payment_status: status.to_s,
       charge_type: subject.class.name.underscore,
       crowd_boost_id: subject.crowd_boost_id,
       region_id: subject.user.region_id,

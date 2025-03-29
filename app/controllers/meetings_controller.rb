@@ -65,6 +65,9 @@ class MeetingsController < ApplicationController
 
     if @meeting.save
 
+      # Update Initiator GoingTo if Meeting Initiator changed
+      @meeting.going_tos.where(role: :initiator).where.not(user_id: @meeting.user_id).update_all(user_id: @meeting.user_id) if current_user.admin_or_beta?
+
       # Create new Activity and Notifications if StartDate has changed from past into future
       if starts_at_date_before < Date.today && starts_at_date_before != @meeting.starts_at_date
         
@@ -95,10 +98,14 @@ class MeetingsController < ApplicationController
       going_to.going_to_date = @meeting.starts_at_date
       going_to.going_to_time = @meeting.starts_at_time
     elsif params[:meeting_additional_date_id].present?
-      additional_date = MeetingAdditionalDate.find(params[:meeting_additional_date_id])
+      additional_date = @meeting.meeting_additional_dates.find(params[:meeting_additional_date_id])
       going_to.going_to_date = additional_date.starts_at_date
       going_to.going_to_time = additional_date.starts_at_time
       going_to.meeting_additional_date_id = additional_date.id
+    elsif !@meeting.meeting_additional_dates.exists?
+      # Fallback: Kein Datum ausgewählt aber nur Originaldatum vorhanden, nimm das
+      going_to.going_to_date = @meeting.starts_at_date
+      going_to.going_to_time = @meeting.starts_at_time
     end
 
     going_to.save

@@ -33,7 +33,7 @@
       </div>
     <% end %>
 
-    <% if @meeting.good_morning_date? || current_user.admin? %>
+    <% if current_user.admin_or_beta? %>
 
       <div class="input-field">
         <%= f.label :max_going_tos do %>

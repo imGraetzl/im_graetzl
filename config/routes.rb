@@ -195,11 +195,13 @@ Rails.application.routes.draw do
   resources :crowd_pledges, only: [] do
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member
+    get 'crowd_boost_charge', on: :member
     get 'summary', on: :member
     get 'details', on: :member
     get 'change_payment', on: :member
     get 'payment_changed', on: :member
     get 'unsubscribe/:unsubscribe_code', action: 'unsubscribe', on: :member
+    patch 'crowd_boost_charge', to: 'crowd_pledges#update_crowd_boost_charge', on: :member
   end
 
   resources :crowd_donation_pledges, only: [] do

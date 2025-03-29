@@ -255,6 +255,7 @@ input, select, textarea {
 
   &.-vertical {
     > label {
+      border-right: 1px solid $color-ambient-mint-light;
       > span {
         width:100%;
         display: block;

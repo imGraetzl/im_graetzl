@@ -36,6 +36,15 @@ namespace :scheduled do
       end
     end
 
+    if Date.today.monday?
+      wednesday = Date.today + 2  # Übermorgen (Mittwoch)
+      next_tuesday = wednesday + 6 # Dienstag in einer Woche
+    
+      CrowdCampaign.ending_newsletter.where(enddate: wednesday..next_tuesday).find_each do |campaign|
+        ActionProcessor.track(campaign, :ending)
+      end
+    end
+
     task_ends_at = Time.now
     #AdminMailer.task_info('crowd_campaigns_upkeep', 'finished', task_starts_at, task_ends_at).deliver_now
 
@@ -45,7 +54,7 @@ namespace :scheduled do
   task crowd_campaigns_guest_newsletter: :environment do
     
     scheduled_sending_dates = [
-      '2025-02-22', '2025-03-22'
+      '2025-03-22', '2025-04-19'
     ]
 
     send_date_today = nil
