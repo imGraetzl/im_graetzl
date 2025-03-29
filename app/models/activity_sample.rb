@@ -54,17 +54,24 @@ class ActivitySample
 
   def rooms
     if @graetzl
-      room_offer = @graetzl.room_offers.in(@current_region).enabled.by_currentness.first
-      room_demand = @graetzl.room_demands.in(@current_region).enabled.by_currentness.first
+      room_offers = @graetzl.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
+      room_demands = @graetzl.room_demands.in(@current_region).enabled.by_currentness.limit(2).to_a
     elsif @district
-      room_offer = @district.room_offers.in(@current_region).enabled.by_currentness.first
-      room_demand = @district.room_demands.in(@current_region).enabled.by_currentness.first
+      room_offers = @district.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
+      room_demands = @district.room_demands.in(@current_region).enabled.by_currentness.limit(2).to_a
     else
-      room_offer = RoomOffer.in(@current_region).enabled.by_currentness.first
-      room_demand = RoomDemand.in(@current_region).enabled.by_currentness.first
+      room_offers = RoomOffer.in(@current_region).enabled.by_currentness.limit(2).to_a
+      room_demands = RoomDemand.in(@current_region).enabled.by_currentness.limit(2).to_a
     end
-    [room_offer, room_demand].compact.first(2)
-  end
+  
+    (room_offers.first(1) + room_demands.first(1)).tap do |result|
+      if result.size < 2
+        # Ergänzen mit mehr vom jeweils anderen
+        rest = (room_offers + room_demands) - result
+        result.concat(rest.first(2 - result.size))
+      end
+    end
+  end  
 
   def energies
     if @graetzl
