@@ -11,6 +11,11 @@ class CrowdPledgesController < ApplicationController
   def create
     @crowd_pledge = @crowd_campaign.crowd_pledges.build(crowd_pledge_params)
 
+    # Check ob Reward-ID gültig & Reset wenn ungültig
+    if @crowd_pledge.crowd_reward_id.present? && !reward_belongs_to_campaign?(@crowd_pledge.crowd_reward_id, @crowd_campaign.id)
+      @crowd_pledge.crowd_reward_id = nil
+    end
+
     if @crowd_pledge.crowd_reward&.fully_claimed?
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
     end
@@ -168,6 +173,10 @@ class CrowdPledgesController < ApplicationController
   end
 
   private
+
+  def reward_belongs_to_campaign?(reward_id, campaign_id)
+    CrowdReward.exists?(id: reward_id, crowd_campaign_id: campaign_id)
+  end
 
   def user_agent
     return {
