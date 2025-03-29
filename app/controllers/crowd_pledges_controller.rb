@@ -87,7 +87,7 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_boost_charge
     @crowd_pledge = CrowdPledge.find(params[:id])
-    return redirect_to [:summary, @crowd_pledge] if @crowd_pledge.saved_charge? || !@crowd_pledge.authorized?
+    return redirect_to [:summary, @crowd_pledge] if @crowd_pledge.saved_charge? || !@crowd_pledge.recently_authorized?
 
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @crowd_pledge.calculate_price

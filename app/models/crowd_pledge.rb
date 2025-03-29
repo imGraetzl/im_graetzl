@@ -48,6 +48,10 @@ class CrowdPledge < ApplicationRecord
     crowd_boost_charge_amount.present?
   end
 
+  def recently_authorized?
+    authorized_at.present? && authorized_at >= 3.hours.ago
+  end
+
   def unsubscribe_code
     self.created_at.to_i
   end
