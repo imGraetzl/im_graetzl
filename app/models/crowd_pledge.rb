@@ -49,7 +49,7 @@ class CrowdPledge < ApplicationRecord
   end
 
   def recently_authorized?
-    authorized_at.present? && authorized_at >= 3.hours.ago
+    authorized_at.present? && authorized_at >= 60.minutes.ago
   end
 
   def unsubscribe_code
