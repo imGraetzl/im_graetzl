@@ -337,6 +337,7 @@
       }
     }
     .custom-amount-wrapper {
+      min-width: 30%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -353,7 +354,10 @@
       background: transparent;
       @include font-size-primaryFont('large');
       text-align: center;
+      border: none;
       border-bottom: 1px solid #999;
+      border-radius: 0;
+      appearance: none;
       width:100%;
       margin-left:5px;
       margin-right:5px;
