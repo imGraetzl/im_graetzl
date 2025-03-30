@@ -1,13 +1,18 @@
 <div>
+  <% default_amount = crowd_boost_charge_amount_values(@crowd_pledge.total_price).find { |v| v[:default] } %>
 
   <div class="hl-subtext">
-    <h1>Freiwillige Fördertopf-Spende</h1>
+    <h1>Magst du aufrunden</h1>
     <p>
-      Hilf mit – wenn du kannst.
+      <strong>...und die Aktivierung von Leerstand unterstützen?</strong>
     </p>
     <p class="subline">
-      Deine Unterstützung hilft, leerstehende Räume in Wien mit neuem Leben zu füllen. Der Fördertopf wird regelmäßig an Projekte vergeben, die Räume via Crowdfunding aktivieren und unsere Stadt lebendiger machen.
-      Danke, dass du Wien mitgestaltest!
+      Schon mit <strong><%= number_to_currency(default_amount[:amount]) %></strong> hilfst du mit, dass ein Projekt starten kann, das einen leerstehenden Raum in <%= current_region.name %> belebt.
+      Der Fördertopf unterstützt regelmäßig Initiativen, die über Crowdfunding Räume aktivieren.
+    </p>
+    <p class="subline">
+      Gemeinsam bringen wir mehr Leben in unsere Stadt – Raum für Ideen, Kultur und Miteinander.
+      Jeder Beitrag hilft. Danke, dass du Teil davon bist!
     </p>
   </div>
 
@@ -32,12 +37,12 @@
               min: 1,
               step: 1,
               maxlength: 7,
-              placeholder: "",
+              placeholder: "Betrag ...",
               class: "custom-amount-input",
               id: "custom_crowd_boost_charge_amount",
               inputmode: "decimal",
               data: { action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, id: @crowd_pledge.id]), type: "crowd_boost_charge" }
-            %> €
+            %> <span class="euro">€</span>
           </div>
         <% end %>
       </div>
