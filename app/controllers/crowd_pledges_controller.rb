@@ -92,15 +92,17 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_boost_charge
     @crowd_pledge = CrowdPledge.find(params[:id])
-    return redirect_to [:summary, @crowd_pledge] if @crowd_pledge.saved_charge? || !@crowd_pledge.recently_authorized?
-
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @crowd_pledge.calculate_price
   end
 
   def update_crowd_boost_charge
     @crowd_pledge = CrowdPledge.find(params[:id])
-    return redirect_to [:summary, @crowd_pledge] unless @crowd_pledge.authorized?
+
+    if @crowd_pledge.saved_charge? || !@crowd_pledge.recently_authorized?
+      flash[:notice] = "Bearbeitungszeitraum für Fördertopf-Spende abgelaufen. Bitte wende dich an #{t("region.#{current_region.id}.contact_email")}"
+      return redirect_to [:summary, @crowd_pledge]
+    end
 
     if @crowd_pledge.update(crowd_boost_charge_params)
       CrowdBoostService.new.create_charge_from(@crowd_pledge, :authorized) if @crowd_pledge.has_charge?
