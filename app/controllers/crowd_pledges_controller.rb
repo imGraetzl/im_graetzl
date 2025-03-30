@@ -1,4 +1,5 @@
 class CrowdPledgesController < ApplicationController
+  include ActionView::Helpers::NumberHelper
   before_action :set_active_campaign, only: [:new, :create, :login, :calculate_price, :choose_amount]
   before_action :manage_guest_user_session
 
@@ -107,6 +108,7 @@ class CrowdPledgesController < ApplicationController
     if @crowd_pledge.update(crowd_boost_charge_params)
       CrowdBoostService.new.create_charge_from(@crowd_pledge, :authorized) if @crowd_pledge.has_charge?
       CrowdCampaignMailer.crowd_pledge_authorized(@crowd_pledge).deliver_now
+      flash[:notice] = "Vielen Dank für deine Fördertopf-Spende in Höhe von #{number_to_currency(@crowd_pledge.crowd_boost_charge_amount)}"
       redirect_to [:summary, @crowd_pledge]
     else
       render :crowd_boost_charge
