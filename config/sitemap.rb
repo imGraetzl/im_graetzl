@@ -119,7 +119,7 @@ Region.all.each do |region|
     # Crowd Boosts
     CrowdBoost.in(region).find_each do |crowd_boost|
       add crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0
-      add call_crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0 if crowd_boost.charge_call?
+      add call_crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0
     end
 
     # Polls

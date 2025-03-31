@@ -12,18 +12,18 @@
         <%= link_to 'Über Uns', info_ueber_uns_path %>
         <%= link_to 'Presse', info_presse_path %>
         <%= link_to 'Blog', t("region.#{current_region.id}.blog_url") %>
-        <a href="<%= t("region.#{current_region.id}.facebook_url") %>" target="_blank" rel="noopener" class="facebook">
-          Auf Facebook <%= icon_tag "social-facebook" %>
-        </a>
       </div>
       <div class="col">
         <%= link_to 'Impressum', info_impressum_path %>
-        <%= link_to 'Gemeinde / Stadt andocken', andocken_url(host: welocally_platform_host) %>
+        <%# link_to 'Gemeinde / Stadt andocken', andocken_url(host: welocally_platform_host) %>
         <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
         <%= link_to 'Cookie Einstellungen', 'javascript:', id: 'ihavecookiesBtn' %>
         <%= link_to 'AGB', info_agb_path %>
         <a href="<%= t("region.#{current_region.id}.instagram_url") %>" target="_blank" rel="noopener" class="instagram">
           Auf Instagram <%= icon_tag "social-instagram" %>
+        </a>
+        <a href="<%= t("region.#{current_region.id}.facebook_url") %>" target="_blank" rel="noopener" class="facebook">
+          Auf Facebook <%= icon_tag "social-facebook" %>
         </a>
       </div>
 

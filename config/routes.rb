@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get 'leerstand' => 'contact_list_entries#crowd2raum', as: 'crowd2raum'
   post 'leerstand' => 'contact_list_entries#crowd2raum_create'
 
-  get 'andocken' => 'region_calls#call'
+  get 'andocken' => redirect('/') #=> 'region_calls#call'
   post 'andocken' => 'region_calls#create'
 
   # Widgets
@@ -342,7 +342,7 @@ Rails.application.routes.draw do
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
-  get 'raumbooster' => redirect('/crowdfunding-booster/raum-booster/call')
+  get 'raumbooster' => redirect('/crowdfunding-booster/raum-booster')
   get 'viertelfonds' => redirect('/crowdfunding-booster/viertelfonds/call')
   #get 'popup', to: 'static_pages#popup', as: 'popup'
 
