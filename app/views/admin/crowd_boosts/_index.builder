@@ -1,6 +1,13 @@
 context.instance_eval do
   selectable_column
   id_column
+  column :region_ids do |b|
+    safe_join(
+      b.region_ids.map do |region|
+        content_tag(:span, Region.get(region)) + ', '
+      end
+    )
+  end
   column(:status){|b| status_tag(b.status)}
   column('Chargeable'){|b| status_tag(b.chargeable_status)}
   column :pledge_charge

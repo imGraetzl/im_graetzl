@@ -5,6 +5,7 @@ context.instance_eval do
       panel 'Basic Details' do
         attributes_table_for crowd_boost do
           row :id
+          row :slug
           row :region_ids do |b|
             safe_join(
               b.region_ids.map do |region|
