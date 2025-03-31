@@ -9,18 +9,18 @@
         <%= link_to 'Presse', info_presse_path %>
         <%= link_to 'Blog', 'https://blog.welocally.at/', target: '_blank' %>
         <%= link_to 'Impressum', info_impressum_path %>
-        <a href="https://www.facebook.com/WeLocally" target="_blank" class="facebook">
-          Auf Facebook <%= icon_tag "social-facebook" %>
-        </a>
       </div>
       <div class="col">
-        <%= link_to 'Gemeinde / Stadt andocken', andocken_url(host: welocally_platform_host) %>
+        <%# link_to 'Gemeinde / Stadt andocken', andocken_url(host: welocally_platform_host) %>
         <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
         <%= link_to 'Cookie Einstellungen', 'javascript:', id: 'ihavecookiesBtn' %>
         <%= link_to 'Code of Conduct', info_code_of_conduct_path %>
         <%= link_to 'AGB', info_agb_path %>
         <a href="https://www.instagram.com/welocally/" target="_blank" class="instagram">
           Auf Instagram <%= icon_tag "social-instagram" %>
+        </a>
+        <a href="https://www.facebook.com/WeLocally" target="_blank" class="facebook">
+          Auf Facebook <%= icon_tag "social-facebook" %>
         </a>
       </div>
       <div class="col footer-logos">
