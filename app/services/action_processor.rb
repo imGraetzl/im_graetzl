@@ -143,12 +143,11 @@ class ActionProcessor
       end
 
     when [CrowdPledge, :create]
-
-      if subject.crowd_campaign.entire_platform?
+      if subject.crowd_campaign.scope_public? && subject.crowd_campaign.entire_platform?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_platform)
-      elsif subject.crowd_campaign.entire_region?
+      elsif subject.crowd_campaign.scope_public? && subject.crowd_campaign.entire_region?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
-      else
+      elsif subject.crowd_campaign.scope_public?
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
 
@@ -168,11 +167,11 @@ class ActionProcessor
 
     when [CrowdDonationPledge, :create]
 
-      if subject.crowd_campaign.entire_platform?
+      if subject.crowd_campaign.scope_public? && subject.crowd_campaign.entire_platform?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_platform)
-      elsif subject.crowd_campaign.entire_region?
+      elsif subject.crowd_campaign.scope_public? && subject.crowd_campaign.entire_region?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
-      else
+      elsif subject.crowd_campaign.scope_public?
         Activity.add_public(subject.crowd_campaign, subject, to: subject.crowd_campaign.graetzl)
       end
 
