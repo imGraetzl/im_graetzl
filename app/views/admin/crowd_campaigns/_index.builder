@@ -17,7 +17,7 @@ context.instance_eval do
     if c.funding? || c.completed?
       status_tag(c.status)
       status_tag(c.funding_status)
-      status_tag(c.active_state) if c.disabled?
+      status_tag(c.active_state) if c.disabled? || c.hidden?
     else
       status_tag(c.status)
     end

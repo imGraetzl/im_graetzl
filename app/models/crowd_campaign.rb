@@ -41,7 +41,7 @@ class CrowdCampaign < ApplicationRecord
   string_enum transfer_status: ["payout_waiting", "payout_ready", "payout_processing", "payout_completed", "payout_failed"]
   string_enum visibility_status: ["graetzl","region", "platform"]
   enum newsletter_status: { none: "none", graetzl: "graetzl", region: "region", platform: "platform" }, _prefix: :newsletter
-  enum active_state: { enabled: 0, disabled: 1 }
+  enum active_state: { enabled: 0, disabled: 1, hidden: 2 }
   enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6, re_draft: 7 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
   enum billable: { no_bill: 0, bill: 1, donation_bill: 2 }
@@ -62,7 +62,7 @@ class CrowdCampaign < ApplicationRecord
 
   scope :initialized, -> { where.not(status: :declined) }
   scope :boost_initialized, -> { where(boost_status: [:boost_authorized, :boost_debited]) }
-  scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: :disabled)) }
+  scope :scope_public, -> { where(status: [:funding, :completed]).and(where.not(active_state: [:disabled, :hidden])) }
   scope :region_or_platform, -> { where(visibility_status: [:region, :platform]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
   scope :payout, -> { where(transfer_status: [:payout_waiting, :payout_ready, :payout_processing, :payout_failed]) }
