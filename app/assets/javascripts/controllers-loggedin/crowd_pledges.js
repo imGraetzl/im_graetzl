@@ -160,6 +160,48 @@ APP.controllers_loggedin.crowd_pledges = (function() {
          });
       }
 
+      // Charge Screen Tracking
+      const el = document.querySelector("#crowd-pledge-charge");
+      if (!el) return;
+
+      const pledgeId = el.dataset.pledgeId;
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+      let seenTracked = false;
+
+      // 1. Sofort beim Laden: charge_returned
+      fetch(`/crowd_pledges/${pledgeId}/charge_returned`, {
+        method: "POST",
+        headers: {
+          "X-CSRF-Token": csrfToken,
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+      });
+
+      // 2. Verzögert und nur wenn sichtbar: charge_seen
+      function markAsSeen() {
+        if (!seenTracked && document.visibilityState === "visible") {
+          setTimeout(() => {
+            if (document.visibilityState === "visible") {
+              seenTracked = true;
+              fetch(`/crowd_pledges/${pledgeId}/charge_seen`, {
+                method: "POST",
+                headers: {
+                  "X-CSRF-Token": csrfToken,
+                  "Content-Type": "application/json"
+                },
+                credentials: "same-origin"
+              });
+            }
+          }, 1000);
+        }
+      }
+
+      document.addEventListener("visibilitychange", markAsSeen);
+      document.addEventListener("DOMContentLoaded", () => {
+        markAsSeen();
+      });
+
     }
 
     function initPaymentScreen() {

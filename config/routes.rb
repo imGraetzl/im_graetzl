@@ -202,6 +202,8 @@ Rails.application.routes.draw do
     get 'payment_changed', on: :member
     get 'unsubscribe/:unsubscribe_code', action: 'unsubscribe', on: :member
     patch 'crowd_boost_charge', to: 'crowd_pledges#update_crowd_boost_charge', on: :member
+    post 'charge_returned', on: :member
+    post 'charge_seen',     on: :member
   end
 
   resources :crowd_donation_pledges, only: [] do
