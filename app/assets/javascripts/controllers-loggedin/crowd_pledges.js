@@ -167,6 +167,7 @@ APP.controllers_loggedin.crowd_pledges = (function() {
       const pledgeId = el.dataset.pledgeId;
       const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
       let seenTracked = false;
+      let seenTimeout = null;
 
       // 1. Sofort beim Laden: charge_returned
       fetch(`/crowd_pledges/${pledgeId}/charge_returned`, {
@@ -178,12 +179,14 @@ APP.controllers_loggedin.crowd_pledges = (function() {
         credentials: "same-origin"
       });
 
-      // 2. Verzögert und nur wenn sichtbar: charge_seen
+      // 2. Sichtbarkeit prüfen und verzögert ausführen
       function markAsSeen() {
         if (!seenTracked && document.visibilityState === "visible") {
-          setTimeout(() => {
+          // Startet den Timer nur einmal
+          seenTimeout = setTimeout(() => {
             if (document.visibilityState === "visible") {
               seenTracked = true;
+
               fetch(`/crowd_pledges/${pledgeId}/charge_seen`, {
                 method: "POST",
                 headers: {
@@ -193,13 +196,23 @@ APP.controllers_loggedin.crowd_pledges = (function() {
                 credentials: "same-origin"
               });
             }
-          }, 1000);
+          }, 1500); // Warte 1 Sekunde sichtbar
         }
       }
 
+      // 3. Wenn Sichtbarkeit sich ändert
       document.addEventListener("visibilitychange", markAsSeen);
-      document.addEventListener("DOMContentLoaded", () => {
+
+      // 4. Falls Seite direkt sichtbar geladen wurde
+      if (document.visibilityState === "visible") {
         markAsSeen();
+      }
+
+      // 5. Fallback für iOS/Safari: Timeout beim Laden (wenn sichtbar)
+      document.addEventListener("DOMContentLoaded", () => {
+        if (document.visibilityState === "visible") {
+          markAsSeen();
+        }
       });
 
     }
