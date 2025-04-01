@@ -52,21 +52,17 @@ namespace :scheduled do
 
   desc "Coupon Task for Good Morning Dates"
   task coupons_task_gmd: :environment do
-    # Step 1: GoingTos von heute + Good Morning Dates
+    # Step 1: GoingTos von heute + Good Morning Dates mit aktivem Meeting
     going_tos = GoingTo
       .includes(:user, :meeting)
       .where(going_to_date: Date.today)
-      .select { |gt| gt.meeting&.good_morning_date? }
+      .select { |gt| gt.meeting&.good_morning_date? && gt.meeting.active? }
 
-    # Step 2: Alle zugehörigen User ohne Duplikate
-    target_users = going_tos.map(&:user).uniq
+    # Step 2: Alle zugehörigen User IDs ohne Duplikate
+    user_ids = going_tos.map(&:user_id).uniq
+    target_users = User.where(id: user_ids)
 
     # Step 3: GMD-Coupon nur für die Nutzer senden
     CouponService.new(users: target_users, type: :gmd, exclude_recent_coupons: :by_prefix).create_coupon_and_send
-  end
-
-  desc 'Coupon Reminder Mail'
-  task coupons_reminder_task: :environment do
-    CouponService.send_reminder_emails(days_ahead: 1)
   end
 end
