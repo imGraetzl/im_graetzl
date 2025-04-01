@@ -202,6 +202,8 @@ Rails.application.routes.draw do
     get 'payment_changed', on: :member
     get 'unsubscribe/:unsubscribe_code', action: 'unsubscribe', on: :member
     patch 'crowd_boost_charge', to: 'crowd_pledges#update_crowd_boost_charge', on: :member
+    post 'charge_returned', on: :member
+    post 'charge_seen',     on: :member
   end
 
   resources :crowd_donation_pledges, only: [] do
@@ -343,6 +345,7 @@ Rails.application.routes.draw do
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
   get 'raumbooster' => redirect('/crowdfunding-booster/raum-booster')
+  get 'raumfonds' => redirect('/crowdfunding-booster/raumfonds')
   get 'viertelfonds' => redirect('/crowdfunding-booster/viertelfonds/call')
   #get 'popup', to: 'static_pages#popup', as: 'popup'
 

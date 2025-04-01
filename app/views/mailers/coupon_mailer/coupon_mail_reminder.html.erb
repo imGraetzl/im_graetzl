@@ -5,44 +5,37 @@
 
         <p>Servus <%= @user.first_name %>,
 
-        <p>
-          wir wollten dich nur kurz daran erinnern: Dein exklusives <strong>10 Jahre imGrätzl-Angebot für die JUHU! Fördermitgliedschaft</strong> endet morgen – am <strong><%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>.
-        </p>
+        <% if @type == :gmd %>
 
-        <p>
-          Warum das wichtig ist? Du bist jemand, der <%= t("region.#{@user.region.id}.domain_short") %> aktiv nutzt. Du schaffst echte Begegnungen und lässt dein Grätzl lebendiger werden – und genau das möchten wir auch weiterhin möglich machen. <%= @user.region.subscription_goal %> Förder*innen sind unser Ziel, viele haben sich bereits angeschlossen.
-        </p>
+          <p>wir wollten dich nur kurz daran erinnern: Dein <strong>Good Morning Date Gutschein für die JUHU! Fördermitgliedschaft</strong> endet morgen – am <strong><%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>. Danach endet der Aktionspreis von <strong>85 €</strong> (statt 100 €).</p>
 
-        <p>
-          <strong>Warum jetzt? Feier mit uns 10 Jahre <%= t("region.#{@user.region.id}.domain_short") %>!</strong>
-        </p>
+        <% else %>
 
-        <p>
-          Dieses Angebot gibt es <strong>nur noch bis <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>. Danach endet der Aktionspreis von <strong>85 €</strong> (statt 100 €).
-        </p>
+          <p>wir wollten dich nur kurz daran erinnern: Dein exklusives <strong>10 Jahre imGrätzl-Angebot für die JUHU! Fördermitgliedschaft</strong> endet morgen – am <strong><%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>.</p>
+          <p>Warum das wichtig ist? Du bist jemand, der <%= t("region.#{@user.region.id}.domain_short") %> aktiv nutzt. Du schaffst echte Begegnungen und lässt dein Grätzl lebendiger werden – und genau das möchten wir auch weiterhin möglich machen. <%= @user.region.subscription_goal %> Förder*innen sind unser Ziel, viele haben sich bereits angeschlossen.</p>
+          <p><strong>Warum jetzt? Feier mit uns 10 Jahre <%= t("region.#{@user.region.id}.domain_short") %>!</strong></p>
+          <p>Dieses Angebot gibt es <strong>nur noch bis <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong>. Danach endet der Aktionspreis von <strong>85 €</strong> (statt 100 €).</p>
+          <strong style="color:#ec776a;">Hier geht’s direkt zu deinem Superfan-Angebot:</strong>
+        <% end %>
 
-        <strong style="color:#ec776a;">Hier geht’s direkt zu deinem Superfan-Angebot:</strong>
-
-        <p>
-          <strong>Löse deinen persönlichen Gutscheincode "</strong><strong style="color:#69a8a7;"><%= @coupon.code %></strong><strong>" für deine JUHU-Mitgliedschaft bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst JUHU-Mitgliedschaft auswählen, dann einlösen.) Dein Abo ist natürlich jederzeit mit nur einem Klick kündbar.
-        </p>
-
-        <p>
-          <strong>Was dir die JUHU! Fördermitgliedschaft bringt:</strong>
-        </p>
-
+        <p><strong>Löse deinen persönlichen Gutscheincode "</strong><strong style="color:#69a8a7;"><%= @coupon.code %></strong><strong>" für deine JUHU-Mitgliedschaft bis zum <%= I18n.localize(@coupon.valid_until, format:'%d. %B') %></strong> <%= link_to "hier", subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %> <strong>ein</strong>. (Zuerst JUHU-Mitgliedschaft auswählen, dann einlösen.) Dein Abo ist natürlich jederzeit mit nur einem Klick kündbar.</p>
+        <p><strong>Was dir die JUHU! Fördermitgliedschaft bringt:</strong></p>
         <ul>
           <li><strong>Ein Grätzlzuckerl</strong>: einen Monat lang <strong>wienweite Sichtbarkeit</strong> für dein Angebot in allen vier Newslettern und auf der Plattform.</li>
           <li><strong>Ein zweites Schaufenster</strong>: ideal, wenn du auch in anderen Bezirken sichtbarer sein möchtest.</li>
         </ul>
 
-        <p>
-          Mit deinem Beitrag stellst du sicher, dass <%= t("region.#{@user.region.id}.domain_short") %> unabhängig und kostenlos bleibt – ein Ort, an dem lokale Macher*innen wie du sich vernetzen und ihre Projekte verwirklichen können. 
-        </p>
+        <% if @type == :gmd %>
 
-        <p>
-          Wenn du Fragen hast, melde dich gerne!
-        </p>
+          <p>Mit deinem Beitrag stellst du sicher, dass <%= t("region.#{@user.region.id}.domain_short") %> unabhängig und kostenlos bleibt – ein Ort, an dem lokale Macher*innen wie du sich (auch real) vernetzen und ihre Projekte verwirklichen können.</p>
+
+        <% else %>
+
+          <p>Mit deinem Beitrag stellst du sicher, dass <%= t("region.#{@user.region.id}.domain_short") %> unabhängig und kostenlos bleibt – ein Ort, an dem lokale Macher*innen wie du sich vernetzen und ihre Projekte verwirklichen können.</p>
+
+        <% end %>
+
+        <p>Wenn du Fragen hast, melde dich gerne!</p>
 
         <p>
           Herzliche Grüße,<br>

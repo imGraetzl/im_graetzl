@@ -106,7 +106,7 @@
   <div class="tabs-ctrl -plain">
     <ul class="tabs-nav">
       <li class="active"><a href="#tab-campaigns"><h3>Unterstütze Projekte</h3><% if @crowd_boost.crowd_campaigns.boost_initialized.count > 0 %><small><%= @crowd_boost.crowd_campaigns.boost_initialized.count %></small><% end %></a></li>
-      <% if @crowd_boost.chargeable? %><li class="<%= @crowd_boost.crowd_campaigns.boost_initialized.count == 0 ? 'active' : '' %>"><a href="#tab-charges"><h3>Topf Einzahlungen</h3><% if @crowd_boost.crowd_boost_charges.debited.count > 0 %><small><%= @crowd_boost.crowd_boost_charges.debited.count %></small><% end %></a></li><% end %>
+      <% if @crowd_boost.chargeable? %><li class="<%= @crowd_boost.crowd_campaigns.boost_initialized.count == 0 ? 'active' : '' %>"><a href="#tab-charges"><h3>Topf Einzahlungen</h3><% if @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count > 0 %><small><%= @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count %></small><% end %></a></li><% end %>
     </ul>
   </div>
 

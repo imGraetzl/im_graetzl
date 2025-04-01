@@ -13,21 +13,4 @@ class GoingToMailer < ApplicationMailer
     )
   end
 
-  def good_morning_date_thankyou(going_to)
-    @going_to = going_to
-    @meeting = @going_to.meeting
-    @user = @going_to.user
-    @region = @user.region
-    @coupon = Coupon.in(@region).currently_valid.where("code LIKE ?", "%GMD%").last
-    #@coupon = Coupon.last
-
-    headers("X-MC-Tags" => "good-morning-date-thankyou")
-
-    mail(
-      subject: "Good Morning Date - Danke fürs Dabeisein",
-      from: platform_email("wir"),
-      to: @going_to.user.email,
-    )
-  end
-
 end

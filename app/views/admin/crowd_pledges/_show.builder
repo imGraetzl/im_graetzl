@@ -10,6 +10,8 @@ context.instance_eval do
           row(:status){|r| status_tag(r.status)}
           row :inclomplete_reminder_sent_at
           row :authorized_at
+          row :charge_returned_at
+          row :charge_seen_at
           row :confirmation_sent_at
           row :debited_at
           row :stripe_fee

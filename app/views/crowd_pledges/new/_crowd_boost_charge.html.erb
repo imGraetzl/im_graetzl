@@ -1,4 +1,4 @@
-<div>
+<div id="crowd-pledge-charge" data-pledge-id="<%= @crowd_pledge.id %>">
   <% default_amount = crowd_boost_charge_amount_values(@crowd_pledge.total_price).find { |v| v[:default] } %>
 
   <div class="hl-subtext">

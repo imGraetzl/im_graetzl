@@ -11,13 +11,13 @@ class CrowdBoostsController < ApplicationController
   end
 
   def show
-    @crowd_boost = CrowdBoost.find(params[:id])
+    @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
     @next_slot = @crowd_boost.next_slot(current_region)
     flash.now[:alert] = "Dieser Topf ist aktuell inaktiv." if @crowd_boost.disabled?
   end
 
   def call
-    @crowd_boost = CrowdBoost.find(params[:id])
+    @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
     @next_slot = @crowd_boost.next_slot(current_region)
     if current_region.is?('graz')
       render 'call_graz'
@@ -25,12 +25,12 @@ class CrowdBoostsController < ApplicationController
   end
 
   def charges
-    @crowd_boost = CrowdBoost.find(params[:id])
+    @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
     @charges = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.order(created_at: :desc)
   end
 
   def campaigns
-    @crowd_boost = CrowdBoost.find(params[:id])
+    @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
     @campaigns = @crowd_boost.crowd_campaigns.boost_initialized.by_currentness
   end
 

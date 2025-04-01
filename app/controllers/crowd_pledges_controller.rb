@@ -176,6 +176,22 @@ class CrowdPledgesController < ApplicationController
     redirect_to [:details, @crowd_pledge]
   end
 
+  def charge_returned
+    pledge = CrowdPledge.find(params[:id])
+    unless pledge.charge_returned_at?
+      pledge.update_column(:charge_returned_at, Time.current)
+    end
+    head :ok
+  end
+
+  def charge_seen
+    pledge = CrowdPledge.find(params[:id])
+    unless pledge.charge_seen_at?
+      pledge.update_column(:charge_seen_at, Time.current)
+    end
+    head :ok
+  end
+
   private
 
   def reward_belongs_to_campaign?(reward_id, campaign_id)
