@@ -70,9 +70,12 @@ class RoomBoosterService
   end
 
   def start_pending(room_booster)
+    room_offer = room_booster.room_offer
+    return unless room_offer&.enabled?
+  
     room_booster.update(status: 'active')
-    room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
-    ActionProcessor.track(room_booster.room_offer, :boost_create, room_booster)
+    room_offer.update(last_activated_at: Time.now)
+    ActionProcessor.track(room_offer, :boost_create, room_booster)
   end
 
   def create_for_free(room_booster)
@@ -81,9 +84,11 @@ class RoomBoosterService
 
   # Daily PushUp
   def push_up(room_booster)
-    return if !room_booster.active? && !room_booster.room_offer
-    ActionProcessor.track(room_booster.room_offer, :boost_pushup, room_booster) # Raumteiler Activity PushUp
-    room_booster.room_offer.update(last_activated_at: Time.now) # Raumteiler Pages PushUp
+    room_offer = room_booster.room_offer
+    return unless room_booster.active? && room_offer&.enabled?
+  
+    ActionProcessor.track(room_offer, :boost_pushup, room_booster)
+    room_offer.update(last_activated_at: Time.now)
   end
 
   def expire(room_booster)
