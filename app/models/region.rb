@@ -109,13 +109,27 @@ class Region
     CrowdBoost.in(self).pledge_charge.last&.id
   end
 
+  # get and cache active wow members
   def wow
-    @wow
+    return [] unless @wow.present?
+    return @active_wow if defined?(@active_wow)
+  
+    today = Time.zone.today
+    @active_wow = @wow.select do |entry|
+      starts_at = entry[:starts_at]
+      ends_at   = entry[:ends_at]
+  
+      next false if starts_at.blank? || ends_at.blank?
+  
+      start_date = Date.parse(starts_at) rescue nil
+      end_date   = Date.parse(ends_at) rescue nil
+  
+      start_date && end_date && (start_date <= today && today <= end_date)
+    end
   end
-
+  
   def wow?
-    false
-    #@wow.present? && @wow.any? { |w| w[:starts_at].to_date < Date.today && w[:ends_at].to_date > Date.today }    
+    wow.any?
   end
 
   def host_id
