@@ -22,6 +22,10 @@ class CrowdBoost < ApplicationRecord
     charge_enabled? || charge_call?
   end
 
+  def balance
+    total_amount_charged - total_amount_pledged
+  end
+
   def total_amount_charged
     self.crowd_boost_charges.debited.sum(:amount)
   end
@@ -30,8 +34,8 @@ class CrowdBoost < ApplicationRecord
     self.crowd_boost_pledges.debited.sum(:amount)
   end
 
-  def balance
-    total_amount_charged - total_amount_pledged
+  def balance_expected
+    self.crowd_boost_charges.expected.sum(:amount) - total_amount_pledged
   end
 
   def should_generate_new_friendly_id?
