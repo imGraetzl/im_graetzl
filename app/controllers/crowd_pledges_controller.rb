@@ -178,7 +178,7 @@ class CrowdPledgesController < ApplicationController
 
   def charge_returned
     pledge = CrowdPledge.find(params[:id])
-    unless pledge.charge_returned_at?
+    if pledge.charge_returned_at.nil?
       pledge.update_column(:charge_returned_at, Time.current)
     end
     head :ok
@@ -186,7 +186,7 @@ class CrowdPledgesController < ApplicationController
 
   def charge_seen
     pledge = CrowdPledge.find(params[:id])
-    unless pledge.charge_seen_at?
+    if pledge.charge_seen_at.nil?
       pledge.update_column(:charge_seen_at, Time.current)
     end
     head :ok
