@@ -33,7 +33,7 @@ span.empty {
     display: none;
   }
 
-  &.deleted, &.off, &.failed, &.payout_failed {
+  &.deleted, &.off, &.failed, &.payout_failed, &.disputed {
     background: red;
   }
   &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded, &.boost_cancelled {
