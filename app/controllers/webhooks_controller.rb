@@ -259,6 +259,9 @@ class WebhooksController < ApplicationController
       if charge.invoice
         invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
         SubscriptionService.new.invoice_disputed(invoice, charge) if invoice
+      elsif charge.metadata["pledge_id"]
+        crowd_pledge = CrowdPledge.find_by(id: charge.metadata.pledge_id)
+        CrowdPledgeService.new.payment_disputed(crowd_pledge) if crowd_pledge
       end
     end
   end

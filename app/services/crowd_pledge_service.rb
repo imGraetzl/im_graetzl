@@ -181,6 +181,11 @@ class CrowdPledgeService
     true
   end
 
+  def payment_disputed(crowd_pledge)
+    crowd_pledge.update(status: 'disputed')
+    true
+  end
+
   private
 
   def get_stripe_customer_id(crowd_pledge)
