@@ -19,9 +19,9 @@ ActiveAdmin.register RoomRentalPrice do
 
   csv do
     column :room_offer_id
-    column :room_offer
-    column(:status) {|price| price&.room_offer&.status }
-    column(:email) {|price| price&.room_offer&.email }
+    #column(:status) {|price| price&.room_offer&.status }
+    #column :room_offer
+    #column(:email) {|price| price&.room_offer&.email }
     column :price_per_hour
     column :minimum_rental_hours
     column :eight_hour_discount
