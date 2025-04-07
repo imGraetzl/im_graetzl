@@ -37,6 +37,7 @@ context.instance_eval do
           row :user
           row :created_at
           row :updated_at
+          row :disputed_at
         end
       end
       panel 'Crowd Boost Charge' do
