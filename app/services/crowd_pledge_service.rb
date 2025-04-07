@@ -182,7 +182,7 @@ class CrowdPledgeService
   end
 
   def payment_disputed(crowd_pledge)
-    crowd_pledge.update(status: 'disputed')
+    crowd_pledge.update(status: 'refunded', disputed_at: Time.current)
     true
   end
 

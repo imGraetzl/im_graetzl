@@ -103,7 +103,6 @@ context.instance_eval do
             row :crowd_boost_pledges_sum
             row :crowd_pledges_failed_sum
             row :crowd_pledges_refunded_sum
-            row :crowd_pledges_disputed_sum
             row :effective_funding_sum
             row :crowd_pledges_fee
             row :crowd_pledges_fee_tax
