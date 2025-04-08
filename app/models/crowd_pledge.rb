@@ -23,7 +23,7 @@ class CrowdPledge < ApplicationRecord
   string_enum status: ["incomplete", "authorized", "processing", "debited", "failed", "canceled", "refunded"]
 
   scope :initialized, -> { where.not(status: :incomplete) }
-  scope :disputed, -> { where.not(disputed_at: nil) }
+  scope :disputed, -> { where.not(disputed_at: nil).where.not(status: 'failed') }
   scope :donation, -> { where(crowd_reward_id: nil) }
   scope :reward, -> { where.not(crowd_reward_id: nil) }
   scope :charges, -> { where("crowd_boost_charge_amount > 0") }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_07_185643) do
+ActiveRecord::Schema.define(version: 2025_04_08_072334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -500,6 +500,7 @@ ActiveRecord::Schema.define(version: 2025_04_07_185643) do
     t.datetime "charge_returned_at"
     t.datetime "charge_seen_at"
     t.datetime "disputed_at"
+    t.datetime "failed_at"
     t.index ["comment_id"], name: "index_crowd_pledges_on_comment_id"
     t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"

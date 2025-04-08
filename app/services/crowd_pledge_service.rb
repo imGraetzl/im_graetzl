@@ -109,7 +109,7 @@ class CrowdPledgeService
 
     { success: true }
   rescue Stripe::CardError
-    crowd_pledge.update(status: 'failed')
+    crowd_pledge.update(status: 'failed', failed_at: Time.current)
     CrowdCampaignMailer.crowd_pledge_failed(crowd_pledge).deliver_later
 
     { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
@@ -134,7 +134,7 @@ class CrowdPledgeService
   def payment_failed(crowd_pledge, payment_intent)
     return if !crowd_pledge.processing?
 
-    crowd_pledge.update(status: 'failed')
+    crowd_pledge.update(status: 'failed', failed_at: Time.current)
     CrowdCampaignMailer.crowd_pledge_failed(crowd_pledge).deliver_later
 
     { success: true }
@@ -182,7 +182,7 @@ class CrowdPledgeService
   end
 
   def payment_disputed(crowd_pledge)
-    crowd_pledge.update(status: 'refunded', disputed_at: Time.current)
+    crowd_pledge.update(status: 'failed', disputed_at: Time.current)
     true
   end
 
