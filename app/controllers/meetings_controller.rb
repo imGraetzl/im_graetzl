@@ -185,6 +185,13 @@ class MeetingsController < ApplicationController
       meetings = meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]})
     end
 
+    # GMD SIMPLE UPCOMING FILTER
+    starts_at_date_from = params[:starts_at_date_from].presence
+    if starts_at_date_from.present?
+      safe_date_from = starts_at_date_from.presence || Date.today.to_s
+      meetings = meetings.where("starts_at_date >= ?", safe_date_from)
+    end
+
     # DATE FILTER
     date_from = params[:date_from_submit].presence
     date_to = params[:date_to_submit].presence

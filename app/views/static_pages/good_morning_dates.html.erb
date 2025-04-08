@@ -27,7 +27,7 @@
     </p>
   </div>
 
-  <%= form_tag meetings_path(per_page: 22, show_going_tos: true, date_from_submit: '2025-01-01'), method: :get, remote: true, class: 'cards-filter' do %>
+  <%= form_tag meetings_path(per_page: 24, show_going_tos: true, starts_at_date_from: '2025-01-01'), method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>
   <% end %>
   <div class="card-grid-container">

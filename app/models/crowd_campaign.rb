@@ -184,6 +184,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def stripe_fee_percentage_calculated
+    return 0.0 if enddate.blank? || enddate < Date.new(2025, 4, 1)
     # calculated real percentage - observe
     pledges = crowd_pledges.debited
     return 0.0 if pledges.empty?
