@@ -18,7 +18,6 @@ context.instance_eval do
   column :balance_expected
   column(:charges){|b| b.crowd_boost_charges.debited.count}
   column(:charges_expected){|b| b.crowd_boost_charges.authorized.count}
-  column(:charges_expected_sum){|b| b.crowd_boost_charges.authorized.sum(:amount)}
   column('Pledges'){|b| b.crowd_boost_pledges.debited.count}
   #actions
 end
