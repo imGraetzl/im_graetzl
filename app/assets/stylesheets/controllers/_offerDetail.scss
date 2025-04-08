@@ -229,41 +229,6 @@ section.offerDetail {
       .btn-primary {width:100%;}
     }
 
-    .rental-information {
-      margin-bottom: 20px;
-      h3 {
-        //@include font-size-primaryFont('small');
-        text-align: center;
-        border-top: 1px solid $color-ambient-grey-light;
-        padding-top:15px;
-        margin-top: 10px;
-      }
-      ol {
-        margin-left:35px;
-        padding-right:15px;
-        list-style: none; /* Remove default bullets */
-      }
-      ol li::before {
-        content: "1.";
-        color: $color-ambient-mint-dark;
-        display: inline-block;
-        font-weight: bold;
-        width:20px;
-        margin-left:-20px;
-      }
-      ol li:nth-child(2)::before {
-        content: "2.";
-      }
-      ol li:nth-child(3)::before {
-        content: "3.";
-      }
-      li {
-        padding-top:15px;
-        font-style: italic;
-        //color:$color-ambient-grey;
-      }
-    }
-
     .request-price-form {
       border-top: 1px solid $color-ambient-grey-light;
       padding-top:15px;
@@ -570,5 +535,41 @@ section.offerDetail {
         }
       }
     }
+  }
+}
+
+// Used for Booking Form on RoomOffer and RoomRentals
+.rental-information {
+  margin-bottom: 20px;
+  h3 {
+    //@include font-size-primaryFont('small');
+    text-align: center;
+    border-top: 1px solid $color-ambient-grey-light;
+    padding-top:15px;
+    margin-top: 10px;
+  }
+  ol {
+    margin-left:35px;
+    padding-right:15px;
+    list-style: none; /* Remove default bullets */
+  }
+  ol li::before {
+    content: "1.";
+    color: $color-ambient-mint-dark;
+    display: inline-block;
+    font-weight: bold;
+    width:20px;
+    margin-left:-20px;
+  }
+  ol li:nth-child(2)::before {
+    content: "2.";
+  }
+  ol li:nth-child(3)::before {
+    content: "3.";
+  }
+  li {
+    padding-top:15px;
+    font-style: italic;
+    //color:$color-ambient-grey;
   }
 }

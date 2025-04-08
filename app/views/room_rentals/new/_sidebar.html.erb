@@ -14,44 +14,54 @@
   </div>
 
   <% if @room_rental.room_rental_slots.present? %>
-  <div class="cardBoxContent">
-    <h3 class="sidebar">Deine Auswahl</h3>
+    <div class="cardBoxContent">
+      <h3 class="sidebar">Deine Auswahl</h3>
 
-    <ul class="pricing-summary -facts">
-      <li>
-        <div class="duration">Miete:</div>
-        <div class="costname">
-          <% @room_rental.room_rental_slots.each do |slot| %>
-            <%= l(slot.rent_date, format: :short) %>, <%= slot.hour_from %> bis <%= slot.hour_to %> Uhr
-            <br>
-          <% end %>
-        </div>
-      </li>
-    </ul>
-
-    <ul class="pricing-summary">
-      <li>
-        <div class="cost"><%= number_to_currency(@room_rental.basic_price, unit: "€") %></div>
-        <div class="costname"><%= @room_rental.total_hours %> Stunden x <%= number_to_currency(@room_rental.hourly_price, unit: "€") %></div>
-      </li>
-      <% if @room_rental.discount > 0 %>
+      <ul class="pricing-summary -facts">
         <li>
-          <div class="cost"> <%= number_to_currency(-@room_rental.discount, unit: "€") %></div>
-          <div class="costname"><%= @room_rental.room_offer.room_rental_price.eight_hour_discount %>% Rabatt ab 8h</div>
+          <div class="duration">Miete:</div>
+          <div class="costname">
+            <% @room_rental.room_rental_slots.each do |slot| %>
+              <%= l(slot.rent_date, format: :short) %>, <%= slot.hour_from %> bis <%= slot.hour_to %> Uhr
+              <br>
+            <% end %>
+          </div>
         </li>
-      <% end %>
+      </ul>
 
-      <li>
-        <div class="cost"><%= number_to_currency(@room_rental.tax, unit: "€") %></div>
-        <div class="costname">20% MwSt.</div>
-      </li>
+      <ul class="pricing-summary">
+        <li>
+          <div class="cost"><%= number_to_currency(@room_rental.basic_price, unit: "€") %></div>
+          <div class="costname"><%= @room_rental.total_hours %> Stunden x <%= number_to_currency(@room_rental.hourly_price, unit: "€") %></div>
+        </li>
+        <% if @room_rental.discount > 0 %>
+          <li>
+            <div class="cost"> <%= number_to_currency(-@room_rental.discount, unit: "€") %></div>
+            <div class="costname"><%= @room_rental.room_offer.room_rental_price.eight_hour_discount %>% Rabatt ab 8h</div>
+          </li>
+        <% end %>
 
-      <li class="sum">
-        <div class="cost"><%= number_to_currency(@room_rental.total_price, unit: "€") %></div>
-        <div class="costname">Gesamtpreis</div>
-      </li>
-    </ul>
-  </div>
+        <li>
+          <div class="cost"><%= number_to_currency(@room_rental.tax, unit: "€") %></div>
+          <div class="costname">20% MwSt.</div>
+        </li>
+
+        <li class="sum">
+          <div class="cost"><%= number_to_currency(@room_rental.total_price, unit: "€") %></div>
+          <div class="costname">Gesamtpreis</div>
+        </li>
+      </ul>
+    </div>
+  <% else %>
+    <div class="cardBoxContent">
+      <div class="rental-information">
+        <h3>Mietdauer wählen</h3>
+        <ol>
+          <li>Bitte wähle eine gültige Mietdauer innerhalb der verfügbaren Uhrzeiten aus.</li>
+          <li>Die Mindestmietdauer beträgt <%= @room_rental&.room_offer&.room_rental_price&.minimum_rental_hours || 1 %> Stunden</li>
+        </ol>
+      </div>
+    </div>
   <% end %>
 
 </div>

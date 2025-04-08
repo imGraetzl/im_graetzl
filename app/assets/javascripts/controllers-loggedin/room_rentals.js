@@ -49,6 +49,7 @@ APP.controllers_loggedin.room_rentals = (function() {
             $(".rental-date-form .picker__box").append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_text'> ... an diesen Tagen nicht verfügbar</small></div>" );
           }
         });
+        insertedItem.find('.input-select').addClass('disabled');
       });
 
       $('.date-screen .datepicker').each(function(i, input) {
@@ -71,32 +72,59 @@ APP.controllers_loggedin.room_rentals = (function() {
       });
 
       $('.date-screen').on('change', '.datepicker', function() {
-        $(this).parents(".date-fields").find('.hour-input').attr("disabled", !$(this).val());
+        const fieldRow = $(this).closest(".date-fields");
+        const isActive = !!$(this).val();
+      
+        fieldRow.find('.hour-input').each(function() {
+          $(this).attr("disabled", !isActive);          
+          const inputSelect = $(this).closest('.input-select');
+          inputSelect.toggleClass('disabled', !isActive);
+        });
       });
 
       $('.date-screen').on('change', '.datepicker, .hour-from', function() {
-        var fieldRow = $(this).parents(".date-fields");
+        var fieldRow = $(this).closest(".date-fields");
         var hoursUrl = fieldRow.data('hours-url');
         var currentDate = fieldRow.find(".datepicker").pickadate('picker').get('select', 'yyyy-mm-dd');
         var hourFrom = fieldRow.find(".hour-input.hour-from").val();
-
+      
+        var hourToSelect = fieldRow.find(".hour-input.hour-to");
+        var selectedTo = hourToSelect.val(); // Aktueller Wert merken
+      
         $.get(hoursUrl, {rent_date: currentDate, hour_from: hourFrom}, function(data) {
           fieldRow.find(".hour-input.hour-from option").not(':empty').each(function(i, o) {
             var hour = +$(o).val();
             $(o).attr("disabled", data.from.indexOf(hour) == -1);
           });
-          fieldRow.find(".hour-input.hour-to option").not(':empty').each(function(i, o) {
+      
+          var hasValidTo = false;
+          hourToSelect.find("option").not(':empty').each(function(i, o) {
             var hour = +$(o).val();
-            $(o).attr("disabled", data.to.indexOf(hour) == -1);
+            var isValid = data.to.indexOf(hour) !== -1;
+            $(o).attr("disabled", !isValid);
+            if (isValid && +selectedTo === hour) hasValidTo = true;
           });
+      
+          // Wenn ausgewählte `hour-to` nicht mehr gültig ist → zurücksetzen
+          if (selectedTo && !hasValidTo) {
+            hourToSelect.val(""); // Reset
+          }
         });
       });
+      
 
       $('.date-screen .datepicker').change();
 
+      let hourInputSubmitDelay;
+
       $('.date-screen').on('change', '.hour-input', function() {
-        $(this).parents('form').submit();
+        clearTimeout(hourInputSubmitDelay); // Vorherige geplante Submit abbrechen
+        const $form = $(this).closest('form');
+        hourInputSubmitDelay = setTimeout(() => {
+          $form.submit();
+        }, 200);
       });
+
 
       $('.date-screen').on('cocoon:after-remove', function() {
         $('.rental-date-form').submit();

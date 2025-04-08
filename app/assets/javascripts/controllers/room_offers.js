@@ -29,6 +29,9 @@ APP.controllers.room_offers = (function() {
       },
       onClose: function() {
         $(".sticky-btns").removeClass('hide');
+      },
+      onSet: function() {
+        removeFocus();
       }
     });
 
@@ -42,27 +45,53 @@ APP.controllers.room_offers = (function() {
       var hoursUrl = form.data('hours-url');
       var currentDate = form.find(".rent-date").pickadate('picker').get('select', 'yyyy-mm-dd');
       var hourFrom = form.find(".hour-from").val();
-
+    
       $.get(hoursUrl, {rent_date: currentDate, hour_from: hourFrom}, function(data) {
+    
+        // Prüfen ob gewählte Startzeit noch gültig ist
+        var selectedFrom = form.find(".hour-from").val();
         form.find(".hour-from option").not(':empty').each(function(i, o) {
           var hour = +$(o).val();
-          $(o).attr("disabled", data.from.indexOf(hour) == -1);
+          var isValid = data.from.indexOf(hour) !== -1;
+          $(o).attr("disabled", !isValid);
         });
+        if (selectedFrom && data.from.indexOf(+selectedFrom) === -1) {
+          form.find(".hour-from").val(""); // Auswahl zurücksetzen
+        }
+    
+        // Prüfen ob gewählte Endzeit noch gültig ist
+        var selectedTo = form.find(".hour-to").val();
         form.find(".hour-to option").not(':empty').each(function(i, o) {
           var hour = +$(o).val();
-          $(o).attr("disabled", data.to.indexOf(hour) == -1);
+          var isValid = data.to.indexOf(hour) !== -1;
+          $(o).attr("disabled", !isValid);
         });
+        if (selectedTo && data.to.indexOf(+selectedTo) === -1) {
+          form.find(".hour-to").val(""); // Auswahl zurücksetzen
+        }
       });
+    });
+    
+    let submitTimeout;
+    let alreadyUsed;
+
+    $('.request-price-form').find(".hour-to").on("change", function(event) {
+      if (event.originalEvent && event.originalEvent.isTrusted) {
+        alreadyUsed = true;
+      }
     });
 
     $('.request-price-form').on("change", '.hour-input', function() {
-      if ($('.hour-from').val() > 0 && $('.hour-to').val() > 0) {
-        $(this).parents(".request-price-form").submit();
-        // Analytics Tracking
-        gtag(
-          'event', 'Buchungsbox :: Raumteiler :: Auswahl Zeitraum'
-        );
-      }
+      clearTimeout(submitTimeout); // Vorherigen Timeout abbrechen, falls noch aktiv
+
+      submitTimeout = setTimeout(() => {
+        const fromVal = $('.hour-from').val();
+        const toVal = $('.hour-to').val();
+
+        if ((fromVal > 0 && toVal > 0) || alreadyUsed) {
+          $(this).parents(".request-price-form").submit();
+        }
+      }, 200); // 200ms warten
     });
 
     $(".request-price-form").on("ajax:complete", function() {
@@ -107,6 +136,13 @@ APP.controllers.room_offers = (function() {
       }
     });
 
+  }
+
+  // Helper für fokus entziehen, datepicker springt sonst manchmal auf
+  function removeFocus() {
+    setTimeout(function() {
+        document.activeElement.blur(); // Fokus entziehen
+    }, 10);
   }
 
   return {

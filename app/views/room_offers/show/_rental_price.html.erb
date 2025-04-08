@@ -33,5 +33,16 @@
     <div class="btn-primary tooltip-trigger" title="Du kannst deinen eigenen Raumteiler nicht buchen">Weiter zur Buchung</div>
   <% end %>
 
+<% else %>
+
+  <div class="rental-information">
+    <h3>Mietdauer wählen</h3>
+    <ol>
+      <li>Bitte wähle eine gültige Mietdauer innerhalb der verfügbaren Uhrzeiten aus.</li>
+      <li>Die Mindestmietdauer beträgt <%= @room_offer&.room_rental_price&.minimum_rental_hours || 1 %> Stunden</li>
+    </ol>
+  </div>
+
+  <%= button_tag "Wähle zuerst deine Mietdauer", class: "btn-primary -disabled", disabled: true %>
 
 <% end %>
