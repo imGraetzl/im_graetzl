@@ -68,6 +68,7 @@ class CrowdCampaign < ApplicationRecord
   scope :payout, -> { where(transfer_status: [:payout_waiting, :payout_ready, :payout_processing, :payout_failed]) }
   scope :guest_newsletter, -> { funding.where(guest_newsletter: true) }
   scope :ending_newsletter, -> { funding.where(ending_newsletter: true) }
+  scope :incomplete_newsletter, -> { funding.where(incomplete_newsletter: true) }
   scope :by_currentness, -> {
     order(Arel.sql('CASE WHEN enddate >= current_date THEN 0 WHEN funding_status != 0 THEN 1 ELSE 2 END')).
     order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.last_activity_at END) DESC, 

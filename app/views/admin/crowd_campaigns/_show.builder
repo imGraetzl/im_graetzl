@@ -17,6 +17,7 @@ context.instance_eval do
           row(:newsletter_status){|l| status_tag(l.newsletter_status)}
           row(:guest_newsletter){|l| status_tag(l.guest_newsletter)}
           row(:ending_newsletter){|l| status_tag(l.ending_newsletter)}
+          row(:incomplete_newsletter){|l| status_tag(l.incomplete_newsletter)}
           row :title
           row :slug
           row :slogan

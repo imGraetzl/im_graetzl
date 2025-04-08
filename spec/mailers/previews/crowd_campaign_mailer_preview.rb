@@ -89,4 +89,8 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.message_to_user(CrowdCampaign.first, CrowdPledge.last, "Hello", "Hello world")
   end
 
+  def ending_campaign_incomplete_reminder
+    CrowdCampaignMailer.ending_campaign_incomplete_reminder(User.last, CrowdCampaign.first)
+  end
+
 end
