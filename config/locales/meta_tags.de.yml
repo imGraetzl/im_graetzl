@@ -589,6 +589,8 @@ de:
       title: 'Raumteiler anfragen - Zahlungsart wählen'
     summary:
       title: 'Raumteiler anfragen - Zusammenfassung'
+    edit:
+      title: 'Raumteiler anfragen - Bearbeiten'
 
   zuckerls:
     new_location:

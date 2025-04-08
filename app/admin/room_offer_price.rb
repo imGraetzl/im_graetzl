@@ -19,9 +19,9 @@ ActiveAdmin.register RoomOfferPrice do
 
   csv do
     column :room_offer_id
-    column :room_offer
-    column(:status) {|price| price&.room_offer&.status }
-    column(:email) {|price| price&.room_offer&.email }
+    #column(:status) {|price| price&.room_offer&.status }
+    #column :room_offer
+    #column(:email) {|price| price&.room_offer&.email }
     column :amount
     column :name
   end

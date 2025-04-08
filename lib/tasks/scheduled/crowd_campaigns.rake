@@ -87,4 +87,40 @@ namespace :scheduled do
     
   end
 
+  task ending_campaign_reminders: :environment do
+    tomorrow = Date.tomorrow
+    cutoff_time = 24.hours.ago
+    campaigns = CrowdCampaign.incomplete_newsletter.where(enddate: tomorrow)
+
+    Rails.logger.info("[Ending Campaign Reminder]: Ending Incomplete Newlsetter Campaigns tomorrow: #{campaigns.count}")
+
+    campaigns.find_each do |campaign|
+
+      # Step 1: User mit `incomplete` älter als 24h
+      incomplete_user_ids = CrowdPledge.where(crowd_campaign_id: campaign.id)
+                                        .incomplete
+                                        .where('created_at < ?', cutoff_time)
+                                        .pluck(:user_id)
+                                        .uniq
+
+      # Step 2: User mit `initialized` pledges
+      initialized_user_ids = CrowdPledge.where(crowd_campaign_id: campaign.id)
+                                        .initialized
+                                        .pluck(:user_id)
+                                        .uniq
+
+      # Step 3: Nur relevante Nutzer (incomplete & nicht initialized)
+      user_ids_to_notify = incomplete_user_ids - initialized_user_ids
+
+      User.where(id: user_ids_to_notify).find_each do |user|
+        CrowdCampaignMailer.ending_campaign_incomplete_reminder(user, campaign).deliver_now
+        Rails.logger.info("[Ending Campaign Reminder]: Campaign-ID: #{campaign.id}: #{user.email} reminded")
+      end
+
+      Rails.logger.info("[Ending Campaign Reminder]: Campaign-ID: #{campaign.id}: #{user_ids_to_notify.count} total Users reminded")
+
+    end
+
+  end
+
 end

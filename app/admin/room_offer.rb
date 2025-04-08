@@ -55,15 +55,27 @@ ActiveAdmin.register RoomOffer do
     column :id
     column :created_at
     column :status
-    column(:graetzl) { |room| room.graetzl }
-    column(:plz) { |room| room.graetzl.zip }
     column :region_id
-    #column(:email) {|room| room.user.email if room.user }
-    #column :slogan
-    #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
-    #column(:room_url) { |room| Rails.application.routes.url_helpers.room_offer_path(room)}
-    #column(:room_state) { |room| I18n.t("activerecord.attributes.room_offer.statuses.#{room.status}")}
-    #column(:room_type) { |room| I18n.t("activerecord.attributes.room_offer.offer_types.#{room.offer_type}")}
+    column(:plz) { |room| room.graetzl.zip }
+    column(:graetzl) { |room| room.graetzl }
+    column(:room_type) { |room| I18n.t("activerecord.attributes.room_offer.offer_types.#{room.offer_type}")}
+    column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
+    column :slogan
+    column(:room_url) { |room| Rails.application.routes.url_helpers.room_offer_url(room, host: room.region.host)}
+    column(:keywords)  { |room| room.keywords.map(&:name).join(", ") }
+    column :total_area
+    column :rented_area
+    column :wants_collaboration
+    column :rental_enabled
+    column :address_street
+    column :address_zip
+    column :address_city
+    column :address_coordinates
+    column :updated_at
+    column :last_activated_at
+    column :room_description
+    column :owner_description
+    column :tenant_description
   end
 
 end

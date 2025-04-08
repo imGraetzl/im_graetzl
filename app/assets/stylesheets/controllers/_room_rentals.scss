@@ -16,6 +16,13 @@
 
   }
 
+  .rental-information {
+    h3 {
+      border-top: none;
+      padding-top: 0px;
+    }
+  }
+
   .date-fields {
     @include respond-to(">medium") {
       @include cf();

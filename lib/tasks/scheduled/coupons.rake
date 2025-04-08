@@ -65,4 +65,9 @@ namespace :scheduled do
     # Step 3: GMD-Coupon nur für die Nutzer senden
     CouponService.new(users: target_users, type: :gmd, exclude_recent_coupons: :by_prefix).create_coupon_and_send
   end
+
+  desc "Coupon Reminder Task"
+  task coupons_reminder_task: :environment do    
+    CouponService.send_reminder_emails(days_ahead: 1)
+  end
 end

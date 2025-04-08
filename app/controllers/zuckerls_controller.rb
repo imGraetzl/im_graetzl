@@ -22,6 +22,7 @@ class ZuckerlsController < ApplicationController
     @zuckerl = current_user.zuckerls.new(zuckerl_params)
     @zuckerl.user = current_user
     @zuckerl.region_id = current_user.region_id
+    @zuckerl.entire_region = true if entire_region?
     @zuckerl.amount = @zuckerl.total_price / 100
 
     if current_region.hot_august?
@@ -154,12 +155,27 @@ class ZuckerlsController < ApplicationController
 
   private
 
+  def has_graetzl_ids?
+    params[:zuckerl].key?(:graetzl_ids) && params[:zuckerl][:graetzl_ids].present?
+  end
+
+  def has_district_ids?
+    params[:zuckerl].key?(:district_ids) && params[:zuckerl][:district_ids].present?
+  end
+
+  def entire_region?
+    if has_graetzl_ids?
+      Array(params[:zuckerl][:graetzl_ids]).include?("entire_region")
+    elsif has_district_ids?
+      Array(params[:zuckerl][:district_ids]).include?("entire_region")
+    else
+      false
+    end
+  end
+
   def set_zuckerl_graetzls
 
-    has_graetzl_ids = params[:zuckerl].key?(:graetzl_ids) && params[:zuckerl][:graetzl_ids].present?
-    has_district_ids = params[:zuckerl].key?(:district_ids) && params[:zuckerl][:district_ids].present?
-
-    if has_graetzl_ids
+    if has_graetzl_ids?
 
       if Array(params[:zuckerl][:graetzl_ids]).include?("entire_region")
         @zuckerl.update_column(:entire_region, true)
@@ -170,7 +186,7 @@ class ZuckerlsController < ApplicationController
         @zuckerl.update_column(:entire_region, false)
       end
 
-    elsif has_district_ids
+    elsif has_district_ids?
 
       if Array(params[:zuckerl][:district_ids]).include?("entire_region")
         @zuckerl.update_column(:entire_region, true)
