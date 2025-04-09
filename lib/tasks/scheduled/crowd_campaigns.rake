@@ -113,7 +113,7 @@ namespace :scheduled do
       user_ids_to_notify = incomplete_user_ids - initialized_user_ids
 
       User.where(id: user_ids_to_notify).find_each do |user|
-        CrowdCampaignMailer.ending_campaign_incomplete_reminder(user, campaign).deliver_now
+        CrowdCampaignMailer.ending_campaign_incomplete_reminder(user, campaign).deliver_later
         Rails.logger.info("[Ending Campaign Reminder]: Campaign-ID: #{campaign.id}: #{user.email} reminded")
       end
 
