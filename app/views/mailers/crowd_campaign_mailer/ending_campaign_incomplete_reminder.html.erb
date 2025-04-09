@@ -6,18 +6,18 @@
           Servus <%= @user.full_name %>,
         </p>
         <p>
-          falls du die Crowdfunding-Kampagne <%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %> doch noch unterstützen möchtest:<br><strong>Bis morgen wäre noch Zeit – am <%= @crowd_campaign.enddate.strftime("%d.%m") %> um 00:00 Uhr endet sie.</strong>
+          falls du die Crowdfunding-Kampagne <%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %> doch noch unterstützen möchtest:<br><strong>Bis morgen wäre noch Zeit – am <%= @crowd_campaign.enddate.strftime("%d.%m") %> um 00:00 Uhr endet die Kampagne.</strong>
         </p>
         <p>
-          Hier ist nochmal der direkte Link zur Kampagne:<br>
+          Hier ist nochmals der direkte Link zur Kampagne:<br>
           <%= link_to crowd_campaign_url(@crowd_campaign), crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %>
         </p>
         <p>
-          Lieben Dank und bei Fragen meld dich jederzeit gerne!<br>
+          Lieben Dank für deine Unterstützung und bei Fragen melde dich jederzeit gerne!<br>
           Michael vom <%= t("region.#{@crowd_campaign.region.id}.domain_short") %> Team
         </p>
         <p>
-          PS: Versprochen – das war der letzte Reminder, danach schicken wir keine weiteren Mails mehr.
+          PS: Versprochen – das war der letzte Reminder, danach schicken wir keine Mails mehr zu dieser Kampagne.
         </p>
       </td>
     </tr>
