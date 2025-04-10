@@ -8,6 +8,15 @@
         <p>
           falls du die Kampagne <em><%= @crowd_campaign.title %></em>, noch unterstützen möchtest: <strong>Bis morgen wäre noch Zeit - danach endet die Kampagne.</strong>
         </p>
+        <% if @crowd_campaign.goal_1_reached? %>
+          <p>
+            Die erste Hürde ist bereits geschafft – die Auszahlung ist damit gesichert. Jetzt zählt jeder Beitrag, um auch das große Ziel zu erreichen.
+          </p>
+        <% elsif @crowd_campaign.goal_2_reached? %>
+          <p>
+            Und wow – die Kampagne hat ihre wichtigste Hürde bereits geschafft! Jetzt geht’s ums Extra: Jeder weitere Beitrag macht noch mehr möglich.
+          </p>
+        <% end %>
     </tr>
   </tbody>
 </table>
