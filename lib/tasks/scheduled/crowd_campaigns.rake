@@ -89,14 +89,14 @@ namespace :scheduled do
 
   task ending_campaign_reminders: :environment do
     tomorrow = Date.tomorrow
-    cutoff_time = 24.hours.ago
+    cutoff_time = 48.hours.ago
     campaigns = CrowdCampaign.incomplete_newsletter.where(enddate: tomorrow)
 
     Rails.logger.info("[Ending Campaign Reminder]: Ending Incomplete Newlsetter Campaigns tomorrow: #{campaigns.count}")
 
     campaigns.find_each do |campaign|
 
-      # Step 1: User mit `incomplete` älter als 24h
+      # Step 1: User mit `incomplete` älter als 48h
       incomplete_user_ids = CrowdPledge.where(crowd_campaign_id: campaign.id)
                                         .incomplete
                                         .where('created_at < ?', cutoff_time)
