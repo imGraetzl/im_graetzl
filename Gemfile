@@ -14,11 +14,6 @@ gem 'delayed_job_web'
 gem 'activerecord-import'
 gem 'active_link_to'
 
-# Remove in Rails 7
-gem 'net-smtp', require: false
-gem 'net-imap', require: false
-gem 'net-pop', require: false
-
 gem 'rack-attack'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-rewrite'
@@ -86,7 +81,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'webmock'
 end
