@@ -10,15 +10,11 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'factory_bot_rails'
 require 'database_cleaner'
-require 'capybara/poltergeist'
 require 'webmock/rspec'
 require 'aasm/rspec'
 
 # require all spec support files
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
-
-# use poltergeist for feature requests using js
-Capybara.javascript_driver = :poltergeist
 
 # Use synchronus backend for active job
 #Rails.application.config.active_job.queue_adapter = :inline

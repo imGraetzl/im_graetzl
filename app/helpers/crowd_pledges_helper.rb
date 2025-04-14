@@ -22,14 +22,6 @@ module CrowdPledgesHelper
       }
     end
   
-    # Zero-Option am Ende anhängen
-    #values << {
-    #  amount: 0.0,
-    #  label: "Diesmal nicht",
-    #  default: false,
-    #  is_zero: true
-    #}
-  
     values
   end  
 

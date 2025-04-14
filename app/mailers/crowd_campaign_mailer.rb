@@ -230,7 +230,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "ending-campaign-incomplete-reminder")
     mail(
-      subject: "Letzte Chance 'für #{@crowd_campaign.title}'",
+      subject: "Letzte Chance für '#{@crowd_campaign.title}'",
       from: platform_email('no-reply'),
       to: @user.email,
     )
