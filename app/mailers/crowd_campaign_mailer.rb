@@ -224,6 +224,18 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def ending_campaign_incomplete_reminder(user, campaign)
+    @user = user
+    @crowd_campaign = campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "ending-campaign-incomplete-reminder")
+    mail(
+      subject: "Letzte Chance für '#{@crowd_campaign.title}'",
+      from: platform_email('no-reply'),
+      to: @user.email,
+    )
+  end
+
   def crowd_pledge_newsletter(crowd_pledge, crowd_campaigns)
     @crowd_pledge = crowd_pledge
     @crowd_campaigns = CrowdCampaign.where(id: crowd_campaigns).order(enddate: :desc)
