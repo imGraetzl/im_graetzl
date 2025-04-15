@@ -1,6 +1,11 @@
 class ErrorsController < ApplicationController
 
   def not_found
+
+    if request.path.include?("/attachments/") && request.path.include?("/fill/")
+      Rails.logger.warn("[404 IMAGE] path=#{request.path} | ip=#{request.remote_ip} | ua=#{request.user_agent} | referer=#{request.referer}")
+    end
+
     respond_to do |format|
       format.html { render 'errors/not_found', status: 404 }
       format.all { head 404 }
