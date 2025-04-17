@@ -21,7 +21,7 @@ class Rack::Attack
   # **BLOCKLIST: Bestimmte IP-Adressen**
   blocklist('block specific IPs') do |req|
     blocked_ips = [
-      '103.121.39.54',  # Scanner/Bot
+      '103.121.39.54', '185.208.8.76'  # Scanner/Bot
     ]
     blocked_ips.include?(req.ip)
   end
