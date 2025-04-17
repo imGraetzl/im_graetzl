@@ -65,7 +65,7 @@ class RoomBoosterService
 
   def payment_refunded(room_booster)
     room_booster.update(payment_status: 'refunded', status: 'storno')
-    ActionProcessor.track(room_booster.room_offer, :boost_refund, room_booster) # Raumteiler Activity Reset
+    ActionProcessor.track(room_booster.room_offer, :boost_refund, room_booster) if room_booster.room_offer
     true
   end
 
