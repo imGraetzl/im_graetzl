@@ -38,9 +38,9 @@ namespace :dyno do
       day_of_week = current_time.strftime('%A')
       hour = current_time.hour
 
-      # Worker-Dynos Dienstag zwischen 06:00 und 08:00 Uhr 2 Dynos
-      if day_of_week == 'Tuesday' && hour >= 6 && hour < 8
-        scale_dyno(heroku, 'worker', 'Standard-2X', 3)
+      # Worker-Dynos Dienstag zwischen 06:00 und 07:00 Uhr 4 Dynos
+      if day_of_week == 'Tuesday' && hour >= 6 && hour < 7
+        scale_dyno(heroku, 'worker', 'Standard-2X', 4)
       elsif day_of_week == 'Tuesday'
         scale_dyno(heroku, 'worker', 'Standard-1X', 1)
       end
