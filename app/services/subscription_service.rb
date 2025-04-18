@@ -5,7 +5,7 @@ class SubscriptionService
 
     args = {
       customer: stripe_customer_id,
-      items: [{ plan: subscription.stripe_plan }],
+      items: [{ price: subscription.stripe_plan }],
       expand: ['latest_invoice.payment_intent'],
       payment_behavior: 'default_incomplete',
       metadata: {
@@ -19,7 +19,12 @@ class SubscriptionService
       ],
     }.merge(options)
 
-    sub = Stripe::Subscription.create(args)
+    sub = Stripe::Subscription.create(
+      args,
+      {
+        idempotency_key: "subscription_#{subscription.id}_create"
+      }
+    )
 
     subscription.update(
       stripe_id: sub.id,
@@ -38,7 +43,7 @@ class SubscriptionService
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
-    UserService.new.update_payment_method(subscription.user, payment_intent.payment_method.id)
+    UserService.new.update_payment_method(subscription.user, payment_intent.payment_method&.id)
 
     true
   end
@@ -49,7 +54,7 @@ class SubscriptionService
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
-    UserService.new.update_payment_method(subscription.user, payment_intent.payment_method.id)
+    UserService.new.update_payment_method(subscription.user, payment_intent.payment_method&.id)
 
     true
   end

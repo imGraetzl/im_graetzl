@@ -4,9 +4,14 @@ class UserService
 
   def create_setup_intent(user)
     Stripe::SetupIntent.create(
-      customer: user.stripe_customer,
-      payment_method_types: ['card', 'sepa_debit'],
-      usage: 'off_session',
+      {
+        customer: user.stripe_customer,
+        payment_method_types: ['card', 'sepa_debit'],
+        usage: 'off_session'
+      },
+      {
+        idempotency_key: "user_#{user.id}_setup"
+      }
     )
   end
 

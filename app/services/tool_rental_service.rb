@@ -12,7 +12,7 @@ class ToolRentalService
         type: 'ToolRental',
         tool_rental_id: tool_rental.id,
         tool_offer_id: tool_rental.tool_offer.id
-      },
+      }
     )
   end
 
@@ -44,19 +44,24 @@ class ToolRentalService
     tool_rental.update(payment_status: 'processing')
 
     payment_intent = Stripe::PaymentIntent.create(
-      customer: tool_rental.renter.stripe_customer_id,
-      payment_method_types: available_payment_methods(tool_rental),
-      payment_method: tool_rental.stripe_payment_method_id,
-      amount: (tool_rental.total_price * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(tool_rental.tool_offer),
-      metadata: {
-        type: 'ToolRental',
-        tool_rental_id: tool_rental.id,
-        tool_offer_id: tool_rental.tool_offer.id
+      {
+        customer: tool_rental.renter.stripe_customer_id,
+        payment_method_types: available_payment_methods(tool_rental),
+        payment_method: tool_rental.stripe_payment_method_id,
+        amount: (tool_rental.total_price * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(tool_rental.tool_offer),
+        metadata: {
+          type: 'ToolRental',
+          tool_rental_id: tool_rental.id,
+          tool_offer_id: tool_rental.tool_offer.id
+        },
+        off_session: true,
+        confirm: true,
       },
-      off_session: true,
-      confirm: true,
+      {
+        idempotency_key: "tool_rental_#{tool_rental.id}_charge"
+      }
     )
 
     invoice_number = "#{Date.current.year}_ToolRental_#{ToolRental.next_invoice_number}"
@@ -105,7 +110,7 @@ class ToolRentalService
         type: 'ToolRental',
         tool_rental_id: tool_rental.id,
         tool_offer_id: tool_rental.tool_offer.id
-      },
+      }
     )
   end
 
@@ -117,8 +122,8 @@ class ToolRentalService
 
     tool_rental.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -171,7 +176,7 @@ class ToolRentalService
   end
 
   def statement_descriptor(tool_offer)
-    "#{tool_offer.region.host_id} Geräteteiler".upcase
+    statement_descriptor_for(tool_offer.region, 'Geraeteteiler')
   end
 
   def generate_invoices(tool_rental)

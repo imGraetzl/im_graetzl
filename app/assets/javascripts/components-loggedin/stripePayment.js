@@ -104,7 +104,7 @@ APP.components.stripePayment = (function() {
       }
     });
 
-    $(".open-legal").on().on("click", function() {
+    $(".open-legal").on("click", function() {
       $(this).closest('.payment-method-info').find('.legal').slideToggle();
     });
 
