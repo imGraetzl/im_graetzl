@@ -43,28 +43,27 @@ class SubscriptionsController < ApplicationController
     
     # Speichere die Subscription nur, wenn der Gutscheincode gültig ist oder keiner angegeben wurde
     if @subscription.save
-      
       subscription = SubscriptionService.new.create(@subscription, coupon: coupon_code.presence)
-
+    
       if coupon_code.present? && coupon
         @subscription.update(coupon: coupon)
       end
-
+    
       invoice = subscription.latest_invoice
-      payment_intent_id = invoice&.payment_intent
-
-      if payment_intent_id.present?
-        payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
-        redirect_to [:choose_payment, @subscription, client_secret: payment_intent.client_secret]
+      payment_intent = invoice&.payment_intent
+      client_secret = payment_intent&.client_secret
+    
+      if client_secret.present?
+        redirect_to [:choose_payment, @subscription, client_secret: client_secret]
       else
         SubscriptionMailer.created(@subscription).deliver_later
         redirect_to [:summary, @subscription]
       end
-
     else
       # Fehler beim Speichern der Subscription
       render :new
     end
+    
   end
 
   def choose_payment

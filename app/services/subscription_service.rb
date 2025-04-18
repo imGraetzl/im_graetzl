@@ -6,7 +6,7 @@ class SubscriptionService
     args = {
       customer: stripe_customer_id,
       items: [{ price: subscription.stripe_plan }],
-      expand: ['latest_invoice'],
+      expand: ['latest_invoice.payment_intent'],
       payment_behavior: 'default_incomplete',
       metadata: {
         type: 'Subscription',
