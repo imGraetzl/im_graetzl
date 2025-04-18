@@ -26,12 +26,14 @@ class SubscriptionService
       }
     )
 
+    first_item = sub.items&.data&.first
+
     subscription.update(
       stripe_id: sub.id,
       status: sub.status,
       ends_at: nil,
-      current_period_start: Time.at(sub.current_period_start),
-      current_period_end: Time.at(sub.current_period_end)
+      current_period_start: first_item ? Time.at(first_item.current_period_start) : nil,
+      current_period_end: first_item ? Time.at(first_item.current_period_end) : nil
     )
 
     sub
@@ -67,8 +69,9 @@ class SubscriptionService
     end
 
     subscription.status = object.status
-    subscription.current_period_start = Time.at(object.current_period_start)
-    subscription.current_period_end = Time.at(object.current_period_end)
+    first_item = object.items&.data&.first
+    subscription.current_period_start = Time.at(first_item.current_period_start) if first_item
+    subscription.current_period_end = Time.at(first_item.current_period_end) if first_item
 
     if object.ended_at
       subscription.ends_at = Time.at(object.ended_at)
@@ -80,12 +83,15 @@ class SubscriptionService
   end
 
   def delete_subscription(subscription, object)
+    return unless object.ended_at.present?
+
+    first_item = object.items&.data&.first
     subscription.update(
       status: object.status,
       ends_at: Time.at(object.ended_at),
-      current_period_start: Time.at(object.current_period_start),
-      current_period_end: Time.at(object.current_period_end),
-    ) if object.ended_at.present?
+      current_period_start: first_item ? Time.at(first_item.current_period_start) : nil,
+      current_period_end: first_item ? Time.at(first_item.current_period_end) : nil
+    )
   end
 
   def invoice_payment_open(subscription, object)
