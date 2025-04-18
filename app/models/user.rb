@@ -289,7 +289,12 @@ class User < ApplicationRecord
         name: full_name,
       }.merge(billing_address_args)
 
-      stripe_customer = Stripe::Customer.create(args)
+      stripe_customer = Stripe::Customer.create(
+        args,
+        {
+          idempotency_key: "user_#{id}_customer"
+        }
+      )
 
       update(stripe_customer_id: stripe_customer.id)
 

@@ -5,17 +5,22 @@ class CrowdBoostService
   def create_payment_intent(crowd_boost_charge)
     stripe_customer_id = get_stripe_customer_id(crowd_boost_charge)
     Stripe::PaymentIntent.create(
-      customer: stripe_customer_id,
-      amount: (crowd_boost_charge.amount * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(crowd_boost_charge),
-      payment_method_types: payment_methods(crowd_boost_charge),
-      metadata: {
-        type: 'CrowdBoostCharge',
-        crowd_boost_charge_id: crowd_boost_charge.id,
-        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_boost_charge.amount),
-        crowd_boost_id: crowd_boost_charge.crowd_boost.id,
+      {
+        customer: stripe_customer_id,
+        amount: (crowd_boost_charge.amount * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(crowd_boost_charge),
+        payment_method_types: payment_methods(crowd_boost_charge),
+        metadata: {
+          type: 'CrowdBoostCharge',
+          crowd_boost_charge_id: crowd_boost_charge.id,
+          crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_boost_charge.amount),
+          crowd_boost_id: crowd_boost_charge.crowd_boost.id,
+        }
       },
+      {
+        idempotency_key: "crowd_boost_charge_#{crowd_boost_charge.id}_charge"
+      }
     )
   end
 
@@ -27,8 +32,8 @@ class CrowdBoostService
 
     crowd_boost_charge.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -99,7 +104,7 @@ class CrowdBoostService
   end
 
   def statement_descriptor(crowd_boost_charge)
-    "#{crowd_boost_charge.region.host_id} Booster".upcase
+    statement_descriptor_for(crowd_boost_charge.region, 'Booster')
   end
 
   def generate_invoice(crowd_boost_charge)

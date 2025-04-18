@@ -12,7 +12,7 @@ class RoomRentalService
         type: 'RoomRental',
         room_rental_id: room_rental.id,
         room_offer_id: room_rental.room_offer.id
-      },
+      }
     )
   end
 
@@ -44,19 +44,24 @@ class RoomRentalService
     room_rental.update(payment_status: 'processing', rental_status: :approved)
 
     payment_intent = Stripe::PaymentIntent.create(
-      customer: room_rental.renter.stripe_customer_id,
-      payment_method_types: available_payment_methods(room_rental),
-      payment_method: room_rental.stripe_payment_method_id,
-      amount: (room_rental.total_price * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(room_rental.room_offer),
-      metadata: {
-        type: 'RoomRental',
-        room_rental_id: room_rental.id,
-        room_offer_id: room_rental.room_offer.id
+      {
+        customer: room_rental.renter.stripe_customer_id,
+        payment_method_types: available_payment_methods(room_rental),
+        payment_method: room_rental.stripe_payment_method_id,
+        amount: (room_rental.total_price * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(room_rental.room_offer),
+        metadata: {
+          type: 'RoomRental',
+          room_rental_id: room_rental.id,
+          room_offer_id: room_rental.room_offer.id
+        },
+        off_session: true,
+        confirm: true,
       },
-      off_session: true,
-      confirm: true,
+      {
+        idempotency_key: "room_rental_#{room_rental.id}_charge"
+      }
     )
 
     invoice_number = "#{Date.current.year}_RoomRental_#{RoomRental.next_invoice_number}"
@@ -106,7 +111,7 @@ class RoomRentalService
         type: 'RoomRental',
         room_rental_id: room_rental.id,
         room_offer_id: room_rental.room_offer.id
-      },
+      }
     )
   end
 
@@ -118,8 +123,8 @@ class RoomRentalService
 
     room_rental.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -165,7 +170,7 @@ class RoomRentalService
   end
 
   def statement_descriptor(room_offer)
-    "#{room_offer.region.host_id} Raumteiler".upcase
+    statement_descriptor_for(room_offer.region, 'Raumteiler')
   end
 
   def generate_invoices(room_rental)

@@ -15,7 +15,7 @@ class CrowdPledgeService
         type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id
-      },
+      }
     )
   end
 
@@ -85,22 +85,27 @@ class CrowdPledgeService
     crowd_pledge.update(status: 'processing')
 
     payment_intent = Stripe::PaymentIntent.create(
-      customer: crowd_pledge.stripe_customer_id,
-      payment_method_types: available_payment_methods(crowd_pledge),
-      payment_method: crowd_pledge.stripe_payment_method_id,
-      amount: (crowd_pledge.total_overall_price * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
-      metadata: {
-        type: 'CrowdPledge',
-        pledge_id: crowd_pledge.id,
-        campaign_id: crowd_pledge.crowd_campaign.id,
-        total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
-        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
-        crowd_boost_id: crowd_pledge.crowd_boost_id
+      {
+        customer: crowd_pledge.stripe_customer_id,
+        payment_method_types: available_payment_methods(crowd_pledge),
+        payment_method: crowd_pledge.stripe_payment_method_id,
+        amount: (crowd_pledge.total_overall_price * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
+        metadata: {
+          type: 'CrowdPledge',
+          pledge_id: crowd_pledge.id,
+          campaign_id: crowd_pledge.crowd_campaign.id,
+          total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
+          crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
+          crowd_boost_id: crowd_pledge.crowd_boost_id
+        },
+        off_session: true,
+        confirm: true,
       },
-      off_session: true,
-      confirm: true,
+      {
+        idempotency_key: "crowd_pledge_#{crowd_pledge.id}_charge"
+      }
     )
 
     crowd_pledge.update(stripe_payment_intent_id: payment_intent.id)
@@ -155,7 +160,7 @@ class CrowdPledgeService
         total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
         crowd_boost_id: crowd_pledge.crowd_boost_id
-      },
+      }
     )
   end
 
@@ -167,8 +172,8 @@ class CrowdPledgeService
 
     crowd_pledge.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -224,7 +229,7 @@ class CrowdPledgeService
   end
 
   def statement_descriptor(crowd_campaign)
-    "#{crowd_campaign.region.host_id} Crowdfunding".upcase
+    statement_descriptor_for(crowd_campaign.region, 'Crowdfunding')
   end
 
 end

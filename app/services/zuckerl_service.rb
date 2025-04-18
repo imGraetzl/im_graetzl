@@ -18,7 +18,7 @@ class ZuckerlService
         zuckerl_id: zuckerl.id,
         location_id: zuckerl.location&.id,
         user_id: zuckerl.user.id
-      },
+      }
     )
   end
 
@@ -69,22 +69,27 @@ class ZuckerlService
     zuckerl.update(payment_status: 'processing')
 
     payment_intent = Stripe::PaymentIntent.create(
-      customer: zuckerl.user.stripe_customer_id,
-      payment_method_types: available_payment_methods(zuckerl),
-      payment_method: zuckerl.stripe_payment_method_id,
-      amount: (zuckerl.amount * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(zuckerl),
-      metadata: {
-        type: 'Zuckerl',
-        zuckerl_id: zuckerl.id,
-        location_id: zuckerl.location&.id,
-        user_id: zuckerl.user.id,
-        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
-        crowd_boost_id: zuckerl.crowd_boost_id,
+      {
+        customer: zuckerl.user.stripe_customer_id,
+        payment_method_types: available_payment_methods(zuckerl),
+        payment_method: zuckerl.stripe_payment_method_id,
+        amount: (zuckerl.amount * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(zuckerl),
+        metadata: {
+          type: 'Zuckerl',
+          zuckerl_id: zuckerl.id,
+          location_id: zuckerl.location&.id,
+          user_id: zuckerl.user.id,
+          crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
+          crowd_boost_id: zuckerl.crowd_boost_id,
+        },
+        off_session: true,
+        confirm: true,
       },
-      off_session: true,
-      confirm: true,
+      {
+        idempotency_key: "zuckerl_#{zuckerl.id}_charge"
+      }
     )
 
     zuckerl.update(stripe_payment_intent_id: payment_intent.id)
@@ -130,7 +135,7 @@ class ZuckerlService
         user_id: zuckerl.user.id,
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
         crowd_boost_id: zuckerl.crowd_boost_id,
-      },
+      }
     )
   end
 
@@ -142,8 +147,8 @@ class ZuckerlService
 
     zuckerl.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -167,7 +172,7 @@ class ZuckerlService
   end
 
   def statement_descriptor(zuckerl)
-    "#{zuckerl.region.host_id} Zuckerl".upcase
+    statement_descriptor_for(zuckerl.region, 'Zuckerl')
   end
 
   def generate_invoice(zuckerl)
