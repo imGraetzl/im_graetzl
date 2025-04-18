@@ -49,13 +49,18 @@ class SubscriptionsController < ApplicationController
       if coupon_code.present? && coupon
         @subscription.update(coupon: coupon)
       end
-    
-      if subscription.latest_invoice.payment_intent
-        redirect_to [:choose_payment, @subscription, client_secret: subscription.latest_invoice.payment_intent.client_secret]
+
+      invoice = subscription.latest_invoice
+      payment_intent_id = invoice&.payment_intent
+
+      if payment_intent_id.present?
+        payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
+        redirect_to [:choose_payment, @subscription, client_secret: payment_intent.client_secret]
       else
         SubscriptionMailer.created(@subscription).deliver_later
         redirect_to [:summary, @subscription]
       end
+
     else
       # Fehler beim Speichern der Subscription
       render :new
