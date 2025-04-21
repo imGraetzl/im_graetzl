@@ -45,8 +45,8 @@ namespace :dyno do
         scale_dyno(heroku, 'worker', 'Standard-1X', 1)
       end
 
-      # Web-Dynos tagsüber 2 Dynos zwischen 06:00 und 22:00 Uhr (Nachts 1 Dyno)
-      if hour >= 6 && hour < 22
+      # Web-Dynos: Montag–Freitag von 06:00–22:00 Uhr => 2 Dynos, sonst => 1 Dyno
+      if %w[Monday Tuesday Wednesday Thursday Friday].include?(day_of_week) && hour >= 6 && hour < 22
         scale_dyno(heroku, 'web', 'Standard-2X', 2)
       else
         scale_dyno(heroku, 'web', 'Standard-2X', 1)

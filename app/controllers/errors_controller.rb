@@ -14,9 +14,4 @@ class ErrorsController < ApplicationController
     end
   end
 
-  def missing_attachment_logger
-    Rails.logger.warn("[MISSING THUMBNAIL] #{request.fullpath} | ip=#{request.remote_ip} | ua=#{request.user_agent} | referer=#{request.referer}")
-    head :not_found
-  end
-
 end

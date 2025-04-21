@@ -4,10 +4,6 @@ Rails.application.routes.draw do
     mount DelayedJobWeb, at: "/delayed_job"
   end
 
-  get "/attachments/*anything", to: "errors#missing_attachment_logger", constraints: lambda { |req|
-    req.path.include?("/fill/")
-  }
-
   get 'errors/not_found'
   get 'errors/internal_server_error'
   match "/404", :to => "errors#not_found", :via => :all
