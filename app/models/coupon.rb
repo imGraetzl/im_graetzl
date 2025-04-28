@@ -9,7 +9,7 @@ class Coupon < ApplicationRecord
 
   before_destroy :nullify_associations
 
-  string_enum duration: ["once","forever"]
+  string_enum duration: ["once","forever", "repeating"]
 
   scope :currently_valid, -> {
     where(enabled: true)
@@ -28,11 +28,17 @@ class Coupon < ApplicationRecord
     end
   end
 
+  def long_term_coupon?
+    forever? || repeating?
+  end
+
   def discount_description
     case duration
     when "once"
       "Rabatt auf die erste Rechnung"
     when "forever"
+      "Rabatt (Gutscheincode)"
+    when "repeating"
       "Rabatt (Gutscheincode)"
     else
       "Rabatt (Gutscheincode)"

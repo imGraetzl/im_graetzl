@@ -28,6 +28,10 @@ class ToolMailerPreview < ActionMailer::Preview
     ToolMailer.rental_canceled(ToolRental.canceled.last || ToolRental.last)
   end
 
+  def rental_payment_failed
+    ToolMailer.rental_payment_failed(ToolRental.failed.last || ToolRental.last)
+  end
+
   def rental_return_pending
     ToolMailer.rental_return_pending(ToolRental.approved.last || ToolRental.last)
   end

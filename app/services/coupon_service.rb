@@ -125,7 +125,8 @@ class CouponService
       id: coupon_code,
       amount_off: (15.00 * 100).to_i,
       currency: 'eur',
-      duration: 'forever',
+      duration: 'repeating',
+      duration_in_months: 240,
       name: "15 € Rabatt auf #{abo_short_name}",
       redeem_by: 7.days.from_now.end_of_day.to_i,
       applies_to: { products: product_ids }

@@ -35,7 +35,7 @@ class SubscriptionMailer < ApplicationMailer
       subject: "Deine #{@region.host_domain_name} Fördermitgliedschaft wird am #{I18n.localize(@period_start, format:'%d. %B')} verlängert.",
       from: platform_email('no-reply'),
       to: @user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -51,7 +51,23 @@ class SubscriptionMailer < ApplicationMailer
       subject: "Probleme beim Zahlungsvorgang deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte aktualisiere deine Zahlungsmethode",
       from: platform_email('no-reply'),
       to: @user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
+    )
+  end
+
+  def invoice_payment_failed_on_create(user)
+    @user = user
+
+    Rails.logger.info "[stripe webhook] invoice.payment_failed: invoice_payment_failed_on_create, @user.subscribed?: #{@user.subscribed?}"
+    return if @user.subscribed?
+
+    @region = @user.region
+    headers("X-MC-Tags" => "subscription-invoice-payment-failed-on-create")
+    mail(
+      subject: "Probleme beim Zahlungsvorgang deiner #{@region.host_domain_name} Fördermitgliedschaft - Bitte aktualisiere deine Zahlungsmethode",
+      from: platform_email('no-reply'),
+      to: @user.email,
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -64,7 +80,7 @@ class SubscriptionMailer < ApplicationMailer
       subject: "Deine #{@region.host_domain_name} Fördermitgliedschaft wurde leider storniert...",
       from: platform_email('no-reply'),
       to: @user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 

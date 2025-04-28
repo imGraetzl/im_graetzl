@@ -17,4 +17,12 @@ class ApplicationMailer < ActionMailer::Base
     email_address_with_name(email, label)
   end
 
+  def platform_admin_email(address = nil)
+    if Rails.env.production?
+      address || Rails.configuration.platform_admin_email
+    else
+      Rails.configuration.platform_admin_email
+    end
+  end
+
 end

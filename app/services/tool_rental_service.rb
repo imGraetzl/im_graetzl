@@ -12,7 +12,7 @@ class ToolRentalService
         type: 'ToolRental',
         tool_rental_id: tool_rental.id,
         tool_offer_id: tool_rental.tool_offer.id
-      },
+      }
     )
   end
 
@@ -41,42 +41,60 @@ class ToolRentalService
   def approve(tool_rental)
     return if !tool_rental.authorized?
 
-    tool_rental.update(payment_status: 'processing')
+    tool_rental.update(payment_status: 'processing', rental_status: :approved)
 
-    payment_intent = Stripe::PaymentIntent.create(
-      customer: tool_rental.renter.stripe_customer_id,
-      payment_method_types: available_payment_methods(tool_rental),
-      payment_method: tool_rental.stripe_payment_method_id,
-      amount: (tool_rental.total_price * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(tool_rental.tool_offer),
-      metadata: {
-        type: 'ToolRental',
-        tool_rental_id: tool_rental.id,
-        tool_offer_id: tool_rental.tool_offer.id
-      },
-      off_session: true,
-      confirm: true,
-    )
+    payment_intent_id = nil
+    payment_failed = false
+
+    begin
+      payment_intent = Stripe::PaymentIntent.create(
+        {
+          customer: tool_rental.renter.stripe_customer_id,
+          payment_method_types: available_payment_methods(tool_rental),
+          payment_method: tool_rental.stripe_payment_method_id,
+          amount: (tool_rental.total_price * 100).to_i,
+          currency: 'eur',
+          statement_descriptor: statement_descriptor(tool_rental.tool_offer),
+          metadata: {
+            type: 'ToolRental',
+            tool_rental_id: tool_rental.id,
+            tool_offer_id: tool_rental.tool_offer.id
+          },
+          off_session: true,
+          confirm: true,
+        },
+        {
+          idempotency_key: "tool_rental_#{tool_rental.id}_charge"
+        }
+      )
+      payment_intent_id = payment_intent.id
+    rescue Stripe::CardError => e
+      payment_failed = true
+      payment_intent_id = e&.json_body&.dig(:error, :payment_intent, :id)
+    end
 
     invoice_number = "#{Date.current.year}_ToolRental_#{ToolRental.next_invoice_number}"
-    tool_rental.update(
-      stripe_payment_intent_id: payment_intent.id,
-      rental_status: :approved,
+
+    update_hash = {
+      stripe_payment_intent_id: payment_intent_id,
       invoice_number: invoice_number
-    )
+    }
+    update_hash[:payment_status] = 'failed' if payment_failed
+
+    tool_rental.update(update_hash)
 
     generate_invoices(tool_rental)
     ToolMailer.rental_approved(tool_rental).deliver_later
     Notifications::ToolRentalApproved.generate(tool_rental, to: { user: tool_rental.renter.id })
 
-    { success: true }
-  rescue Stripe::CardError
-    tool_rental.update(payment_status: 'failed')
-    ToolMailer.rental_payment_failed(tool_rental).deliver_later
-
-    { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
+    if payment_failed
+      ToolMailer.rental_payment_failed(tool_rental).deliver_later
+      return { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
+    else
+      return { success: true }
+    end
   end
+
 
   def payment_succeeded(tool_rental, payment_intent)
     tool_rental.update(payment_status: 'debited', debited_at: Time.current)
@@ -105,7 +123,7 @@ class ToolRentalService
         type: 'ToolRental',
         tool_rental_id: tool_rental.id,
         tool_offer_id: tool_rental.tool_offer.id
-      },
+      }
     )
   end
 
@@ -117,8 +135,8 @@ class ToolRentalService
 
     tool_rental.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -171,7 +189,7 @@ class ToolRentalService
   end
 
   def statement_descriptor(tool_offer)
-    "#{tool_offer.region.host_id} Geräteteiler".upcase
+    statement_descriptor_for(tool_offer.region, 'Geraeteteiler')
   end
 
   def generate_invoices(tool_rental)

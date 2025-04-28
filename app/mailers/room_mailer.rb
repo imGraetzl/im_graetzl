@@ -102,7 +102,7 @@ class RoomMailer < ApplicationMailer
       subject: "Neue Raumteiler Buchungsanfrage von #{@room_rental.renter.first_name}",
       from: platform_email('no-reply'),
       to: @room_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -116,7 +116,7 @@ class RoomMailer < ApplicationMailer
       subject: "Erinnerung: #{@room_rental.renter.first_name} möchte deinen Raum mieten.",
       from: platform_email('no-reply'),
       to: @room_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -146,7 +146,7 @@ class RoomMailer < ApplicationMailer
       subject: "Bestätigung deiner Raumteiler Vermietung",
       from: platform_email('no-reply'),
       to: @room_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -160,7 +160,7 @@ class RoomMailer < ApplicationMailer
       subject: "#{@room_rental.owner.first_name} hat deine Raumteiler Buchungsanfrage abgelehnt.",
       from: platform_email('no-reply'),
       to: @room_rental.renter.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -174,7 +174,7 @@ class RoomMailer < ApplicationMailer
       subject: "#{@room_rental.renter.first_name} hat die Raumteiler Buchungsanfrage zurückgezogen",
       from: platform_email('no-reply'),
       to: @room_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -188,7 +188,7 @@ class RoomMailer < ApplicationMailer
       subject: "Probleme bei deiner Raumteiler Zahlung, bitte überprüfe deine Zahlungsmethode.",
       from: platform_email('no-reply'),
       to: @room_rental.renter.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -202,6 +202,7 @@ class RoomMailer < ApplicationMailer
       subject: "Danke #{@room_rental.owner.first_name}! Deine Raumteiler Gutschrift ist unterwegs.",
       from: platform_email('no-reply'),
       to: @room_rental.owner.email,
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 

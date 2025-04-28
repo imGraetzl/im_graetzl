@@ -1,7 +1,7 @@
 <div class="payment">
 
   <div class="hl-subtext">
-    <% if @crowd_pledge.total_price > 500 %>
+    <% if @crowd_pledge.total_price > 1000 %>
       <h1>Deine Zahlung</h1>
     <% else %>
       <h1>Wähle deine Zahlungsart</h1>
@@ -30,8 +30,8 @@
     <strong>Im ersten Schritt wird deine Kreditkarte registriert, indem <em>0,00 €</em> reserviert werden.</strong><br>
     Der Gesamtbetrag (<%= number_to_currency(@crowd_pledge.total_overall_price, unit: "€") %>) wird erst nach Ende der Finanzierungsphase und nur wenn das Mindestziel erreicht wurde, von deiner Kreditkarte abgebucht. Sollte die Crowdfundingkampagne scheitern, so wird dir auch nichts abgebucht.
 
-    <% if @crowd_pledge.total_price > 500 %>
-    <br><small><em><strong>Info:</strong> Für Unterstützungen bis 500,00 €, steht dir auch die Zahlungsform Lastschrift zur Verfügung.</em></small>
+    <% if @crowd_pledge.total_price > 1000 %>
+    <br><small><em><strong>Info:</strong> Für Unterstützungen bis 1.000 €, steht dir auch die Zahlungsform 'Lastschrift' zur Verfügung.</em></small>
     <% end %>
   </div>
 

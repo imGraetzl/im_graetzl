@@ -50,7 +50,7 @@ class ToolMailer < ApplicationMailer
       subject: "Neue Geräteteiler Anfrage",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -65,7 +65,7 @@ class ToolMailer < ApplicationMailer
       subject: "Erinnerung: #{@tool_rental.renter.first_name} möchte deinen Geräteteiler ausborgen.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -80,7 +80,7 @@ class ToolMailer < ApplicationMailer
       subject: "Deine Geräteteiler Buchung wurde bestätigt",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -94,7 +94,7 @@ class ToolMailer < ApplicationMailer
       subject: "Deine Geräteteiler Anfrage wurde leider abgelehnt.",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -108,7 +108,7 @@ class ToolMailer < ApplicationMailer
       subject: "#{@tool_rental.renter.first_name} hat die Geräteteiler Anfrage zurückgezogen",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -122,7 +122,7 @@ class ToolMailer < ApplicationMailer
       subject: "Probleme bei deiner Geräteteiler Zahlung, bitte überprüfe deine Zahlungsmethode.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -136,7 +136,7 @@ class ToolMailer < ApplicationMailer
       subject: "Bitte bestätige die Rückgabe deines Geräteteilers.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -150,7 +150,7 @@ class ToolMailer < ApplicationMailer
       subject: "#{@tool_rental.owner.first_name} hat die Rückgabe bestätigt. Bewerte nun den Verleihvorgang.",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -165,7 +165,7 @@ class ToolMailer < ApplicationMailer
       subject: "Du hast die Rückgabe bestätigt. Deine Gutschrift.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 end

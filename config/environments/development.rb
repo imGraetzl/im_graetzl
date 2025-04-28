@@ -12,6 +12,8 @@ Rails.application.configure do
   config.imgraetzl_host = "local.imgraetzl.at"
   config.welocally_host = "local.welocally.at"
 
+  config.platform_admin_email = 'michael@imgraetzl.at'
+
   # DNS rebinding attack exception
   config.hosts << config.imgraetzl_host
   config.hosts << ".#{config.welocally_host}"

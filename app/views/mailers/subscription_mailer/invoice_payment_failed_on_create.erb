@@ -1,0 +1,34 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @user.first_name %>,
+        </p>
+        <p>
+          <strong>Leider gab es bei der Abbuchung deiner <%= t("region.#{@user.region.id}.domain_short") %> Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte.
+        </p>
+        <p>
+          <strong>Deine Mitgliedschaft wurde daher storniert. Um deine Mitgliedschaft erfolgreich abzuschließen, wähle diese nochmals aus und versuche den Zahlungsvorgang erneut abzuschließen.</strong>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= render 'mailers/shared/button', title: "Zu den Fördermitgliedschaften", url: subscription_plans_url %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Bei Fragen kannst du dich gerne an uns wenden.<br>
+          E-Mail an: <%= t("region.#{@user.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
+        </p>
+        <p>
+          Herzlichen Dank,<br>
+          Dein Team von <%= t("region.#{@user.region.id}.domain_full") %>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

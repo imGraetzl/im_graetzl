@@ -587,6 +587,8 @@ de:
       title: 'Raumteiler anfragen - Rechnungsadresse'
     choose_payment:
       title: 'Raumteiler anfragen - Zahlungsart wählen'
+    change_payment:
+      title: 'Raumteiler anfragen - Zahlungsart ändern'
     summary:
       title: 'Raumteiler anfragen - Zusammenfassung'
     edit:

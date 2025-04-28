@@ -9,7 +9,7 @@ class Subscription < ApplicationRecord
   has_many :zuckerls
   string_enum status: ["incomplete", "active", "canceled", "past_due"]
 
-  scope :initialized, -> { where.not(status: :incomplete) }
+  scope :initialized, -> { where(status: %w[active canceled past_due]) }
   scope :on_grace_period, -> { where("ends_at > ?", Time.zone.now) }
   scope :upcoming_invoice, -> { active.where('current_period_end >= ? AND ends_at IS NULL', Date.today) }
   

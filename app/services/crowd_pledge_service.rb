@@ -15,7 +15,7 @@ class CrowdPledgeService
         type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id
-      },
+      }
     )
   end
 
@@ -85,22 +85,27 @@ class CrowdPledgeService
     crowd_pledge.update(status: 'processing')
 
     payment_intent = Stripe::PaymentIntent.create(
-      customer: crowd_pledge.stripe_customer_id,
-      payment_method_types: available_payment_methods(crowd_pledge),
-      payment_method: crowd_pledge.stripe_payment_method_id,
-      amount: (crowd_pledge.total_overall_price * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
-      metadata: {
-        type: 'CrowdPledge',
-        pledge_id: crowd_pledge.id,
-        campaign_id: crowd_pledge.crowd_campaign.id,
-        total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
-        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
-        crowd_boost_id: crowd_pledge.crowd_boost_id
+      {
+        customer: crowd_pledge.stripe_customer_id,
+        payment_method_types: available_payment_methods(crowd_pledge),
+        payment_method: crowd_pledge.stripe_payment_method_id,
+        amount: (crowd_pledge.total_overall_price * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
+        metadata: {
+          type: 'CrowdPledge',
+          pledge_id: crowd_pledge.id,
+          campaign_id: crowd_pledge.crowd_campaign.id,
+          total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
+          crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
+          crowd_boost_id: crowd_pledge.crowd_boost_id
+        },
+        off_session: true,
+        confirm: true,
       },
-      off_session: true,
-      confirm: true,
+      {
+        idempotency_key: "crowd_pledge_#{crowd_pledge.id}_charge"
+      }
     )
 
     crowd_pledge.update(stripe_payment_intent_id: payment_intent.id)
@@ -118,14 +123,15 @@ class CrowdPledgeService
   def payment_succeeded(crowd_pledge, payment_intent)
 
     charge = payment_intent.charges.data.first
-    balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
-    stripe_fee = balance_transaction.fee.to_d / 100
+    if charge && charge.balance_transaction.present?
+      balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+      stripe_fee = balance_transaction.fee.to_d / 100
+    else
+      # Noch nicht verfügbar – keine Stripe Fee speichern!
+      stripe_fee = nil
+    end
 
-    crowd_pledge.update(
-      status: 'debited',
-      debited_at: Time.current,
-      stripe_fee: stripe_fee
-    )
+    crowd_pledge.update(status: 'debited', debited_at: Time.current, stripe_fee: stripe_fee)
 
     # Maybe send crowd_pledge_debited email here?
     { success: true }
@@ -155,7 +161,7 @@ class CrowdPledgeService
         total_price: ActionController::Base.helpers.number_with_precision(crowd_pledge.total_price),
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(crowd_pledge.crowd_boost_charge_amount),
         crowd_boost_id: crowd_pledge.crowd_boost_id
-      },
+      }
     )
   end
 
@@ -167,8 +173,8 @@ class CrowdPledgeService
 
     crowd_pledge.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -184,6 +190,21 @@ class CrowdPledgeService
   def payment_disputed(crowd_pledge)
     crowd_pledge.update(status: 'failed', disputed_at: Time.current)
     true
+  end
+
+  def charge_updated(crowd_pledge, charge)
+    if !crowd_pledge.stripe_fee.present? && charge.balance_transaction.present?
+      balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+      stripe_fee = balance_transaction.fee.to_d / 100
+      Rails.logger.info "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} gespeichert: #{stripe_fee} EUR"
+    else
+      Rails.logger.warn "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} konnte nicht gespeichert werden – keine balance_transaction vorhanden"
+      stripe_fee = nil
+    end
+
+    crowd_pledge.update(stripe_fee: stripe_fee)
+
+    { success: true }
   end
 
   private
@@ -212,7 +233,7 @@ class CrowdPledgeService
   end
 
   def available_payment_methods(crowd_pledge)
-    if crowd_pledge.total_price <= 500
+    if crowd_pledge.total_price <= 1000
       ['card', 'sepa_debit']
     else
       ['card']
@@ -224,7 +245,7 @@ class CrowdPledgeService
   end
 
   def statement_descriptor(crowd_campaign)
-    "#{crowd_campaign.region.host_id} Crowdfunding".upcase
+    statement_descriptor_for(crowd_campaign.region, 'Crowdfunding')
   end
 
 end

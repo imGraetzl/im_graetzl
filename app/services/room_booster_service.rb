@@ -10,18 +10,23 @@ class RoomBoosterService
 
     stripe_customer_id = room_booster.user.stripe_customer
     Stripe::PaymentIntent.create(
-      customer: stripe_customer_id,
-      amount: (room_booster.amount * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(room_booster),
-      payment_method_types: payment_methods(room_booster),
-      metadata: {
-        type: 'RoomBooster',
-        room_booster_id: room_booster.id,
-        room_offer_id: room_booster.room_offer.id,
-        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(room_booster.crowd_boost_charge_amount),
-        crowd_boost_id: room_booster.crowd_boost_id,
+      {
+        customer: stripe_customer_id,
+        amount: (room_booster.amount * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(room_booster),
+        payment_method_types: payment_methods(room_booster),
+        metadata: {
+          type: 'RoomBooster',
+          room_booster_id: room_booster.id,
+          room_offer_id: room_booster.room_offer.id,
+          crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(room_booster.crowd_boost_charge_amount),
+          crowd_boost_id: room_booster.crowd_boost_id,
+        }
       },
+      {
+        idempotency_key: "room_booster_#{room_booster.id}_charge"
+      }
     )
   end
 
@@ -34,8 +39,8 @@ class RoomBoosterService
 
     room_booster.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
@@ -104,7 +109,7 @@ class RoomBoosterService
   end
 
   def statement_descriptor(room_booster)
-    "#{room_booster.region.host_id} RoomPusher".upcase
+    statement_descriptor_for(room_booster.region, 'RoomPusher')
   end
 
   def generate_invoice(room_booster)

@@ -53,7 +53,7 @@
             <div class="costname"><%= @subscription.coupon.discount_description %></div>
           </li>
         <% end %>
-        <% if @subscription.coupon.forever? %>
+        <% if @subscription.coupon.long_term_coupon? %>
           <li>
             <div class="cost"><%= number_to_currency(@plan.discounted_amount(amount_off: @subscription.coupon.amount_off, percent_off: @subscription.coupon.percent_off), unit: "€") %></div>
             <div class="costname">
