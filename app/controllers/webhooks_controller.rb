@@ -132,7 +132,7 @@ class WebhooksController < ApplicationController
       end
   
     else
-      Rails.logger.warn "[stripe webhook] Unbekannter type in payment_intent_succeeded: #{type.inspect}"
+      Rails.logger.warn "[stripe webhook] payment_intent_succeeded: Unhandled meta type: #{type.inspect}"
     end
   end  
 
@@ -172,7 +172,7 @@ class WebhooksController < ApplicationController
       end
   
     else
-      Rails.logger.warn "[stripe webhook] Unbekannter type in payment_intent_failed: #{type.inspect}"
+      Rails.logger.warn "[stripe webhook] payment_intent_failed: Unhandled meta type: #{type.inspect}"
     end
   end  
   
@@ -275,14 +275,14 @@ class WebhooksController < ApplicationController
     payment_intent = begin
       Stripe::PaymentIntent.retrieve(object.payment_intent)
     rescue => e
-      Rails.logger.warn "[stripe webhook] invoice.payment_failed: PaymentIntent konnte nicht geladen werden (#{e.message})"
+      Rails.logger.warn "[stripe webhook] invoice.payment_failed: Kein zugehöriger PaymentIntent: (#{e.message})"
       nil
     end
 
     # Create
     if object.billing_reason == "subscription_create" && payment_intent&.status == "requires_payment_method"
   
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: scheduled invoice_payment_failed_on_create"
+      Rails.logger.info "[stripe webhook] invoice.payment_failed: scheduled email invoice_payment_failed_on_create for #{subscription.user.email}"
       SubscriptionMailer.invoice_payment_failed_on_create(subscription.user).deliver_later(wait: 1.minutes)
     
     # Verlängerung 1. Versuch -> Mail
@@ -298,7 +298,7 @@ class WebhooksController < ApplicationController
 
     # Verlängerung 3. Versuch -> Mail Storno
     elsif object.attempt_count == 3
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 3. Versuch: Subscription canceled"
+      Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 3. Versuch: Subscription canceled for #{subscription.user.email}"
       SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later
 
     else

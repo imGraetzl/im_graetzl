@@ -100,6 +100,7 @@ class CrowdCampaignsController < ApplicationController
     if current_user.stripe_connect_account_id.blank?
       account = Stripe::Account.create(
         type: 'express',
+        country: 'AT',
         email: current_user.email,
         capabilities: {
           card_payments: {requested: true},
@@ -114,7 +115,7 @@ class CrowdCampaignsController < ApplicationController
       refresh_url: stripe_connect_initiate_crowd_campaign_url(@crowd_campaign),
       return_url: stripe_connect_completed_crowd_campaign_url(@crowd_campaign),
       type: 'account_onboarding',
-      collect: 'currently_due',
+      collection_options: {fields: 'currently_due'},
     )
 
     redirect_to account_link.url
