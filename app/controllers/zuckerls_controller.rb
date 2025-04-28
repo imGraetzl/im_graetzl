@@ -125,7 +125,7 @@ class ZuckerlsController < ApplicationController
     success, error = ZuckerlService.new.payment_retried(@zuckerl, params[:payment_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich durchgeführt."
 
       # Publish Immediate if Zuckerl is Payed and booked for now
       last_month = Date.today.last_month

@@ -7,11 +7,11 @@
     </p>
   </div>
 
-  <%= form_with url: subscriptions_path, local: true, id: "payment-form", data: {
-    intent: 'payment',
-    client_secret: @client_secret,
-    redirect: payment_authorized_subscription_url(@subscription)
-  } do %>
+  <%= form_with url: payment_method_user_path, local: true, id: "payment-form", data: {
+      intent: 'setup',
+      client_secret: @setup_intent.client_secret,
+      redirect: payment_authorized_subscription_url(@subscription)
+    } do %>
     <%= image_tag 'svg/loading.svg', class: 'loading-spinner stripe-spinner', width:100, height:100 %>
     <div id="payment-element">
       <!--Stripe.js injects the Payment Element-->

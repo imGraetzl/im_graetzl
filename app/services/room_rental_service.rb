@@ -40,49 +40,62 @@ class RoomRentalService
 
   def approve(room_rental)
     return if !room_rental.authorized?
-
+  
     room_rental.update(payment_status: 'processing', rental_status: :approved)
-
-    payment_intent = Stripe::PaymentIntent.create(
-      {
-        customer: room_rental.renter.stripe_customer_id,
-        payment_method_types: available_payment_methods(room_rental),
-        payment_method: room_rental.stripe_payment_method_id,
-        amount: (room_rental.total_price * 100).to_i,
-        currency: 'eur',
-        statement_descriptor: statement_descriptor(room_rental.room_offer),
-        metadata: {
-          type: 'RoomRental',
-          room_rental_id: room_rental.id,
-          room_offer_id: room_rental.room_offer.id
+  
+    payment_intent_id = nil
+    payment_failed = false
+  
+    begin
+      payment_intent = Stripe::PaymentIntent.create(
+        {
+          customer: room_rental.renter.stripe_customer_id,
+          payment_method_types: available_payment_methods(room_rental),
+          payment_method: room_rental.stripe_payment_method_id,
+          amount: (room_rental.total_price * 100).to_i,
+          currency: 'eur',
+          statement_descriptor: statement_descriptor(room_rental.room_offer),
+          metadata: {
+            type: 'RoomRental',
+            room_rental_id: room_rental.id,
+            room_offer_id: room_rental.room_offer.id
+          },
+          off_session: true,
+          confirm: true,
         },
-        off_session: true,
-        confirm: true,
-      },
-      {
-        idempotency_key: "room_rental_#{room_rental.id}_charge"
-      }
-    )
-
+        {
+          idempotency_key: "room_rental_#{room_rental.id}_charge"
+        }
+      )
+      payment_intent_id = payment_intent.id
+    rescue Stripe::CardError => e
+      payment_failed = true
+      payment_intent_id = e&.json_body&.dig(:error, :payment_intent, :id)
+    end
+  
     invoice_number = "#{Date.current.year}_RoomRental_#{RoomRental.next_invoice_number}"
-    room_rental.update(
-      stripe_payment_intent_id: payment_intent.id,
-      rental_status: :approved,
+
+    update_hash = {
+      stripe_payment_intent_id: payment_intent_id,
       invoice_number: invoice_number
-    )
+    }
+    update_hash[:payment_status] = 'failed' if payment_failed
 
+    room_rental.update(update_hash)
+  
     generate_invoices(room_rental)
-    RoomMailer.rental_approved_renter(room_rental).deliver_later
     RoomMailer.rental_approved_owner(room_rental).deliver_later
+    RoomMailer.rental_approved_renter(room_rental).deliver_later
     Notifications::RoomRentalApproved.generate(room_rental, to: { user: room_rental.renter.id })
-
-    { success: true }
-  rescue Stripe::CardError
-    room_rental.update(payment_status: 'failed')
-    RoomMailer.rental_payment_failed(room_rental).deliver_later
-
-    { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
-  end
+  
+    if payment_failed
+      RoomMailer.rental_payment_failed(room_rental).deliver_later
+      return { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
+    else
+      return { success: true }
+    end
+  end  
+  
 
   def payment_succeeded(room_rental, payment_intent)
     room_rental.update(payment_status: 'debited', debited_at: Time.current)

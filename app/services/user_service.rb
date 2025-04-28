@@ -8,9 +8,6 @@ class UserService
         customer: user.stripe_customer,
         payment_method_types: ['card', 'sepa_debit'],
         usage: 'off_session'
-      },
-      {
-        idempotency_key: "user_#{user.id}_setup"
       }
     )
   end

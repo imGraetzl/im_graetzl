@@ -95,7 +95,7 @@ class CrowdCampaignService
     end
 
     :failed
-  end  
+  end
 
   def generate_invoice(campaign)
     invoice = CrowdCampaignInvoice.new.invoice(campaign)

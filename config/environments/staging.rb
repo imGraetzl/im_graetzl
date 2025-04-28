@@ -11,6 +11,8 @@ Rails.application.configure do
   config.imgraetzl_host = "staging.imgraetzl.at"
   config.welocally_host = "staging.welocally.at"
 
+  config.platform_admin_email = 'michael@imgraetzl.at'
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

@@ -90,7 +90,7 @@
           <strong>Gesamtkosten: <%= number_to_currency(@tool_rental.total_price, unit: "€") %></strong>
         </p>
         <p>
-          Deine Zahlung wurde erfolgreich gebucht. Du findest die Rechnung angehängt und eingeloggt in deinem <%= link_to "Buchungsarchiv", tools_user_url(:target => "tab-buchungsarchiv"), style: "color:#ec776a;" %>.
+          Der Betrag wird nun von deiner hinterlegten Zahlungsmethode abgebucht. Du findest die Rechnung angehängt und eingeloggt in deinem <%= link_to "Buchungsarchiv", tools_user_url(:target => "tab-buchungsarchiv"), style: "color:#ec776a;" %>.
         </p>
         <% if @tool_rental.tool_offer.deposit? %>
           <p><strong>Kaution: <%= number_to_currency(@tool_rental.tool_offer.deposit, unit: "€") %></strong></p>

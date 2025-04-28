@@ -123,14 +123,15 @@ class CrowdPledgeService
   def payment_succeeded(crowd_pledge, payment_intent)
 
     charge = payment_intent.charges.data.first
-    balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
-    stripe_fee = balance_transaction.fee.to_d / 100
+    if charge && charge.balance_transaction.present?
+      balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+      stripe_fee = balance_transaction.fee.to_d / 100
+    else
+      # Noch nicht verfügbar – keine Stripe Fee speichern!
+      stripe_fee = nil
+    end
 
-    crowd_pledge.update(
-      status: 'debited',
-      debited_at: Time.current,
-      stripe_fee: stripe_fee
-    )
+    crowd_pledge.update(status: 'debited', debited_at: Time.current, stripe_fee: stripe_fee)
 
     # Maybe send crowd_pledge_debited email here?
     { success: true }
@@ -191,6 +192,21 @@ class CrowdPledgeService
     true
   end
 
+  def charge_updated(crowd_pledge, charge)
+    if !crowd_pledge.stripe_fee.present? && charge.balance_transaction.present?
+      balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+      stripe_fee = balance_transaction.fee.to_d / 100
+      Rails.logger.info "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} gespeichert: #{stripe_fee} EUR"
+    else
+      Rails.logger.warn "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} konnte nicht gespeichert werden – keine balance_transaction vorhanden"
+      stripe_fee = nil
+    end
+
+    crowd_pledge.update(stripe_fee: stripe_fee)
+
+    { success: true }
+  end
+
   private
 
   def get_stripe_customer_id(crowd_pledge)
@@ -217,7 +233,7 @@ class CrowdPledgeService
   end
 
   def available_payment_methods(crowd_pledge)
-    if crowd_pledge.total_price <= 500
+    if crowd_pledge.total_price <= 1000
       ['card', 'sepa_debit']
     else
       ['card']

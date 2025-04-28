@@ -8,7 +8,7 @@ class ZuckerlMailer < ApplicationMailer
       subject: "Dein Zuckerl wurde freigeschalten.",
       from: platform_email("no-reply"),
       to: @zuckerl.user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -32,7 +32,7 @@ class ZuckerlMailer < ApplicationMailer
       subject: "Dein Zuckerl ist jetzt online",
       from: platform_email("no-reply"),
       to: @zuckerl.user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -44,7 +44,7 @@ class ZuckerlMailer < ApplicationMailer
       subject: "Es gab Probleme bei deiner Zuckerl Abbuchung, bitte überprüfe deine Zahlungsmethode.",
       from: platform_email('no-reply'),
       to: @zuckerl.user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 

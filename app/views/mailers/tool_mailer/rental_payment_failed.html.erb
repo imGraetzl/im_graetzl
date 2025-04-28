@@ -6,10 +6,10 @@
           Servus <%= @tool_rental.renter.first_name %>,
         </p>
         <p>
-          <strong>Leider gab es beim Einzug deiner Geräteteiler Miete Probleme,</strong> da deine ausgewählte Zahlungsform nicht belastet werden konnte.
+          <strong>leider gab es beim Einzug deiner Geräteteiler-Miete Probleme,</strong> da deine ausgewählte Zahlungsart nicht belastet werden konnte.
         </p>
         <p>
-          <strong>Wir würden dich daher bitten, deine Zahlungsmethode nochmals zu überprüfen bzw. hier anzupassen, damit die Miete zustande kommen kann:</strong>
+          <strong>Um die Miete abschließen zu können, aktualisiere bitte jetzt deine Zahlungsmethode.</strong>
         </p>
       </td>
     </tr>
@@ -25,6 +25,57 @@
           E-Mail an: <%= t("region.#{@tool_rental.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
         </p>
       </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:30px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Deine Geräteteiler Miete:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+
+<!-- --------------- CONTENT --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
+        <%= link_to tool_offer_url(@tool_rental.tool_offer) do %>
+          <%= cover_photo_image @tool_rental.tool_offer, size: :small, class: 'mcnImage', style: "width:280px; border-radius:5px; max-width:280px; min-width:100px;" %>
+         <% end %>
+      </td>
+      <td valign="center" class="mcnTextContent" width="100%">
+        <p>
+          <em>Geräteteiler:</em><br>
+          <%= link_to @tool_rental.tool_offer.title, tool_offer_url(@tool_rental.tool_offer), style: "color:#ec776a;" %>
+        </p>
+        <p>
+          <em>Zeitraum:</em><br>
+          <%= l(@tool_rental.rent_from, format: :short) %> bis <%= l(@tool_rental.rent_to, format: :short) %>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-bottom:20px;"></td>
     </tr>
   </tbody>
 </table>

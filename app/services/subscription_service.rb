@@ -3,10 +3,16 @@ class SubscriptionService
   def create(subscription, options={})
     stripe_customer_id = subscription.user.stripe_customer
 
+    # coupon zu discounts mappen
+    if options[:coupon].present?
+      options[:discounts] ||= []
+      options[:discounts] << { coupon: options.delete(:coupon) }
+    end
+
     args = {
       customer: stripe_customer_id,
       items: [{ price: subscription.stripe_plan }],
-      expand: ['latest_invoice.payment_intent'],
+      expand: ['latest_invoice'],
       payment_behavior: 'default_incomplete',
       metadata: {
         type: 'Subscription',
@@ -25,13 +31,14 @@ class SubscriptionService
         idempotency_key: "subscription_#{subscription.id}_create"
       }
     )
-
+    
+    item = sub.items.data.first
     subscription.update(
       stripe_id: sub.id,
       status: sub.status,
       ends_at: nil,
-      current_period_start: Time.at(sub.current_period_start),
-      current_period_end: Time.at(sub.current_period_end)
+      current_period_start: Time.at(item.current_period_start),
+      current_period_end: Time.at(item.current_period_end)
     )
 
     sub
@@ -59,6 +66,22 @@ class SubscriptionService
     true
   end
 
+  def finalize_invoice(subscription)
+    return unless subscription.stripe_id
+  
+    stripe_subscription = Stripe::Subscription.retrieve(subscription.stripe_id)
+    invoice_id = stripe_subscription.latest_invoice
+    return unless invoice_id
+  
+    invoice = Stripe::Invoice.retrieve(invoice_id)
+  
+    # Falls auto_advance noch nicht gesetzt ist, setze es!
+    Stripe::Invoice.update(invoice.id, auto_advance: true) unless invoice.auto_advance
+  
+    # Zahle die Invoice sofort
+    Stripe::Invoice.pay(invoice.id)
+  end  
+
   def update_subscription(subscription, object)
 
     if object.status == "incomplete_expired"
@@ -80,11 +103,12 @@ class SubscriptionService
   end
 
   def delete_subscription(subscription, object)
+    item = object.items&.data&.first
     subscription.update(
       status: object.status,
       ends_at: Time.at(object.ended_at),
-      current_period_start: Time.at(object.current_period_start),
-      current_period_end: Time.at(object.current_period_end),
+      current_period_start: Time.at(item&.current_period_start),
+      current_period_end: Time.at(item&.current_period_end),
     ) if object.ended_at.present?
   end
 

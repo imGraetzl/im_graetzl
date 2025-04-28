@@ -38,6 +38,8 @@ class WebhooksController < ApplicationController
       invoice_marked_uncollectible(event.data.object)
     when "charge.refunded"
       charge_refunded(event.data.object)
+    when "charge.updated"
+      charge_updated(event.data.object)
     when "charge.dispute.closed"
       charge_dispute_closed(event.data.object)
     else
@@ -96,56 +98,84 @@ class WebhooksController < ApplicationController
   private
 
   def payment_intent_succeeded(payment_intent)
-    handlers = {
-      "pledge_id" => [CrowdPledge, CrowdPledgeService],
-      "room_rental_id" => [RoomRental, RoomRentalService],
-      "tool_rental_id" => [ToolRental, ToolRentalService],
-      "zuckerl_id" => [Zuckerl, ZuckerlService],
-      "room_booster_id" => [RoomBooster, RoomBoosterService],
-      "crowd_boost_charge_id" => [CrowdBoostCharge, CrowdBoostService]
-    }
+    type = payment_intent.metadata&.[]("type")
   
-    handlers.each do |meta_key, (model_class, service_class)|
-      id = payment_intent.metadata[meta_key]
-      next unless id.present?
-  
-      Rails.logger.info "[stripe webhook] Prüfe #{meta_key} mit ID #{id} → #{model_class.name}"
-  
-      record = model_class.find_by(id: id)
-      if record
-        Rails.logger.info "[stripe webhook] Starte payment_succeeded für #{model_class.name}##{id} via #{service_class.name}"
-        service_class.new.payment_succeeded(record, payment_intent)
-      else
-        Rails.logger.warn "[stripe webhook] Kein #{model_class.name} mit ID #{id} gefunden für #{meta_key}"
+    case type
+    when "CrowdPledge"
+      if (id = payment_intent.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        CrowdPledgeService.new.payment_succeeded(record, payment_intent)
       end
-    end
-  end
-
-  def payment_intent_failed(payment_intent)
-    handlers = {
-      "pledge_id" => [CrowdPledge, CrowdPledgeService],
-      "room_rental_id" => [RoomRental, RoomRentalService],
-      "tool_rental_id" => [ToolRental, ToolRentalService],
-      "zuckerl_id" => [Zuckerl, ZuckerlService],
-      "room_booster_id" => [RoomBooster, RoomBoosterService],
-      "crowd_boost_charge_id" => [CrowdBoostCharge, CrowdBoostService]
-    }
   
-    handlers.each do |meta_key, (model_class, service_class)|
-      id = payment_intent.metadata[meta_key]
-      next unless id.present?
-  
-      Rails.logger.info "[stripe webhook] Prüfe #{meta_key} mit ID #{id} → #{model_class.name}"
-  
-      record = model_class.find_by(id: id)
-      if record
-        Rails.logger.info "[stripe webhook] Starte payment_failed für #{model_class.name}##{id} via #{service_class.name}"
-        service_class.new.payment_failed(record, payment_intent)
-      else
-        Rails.logger.warn "[stripe webhook] Kein #{model_class.name} mit ID #{id} gefunden für #{meta_key}"
+    when "RoomRental"
+      if (id = payment_intent.metadata["room_rental_id"]) && (record = RoomRental.find_by(id: id))
+        RoomRentalService.new.payment_succeeded(record, payment_intent)
       end
+  
+    when "ToolRental"
+      if (id = payment_intent.metadata["tool_rental_id"]) && (record = ToolRental.find_by(id: id))
+        ToolRentalService.new.payment_succeeded(record, payment_intent)
+      end
+  
+    when "RoomBooster"
+      if (id = payment_intent.metadata["room_booster_id"]) && (record = RoomBooster.find_by(id: id))
+        RoomBoosterService.new.payment_succeeded(record, payment_intent)
+      end
+  
+    when "Zuckerl"
+      if (id = payment_intent.metadata["zuckerl_id"]) && (record = Zuckerl.find_by(id: id))
+        ZuckerlService.new.payment_succeeded(record, payment_intent)
+      end
+  
+    when "CrowdBoostCharge"
+      if (id = payment_intent.metadata["crowd_boost_charge_id"]) && (record = CrowdBoostCharge.find_by(id: id))
+        CrowdBoostService.new.payment_succeeded(record, payment_intent)
+      end
+  
+    else
+      Rails.logger.warn "[stripe webhook] Unbekannter type in payment_intent_succeeded: #{type.inspect}"
     end
   end  
+
+
+  def payment_intent_failed(payment_intent)
+    type = payment_intent.metadata&.[]("type")
+  
+    case type
+    when "CrowdPledge"
+      if (id = payment_intent.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        CrowdPledgeService.new.payment_failed(record, payment_intent)
+      end
+  
+    when "RoomRental"
+      if (id = payment_intent.metadata["room_rental_id"]) && (record = RoomRental.find_by(id: id))
+        RoomRentalService.new.payment_failed(record, payment_intent)
+      end
+  
+    when "ToolRental"
+      if (id = payment_intent.metadata["tool_rental_id"]) && (record = ToolRental.find_by(id: id))
+        ToolRentalService.new.payment_failed(record, payment_intent)
+      end
+  
+    when "Zuckerl"
+      if (id = payment_intent.metadata["zuckerl_id"]) && (record = Zuckerl.find_by(id: id))
+        ZuckerlService.new.payment_failed(record, payment_intent)
+      end
+  
+    when "RoomBooster"
+      if (id = payment_intent.metadata["room_booster_id"]) && (record = RoomBooster.find_by(id: id))
+        RoomBoosterService.new.payment_failed(record, payment_intent)
+      end
+  
+    when "CrowdBoostCharge"
+      if (id = payment_intent.metadata["crowd_boost_charge_id"]) && (record = CrowdBoostCharge.find_by(id: id))
+        CrowdBoostService.new.payment_failed(record, payment_intent)
+      end
+  
+    else
+      Rails.logger.warn "[stripe webhook] Unbekannter type in payment_intent_failed: #{type.inspect}"
+    end
+  end  
+  
 
   def subscription_updated(object)
     subscription = Subscription.find_by(stripe_id: object.id)
@@ -248,68 +278,102 @@ class WebhooksController < ApplicationController
       Rails.logger.warn "[stripe webhook] invoice.payment_failed: PaymentIntent konnte nicht geladen werden (#{e.message})"
       nil
     end
-  
-    if object.attempt_count == 3
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: 3. Versuch – sende finale Zahlungsfehlermail"
-      SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later
 
-    elsif object.billing_reason != "subscription_create" && payment_intent&.status == "requires_payment_method"
+    # Create
+    if object.billing_reason == "subscription_create" && payment_intent&.status == "requires_payment_method"
   
+      Rails.logger.info "[stripe webhook] invoice.payment_failed: scheduled invoice_payment_failed_on_create"
+      SubscriptionMailer.invoice_payment_failed_on_create(subscription.user).deliver_later(wait: 1.minutes)
+    
+    # Verlängerung 1. Versuch -> Mail
+    elsif object.attempt_count == 1 && object.billing_reason != "subscription_create" && payment_intent&.status == "requires_payment_method"
+      
       period_start = object.lines&.data&.first&.period&.start
       period_end   = object.lines&.data&.first&.period&.end
-  
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: Zahlungsaufforderung an #{subscription.user.email} für Zeitraum #{period_start} – #{period_end}"
-  
+
+      Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 1. Versuch: Zahlungsaufforderung an #{subscription.user.email} für Zeitraum #{period_start} – #{period_end}"
+
       SubscriptionService.new.invoice_payment_open(subscription, object)
-      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later
+      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later(wait: 1.minutes)
+
+    # Verlängerung 3. Versuch -> Mail Storno
+    elsif object.attempt_count == 3
+      Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 3. Versuch: Subscription canceled"
+      SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later
+
     else
       Rails.logger.info "[stripe webhook] invoice.payment_failed: Keine Aktion notwendig (Status: #{payment_intent&.status}, Attempt: #{object.attempt_count})"
     end
   end
 
   def charge_refunded(charge)
-    handlers = {
-      "room_rental_id"         => [RoomRental, RoomRentalService],
-      "tool_rental_id"         => [ToolRental, ToolRentalService],
-      "room_booster_id"        => [RoomBooster, RoomBoosterService],
-      "pledge_id"              => [CrowdPledge, CrowdPledgeService],
-      "zuckerl_id"             => [Zuckerl, ZuckerlService],
-      "crowd_boost_charge_id"  => [CrowdBoostCharge, CrowdBoostService]
-    }
-  
+    type = charge.metadata&.[]("type")
     handled = false
   
-    handlers.each do |meta_key, (model_class, service_class)|
-      id = charge.metadata[meta_key]
-      next unless id.present?
-  
-      Rails.logger.info "[stripe webhook] Prüfe #{meta_key} mit ID #{id} → #{model_class.name}"
-      record = model_class.find_by(id: id)
-  
-      if record
-        Rails.logger.info "[stripe webhook] Starte payment_refunded für #{model_class.name}##{id} via #{service_class.name}"
-        service_class.new.payment_refunded(record)
+    case type
+    when "CrowdPledge"
+      if (id = charge.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        CrowdPledgeService.new.payment_refunded(record)
         handled = true
-        break
-      else
-        Rails.logger.warn "[stripe webhook] Kein #{model_class.name} mit ID #{id} gefunden für #{meta_key}"
+      end
+  
+    when "RoomRental"
+      if (id = charge.metadata["room_rental_id"]) && (record = RoomRental.find_by(id: id))
+        RoomRentalService.new.payment_refunded(record)
+        handled = true
+      end
+  
+    when "ToolRental"
+      if (id = charge.metadata["tool_rental_id"]) && (record = ToolRental.find_by(id: id))
+        ToolRentalService.new.payment_refunded(record)
+        handled = true
+      end
+  
+    when "RoomBooster"
+      if (id = charge.metadata["room_booster_id"]) && (record = RoomBooster.find_by(id: id))
+        RoomBoosterService.new.payment_refunded(record)
+        handled = true
+      end
+  
+    when "Zuckerl"
+      if (id = charge.metadata["zuckerl_id"]) && (record = Zuckerl.find_by(id: id))
+        ZuckerlService.new.payment_refunded(record)
+        handled = true
+      end
+  
+    when "CrowdBoostCharge"
+      if (id = charge.metadata["crowd_boost_charge_id"]) && (record = CrowdBoostCharge.find_by(id: id))
+        CrowdBoostService.new.payment_refunded(record)
+        handled = true
       end
     end
   
-    # Fallback: Abrechnung einer Subscription über Invoice-Referenz
-    if !handled && charge.invoice.present?
-      invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
+    # Fallback für Subscriptions via Invoice-Referenz
+    invoice_id = charge.try(:invoice) || charge["invoice"]
+    if !handled && invoice_id.present?
+      invoice = SubscriptionInvoice.find_by(stripe_id: invoice_id)
       if invoice
         Rails.logger.info "[stripe webhook] Starte invoice_refunded für SubscriptionInvoice##{invoice.id}"
         SubscriptionService.new.invoice_refunded(invoice, charge)
       else
-        Rails.logger.warn "[stripe webhook] Kein SubscriptionInvoice gefunden mit stripe_id=#{charge.invoice}"
+        Rails.logger.warn "[stripe webhook] Kein SubscriptionInvoice gefunden mit stripe_id=#{invoice_id}"
+      end
+    end
+
+  end
+
+  def charge_updated(charge)
+    type = charge.metadata&.[]("type")  
+    case type
+    when "CrowdPledge"
+      if (id = charge.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        CrowdPledgeService.new.charge_updated(record, charge)
       end
     end
   end
-  
 
   def charge_dispute_closed(dispute)
+    # Nur reagieren, wenn der Dispute verloren wurde
     return unless dispute.status == 'lost'
   
     charge = begin
@@ -319,25 +383,29 @@ class WebhooksController < ApplicationController
       return
     end
   
-    if charge.invoice.present?
-      invoice = SubscriptionInvoice.find_by(stripe_id: charge.invoice)
+    type = charge.metadata&.[]("type")
+    handled = false
+  
+    case type
+    when "CrowdPledge"
+      if (id = charge.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute für CrowdPledge##{id}"
+        CrowdPledgeService.new.payment_disputed(record)
+        handled = true
+      end
+    end
+  
+    # Fallback für Subscriptions via Invoice-Referenz
+    invoice_id = charge.try(:invoice) || charge["invoice"]
+    if !handled && invoice_id.present?
+      invoice = SubscriptionInvoice.find_by(stripe_id: invoice_id)
       if invoice
         Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute für Invoice##{invoice.id}"
         SubscriptionService.new.invoice_disputed(invoice, charge)
       else
-        Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein Invoice-Record für #{charge.invoice}"
+        Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein Invoice-Record für #{invoice_id}"
       end
-  
-    elsif charge.metadata["pledge_id"].present?
-      crowd_pledge = CrowdPledge.find_by(id: charge.metadata["pledge_id"])
-      if crowd_pledge
-        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute für CrowdPledge##{crowd_pledge.id}"
-        CrowdPledgeService.new.payment_disputed(crowd_pledge)
-      else
-        Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein CrowdPledge für ID #{charge.metadata["pledge_id"]}"
-      end
-  
-    else
+    elsif !handled
       Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein passender Verweis in metadata oder invoice"
     end
   end
