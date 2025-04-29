@@ -88,7 +88,7 @@ namespace :scheduled do
   end
 
   task ending_campaign_reminders: :environment do
-    tomorrow = Date.tomorrow
+    tomorrow = Date.tomorrow + 1
     cutoff_time = 48.hours.ago
     campaigns = CrowdCampaign.incomplete_newsletter.where(enddate: tomorrow)
 
