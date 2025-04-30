@@ -18,20 +18,21 @@
     <div class="introtxt">
       <div class="hl-subtext">
         <h1><em><%= @crowd_boost.title %></em></h1>
-        <p><strong>Leerstand rund um den Jakominiplatz beleben und Räumen eine neue Zukunft geben!</strong></p>
+        <p><strong>Der Crowdfunding-Zuschuss zum Leerstände beleben & Räumen eine neue Zukunft geben!</strong></p>
       </div>
-      <ul> 
-        <li>Rund um den Jakominiplatz bleiben leerstehende Geschäftslokale ungenutzt, weil die Aktivierungskosten (Renovierung, Sanierung und Provisionen) die finanziellen Möglichkeiten der lokalen Macher*innen übersteigen.</li>
-        <li>Auch hohe Mieten sorgen dafür, dass der Leerstand steigt.</li>
-        <li>Auf der anderen Seite besteht ein großer Bedarf an leistbaren Räumen für lokale Macher*innen in Graz.</li>
+      <p><strong>Der ViertelFonds</strong> ist ein Fördertopf für Raumvorhaben in Graz, die durch Crowdfunding finanziert werden sollen.</p>
+      <ul>
+        <li>Du hast einen Leerstand (alles außer Wohnen) in <strong>Lend, Geidorf, St. Leonhard, Jakomini, der Inneren Stadt oder in Gries</strong> im Blick? Du möchtest ihn gerne anmieten, aber die hohen Aktivierungskosten stehen dir noch im Weg?</li>
+        <li>Dann könnte der <strong>ViertelFonds</strong> genau die Unterstützung sein, die du suchst.</li>
       </ul>
-      <p><strong>Deshalb rufen wir den ViertelFonds ins Leben!</strong> Der ViertelFonds unterstützt die lokalen Macher*innen dabei, Leerstände rund um den Jakominiplatz zu aktivieren.</p>
-      <p><strong>So funktioniert’s:</strong>  Im ersten Schritt wird der ViertelFonds gefüllt. Dann startet im Januar der erste Call und wir laden die lokalen Macher*innen ein, ihre Raumvorhaben einzureichen. Alle, die sich qualifizieren, bekommen einen zusätzlichen <strong>Betrag aus dem ViertelFonds von 500 bis 1.000 € oben drauf</strong>, sobald ihr Crowdfunding 30% des Mindestziels erreicht hat.</p>
-      <p>Untersuchungen zeigen, dass Crowdfunding-Projekte mit zusätzlicher Fördertopf-Unterstützung ihre <strong>Erfolgsaussichten um bis zu 90 % steigern</strong> können.</p>
+      <p>Er setzt genau dort an, wo es oft hakt: bei den Anschubkosten für die Aktivierung von Räumen. Ziel ist es, finanzielle Hürden abzubauen und Mut zu machen, den Schritt in Richtung Raumanmietung mit Crowdfunding zu wagen.</p>
+      <p><strong>In der neuen Runde wurde der ViertelFonds durch die Unterstützung der Volksbank Graz mit 4.000 € neu gefüllt.</strong></p>
+      <p>Pro erfolgreich abgeschlossenem Crowdfunding-Projekt kann ein <strong>Zuschuss von 1.000 €</strong> vergeben werden.</p>
     </div>
     <div class="introSide">
-      <%= render 'crowd_boosts/crowd_boost_charge_call', crowd_boost: @crowd_boost %>
-      
+
+      <%= image_tag'info/crowd2raum/graz-call.png', class: 'map-img' %>
+
       <div class="logo-side">
         <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
           <%= image_tag 'logo-graz.png', width:363, height:100 %>
@@ -45,55 +46,58 @@
   <div class="content-wide">
     <div class="wrp-inner">
       <div class="hl-subtext">
-        <h1>Mit dem ViertelFonds Leerstand beleben!</h1>
-        <p>Mach mit! Unterstütze direkt den ViertelFonds. Jeder Beitrag schafft neuen Raum!</p>
+        <h1>Die neue Runde startet!</h1>
+        <p>Vom 6. Mai bis zum 31. Dezember 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen - Mach mit, so funktionierts:</p>
       </div>
-      <div class="cardBoxCollection -single">
-        <div class="paperCard -illuteaser -favorites -cord1RT">
-          <div class="wrp">
-            <h3>Direkt in den ViertelFonds einzahlen.</h3>
-            <p>Mach mit! Unterstütze direkt den ViertelFonds. Jeder Beitrag schafft neuen Raum!</p>
-            <%= link_to 'In den Topf einzahlen', new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: 'btn-primary -mint -shadow' %>
-          </div>
-          <div class="card"></div>
-        </div>
+      <div class="content-wide-text">
+        <ul>
+          <li>Erstelle <strong>deinen Account</strong> auf WeLocally - <strong><%= link_to 'Hier gehts zur Registrierung.', new_registration_path, target: '_blank' %></strong></li>
+          <li>Erstelle anschließend eingeloggt eine neue Crowdfunding Kampagne und wähle innerhalb des Formulars deine <strong>Teilnahme am "Viertelfonds"</strong> aus. Beschreibe dein Vorhaben und fülle alle Kampagnenfelder bis zur letzten Seite vollständig aus und schicke deine Kampagne zur Freigabe ab. <strong><%= link_to 'Hier gehts zum Kampagnen-Start.', start_crowd_campaigns_path %></strong></li>
+          <li><strong>Wir melden uns zeitnah</strong> und laden euch zu einer individuellen Crowdfunding-Beratung ein, damit euer Projekt die bestmöglichen Chancen auf ein erfolgreiches Crowdfunding erhält.</li>
+        </ul>
+        <%= link_to 'Los gehts - Zur Registrierung', new_registration_path, class: 'btn-primary -large -rose -shadow' %>
       </div>
     </div>
   </div>
 
   <div class="toggle-container">
     <div class="content-block -toggable">
-      <h3>Hintergrund ViertelFonds</h3>
+      <h3>So funktioniert der ViertelFonds</h3>
       <div class="-toggle-content">
-        <p><strong>Räume zu aktivieren und zu halten wird immer kostspieliger</strong> - Die lokalen Macher*innen in Graz benötigen leistbare Räume für ihre Ideen, Angebote und Projekte.</p>  
-        <p><strong>Bei einer Raumaktivierung kommen schnell ein paar tausend Euro zusammen:</strong> Provisionen, Renovierung, Ausstattung. Bestehende Räume möchten ebenfalls gehalten werden, diese müssen zukunftsfit gemacht werden z.B. mit neuen Organisationsmodellen oder anderen Anpassungen. Leerstandsförderungen sind großartig, stehen aber nicht allen offen und müssen ausfinanziert werden. Kredite sind schwer zu bekommen.</p>
-        <p><strong>Eine Umfrage im Jahr 2024 unter 195 lokalen Macher*innen</strong> in Graz zeigte deutlich, dass eine Leerstandsaktivierung in den meisten Fällen an den finanziellen Mitteln scheitert, obwohl es einen großen Raumbedarf gibt.</p>
-        <p><strong>Leerstand rund um den Jakomini Platz beleben – genau darum geht es beim ViertelFonds.</strong></p>
-        <p>Der ViertelFonds ist ein neues Format, das lokale Macher*innen  unterstützt, ihre Raumvorhaben in den Leerständen rund um den Jakominiplatz  via Crowdfunding umzusetzen. Als erstes Matchfunding-Programm zur Leerstandsaktivierung im DACH-Raum, das Crowdfunding mit einem Fördertopf kombiniert, baut der ViertelFonds finanzielle Hürden ab und erleichtert das Crowdfunding erheblich.</p>
-        <p>Untersuchungen aus den Niederlanden und England zeigen, dass Crowdfunding-Projekte mit zusätzlicher Fördertopf-Unterstützung ihre Erfolgsaussichten um bis zu 90 % steigern können. Solche Matchfunding-Mechanismen bewirken zudem höhere Beträge und ziehen mehr Unterstützende an. Die Raumvorhaben der lokalen Macher*innen  sollen von diesen positiven Effekten profitieren.</p>
-        <p>Außerdem erhalten alle qualifizierten Projekte eine persönliche Crowdfunding-Begleitung, maximale Sichtbarkeit und das Abzeichen <strong>"Besonders unterstützenswertes Vorhaben"</strong> auf ihrer Crowdfunding-Seite. Damit möchten wir auch all diejenigen ermutigen, die sich bisher noch nicht an Crowdfunding zur Umsetzung ihrer Raumvorhaben herangewagt haben.</p>
+
+        <p>Wenn euer Raumvorhaben überzeugt – insbesondere durch einen guten Planungsstand und sich in einem der Bezirke des Pilotgebiets befindet, erhaltet ihr die <strong>Qualifizierungszusage für den Zuschuss</strong>.</p>
+        <p>Nach der Qualifizierungszusage könnt ihr eure Crowdfunding-Kampagne starten. Schließt ihr eure Kampagne erfolgreich ab und gehört zu den ersten vier erfolgreichen Projekten, <strong>erhaltet ihr einen Zuschuss von 1.000 Euro aus dem ViertelFonds</strong>.</p>
+        <p>Alle qualifizierten ViertelFonds-Projekte erhalten auf ihrer Kampagnenseite außerdem das Badge „Gewinn für die Nachbarschaft“ – damit sofort erkennbar ist, welches Potenzial in eurer Idee steckt.</p>
+        <p>Wer sich für den Zuschuss qualifiziert, ein Crowdfunding startet und als einer der vier ersten erfolgreichen Crowdfunding-Starter*innen ...</p>
+        <ul class="arrow">
+          <li>30 % des Mindestziels erreicht,</li>
+          <li>30 Unterstützer*innen gewinnt</li>
+          <li>und das Crowdfunding erfolgreich abschließt,</li>
+        </ul>
+        <p>... <strong>erhält den Zuschuss von 1.000 € – nach dem First-Come-First-Serve-Prinzip - Schnell sein lohnt sich.</strong></p>
       </div>
     </div>
     <div class="content-block -toggable">
-      <h3>Ablauf ViertelFonds</h3>
+      <h3>Hintergrund</h3>
       <div class="-toggle-content">
-        <p>Der erste Leerstand Call ist im Januar 2025 geplant, und wir laden die lokalen Macher*innen ein ihre  Raumvorhaben einzureichen. Bis dahin möchten wir einen schönen Betrag im Topf haben, um gleich mehrere Leerstandsaktivierungen rund um den Jakominiplatz gut anschieben zu können!</p>
+        <p>Der ViertelFonds wurde im Rahmen des Projekts <strong>crowd2raum von WeLocally.at und dem StadtLABOR Graz</strong> ins Leben gerufen, um gezielt die Finanzierungsbarrieren für lokale Macher*innen bei der Anmietung von Räumen zu senken und Leerstände in Graz mit neuem Leben zu füllen.</p>
+        <p>Seither wächst der Fonds kontinuierlich – getragen von engagierten Kooperationspartner*innen wie der <strong>Bezirksvorstehung Jakomini und der Volksbank Graz.</strong></p>
+        <p>Ein Teil des Fonds wird zudem direkt von der Community unterstützt: Über die Funktion <strong>„Aufrunden bitte“</strong> können Unterstützerinnen bei jeder Crowdfunding-Kampagne auf WeLocally in Graz freiwillig einen kleinen Beitrag leisten und so dazu beitragen, dass Leerstände durch lokale Macher*innen aktiviert werden.</p>
       </div>
     </div>
   </div>
 
+  <!--
   <div id="tabs-container" class="content-wide -grey">
     <div class="hl-subtext">
-      <h1>Ihr ermöglicht den ViertelFonds - Danke!</h1>
-      <p>Tausend Dank an euch, dass ihr den ViertelFonds möglich macht!</p>
+      <h1>Unterstütze Projekte</h1>
     </div>
-    <div id="tab-charges" class="wrp-inner charges">
-      <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
-      <div class="charges-container">
-        <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
-      </div>
+    <div id="tab-campaigns" class="wrp-inner card-grid-container">
+      <%= form_tag campaigns_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'cards-filter' do %><% end %>
+      <div class="card-grid" data-behavior="campaigns-card-container"></div>
     </div>
   </div>
+  -->
 
   <div class="content-wide -end logo-footer">
     <div class="wrp-inner">

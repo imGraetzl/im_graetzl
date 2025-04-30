@@ -72,3 +72,19 @@ ul.list-arrow {
     @include font-size-primaryFont('large');
   }
 }
+ul.list-num {
+  li {
+    margin-bottom:8px;
+    background: url(image_path('num-badge-1.png')) no-repeat left top;
+    padding-left: 49px;
+    list-style: none;
+    background-size: 40px;
+    padding-bottom:20px;
+    padding-top:8px;
+    &:nth-child(2) { background-image: url(image_path('num-badge-2.png')); }
+    &:nth-child(3) { background-image: url(image_path('num-badge-3.png')); }
+    &:nth-child(4) { background-image: url(image_path('num-badge-4.png')); }
+    &:nth-child(5) { background-image: url(image_path('num-badge-5.png')); }
+    &:nth-child(6) { background-image: url(image_path('num-badge-6.png')); }
+  }
+}

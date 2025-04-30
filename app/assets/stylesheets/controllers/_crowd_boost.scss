@@ -181,8 +181,45 @@ section.crowd_boost {
     }
   }
 
+  .content-wide-text {
+    p, ul {
+      @include font-size-primaryFont('large');
+    }
+    ul {
+      @extend .list-num;
+    }
+    .btn-primary {
+      width: fit-content;
+      margin: auto;
+      margin-top:20px;
+    }
+  }
+
   &.-graz {
+    .introSide {
+      display: flex;
+      flex-direction: column;
+      @include respond-to(">=large") {
+        margin-top:100px;
+      }
+    }
+    .map-img {
+      width:100%;
+      height:auto;
+    }
+    .-toggle-content {
+      ul {
+        @include font-size-primaryFont('base');
+        @extend .list-arrow;
+        margin-bottom: 20px;
+      }
+      p {
+        @include font-size-primaryFont('base');
+      }
+    }
     .logo-footer {
+      background-color: unset;
+      border-top: 1px solid #DEEAE6;
       .wrp-inner {
         padding-bottom:20px;
         display: flex;
