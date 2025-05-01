@@ -22,7 +22,7 @@
       </div>
       <p><strong>Der ViertelFonds</strong> ist ein Fördertopf für Raumvorhaben in Graz, die durch Crowdfunding finanziert werden sollen. Pro erfolgreich abgeschlossenem Crowdfunding-Projekt kann ein <strong>Zuschuss von 1.000 €</strong> vergeben werden.</p>
       <ul>
-        <li>Du hast einen Leerstand (alles außer Wohnen) in <strong>Lend, Geidorf, St. Leonhard, Jakomini, der Inneren Stadt oder in Gries</strong> im Blick? Du möchtest ihn gerne anmieten, aber die hohen Aktivierungskosten stehen dir noch im Weg?</li>
+        <li><strong>Du hast einen Leerstand</strong> (alles außer Wohnraum) <strong>in Lend, Geidorf, St. Leonhard, Jakomini, der Inneren Stadt oder in Gries</strong> im Blick? Du würdest ihn gerne anmieten, aber hohe Aktivierungskosten bremsen dich noch aus? Oder hast du kürzlich einen Leerstand aktiviert und dir fehlen jetzt die Mittel für nötige Renovierungsarbeiten oder die Ausstattung?</li>
         <li>Dann könnte der <strong>ViertelFonds</strong> genau die Unterstützung sein, die du suchst.</li>
       </ul>
       <p>Er setzt genau dort an, wo es oft hakt: bei den Anschubkosten für die Aktivierung von Räumen. Ziel ist es, finanzielle Hürden abzubauen und Mut zu machen, den Schritt in Richtung Raumanmietung mit Crowdfunding zu wagen.</p>
@@ -54,7 +54,11 @@
           <li>Erstelle anschließend eingeloggt eine neue Crowdfunding Kampagne und wähle innerhalb des Formulars deine <strong>Teilnahme am "Viertelfonds"</strong> aus. Beschreibe dein Vorhaben und fülle alle Kampagnenfelder bis zur letzten Seite vollständig aus und schicke deine Kampagne zur Freigabe ab. <strong><%= link_to 'Hier gehts zum Kampagnen-Start.', start_crowd_campaigns_path %></strong></li>
           <li><strong>Wir melden uns zeitnah</strong> und laden euch zu einer individuellen Crowdfunding-Beratung ein, damit euer Projekt die bestmöglichen Chancen auf ein erfolgreiches Crowdfunding erhält.</li>
         </ul>
-        <%= link_to 'Los gehts - Zur Registrierung', new_registration_path, class: 'btn-primary -large -rose -shadow' %>
+        <% if current_user %>
+          <%= link_to "Los geht's - Kampagne starten", start_crowd_campaigns_path, class: 'btn-primary -large -rose -shadow' %>
+        <% else %>
+          <%= link_to "Los geht's - Zur Registrierung", new_registration_path, class: 'btn-primary -large -rose -shadow' %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -65,15 +69,16 @@
       <div class="-toggle-content">
 
         <p>Wenn euer Raumvorhaben überzeugt – insbesondere durch einen guten Planungsstand und sich in einem der Bezirke des Pilotgebiets befindet, erhaltet ihr die <strong>Qualifizierungszusage für den Zuschuss</strong>.</p>
-        <p>Nach der Qualifizierungszusage könnt ihr eure Crowdfunding-Kampagne starten. Schließt ihr eure Kampagne erfolgreich ab und gehört zu den ersten vier erfolgreichen Projekten, <strong>erhaltet ihr einen Zuschuss von 1.000 Euro aus dem ViertelFonds</strong>. (Gesamt stehen 4.000 € zur Verfügung.)</p>
-        <p>Alle qualifizierten ViertelFonds-Projekte erhalten auf ihrer Kampagnenseite außerdem das Badge „Gewinn für die Nachbarschaft“ – damit sofort erkennbar ist, welches Potenzial in eurer Idee steckt.</p>
-        <p>Wer sich für den Zuschuss qualifiziert, ein Crowdfunding startet und als einer der vier ersten erfolgreichen Crowdfunding-Starter*innen ...</p>
+        <p>Nach der Qualifizierungszusage könnt ihr eure Crowdfunding-Kampagne starten.</p>
+        <p><strong>Die ersten vier Projekte, die ...</strong></p>
         <ul class="arrow">
-          <li>30 % des Mindestziels erreicht,</li>
-          <li>30 Unterstützer*innen gewinnt</li>
-          <li>und das Crowdfunding erfolgreich abschließt,</li>
+          <li>30 % des Mindestziels erreichen,</li>
+          <li>mindestens 30 Unterstützer*innen gewinnen und</li>
+          <li>ihr Crowdfunding erfolgreich abschließen,</li>
         </ul>
-        <p>... <strong>erhält den Zuschuss von 1.000 € – nach dem First-Come-First-Serve-Prinzip - Schnell sein lohnt sich.</strong></p>
+        <p>... <strong>erhalten einen Zuschuss von 1.000 € – nach dem First-Come-First-Serve-Prinzip.</strong></p>
+        <p>Schnell sein lohnt sich! Der Topf ist in der neuen Runde mit 4.000 € gefüllt.</p>
+        <p>Alle qualifizierten ViertelFonds-Projekte erhalten auf ihrer Kampagnenseite außerdem das <strong>Badge „Gewinn für die Nachbarschaft“</strong> – damit sofort erkennbar ist, welches Potenzial in eurer Idee steckt.</p>
       </div>
     </div>
     <div class="content-block -toggable">

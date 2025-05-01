@@ -17,17 +17,21 @@ namespace :scheduled do
       model.destroy
     end
 
-    # Update past meetings to next additional date and may refresh activity
-    Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
-      if meeting.meeting_additional_dates.any? 
-        meeting.set_next_date!
+    # Update past meetings to next additional date and maybe refresh activity
+    Meeting
+      .where("meetings.starts_at_date < ?", Date.today)
+      .joins(:meeting_additional_dates)
+      .where("meeting_additional_dates.starts_at_date >= ?", Date.today)
+      .distinct
+      .find_each do |meeting|
 
-        Rails.logger.info("[update_meeting_date task | Meeting set new Date | ID]: #{meeting.id}")
-        if meeting.refresh_activity || meeting.entire_region?
-          ActionProcessor.track(meeting, :create)
-          Rails.logger.info("[update_meeting_date task | Meeting create new Activity | ID]: #{meeting.id}")
-        end
-        
+      meeting.set_next_date!
+
+      Rails.logger.info("[update_meeting_date task | Meeting set new Date | ID]: #{meeting.id}")
+
+      if meeting.refresh_activity || meeting.entire_region?
+        ActionProcessor.track(meeting, :create)
+        Rails.logger.info("[update_meeting_date task | Meeting create new Activity | ID]: #{meeting.id}")
       end
     end
 
