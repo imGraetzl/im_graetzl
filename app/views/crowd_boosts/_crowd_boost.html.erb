@@ -46,7 +46,7 @@
     </div>
 
     <% if @crowd_boost.charge_call? %>
-        <%= link_to "Zur Topf Befüllung", call_crowd_boost_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
+        <%= link_to "Die neue Runde startet!", call_crowd_boost_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
     <% elsif crowd_boost.chargeable? %>
         <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
     <% end %>
