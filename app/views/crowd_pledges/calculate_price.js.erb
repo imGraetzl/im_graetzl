@@ -1,2 +1,27 @@
+// Replace calculated price container
 $("#calculated-price-container").html("<%= j render('crowd_pledges/new/calculated_price') %>");
-$(".charge_amount").text("<%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: '€') %>");
+
+// Replace roundup-button
+(() => {
+  const button = $("#roundup-button");
+
+  if (button.length === 0) {
+    return;
+  }
+
+  const upText = button.data("up-text");
+  const downText = button.data("down-text");
+
+  if (!upText || !downText) {
+    return;
+  }
+
+  const numericAmount = <%= @crowd_pledge.crowd_boost_charge_amount.to_f %>;
+  const formattedAmount = "<%= number_to_currency(@crowd_pledge.crowd_boost_charge_amount, unit: '€') %>";
+
+  const finalText = numericAmount > 0
+    ? upText.replace("%{amount}", formattedAmount)
+    : downText.replace("%{amount}", formattedAmount);
+
+  button.find(".charge_button_text").text(finalText);
+})();

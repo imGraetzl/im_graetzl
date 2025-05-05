@@ -2,9 +2,9 @@
   <% default_amount = crowd_boost_charge_amount_values(@crowd_pledge.total_price).find { |v| v[:default] } %>
 
   <div class="hl-subtext">
-    <h1>Magst du aufrunden</h1>
+    <h1>Vielen Dank für deine Unterstützung.</h1>
     <p>
-      <strong>...und die Aktivierung von Leerstand unterstützen?</strong>
+      <strong>Magst du aufrunden und die Aktivierung von Leerstand unterstützen?</strong>
     </p>
     <p class="subline">
       Schon mit <strong><%= number_to_currency(default_amount[:amount]) %></strong> hilfst du mit, dass ein Projekt starten kann, das einen leerstehenden Raum in <%= current_region.name %> belebt.
@@ -48,8 +48,14 @@
       </div>
     </div>
 
-    <%= button_tag type: 'submit', class: 'btn-primary -rose -shadow' do %>
-      Weiter mit <span class="charge_amount"></span>
+    <%= button_tag type: 'submit',
+               class: 'btn-primary -rose -shadow',
+               id: 'roundup-button',
+               data: {
+                 up_text: "Weiter mit %{amount}",
+                 down_text: "Weiter mit %{amount}"
+               } do %>
+      <span class="charge_button_text"></span>
     <% end %>
     
   <% end %>
