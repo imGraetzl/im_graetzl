@@ -39,9 +39,8 @@ context.instance_eval do
 
       panel 'Expected' do
         attributes_table_for crowd_boost do
-          row :balance_expected
-          row (:charges_expected_sum){|b| b.crowd_boost_charges.authorized.sum(:amount)}
-          row (:charges_expected){|b| b.crowd_boost_charges.authorized.count}
+          row :charges_expected
+          row (:charges_expected_count){|b| b.crowd_boost_charges.expected.count}
         end
       end
 

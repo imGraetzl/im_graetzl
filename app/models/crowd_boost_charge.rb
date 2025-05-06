@@ -11,7 +11,7 @@ class CrowdBoostCharge < ApplicationRecord
   string_enum charge_type: ["general", "zuckerl", "room_booster", "subscription_invoice", "crowd_pledge", "good_morning_date"]
   string_enum payment_status: ["incomplete", "authorized", "processing", "debited", "failed", "refunded"]
 
-  scope :expected, -> { where(payment_status: [:authorized, :processing, :debited]) }
+  scope :expected, -> { where(payment_status: [:authorized, :processing]) }
   scope :initialized, -> { where.not(payment_status: :incomplete) }
   scope :debited_without_crowd_pledges, -> {
     where(payment_status: :debited).where.not(charge_type: :crowd_pledge)

@@ -15,9 +15,9 @@ context.instance_eval do
   column(:round_up){|b| b.pledge_charge}
   column :title
   column :balance
-  column :balance_expected
-  column(:charges){|b| b.crowd_boost_charges.debited.count}
-  column(:charges_expected){|b| b.crowd_boost_charges.authorized.count}
-  column('Pledges'){|b| b.crowd_boost_pledges.debited.count}
+  column(:expected){|b| b.charges_expected}
+  #column(:charges){|b| b.crowd_boost_charges.debited.count}
+  #column(:charges_expected){|b| b.crowd_boost_charges.authorized.count}
+  column(:pledged){|b| b.total_amount_pledged}
   #actions
 end

@@ -34,7 +34,7 @@ class CrowdBoost < ApplicationRecord
     self.crowd_boost_pledges.debited.sum(:amount)
   end
 
-  def balance_expected
+  def charges_expected
     self.crowd_boost_charges.expected.sum(:amount) - total_amount_pledged
   end
 
