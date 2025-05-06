@@ -36,8 +36,8 @@ namespace :scheduled do
       end
     end
 
-    if Date.today.monday?
-      wednesday = Date.today + 2  # Übermorgen (Mittwoch)
+    if Date.today.sunday?
+      wednesday = Date.today + 3  # Übermorgen (Mittwoch)
       next_tuesday = wednesday + 6 # Dienstag in einer Woche
     
       CrowdCampaign.ending_newsletter.where(enddate: wednesday..next_tuesday).find_each do |campaign|
