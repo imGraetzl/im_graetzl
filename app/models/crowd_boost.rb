@@ -35,7 +35,7 @@ class CrowdBoost < ApplicationRecord
   end
 
   def charges_expected
-    self.crowd_boost_charges.expected.sum(:amount) - total_amount_pledged
+    self.crowd_boost_charges.expected.sum(:amount)
   end
 
   def should_generate_new_friendly_id?
