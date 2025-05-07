@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_08_132511) do
+ActiveRecord::Schema.define(version: 2025_05_07_190413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1749,6 +1749,7 @@ ActiveRecord::Schema.define(version: 2025_04_08_132511) do
     t.boolean "subscribed", default: false
     t.string "payment_wallet"
     t.datetime "deleted_at"
+    t.integer "trust_level", default: 0, null: false
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"

@@ -25,6 +25,7 @@ context.instance_eval do
           row :business
           row(:newsletter){|u| status_tag(u.newsletter)}
           row(:role){|u| status_tag(u.role)}
+          row(:trust_level){|u| status_tag(u.trust_level)}
           row :location_category
           row :business_interests do |g|
             safe_join(

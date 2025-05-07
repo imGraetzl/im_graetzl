@@ -11,6 +11,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :password if f.object.new_record?
     roles = current_user.superadmin? ? User.roles.keys : User.roles.except("superadmin").keys
     input :role, as: :select, collection: roles
+    input :trust_level, as: :select
     input :business
     input :stripe_connect_account_id
     input :stripe_connect_ready

@@ -7,6 +7,7 @@ ActiveAdmin.register User do
   scope :guests
   scope :admin
   scope :beta
+  scope :trusted
   Region.all.each do |region|
     scope(region.name) { |scope| scope.registered.where(region_id: region.id) }
   end
@@ -41,6 +42,7 @@ ActiveAdmin.register User do
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
     :role,
+    :trust_level,
     :business,
     :location_category,
     :business_interests,
