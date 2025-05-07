@@ -11,7 +11,7 @@ class MessengerController < ApplicationController
     if !current_user.trust_level_at_least?(:trusted) && current_user.user_message_threads.where(created_at: 45.minutes.ago..Time.current).count >= 15
       # Spam Filter
       AdminMailer.messenger_spam_alert(current_user).deliver_later
-      redirect_to root_path, notice: 'Zu viele Messenger Unterhaltungen mit diesem User innerhalb kurzer Zeit ...' and return
+      redirect_to root_path, notice: 'Du hast in kurzer Zeit viele Messenger-Unterhaltungen gestartet. Bitte warte etwas ab, bevor du weitere starten kannst.' and return
     elsif params[:room_rental_id].present?
       room_rental = RoomRental.find(params[:room_rental_id])
       thread = UserMessageThread.create_for_room_rental(room_rental)
