@@ -1,6 +1,6 @@
 class CrowdBoostsController < ApplicationController
   layout :set_layout
-  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns, :call]
+  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns, :call, :leerstand]
 
   def index
     if current_region
