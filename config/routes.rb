@@ -20,10 +20,15 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get  'home' => 'home#about', as: 'about_platform'
-  post 'geolocation'  => 'home#geolocation'
+  post 'geolocation' => 'home#geolocation'
 
-  get 'leerstand' => 'contact_list_entries#crowd2raum', as: 'crowd2raum'
-  post 'leerstand' => 'contact_list_entries#crowd2raum_create'
+  # Special CrowdBoosts
+  get  '/raumbooster' => redirect('https://www.imgraetzl.at/leerstand') # Wien
+  get  '/raumfonds' => redirect('https://innsbruck.welocally.at/leerstand') # Innsbruck
+  get  '/viertelfonds' => redirect('https://graz.welocally.at//leerstand') # Graz
+  
+  get  '/leerstand', to: 'crowd_boosts#leerstand', as: :leerstand
+  post '/leerstand', to: 'contact_list_entries#crowd2raum_create'
 
   get 'andocken' => redirect('/') #=> 'region_calls#call'
   post 'andocken' => 'region_calls#create'
@@ -344,9 +349,6 @@ Rails.application.routes.draw do
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
-  get 'raumbooster' => redirect('/crowdfunding-booster/raum-booster')
-  get 'raumfonds' => redirect('/crowdfunding-booster/raumfonds')
-  get 'viertelfonds' => redirect('/crowdfunding-booster/viertelfonds/call')
   #get 'popup', to: 'static_pages#popup', as: 'popup'
 
   get 'info', to: 'static_pages#info'

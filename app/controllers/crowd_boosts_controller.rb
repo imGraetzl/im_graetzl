@@ -12,8 +12,45 @@ class CrowdBoostsController < ApplicationController
 
   def show
     @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
+    region_id = current_region&.id
+
+    # Use Special /leerstand URL in this Case
+    leerstand_id = LEERSTAND_IDS[region_id]
+    if leerstand_id && @crowd_boost.id == leerstand_id
+      return redirect_to leerstand_path
+    end
+    
     @next_slot = @crowd_boost.next_slot(current_region)
     flash.now[:alert] = "Dieser Topf ist aktuell inaktiv." if @crowd_boost.disabled?
+  end
+
+  def leerstand
+    region_id = current_region&.id
+    leerstand_id = LEERSTAND_IDS[region_id]
+
+    # show crowd_boost of region under /leerstand
+    if leerstand_id
+      @crowd_boost = CrowdBoost.find_by(id: leerstand_id)
+      @next_slot = @crowd_boost.next_slot(current_region)
+
+      case region_id
+      when 'graz'
+        render :call_graz
+      else
+        render :show
+      end
+
+    else
+
+      if region_id
+        redirect_to leerstand_url(host: welocally_platform_host)
+      else
+        # Build Special /leerstand page for welocally domain without region
+        # render 'home/about'
+        redirect_to about_platform_url(host: welocally_platform_host)
+      end
+      
+    end
   end
 
   def call
@@ -36,11 +73,25 @@ class CrowdBoostsController < ApplicationController
 
   private
 
+  LEERSTAND_IDS = {
+    'wien' => 1,
+    'graz' => 2,
+    'innsbruck' => 3
+  }.freeze
+
   def set_layout
     if current_region.nil?
       'platform'
     else
       'application'
+    end
+  end
+
+  def welocally_platform_host
+    if Rails.env.production?
+      "www.#{Rails.application.config.welocally_host}"
+    else
+      Rails.application.config.welocally_host
     end
   end
 

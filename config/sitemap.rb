@@ -119,12 +119,11 @@ Region.all.each do |region|
     # Crowd Boosts
     CrowdBoost.in(region).find_each do |crowd_boost|
       add crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0
-      add call_crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0
     end
 
     # Polls
     Poll.in(region).enabled.find_each do |poll|
-      add poll_path(poll), changefreq: 'daily', priority: 0.9
+      add poll_path(poll), changefreq: 'daily', priority: 0.8
     end
 
     # Raumteiler
@@ -138,11 +137,11 @@ Region.all.each do |region|
 
     # Energieteiler
     EnergyOffer.in(region).enabled.find_each do |energy_offer|
-      add energy_offer_path(energy_offer), changefreq: 'daily', priority: 0.9
+      add energy_offer_path(energy_offer), changefreq: 'daily', priority: 0.6
     end
 
     EnergyDemand.in(region).enabled.find_each do |energy_demand|
-      add energy_demand_path(energy_demand), changefreq: 'daily', priority: 0.8
+      add energy_demand_path(energy_demand), changefreq: 'daily', priority: 0.6
     end
 
     # Coop & Share
@@ -158,14 +157,18 @@ Region.all.each do |region|
     # Static Vienna Pages
     if region.id == 'wien'
       add good_morning_dates_path, changefreq: 'daily', priority: 0.9
-      add balkonsolar_wien_path, changefreq: 'daily', priority: 0.9
+      add leerstand_path, changefreq: 'daily', priority: 1.0
     end
 
     if region.id == 'graz'
-      add balkonsolar_path, changefreq: 'daily', priority: 0.9
+      add leerstand_path, changefreq: 'daily', priority: 1.0
     end
     
     if region.id == 'linz'
+    end
+
+    if region.id == 'innsbruck'
+      add leerstand_path, changefreq: 'daily', priority: 1.0
     end
 
     if region.use_subscription?
