@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   # Special CrowdBoosts
   get  '/raumbooster' => redirect('https://www.imgraetzl.at/leerstand') # Wien
   get  '/raumfonds' => redirect('https://innsbruck.welocally.at/leerstand') # Innsbruck
-  get  '/viertelfonds' => redirect('https://graz.welocally.at//leerstand') # Graz
-  
+  get  '/viertelfonds' => redirect('https://graz.welocally.at/leerstand') # Graz
+
   get  '/leerstand', to: 'crowd_boosts#leerstand', as: :leerstand
   post '/leerstand', to: 'contact_list_entries#crowd2raum_create'
 
