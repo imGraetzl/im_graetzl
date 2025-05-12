@@ -95,4 +95,8 @@ module ApplicationHelper
     end
   end
 
+  def pluralize_de(count, singular, plural)
+    "#{count} #{count == 1 ? singular : plural}"
+  end
+
 end

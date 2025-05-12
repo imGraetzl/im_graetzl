@@ -1,0 +1,80 @@
+<% region = Region.get(crowd_boost.region_ids.last) %>
+
+<div class="cardBox -crowd_boost <%= crowd_boost.open_slot ? '-open' : '' %>" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
+  
+  <div class="cardBoxHeader">
+    <%= link_to crowd_boost_url(crowd_boost, host: region.host) do %>
+      <div class="coverImgWrapper">
+        <%= icon_tag "region-#{region.id}" %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= region %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+
+    <div class="txt">
+      <h3><%= link_to "Fördertopf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
+    </div>
+
+    <% if crowd_boost.open_slot %>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "horn-promote" %>
+        <div><strong>Die neue Runde ist gestartet!</strong> Vom 14. Mai bis zum 30. Sep 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen.</div>
+      </div>
+
+    <% elsif region.is?('wien') %>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "slots" %>
+        <div>Der Topf füllt sich aktuell über „Aufrunden bitte“ und zusätzlich über die Good Morning Dates, ein neuer Call folgt in Kürze.</div>
+      </div>
+    
+    <% elsif region.is?('innsbruck') %>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "slots" %>
+        <div>Der Topf füllt sich aktuell über „Aufrunden bitte“ - Der erste Call ist in Vorbereitung.</div>
+      </div>
+
+    <% else %>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "slots" %>
+        <div>Der Topf füllt sich aktuell über „Aufrunden bitte“, der nächste Call ist in Vorbereitung.</div>
+      </div>
+
+    <% end %>
+
+      
+
+    <% if crowd_boost.crowd_boost_slots.expired.count > 0 %>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "flag" %>
+        <div><%= pluralize_de(crowd_boost.crowd_campaigns.boost_initialized.count, 'Projekt', 'Projekte') %> bisher unterstützt.</div>
+      </div>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "currency-euro" %>
+        <div><%= number_to_currency(crowd_boost.total_amount_pledged, precision: 2, unit: "€") %> bisher ausgeschüttet.</div>
+      </div>
+
+    <% end %>
+
+    <div class="facts icontxt -rosa">
+      <%= icon_tag "currency-euro" %>
+      <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
+    </div>
+
+    <% if crowd_boost.open_slot %>
+      <%= link_to "Open Call - Jetzt einreichen", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -rose -shadow" %>
+    <% else %>
+      <%= link_to "Alle Infos zum nächsten Call", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -mint -shadow" %>
+    <% end %>
+
+  </div>
+</div>

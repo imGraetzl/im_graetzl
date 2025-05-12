@@ -25,12 +25,12 @@
 
       <div class="facts icontxt -mint">
         <%= icon_tag "slots" %>
-        <div><%= crowd_boost.crowd_boost_slots.expired.count %> Runden bisher durchgeführt.</div>
+        <div><%= pluralize_de(crowd_boost.crowd_boost_slots.expired.count, 'Runde', 'Runden') %> bisher durchgeführt.</div>
       </div>
 
       <div class="facts icontxt -mint">
         <%= icon_tag "flag" %>
-        <div><%= crowd_boost.crowd_campaigns.boost_initialized.count %> Projekte bisher unterstützt.</div>
+        <div><%= pluralize_de(crowd_boost.crowd_campaigns.boost_initialized.count, 'Projekt', 'Projekte') %> bisher unterstützt.</div>
       </div>
 
       <div class="facts icontxt -mint">
@@ -45,10 +45,10 @@
       <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
     </div>
 
-    <% if @crowd_boost.charge_call? %>
-        <%= link_to "Die neue Runde startet!", call_crowd_boost_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
+    <% if crowd_boost.charge_call? %>
+        <%= link_to "Die neue Runde startet!", call_crowd_boost_path(crowd_boost), class: "btn-primary -mint -shadow" %>
     <% elsif crowd_boost.chargeable? %>
-        <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -shadow" %>
+        <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(crowd_boost), class: "btn-primary -mint -shadow" %>
     <% end %>
 
   </div>

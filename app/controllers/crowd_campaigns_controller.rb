@@ -1,6 +1,15 @@
 class CrowdCampaignsController < ApplicationController
   before_action :authenticate_user!, except: [:redirect, :load_collections, :show, :supporters, :posts, :comments, :start]
 
+  def start
+    if current_region
+      render :start
+    else
+      @crowd_boosts = CrowdBoost.enabled.all
+      render :start_welocally, layout: 'platform'
+    end
+  end
+  
   def redirect
     # Take Location Slug and Redirect to CrowdCampaign if there is any
     @location = Location.in(current_region).where(slug: params[:id]).last

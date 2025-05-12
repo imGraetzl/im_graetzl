@@ -13,9 +13,8 @@ APP.controllers.application = (function() {
 
     // WeLocally Register and Login Choose Region Modal
     function chooseRegionModal() {
-      var redirect_path;
-      new jBox('Confirm', {
-        addClass:'jBox',
+      new jBox('Modal', {
+        addClass: 'jBox',
         attach: $(".region-select-link"),
         title: 'Wähle deine Region',
         content: $("#select-region-modal-content"),
@@ -23,21 +22,27 @@ APP.controllers.application = (function() {
         closeOnEsc: true,
         closeOnClick: 'body',
         blockScroll: true,
-        animation:{open: 'zoomIn', close: 'zoomOut'},
-        cancelButton: 'Abbrechen',
-        confirmButton: 'Weiter',
-        onOpen: function() {
-          redirect_path = this.source.attr('data-urlmethod');
-        },
-        confirm: function() {
-          var redirect_host = $("#select-region-modal-content select").val();
-          if (redirect_host != "") {
-            var redirect_url =  redirect_host + redirect_path.substring(1);
-            window.location.href = redirect_url;
-          }
+        animation: { open: 'zoomIn', close: 'zoomOut' },
+        onOpen: function () {
+          const jbox = this;
+          const redirect_path = jbox.source.data("urlmethod");
+          $("#select-region-modal-content select")
+            .off("change")
+            .on("change", function () {
+              const redirect_host = $(this).val();
+              if (redirect_host && redirect_path) {
+                const redirect_url = redirect_host + redirect_path.substring(1);
+                window.location.href = redirect_url;
+              }
+          });
         }
       });
+
+      $(document).on('click', '.region-select-link', function (e) {
+        e.preventDefault();
+      });
     }
+
 
     // Set Screen Mode Class
     enquire

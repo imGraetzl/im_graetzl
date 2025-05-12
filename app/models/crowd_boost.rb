@@ -46,6 +46,14 @@ class CrowdBoost < ApplicationRecord
     title
   end
 
+  def open_slot(region = nil)
+    if region
+      crowd_boost_slots.in(region).open.first
+    else
+      crowd_boost_slots.open.first
+    end
+  end
+
   def next_slot(region = nil)
     if region
       crowd_boost_slots.in(region).active.first
