@@ -334,8 +334,10 @@ class CrowdCampaignsController < ApplicationController
   def collection_scope
     if params[:user_id].present?
       CrowdCampaign.scope_public.where(user_id: params[:user_id])
-    else
+    elsif current_region
       CrowdCampaign.in(current_region).scope_public.or(CrowdCampaign.platform.scope_public)
+    else
+      CrowdCampaign.scope_public
     end
   end
 

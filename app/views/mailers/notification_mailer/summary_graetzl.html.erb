@@ -24,6 +24,7 @@
 
   <!-- Insert Feature Boxes -->
   <%= render 'summary/new_good_morning_dates', meetings: @good_morning_dates if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
+  <%= render 'featured/crowdfunding_sprechstunde' if @period == 'weekly' && current_position == 1 %>
   <%# render 'featured/subscription' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>

@@ -19,17 +19,16 @@
     <div class="introtxt">
       <div class="hl-subtext">
         <h1><em>reward-based Crowdfunding</em><br> auf WeLocally / imGrätzl</h1>
-        <p><strong>Was uns von anderen Plattformen unterscheidet?</strong></p>
-        <p>Unsere Erfolgsquote liegt bei <strong><%= success_rate %>%</strong> – das ist deutlich über dem Durchschnitt.</p>
+        <p><strong>Beim reward-based Crowdfunding unterstützen viele Menschen ein Vorhaben mit einer kleinen oder größeren Summe – und erhalten dafür eine symbolische oder materielle Gegenleistung.</strong> Der Gedanke dahinter: Gute Ideen werden Wirklichkeit – durch die Kraft der Gemeinschaft.</p>
       </div>
-      <p class="txt">Das liegt an der <strong>intensiven Begleitung</strong> – und vielleicht auch daran, dass wir <strong>lokal verankert</strong> sind:</p>
+      <p class="txt"><strong>Was uns von anderen Plattformen unterscheidet?</strong><br>Unsere Erfolgsquote liegt bei <strong><%= success_rate %>%</strong> – das ist deutlich über dem Durchschnitt. Das liegt an der <strong>intensiven Begleitung</strong> – und vielleicht auch daran, dass wir <strong>lokal verankert</strong> sind:</p>
       <p class="txt">Deine Kampagne läuft nicht anonym irgendwo im Netz, sondern wird <strong>sichtbar platziert in einer bestehenden lokalen Community</strong> – je nachdem, wo du beheimatet bist und dein Vorhaben umsetzen möchtest.</p>
-      <p class="txt"><strong>Aktuell kannst du dein Projekt starten in:</strong> Wien, Graz, Innsbruck, Linz und im Mühlviertler Kernland.</p>
+      <p class="txt"><strong>Aktuell kannst du dein Crowdfunding starten in:</strong><br>Wien, Graz, Linz, Innsbruck und im Mühlviertler Kernland.</p>
       <%= link_to "Los geht's - Neue Kampagne erstellen", "#", class: 'btn-primary -rose -large -shadow region-select-link', id: 'startproject', data: {urlmethod: start_crowd_campaigns_path} %>
     </div>
     <div class="introSide">
 
-      <div class="paperCard -lightblue -illuteaser -good-morning-date -cord1RT">
+      <div class="paperCard -lightblue -illuteaser -fragen -cord1RT">
         <div class="wrp">
           <h3>Jeden Mittwoch, 12:30 Uhr:<br>Kostenlose Crowdfunding-Sprechstunde via Zoom!</h3>
           <p>Die Realisierung deines Vorhabens liegt uns am Herzen! Deshalb freuen wir uns darauf, uns mit dir über dein Vorhaben auszutauschen, dir unsere Crowdfunding-Expertise zur Verfügung zu stellen und deine Fragen persönlich zu beantworten.</p>
@@ -77,76 +76,24 @@
     </div>
   </div>
 
-
-  <div class="content-wide -rosa success-container">
-    <div class="wrp-inner">
-      <div class="txt left">Unsere Erfolgsquote<br>bei WeLocally / imGrätzl liegt bei:</div>
-      <div class="badge"><div class="inner"><%= success_rate %>%</div></div>
-      <div class="txt">Damit liegen wir im absoluten Spitzenfeld!</div>
-    </div>
-  </div>
-
-
-  <div class="content-wide">
-    <div class="wrp-inner">
-      <div class="hl-subtext">
-        <h1>Ablauf deiner Crowdfunding Kampagne</h1>
-      </div>
-      <div class="num-items">
-        <div><h3>Kampagne erstellen</h3>Du kannst in Ruhe deine Kampagne ausfüllen und Zwischenstände speichern, bis du damit zufrieden bist. Sie ist im Bearbeitungsmodus nur für dich sichtbar.</div>
-        <div><h3>Kampagne freischalten</h3>Fertig ausgefüllt? Reiche nun deine Kampagne zur Freischaltung ein und erhalte noch wertvolles Feedback.</div>
-        <div><h3>Auszahlungskonto</h3>Verknüpfe nun noch deine Kampagne mit unserem Zahlungsdienstleister Stripe, und danach kann es losgehen.</div>
-        <div><h3>Kampagnenstart</h3>Jetzt heißt's trommeln, sichtbar machen und allen davon erzählen. Am besten persönlich und immer wieder!</div>
-        <div><h3>Kampagnenende</h3>Bei Erfolg werden nun die Gelder deiner Supporter eingezogen. Bei Nichterfolg wird natürlich nichts abgebucht.</div>
-        <div><h3>Geld erhalten</h3>14 Tage nach Kampagnenende wird deine tatsächlich erreichte Fundingsumme auf dein Konto überwiesen. Yeah!</div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="advantage-container">
-    <div class="hl-subtext">
-      <h1>Was für ein <span>Crowdfunding auf WeLocally / imGrätzl</span> spricht</h1>
-    </div>
-    <ul>
-      <li>
-        <h3>Hohe Erfolgsquote</h3>
-        <p>Unsere Begleitung ist der Schlüssel zu einer hohen Erfolgsquote. Wir vereinfachen den komplexen Crowdfunding-Prozess in leicht umsetzbare Arbeitsschritte für dein Projekt.</p>
-      </li>
-      <li>
-        <h3>Lokale Community</h3>
-        <p>Dein Vorhaben wird in unsere lokalen Communities auf WeLocally / imGrätzl sichtbar gemacht.</p>
-      </li>
-      <li>
-        <h3>Unsere Expertise</h3>
-        <p>Wir teilen unser umfassendes Crowdfunding-Wissen und unterstützen dich mit lokalem Know-how und wertvollen Kontakten.</p>
-      </li>
-      <li>
-        <h3>Kosten</h3>
-        <p>Wenn die Kampagne nicht erfolgreich ist, kostet sie nichts. Unsere Fixkosten betragen <strong>5 %</strong> und setzen sich zusammen aus den Gebühren für den Zahlungsprovider, der Mehrwertsteuer und einem kleinen Unkostenbeitrag für die Durchführung. Über jeden zusätzlichen Prozentpunkt entscheidest du selbst. Im Durchschnitt geben die Starter*innen 7 % und erhalten dafür z.B. zusätzliche Sichtbarkeit im Newsletter und auf Social Media.</p>
-      </li>
-      <li>
-        <h3>Persönlicher Kontakt</h3>
-        <p>Du kannst uns anrufen oder zu den wöchentlichen Crowdfunding-Check-ins kommen.</p>
-      </li>
-      <li>
-        <h3>Premium-Zahlungsanbieter</h3>
-        <p>Wir arbeiten mit einem der besten und international verbreitetsten Zahlungsanbieter zusammen.</p>
-      </li>
-      <li>
-        <h3>Extra Services für Unterstützer*innen</h3>
-        <p>Nicht alle Menschen sind so digital affin. Wenn Unterstützer*innen Schwierigkeiten bei der Durchführung von Online-Zahlungen haben, bekommen sie eine E-Mail von uns mit einer Telefonnummer, und wir leiten sie dann persönlich durch den Prozess.</p>
-      </li>
-      <li>
-        <h3>Jeden Mittwoch, 12:30 Uhr - <span>Kostenlose Crowdfunding-Sprechstunde</span> via Zoom!</h3>
-        <p>Die Realisierung deines Vorhabens liegt uns am Herzen! Deshalb freuen wir uns darauf, uns mit dir über dein Vorhaben auszutauschen, dir unsere Crowdfunding-Expertise zur Verfügung zu stellen und deine Fragen persönlich zu beantworten. <%= link_to "Hier kannst du teilnehmen", 'https://us02web.zoom.us/j/89491765878?pwd=aytFTXVjSm5Zb0tiQkorbFJFd1YvZz09' %>.</p>
-      </li>
-    </ul>
-  </div>
-
-  <%= link_to "Los geht's - Neue Kampagne erstellen", "#", class: 'btn-primary -rose -large -shadow region-select-link', data: {urlmethod: start_crowd_campaigns_path} %>
-
 </section>
+
+<div class="content-wide">
+  <div class="wrp-inner">
+    <div class="hl-subtext">
+      <h1>Aktuelle Crowdfunding Projekte</h1>
+    </div>
+    <%= form_tag load_collections_crowd_campaigns_path(per_page: 6), method: :get, remote: true, class: 'cards-filter' do %>
+    <% end %>
+
+    <div class="card-grid-container">
+      <div class="card-grid" data-behavior="crowd-campaigns-card-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll', data: { disable_with: 'lädt...', behavior: 'crowd-campaigns-paginate-link' }, rel: 'nofollow' %>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- SLIDER -->
 <div class="lightSliderWrapper card-slider-container -userquotes">
@@ -225,3 +172,5 @@
   </div>
 </div>
 <!-- /SLIDER -->
+
+<%= link_to "Los geht's - Neue Kampagne erstellen", "#", class: 'btn-primary -rose -large -shadow region-select-link', data: {urlmethod: start_crowd_campaigns_path} %>

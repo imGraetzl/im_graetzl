@@ -46,6 +46,9 @@ APP.controllers.crowd_campaigns = (function() {
         });
       }
 
+      if ($('.cards-filter').exists()) {
+        APP.components.cardBoxFilter.init();
+      }
 
     }
 
