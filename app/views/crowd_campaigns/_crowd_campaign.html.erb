@@ -1,6 +1,6 @@
 <% @crowd_campaign = crowd_campaign %>
 
-<div class="cardBox -crowd_campaign" data-behavior="masonry-card" data-card-id="crowd_campaign-<%= crowd_campaign.id %>" cross-platform="<%= crowd_campaign.region.id %>">
+<div class="cardBox -crowd_campaign" data-behavior="masonry-card" data-card-id="crowd_campaign-<%= crowd_campaign.id %>" cross-platform="<%= crowd_campaign.region.id %>" cross-platform-host="<%= region_host_url(crowd_campaign.region) %>">
 
   <div class="cardBoxHeader">
     <%= link_to crowd_campaign do %>

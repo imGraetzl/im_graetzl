@@ -478,6 +478,9 @@ de:
       description: '%{type}: %{desc}...'
 
   crowd_campaigns:
+    start_welocally:
+      title: 'reward-based Crowdfunding auf WeLocally & imGrätzl - Setze dein Vorhaben mit der Kraft der Gemeinschaft um!'
+      description: 'Du hast ein Vorhaben, eine Idee, ein Projekt? Aber dir fehlt zur Realisierung noch Geld, vielleicht auch Raum, helfende Hände oder andere Ressourcen? Dann könnte Crowdfunding etwas für dich sein. Starte jetzt deine Crowdfunding-Kampagne.'
     start:
       title: 'Lokales Crowdfunding - Setze dein Vorhaben mit der Kraft der Gemeinschaft um!'
       description: 'Du hast ein Vorhaben, eine Idee, ein Projekt? Aber dir fehlt zur Realisierung noch Geld, vielleicht auch Raum, helfende Hände oder andere Ressourcen? Dann könnte Crowdfunding etwas für dich sein. Starte jetzt deine Crowdfunding-Kampagne.'

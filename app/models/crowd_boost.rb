@@ -34,8 +34,8 @@ class CrowdBoost < ApplicationRecord
     self.crowd_boost_pledges.debited.sum(:amount)
   end
 
-  def balance_expected
-    self.crowd_boost_charges.expected.sum(:amount) - total_amount_pledged
+  def charges_expected
+    self.crowd_boost_charges.expected.sum(:amount)
   end
 
   def should_generate_new_friendly_id?
@@ -44,6 +44,14 @@ class CrowdBoost < ApplicationRecord
 
   def to_s
     title
+  end
+
+  def open_slot(region = nil)
+    if region
+      crowd_boost_slots.in(region).open.first
+    else
+      crowd_boost_slots.open.first
+    end
   end
 
   def next_slot(region = nil)

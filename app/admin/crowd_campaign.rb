@@ -21,22 +21,23 @@ ActiveAdmin.register CrowdCampaign do
   scope 'End NL', :ending_newsletter
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_categories, input_html: { class: 'admin-filter-select'}
   filter :active_state, as: :select, collection: CrowdCampaign.active_states, input_html: { class: 'admin-filter-select'}
   filter :visibility_status, as: :select, collection: CrowdCampaign.visibility_statuses, input_html: { class: 'admin-filter-select'}
   filter :newsletter_status, as: :select, collection: CrowdCampaign.newsletter_statuses.keys, input_html: { class: 'admin-filter-select'}
+  filter :ending_newsletter, input_html: { class: 'admin-filter-select'}
+  filter :incomplete_newsletter, input_html: { class: 'admin-filter-select'}
+  filter :guest_newsletter, input_html: { class: 'admin-filter-select'}
   filter :boost_status, as: :select, collection: CrowdCampaign.boost_statuses, input_html: { class: 'admin-filter-select'}
   filter :crowd_boost, collection: proc { CrowdBoost.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-
   filter :service_fee_percentage, :as => :numeric
   filter :title
+  filter :invoice_number
   filter :startdate
   filter :enddate
   filter :created_at
+  filter :payout_attempted_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }

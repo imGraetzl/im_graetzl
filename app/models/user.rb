@@ -12,6 +12,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :confirmable, :masqueradable
 
   enum role: { admin: 0, beta: 1, superadmin: 2 }
+  enum trust_level: { default: 0, trusted: 1, verified: 2 }
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
@@ -117,6 +118,11 @@ class User < ApplicationRecord
 
   def admin_or_beta?
     admin? || beta?
+  end
+
+  def trust_level_at_least?(level)
+    return true if beta? || admin? || superadmin?
+    trust_level_before_type_cast >= self.class.trust_levels[level]
   end
 
   def confirmed_user?

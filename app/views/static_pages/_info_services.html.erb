@@ -20,6 +20,36 @@
 
 <article class="container">
   <div class="txt">
+    <h2>Crowdfunding</h2>
+    <h3>Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.</h3>
+    <p>
+      Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen,
+      aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.
+      Alle Vorhaben, von denen außerdem noch andere Menschen profitieren, bekommen auf ihre Kampagne einen extra Sichtbarkeitsboost.
+    </p>
+    <p class="link">
+      <% if current_region %>
+        <%= link_to 'Mehr Infos', start_crowd_campaigns_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zum Crowdfunding', region_crowd_campaigns_path, :class => 'btn-primary -mint -inlineflex' %>
+      <% else %>
+        <%= link_to 'Mehr Infos zum Crowdfunding', start_crowd_campaigns_path, :class => 'btn-primary -mint -inlineflex' %>
+      <% end %>
+    </p>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy'), region_crowd_campaigns_path) %>
+    <% else %>
+    <%= image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy') %>
+    <% end %>
+  </div>
+</article>
+
+
+
+
+<article class="container">
+  <div class="txt">
     <h2>Raumteiler</h2>
     <h3>Gewerbeflächen teilen - Kosten teilen.</h3>
     <p>
@@ -43,32 +73,6 @@
   </div>
 </article>
 
-
-
-<article class="container">
-  <div class="txt">
-    <h2>Crowdfunding</h2>
-    <h3>Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.</h3>
-    <p>
-      Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen,
-      aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.
-      Alle Vorhaben, von denen außerdem noch andere Menschen profitieren, bekommen auf ihre Kampagne einen extra Sichtbarkeitsboost.
-    </p>
-    <% if current_region %>
-      <p class="link">
-        <%= link_to 'Mehr Infos', start_crowd_campaigns_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zum Crowdfunding', region_crowd_campaigns_path, :class => 'btn-primary -mint -inlineflex' %>
-      </p>
-    <% end %>
-  </div>
-  <div class="aside -img -illu">
-    <% if current_region %>
-      <%= link_to(image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy'), region_crowd_campaigns_path) %>
-    <% else %>
-    <%= image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy') %>
-    <% end %>
-  </div>
-</article>
 
 
 
@@ -155,69 +159,6 @@
     <% end %>
   </div>
 </article>
-
-
-
-
-
-<% if current_region && !current_region&.use_energieteiler? %>
-
-  <article class="container">
-    <div class="txt">
-      <h2>Geräteteiler</h2>
-      <h3>Arbeitsequipment leihen & Geräte am Standort nutzen</h3>
-      <p>
-        Du kannst über den Geräteteiler Geräte vermieten und mieten oder auch den Zugang zur Ausstattung
-        an deinem Arbeitsstandort ermöglichen. Wenn dein Wunschgerät noch nicht ausleihbar ist,
-        dann starte ein Geräteteilergesuch. Ein schöner Nebeneffekt, wenn Arbeitsequipment mehrfach genutzt wird,
-        schon das die Ressourcen, weil sich nicht jeder die Geräte selber kaufen muss.
-      </p>
-      <% if current_region %>
-        <p class="link">
-          <%= link_to 'Mehr Infos', info_toolteiler_path, :class => 'btn-primary -grey -inlineflex' %>
-          <%= link_to 'Zu den Geräteteilern', region_tools_path, :class => 'btn-primary -mint -inlineflex' %>
-        </p>
-      <% end %>
-    </div>
-    <div class="aside -img -illu">
-      <% if current_region %>
-      <%= link_to(image_tag('info/imGraetzl-Features-Toolteiler.png', loading: 'lazy'), region_groups_path) %>
-      <% else %>
-      <%= image_tag('info/imGraetzl-Features-Toolteiler.png', loading: 'lazy') %>
-      <% end %>
-    </div>
-  </article>
-
-<% else %>
-  
-  <article class="container">
-    <div class="txt">
-      <h2>Energieteiler</h2>
-      <h3>Erneuerbare Energien produzieren & teilen - Biete oder finde Energiegemeinschaften zum Andocken.</h3>
-      <p>
-        Der "Energieteiler" ist deine Anlaufstelle, um dich mit Menschen zu vernetzen, die ein gemeinsames Ziel teilen: die Gründung und Förderung von Energiegemeinschaften.
-      </p>
-      <% if current_region %>
-        <p class="link">
-          <%= link_to 'Mehr Infos', info_energieteiler_path, :class => 'btn-primary -grey -inlineflex' %>
-          <%= link_to 'Zum Energieteiler', energieteiler_path, :class => 'btn-primary -mint -inlineflex' %>
-        </p>
-      <% end %>
-    </div>
-    <div class="aside -img -illu">
-      <% if current_region %>
-      <%= link_to(image_tag('info/imGraetzl-Features-Energieteiler.png', loading: 'lazy'), energieteiler_path) %>
-      <% else %>
-      <%= image_tag('info/imGraetzl-Features-Energieteiler.png', loading: 'lazy') %>
-      <% end %>
-    </div>
-  </article>
-
-<% end %>
-
-
-
-
 
 
 

@@ -1,0 +1,32 @@
+<%= render 'mailers/notification_mailer/summary/block_header', title: "Kostenlose Crowdfunding-Sprechstunde via Zoom!" %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+
+        <%= link_to start_crowd_campaigns_url, target:'_blank' do %>
+          <%= image_tag 'info/crowd_boost/cardbox.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
+        <% end %>
+
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+          <tr>
+            <td>
+              <p>
+                <strong>Jeden Mittwoch um 12:30 Uhr findet unsere kostenlose Crowdfunding-Sprechstunde via Zoom statt!</strong>
+              </p>
+              <p>
+                Wir freuen uns auf den Austausch mit dir und unterstützen dich gern bei der Umsetzung deiner Idee.
+              </p>
+              <p>
+                <%= link_to 'Alle Infos', start_crowd_campaigns_url, target:'_blank', style:'font-weight:bold; color:#ec776a;' %> | 
+                <%= link_to 'Zoom-Link', "https://us02web.zoom.us/j/89491765878?pwd=aytFTXVjSm5Zb0tiQkorbFJFd1YvZz09", target:'_blank', style:'font-weight:bold; color:#ec776a;' %>
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
