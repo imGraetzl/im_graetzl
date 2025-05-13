@@ -35,8 +35,7 @@
     </div>
     <div class="introSide">
 
-      <% if current_region.raum_booster_open? %>
-        <% @crowd_boost = CrowdBoost.where(id: current_region.default_crowd_boost_id).last %>
+      <% if current_region.crowd_boost_call_open? %>
         <div class="paperCard -lightblue -illuteaser -ideen -crowd_boost -cord1RT">
           <div class="wrp">
             <h3>Reiche jetzt dein Vorhaben für den RaumBooster ein!</h3>
@@ -88,6 +87,25 @@
     </div>
   </div>
 
+  <% if @crowd_boost %>
+    <div class="introcontainer -middle">
+      <div class="introtxt">
+        <div class="hl-subtext">
+          <h1>Fördertopf <em><%= @crowd_boost.title %></em></h1>
+          <p><strong>Der Zuschuss zum Crowdfunding für Raumvorhaben</strong></p>
+        </div>
+        <p class="txt">
+          Crowdfunding funktioniert besonders gut bei der Umsetzung von Raumvorhaben: beispielsweise bei der Aktivierung von Leerstand, der Renovierung oder Ausstattung von Räumen für lokale Macher*innen. 
+        </p>
+        <p class="txt">
+          Um das noch stärker zu unterstützen, setzen wir hier mit einem Zuschussmodell (aka Matchfunding) an: Wenn du im Rahmen eines Calls dein Raumvorhaben einreichst und ein Crowdfunding startest, kannst du einen zusätzlichen Zuschuss erhalten. 
+        </p>
+      </div>
+      <div class="introSide">
+        <%= render 'crowd_boosts/crowd_boost_welocally', crowd_boost: @crowd_boost %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="content-wide -rosa success-container">
     <div class="wrp-inner">

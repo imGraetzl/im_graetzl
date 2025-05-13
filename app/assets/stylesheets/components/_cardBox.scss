@@ -177,6 +177,30 @@
   }
 
 
+
+  // -------------------------- CrowdBoost WeLocally Cardbox
+  &.-crowd_boost.-welocally {
+    .cardBoxHeader {
+      background-color: rgba($color-ambient-mint, 0.1);
+    }
+    .coverImgWrapper svg {
+      fill: rgba($color-ambient-mint, 1.0);
+      margin: auto;
+      height:100%;
+      width:auto;
+    }
+    .categoryicon {
+      font-weight: bold;
+      color: $color-ambient-rosa;
+      @include font-size-secondaryFont('base');
+    }
+    &.-open {
+      .coverImgWrapper svg {
+        fill: rgba($color-ambient-rosa, 1.0);
+      }
+    }
+  }
+
   // -------------------------- Room Demand Cardbox
   &.-roomdemand, &.-coopdemand, &.-energydemand {
     .category-tags {

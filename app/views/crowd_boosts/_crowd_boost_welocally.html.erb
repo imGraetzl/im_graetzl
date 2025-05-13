@@ -1,6 +1,6 @@
 <% region = Region.get(crowd_boost.region_ids.last) %>
 
-<div class="cardBox -crowd_boost <%= crowd_boost.open_slot ? '-open' : '' %>" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
+<div class="cardBox -crowd_boost -welocally <%= crowd_boost.open_slot ? '-open' : '' %>" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
   
   <div class="cardBoxHeader">
     <%= link_to crowd_boost_url(crowd_boost, host: region.host) do %>
@@ -71,9 +71,9 @@
     </div>
 
     <% if crowd_boost.open_slot %>
-      <%= link_to "Open Call - Jetzt einreichen", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -rose -shadow" %>
+      <%= link_to "Open Call – Alle Infos", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -rose -shadow" %>
     <% else %>
-      <%= link_to "Alle Infos zum nächsten Call", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -mint -shadow" %>
+      <%= link_to "Coming Soon – Alle Infos", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -mint -shadow" %>
     <% end %>
 
   </div>

@@ -120,6 +120,10 @@ main {
     padding-bottom:80px;
   }
 
+  &.-nobg {
+    background-color: unset;
+  }
+
 }
 
 a {

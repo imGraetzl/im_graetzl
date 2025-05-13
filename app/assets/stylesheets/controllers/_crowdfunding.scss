@@ -884,6 +884,9 @@ section.startcampaign {
       display: flex;
       justify-content: center;
     }
+    &.-middle {
+      margin-top:40px;
+    }
   }
 
   .call-content {
@@ -985,31 +988,6 @@ section.startcampaign {
         p, h3 {
           margin-bottom:20px;
         }
-      }
-      &.-nobg {
-        background-color: unset;
-      }
-    }
-
-    .cardBox.-crowd_boost {
-      .cardBoxHeader {
-        background-color: rgba($color-ambient-mint, 0.1);
-      }
-      .coverImgWrapper svg {
-        fill: rgba($color-ambient-mint, 1.0);
-        margin: auto;
-        height:100%;
-        width:auto;
-      }
-      .categoryicon {
-        font-weight: bold;
-        color: $color-ambient-rosa;
-        @include font-size-secondaryFont('base');
-      }
-      &.-open {
-        .coverImgWrapper svg {
-        fill: rgba($color-ambient-rosa, 1.0);
-      }
       }
     }
     
