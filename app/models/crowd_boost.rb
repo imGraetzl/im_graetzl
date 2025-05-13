@@ -46,6 +46,11 @@ class CrowdBoost < ApplicationRecord
     title
   end
 
+  def region
+    region_id = Array(self.region_ids).first
+    Region.get(region_id) if region_id.present?
+  end
+
   def open_slot(region = nil)
     if region
       crowd_boost_slots.in(region).open.first

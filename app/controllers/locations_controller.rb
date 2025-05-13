@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
   def show
     @location = Location.find(params[:id])
     redirect_enqueued and return if @location.pending?
-    redirect_to_region?(@location)
+    return if redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
     @posts = @location.location_posts.includes(:images, :comments).last(30)

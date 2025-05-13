@@ -10,7 +10,7 @@ class CoopDemandsController < ApplicationController
 
   def show
     @coop_demand = CoopDemand.find(params[:id])
-    redirect_to_region?(@coop_demand)
+    return if redirect_to_region?(@coop_demand)
     @comments = @coop_demand.comments.includes(:user, :images).order(created_at: :desc)
   end
 
