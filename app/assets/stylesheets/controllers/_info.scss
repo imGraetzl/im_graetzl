@@ -616,6 +616,15 @@ section.info {
         .row {
           border-color: $color-ambient-mint-light;
         }
+        a {
+          text-decoration: none;
+          color: unset;
+          &:hover {
+            .date {
+              text-decoration: underline;
+            }
+          }
+        }
       }
       a.row:hover {
         svg {
@@ -649,9 +658,14 @@ section.info {
         }
       }
       a.press-view-all {
+        text-decoration: underline;
+        color: $color-ambient-rosa;
         display: block;
         text-align: center;
         margin-top:20px;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
     .pressemitteilungen {

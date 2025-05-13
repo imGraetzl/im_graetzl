@@ -70,7 +70,9 @@
       <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
     </div>
 
-    <% if crowd_boost.open_slot %>
+    <% if local_assigns[:crowd_boost_page] %>
+      <%= link_to "Los geht's – Kampagne starten", start_crowd_campaigns_path, class: 'btn-primary -rose -shadow' %>
+    <% elsif crowd_boost.open_slot %>
       <%= link_to "Open Call – Alle Infos", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -rose -shadow" %>
     <% else %>
       <%= link_to "Coming Soon – Alle Infos", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -mint -shadow" %>
