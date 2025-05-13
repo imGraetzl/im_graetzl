@@ -3,6 +3,7 @@ class CrowdCampaignsController < ApplicationController
 
   def start
     if current_region
+      @crowd_boost = CrowdBoost.where(id: current_region.default_crowd_boost_id).last
       render :start
     else
       @crowd_boosts = CrowdBoost.enabled.all

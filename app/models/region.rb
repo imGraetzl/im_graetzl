@@ -56,7 +56,7 @@ class Region
     #self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
   end
 
-  def raum_booster_open?
+  def crowd_boost_call_open?
     false
     #self.is?('wien') && Date.today.to_datetime.between?('2024-12-10', '2025-01-31')
   end
@@ -106,7 +106,7 @@ class Region
   end
 
   def default_crowd_boost_id
-    CrowdBoost.in(self).pledge_charge.last&.id
+    CrowdBoost.in(self).enabled.pledge_charge.last&.id
   end
 
   # get and cache active wow members

@@ -15,7 +15,7 @@ class CrowdBoostsController < ApplicationController
     region_id = current_region&.id
 
     # Use Special /leerstand URL in this Case
-    leerstand_id = LEERSTAND_IDS[region_id]
+    leerstand_id = leerstand_ids[region_id]
     if leerstand_id && @crowd_boost.id == leerstand_id
       return redirect_to leerstand_path
     end
@@ -26,7 +26,7 @@ class CrowdBoostsController < ApplicationController
 
   def leerstand
     region_id = current_region&.id
-    leerstand_id = LEERSTAND_IDS[region_id]
+    leerstand_id = leerstand_ids[region_id]
 
     # show crowd_boost of region under /leerstand
     if leerstand_id
@@ -73,11 +73,12 @@ class CrowdBoostsController < ApplicationController
 
   private
 
-  LEERSTAND_IDS = {
-    'wien' => 1,
-    'graz' => 2,
-    'innsbruck' => 3
-  }.freeze
+  def leerstand_ids
+    @leerstand_ids ||= Region.all.each_with_object({}) do |region, hash|
+      id = region.default_crowd_boost_id
+      hash[region.id] = id if id.present?
+    end
+  end
 
   def set_layout
     if current_region.nil?
