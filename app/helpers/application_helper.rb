@@ -16,6 +16,14 @@ module ApplicationHelper
     about_platform_url(host: welocally_platform_host)
   end
 
+  def region_host_url(region)
+    return '' unless region&.host
+
+    protocol = Rails.env.development? ? 'http' : 'https'
+    port     = Rails.env.development? ? ':3000' : ''
+    "#{protocol}://#{region.host}#{port}"
+  end
+
   def form_errors_for(target, name=nil)
     if target.errors.any?
       name ||= target.model_name.human
