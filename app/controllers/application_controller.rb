@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :set_sentry_user_context
 
   # hide staging app from public
   http_basic_authenticate_with name: 'user', password: 'secret' if Rails.env.staging? && !(ENV["ALLOW_WORKER"] == 'true')
@@ -107,6 +108,15 @@ class ApplicationController < ActionController::Base
   def reset_guest_session
     session.delete(:guest_user_id)
     session.delete(:guest_user_last_seen_at)
+  end
+
+  def set_sentry_user_context
+    return unless current_user
+
+    Sentry.set_user(
+      id: current_user.id,
+      email: current_user.email
+    )
   end
 
 end
