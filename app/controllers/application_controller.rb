@@ -111,12 +111,17 @@ class ApplicationController < ActionController::Base
   end
 
   def set_sentry_user_context
-    return unless current_user
-
-    Sentry.set_user(
-      id: current_user.id,
-      email: current_user.email
-    )
+    if current_user
+      Sentry.set_user(
+        id: current_user.id,
+        segment: "user"
+      )
+    elsif session[:guest_user_id]
+      Sentry.set_user(
+        id: session[:guest_user_id],
+        segment: "guest"
+      )
+    end
   end
 
 end
