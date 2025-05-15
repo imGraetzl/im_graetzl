@@ -45,17 +45,17 @@
 
 <% if available_slots_for(f.object).any? %>
   <div class="hl-subtext">
-    <h2><span>Bewirb dich</span> für einen Booster-Platz!</h2>
-    <p>Nach dem Kampagnen-Check und Jury-Entscheid geben wir dir Bescheid, ob dein Projekt ausgewählt wurde. (<%= link_to 'Mehr Infos', crowd_boosts_path, target: '_blank' %>)</p>
+    <h2>Bewirb dich für einen <span>Fördertopf</span></h2>
+    <p>Nach dem Kampagnen-Check und Jury-Entscheid geben wir dir Bescheid, ob dein Projekt ausgewählt wurde. (<%= link_to 'Mehr Infos', leerstand_path, target: '_blank' %>)</p>
   </div>
   <div class="form-block">
     <div class="input-select">
       <label>
         <%= icon_tag "rocket" %>
-        <span>Kampagnen Booster</span>
+        <span>Fördertopf</span>
       </label>
       <%= f.select :crowd_boost_slot_id, available_slots_for(f.object),
-          { include_blank: 'Aktuell verfügbare Kampagnen Booster' }, {disabled: !@crowd_campaign.editable? || @crowd_campaign.boost_status? } %>
+          { include_blank: 'Aktuell verfügbare Crowdfunding Fördertöpfe' }, {disabled: !@crowd_campaign.editable? || @crowd_campaign.boost_status? } %>
     </div>
   </div>
 <% end %>
