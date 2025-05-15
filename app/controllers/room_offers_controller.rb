@@ -3,7 +3,7 @@ class RoomOffersController < ApplicationController
 
   def show
     @room_offer = RoomOffer.find(params[:id])
-    redirect_to_region?(@room_offer)
+    return if redirect_to_region?(@room_offer)
     @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 

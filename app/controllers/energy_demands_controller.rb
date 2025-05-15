@@ -3,7 +3,7 @@ class EnergyDemandsController < ApplicationController
 
   def show
     @energy_demand = EnergyDemand.find(params[:id])
-    redirect_to_region?(@energy_demand)
+    return if redirect_to_region?(@energy_demand)
     @comments = @energy_demand.comments.includes(:user, :images).order(created_at: :desc)
   end
 

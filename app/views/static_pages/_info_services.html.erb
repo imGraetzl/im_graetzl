@@ -18,35 +18,6 @@
 
 
 
-<article class="container">
-  <div class="txt">
-    <h2>Crowdfunding</h2>
-    <h3>Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.</h3>
-    <p>
-      Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen,
-      aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.
-      Alle Vorhaben, von denen außerdem noch andere Menschen profitieren, bekommen auf ihre Kampagne einen extra Sichtbarkeitsboost.
-    </p>
-    <p class="link">
-      <% if current_region %>
-        <%= link_to 'Mehr Infos', start_crowd_campaigns_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zum Crowdfunding', region_crowd_campaigns_path, :class => 'btn-primary -mint -inlineflex' %>
-      <% else %>
-        <%= link_to 'Mehr Infos zum Crowdfunding', start_crowd_campaigns_path, :class => 'btn-primary -mint -inlineflex' %>
-      <% end %>
-    </p>
-  </div>
-  <div class="aside -img -illu">
-    <% if current_region %>
-      <%= link_to(image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy'), region_crowd_campaigns_path) %>
-    <% else %>
-    <%= image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy') %>
-    <% end %>
-  </div>
-</article>
-
-
-
 
 <article class="container">
   <div class="txt">
@@ -73,6 +44,32 @@
   </div>
 </article>
 
+
+
+<article class="container">
+  <div class="txt">
+    <h2>Crowdfunding</h2>
+    <h3>Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.</h3>
+    <p>
+      Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen,
+      aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.
+      Alle Vorhaben, von denen außerdem noch andere Menschen profitieren, bekommen auf ihre Kampagne einen extra Sichtbarkeitsboost.
+    </p>
+    <p class="link">
+      <% if current_region %>
+        <%= link_to 'Mehr Infos', start_crowd_campaigns_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zum Crowdfunding', region_crowd_campaigns_path, :class => 'btn-primary -mint -inlineflex' %>
+      <% end %>
+    </p>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy'), region_crowd_campaigns_path) %>
+    <% else %>
+    <%= image_tag('info/imGraetzl-Features-Crowdfunding.png', loading: 'lazy') %>
+    <% end %>
+  </div>
+</article>
 
 
 

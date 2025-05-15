@@ -49,7 +49,8 @@
 
   <%= favicon_link_tag 'favicon.ico' %>
   <%= render partial: 'controller_header' rescue nil %>
-</head>
+  <%= Sentry.get_trace_propagation_meta.html_safe %>
+  </head>
 
 <body data-controller="<%= controller_name %>" data-region="<%= current_region.id %>" data-domain="<%= current_region.domain %>" data-uaid="<%= Rails.env.production? ? 'G-TG0TEXE9MY' : 'G-C6SFGFCR84' %>" data-env-mode="<%= Rails.env.production? ? 'prod' : 'dev' %>" data-userid="<%= user_signed_in? ? current_user.id : '' %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>region-<%= current_region.id %> <%= controller_name %>">
   <%= render 'navigation/header' %>

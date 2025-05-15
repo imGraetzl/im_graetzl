@@ -3,7 +3,7 @@ class RoomDemandsController < ApplicationController
 
   def show
     @room_demand = RoomDemand.find(params[:id])
-    redirect_to_region?(@room_demand)
+    return if redirect_to_region?(@room_demand)
     @comments = @room_demand.comments.includes(:user, :images).order(created_at: :desc)
   end
 

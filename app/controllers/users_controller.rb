@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.registered.find(params[:id])
-    redirect_to_region?(@user)
+    return if redirect_to_region?(@user)
 
     @graetzl = @user.graetzl
     @wall_comments = @user.wall_comments.includes(:user, :images).order(created_at: :desc)

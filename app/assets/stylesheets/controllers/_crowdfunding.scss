@@ -215,11 +215,11 @@ section.crowd_campaign {
       color: $color-ambient-mint-dark;
     }
     .boost-title::after {
-      content: "Besonders unterstützenswert";
+      content: "Gewinn für die Nachbarschaft";
     }
     @media (max-width: 435px) {
       .boost-title::after {
-        content: "Unterstützenswert";
+        content: "Gewinn für die Nachbarschaft";
       }
     }
   }

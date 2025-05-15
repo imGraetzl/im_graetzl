@@ -10,7 +10,7 @@ class PollsController < ApplicationController
 
   def show
     @poll = Poll.find(params[:id])
-    redirect_to_region?(@poll)
+    return if redirect_to_region?(@poll)
     @comments = @poll.comments.includes(:user, :images).order(created_at: :desc)
   end
 

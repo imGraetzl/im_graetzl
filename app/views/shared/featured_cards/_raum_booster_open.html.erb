@@ -1,6 +1,5 @@
 <% 
   crowd_boost = CrowdBoost.where(id: crowd_boost_id).last
-  crowd_boost_charge = crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.sample if crowd_boost
 %>
 <% if crowd_boost %>
   <div class="cardBox -raum_booster featuredCard -hidden" data-behavior="masonry-card" data-card-id="boost-<%= crowd_boost.id %>">

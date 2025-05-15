@@ -11,7 +11,14 @@ class CrowdBoostsController < ApplicationController
   end
 
   def show
-    @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
+
+    unless current_region
+      @crowd_boost = CrowdBoost.find(params[:id])
+      return if redirect_to_region?(@crowd_boost)
+    else
+      @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
+    end
+    
     region_id = current_region&.id
 
     # Use Special /leerstand URL in this Case

@@ -200,7 +200,15 @@ section.crowd_boost {
       display: flex;
       flex-direction: column;
       @include respond-to(">=large") {
-        margin-top:100px;
+        //margin-top:0px;
+      }
+      .-crowd_boost {
+        .cardBoxHeader svg {
+          fill: $color-ambient-mint !important;
+        }
+        .categoryicon {
+          display: none;
+        }
       }
     }
     .map-img {

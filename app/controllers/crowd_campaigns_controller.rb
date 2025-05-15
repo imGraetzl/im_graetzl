@@ -34,7 +34,7 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = CrowdCampaign.find(params[:id])
     return redirect_to region_crowd_campaigns_path, notice: "Die Kampagne '#{@crowd_campaign.title}' wurde deaktiviert." if @crowd_campaign&.disabled?
 
-    redirect_to_region?(@crowd_campaign)
+    return if redirect_to_region?(@crowd_campaign)
     @crowd_pledges = @crowd_campaign.crowd_pledges
     @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges
     @preview = params[:preview] == 'true' ?  true : false

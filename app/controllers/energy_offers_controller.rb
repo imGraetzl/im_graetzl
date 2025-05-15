@@ -3,7 +3,7 @@ class EnergyOffersController < ApplicationController
 
   def show
     @energy_offer = EnergyOffer.find(params[:id])
-    redirect_to_region?(@energy_offer)
+    return if redirect_to_region?(@energy_offer)
     @comments = @energy_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
