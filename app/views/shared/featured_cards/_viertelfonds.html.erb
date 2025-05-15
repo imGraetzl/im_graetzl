@@ -1,7 +1,7 @@
-<div class="cardBox featuredCard -static -hidden -cfcall" data-behavior="masonry-card">
+<div class="cardBox featuredCard -static -hidden" data-behavior="masonry-card">
 
   <div class="cardBoxHeader">
-    <%= link_to '/leerstand' do %>
+    <%= link_to leerstand_path do %>
       <div class="coverImgWrapper">
         <%= image_tag 'info/crowd_boost/cardbox.jpg', class: 'coverImg' %>
       </div>
@@ -13,15 +13,13 @@
 
   <div class="cardBoxContent">
     <div class="txt">
-      <h3>Raum gesucht? Das ist deine Chance!</h3>
+      <h3>1.500 € Crowdfunding-Zuschuss für dein Raumvorhaben.</h3>
       <p>
-        Rund um den Jakominiplatz warten spannende Leerstände und der <a href="/leerstand">NOW WOW Space</a> auf deine Ideen. Neben der Vernetzung mit passenden Raumpartner*innen steht ein Unterstützungspaket bereit.
-      </p>
-      <p>
-        Reiche dein Nutzungsvorhaben bis zum 31.01.2025 ein!
+        <strong>Die neue Runde beim ViertelFonds ist gestartet!</strong> 
+        Du hast einen Leerstand im Blick und möchtest diesen aktivieren? Reiche jetzt dein Raumvorhaben beim ViertelFonds ein und sichere dir einen Zuschuss von 1.500 €.
       </p>
     </div>
-    <%= link_to 'Alle Infos zur Einreichung', '/leerstand', class: 'btn-primary' %>
+    <%= link_to 'Zum ViertelFonds', leerstand_path, class: 'btn-primary' %>
   </div>
 
 </div>

@@ -35,37 +35,31 @@
     </div>
     <div class="introSide">
 
-      <% if current_region.crowd_boost_call_open? %>
-        <div class="paperCard -lightblue -illuteaser -ideen -crowd_boost -cord1RT">
-          <div class="wrp">
-            <h3>Reiche jetzt dein Vorhaben für den RaumBooster ein!</h3>
-            <p><strong>Der RaumBooster ist ein Fördertopf und unterstützt euch dabei, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen!</strong></p>
-            <p>Reiche dein Raumvorhaben jetzt ein. Wenn sich dein Vorhaben qualifiziert erhält deine Kampagne einen zusätzlichen Betrag.</p>
-            <ul>
-              <li><%= link_to "Mehr Infos zum RaumBooster", @crowd_boost %></li>
-            </ul>
-          </div>
-          <div class="card"></div>
+      <div class="paperCard -lightblue -illuteaser -fragen -cord1RT">
+        <div class="wrp">
+          <h3>Jeden Mittwoch, 12:30 Uhr:<br>Kostenlose Crowdfunding-Sprechstunde via Zoom!</h3>
+          <p>Die Realisierung deines Vorhabens liegt uns am Herzen! Deshalb freuen wir uns darauf, uns mit dir über dein Vorhaben auszutauschen, dir unsere Crowdfunding-Expertise zur Verfügung zu stellen und deine Fragen persönlich zu beantworten.</p>
+          <% @meeting = Meeting.crowdfunding.in(current_region).last %>
+          <ul>
+            <li><%= link_to "Hier kannst du teilnehmen", 'https://us02web.zoom.us/j/89491765878?pwd=aytFTXVjSm5Zb0tiQkorbFJFd1YvZz09' %></li>
+          </ul>
         </div>
-      <% else %>
-        <div class="paperCard -lightblue -illuteaser -fragen -cord1RT">
-          <div class="wrp">
-            <h3>Jeden Mittwoch, 12:30 Uhr:<br>Kostenlose Crowdfunding-Sprechstunde via Zoom!</h3>
-            <p>Die Realisierung deines Vorhabens liegt uns am Herzen! Deshalb freuen wir uns darauf, uns mit dir über dein Vorhaben auszutauschen, dir unsere Crowdfunding-Expertise zur Verfügung zu stellen und deine Fragen persönlich zu beantworten.</p>
-            <% @meeting = Meeting.crowdfunding.in(current_region).last %>
-            <% if @meeting %>
-              <ul>
-                <li><%= link_to "Hier kannst du teilnehmen", [@meeting.graetzl, @meeting] %></li>
-              </ul>
-            <% else %>
-              <ul>
-                <li><%= link_to "Hier kannst du teilnehmen", 'https://us02web.zoom.us/j/89491765878?pwd=aytFTXVjSm5Zb0tiQkorbFJFd1YvZz09' %></li>
-              </ul>
-            <% end %>
-          </div>
-          <div class="card"></div>
+        <div class="card"></div>
+      </div>
+
+      <!--
+      <div class="paperCard -lightblue -illuteaser -ideen -crowd_boost -cord1RT">
+        <div class="wrp">
+          <h3>Reiche jetzt dein Vorhaben für den RaumBooster ein!</h3>
+          <p><strong>Der RaumBooster ist ein Fördertopf und unterstützt euch dabei, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen!</strong></p>
+          <p>Reiche dein Raumvorhaben jetzt ein. Wenn sich dein Vorhaben qualifiziert erhält deine Kampagne einen zusätzlichen Betrag.</p>
+          <ul>
+            <li><%= link_to "Mehr Infos zum RaumBooster", @crowd_boost %></li>
+          </ul>
         </div>
-      <% end %>
+        <div class="card"></div>
+      </div>
+      -->
 
     </div>
   </div>

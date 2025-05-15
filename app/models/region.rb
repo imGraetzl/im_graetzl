@@ -56,11 +56,6 @@ class Region
     #self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
   end
 
-  def crowd_boost_call_open?
-    false
-    #self.is?('wien') && Date.today.to_datetime.between?('2024-12-10', '2025-01-31')
-  end
-
   def is?(region_id)
     region_id == id ? true : false
   end

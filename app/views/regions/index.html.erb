@@ -8,9 +8,9 @@
   )
 %>
 
-<% if false && current_region.crowd_boost_call_open? %> <!-- durch false auskommentiert -->
+<% if current_region.is?('graz') %>
   <div id="betaflash">
-    Noch bis 31.01 - <%= link_to 'RaumBooster Call', '/crowdfunding-booster/raum-booster' %> - Mach mit!
+    Open Call - Crowdfunding-Zuschuss <%= link_to 'ViertelFonds', leerstand_path %>
     <%= link_to 'javascript:', class: 'close-ico' do %>
       <%= icon_tag "cross" %>
     <% end %>
@@ -47,6 +47,8 @@
     <!-- Insert Featured Card -->
     <% if current_region.is?('wien') %>
       <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>
+    <% elsif current_region.is?('graz') %>
+      <%= render 'shared/featured_cards/viertelfonds' %>
     <% end %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>

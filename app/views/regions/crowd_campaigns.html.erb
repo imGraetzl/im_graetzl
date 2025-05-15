@@ -36,7 +36,11 @@
       <%= render 'crowd_campaigns/action_card' %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render @meeting, featured_card: 'featuredCard -hidden' if @meeting %>
+    <% if current_region.is?('graz') %>
+      <%= render 'shared/featured_cards/viertelfonds' %>
+    <% else %>
+       <%= render @meeting, featured_card: 'featuredCard -hidden' if @meeting %>
+    <% end %>
 
     
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'crowd-campaigns-paginate-link' }, rel: 'nofollow' %>

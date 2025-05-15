@@ -8,9 +8,9 @@
   )
 %>
 
-<% if false && current_region.crowd_boost_call_open? %> <!-- durch false auskommentiert -->
+<% if current_region.is?('graz') %>
   <div id="betaflash">
-    Noch bis 31.01 - <%= link_to 'RaumBooster Call', '/crowdfunding-booster/raum-booster' %> - Mach mit!
+    Open Call - Crowdfunding-Zuschuss <%= link_to 'ViertelFonds', leerstand_path %>
     <%= link_to 'javascript:', class: 'close-ico' do %>
       <%= icon_tag "cross" %>
     <% end %>
