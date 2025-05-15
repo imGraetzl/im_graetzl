@@ -39,6 +39,7 @@ gem 'gibbon', '~> 3.0', '>= 3.0.2'
 gem 'rollbar'
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "sentry-delayed_job"
 #gem "skylight"
 #gem 'newrelic_rpm'
 #gem 'scout_apm'
