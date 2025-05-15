@@ -292,7 +292,6 @@ GEM
       benchmark
       logger
     mini_mime (1.1.5)
-    mini_portile2 (2.8.8)
     minitest (5.25.5)
     moneta (1.0.0)
     multi_json (1.15.0)
@@ -310,9 +309,6 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.7)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.18.7-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.18.7-x86_64-linux-gnu)
@@ -438,6 +434,12 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sentry-rails (5.24.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.24.0)
+    sentry-ruby (5.24.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     shrine (3.5.0)
       content_disposition (~> 1.0)
       down (~> 5.1)
@@ -484,7 +486,6 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -542,6 +543,8 @@ DEPENDENCIES
   rollbar
   rspec-rails
   sassc-rails
+  sentry-rails
+  sentry-ruby
   shrine (~> 3.0)
   sitemap_generator
   stripe (~> 8.0)
