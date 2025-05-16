@@ -1,10 +1,9 @@
 class CrowdDonationPledgesController < ApplicationController
   before_action :load_active_campaign, only: [:new, :create, :choice, :login]
+  before_action :ensure_valid_donation!, only: [:new, :choice, :login]
 
   def new
-    @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
     @crowd_donation_pledge.assign_attributes(current_user_params) if current_user
-    @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
   def create
@@ -22,19 +21,11 @@ class CrowdDonationPledgesController < ApplicationController
   end
 
   def choice
-    @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
     
-    unless @crowd_campaign.crowd_donations.exists?(id: @crowd_donation_pledge.crowd_donation_id)
-      flash[:notice] = "Ausgewählte Material- Zeit- oder Raumspende konnte nicht gefunden werden.."
-      return redirect_to @crowd_campaign
-    end    
-
-    @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
   def login
-    @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
-    @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
+
   end
 
   def summary
@@ -60,6 +51,17 @@ class CrowdDonationPledgesController < ApplicationController
         error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."
       }
     end
+  end
+
+  def ensure_valid_donation!
+    @crowd_donation_pledge ||= @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
+
+    unless @crowd_campaign.crowd_donations.exists?(id: @crowd_donation_pledge.crowd_donation_id)
+      flash[:error] = "Ausgewählte Material-, Zeit- oder Raumspende konnte nicht gefunden werden."
+      redirect_to @crowd_campaign and return
+    end
+
+    @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
   def initial_donation_pledge_params

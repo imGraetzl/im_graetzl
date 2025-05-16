@@ -56,7 +56,7 @@ class Location < ApplicationRecord
   after_update :destroy_activity_and_notifications, if: -> { pending? && saved_change_to_state?}
 
   def self.include_for_box
-    includes(:location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
+    includes(:user, :location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
   end
 
   def to_s
