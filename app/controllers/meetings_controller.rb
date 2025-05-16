@@ -13,7 +13,7 @@ class MeetingsController < ApplicationController
 
   def show
     #@meeting = Meeting.find(params[:id]) # @malano n+1
-    @meeting = Meeting.includes(:user, :graetzl, :location, { going_tos: :user }, images: :blob).find(params[:id])
+    @meeting = Meeting.includes(:user, :graetzl, :location, { going_tos: :user }).find(params[:id])
     return if redirect_to_region?(@meeting)
     @graetzl = @meeting.graetzl
     @comments = @meeting.comments.includes(:user, :images).order(created_at: :desc)
