@@ -36,7 +36,9 @@ class SearchService
   end
 
   def search
-    return [] if @query.length < 3
+    if @query.length < 3
+      return Kaminari.paginate_array([]).page(@options[:page] || 1).per(@options[:per_page] || 15)
+    end
 
     results = []
     results += search_meetings if @options[:type].blank? || @options[:type] == 'meetings'
@@ -49,7 +51,7 @@ class SearchService
     results += search_energies if @options[:type].blank? || @options[:type] == 'energies'
     results += search_coop_demands if @options[:type].blank? || @options[:type] == 'coop_demands'
 
-    Kaminari.paginate_array(results).page(@options[:page]).per(@options[:per_page] || 15)
+    Kaminari.paginate_array(results).page(@options[:page] || 1).per(@options[:per_page] || 15)
   end
 
   private
