@@ -55,8 +55,19 @@ class Location < ApplicationRecord
   after_update :update_last_activity, if: -> { saved_change_to_goodie? }
   after_update :destroy_activity_and_notifications, if: -> { pending? && saved_change_to_state?}
 
+  #def self.include_for_box
+  #  includes(:user, :location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
+  #end
+
   def self.include_for_box
-    includes(:user, :location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
+    preload(
+      :user,
+      :location_category,
+      :live_zuckerls,
+      :upcoming_meetings,
+      :location_menus,
+      :location_posts
+    )
   end
 
   def to_s

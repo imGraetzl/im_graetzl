@@ -1,5 +1,5 @@
 <% graetzl = Graetzl.memoized(location.graetzl_id) %>
-<% menu = location.location_menus.upcoming.first %>
+<% menu = actual_newest_menu_for(location) %>
 
 <div class="cardBox -location" data-behavior="masonry-card" data-card-id="location-<%= location.id %>">
   <div class="cardBoxHeader">

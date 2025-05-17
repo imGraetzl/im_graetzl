@@ -82,13 +82,13 @@
       <% end %>
     <% end %>
 
-    <% if location_post = location.actual_newest_post %>
-      <%= link_to [graetzl, location, target: dom_id(location_post)], class: 'updateteaser' do %>
+    <% if actual_newest_post = actual_newest_post_for(location) %>
+      <%= link_to [graetzl, location, target: dom_id(actual_newest_post)], class: 'updateteaser' do %>
         <div class="hl">
           Letztes Update:
         </div>
         <div class="title">
-          <%= location_post.title %>
+          <%= actual_newest_post.title %>
         </div>
       <% end %>
     <% end %>
