@@ -62,8 +62,9 @@ class Meeting < ApplicationRecord
   before_validation :set_graetzl
   after_create :update_location_activity
 
-  def self.include_for_box
-    includes(:going_tos, :user, :meeting_additional_dates, location: :user)
+  def self.include_for_box(with_going_tos = false)
+    scope = includes(:meeting_additional_dates, :user, location: :user)
+    with_going_tos ? scope.includes(going_tos: :user) : scope
   end
 
   def to_s

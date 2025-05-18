@@ -3,7 +3,10 @@ class MeetingsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @meetings = collection_scope.in(current_region).include_for_box
+
+    @meetings = collection_scope.in(current_region)
+    @meetings = @meetings.include_for_box(params[:show_going_tos].present?)
+
     @meetings = filter_collection(@meetings)
     @meetings = @meetings.page(params[:page]).per(params[:per_page] || 30)
     @meetings = @meetings.upcoming if params[:upcoming]
