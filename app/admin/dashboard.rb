@@ -22,7 +22,7 @@ ActiveAdmin.register_page "Dashboard" do
 
       column do
         panel 'Offene Location Anfragen' do
-          table_for Location.pending.order(updated_at: :asc) do
+          table_for Location.pending.includes(:user).order(updated_at: :asc) do
             column :region
             column(:location, sortable: :name) do |location|
               link_to location.name, admin_location_path(location)

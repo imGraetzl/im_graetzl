@@ -8,7 +8,7 @@ context.instance_eval do
   column :amount_off
   column :percent_off
   column :enabled
-  column(:sent){|c| c.coupon_histories.sent.count}
-  column(:redeemed){|c| c.coupon_histories.redeemed.count}
+  column(:sent)     { |c| assigns[:sent_counts][c.id] || 0 }
+  column(:redeemed) { |c| assigns[:redeemed_counts][c.id] || 0 }
   actions
 end

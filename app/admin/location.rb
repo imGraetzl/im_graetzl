@@ -1,7 +1,6 @@
 ActiveAdmin.register Location do
   include ViewInApp
   menu priority: 4
-  includes :graetzl, :location_category, :user
 
   scope :all, default: true
   scope :pending
@@ -103,6 +102,11 @@ ActiveAdmin.register Location do
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
   controller do
+
+    def scoped_collection
+      super.includes(:graetzl, :location_category, :user)
+    end
+
     def apply_pagination(chain)
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain

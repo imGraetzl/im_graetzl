@@ -158,6 +158,24 @@ ActiveAdmin.register CrowdCampaign do
   # Controller pagination overrides
 
   controller do
+
+    before_action :load_admin_comment_counts, only: :index
+
+    def scoped_collection
+      super.includes(:user, crowd_boost_slot: :crowd_boost)
+    end
+
+    def load_admin_comment_counts
+      ids = scoped_collection.page(params[:page]).pluck(:id)
+
+      @admin_comment_counts = AdminComment
+        .where(resource_type: 'CrowdCampaign', resource_id: ids)
+        .group(:resource_id)
+        .reorder(nil)
+        .count
+        .transform_keys(&:to_i)
+    end
+
     def apply_pagination(chain)
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
