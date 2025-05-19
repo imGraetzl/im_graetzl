@@ -167,13 +167,18 @@ ActiveAdmin.register CrowdCampaign do
 
     def load_admin_comment_counts
       ids = scoped_collection.page(params[:page]).pluck(:id)
+      Rails.logger.info "CrowdCampaign IDs (Admin): #{ids.inspect}"
 
-      @admin_comment_counts = AdminComment
+      counts = AdminComment
         .where(resource_type: 'CrowdCampaign', resource_id: ids)
         .group(:resource_id)
         .reorder(nil)
         .count
         .transform_keys(&:to_i)
+
+      Rails.logger.info "Comment counts: #{counts.inspect}"
+
+      @admin_comment_counts = counts
     end
 
     def apply_pagination(chain)
