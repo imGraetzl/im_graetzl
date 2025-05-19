@@ -19,6 +19,8 @@ class Meeting < ApplicationRecord
   has_many :going_tos, dependent: :destroy
   accepts_nested_attributes_for :going_tos, allow_destroy: true
   has_many :users, -> { distinct }, through: :going_tos
+  has_many :attendees, -> { where.not(role: :initiator).includes(:user) }, class_name: 'GoingTo'
+  has_many :participants, -> { includes(:user).distinct }, class_name: 'GoingTo'
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
@@ -62,9 +64,9 @@ class Meeting < ApplicationRecord
   before_validation :set_graetzl
   after_create :update_location_activity
 
-  def self.include_for_box(with_going_tos = false)
+  def self.include_for_box(with_attendees = false)
     scope = includes(:meeting_additional_dates, :user, location: :user)
-    with_going_tos ? scope.includes(going_tos: :user) : scope
+    with_attendees ? scope.includes(:attendees) : scope
   end
 
   def to_s
@@ -107,10 +109,6 @@ class Meeting < ApplicationRecord
     if active? && last_activated_at && last_activated_at <= 7.days.ago
       update(last_activated_at: Time.now)
     end
-  end
-
-  def attendees
-    self.going_tos.where.not(role: :initiator)
   end
 
   def attending?(user)
