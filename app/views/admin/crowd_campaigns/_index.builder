@@ -36,7 +36,7 @@ context.instance_eval do
   end
   column(:stripe){|c| status_tag(c.user.stripe_connect_ready?)}
   column "" do |resource|
-    count = assigns[:admin_comment_counts][resource.id] || 0
+    count = AdminComment.where(resource_type: 'CrowdCampaign', resource_id: resource.id).count
     link_to count, admin_crowd_campaign_path(resource)
   end
 end
