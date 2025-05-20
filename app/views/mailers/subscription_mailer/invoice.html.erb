@@ -36,7 +36,7 @@
         Die Zahlung deiner Fördermitgliedschaft wurde erfolgreich durchgeführt und du kannst deine <%= link_to 'Rechnung hier downloaden', @subscription.subscription_invoices.order(created_at: :desc).first.invoice_pdf, style: "color:#f48a85;" %>.
       </p>
       <p>
-        <em>Aktuelle Perioode deiner Mitgliedchaft: <%= I18n.localize(@subscription.current_period_start, format:'%d.%m.%Y') %> bis <%= I18n.localize(@subscription.current_period_end, format:'%d.%m.%Y') %></em>
+        <em>Aktuelle Perioode deiner Mitgliedschaft: <%= I18n.localize(@subscription.current_period_start, format:'%d.%m.%Y') %> bis <%= I18n.localize(@subscription.current_period_end, format:'%d.%m.%Y') %></em>
       </p>
       <p>
         Alle Infos zu deiner Mitgliedschaft findets du eingeloggt auf <%= t("region.#{@subscription.region_id}.domain_full") %> unter dem Menüpunkt <%= link_to 'Fördermitgliedschaft', subscription_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>.
