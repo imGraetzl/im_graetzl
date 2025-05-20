@@ -40,7 +40,7 @@ gem 'rollbar'
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "sentry-delayed_job"
-#gem "skylight"
+gem "skylight"
 #gem 'newrelic_rpm'
 #gem 'scout_apm'
 

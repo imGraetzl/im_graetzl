@@ -453,6 +453,8 @@ GEM
       tilt (~> 2.0)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
+    skylight (6.0.4)
+      activesupport (>= 5.2.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -551,6 +553,7 @@ DEPENDENCIES
   sentry-ruby
   shrine (~> 3.0)
   sitemap_generator
+  skylight
   stripe (~> 8.0)
   terser
   tzinfo-data
