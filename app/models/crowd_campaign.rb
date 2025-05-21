@@ -172,7 +172,8 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def pledges_and_donations_count
-    if completed? && pledges_and_donations_finalized_count.present?
+    # Temporär Absicherung wenn Columns noch nicht verfügbar
+    if completed? && respond_to?(:pledges_and_donations_finalized_count) && pledges_and_donations_finalized_count.present?
       pledges_and_donations_finalized_count
     else
       @pledges_and_donations_count ||= (
