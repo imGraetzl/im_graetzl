@@ -148,10 +148,6 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def finalized_funding_sum_available?
-
-    # Temporär Absicherung wenn Columns noch nicht verfügbar
-    return false unless respond_to?(:crowd_pledges_finalized_sum)
-
     crowd_pledges_finalized_sum.present? && (!boosted? || crowd_boost_pledges_finalized_sum.present?)
   end
 
@@ -172,8 +168,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def pledges_and_donations_count
-    # Temporär Absicherung wenn Columns noch nicht verfügbar
-    if completed? && respond_to?(:pledges_and_donations_finalized_count) && pledges_and_donations_finalized_count.present?
+    if completed? && pledges_and_donations_finalized_count.present?
       pledges_and_donations_finalized_count
     else
       @pledges_and_donations_count ||= (
