@@ -5,7 +5,7 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column do
         panel "Neue User" do
-          table_for User.registered.order(created_at: :desc).limit(10) do
+          table_for User.registered.includes(:graetzl).order(created_at: :desc).limit(10) do
             column :id
             column :region
             column :username do |user|

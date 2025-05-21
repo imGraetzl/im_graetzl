@@ -3,7 +3,6 @@ ActiveAdmin.register Meeting do
   menu parent: 'Meetings'
   menu label: 'Treffen'
   menu priority: 5
-  includes :graetzl, :location
 
   scope :all, default: true
   scope :upcoming
@@ -68,6 +67,11 @@ ActiveAdmin.register Meeting do
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
   controller do
+
+      def scoped_collection
+        super.includes(:graetzl, :user, :location)
+      end
+
       def apply_pagination(chain)
           chain = super unless formats.include?(:json) || formats.include?(:csv)
           chain
