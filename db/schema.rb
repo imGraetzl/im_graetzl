@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_07_190413) do
+ActiveRecord::Schema.define(version: 2025_05_21_070024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -401,6 +401,9 @@ ActiveRecord::Schema.define(version: 2025_05_07_190413) do
     t.string "newsletter_status", default: "region", null: false
     t.boolean "ending_newsletter", default: false, null: false
     t.boolean "incomplete_newsletter", default: false, null: false
+    t.decimal "crowd_pledges_finalized_sum", precision: 10, scale: 2
+    t.decimal "crowd_boost_pledges_finalized_sum", precision: 10, scale: 2
+    t.integer "pledges_and_donations_finalized_count"
     t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_crowd_campaigns_on_last_activity_at"

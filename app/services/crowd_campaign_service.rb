@@ -31,6 +31,17 @@ class CrowdCampaignService
       end
       CrowdCampaignMailer.completed_unsuccessful(campaign).deliver_later
     end
+
+    begin
+      campaign.update!(
+        crowd_pledges_finalized_sum: campaign.crowd_pledges_sum,
+        crowd_boost_pledges_finalized_sum: campaign.boosted? ? campaign.crowd_boost_pledges_sum : 0,
+        pledges_and_donations_finalized_count: campaign.crowd_pledges.initialized.count + campaign.crowd_donation_pledges.count
+      )
+    rescue => e
+      Rails.logger.error("Persistierung der finalisierten Summen fehlgeschlagen für Campaign ##{campaign.id}: #{e.message}")
+    end
+
   end
 
   def close(campaign)
