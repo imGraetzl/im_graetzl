@@ -14,6 +14,10 @@ ActiveAdmin.register Subscription do
   controller do
     before_action :set_default_order, only: :index
 
+    def scoped_collection
+      super.includes(:user, :subscription_plan, :coupon)
+    end
+
     def set_default_order
       if params[:scope] == 'upcoming_invoice' && params[:order].blank?
         params[:order] = 'current_period_end_asc'

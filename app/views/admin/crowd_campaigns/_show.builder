@@ -102,7 +102,9 @@ context.instance_eval do
             row :transaction_fee_percentage
             row :stripe_fee_percentage_calculated
             row :funding_sum
+            row :crowd_pledges_finalized_sum
             row :crowd_boost_pledges_sum
+            row :crowd_boost_pledges_finalized_sum
             row :crowd_pledges_failed_sum
             row :crowd_pledges_refunded_sum
             row :effective_funding_sum

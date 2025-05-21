@@ -69,13 +69,13 @@
 
     <% if params[:show_going_tos].present? || local_assigns[:show_going_tos] %>
       <div class="userlist">
-        <% meeting.attendees.map(&:user).last(10).each do |user| %>
-          <%= link_to user_path(user), rel: 'nofollow' do %>
-            <%= avatar_image user, size: :thumb, class: 'img-round show-badge' %>
+        <% meeting.attendees.last(10).each do |going_to| %>
+          <%= link_to user_path(going_to.user), rel: 'nofollow' do %>
+            <%= avatar_image going_to.user, size: :thumb, class: 'img-round show-badge' %>
           <% end %>
         <% end %>
-        <% if meeting.attendees.count > 10 %>
-          <span> + <%= meeting.attendees.count - 10 %> weitere</span>
+        <% if meeting.attendees.size > 10 %>
+          <span> + <%= meeting.attendees.size - 10 %> weitere</span>
         <% end %>
       </div>
     <% end %>

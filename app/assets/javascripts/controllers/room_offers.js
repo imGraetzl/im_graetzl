@@ -37,7 +37,11 @@ APP.controllers.room_offers = (function() {
 
     $('.request-price-form .rent-date').on("change", function() {
       $('.request-price-form .hour-input').attr("disabled", !$(this).val());
-      if ($(this).val()) {$('.request-price-form .input-select').removeClass('disabled')}
+      if ($(this).val()) {
+        $('.request-price-form .input-select').removeClass('disabled')
+      } else {
+        $('.request-price-form .input-select').addClass('disabled')
+      }
     });
 
     $('.request-price-form').find(".rent-date, .hour-from").on("change", function() {
@@ -46,6 +50,12 @@ APP.controllers.room_offers = (function() {
       var currentDate = form.find(".rent-date").pickadate('picker').get('select', 'yyyy-mm-dd');
       var hourFrom = form.find(".hour-from").val();
     
+      if (!currentDate) {
+        form.find(".hour-from, .hour-to").val("");
+        $(this).parents(".request-price-form").submit();
+        return;
+      }
+
       $.get(hoursUrl, {rent_date: currentDate, hour_from: hourFrom}, function(data) {
     
         // Prüfen ob gewählte Startzeit noch gültig ist

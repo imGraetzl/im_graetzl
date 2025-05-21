@@ -54,8 +54,8 @@
     <% end %>
 
     <div class="post-comments">
-      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments' if post.comments.size > 3 %>
-      <% post.comments.sort_by(&:created_at).each do |comment| %>
+      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments' %>
+      <% post.comments.order(:created_at).each do |comment| %>
         <div class="comment-container" >
           <%= render 'groups/discussion_posts/comment', comment: comment %>
         </div>

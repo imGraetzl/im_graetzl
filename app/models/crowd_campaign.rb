@@ -80,15 +80,15 @@ class CrowdCampaign < ApplicationRecord
   after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
 
   def entire_graetzl?
-    self.graetzl?
+    visibility_status == "graetzl"
   end
 
   def entire_region?
-    self.region?
+    visibility_status == "region"
   end
 
   def entire_platform?
-    self.platform?
+    visibility_status == "platform"
   end
 
   def closed?
@@ -128,7 +128,11 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def actual_newest_post
-    crowd_campaign_posts.select{|p| p.created_at > 1.weeks.ago}.last
+    @actual_newest_post ||= crowd_campaign_posts
+      .where("created_at > ?", 1.week.ago)
+      .order(created_at: :desc)
+      .limit(1)
+      .first
   end
 
   def funding_amount_set?
@@ -136,27 +140,41 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def funding_sum
-    @cached_funding_sum ||= self.crowd_pledges.initialized.sum(:total_price) + self.crowd_boost_pledges.initialized.sum(:amount)
+    if completed? && finalized_funding_sum_available?
+      crowd_pledges_finalized_sum + (boosted? ? crowd_boost_pledges_finalized_sum : 0)
+    else
+      @funding_sum ||= crowd_pledges_sum + (boosted? ? crowd_boost_pledges_sum : 0)
+    end
+  end
+
+  def finalized_funding_sum_available?
+    crowd_pledges_finalized_sum.present? && (!boosted? || crowd_boost_pledges_finalized_sum.present?)
   end
 
   def funding_sum_uncached
-    self.crowd_pledges.initialized.sum(:total_price) + self.crowd_boost_pledges.initialized.sum(:amount)
+    crowd_pledges.initialized.sum(:total_price) + crowd_boost_pledges.initialized.sum(:amount)
   end
 
   def crowd_pledges_sum
-    @cached_pledges_sum ||= self.crowd_pledges.initialized.sum(:total_price)
+    @crowd_pledges_sum ||= crowd_pledges.initialized.sum(:total_price)
   end
 
   def crowd_boost_pledges_sum
-    @cached_boost_sum ||= self.crowd_boost_pledges.initialized.sum(:amount)
+    @crowd_boost_pledges_sum ||= crowd_boost_pledges.initialized.sum(:amount)
   end
 
   def funding_count
-    @cached_funding_count ||= self.crowd_pledges.initialized.count
+    @funding_count ||= crowd_pledges.initialized.count
   end
 
   def pledges_and_donations_count
-    @cached_pledges_and_donations_count ||= (self.crowd_pledges.initialized.count + self.crowd_donation_pledges.count)
+    if completed? && pledges_and_donations_finalized_count.present?
+      pledges_and_donations_finalized_count
+    else
+      @pledges_and_donations_count ||= (
+        crowd_pledges.initialized.count + crowd_donation_pledges.count
+      )
+    end
   end
 
   def effective_funding_sum
@@ -172,11 +190,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def transaction_fee_percentage
-    if self.service_fee_percentage?
-      self.service_fee_percentage
-    else
-      7
-    end
+    service_fee_percentage? ? service_fee_percentage : 7
   end
 
   def stripe_fee_percentage

@@ -91,6 +91,12 @@ APP.controllers_loggedin.room_rentals = (function() {
         var hourToSelect = fieldRow.find(".hour-input.hour-to");
         var selectedTo = hourToSelect.val(); // Aktueller Wert merken
       
+        if (!currentDate) {
+          fieldRow.find(".hour-from, .hour-to").val("");
+          $('.rental-date-form').submit();
+          return;
+        }
+        
         $.get(hoursUrl, {rent_date: currentDate, hour_from: hourFrom}, function(data) {
           fieldRow.find(".hour-input.hour-from option").not(':empty').each(function(i, o) {
             var hour = +$(o).val();

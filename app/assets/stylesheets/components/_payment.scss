@@ -227,6 +227,11 @@
       display: none;
     }
   }
+  &.change-payment-screen {
+    .amount-boost {
+      display: flex;
+    }
+  }
   &.crowd-boost-charge-screen, &.summary-screen {
     .amount-reward, .amount-donation {
       display: none;

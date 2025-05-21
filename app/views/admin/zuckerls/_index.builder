@@ -7,8 +7,5 @@ context.instance_eval do
   column(:payment_status){|z| status_tag(z.payment_status)}
   column :visibility
   column :created_at
-  #column(:district){|z| z.graetzls.first&.district&.zip}
-  #column :entire_region
-  #column :region
   actions
 end

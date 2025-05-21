@@ -19,6 +19,8 @@ class Meeting < ApplicationRecord
   has_many :going_tos, dependent: :destroy
   accepts_nested_attributes_for :going_tos, allow_destroy: true
   has_many :users, -> { distinct }, through: :going_tos
+  has_many :attendees, -> { where.not(role: :initiator).includes(:user) }, class_name: 'GoingTo'
+  has_many :participants, -> { includes(:user).distinct }, class_name: 'GoingTo'
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
@@ -33,8 +35,17 @@ class Meeting < ApplicationRecord
   scope :entire_region, -> { where(entire_region: true) }
   scope :online_meeting, -> { where(online_meeting: true) }
   scope :offline_meeting, -> { where(online_meeting: false) }
-  scope :crowdfunding, -> { upcoming.joins(:event_categories).where(event_categories: {id: EventCategory.where("title ILIKE :q", q: "%Crowdfunding%").last}) }
-  scope :good_morning_dates, -> { joins(:event_categories).where(event_categories: {id: EventCategory.where("title ILIKE :q", q: "%Good Morning Date%")}) }
+
+  scope :crowdfunding, -> {
+    upcoming
+      .joins(:event_categories)
+      .where(event_categories: { slug: 'crowdfunding' })
+  }
+
+  scope :good_morning_dates, -> {
+    joins(:event_categories)
+      .where(event_categories: { slug: 'good-morning-dates' })
+  }
 
   scope :by_currentness, -> {
     active.
@@ -62,8 +73,9 @@ class Meeting < ApplicationRecord
   before_validation :set_graetzl
   after_create :update_location_activity
 
-  def self.include_for_box
-    includes(:going_tos, :user, :meeting_additional_dates, location: :user)
+  def self.include_for_box(with_attendees = false)
+    scope = includes(:meeting_additional_dates, :user, location: :user)
+    with_attendees ? scope.includes(:attendees) : scope
   end
 
   def to_s
@@ -106,10 +118,6 @@ class Meeting < ApplicationRecord
     if active? && last_activated_at && last_activated_at <= 7.days.ago
       update(last_activated_at: Time.now)
     end
-  end
-
-  def attendees
-    self.going_tos.where.not(role: :initiator)
   end
 
   def attending?(user)

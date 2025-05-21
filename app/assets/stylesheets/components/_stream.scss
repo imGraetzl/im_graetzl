@@ -133,11 +133,14 @@
     @include font-size-primaryFont('small');
     font-style: italic;
     color: #69a8a7;
-    display: block;
+    display: none;
     text-decoration: none;
     margin-bottom: 20px;
     @include respond-to(">=medium") {
       margin-left: 60px;
+    }
+    &.-show {
+      display: block;
     }
   }
 }

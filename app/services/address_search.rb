@@ -45,6 +45,8 @@ class AddressSearch
       proximity: region&.proximity ? region&.proximity : '',
     }).parse(:json)
 
+    return [] unless response['features'].is_a?(Array)
+
     response['features'].filter_map do |address|
       coordinates = address['center']
       graetzl = Graetzl.find_by_coords(region, coordinates)

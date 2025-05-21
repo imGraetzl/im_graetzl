@@ -1,8 +1,10 @@
 <div class="participants">
 
-  <% if meeting.users.size > 0 %>
+  <% participants = meeting.participants %>
+
+  <% if participants.any? %>
     <p class="userCount">
-      <span><%= meeting.users.size %></span> nehmen teil
+      <span><%= participants.size %></span> nehmen teil
       <% if meeting.max_going_tos %>
         <span class="maxcount">(von maximal <%= meeting.max_going_tos %>)</span>
       <% end %>
@@ -10,7 +12,7 @@
   <% end %>
 
   <div class="portraitCollection">
-    <% meeting.going_tos.each do |going_to| %>
+    <% participants.each do |going_to| %>
       <%= link_to user_path(going_to.user), rel: 'nofollow' do %>
         <% going_to.going_to_date && (current_user == meeting.user || current_user&.admin?) ? additional = "<strong>Termin:</strong> #{going_to.display_starts_at_date}" : nil %>
         <%= avatar_image_with_tooltip going_to.user, size: :thumb, class: 'img-round show-badge', additional: additional %>

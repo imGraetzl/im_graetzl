@@ -6,19 +6,36 @@ class LocationsController < ApplicationController
     @locations = collection_scope.in(current_region).approved.include_for_box
     @locations = filter_collections(@locations)
     @locations = @locations.order("last_activity_at DESC").page(params[:page]).per(params[:per_page] || 15)
+  
+    @actual_newest_post_map = @locations.each_with_object({}) do |location, map|
+      posts = location.location_posts.select { |p| p.created_at > 4.weeks.ago }
+      menus = location.location_menus.select { |m| m.menu_to > Date.yesterday }
+      newest = (posts + menus).max_by(&:created_at)
+      map[location.id] = newest if newest
+    end
+
   end
 
   def show
-    @location = Location.find(params[:id])
+    @location = Location.includes(
+      location_posts: [:images, :comments],
+      location_menus: [:images, :comments],
+      comments: [:user, :images],
+      zuckerls: [],
+      crowd_campaigns: [],
+      room_offers: [],
+      room_demands: [],
+      graetzl: []
+    ).find(params[:id])
+
     redirect_enqueued and return if @location.pending?
     return if redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
-    @posts = @location.location_posts.includes(:images, :comments).last(30)
-    @menus = @location.location_menus.includes(:images, :comments).last(30)
-    @comments = @location.comments.includes(:user, :images)
-    @stream = @posts + @menus + @comments
-    @stream = @stream.sort_by(&:created_at).reverse
+    @posts = @location.location_posts.order(id: :desc).limit(30)
+    @menus = @location.location_menus.order(id: :desc).limit(30)
+    @comments = @location.comments
+    @stream = (@posts + @menus + @comments).sort_by(&:created_at).reverse
 
     @zuckerls = @location.zuckerls.live
     @crowd_campaign = @location.crowd_campaigns.funding.last

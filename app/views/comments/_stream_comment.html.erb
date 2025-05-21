@@ -44,8 +44,8 @@
     <% end %>
 
     <div class="post-comments">
-      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments' if comment.comments.size > 3 %>
-      <% comment.comments.sort_by(&:created_at).each do |comment| %>
+      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments' %>
+      <% comment.comments.order(:created_at).each do |comment| %>
         <div class="comment-container">
           <%= render 'comments/nested_comments/comment', comment: comment %>
         </div>

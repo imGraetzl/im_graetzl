@@ -6,9 +6,20 @@ APP.components.stream = (function() {
         initCommentForm();
         $('textarea').autoheight();
 
-        $('.show-all-comments').on("click", function() {
-          $(this).parents(".post-comments").find(".comment-container").show();
-          $(this).hide();
+        // Ältere Kommentare anzeigen – dynamisch nur bei > 3 Comments
+        $(".post-comments").each(function () {
+          var $container = $(this);
+          var $comments = $container.find(".comment-container");
+          var $showLink = $container.find(".show-all-comments");
+
+          if ($comments.length > 3) {
+            $showLink.toggleClass("-show");
+          }
+
+          $showLink.on("click", function () {
+            $comments.show();
+            $showLink.toggleClass("-show");
+          });
         });
 
         // Edit Post Inline Form

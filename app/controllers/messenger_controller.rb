@@ -58,6 +58,11 @@ class MessengerController < ApplicationController
     @user_messages = @user_messages.where("id > ?", params[:last_message_id]).order(:id) if params[:last_message_id].present?
     if @user_messages.present?
       update_last_seen(@thread, @user_messages.last)
+      respond_to do |format|
+        format.js
+      end
+    else
+      head :no_content
     end
   end
 

@@ -5,7 +5,6 @@ context.instance_eval do
   column :slogan
   column :user
   column(:status){|r| status_tag(r.status)}
-  column(:comment_count) {|r| r.comments.size }
   column :last_activated_at
   actions
 end

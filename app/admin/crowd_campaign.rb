@@ -158,6 +158,11 @@ ActiveAdmin.register CrowdCampaign do
   # Controller pagination overrides
 
   controller do
+
+    def scoped_collection
+      super.includes(:user, crowd_boost_slot: :crowd_boost)
+    end
+
     def apply_pagination(chain)
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain

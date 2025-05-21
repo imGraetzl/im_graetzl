@@ -1,8 +1,6 @@
 ActiveAdmin.register CoopDemand do
   include ViewInApp
   menu parent: 'Coop & Share'
-
-  includes :location, :user, :comments
   actions :all, except: [:new, :create]
 
   scope :enabled, default: true
@@ -32,6 +30,11 @@ ActiveAdmin.register CoopDemand do
   # Controller pagination overrides
 
   controller do
+
+    def scoped_collection
+      super.includes(:user)
+    end
+
     def apply_pagination(chain)
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
