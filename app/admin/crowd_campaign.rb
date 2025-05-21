@@ -2,7 +2,6 @@ ActiveAdmin.register CrowdCampaign do
   #include ViewInApp
   menu parent: 'Crowdfunding'
 
-  includes :location, :user, :comments
   actions :all, except: [:new, :create]
   config.batch_actions = false
 
@@ -16,7 +15,6 @@ ActiveAdmin.register CrowdCampaign do
   scope :completed
   scope 'Paid', :payout_completed
   scope :declined
-  #scope :all
   scope 'Guest NL', :guest_newsletter
   scope 'End NL', :ending_newsletter
 
