@@ -1,12 +1,12 @@
 namespace :shrine do
-  desc "Löscht alte Dateien aus shrine/cache/ auf S3 (älter als 24h)"
+  desc "Löscht alte Dateien aus shrine/cache/ auf S3 (älter als 7 Tage)"
   task clean_cache: :environment do
     require 'aws-sdk-s3'
 
     bucket_name  = ENV.fetch('UPLOADS_BUCKET')
     region       = ENV.fetch('AWS_REGION')
     prefix       = 'shrine/cache/'
-    cutoff_time  = Time.now - 24.hours
+    cutoff_time  = Time.now - 7.days
 
     logger = Rails.logger
     logger.info "[Shrine::Cleanup] Starte Bereinigung von #{bucket_name}/#{prefix}"
