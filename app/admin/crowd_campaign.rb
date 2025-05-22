@@ -158,7 +158,16 @@ ActiveAdmin.register CrowdCampaign do
   controller do
 
     def scoped_collection
-      super.includes(:user, crowd_boost_slot: :crowd_boost)
+      super
+        .includes(:user, crowd_boost_slot: :crowd_boost)
+        .select(<<~SQL.squish)
+          crowd_campaigns.*,
+          (
+            SELECT COUNT(*) FROM active_admin_comments
+            WHERE active_admin_comments.resource_type = 'CrowdCampaign'
+            AND active_admin_comments.resource_id::integer = crowd_campaigns.id
+          ) AS admin_comments_count
+        SQL
     end
 
     def apply_pagination(chain)

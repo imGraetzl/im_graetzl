@@ -36,6 +36,10 @@ class CoopDemand < ApplicationRecord
   after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status? }
   before_create :set_entire_region
 
+  def self.include_for_box
+    includes(:coop_demand_category)
+  end
+
   def to_s
     slogan
   end

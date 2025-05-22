@@ -41,6 +41,7 @@ class Location < ApplicationRecord
   scope :online_shop, -> { where("online_shop_url != ''") }
   scope :goodie, -> { where("goodie != ''") }
   scope :menus, ->{ joins(:location_menus).merge(LocationMenu.upcoming) }
+  scope :by_currentness, -> { order(last_activity_at: :desc) }
 
   before_validation :smart_add_url_protocol_online_shop, if: -> { online_shop_url.present? }
   before_validation :smart_add_url_protocol_website, if: -> { website_url.present? }

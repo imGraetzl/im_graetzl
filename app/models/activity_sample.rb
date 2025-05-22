@@ -1,5 +1,4 @@
 class ActivitySample
-
   def initialize(graetzl: nil, district: nil, current_region: nil)
     @graetzl = graetzl
     @district = district
@@ -7,105 +6,131 @@ class ActivitySample
   end
 
   def meetings
-    if @graetzl
-      @graetzl.meetings.in(@current_region).include_for_box.by_currentness.first(2)
+    scope = if @graetzl
+      @graetzl.meetings
     elsif @district
-      @district.meetings.in(@current_region).include_for_box.by_currentness.first(2)
+      @district.meetings
     else
-      Meeting.in(@current_region).include_for_box.by_currentness.first(2)
+      Meeting
     end
+
+    load_for(:meetings, scope.in(@current_region).include_for_box.by_currentness)
   end
 
   def groups
-    if @graetzl
-      @graetzl.groups.in(@current_region).featured.include_for_box.first(2)
+    scope = if @graetzl
+      @graetzl.groups
     elsif @district
-      @district.groups.in(@current_region).featured.include_for_box.first(2)
+      @district.groups
     else
-      Group.in(@current_region).featured.include_for_box.first(2)
+      Group
     end
+
+    load_for(:groups, scope.in(@current_region).featured.include_for_box)
   end
 
   def locations
-    if @graetzl
-      @graetzl.locations.in(@current_region).approved.include_for_box.order("last_activity_at DESC").first(2)
+    scope = if @graetzl
+      @graetzl.locations
     elsif @district
-      @district.locations.in(@current_region).approved.include_for_box.order("last_activity_at DESC").first(2)
+      @district.locations
     else
-      Location.in(@current_region).approved.include_for_box.order("last_activity_at DESC").first(2)
+      Location
+    end
+
+    load_for(:locations, scope.in(@current_region).approved.include_for_box.by_currentness).tap do |locations|
+      @actual_newest_post_map = locations.index_with(&:actual_newest_post)
     end
   end
-  
+
   def crowd_campaigns
-    funding_campaigns = CrowdCampaign.in(@current_region).region.funding.or(CrowdCampaign.platform.funding).sample(2)
-    public_campaigns = CrowdCampaign.in(@current_region).region.completed.successful.enabled.or(CrowdCampaign.platform.completed.successful.enabled).sample(2)
-    campaigns = funding_campaigns + public_campaigns
-    campaigns.compact.first(2)
+    funding = CrowdCampaign.in(@current_region).region.funding.or(CrowdCampaign.platform.funding).by_currentness.to_a
+    return funding.first(2) if funding.size >= 2
+
+    completed = CrowdCampaign.in(@current_region).region.completed.successful.enabled
+      .or(CrowdCampaign.platform.completed.successful.enabled)
+      .by_currentness.to_a
+
+    (funding + completed).uniq.first(2)
   end
 
   def coop_demands
-    if @graetzl
-      @graetzl.coop_demands.in(@current_region).enabled.by_currentness.first(2)
+    scope = if @graetzl
+      @graetzl.coop_demands
     elsif @district
-      @district.coop_demands.in(@current_region).enabled.by_currentness.first(2)
+      @district.coop_demands
     else
-      CoopDemand.in(@current_region).enabled.by_currentness.first(2)
+      CoopDemand
     end
+
+    load_for(:coop_demands, scope.in(@current_region).enabled.include_for_box.by_currentness)
   end
 
   def rooms
-    if @graetzl
-      room_offers = @graetzl.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
-      room_demands = @graetzl.room_demands.in(@current_region).enabled.by_currentness.limit(2).to_a
+    offers = if @graetzl
+      @graetzl.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
     elsif @district
-      room_offers = @district.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
-      room_demands = @district.room_demands.in(@current_region).enabled.by_currentness.limit(2).to_a
+      @district.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
     else
-      room_offers = RoomOffer.in(@current_region).enabled.by_currentness.limit(2).to_a
-      room_demands = RoomDemand.in(@current_region).enabled.by_currentness.limit(2).to_a
+      RoomOffer.in(@current_region).enabled.by_currentness.limit(2).to_a
     end
-  
-    (room_offers.first(1) + room_demands.first(1)).tap do |result|
-      if result.size < 2
-        # Ergänzen mit mehr vom jeweils anderen
-        rest = (room_offers + room_demands) - result
-        result.concat(rest.first(2 - result.size))
-      end
+
+    demands = if @graetzl
+      @graetzl.room_demands.in(@current_region).enabled.include_for_box.by_currentness.limit(2).to_a
+    elsif @district
+      @district.room_demands.in(@current_region).enabled.include_for_box.by_currentness.limit(2).to_a
+    else
+      RoomDemand.in(@current_region).enabled.include_for_box.by_currentness.limit(2).to_a
     end
-  end  
+
+    (offers.first(1) + demands.first(1)).tap do |result|
+      rest = (offers + demands) - result
+      result.concat(rest.first(2 - result.size)) if result.size < 2
+    end
+  end
 
   def energies
-    if @graetzl
-      energy_offer = @graetzl.energy_offers.in(@current_region).enabled.by_currentness.first
-      energy_demand = @graetzl.energy_demands.in(@current_region).enabled.by_currentness.first
+    offer = if @graetzl
+      @graetzl.energy_offers.in(@current_region).enabled.by_currentness.first
     elsif @district
-      energy_offer = @district.energy_offers.in(@current_region).enabled.by_currentness.first
-      energy_demand = @district.energy_demands.in(@current_region).enabled.by_currentness.first
+      @district.energy_offers.in(@current_region).enabled.by_currentness.first
     else
-      energy_offer = EnergyOffer.in(@current_region).enabled.by_currentness.first
-      energy_demand = EnergyDemand.in(@current_region).enabled.by_currentness.first
+      EnergyOffer.in(@current_region).enabled.by_currentness.first
     end
-    [energy_offer, energy_demand].compact.first(2)
+
+    demand = if @graetzl
+      @graetzl.energy_demands.in(@current_region).enabled.by_currentness.first
+    elsif @district
+      @district.energy_demands.in(@current_region).enabled.by_currentness.first
+    else
+      EnergyDemand.in(@current_region).enabled.by_currentness.first
+    end
+
+    [offer, demand].compact.first(2)
   end
 
   def tools
-    if @graetzl
-      @graetzl.tool_offers.in(@current_region).enabled.by_currentness.first(2)
+    scope = if @graetzl
+      @graetzl.tool_offers
     elsif @district
-      @district.tool_offers.in(@current_region).enabled.by_currentness.first(2)
+      @district.tool_offers
     else
-      ToolOffer.in(@current_region).enabled.by_currentness.first(2)
+      ToolOffer
     end
+
+    load_for(:tools, scope.in(@current_region).enabled.include_for_box.by_currentness)
   end
 
   def polls
-    if @graetzl
-      @graetzl.polls.in(@current_region).enabled.by_currentness.first(2)
+    scope = if @graetzl
+      @graetzl.polls
     elsif @district
-      @district.polls.in(@current_region).enabled.by_currentness.first(2)
+      @district.polls
     else
-      Poll.in(@current_region).enabled.by_currentness.first(2)
+      Poll
     end
+
+    load_for(:polls, scope.in(@current_region).enabled.by_currentness)
   end
 
   def zuckerls
@@ -118,4 +143,9 @@ class ActivitySample
     end
   end
 
+  private
+
+  def load_for(name, scope)
+    instance_variable_get("@#{name}") || instance_variable_set("@#{name}", scope.limit(2).to_a)
+  end
 end
