@@ -197,7 +197,7 @@
     <% elsif @crowd_campaign.completed? %>
       <span class="full-view compact-view">Kampagne beendet</span>
     <% else %>
-      <% number, unit = campaign_remaining_time(@crowd_campaign) %>
+      <% number, unit = campaign_remaining_time(@crowd_campaign) rescue nil %>
       <h2><%= number %></h2>
       <span class="full-view compact-view"><%= unit %></span>
     <% end %>
