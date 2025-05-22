@@ -27,7 +27,6 @@ Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
 Shrine.plugin :remove_attachment
-Shrine.plugin :delete_uploaded
 Shrine.plugin :delete_raw
 Shrine.plugin :determine_mime_type, analyzer: :marcel, log_subscriber: nil
 
