@@ -5,7 +5,7 @@ class DerivativesJob < ApplicationJob
 
   def perform(attacher_class, record_class, record_id, name)
     record = record_class.constantize.find(record_id)
-    attacher = attacher_class.constantize.retrieve(model: record, name: name)
+    attacher = attacher_class.constantize.from_model(record, name)
     attacher.create_derivatives
     attacher.atomic_persist
   end
