@@ -6,7 +6,7 @@ namespace :shrine do
     bucket_name  = ENV.fetch('UPLOADS_BUCKET')
     region       = ENV.fetch('AWS_REGION')
     prefix       = 'shrine/cache/'
-    cutoff_time  = Time.now - 7.days
+    cutoff_time  = Time.now - 30.days
 
     logger = Rails.logger
     logger.info "[Shrine::Cleanup] Starte Bereinigung von #{bucket_name}/#{prefix}"
