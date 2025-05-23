@@ -49,7 +49,7 @@ namespace :shrine do
       RoomOffer: [:avatar, :cover_photo],
       ToolCategory: [:main_photo],
       ToolOffer: [:cover_photo],
-      User: [:avatar],
+      User: [:avatar, :cover_photo],
       Zuckerl: [:cover_photo]
     }
 
