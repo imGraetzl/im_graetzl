@@ -6,7 +6,7 @@ namespace :shrine do
     bucket_name  = ENV.fetch('UPLOADS_BUCKET')
     region       = ENV.fetch('AWS_REGION')
     prefix       = 'shrine/cache/'
-    cutoff_time  = Time.now - 7.days
+    cutoff_time  = Time.now - 30.days
 
     logger = Rails.logger
     logger.info "[Shrine::Cleanup] Starte Bereinigung von #{bucket_name}/#{prefix}"
@@ -30,7 +30,7 @@ namespace :shrine do
     logger.info "[Shrine::Cleanup] Dateien gelöscht: #{deleted_count}"
     logger.info "[Shrine::Cleanup] Gesamtgröße gelöscht: #{(deleted_total_size.to_f / 1024 / 1024).round(2)} MB"
 
-    # ➕ Speicherverbrauch nach dem Cleanup:
+    # Speicherverbrauch nach dem Cleanup:
     total_files = 0
     total_bytes = 0
 
