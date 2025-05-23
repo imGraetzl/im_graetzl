@@ -7,5 +7,7 @@ Delayed::Worker.max_run_time = 5.minutes
 Delayed::Worker.default_priority = 1
 Delayed::Worker.queue_attributes = {
   'action-processor' => { priority: 0 },
-  'summary-mails' => { priority: 2 }
+  'shrine_derivatives' => { priority: 1 },
+  'mailchimp' => { priority: 2 },
+  'summary-mails' => { priority: 3 }
 }
