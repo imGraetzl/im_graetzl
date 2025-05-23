@@ -12,4 +12,10 @@ class ImageUploader < Shrine
     file&.url if derivative
   end
 
+  plugin :derivatives
+  plugin :backgrounding
+
+  Attacher.promote_block do
+    DerivativesJob.perform_later(Shrine::Attacher.name, record.class.name, record.id, name)
+  end
 end

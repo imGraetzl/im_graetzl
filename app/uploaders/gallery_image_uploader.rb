@@ -1,6 +1,5 @@
 class GalleryImageUploader < ImageUploader
 
-  plugin :derivatives, create_on_promote: true
   Attacher.derivatives do |original|
     magick = ImageProcessing::MiniMagick.source(original)
     {
