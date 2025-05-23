@@ -356,6 +356,7 @@
     box-shadow: $boxShadow-light;
     width: 145px;
     height:145px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
   }
   iframe {
@@ -374,6 +375,8 @@
     img {
       width:100%;
       height:auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
     }
   }
 }
