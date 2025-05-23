@@ -16,6 +16,7 @@ class ImageUploader < Shrine
   plugin :backgrounding
 
   Attacher.promote_block do
+    promote
     DerivativesJob.perform_later(self.class.name, record.class.name, record.id, name)
   end
 end
