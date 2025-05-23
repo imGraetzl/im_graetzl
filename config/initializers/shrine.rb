@@ -30,7 +30,7 @@ Shrine.plugin :remove_attachment
 Shrine.plugin :delete_raw
 Shrine.plugin :determine_mime_type, analyzer: :marcel, log_subscriber: nil
 
-Shrine.plugin :instrumentation if Rails.env.development?
+Shrine.plugin :instrumentation if Rails.env.development? || Rails.env.staging?
 
 case Rails.configuration.upload_server
 when :s3
