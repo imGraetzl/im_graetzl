@@ -28,6 +28,9 @@ class CrowdBoostsController < ApplicationController
     end
     
     @next_slot = @crowd_boost.next_slot(current_region)
+    @campaign_count = @crowd_boost.crowd_campaigns.boost_initialized.count
+    @charge_count = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count
+
     flash.now[:alert] = "Dieser Topf ist aktuell inaktiv." if @crowd_boost.disabled?
   end
 
@@ -39,6 +42,8 @@ class CrowdBoostsController < ApplicationController
     if leerstand_id
       @crowd_boost = CrowdBoost.find_by(id: leerstand_id)
       @next_slot = @crowd_boost.next_slot(current_region)
+      @campaign_count = @crowd_boost.crowd_campaigns.boost_initialized.count
+      @charge_count = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count
 
       case region_id
       when 'graz'
@@ -70,7 +75,7 @@ class CrowdBoostsController < ApplicationController
 
   def charges
     @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
-    @charges = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.order(created_at: :desc)
+    @charges = @crowd_boost.crowd_boost_charges.includes(:user).debited_without_crowd_pledges.order(created_at: :desc)
   end
 
   def campaigns

@@ -18,8 +18,9 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.includes(
-      location_posts: [:images, :comments],
-      location_menus: [:images, :comments],
+      :images,
+      location_posts: [ :images, { comments: [:user, :images] } ],
+      location_menus: [ :images, { comments: [:user, :images] } ],
       comments: [:user, :images],
       zuckerls: [],
       crowd_campaigns: [],
