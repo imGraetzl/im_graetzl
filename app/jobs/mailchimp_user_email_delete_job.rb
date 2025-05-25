@@ -1,5 +1,5 @@
 class MailchimpUserEmailDeleteJob < ApplicationJob
-  queue_as :mailchimp # Spezielle Warteschlange für Mailchimp-Jobs
+  queue_as :mailchimp
 
   def perform(email)
     list_id = Rails.application.secrets.mailchimp_list_id
@@ -8,25 +8,28 @@ class MailchimpUserEmailDeleteJob < ApplicationJob
     begin
       g = Gibbon::Request.new
       g.timeout = 30
-      g.lists(list_id).members(member_id).delete()
-    rescue Gibbon::MailChimpError => mce
-      Rails.logger.error("Mailchimp Error: #{mce.message}")
-
-      if mce.status_code == 405
-        Rails.logger.error("Mailchimp Kontakt kann nicht gelöscht werden, Fehler 405: #{email}")
-        # Skip Job
-        return
+      g.lists(list_id).members(member_id).delete
+    rescue Gibbon::MailChimpError => e
+      case e.status_code
+      when 404
+        Rails.logger.info("[Mailchimp]: Mitglied nicht gefunden – evtl. bereits gelöscht (#{email})")
+        # Kein raise = Job gilt als erfolgreich
+      when 405
+        Rails.logger.warn("[Mailchimp]: Löschen nicht erlaubt (405) für #{email}")
+        # Kein raise = Job gilt als erfolgreich
+      else
+        Rails.logger.error("[Mailchimp]: Fehler #{e.status_code} bei #{email}: #{e.message}")
+        raise e # → retry bei temporären Fehlern
       end
-
-      raise mce
     rescue => e
-      Rails.logger.error("Mailchimp Error: #{e.message}")
+      Rails.logger.error("[Mailchimp]: Unerwarteter Fehler im Mailchimp-Job (#{email}): #{e.message}")
       raise e
     end
   end
 
+  private
+
   def mailchimp_member_id(email)
     Digest::MD5.hexdigest(email.downcase)
   end
-  
 end
