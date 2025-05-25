@@ -5,8 +5,6 @@ class RoomRentalAvailability
   end
 
   def available_hours(date, hour_from)
-    #head :ok and return if browser.bot? && !request.format.js?
-
     date = date.is_a?(String) ? Date.parse(date) : date
     hour_from = hour_from.present? ? hour_from.to_i : nil
 

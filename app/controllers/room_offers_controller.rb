@@ -85,6 +85,8 @@ class RoomOffersController < ApplicationController
   end
 
   def available_hours
+    head :ok and return if browser.bot? && !request.format.js?
+    
     @room_offer = RoomOffer.find(params[:id])
     @availability = RoomRentalAvailability.new(@room_offer)
     render json: @availability.available_hours(params[:rent_date], params[:hour_from])
