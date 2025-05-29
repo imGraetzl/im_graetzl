@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_21_070024) do
+ActiveRecord::Schema.define(version: 2025_05_29_160838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1167,6 +1167,7 @@ ActiveRecord::Schema.define(version: 2025_05_21_070024) do
     t.boolean "closed", default: false
     t.string "zip"
     t.datetime "last_activity_at"
+    t.boolean "comments_enabled", default: true, null: false
     t.index ["region_id"], name: "index_polls_on_region_id"
     t.index ["slug"], name: "index_polls_on_slug"
     t.index ["user_id"], name: "index_polls_on_user_id"

@@ -230,7 +230,7 @@ class LocationsController < ApplicationController
   def redirect_enqueued
     message = 'Deine Schaufenster-Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
 
-    unless current_user.admin?
+    unless current_user&.admin?
       return redirect_to root_url, notice: message
     end
 

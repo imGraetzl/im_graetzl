@@ -4,6 +4,7 @@ context.instance_eval do
       row :id
       row(:status){|m| status_tag(m.status)}
       row :closed
+      row :comments_enabled
       row :region
       row :title
       row :poll_type
