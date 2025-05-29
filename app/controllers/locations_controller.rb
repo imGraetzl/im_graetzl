@@ -27,7 +27,7 @@ class LocationsController < ApplicationController
       graetzl: []
     ).find(params[:id])
 
-    redirect_enqueued and return if @location.pending?
+    redirect_enqueued if @location.pending?
     return if redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
@@ -228,8 +228,15 @@ class LocationsController < ApplicationController
   end
 
   def redirect_enqueued
-    redirect_to root_url, notice: 'Deine Schaufenster-Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+    message = 'Deine Schaufenster-Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+
+    unless current_user.admin?
+      return redirect_to root_url, notice: message
+    end
+
+    flash.now[:notice] = message
   end
+
 
   def location_params
     params.require(:location).permit(

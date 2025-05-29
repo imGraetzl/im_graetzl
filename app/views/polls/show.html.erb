@@ -53,7 +53,7 @@
 
   <div class="entryDescription">
     <%= render 'form', poll_user: PollUser.new if @poll.open? %>
-    <% if @poll.public_result? %>
+    <% if @poll.public_result? || current_user&.admin? %>
       <%= render 'result' %>
     <% end %>
   </div>

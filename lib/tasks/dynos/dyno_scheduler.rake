@@ -46,10 +46,14 @@ namespace :dyno do
       end
 
       # Web-Dynos: Montag–Freitag von 06:00–22:00 Uhr => 2 Dynos, sonst => 1 Dyno
-      if %w[Monday Tuesday Wednesday Thursday Friday].include?(day_of_week) && hour >= 6 && hour < 22
-        scale_dyno(heroku, 'web', 'Standard-2X', 2)
+      if ENV.fetch('DYNO_SCALE_ENABLED', 'true').downcase == 'true'
+        if %w[Monday Tuesday Wednesday Thursday Friday].include?(day_of_week) && hour >= 6 && hour < 22
+          scale_dyno(heroku, 'web', 'Standard-2X', 2)
+        else
+          scale_dyno(heroku, 'web', 'Standard-2X', 1)
+        end
       else
-        scale_dyno(heroku, 'web', 'Standard-2X', 1)
+        Rails.logger.info("[Dyno-Scale]: Web dyno autoscaling is DISABLED via ENV['DYNO_SCALE_ENABLED']. Skipping web dyno scaling.")
       end
     end
 
