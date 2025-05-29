@@ -16,8 +16,10 @@
       <div class="fundingBar -poll">
         <div class="fundingBar_track fundingBar_track-finished">
           <span class="fundingBar_title"><%= truncate option.title, length: 65 %></span>
-          <span class="fundingBar_result"><%= option.percentage.to_i %>% (<%= option.votes_count %>)</span>
-          <div class="fundingBar_bar" style="width:<%= option.percentage.to_i %>%;"></div>
+          <span class="fundingBar_result">
+            <%= option.percentage %>% (<%= option.votes_count %>)
+          </span>
+          <div class="fundingBar_bar" style="width: <%= option.percentage %>%"></div>
         </div>
       </div>
     <% end %>

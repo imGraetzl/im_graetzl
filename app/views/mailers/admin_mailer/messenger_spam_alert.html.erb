@@ -1,5 +1,21 @@
-Check Messenger Nachrichten von User:<br><br>
-Username: <%= @user.username %><br>
-Name: <%= @user.full_name %><br>
-E-Mail: <%= @user.email %><br>
-Admin-Link zum User: <a href="<%= admin_user_url(@user) %>"><%= admin_user_url(@user) %></a><br>
+<h4>Check Messenger Nachrichten von User:</h4>
+
+<p>
+  Username: <%= @user.username %><br>
+  Name: <%= @user.full_name %><br>
+  E-Mail: <%= @user.email %><br>
+  Region: <%= @region.name %><br>
+  Admin-Link zum User: <a href="<%= admin_user_url(@user) %>"><%= admin_user_url(@user) %></a>
+</p>
+
+<hr>
+
+<h4>Letzte Nachrichten des Users in verschiedenen Threads:</h4>
+
+
+<% @messages.each do |message| %>
+  <p>
+    <strong><%= message.created_at.strftime("%d.%m.%Y %H:%M") %></strong> | <strong>Thread ID:</strong> <%= message.user_message_thread_id %><br>
+    <strong>Inhalt:</strong> <%= truncate(message.message, length: 250) %>
+  </p>
+<% end %>

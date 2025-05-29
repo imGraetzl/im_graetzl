@@ -18,6 +18,28 @@ ActiveAdmin.register_page "Dashboard" do
             link_to 'Alle User anzeigen', admin_users_path, class: 'btn-light'
           end
         end
+      
+        panel "Neue Crowdfunding Kampagnen" do
+          table_for CrowdCampaign.where(status: [:draft, :re_draft, :pending]).includes(:user).order(created_at: :desc).limit(5) do
+            column :id
+            #column :region
+            column('Start', sortable: :startdate) do |c|
+              I18n.localize(c.startdate, format: '%d.%m.%y') if c.startdate?
+            end
+            column("Status") do |c|
+              status_tag(c.status)
+            end
+            column :title do |c|
+              link_to c.title, admin_crowd_campaign_path(c)
+            end
+            column("Erstellt am") do |c|
+              c.created_at.strftime("%d.%m.%Y")
+            end
+          end
+          span do
+            link_to 'Zu den Kampagnen', admin_crowd_campaigns_path, class: 'btn-light'
+          end
+        end
       end
 
       column do

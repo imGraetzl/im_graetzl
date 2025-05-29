@@ -12,7 +12,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :confirmable, :masqueradable
 
   enum role: { admin: 0, beta: 1, superadmin: 2 }
-  enum trust_level: { default: 0, trusted: 1, verified: 2 }
+  enum trust_level: { not_trusted: -1, default: 0, trusted: 1, verified: 2 }
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
@@ -60,6 +60,7 @@ class User < ApplicationRecord
 
   has_many :user_message_thread_members
   has_many :user_message_threads, through: :user_message_thread_members
+  has_many :user_messages, dependent: :destroy
 
   has_many :wall_comments, as: :commentable, class_name: "Comment", dependent: :destroy
 
@@ -360,6 +361,15 @@ class User < ApplicationRecord
 
   def redeemed_coupons
     coupon_histories.where.not(redeemed_at: nil).map(&:coupon)
+  end
+
+  # Gibt die letzte Nachricht pro Thread innerhalb eines Zeitraums zurück
+  def recent_sent_messages_by_thread(limit_minutes: 45)
+    user_messages
+      .where("created_at >= ?", limit_minutes.minutes.ago)
+      .includes(:user_message_thread)
+      .group_by(&:user_message_thread_id)
+      .transform_values { |msgs| msgs.max_by(&:created_at) }
   end
 
   protected

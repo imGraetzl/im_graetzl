@@ -98,8 +98,15 @@ module CrowdCampaignsHelper
       [hours_left, 'Stunden']
     else
       # Gesamtdauer der Kampagne in Tagen
-      total_days = ((campaign.enddate - campaign.startdate) + 1).to_i
-      [total_days, "Tage"]
+      if campaign.startdate.present? && campaign.enddate.present?
+        startdate = campaign.startdate.to_date
+        enddate   = campaign.enddate.to_date
+
+        total_days = (enddate - startdate).to_i + 1
+        [total_days, "Tage"]
+      else
+        ["-", "Tage"]
+      end
     end
 
   end
