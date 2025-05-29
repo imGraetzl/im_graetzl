@@ -15,7 +15,7 @@
           <%= icon_tag "rocket" if room_offer.boosted? %>
         </div>
         <%= toggle_favorite_icon(room_offer) if current_user %>
-        <%= toggle_admin_icon(subject, notification) if local_assigns[:notification_admin] %>
+        <%= toggle_admin_icon(room_offer, notification: local_assigns[:notification]) if current_user&.admin? %>
       </div>
     <% end %>
   </div>

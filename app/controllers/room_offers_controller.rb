@@ -2,7 +2,7 @@ class RoomOffersController < ApplicationController
   before_action :authenticate_user!, except: [:show, :reactivate, :calculate_price, :available_hours]
 
   def show
-    @room_offer = RoomOffer.find(params[:id])
+    @room_offer = RoomOffer.includes(:images).find(params[:id])
     return if redirect_to_region?(@room_offer)
     @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
@@ -85,6 +85,8 @@ class RoomOffersController < ApplicationController
   end
 
   def available_hours
+    head :ok and return if browser.bot? && !request.format.js?
+    
     @room_offer = RoomOffer.find(params[:id])
     @availability = RoomRentalAvailability.new(@room_offer)
     render json: @availability.available_hours(params[:rent_date], params[:hour_from])

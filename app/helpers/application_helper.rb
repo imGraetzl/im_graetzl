@@ -51,33 +51,42 @@ module ApplicationHelper
       class: ["toggle-fav-ico #{options[:class]}", current_user&.has_favorite?(favoritable) ? '-faved' : '']
   end
 
-  def toggle_admin_icon(subject, notification, options = {})
+  def toggle_admin_icon(subject, notification: nil, options: {})
+    return "".html_safe unless current_user&.admin?
+
     link_to(icon_tag("gear"), 'javascript:',
       class: ["toggle-admin-ico #{options[:class]} jBoxTooltip"],
       data: { tooltip_id: "tt-admin_#{subject.class.name.underscore}_#{subject.id}" }
     ) +
     content_tag(:div, class: "jBoxHidden jBoxDropdown", id: "tt-admin_#{subject.class.name.underscore}_#{subject.id}") do
-      link_to(notification_destroy_notification_path(notification.id), 
-        method: :delete,
-        remote: true,
-        data: { confirm: "#{subject.class.model_name.human} aus den E-Mails löschen?" }) do
-        icon_tag("cross") +
-        content_tag(:div, "Aus E-Mails löschen", class: 'icontxt')
-      end +
-      link_to(messenger_start_thread_path(user_id: subject.user.id), target: "_blank") do
-        icon_tag("speech-bubbles") +
-        content_tag(:div, "Message an User", class: 'icontxt')
-      end +
-      link_to(subject_url(subject), target: "_blank") do
-        icon_tag("link") +
-        content_tag(:div, "#{subject.class.model_name.human} ansehen", class: 'icontxt')
-      end +
-      link_to(send("admin_#{subject.class.name.underscore.downcase}_path", subject), target: "_blank") do
-        icon_tag("link") +
-        content_tag(:div, "Im AdminTool ansehen", class: 'icontxt')
-      end
+      safe_join([
+        # Nur anzeigen, wenn notification vorhanden
+        (notification.present? ? link_to(notification_destroy_notification_path(notification.id),
+          method: :delete,
+          remote: true,
+          data: { confirm: "#{subject.class.model_name.human} aus den E-Mails löschen?" }) do
+            icon_tag("cross") +
+            content_tag(:div, "Aus E-Mails löschen", class: 'icontxt')
+          end : nil),
+
+        link_to(messenger_start_thread_path(user_id: subject.user.id), target: "_blank") do
+          icon_tag("speech-bubbles") +
+          content_tag(:div, "Message an User", class: 'icontxt')
+        end,
+
+        link_to(subject_url(subject), target: "_blank") do
+          icon_tag("link") +
+          content_tag(:div, "#{subject.class.model_name.human} ansehen", class: 'icontxt')
+        end,
+
+        link_to(send("admin_#{subject.class.name.underscore.downcase}_path", subject), target: "_blank") do
+          icon_tag("link") +
+          content_tag(:div, "Im AdminTool ansehen", class: 'icontxt')
+        end
+      ].compact)
     end
   end
+
 
   def messenger_button(user, options = {})
     link_to messenger_start_thread_path(user_id: user&.id),

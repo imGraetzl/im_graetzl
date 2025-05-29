@@ -1,23 +1,24 @@
-  <% @charges.each do |crowd_boost_charge| %>
-    <% if crowd_boost_charge.user %>
-      <div class="supporter cardBox">
-        <%= link_to crowd_boost_charge.user, rel: 'nofollow' do %>
-          <%= avatar_image_with_tooltip crowd_boost_charge.user, size: :thumb, class: 'img-round show-badge' %>
-        <% end %>
-        <div class="name">
-          <span><%= link_to crowd_boost_charge.contact_name, crowd_boost_charge.user, rel: 'nofollow' %></span><br>
-          <small><em>via  <%= charge_type(crowd_boost_charge) %></em></small><br>
-          <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
-        </div>
+<% @charges.each do |crowd_boost_charge| %>
+  <% user = crowd_boost_charge.user %>
+  <% if user %>
+    <div class="supporter cardBox">
+      <%= link_to user, rel: 'nofollow' do %>
+        <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round show-badge' %>
+      <% end %>
+      <div class="name">
+        <span><%= link_to crowd_boost_charge.contact_name, user, rel: 'nofollow' %></span><br>
+        <small><em>via  <%= charge_type(crowd_boost_charge) %></em></small><br>
+        <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
       </div>
-    <% else %>
-      <div class="supporter cardBox">
-        <%= avatar_image crowd_boost_charge.user, size: :thumb, class: 'img-round' %>
-        <div class="name">
-          <span><%= crowd_boost_charge.contact_name %></span><br>
-          <small><em>via  <%= charge_type(crowd_boost_charge) %></em></small><br>
-          <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
-        </div>
+    </div>
+  <% else %>
+    <div class="supporter cardBox">
+      <%= avatar_image user, size: :thumb, class: 'img-round' %>
+      <div class="name">
+        <span><%= crowd_boost_charge.contact_name %></span><br>
+        <small><em>via  <%= charge_type(crowd_boost_charge) %></em></small><br>
+        <small>vor <%= time_ago_in_words(crowd_boost_charge.created_at) %></small>
       </div>
-    <% end %>
+    </div>
   <% end %>
+<% end %>

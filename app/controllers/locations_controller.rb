@@ -18,8 +18,7 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.includes(
-      location_posts: [:images, :comments],
-      location_menus: [:images, :comments],
+      :images,
       comments: [:user, :images],
       zuckerls: [],
       crowd_campaigns: [],
@@ -32,9 +31,19 @@ class LocationsController < ApplicationController
     return if redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
-    @posts = @location.location_posts.order(id: :desc).limit(30)
-    @menus = @location.location_menus.order(id: :desc).limit(30)
+
+    @posts = LocationPost.includes(:images, comments: [:user, :images])
+              .where(location_id: @location.id)
+              .order(id: :desc)
+              .limit(30)
+
+    @menus = LocationMenu.includes(:images, comments: [:user, :images])
+              .where(location_id: @location.id)
+              .order(id: :desc)
+              .limit(30)
+
     @comments = @location.comments
+    
     @stream = (@posts + @menus + @comments).sort_by(&:created_at).reverse
 
     @zuckerls = @location.zuckerls.live
