@@ -4,32 +4,25 @@
 
   $('.notification-count').text(<%= @notifications_count %>);
 
+  <% rendered_notifications = @notifications.map { |notification|
+    subject       = notification.subject
+    model_name    = subject.class.name.underscore
+    variable_name = model_name.to_sym
+
+    render partial: "#{model_name.pluralize}/#{model_name}", locals: {
+      variable_name => subject,
+      notification: notification
+    }
+  }.join.html_safe %> 
+
   <% if params[:page].blank? %>
     <% if @notifications.empty? %>
       $cardContainer.html("<%= j render 'action_card' %>");
     <% else %>
-      $cardContainer.html("<%= j @notifications.map { |notification_data|
-        model_name = notification_data[:subject].class.name.underscore
-        render partial: "#{model_name.pluralize}/#{model_name}",
-        locals: { 
-          model_name.to_sym => notification_data[:subject], 
-          subject: notification_data[:subject],
-          notification: notification_data[:notification], 
-          notification_admin: true 
-        }
-      }.join.html_safe %>");
+      $cardContainer.html("<%= j rendered_notifications %>");
     <% end %>
   <% else %>
-    $cardContainer.append("<%= j @notifications.map { |notification_data|
-      model_name = notification_data[:subject].class.name.underscore
-      render partial: "#{model_name.pluralize}/#{model_name}",
-      locals: { 
-        model_name.to_sym => notification_data[:subject], 
-        subject: notification_data[:subject],
-        notification: notification_data[:notification], 
-        notification_admin: true 
-      }
-    }.join.html_safe %>");
+    $cardContainer.append("<%= j rendered_notifications %>");
   <% end %>
 
   <% if @notifications.next_page %>

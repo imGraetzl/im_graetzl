@@ -85,10 +85,16 @@ class NotificationsController < ApplicationController
       end
     end
     
-    @notifications_count = notifications.count
+    # 1. Duplikate entfernen (wie in notification_destroy)
+    distinct_notifications = notifications.uniq { |n| [n.subject_type, n.subject_id, n.type, n.child_type, n.child_id] }
 
-    @notifications = notifications.map { |n| { notification: n, subject: n.subject } }
-    @notifications = Kaminari.paginate_array(@notifications).page(params[:page]).per(params[:per_page] || 21)
+    # 2. Count basiert auf deduplizierten Notifications
+    @notifications_count = distinct_notifications.size
+
+    # 3. Pagination + direkte Übergabe an View
+    @notifications = Kaminari.paginate_array(distinct_notifications)
+      .page(params[:page])
+      .per(params[:per_page] || 21)
 
   end
 

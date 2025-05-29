@@ -17,7 +17,7 @@
     <div class="categoryicon">
       <%= icon_tag "tacker", class: 'fav-exchange' %>
       <%= toggle_favorite_icon(tool_offer) if current_user %>
-      <%= toggle_admin_icon(subject, notification) if local_assigns[:notification_admin] %>
+      <%= toggle_admin_icon(tool_offer, notification: local_assigns[:notification]) if current_user&.admin? %>
     </div>
     <%= graetzl_flag(graetzl) if graetzl %>
   </div>
