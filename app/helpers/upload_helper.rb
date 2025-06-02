@@ -51,7 +51,15 @@ module UploadHelper
   def uploaded_images_edit(f, field_name, disabled:false)
     f.fields_for(field_name) do |ff|
       content_tag(:div, class: 'upload-preview') do
-        concat image_tag(ff.object.file.url, class: 'upload-preview-image')
+
+        image_url =
+          if ff.object.respond_to?(:file_url) && ff.object.respond_to?(:file)
+            ff.object.file_url(:thumb) || ff.object.file_url
+          else
+            nil
+          end
+
+        concat image_tag(image_url, class: 'upload-preview-image')
         concat ff.hidden_field(:file, value: ff.object.cached_file_data) if ff.object.new_record?
         concat(content_tag(:div, class: 'input-checkbox') do
           ff.check_box(:"_destroy", class: 'deleteCheckbox', disabled: disabled) +
