@@ -37,10 +37,19 @@ module UploadHelper
     end
   end
 
-  def uploaded_image_edit(f, field_name, disabled:false)
-    return if !f.object.public_send(field_name)
+  def uploaded_image_edit(f, field_name, disabled: false)
+    return unless f.object.public_send(field_name)
+
+    thumb_url =
+    if field_name.to_sym == :cover_photo
+      f.object.try("#{field_name}_url", :header, :large)
+    else
+      f.object.try("#{field_name}_url", :thumb)
+    end || f.object.public_send(field_name)&.url
+
+
     content_tag(:div, class: 'upload-preview') do
-      concat image_tag(f.object.public_send(field_name).url, class: 'upload-preview-image')
+      concat image_tag(thumb_url, class: 'upload-preview-image') if thumb_url
       concat(content_tag(:div, class: 'input-checkbox') do
         f.check_box(:"remove_#{field_name}", class: 'deleteCheckbox', disabled: disabled) +
         f.label(:"remove_#{field_name}", 'Löschen')
@@ -52,14 +61,14 @@ module UploadHelper
     f.fields_for(field_name) do |ff|
       content_tag(:div, class: 'upload-preview') do
 
-        image_url =
+        thumb_url =
           if ff.object.respond_to?(:file_url) && ff.object.respond_to?(:file)
             ff.object.file_url(:thumb) || ff.object.file_url
           else
             nil
           end
 
-        concat image_tag(image_url, class: 'upload-preview-image')
+        concat image_tag(thumb_url, class: 'upload-preview-image')
         concat ff.hidden_field(:file, value: ff.object.cached_file_data) if ff.object.new_record?
         concat(content_tag(:div, class: 'input-checkbox') do
           ff.check_box(:"_destroy", class: 'deleteCheckbox', disabled: disabled) +
