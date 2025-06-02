@@ -24,7 +24,7 @@ APP.components.favorites = (function() {
         showElement($(this));
       } else {
         $(this).data('previewed', false);
-        hideElement($(this));
+        //hideElement($(this));
       }
     });
 

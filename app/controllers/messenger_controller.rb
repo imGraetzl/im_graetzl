@@ -8,22 +8,39 @@ class MessengerController < ApplicationController
 
   def start_thread
 
-    if !current_user.trust_level_at_least?(:trusted) && current_user.user_message_threads.where(created_at: 45.minutes.ago..Time.current).count >= 15
-      # Spam Filter
-      AdminMailer.messenger_spam_alert(current_user).deliver_later
-      redirect_to root_path, notice: 'Du hast in kurzer Zeit viele Messenger-Unterhaltungen gestartet. Bitte warte etwas ab, bevor du weitere starten kannst.' and return
-    elsif params[:room_rental_id].present?
-      room_rental = RoomRental.find(params[:room_rental_id])
-      thread = UserMessageThread.create_for_room_rental(room_rental)
-    elsif params[:tool_rental_id].present?
-      tool_rental = ToolRental.find(params[:tool_rental_id])
-      thread = UserMessageThread.create_for_tool_rental(tool_rental)
-    elsif params[:user_id].present? && params[:user_id] != current_user.id
-      user = User.find(params[:user_id])
-      thread = UserMessageThread.create_general(current_user, user)
-    else
-      redirect_to root_path, notice: 'No thread found.' and return
+    # 1. Kein Zugriff für not_trusted
+    if current_user.not_trusted?
+      Rails.logger.warn "[Messenger Blocked] User #{current_user.id} (#{current_user.email}) wurde wegen trust_level=:not_trusted blockiert."
+      redirect_to root_path, notice: 'Du kannst den Messenger derzeit nicht verwenden.' and return
     end
+
+    # 2. Nur Spam-Check für Nutzer unter trusted-Level
+    unless current_user.trust_level_at_least?(:trusted)
+      recent_messages = current_user.recent_sent_messages_by_thread
+
+      if recent_messages.size >= 20
+        Rails.logger.warn "[Messenger Blocked Spam] User #{current_user.id} hat #{recent_messages.size} Threads gestartet."
+        redirect_to root_path, notice: "Du hast sehr viele Messenger-Konversationen in kurzer Zeit gestartet. Bitte warte etwas." and return
+      elsif recent_messages.size == 10
+        Rails.logger.info "[Messenger Blocked Warning] User #{current_user.id} hat #{recent_messages.size} Threads erreicht."
+        AdminMailer.messenger_spam_alert(current_user, recent_messages.values).deliver_later
+      end
+    end
+
+    # 3. Thread-Erstellung
+    thread =
+      if params[:room_rental_id].present?
+        room_rental = RoomRental.find(params[:room_rental_id])
+        UserMessageThread.create_for_room_rental(room_rental)
+      elsif params[:tool_rental_id].present?
+        tool_rental = ToolRental.find(params[:tool_rental_id])
+        UserMessageThread.create_for_tool_rental(tool_rental)
+      elsif params[:user_id].present? && params[:user_id] != current_user.id
+        user = User.find(params[:user_id])
+        UserMessageThread.create_general(current_user, user)
+      else
+        redirect_to root_path, notice: 'Kein gültiger Messenger-Thread gefunden.' and return
+      end
 
     redirect_to messenger_url(thread_id: thread.id)
   end

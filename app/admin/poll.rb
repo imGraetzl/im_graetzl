@@ -23,7 +23,7 @@ ActiveAdmin.register Poll do
   form partial: 'form'
 
   permit_params :status, :poll_type, :title, :description, :region_id, :closed,
-    :cover_photo, :remove_cover_photo, :user_id, :public_result,
+    :cover_photo, :remove_cover_photo, :user_id, :public_result, :comments_enabled,
     graetzl_ids: [],
     poll_questions_attributes: [
       :id, :option_type, :required, :title, :description, :main_question, :position, :_destroy,

@@ -82,9 +82,10 @@ class AdminMailer < ApplicationMailer
     )
   end
 
-  def messenger_spam_alert(user)
+  def messenger_spam_alert(user, messages)
     @user = user
     @region = @user.region
+    @messages = messages.sort_by(&:created_at).reverse
 
     mail(
       subject: "[#{@region.host_domain_name}] Messenger Spam Alert - Check User: #{@user.username}",

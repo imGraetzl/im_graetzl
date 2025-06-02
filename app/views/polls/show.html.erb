@@ -53,7 +53,7 @@
 
   <div class="entryDescription">
     <%= render 'form', poll_user: PollUser.new if @poll.open? %>
-    <% if @poll.public_result? %>
+    <% if @poll.public_result? || current_user&.admin? %>
       <%= render 'result' %>
     <% end %>
   </div>
@@ -67,12 +67,12 @@
     <% end %>
   </div>
 
-
-  <div class="stream">
-    <h2 class="hl-main">Beiträge zum Thema</h2>
-    <%= render 'comments/form', commentable: @poll %>
-    <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
-  </div>
-
+  <% if @poll.comments_enabled? %>
+    <div class="stream">
+      <h2 class="hl-main">Beiträge zum Thema</h2>
+      <%= render 'comments/form', commentable: @poll %>
+      <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+    </div>
+  <% end %>
 
 </section>

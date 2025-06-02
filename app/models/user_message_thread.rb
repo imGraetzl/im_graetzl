@@ -1,7 +1,7 @@
 class UserMessageThread < ApplicationRecord
-  has_many :user_message_thread_members
+  has_many :user_message_thread_members, dependent: :destroy
   has_many :users, through: :user_message_thread_members
-  has_many :user_messages
+  has_many :user_messages, dependent: :destroy
 
   belongs_to :tool_rental, optional: true
   belongs_to :room_rental, optional: true
