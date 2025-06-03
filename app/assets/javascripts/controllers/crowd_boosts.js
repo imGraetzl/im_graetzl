@@ -2,6 +2,7 @@ APP.controllers.crowd_boosts = (function() {
 
     function init() {
         if ($("section.crowd_boost").exists()) initCrowdBoost();
+        if ($("section.crowd_boost .new_contact_list_entry").exists()) initForm();
         if ($("section.boost_call").exists()) initCrowdHotAugust();
     }
 
@@ -18,6 +19,14 @@ APP.controllers.crowd_boosts = (function() {
         }
       }).trigger('_after');
 
+    }
+
+    function initForm() {
+        if($("#error_explanation").exists()) {
+          $('html, body').animate({
+            scrollTop: $('#error_explanation').offset().top
+          }, 600);
+        }
     }
 
     function initCrowdHotAugust() {

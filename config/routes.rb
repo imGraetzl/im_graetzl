@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get  '/viertelfonds' => redirect('https://graz.welocally.at/leerstand') # Graz
 
   get  '/leerstand', to: 'crowd_boosts#leerstand', as: :leerstand
-  post '/leerstand', to: 'contact_list_entries#crowd2raum_create'
+  post '/leerstand', to: 'crowd_boosts#call_create'
 
   get 'andocken' => redirect('/') #=> 'region_calls#call'
   post 'andocken' => 'region_calls#create'

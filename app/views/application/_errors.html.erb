@@ -1,7 +1,7 @@
 <div id="error_explanation">
   <p class="title">
     <strong><%= name %> konnte nicht gespeichert werden!</strong>
-    <br><%= target.errors.count %> Fehler:
+    <div class="error_count"><%= target.errors.count %> Fehler:</div>
   </p>
   <ul>
     <% target.errors.full_messages.each do |message| %>
