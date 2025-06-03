@@ -12,7 +12,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :confirmable, :masqueradable
 
   enum role: { admin: 0, beta: 1, superadmin: 2 }
-  enum trust_level: { not_trusted: -1, default: 0, trusted: 1, verified: 2 }
+  enum trust_level: { untrusted: -1, default: 0, trusted: 1, verified: 2 }
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
