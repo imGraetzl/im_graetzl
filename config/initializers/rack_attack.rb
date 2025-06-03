@@ -1,3 +1,5 @@
+require 'set'
+
 class Rack::Attack
 
   Rack::Attack.blocklisted_responder = lambda do |req|
@@ -19,12 +21,9 @@ class Rack::Attack
   end
 
   # **BLOCKLIST: Bestimmte IP-Adressen**
+  BLOCKED_IP_SET = Set.new((ENV['BLOCKED_IPS'] || '').split(',').map(&:strip))
   blocklist('block specific IPs') do |req|
-    %w[
-      103.121.39.54
-      185.208.8.76
-      139.59.245.198
-    ].include?(req.ip)
+    BLOCKED_IP_SET.include?(req.ip)
   end
 
   blocklist('block confirmed SQLi/XSS patterns') do |req|

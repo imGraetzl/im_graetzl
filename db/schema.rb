@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_29_160838) do
+ActiveRecord::Schema.define(version: 2025_06_03_091629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -136,6 +136,9 @@ ActiveRecord::Schema.define(version: 2025_05_29_160838) do
     t.string "via_path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "message"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_contact_list_entries_on_user_id"
   end
 
   create_table "contacts", id: :serial, force: :cascade do |t|
@@ -1824,6 +1827,7 @@ ActiveRecord::Schema.define(version: 2025_05_29_160838) do
   add_foreign_key "billing_addresses", "users", on_delete: :nullify
   add_foreign_key "business_interests_users", "business_interests", on_delete: :cascade
   add_foreign_key "business_interests_users", "users", on_delete: :cascade
+  add_foreign_key "contact_list_entries", "users"
   add_foreign_key "coop_demand_graetzls", "coop_demands", on_delete: :cascade
   add_foreign_key "coop_demand_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "coop_demands", "coop_demand_categories", on_delete: :nullify

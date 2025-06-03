@@ -51,6 +51,10 @@
        <td class="mcnTextContent"><%= @contact_list_entry.via_path %></td>
      </tr>
      <tr>
+      <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic; vertical-align:top;">Nachicht:</td>
+      <td class="mcnTextContent"><%= @contact_list_entry.message.truncate(10000, separator: ' ').gsub("\r\n", "<br/>").html_safe %></td>
+     </tr>
+     <tr>
        <td colspan="2">
          <%= render 'mailers/shared/button', title: "Zum Kontakt", url: admin_contact_list_entry_url(@contact_list_entry) %>
        </td>

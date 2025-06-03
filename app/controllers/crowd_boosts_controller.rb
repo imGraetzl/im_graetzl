@@ -1,6 +1,6 @@
 class CrowdBoostsController < ApplicationController
   layout :set_layout
-  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns, :call, :leerstand]
+  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns, :call, :call_create, :leerstand]
 
   def index
     if current_region
@@ -47,6 +47,7 @@ class CrowdBoostsController < ApplicationController
 
       case region_id
       when 'graz'
+        @contact_list_entry = ContactListEntry.new
         render :call_graz
       else
         render :show
@@ -83,7 +84,37 @@ class CrowdBoostsController < ApplicationController
     @campaigns = @crowd_boost.crowd_campaigns.boost_initialized.by_currentness
   end
 
+  def call_create
+    region_id = current_region&.id
+    leerstand_id = leerstand_ids[region_id]
+    @crowd_boost = CrowdBoost.find_by(id: leerstand_id)
+    @next_slot = @crowd_boost.next_slot(current_region)
+    @campaign_count = @crowd_boost.crowd_campaigns.boost_initialized.count
+    @charge_count = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count
+
+    @contact_list_entry = ContactListEntry.new(contact_list_entries_params)
+    @contact_list_entry.region_id = current_region.id
+    @contact_list_entry.via_path = request.path
+    @contact_list_entry.user_id = current_user&.id
+    if @contact_list_entry.save
+      redirect_to params[:redirect_path], notice: "Vielen Dank für deine Einreichung! Wir melden uns in Kürze!"
+      # MarketingMailer.contact_list_entry(@contact_list_entry).deliver_later
+      AdminMailer.new_contact_list_entry(@contact_list_entry).deliver_later
+    else
+      render params[:fallback_view]
+    end
+  end
+
   private
+
+  def contact_list_entries_params
+    params.require(:contact_list_entry).permit(
+      :region_id,
+      :name,
+      :email,
+      :message
+    )
+  end
 
   def leerstand_ids
     @leerstand_ids ||= Region.all.each_with_object({}) do |region, hash|

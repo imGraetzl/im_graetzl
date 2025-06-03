@@ -185,13 +185,24 @@ section.crowd_boost {
     p, ul {
       @include font-size-primaryFont('large');
     }
-    ul {
-      @extend .list-num;
-    }
     .btn-primary {
       width: fit-content;
       margin: auto;
       margin-top:20px;
+    }
+    .new_contact_list_entry {
+      #error_explanation .error_count {
+        display: none;
+      }
+      label {min-width: 185px;}
+    }
+    .hint {
+      padding-top:10px;
+      border-top: 1px solid $color-ambient-mint-light;
+      margin-top:20px;
+      @include font-size-primaryFont('small');
+      font-style: italic;
+      color: $color-ambient-grey-dark;
     }
   }
 

@@ -56,7 +56,9 @@
         <p>Vom 14. Mai bis zum 30. September 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen - Mach mit, so funktionierts:</p>
       </div>
       <div class="content-wide-text">
-        <ul>
+
+        <!--
+        <ul class="list-num">
           <li>Erstelle <strong>deinen Account</strong> auf WeLocally - <strong><%= link_to 'Hier gehts zur Registrierung.', new_registration_path, target: '_blank' %></strong></li>
           <li>Erstelle anschließend eingeloggt eine neue Crowdfunding Kampagne und wähle innerhalb des Formulars deine <strong>Teilnahme am "Viertelfonds"</strong> aus. Beschreibe dein Vorhaben und fülle alle Kampagnenfelder bis zur letzten Seite vollständig aus und schicke deine Kampagne zur Freigabe ab. <strong><%= link_to 'Hier gehts zum Kampagnen-Start.', start_crowd_campaigns_path %></strong></li>
           <li><strong>Wir melden uns zeitnah</strong> und laden euch zu einer individuellen Crowdfunding-Beratung ein, damit euer Projekt die bestmöglichen Chancen auf ein erfolgreiches Crowdfunding erhält.</li>
@@ -66,6 +68,49 @@
         <% else %>
           <%= link_to "Los geht's - Zur Registrierung", new_registration_path, class: 'btn-primary -large -rose -shadow' %>
         <% end %>
+        -->
+
+        <ul class="list-num">
+          <li><strong>Erzähl uns in 1–2 Sätzen von deinem Vorhaben</strong> und fülle dazu bitte das anschließende Formular aus.</li>
+          <li><strong>Wir melden uns zeitnah</strong> und laden euch zu einer individuellen Crowdfunding-Beratung ein, damit euer Projekt die bestmöglichen Chancen auf ein erfolgreiches Crowdfunding erhält.</li>
+        </ul>
+
+        <%= form_for @contact_list_entry, url: url_for do |f| %>
+          <%= form_errors_for @contact_list_entry if @contact_list_entry %>
+          <%= hidden_field_tag :redirect_path, '/leerstand' %>
+          <%= hidden_field_tag :fallback_view, 'crowd_boosts/call_graz' %>
+
+          <div class="form-block cardBox">
+            <div class="input-field">
+              <%= f.label :name do %>
+                <%= icon_tag "user-avatar" %>
+                <span>Name</span>
+              <% end %>
+              <%= f.text_field :name, placeholder: 'Vorname Nachname', required: true %>
+            </div>
+            <div class="input-field">
+              <%= f.label :email do %>
+                <%= icon_tag "at-symbol" %>
+                <span>E-Mail</span>
+              <% end %>
+              <%= f.text_field :email, placeholder: 'E-Mail Adresse', required: true %>
+            </div>
+            <div class="input-textarea">
+              <%= f.label :message do %>
+                <%= icon_tag "layout-document" %>
+                <span>Dein Vohaben</span>
+              <% end %>
+              <%= f.text_area :message, placeholder: 'Beschreibe dein Vorhaben in 1-2 Sätzen ..', required: true %>
+            </div>
+            <%= submit_tag "Mein Vorhaben absenden", class: 'btn-primary -rose -large -shadow' %>
+            <p class="hint">
+              Wir verwenden die E-Mail-Adresse ausschließlich zur Vorbereitung der Fördereinreichung. Deine E-Mail-Adresse wird nicht an Dritte weitergegeben und ausschließlich im Rahmen dieses Prozesses genutzt.
+            </p>
+          </div>
+        <% end %>
+
+        
+
       </div>
     </div>
   </div>
