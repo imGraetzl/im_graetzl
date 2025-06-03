@@ -98,7 +98,7 @@ class CrowdBoostsController < ApplicationController
     @contact_list_entry.user_id = current_user&.id
     if @contact_list_entry.save
       redirect_to params[:redirect_path], notice: "Vielen Dank für deine Einreichung! Wir melden uns in Kürze!"
-      # MarketingMailer.contact_list_entry(@contact_list_entry).deliver_later
+      MarketingMailer.contact_list_entry(@contact_list_entry).deliver_later
       AdminMailer.new_contact_list_entry(@contact_list_entry).deliver_later
     else
       render params[:fallback_view]
