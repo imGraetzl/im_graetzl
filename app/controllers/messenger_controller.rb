@@ -8,9 +8,9 @@ class MessengerController < ApplicationController
 
   def start_thread
 
-    # 1. Kein Zugriff für not_trusted
-    if current_user.not_trusted?
-      Rails.logger.warn "[Messenger Blocked] User #{current_user.id} (#{current_user.email}) wurde wegen trust_level=:not_trusted blockiert."
+    # 1. Kein Zugriff für untrusted
+    if current_user.untrusted?
+      Rails.logger.warn "[Messenger Blocked] User #{current_user.id} (#{current_user.email}) wurde wegen trust_level=:untrusted blockiert."
       redirect_to root_path, notice: 'Du kannst den Messenger derzeit nicht verwenden.' and return
     end
 
