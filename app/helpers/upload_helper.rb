@@ -49,7 +49,7 @@ module UploadHelper
 
 
     content_tag(:div, class: 'upload-preview') do
-      concat image_tag(thumb_url, class: 'upload-preview-image') if thumb_url
+      concat image_tag(thumb_url, class: 'upload-preview-image', loading: 'lazy') if thumb_url
       concat(content_tag(:div, class: 'input-checkbox') do
         f.check_box(:"remove_#{field_name}", class: 'deleteCheckbox', disabled: disabled) +
         f.label(:"remove_#{field_name}", 'Löschen')
@@ -68,7 +68,7 @@ module UploadHelper
             nil
           end
 
-        concat image_tag(thumb_url, class: 'upload-preview-image')
+        concat image_tag(thumb_url, class: 'upload-preview-image', loading: 'lazy')
         concat ff.hidden_field(:file, value: ff.object.cached_file_data) if ff.object.new_record?
         concat(content_tag(:div, class: 'input-checkbox') do
           ff.check_box(:"_destroy", class: 'deleteCheckbox', disabled: disabled) +
