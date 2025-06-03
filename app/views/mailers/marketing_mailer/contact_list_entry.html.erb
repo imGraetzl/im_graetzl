@@ -6,20 +6,20 @@
           Servus <%= @contact_list_entry.name %>,
         </p>
         <p>
-          schön, dass dich der Call zur Aktivierung von Leerstand interessiert, und wir begleiten dich gerne dabei! Damit wir dein Vorhaben besser greifen können, wäre es super, wenn du uns kurz 2-3 Sätze zu der folgenden Frage schreibst:
+          schön, dass dich der Call zur Aktivierung von Leerstand interessiert, und wir begleiten dich gerne dabei! Noch eine Frage:
         </p>
         <p>
-          <strong>Welche Tätigkeit übst du aus, und wofür benötigst du Raum? Welche Idee möchtest du umsetzen?</strong>
+          <strong>Hast du schon einen konkreten Leerstand in Sicht oder bereits angemietet? Oder bist du auf der Suche?</strong>
         </p>
         <p>
-          Das ist gleichzeitig auch ein erster Schritt in Richtung deiner Fördereinreichung. Sobald wir deine Antwort haben, melden wir uns mit einem Terminvorschlag bei dir.
+          Sobald wir deine Antwort haben, melden wir uns mit einem Terminvorschlag bei dir, um über die nächsten Schritte zu sprechen.
         </p>
         <p>
           Schicke deine Antwort per Mail an: <%= mail_to t("region.#{@region.id}.contact_email"), nil %>
         </p>
         <p>
           Liebe Grüße,<br>
-          Mirjam vom imGrätzl-Team
+          Mirjam vom <%= t("region.#{@region.id}.domain_short") %>-Team
         </p>
       </td>
     </tr>
