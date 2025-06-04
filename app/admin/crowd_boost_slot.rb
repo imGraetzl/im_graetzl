@@ -6,7 +6,7 @@ ActiveAdmin.register CrowdBoostSlot do
   actions :all
 
   scope :all, default: true
-  scope :open
+  scope :currently_open
   scope :active
   scope :expired
 
