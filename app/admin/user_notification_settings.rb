@@ -5,8 +5,6 @@ ActiveAdmin.register User, as: "User Notification Settings" do
   #config.filters = false
 
   scope :all, default: true
-  scope :business
-  scope :admin
 
   filter :id, label: 'User', as: :select, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
 

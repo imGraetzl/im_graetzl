@@ -79,7 +79,7 @@ module CrowdCampaignsHelper
     if campaign&.boost_status? && campaign&.crowd_boost_slot_id
       CrowdBoostSlot.where(id: campaign&.crowd_boost_slot_id).map{|g| [g.title, g.id]}
     else
-      CrowdBoostSlot.in(current_region).open.map{|g| [g.title, g.id]}
+      CrowdBoostSlot.in(current_region).currently_open.map{|g| [g.title, g.id]}
     end
   end
 

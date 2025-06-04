@@ -40,7 +40,7 @@
           <% end %>
         </ul>
 
-      <% elsif @subscription&.past_due? && @subscription.subscription_invoices.open.any? %>
+      <% elsif @subscription&.past_due? && @subscription.subscription_invoices.unpaid.any? %>
 
         <p>
           Für die aktuelle Laufzeit deiner Mitgliedschaft (<%= I18n.localize(@subscription.current_period_start, format:'%d. %b %Y') %> - <%= I18n.localize(@subscription.current_period_end, format:'%d. %b %Y') %>) liegt eine offene Rechnung vor, da deine hinterlegte Zahlungsmethode nicht belastet werden konnte. 

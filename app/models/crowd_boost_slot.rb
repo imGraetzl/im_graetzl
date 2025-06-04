@@ -6,7 +6,7 @@ class CrowdBoostSlot < ApplicationRecord
   has_many :crowd_boost_slot_graetzls
   has_many :graetzls, through: :crowd_boost_slot_graetzls
 
-  scope :open, -> { where("starts_at <= ?", Date.today).where("ends_at >= ?", Date.today).order(:starts_at) }
+  scope :currently_open, -> { where("starts_at <= ?", Date.today).where("ends_at >= ?", Date.today).order(:starts_at) }
   scope :active, -> { where("ends_at >= ?", Date.today).order(:ends_at) }
   scope :expired, -> { where("ends_at < ?", Date.today).order(:ends_at) }
 
