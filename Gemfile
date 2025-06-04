@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 ruby '3.2.8'
 
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 6.1.7.10'
 gem 'puma'
-gem 'puma_worker_killer'
+gem 'puma_worker_killer', '~> 1.0'
 gem 'pg'
-gem 'activerecord-postgis-adapter'
+gem 'activerecord-postgis-adapter', '~> 7.1'
 gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
@@ -20,11 +20,11 @@ gem 'net-imap', require: false
 gem 'net-pop', require: false
 
 gem 'rack-attack'
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors', '~> 2.0', require: 'rack/cors'
 gem 'rack-rewrite'
 
 gem 'aasm'
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '~> 10.0'
 gem 'browser'
 gem 'cocoon'
 gem 'devise'
@@ -80,7 +80,7 @@ group :development, :test do
   gem 'listen'
   # Helpers don't work if required, https://github.com/rspec/rspec-rails/issues/1525
   gem 'rails-controller-testing', require: false
-  gem 'rspec-rails'
+  gem 'rspec-rails', '< 7.0'
   gem 'factory_bot_rails'
   gem 'dotenv-rails'
   #gem 'guard-livereload'
