@@ -47,9 +47,17 @@ module ImGraetzl
     # gzip compression
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
 
-    if ENV["SKYLIGHT_ENABLED"] == "true"
+    # if ENV["SKYLIGHT_ENABLED"] == "true"
+    #  config.skylight.environments << Rails.env
+    #  config.skylight.probes << 'delayed_job'
+    # end
+
+    if ENV["SKYLIGHT_ENABLED"] == "true" && ENV["DYNO"]&.start_with?("worker")
       config.skylight.environments << Rails.env
       config.skylight.probes << 'delayed_job'
+      Rails.logger.info "[Skylight] Initialized for worker dyno: #{ENV['DYNO']}"
+    else
+      Rails.logger.info "[Skylight] Skipped – not worker dyno or disabled via ENV."
     end
 
   end
