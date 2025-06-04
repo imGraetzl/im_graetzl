@@ -4,7 +4,7 @@ ActiveAdmin.register SubscriptionInvoice do
 
   scope :all, default: true
   scope :paid
-  scope :open
+  scope :unpaid
   scope :free
   scope :refunded
   scope :uncollectible
