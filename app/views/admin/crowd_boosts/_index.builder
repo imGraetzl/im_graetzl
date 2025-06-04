@@ -11,7 +11,7 @@ context.instance_eval do
   column(:status){|b| status_tag(b.status)}
   #column('Chargeable'){|b| status_tag(b.chargeable_status)}
   #column(:active_slots){|b| b.crowd_boost_slots.active.count}
-  #column(:open_slots){|b| b.crowd_boost_slots.open.count}
+  #column(:open_slots){|b| b.crowd_boost_slots.currently_open.count}
   column(:round_up){|b| b.pledge_charge}
   column :title
   column :balance

@@ -5,7 +5,7 @@ ActiveAdmin.register User do
 
   scope :registered, default: true
   scope :guests
-  scope :admin
+  scope :admins
   scope :beta
   scope :trusted
   Region.all.each do |region|

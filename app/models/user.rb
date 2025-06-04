@@ -107,7 +107,7 @@ class User < ApplicationRecord
   before_destroy :convert_to_guest?
   before_destroy :log_user_deletion
 
-  scope :admin, -> { where(role: [:admin, :superadmin]) }
+  scope :admins, -> { where(role: [:admin, :superadmin]) }
   scope :business, -> { where(business: true) }
   scope :guests, -> { where(guest: true) }
   scope :registered, -> { where(guest: false) }

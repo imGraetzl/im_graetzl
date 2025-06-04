@@ -53,9 +53,9 @@ class CrowdBoost < ApplicationRecord
 
   def open_slot(region = nil)
     if region
-      crowd_boost_slots.in(region).open.first
+      crowd_boost_slots.in(region).currently_open.first
     else
-      crowd_boost_slots.open.first
+      crowd_boost_slots.currently_open.first
     end
   end
 
