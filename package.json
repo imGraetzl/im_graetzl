@@ -1,5 +1,12 @@
 {
-  "engines": { 
-    "node": "20.x" 
-  }
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
+  "scripts": {
+    "heroku-postbuild": "echo 'No postbuild step defined'"
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ]
 }
