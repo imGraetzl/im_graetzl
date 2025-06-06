@@ -47,8 +47,7 @@ module ImGraetzl
     # gzip compression
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
 
-    # if ENV["SKYLIGHT_ENABLED"] == "true"
-    if ENV["SKYLIGHT_ENABLED"] == "true" && ENV["DYNO"]&.start_with?("worker")
+    if ENV["SKYLIGHT_ENABLED"] == "true"
       config.skylight.environments << Rails.env
       config.skylight.probes << 'delayed_job'
     end

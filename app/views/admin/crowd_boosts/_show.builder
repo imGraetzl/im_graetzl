@@ -19,7 +19,6 @@ context.instance_eval do
           row :title
           row :slogan
           row :description
-          row :charge_description
           row :avatar do |l|
             l.avatar && image_tag(l.avatar_url(:thumb))
           end

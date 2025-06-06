@@ -34,6 +34,9 @@ class PollQuestion < ApplicationRecord
     ['free_answer_public_comment'].include?(option_type)
   end
 
+  def unique_voter_count
+    poll_user_answers.select(:poll_user_id).distinct.count
+  end
 
   private
 

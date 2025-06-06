@@ -22,21 +22,12 @@ class PollOption < ApplicationRecord
   end
   
   def percentage
-    total_votes = poll_question.poll_options.sum(:votes_count)
-    return 0 if total_votes.zero?
+    total_unique_voters = poll_question.unique_voter_count
+    return 0 if total_unique_voters.zero?
 
-    (votes_count.to_f / total_votes * 100).round
+    ((votes_count.to_f / total_unique_voters) * 100).round
   end
 
-  #def percentage
-  #  if self.poll_question.votes_count > 0
-  #    (self.votes_count * 100 / self.poll_question.poll_users.count * 100) / 100
-  #  else
-  #    0
-  #  end
-  #end
-
   private
-
 
 end

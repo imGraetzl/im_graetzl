@@ -1,6 +1,6 @@
 class CrowdBoostsController < ApplicationController
   layout :set_layout
-  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns, :call, :call_create, :leerstand]
+  before_action :authenticate_user!, except: [:show, :index, :charges, :campaigns, :submit_contact_list_entry, :leerstand]
 
   def index
     if current_region
@@ -66,14 +66,6 @@ class CrowdBoostsController < ApplicationController
     end
   end
 
-  def call
-    @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
-    @next_slot = @crowd_boost.next_slot(current_region)
-    if current_region.is?('graz')
-      render 'call_graz'
-    end
-  end
-
   def charges
     @crowd_boost = CrowdBoost.in(current_region).find(params[:id])
     @charges = @crowd_boost.crowd_boost_charges.includes(:user).debited_without_crowd_pledges.order(created_at: :desc)
@@ -84,7 +76,7 @@ class CrowdBoostsController < ApplicationController
     @campaigns = @crowd_boost.crowd_campaigns.boost_initialized.by_currentness
   end
 
-  def call_create
+  def submit_contact_list_entry
     region_id = current_region&.id
     leerstand_id = leerstand_ids[region_id]
     @crowd_boost = CrowdBoost.find_by(id: leerstand_id)

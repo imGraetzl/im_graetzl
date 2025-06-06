@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get  '/viertelfonds' => redirect('https://graz.welocally.at/leerstand') # Graz
 
   get  '/leerstand', to: 'crowd_boosts#leerstand', as: :leerstand
-  post '/leerstand', to: 'crowd_boosts#call_create'
+  post '/leerstand', to: 'crowd_boosts#submit_contact_list_entry'
 
   get 'andocken' => redirect('/') #=> 'region_calls#call'
   post 'andocken' => 'region_calls#create'
@@ -321,7 +321,6 @@ Rails.application.routes.draw do
   resources :crowd_boosts, only: [:index, :show], path: 'crowdfunding-booster' do
     get 'charges', on: :member
     get 'campaigns', on: :member
-    get 'call', on: :member
     resources :crowd_boost_charges, only: [:new, :create], path: 'charge' do
       get 'login', on: :collection
       get 'choose_region', on: :collection

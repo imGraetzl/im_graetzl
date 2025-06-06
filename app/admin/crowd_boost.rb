@@ -11,7 +11,7 @@ ActiveAdmin.register CrowdBoost do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :status, :pledge_charge, :slug, :title, :slogan, :description, :avatar, :remove_avatar, :chargeable_status, :charge_description, :region_ids => []
+  permit_params :status, :pledge_charge, :slug, :title, :slogan, :description, :avatar, :remove_avatar, :chargeable_status, :region_ids => []
 
   controller do
     def apply_pagination(chain)
