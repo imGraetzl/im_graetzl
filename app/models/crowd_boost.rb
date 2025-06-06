@@ -10,7 +10,7 @@ class CrowdBoost < ApplicationRecord
   has_many :crowd_campaigns, through: :crowd_boost_slots
 
   enum status: { enabled: 0, disabled: 1 }
-  string_enum chargeable_status: ["charge_enabled", "charge_call"]
+  string_enum chargeable_status: ["charge_enabled"]
 
   before_save :remove_blank_region_ids
   before_destroy :can_destroy?
@@ -19,7 +19,7 @@ class CrowdBoost < ApplicationRecord
   scope :pledge_charge, -> { where(pledge_charge: true) }
 
   def chargeable?
-    charge_enabled? || charge_call?
+    charge_enabled?
   end
 
   def balance

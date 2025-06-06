@@ -74,9 +74,6 @@
         <% if @crowd_boost.description.present? %>
           <div class="bbcode"><%= @crowd_boost.description.bbcode_to_html.html_safe %></div>
         <% end %>
-        <% if @crowd_boost.charge_description.present? %>
-          <div class="bbcode"><%= @crowd_boost.charge_description.bbcode_to_html.html_safe %></div>
-        <% end %>
 
       <% end %>
 
@@ -129,9 +126,11 @@
     </div>
     <% if @crowd_boost.chargeable? %>
       <div id="tab-charges" class="wrp-inner charges">
-        <% if @crowd_boost.charge_call? %>
+        <!--
+        <% if @crowd_boost.chargeable? %>
           <div class="payline">Du möchtest auch etwas beitragen? <%= link_to "Hier kannst du in den Topf einzahlen", call_crowd_boost_path(@crowd_boost) %>.</div>
          <% end %>
+         -->
         <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
         <div class="charges-container">
           <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>

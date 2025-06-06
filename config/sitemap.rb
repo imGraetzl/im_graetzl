@@ -117,7 +117,7 @@ Region.all.each do |region|
     end
 
     # Crowd Boosts
-    CrowdBoost.in(region).find_each do |crowd_boost|
+    CrowdBoost.in(region).enabled.find_each do |crowd_boost|
       add crowd_boost_path(crowd_boost), changefreq: 'weekly', priority: 1.0
     end
 
