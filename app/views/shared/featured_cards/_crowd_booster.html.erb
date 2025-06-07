@@ -6,7 +6,7 @@
 <div class="cardBox -crowd_boost featuredCard -hidden" data-behavior="masonry-card" data-card-id="boost-<%= crowd_boost.id %>">
 
   <div class="cardBoxHeader">
-    <%= link_to call_crowd_boost_path(crowd_boost) do %>
+    <%= link_to crowd_boost_path(crowd_boost) do %>
       <div class="coverImgWrapper">
         <%= image_tag('info/crowd_boost/cardbox.jpg', class: 'coverImg') %>
       </div>
@@ -44,7 +44,7 @@
       <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
     </div>
 
-    <%= link_to "Zum #{crowd_boost.title}", call_crowd_boost_path(crowd_boost), class: 'btn-primary' %>
+    <%= link_to "Zum #{crowd_boost.title}", crowd_boost_path(crowd_boost), class: 'btn-primary' %>
 
   </div>
 
