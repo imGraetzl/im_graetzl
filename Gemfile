@@ -62,7 +62,7 @@ gem 'rabl'
 gem 'oj'
 gem 'jquery-ui-rails'
 gem 'bb-ruby'
-gem 'stripe', '~> 15.1.0'
+gem 'stripe', '~> 15.2'
 #gem 'stripe', "~> 8.0"
 
 gem 'caxlsx'
