@@ -17,16 +17,25 @@ class RoomRentalService
   end
 
   def payment_authorized(room_rental, setup_intent_id)
-    setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
-    if !setup_intent.status.in?(["succeeded", "processing"])
+    begin
+      setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] SetupIntent konnte nicht geladen werden: #{e.message}"
+      return [false, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
+
+    unless setup_intent.status.in?(%w[succeeded processing])
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent.id} hat ungültigen Status: #{setup_intent.status}"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
+    payment_method = setup_intent.payment_method
+
     room_rental.update(
-      stripe_payment_method_id: setup_intent.payment_method.id,
-      payment_method: setup_intent.payment_method.type,
-      payment_card_last4: payment_method_last4(setup_intent.payment_method),
-      payment_wallet: payment_wallet(setup_intent.payment_method),
+      stripe_payment_method_id: payment_method.id,
+      payment_method: payment_method.type,
+      payment_card_last4: payment_method_last4(payment_method),
+      payment_wallet: payment_wallet(payment_method),
       payment_status: 'authorized',
       rental_status: :pending,
     )
@@ -34,8 +43,8 @@ class RoomRentalService
     UserMessageThread.create_for_room_rental(room_rental)
     RoomMailer.new_rental_request(room_rental).deliver_later
     Notifications::RoomRentalCreated.generate(room_rental, to: { user: room_rental.owner.id })
-    return { success: true }
 
+    { success: true }
   end
 
   def approve(room_rental)
@@ -129,8 +138,15 @@ class RoomRentalService
   end
 
   def payment_retried(room_rental, payment_intent_id)
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.status.in?(["succeeded", "processing"])
+    payment_intent = begin
+      Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] payment_intent #{payment_intent_id} konnte nicht geladen werden: #{e.message}"
+      return [false, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
+
+    unless payment_intent.status.in?(%w[succeeded processing])
+      Rails.logger.info "[stripe] PaymentIntent #{payment_intent.id} nicht erfolgreich (Status: #{payment_intent.status})"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 

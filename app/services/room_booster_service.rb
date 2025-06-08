@@ -31,9 +31,14 @@ class RoomBoosterService
   end
 
   def payment_authorized(room_booster, payment_intent_id)
+    payment_intent = begin
+      Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] payment_authorized: PaymentIntent konnte nicht geladen werden – #{e.message}"
+      return [false, "Zahlung konnte nicht geprüft werden. Bitte versuche es erneut."]
+    end
 
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.status.in?(["succeeded", "processing"])
+    unless payment_intent.status.in?(%w[succeeded processing])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
@@ -45,7 +50,6 @@ class RoomBoosterService
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
 
-    # Load new Booster - may already debited by webhook
     room_booster = RoomBooster.find(room_booster.id)
     room_booster.update(payment_status: 'authorized') if room_booster.incomplete?
 

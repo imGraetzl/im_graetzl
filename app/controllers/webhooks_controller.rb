@@ -2,21 +2,17 @@ class WebhooksController < ApplicationController
   skip_forgery_protection
 
   def stripe
-    head :bad_request and return if params[:type].blank? || params[:id].blank?
+    payload = request.body.read
+    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    endpoint_secret = ENV['STRIPE_WEBHOOK_SECRET']
 
     begin
-      if params[:account].present?
-        # Event für verbundene Stripe-Accounts abrufen
-        event = Stripe::Event.retrieve(params[:id], { stripe_account: params[:account] })
-      else
-        # Standard-Event für Hauptkonto abrufen
-        event = Stripe::Event.retrieve(params[:id])
-      end
-    rescue Stripe::InvalidRequestError => e
-      Rails.logger.error "[stripe webhook] Stripe Event Abruf fehlgeschlagen: #{e.message}"
+      event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
+    rescue JSON::ParserError, Stripe::SignatureVerificationError => e
+      Rails.logger.error "[stripe webhook] Invalid event: #{e.message}"
       return head :bad_request
     end
-  
+
     case event.type
     when "payment_intent.succeeded"
       payment_intent_succeeded(event.data.object)
@@ -52,26 +48,21 @@ class WebhooksController < ApplicationController
     head :internal_server_error
   end
 
-
   def stripe_connected
-    head :bad_request and return if params[:type].blank? || params[:id].blank?
+    payload = request.body.read
+    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    endpoint_secret = ENV['STRIPE_WEBHOOK_CONNECTED_SECRET']
 
     begin
-      if params[:account].present?
-        # Event für verbundene Stripe-Accounts abrufen
-        event = Stripe::Event.retrieve(params[:id], { stripe_account: params[:account] })
-      else
-        # Standard-Event für Hauptkonto abrufen
-        event = Stripe::Event.retrieve(params[:id])
-      end
-    rescue Stripe::InvalidRequestError => e
-      Rails.logger.error "[stripe webhook connected] Stripe Event Abruf fehlgeschlagen: #{e.message}"
+      event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
+    rescue JSON::ParserError, Stripe::SignatureVerificationError => e
+      Rails.logger.error "[stripe webhook connected] Invalid event: #{e.message}"
       return head :bad_request
     end
 
     case event.type
     when "payout.paid"
-      payout_paid(event.data.object, params[:account])
+      payout_paid(event.data.object, event.account)
     else
       Rails.logger.warn "[stripe webhook connected] Unhandled event type: #{event.type}"
     end
@@ -81,7 +72,6 @@ class WebhooksController < ApplicationController
     Rails.logger.error "[stripe webhook connected] processing error: #{e.full_message}"
     head :internal_server_error
   end
-
 
   def mailchimp
     if request.get?
@@ -265,38 +255,37 @@ class WebhooksController < ApplicationController
       Rails.logger.warn "[stripe webhook] invoice.payment_failed: Kein subscription_id vorhanden – wird ignoriert"
       return
     end
-  
+
     subscription = Subscription.find_by(stripe_id: subscription_id)
     if subscription.nil?
       Rails.logger.warn "[stripe webhook] invoice.payment_failed: Keine Subscription gefunden für stripe_id #{subscription_id}"
       return
     end
-  
+
+    payment_intent_id = object.try(:payment_intent).is_a?(String) ? object.payment_intent : object.payment_intent&.id
     payment_intent = begin
-      Stripe::PaymentIntent.retrieve(object.payment_intent)
+      Stripe::PaymentIntent.retrieve(payment_intent_id) if payment_intent_id
     rescue => e
       Rails.logger.warn "[stripe webhook] invoice.payment_failed: Kein zugehöriger PaymentIntent: (#{e.message})"
       nil
     end
 
-    # Create
+    # Failed on Create
     if object.billing_reason == "subscription_create" && payment_intent&.status == "requires_payment_method"
-  
       Rails.logger.info "[stripe webhook] invoice.payment_failed: scheduled email invoice_payment_failed_on_create for #{subscription.user.email}"
-      SubscriptionMailer.invoice_payment_failed_on_create(subscription.user).deliver_later(wait: 1.minutes)
-    
-    # Verlängerung 1. Versuch -> Mail
+      SubscriptionMailer.invoice_payment_failed_on_create(subscription.user).deliver_later(wait: 1.minute)
+
+    # Failed bei Verlängerung 1. Versuch -> Mail
     elsif object.attempt_count == 1 && object.billing_reason != "subscription_create" && payment_intent&.status == "requires_payment_method"
-      
-      period_start = object.lines&.data&.first&.period&.start
-      period_end   = object.lines&.data&.first&.period&.end
+      line = object.lines&.data&.first
+      period_start = line&.period&.start
+      period_end   = line&.period&.end
 
       Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 1. Versuch: Zahlungsaufforderung an #{subscription.user.email} für Zeitraum #{period_start} – #{period_end}"
-
       SubscriptionService.new.invoice_payment_open(subscription, object)
-      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later(wait: 1.minutes)
+      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later(wait: 1.minute)
 
-    # Verlängerung 3. Versuch -> Mail Storno
+    # Failed bei Verlängerung 3. Versuch -> Mail Storno
     elsif object.attempt_count == 3
       Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 3. Versuch: Subscription canceled for #{subscription.user.email}"
       SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later

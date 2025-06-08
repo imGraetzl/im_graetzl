@@ -20,8 +20,15 @@ class CrowdPledgeService
   end
 
   def payment_authorized(crowd_pledge, setup_intent_id)
-    setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
-    if !setup_intent.status.in?(["succeeded", "processing"])
+    setup_intent = begin
+      Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent_id} konnte nicht geladen werden: #{e.message}"
+      return [false, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
+
+    unless setup_intent.status.in?(%w[succeeded processing])
+      Rails.logger.info "[stripe] SetupIntent #{setup_intent_id} nicht erfolgreich (Status: #{setup_intent.status})"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
@@ -123,12 +130,14 @@ class CrowdPledgeService
   def payment_succeeded(crowd_pledge, payment_intent)
 
     charge = payment_intent.charges.data.first
-    if charge && charge.balance_transaction.present?
-      balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
-      stripe_fee = balance_transaction.fee.to_d / 100
-    else
-      # Noch nicht verfügbar – keine Stripe Fee speichern!
-      stripe_fee = nil
+    stripe_fee = if charge&.balance_transaction.present?
+      begin
+        balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+        balance_transaction.fee.to_d / 100
+      rescue Stripe::InvalidRequestError => e
+        Rails.logger.warn "[stripe webhook] balance_transaction konnte nicht geladen werden: #{e.message}"
+        nil
+      end
     end
 
     crowd_pledge.update(status: 'debited', debited_at: Time.current, stripe_fee: stripe_fee)
@@ -166,7 +175,13 @@ class CrowdPledgeService
   end
 
   def payment_retried(crowd_pledge, payment_intent_id)
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    begin
+      payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] PaymentIntent konnte nicht geladen werden (#{payment_intent_id}): #{e.message}"
+      return [false, "Zahlung konnte nicht überprüft werden. Bitte versuche es erneut."]
+    end
+
     if !payment_intent.status.in?(["succeeded", "processing"])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
@@ -178,9 +193,12 @@ class CrowdPledgeService
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
+
     CrowdCampaignMailer.crowd_pledge_retried_debited(crowd_pledge).deliver_later
+
     true
   end
+
 
   def payment_refunded(crowd_pledge)
     crowd_pledge.update(status: 'refunded')
@@ -193,19 +211,25 @@ class CrowdPledgeService
   end
 
   def charge_updated(crowd_pledge, charge)
+    stripe_fee = nil
+
     if !crowd_pledge.stripe_fee.present? && charge.balance_transaction.present?
-      balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
-      stripe_fee = balance_transaction.fee.to_d / 100
-      Rails.logger.info "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} gespeichert: #{stripe_fee} EUR"
+      begin
+        balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+        stripe_fee = balance_transaction.fee.to_d / 100
+        Rails.logger.info "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} gespeichert: #{stripe_fee} EUR"
+      rescue Stripe::InvalidRequestError => e
+        Rails.logger.warn "CrowdPledgeService: charge_updated: Stripe fee konnte nicht geladen werden – #{e.message}"
+      end
     else
       Rails.logger.warn "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} konnte nicht gespeichert werden – keine balance_transaction vorhanden"
-      stripe_fee = nil
     end
 
     crowd_pledge.update(stripe_fee: stripe_fee)
 
     { success: true }
   end
+
 
   private
 
