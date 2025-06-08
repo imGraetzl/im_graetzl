@@ -120,7 +120,6 @@ class CrowdPledgeService
   rescue Stripe::CardError => e
     crowd_pledge.update(status: 'failed', failed_at: Time.current)
     CrowdCampaignMailer.crowd_pledge_failed(crowd_pledge).deliver_later
-    log_and_notify_stripe_error(e, crowd_pledge, "CardError")
 
     { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
 
