@@ -2,6 +2,9 @@ class CrowdPledgePaymentJob < ApplicationJob
   queue_as :default
 
   retry_on Stripe::APIConnectionError, wait: :exponentially_longer, attempts: 3
+  retry_on Stripe::RateLimitError, wait: :exponentially_longer, attempts: 3
+  retry_on Stripe::APIError, wait: :exponentially_longer, attempts: 3
+
   discard_on ActiveRecord::RecordNotFound
 
   def perform(crowd_pledge_id, payment_intent_id)

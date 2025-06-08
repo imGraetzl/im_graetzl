@@ -87,7 +87,7 @@ class CrowdPledgeService
   end
 
   def charge(crowd_pledge)
-    return if !crowd_pledge.authorized?
+    return unless crowd_pledge.authorized?
 
     crowd_pledge.update(status: 'processing')
 
@@ -113,15 +113,31 @@ class CrowdPledgeService
     )
 
     crowd_pledge.update(stripe_payment_intent_id: payment_intent.id)
-
     CrowdCampaignMailer.crowd_pledge_debited(crowd_pledge).deliver_later
 
     { success: true }
-  rescue Stripe::CardError
+
+  rescue Stripe::CardError => e
     crowd_pledge.update(status: 'failed', failed_at: Time.current)
     CrowdCampaignMailer.crowd_pledge_failed(crowd_pledge).deliver_later
+    log_and_notify_stripe_error(e, crowd_pledge, "CardError")
 
     { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
+
+  rescue Stripe::InvalidRequestError => e
+    log_and_notify_stripe_error(e, crowd_pledge, "InvalidRequestError")
+
+    { success: false, error: "Zahlung konnte nicht durchgeführt werden – ungültige Stripe-Anfrage." }
+
+  rescue Stripe::StripeError => e
+    log_and_notify_stripe_error(e, crowd_pledge, "StripeError")
+
+    { success: false, error: "Ein Fehler bei der Zahlung ist aufgetreten. Bitte versuche es später erneut." }
+
+  rescue => e
+    log_and_notify_stripe_error(e, crowd_pledge, "UnexpectedError")
+
+    { success: false, error: "Ein unerwarteter Fehler ist aufgetreten." }
   end
 
   def payment_succeeded(crowd_pledge, payment_intent)
@@ -285,6 +301,19 @@ class CrowdPledgeService
 
   def statement_descriptor(crowd_campaign)
     statement_descriptor_for(crowd_campaign.region, 'Crowdfunding')
+  end
+
+  def log_and_notify_stripe_error(e, crowd_pledge, error_type)
+    Rails.logger.error "[stripe] CrowdPledge #{crowd_pledge.id} - #{error_type}: #{e.class} - #{e.message}"
+
+    Sentry.capture_exception(e, extra: {
+      crowd_pledge_id: crowd_pledge.id,
+      stripe_customer_id: crowd_pledge.stripe_customer_id,
+      stripe_payment_method_id: crowd_pledge.stripe_payment_method_id,
+      stripe_payment_intent_id: crowd_pledge.stripe_payment_intent_id,
+      total_price: crowd_pledge.total_overall_price,
+      error_type: error_type
+    })
   end
 
 end
