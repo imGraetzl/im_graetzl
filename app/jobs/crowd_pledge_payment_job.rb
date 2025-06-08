@@ -1,4 +1,4 @@
-class ProcessCrowdPledgePaymentJob < ApplicationJob
+class CrowdPledgePaymentJob < ApplicationJob
   queue_as :default
 
   def perform(crowd_pledge_id, payment_intent_data)
