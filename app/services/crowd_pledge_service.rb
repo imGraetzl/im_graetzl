@@ -109,9 +109,6 @@ class CrowdPledgeService
         },
         off_session: true,
         confirm: true,
-      },
-      {
-        idempotency_key: "crowd_pledge_#{crowd_pledge.id}_charge"
       }
     )
 
