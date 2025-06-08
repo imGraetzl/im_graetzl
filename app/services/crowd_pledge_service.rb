@@ -128,23 +128,41 @@ class CrowdPledgeService
   end
 
   def payment_succeeded(crowd_pledge, payment_intent)
+    stripe_fee = nil
 
-    charge = payment_intent.charges.data.first
-    stripe_fee = if charge&.balance_transaction.present?
+    charge_id = payment_intent["latest_charge"]
+    if charge_id.blank?
+      Rails.logger.warn "[stripe] CrowdPledge #{crowd_pledge.id} - Kein latest_charge im PaymentIntent #{payment_intent['id']} – speichere trotzdem CrowdPledge als debited."
+    else
       begin
-        balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
-        balance_transaction.fee.to_d / 100
+        charge = Stripe::Charge.retrieve(charge_id)
+
+        if charge.balance_transaction.present?
+          begin
+            balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
+            stripe_fee = balance_transaction.fee.to_d / 100
+          rescue Stripe::InvalidRequestError => e
+            Rails.logger.warn "[stripe] CrowdPledge #{crowd_pledge.id} - balance_transaction konnte nicht geladen werden für Charge #{charge_id}: #{e.message}"
+          end
+        else
+          Rails.logger.warn "[stripe] CrowdPledge #{crowd_pledge.id} - Charge #{charge_id} hat keine balance_transaction"
+        end
       rescue Stripe::InvalidRequestError => e
-        Rails.logger.warn "[stripe] balance_transaction konnte nicht geladen werden: #{e.message}"
-        nil
+        Rails.logger.warn "[stripe] CrowdPledge #{crowd_pledge.id} - Charge #{charge_id} konnte nicht geladen werden: #{e.message}"
       end
     end
 
-    crowd_pledge.update(status: 'debited', debited_at: Time.current, stripe_fee: stripe_fee)
+    crowd_pledge.update(
+      status: 'debited',
+      debited_at: Time.current,
+      stripe_fee: stripe_fee
+    )
 
-    # Maybe send crowd_pledge_debited email here?
+    Rails.logger.info "[stripe] CrowdPledge #{crowd_pledge.id} - als debited gespeichert#{stripe_fee ? " (fee: #{stripe_fee} EUR)" : " (ohne fee)"}."
+
     { success: true }
   end
+
 
   def payment_failed(crowd_pledge, payment_intent)
     return if !crowd_pledge.processing?
