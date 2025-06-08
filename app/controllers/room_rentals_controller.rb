@@ -86,7 +86,7 @@ class RoomRentalsController < ApplicationController
     success, error = RoomRentalService.new.payment_retried(@room_rental, params[:payment_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich durchgeführt."
       redirect_to [:summary, @room_rental]
     else
       flash[:error] = error

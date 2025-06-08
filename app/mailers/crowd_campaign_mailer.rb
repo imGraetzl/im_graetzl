@@ -8,7 +8,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne wird geprüft plus wichtige Infos",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: 'wir@imgraetzl.at',
+      bcc: platform_admin_email,
     )
   end
 
@@ -20,7 +20,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Bevor deine Kampagne starten kann, ist noch etwas zu tun.",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: 'wir@imgraetzl.at',
+      bcc: platform_admin_email,
     )
   end
 
@@ -32,7 +32,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne ist freigegeben, die nächsten Schritte",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: 'wir@imgraetzl.at',
+      bcc: platform_admin_email,
     )
   end
 
@@ -44,6 +44,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Es geht los, deine Kampagne ist online",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+      bcc: platform_admin_email,
     )
   end
 
@@ -55,6 +56,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Jetzt dranbleiben",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+      bcc: platform_admin_email,
     )
   end
 
@@ -90,7 +92,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Glückwunsch zum Boost für eure Crowdfunding-Kampagne!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: 'wir@imgraetzl.at',
+      bcc: platform_admin_email,
     )
   end
 
@@ -102,7 +104,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne ist erfolgreich beendet! Dein Vorhaben kann bald starten!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -114,7 +116,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Diesmal hat es leider nicht geklappt",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
@@ -127,7 +129,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne ist nun zur Auszahlung bereit.",
       from: platform_email("no-reply"),
       to: @crowd_campaign.user.email,
-      bcc: 'wir@imgraetzl.at',
+      bcc: platform_admin_email,
     )
   end
 
@@ -145,7 +147,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Benötigst du Hilfe bei deiner Unterstützung für '#{@crowd_campaign.title}'?",
       from: platform_email('michael', 'Michael Walchhütter'),
       to: @crowd_pledge.email,
-      bcc: 'michael@imgraetzl.at',
+      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 

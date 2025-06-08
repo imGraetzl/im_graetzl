@@ -10,37 +10,46 @@ class RoomBoosterService
 
     stripe_customer_id = room_booster.user.stripe_customer
     Stripe::PaymentIntent.create(
-      customer: stripe_customer_id,
-      amount: (room_booster.amount * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(room_booster),
-      payment_method_types: payment_methods(room_booster),
-      metadata: {
-        type: 'RoomBooster',
-        room_booster_id: room_booster.id,
-        room_offer_id: room_booster.room_offer.id,
-        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(room_booster.crowd_boost_charge_amount),
-        crowd_boost_id: room_booster.crowd_boost_id,
+      {
+        customer: stripe_customer_id,
+        amount: (room_booster.amount * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(room_booster),
+        payment_method_types: payment_methods(room_booster),
+        metadata: {
+          type: 'RoomBooster',
+          room_booster_id: room_booster.id,
+          room_offer_id: room_booster.room_offer.id,
+          crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(room_booster.crowd_boost_charge_amount),
+          crowd_boost_id: room_booster.crowd_boost_id,
+        }
       },
+      {
+        idempotency_key: "room_booster_#{room_booster.id}_charge"
+      }
     )
   end
 
   def payment_authorized(room_booster, payment_intent_id)
+    payment_intent = begin
+      Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] payment_authorized: PaymentIntent konnte nicht geladen werden – #{e.message}"
+      return [false, "Zahlung konnte nicht geprüft werden. Bitte versuche es erneut."]
+    end
 
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.status.in?(["succeeded", "processing"])
+    unless payment_intent.status.in?(%w[succeeded processing])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
     room_booster.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
+      stripe_payment_method_id: payment_intent.payment_method&.id,
+      payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
       payment_wallet: payment_wallet(payment_intent.payment_method),
     )
 
-    # Load new Booster - may already debited by webhook
     room_booster = RoomBooster.find(room_booster.id)
     room_booster.update(payment_status: 'authorized') if room_booster.incomplete?
 
@@ -104,7 +113,7 @@ class RoomBoosterService
   end
 
   def statement_descriptor(room_booster)
-    "#{room_booster.region.host_id} RoomPusher".upcase
+    statement_descriptor_for(room_booster.region, 'RoomPusher')
   end
 
   def generate_invoice(room_booster)

@@ -90,7 +90,7 @@
           <strong>Gesamtkosten: <%= number_to_currency(@room_rental.total_price, unit: "€") %></strong>
         </p>
         <p>
-          Deine Zahlung wurde erfolgreich gebucht. Du findest die Rechnung angehängt und eingeloggt in deinem <%= link_to "Buchungsarchiv", rooms_user_url(target: "tab-buchungsarchiv"), style: "color:#ec776a;" %>.
+          Der Betrag wird nun von deiner hinterlegten Zahlungsmethode abgebucht. Du findest die Rechnung angehängt und eingeloggt in deinem <%= link_to "Buchungsarchiv", rooms_user_url(target: "tab-buchungsarchiv"), style: "color:#ec776a;" %>.
         </p>
       </td>
     </tr>

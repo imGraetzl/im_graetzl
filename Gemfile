@@ -14,6 +14,11 @@ gem 'delayed_job_web'
 gem 'activerecord-import'
 gem 'active_link_to'
 
+# Remove in Rails 7
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+
 gem 'rack-attack'
 gem 'rack-cors', '~> 2.0', require: 'rack/cors'
 gem 'rack-rewrite'
@@ -60,7 +65,8 @@ gem 'rabl'
 gem 'oj'
 gem 'jquery-ui-rails'
 gem 'bb-ruby'
-gem 'stripe', "~> 8.0"
+gem 'stripe', '~> 15.2'
+#gem 'stripe', "~> 8.0"
 
 gem 'caxlsx'
 gem 'caxlsx_rails'

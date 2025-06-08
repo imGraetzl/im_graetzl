@@ -3,10 +3,16 @@ class SubscriptionService
   def create(subscription, options={})
     stripe_customer_id = subscription.user.stripe_customer
 
+    # coupon zu discounts mappen
+    if options[:coupon].present?
+      options[:discounts] ||= []
+      options[:discounts] << { coupon: options.delete(:coupon) }
+    end
+
     args = {
       customer: stripe_customer_id,
-      items: [{ plan: subscription.stripe_plan }],
-      expand: ['latest_invoice.payment_intent'],
+      items: [{ price: subscription.stripe_plan }],
+      expand: ['latest_invoice'],
       payment_behavior: 'default_incomplete',
       metadata: {
         type: 'Subscription',
@@ -19,23 +25,41 @@ class SubscriptionService
       ],
     }.merge(options)
 
-    sub = Stripe::Subscription.create(args)
-
+    sub = Stripe::Subscription.create(
+      args,
+      {
+        idempotency_key: "subscription_#{subscription.id}_create"
+      }
+    )
+    
+    item = sub.items.data.first
     subscription.update(
       stripe_id: sub.id,
       status: sub.status,
       ends_at: nil,
-      current_period_start: Time.at(sub.current_period_start),
-      current_period_end: Time.at(sub.current_period_end)
+      current_period_start: Time.at(item.current_period_start),
+      current_period_end: Time.at(item.current_period_end)
     )
 
     sub
   end
 
   def payment_authorized(subscription, payment_intent_id)
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.status.in?(["succeeded", "processing"])
+    begin
+      payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] payment_authorized: PaymentIntent #{payment_intent_id} konnte nicht geladen werden: #{e.message}"
+      return [false, "Ein Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
+
+    unless payment_intent.status.in?(%w[succeeded processing])
+      Rails.logger.warn "[stripe] payment_authorized: PaymentIntent #{payment_intent.id} hat ungültigen Status: #{payment_intent.status}"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
+    end
+
+    if payment_intent.payment_method.nil?
+      Rails.logger.warn "[stripe] payment_authorized: PaymentIntent #{payment_intent.id} hat keine Payment-Methode"
+      return [false, "Zahlungsmethode konnte nicht erkannt werden."]
     end
 
     UserService.new.update_payment_method(subscription.user, payment_intent.payment_method.id)
@@ -43,15 +67,51 @@ class SubscriptionService
     true
   end
 
+
   def payment_changed(subscription, payment_intent_id)
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.status.in?(["succeeded", "processing"])
+    begin
+      payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] payment_changed: PaymentIntent #{payment_intent_id} konnte nicht geladen werden: #{e.message}"
+      return [false, "Ein Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
+
+    unless payment_intent.status.in?(%w[succeeded processing])
+      Rails.logger.warn "[stripe] payment_changed: PaymentIntent #{payment_intent.id} hat ungültigen Status: #{payment_intent.status}"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
+    end
+
+    if payment_intent.payment_method.nil?
+      Rails.logger.warn "[stripe] payment_changed: PaymentIntent #{payment_intent.id} hat keine verknüpfte Zahlungsmethode"
+      return [false, "Zahlungsmethode konnte nicht gelesen werden."]
     end
 
     UserService.new.update_payment_method(subscription.user, payment_intent.payment_method.id)
 
     true
+  end
+
+  def finalize_invoice(subscription)
+    return unless subscription.stripe_id
+
+    begin
+      stripe_subscription = Stripe::Subscription.retrieve(subscription.stripe_id)
+      invoice_id = stripe_subscription.latest_invoice
+      return unless invoice_id
+
+      invoice = Stripe::Invoice.retrieve(invoice_id)
+
+      unless invoice.auto_advance
+        Stripe::Invoice.update(invoice.id, auto_advance: true)
+      end
+
+      Stripe::Invoice.pay(invoice.id)
+
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] finalize_invoice: Fehler bei Subscription #{subscription.id}: #{e.message}"
+    rescue => e
+      Rails.logger.error "[stripe] finalize_invoice: Unerwarteter Fehler: #{e.class} – #{e.message}"
+    end
   end
 
   def update_subscription(subscription, object)
@@ -75,11 +135,12 @@ class SubscriptionService
   end
 
   def delete_subscription(subscription, object)
+    item = object.items&.data&.first
     subscription.update(
       status: object.status,
       ends_at: Time.at(object.ended_at),
-      current_period_start: Time.at(object.current_period_start),
-      current_period_end: Time.at(object.current_period_end),
+      current_period_start: Time.at(item&.current_period_start),
+      current_period_end: Time.at(item&.current_period_end),
     ) if object.ended_at.present?
   end
 

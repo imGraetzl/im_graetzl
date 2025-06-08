@@ -40,22 +40,24 @@ class SubscriptionsController < ApplicationController
         redirect_to new_subscription_path(subscription_plan_id: @plan.id), notice: "Der Gutscheincode ist ungültig oder nicht für dieses Produkt gültig." and return
       end
     end
-    
+
     # Speichere die Subscription nur, wenn der Gutscheincode gültig ist oder keiner angegeben wurde
     if @subscription.save
-      
+
       subscription = SubscriptionService.new.create(@subscription, coupon: coupon_code.presence)
+      invoice = subscription.latest_invoice
 
       if coupon_code.present? && coupon
         @subscription.update(coupon: coupon)
       end
-    
-      if subscription.latest_invoice.payment_intent
-        redirect_to [:choose_payment, @subscription, client_secret: subscription.latest_invoice.payment_intent.client_secret]
+
+      if invoice.amount_due > 0
+        redirect_to choose_payment_subscription_path(@subscription)
       else
         SubscriptionMailer.created(@subscription).deliver_later
         redirect_to [:summary, @subscription]
       end
+
     else
       # Fehler beim Speichern der Subscription
       render :new
@@ -65,32 +67,32 @@ class SubscriptionsController < ApplicationController
   def choose_payment
     @subscription = current_user.subscriptions.find_by_id(params[:id])
     @plan = @subscription.subscription_plan
-    @client_secret = params[:client_secret]
+    @setup_intent = UserService.new.create_setup_intent(current_user)
   end
 
   def payment_authorized
     @subscription = current_user.subscriptions.find_by_id(params[:id])
-    redirect_to [:choose_payment, @subscription] if params[:payment_intent].blank?
+    redirect_to [:choose_payment, @subscription] if params[:setup_intent].blank?
 
-    success, error = SubscriptionService.new.payment_authorized(@subscription, params[:payment_intent])
+    success, error = UserService.new.payment_authorized(current_user, params[:setup_intent])
 
     if success
-      flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
+      begin
+        SubscriptionService.new.finalize_invoice(@subscription)
+  
+        flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
+        @subscription.reload
+  
+        previous_subscriptions = current_user.subscriptions.active.where.not(id: @subscription.id)
+        previous_subscriptions.each(&:cancel_now!) if previous_subscriptions.present?
 
-      ### Cancel prevoius active Subscriptions if exists (may used for 0,00 € Subscriptioons - May improve this)
-      previous_subscriptions = current_user.subscriptions.active.where.not(:id => @subscription.id)
-      if previous_subscriptions
-        previous_subscriptions.each do |subscription|
-          subscription.cancel_now!
-        end
+        SubscriptionMailer.created(@subscription).deliver_later
+  
+        redirect_to [:summary, @subscription]
+      rescue => e
+        flash[:error] = "Zahlung konnte nicht abgeschlossen werden: #{e.message}"
+        redirect_to [:choose_payment, @subscription]
       end
-      ### END
-
-      # Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
-      # ActionProcessor.track(@subscription, :create)
-      SubscriptionMailer.created(@subscription).deliver_later
-
-      redirect_to [:summary, @subscription]
     else
       flash[:error] = error
       redirect_to [:choose_payment, @subscription]

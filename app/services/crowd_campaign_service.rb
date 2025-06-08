@@ -75,10 +75,15 @@ class CrowdCampaignService
   
     begin
       transfer = Stripe::Transfer.create(
-        amount: payout_amount,
-        currency: 'eur',
-        destination: payout_destination,
-        metadata: metadata
+        {
+          amount: payout_amount,
+          currency: 'eur',
+          destination: payout_destination,
+          metadata: metadata
+        },
+        {
+          idempotency_key: "crowd_campaign_#{campaign.id}_transfer"
+        }
       )
   
       if transfer.id.present? && !transfer.reversed
@@ -101,7 +106,7 @@ class CrowdCampaignService
     end
 
     :failed
-  end  
+  end
 
   def generate_invoice(campaign)
     invoice = CrowdCampaignInvoice.new.invoice(campaign)

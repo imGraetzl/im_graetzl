@@ -12,10 +12,15 @@ class MailchimpUserTagJob < ApplicationJob
         tags: [{name:tag, status: status}]
       })
     rescue Gibbon::MailChimpError => mce
-      Rails.logger.error("subscribe failed: due to #{mce.message}")
-      raise mce
+      if mce.status_code == 404
+        Rails.logger.warn("MailchimpUserTagJob: User #{user.id} (#{member_id}) nicht gefunden (404). Tag '#{tag}' nicht gesetzt.")
+        # Kein raise -> Job wird nicht erneut versucht!
+      else
+        Rails.logger.error("MailchimpUserTagJob: subscribe failed: due to #{mce.message} (#{mce.status_code})")
+        raise mce
+      end
     rescue => e
-      Rails.logger.error("subscribe failed: due to #{e.message}")
+      Rails.logger.error("MailchimpUserTagJob: subscribe failed: due to #{e.message}")
       raise e
     end
   end

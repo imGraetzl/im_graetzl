@@ -4,9 +4,11 @@ class UserService
 
   def create_setup_intent(user)
     Stripe::SetupIntent.create(
-      customer: user.stripe_customer,
-      payment_method_types: ['card', 'sepa_debit'],
-      usage: 'off_session',
+      {
+        customer: user.stripe_customer,
+        payment_method_types: ['card', 'sepa_debit'],
+        usage: 'off_session'
+      }
     )
   end
 
@@ -23,10 +25,21 @@ class UserService
   end
 
   def payment_authorized(user, setup_intent_id)
+    begin
+      setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] SetupIntent konnte nicht geladen werden (#{setup_intent_id}): #{e.message}"
+      return [false, "Ein Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
 
-    setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
-    if !setup_intent.status.in?(["succeeded", "processing"])
+    unless setup_intent.status.in?(%w[succeeded processing])
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent.id} mit ungültigem Status: #{setup_intent.status}"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
+    end
+
+    if setup_intent.payment_method.nil?
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent.id} hat keine payment_method"
+      return [false, "Zahlungsmethode konnte nicht verarbeitet werden."]
     end
 
     UserService.new.update_payment_method(user, setup_intent.payment_method.id)

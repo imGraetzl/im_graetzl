@@ -18,30 +18,39 @@ class ZuckerlService
         zuckerl_id: zuckerl.id,
         location_id: zuckerl.location&.id,
         user_id: zuckerl.user.id
-      },
+      }
     )
   end
 
 
   def payment_authorized(zuckerl, setup_intent_id)
+    begin
+      setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] SetupIntent konnte nicht geladen werden (#{setup_intent_id}): #{e.message}"
+      return [false, "Ein Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
 
-    setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
-    if !setup_intent.status.in?(["succeeded", "processing"])
+    unless setup_intent.status.in?(%w[succeeded processing])
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent.id} hat ungültigen Status: #{setup_intent.status}"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
+    payment_method = setup_intent.payment_method
+
     zuckerl.update(
-      stripe_payment_method_id: setup_intent.payment_method.id,
-      payment_method: setup_intent.payment_method.type,
-      payment_card_last4: payment_method_last4(setup_intent.payment_method),
-      payment_wallet: payment_wallet(setup_intent.payment_method),
+      stripe_payment_method_id: payment_method.id,
+      payment_method: payment_method.type,
+      payment_card_last4: payment_method_last4(payment_method),
+      payment_wallet: payment_wallet(payment_method),
       payment_status: 'authorized',
     )
 
     zuckerl.pending!
     AdminMailer.new_zuckerl(zuckerl).deliver_later
-  end
 
+    true
+  end
 
   def approve(zuckerl)
     return if !zuckerl.pending?
@@ -69,22 +78,27 @@ class ZuckerlService
     zuckerl.update(payment_status: 'processing')
 
     payment_intent = Stripe::PaymentIntent.create(
-      customer: zuckerl.user.stripe_customer_id,
-      payment_method_types: available_payment_methods(zuckerl),
-      payment_method: zuckerl.stripe_payment_method_id,
-      amount: (zuckerl.amount * 100).to_i,
-      currency: 'eur',
-      statement_descriptor: statement_descriptor(zuckerl),
-      metadata: {
-        type: 'Zuckerl',
-        zuckerl_id: zuckerl.id,
-        location_id: zuckerl.location&.id,
-        user_id: zuckerl.user.id,
-        crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
-        crowd_boost_id: zuckerl.crowd_boost_id,
+      {
+        customer: zuckerl.user.stripe_customer_id,
+        payment_method_types: available_payment_methods(zuckerl),
+        payment_method: zuckerl.stripe_payment_method_id,
+        amount: (zuckerl.amount * 100).to_i,
+        currency: 'eur',
+        statement_descriptor: statement_descriptor(zuckerl),
+        metadata: {
+          type: 'Zuckerl',
+          zuckerl_id: zuckerl.id,
+          location_id: zuckerl.location&.id,
+          user_id: zuckerl.user.id,
+          crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
+          crowd_boost_id: zuckerl.crowd_boost_id,
+        },
+        off_session: true,
+        confirm: true,
       },
-      off_session: true,
-      confirm: true,
+      {
+        idempotency_key: "zuckerl_#{zuckerl.id}_charge"
+      }
     )
 
     zuckerl.update(stripe_payment_intent_id: payment_intent.id)
@@ -130,22 +144,31 @@ class ZuckerlService
         user_id: zuckerl.user.id,
         crowd_boost_charge_amount: ActionController::Base.helpers.number_with_precision(zuckerl.crowd_boost_charge_amount),
         crowd_boost_id: zuckerl.crowd_boost_id,
-      },
+      }
     )
   end
 
   def payment_retried(zuckerl, payment_intent_id)
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.status.in?(["succeeded", "processing"])
+    begin
+      payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] PaymentIntent konnte nicht geladen werden (#{payment_intent_id}): #{e.message}"
+      return [false, "Ein Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
+
+    unless payment_intent.status.in?(%w[succeeded processing])
+      Rails.logger.warn "[stripe] PaymentIntent #{payment_intent.id} mit ungültigem Status: #{payment_intent.status}"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
+    payment_method = payment_intent.payment_method
+
     zuckerl.update(
       stripe_payment_intent_id: payment_intent.id,
-      stripe_payment_method_id: payment_intent.payment_method.id,
-      payment_method: payment_intent.payment_method.type,
-      payment_card_last4: payment_method_last4(payment_intent.payment_method),
-      payment_wallet: payment_wallet(payment_intent.payment_method),
+      stripe_payment_method_id: payment_method&.id,
+      payment_method: payment_method&.type,
+      payment_card_last4: payment_method_last4(payment_method),
+      payment_wallet: payment_wallet(payment_method),
     )
 
     true
@@ -167,7 +190,7 @@ class ZuckerlService
   end
 
   def statement_descriptor(zuckerl)
-    "#{zuckerl.region.host_id} Zuckerl".upcase
+    statement_descriptor_for(zuckerl.region, 'Zuckerl')
   end
 
   def generate_invoice(zuckerl)

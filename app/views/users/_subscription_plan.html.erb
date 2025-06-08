@@ -52,7 +52,7 @@
             <div class="costname"><%= @subscription.coupon.discount_description %></div>
           </li>
         <% end %>
-        <% if @subscription.coupon.forever? %>
+        <% if @subscription.coupon.long_term_coupon? %>
          <li class="sum">
             <div class="cost"><%= number_to_currency(subscription_plan.discounted_amount(amount_off: @subscription.coupon.amount_off, percent_off: @subscription.coupon.percent_off), unit: "€") %></div>
             <div class="costname">
@@ -110,7 +110,8 @@
     <% if @subscription.on_grace_period? %>
 
       <%= link_to 'Zuckerl einlösen', new_zuckerl_path, class: 'btn-primary -mint' if @subscription.open_zuckerl? %>
-      <%= link_to "Mitgliedschaft fortsetzen", resume_subscription_path(@subscription), method: :patch, class: 'btn-primary' %>
+      <%= link_to "Zur Mitgliedschaft Übersicht", subscription_plans_path, class: 'btn-primary -mint' %>
+      <!--<%= link_to "Mitgliedschaft fortsetzen", resume_subscription_path(@subscription), method: :patch, class: 'btn-primary' %>-->
 
     <% elsif @subscription.active? %>
 

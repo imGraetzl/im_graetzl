@@ -5,25 +5,40 @@
         <p>
           Servus <%= @user.first_name %>,
         </p>
-        <p>
-          <strong>Leider gab es bei der Abbuchung deiner <%= t("region.#{@subscription.region.id}.domain_short") %> Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte.
-        </p>
-        <p>
-        Keine Sorge, das kommt manchmal vor. Hier sind mögliche Gründe:
-        </p>
-        <ul>
-          <li>Deine Karte ist abgelaufen.</li>
-          <li>Das Konto ist nicht ausreichend gedeckt.</li>
-          <li>Die Buchung wurde von der Bank blockiert.</li>
-        </ul>
-        <p>
-          <strong>Wir würden dich daher bitten, deine Zahlungsmethode anzupassen,</strong> damit deine Mitgliedschaft (Laufzeit: <%= I18n.localize(@period_start, format:'%d.%m.%Y') %> bis <%= I18n.localize(@period_end, format:'%d.%m.%Y') %>) verlängert werden kann.
-        </p>
+
+        <% if @subscription.canceled? %>
+          <p>
+            <strong>Leider gab es bei der Abbuchung deiner <%= t("region.#{@subscription.region.id}.domain_short") %> Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte. Deine Mitgliedschaft wurde daher storniert.
+          </p>
+          <p>
+            <strong>Wir würden uns riesig freuen, wenn du bald wieder in den Kreis der imGrätzl UnterstützerInnen kommst - Das wäre toll.</strong>
+          </p>
+        <% else %>
+          <p>
+           <strong>Leider gab es bei der Abbuchung deiner <%= t("region.#{@subscription.region.id}.domain_short") %> Fördermitgliedschaft Probleme,</strong> da deine hinterlegte Zahlungsform nicht belastet werden konnte.
+          </p>
+          <p>
+          Keine Sorge, das kommt manchmal vor. Hier sind mögliche Gründe:
+          </p>
+          <ul>
+            <li>Deine Karte ist abgelaufen.</li>
+            <li>Das Konto ist nicht ausreichend gedeckt.</li>
+            <li>Die Buchung wurde von der Bank blockiert.</li>
+          </ul>
+          <p>
+            <strong>Wir würden dich daher bitten, deine Zahlungsmethode anzupassen,</strong> damit deine Mitgliedschaft (Laufzeit: <%= I18n.localize(@period_start, format:'%d.%m.%Y') %> bis <%= I18n.localize(@period_end, format:'%d.%m.%Y') %>) verlängert werden kann.
+          </p>
+        <% end %>
+
       </td>
     </tr>
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Zahlungsmethode aktualisieren", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent) %>
+        <% if @subscription.canceled? %>
+          <%= render 'mailers/shared/button', title: "Zu den Fördermitgliedschaften", url: subscription_plans_url %>
+        <% else %>
+          <%= render 'mailers/shared/button', title: "Zahlungsmethode aktualisieren", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent) %>
+        <% end %>
       </td>
     </tr>
     <tr>
@@ -33,8 +48,8 @@
           E-Mail an: <%= t("region.#{@subscription.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
         </p>
         <p>
-          Herzlichn Dank,<br>
-          Dein Team von <%= t("region.#{@subscription.region_id}.domain_full") %>
+          Herzlichen Dank,<br>
+          Dein Team von <%= t("region.#{@subscription.region.id}.domain_full") %>
         </p>
       </td>
     </tr>
