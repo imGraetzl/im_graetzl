@@ -135,7 +135,7 @@ class CrowdPledgeService
         balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
         balance_transaction.fee.to_d / 100
       rescue Stripe::InvalidRequestError => e
-        Rails.logger.warn "[stripe webhook] balance_transaction konnte nicht geladen werden: #{e.message}"
+        Rails.logger.warn "[stripe] balance_transaction konnte nicht geladen werden: #{e.message}"
         nil
       end
     end
