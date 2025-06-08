@@ -19,7 +19,7 @@ class CrowdPledgePaymentJob < ApplicationJob
 
     begin
       CrowdPledgeService.new.payment_succeeded(crowd_pledge, payment_intent)
-      Rails.logger.info "[stripe] CrowdPledgePaymentJob - erfolgreich abgeschlossen für CrowdPledge #{crowd_pledge.id}"
+      Rails.logger.info "[stripe] CrowdPledgePaymentJob - Successful finished for CrowdPledge #{crowd_pledge.id}"
     rescue Stripe::InvalidRequestError => e
       Rails.logger.error "[stripe] CrowdPledgePaymentJob - Fehler beim Verarbeiten von CrowdPledge #{crowd_pledge.id}: #{e.message}"
       Sentry.capture_exception(e, extra: { crowd_pledge_id: crowd_pledge.id, payment_intent_id: payment_intent.id })
