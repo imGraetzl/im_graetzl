@@ -58,7 +58,7 @@ class SubscriptionMailer < ApplicationMailer
   def invoice_payment_failed_on_create(user)
     @user = user
 
-    Rails.logger.info "[stripe webhook] invoice.payment_failed: invoice_payment_failed_on_create, @user.subscribed?: #{@user.subscribed?}"
+    Rails.logger.info "[stripe] invoice.payment_failed: invoice_payment_failed_on_create, @user.subscribed?: #{@user.subscribed?}"
     return if @user.subscribed?
 
     @region = @user.region
