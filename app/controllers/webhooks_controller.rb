@@ -92,13 +92,8 @@ class WebhooksController < ApplicationController
   
     case type
     when "CrowdPledge"
-      pledge_id = payment_intent.dig("metadata", "pledge_id")
-      crowd_pledge = CrowdPledge.find_by(id: pledge_id)
-
-      if crowd_pledge
-        CrowdPledgePaymentJob.perform_later(crowd_pledge.id, payment_intent.to_h)
-      else
-        Rails.logger.warn "[stripe] CrowdPledge mit ID #{pledge_id} nicht gefunden im Webhook für payment_intent #{payment_intent['id']}"
+      if (id = payment_intent.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        CrowdPledgePaymentJob.perform_later(record.id, payment_intent.id)
       end
   
     when "RoomRental"
