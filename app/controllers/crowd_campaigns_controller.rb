@@ -124,12 +124,19 @@ class CrowdCampaignsController < ApplicationController
   def stripe_connect_completed
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
 
-    stripe_account = Stripe::Account.retrieve(current_user.stripe_connect_account_id)
+    begin
+      stripe_account = Stripe::Account.retrieve(current_user.stripe_connect_account_id)
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] Account konnte nicht geladen werden: #{e.message}"
+      redirect_to [:status, @crowd_campaign], alert: "Es gab ein Problem beim Abrufen deines Stripe-Kontos. Bitte kontaktiere uns."
+      return
+    end
+
     if stripe_account.requirements.currently_due.blank?
       current_user.update(stripe_connect_ready: true)
       redirect_to [:status, @crowd_campaign], notice: "Dein Auszahlungskonto wurde erfolgreich verifiziert!"
     else
-      redirect_to [:status, @crowd_campaign], notice: "Deine Daten wurden zur Verifizierung weitergeleitet - Wir informieren dich, sollten noch weitere Schritte notwendig sein."
+      redirect_to [:status, @crowd_campaign], notice: "Deine Daten wurden zur Verifizierung weitergeleitet – Wir informieren dich, sollten noch weitere Schritte notwendig sein."
     end
   end
 

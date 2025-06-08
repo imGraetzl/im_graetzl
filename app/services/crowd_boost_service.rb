@@ -25,8 +25,15 @@ class CrowdBoostService
   end
 
   def payment_authorized(crowd_boost_charge, payment_intent_id)
-    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    if !payment_intent.status.in?(["succeeded", "processing"])
+    payment_intent = begin
+      Stripe::PaymentIntent.retrieve({ id: payment_intent_id, expand: ['payment_method'] })
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.warn "[stripe] payment_authorized: PaymentIntent #{payment_intent_id} konnte nicht geladen werden: #{e.message}"
+      return [false, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    end
+
+    unless payment_intent.status.in?(%w[succeeded processing])
+      Rails.logger.info "[stripe] payment_authorized: PaymentIntent #{payment_intent_id} nicht erfolgreich (Status: #{payment_intent.status})"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
@@ -35,12 +42,12 @@ class CrowdBoostService
       stripe_payment_method_id: payment_intent.payment_method&.id,
       payment_method: payment_intent.payment_method&.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
-      payment_wallet: payment_wallet(payment_intent.payment_method),
+      payment_wallet: payment_wallet(payment_intent.payment_method)
     )
 
-    # Load new Charge - may already debited by webhook
-    crowd_boost_charge = CrowdBoostCharge.find(crowd_boost_charge.id)
-    crowd_boost_charge.update(payment_status: 'authorized') if crowd_boost_charge.incomplete?
+    # Nochmals laden, falls Payment-Status parallel durch Webhook verändert wurde
+    latest = CrowdBoostCharge.find(crowd_boost_charge.id)
+    latest.update(payment_status: 'authorized') if latest.incomplete?
 
     true
   end
