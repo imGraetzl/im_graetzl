@@ -15,9 +15,18 @@ namespace :db do
     region = Region.get(ENV['region'])
 
     if region.nil?
-      print "Please select region by using:\n\nrake db:import_region_data region=wien\n\n"
-      print "Available regions: #{map_ids.keys.join(", ")}\n"
+      puts "\nBitte Region angeben, z. B.: rake db:import_region_data region=wien"
+      puts "Verfügbare Regionen: #{map_ids.keys.join(', ')}"
       exit
+    end
+
+    def safe_decode_geometry(geometry_hash, context_name)
+      return nil unless geometry_hash.is_a?(Hash) && geometry_hash['type'].present?
+
+      RGeo::GeoJSON.decode(geometry_hash, json_parser: :json)
+    rescue MultiJson::ParseError => e
+      puts "⚠️ Fehler beim Parsen von GeoJSON für #{context_name}: #{e.message}"
+      nil
     end
 
     graetzl_map_id = map_ids[region.id][:graetzls]
@@ -27,13 +36,15 @@ namespace :db do
       }).parse(:json)['features']
 
       features.each do |feature|
-        next if feature['geometry'].blank?
+        geometry = safe_decode_geometry(feature['geometry'], feature.dig('properties', 'title'))
+        next if geometry.blank?
+
         graetzl = Graetzl.find_or_initialize_by(
           name: feature['properties']['title'],
           region_id: region.id,
         )
-        graetzl.update(area: RGeo::GeoJSON.decode(feature['geometry'], json_parser: :json))
-        print "Imported graetzl #{graetzl.name}\n"
+        graetzl.update(area: geometry)
+        puts "✅ Importiert: Graetzl #{graetzl.name}"
       end
     end
 
@@ -44,15 +55,16 @@ namespace :db do
       }).parse(:json)['features']
 
       features.each do |feature|
-        next if feature['geometry'].blank?
+        geometry = safe_decode_geometry(feature['geometry'], feature.dig('properties', 'title'))
+        next if geometry.blank?
+
         district = District.find_or_initialize_by(
           name: feature['properties']['title'],
           region_id: region.id,
         )
-        district.update(area: RGeo::GeoJSON.decode(feature['geometry'], json_parser: :json))
-        print "Imported district #{district.name}\n"
+        district.update(area: geometry)
+        puts "✅ Importiert: District #{district.name}"
       end
     end
-
   end
 end
