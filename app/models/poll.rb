@@ -44,10 +44,6 @@ class Poll < ApplicationRecord
     poll_questions.where(main_question: true).first
   end
 
-  def find_poll_user(user)
-    poll_users.where(user_id: user&.id).first
-  end
-
   def to_s
     title
   end

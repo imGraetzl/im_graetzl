@@ -25,14 +25,21 @@
 
 
   <div class="entryDescription">
+
     <div class="bbcode"><%= @poll.description.bbcode_to_html.html_safe %></div>
+
+    <%= render 'form', poll_user: PollUser.new if @poll.open? %>
+    <% if @poll.public_result? || current_user&.admin? %>
+      <%= render 'result' %>
+    <% end %>
+
   </div>
 
 
   <div class="entrySidebar">
 
     <div class="participants">
-      <% if @poll.users.size > 0 %>
+      <% if @poll.users.exists? %>
         <h3><span><%= @poll.users.size %></span> Teilnehmer*innen bisher</h3>
       <% end %>
       <div class="portraitCollection">
@@ -44,27 +51,16 @@
       </div>
     </div>
 
-    <% if @poll.find_poll_user(current_user) %>
+    <% if @poll_user %>
       <%= link_to 'Teilnahme wieder entfernen', [:unattend, @poll], method: :post, data: { confirm: 'Bist du dir sicher?' }, class: 'btn-secondary -mint' %>
     <% end %>
 
-  </div>
-
-
-  <div class="entryDescription">
-    <%= render 'form', poll_user: PollUser.new if @poll.open? %>
-    <% if @poll.public_result? || current_user&.admin? %>
-      <%= render 'result' %>
-    <% end %>
-  </div>
-
-
-  <div class="entrySidebar">
     <% if @poll.meetings.upcoming.present? %>
       <div class="meetings">
-        <%= render @poll.meetings.upcoming.first %>
+        <%= render @next_meeting %>
       </div>
     <% end %>
+
   </div>
 
   <% if @poll.comments_enabled? %>

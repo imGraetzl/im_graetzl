@@ -1,8 +1,8 @@
-<% if !@poll.find_poll_user(current_user) %>
+<% unless @poll_user %>
 
   <h2 class="hl-main"><em>Jetzt teilnehmen</em></h2>
 
-  <% disabled = @poll.find_poll_user(current_user) ? true : false %>
+  <% disabled = @poll_user ? true : false %>
 
   <%= form_for [@poll, poll_user], html: { class: 'poll-form' } do |f| %>
   <%= form_errors_for f.object %>

@@ -134,17 +134,11 @@ class SubscriptionService
     subscription.save
   end
 
-
   def update_subscription(subscription, object)
     Rails.logger.info "[stripe webhook] Updating subscription #{subscription.id} (stripe_id=#{subscription.stripe_id})"
     Rails.logger.info "[stripe webhook] Subscription object keys: #{object.to_hash.keys}"
 
     first_item = object.items&.data&.first
-    if first_item
-      Rails.logger.info "[stripe webhook] Found first subscription_item: #{first_item.to_hash}"
-    else
-      Rails.logger.warn "[stripe webhook] No subscription_item found in object.items.data"
-    end
 
     if object.status == "incomplete_expired"
       Rails.logger.info "[stripe webhook] Subscription is 'incomplete_expired', destroying local record."
@@ -180,10 +174,6 @@ class SubscriptionService
       Rails.logger.error "[stripe webhook] Failed to update subscription #{subscription.id}: #{subscription.errors.full_messages.join(', ')}"
     end
   end
-
-
-
-
 
   def delete_subscription(subscription, object)
     item = object.items&.data&.first

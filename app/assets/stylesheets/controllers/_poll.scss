@@ -22,6 +22,11 @@ section.poll {
     }
   }
 
+  .bbcode {
+    margin-bottom: 3rem;
+    padding-right: 0px;
+  }
+
   .entrySidebar {
     margin-bottom: 3rem;
     @include respond-to(">=medium") {

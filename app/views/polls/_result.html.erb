@@ -1,4 +1,4 @@
-<% if !@poll.find_poll_user(current_user) %>
+<% unless @poll_user %>
   <h2 class="hl-main"><em><%= @poll.open? ? 'Bisheriges Interesse' : 'Umfrage Ergebnis' %></em></h2>
 <% end %>
 
