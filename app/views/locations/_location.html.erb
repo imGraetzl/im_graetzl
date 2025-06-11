@@ -53,7 +53,7 @@
       <% end %>
     <% end %>
 
-    <% if zuckerl = location.live_zuckerls.last %>
+    <% if zuckerl = location.latest_live_zuckerl %>
       <%= link_to [graetzl, location, anchor: dom_id(zuckerl)], class: 'zuckerlteasertxt' do %>
         <div class="hl">
           <%= icon_tag "shopping-bag" %>
@@ -63,7 +63,7 @@
       <% end %>
     <% end %>
 
-    <% if meeting = location.upcoming_meetings.last %>
+    <% if meeting = location.next_upcoming_meeting %>
       <%= link_to [graetzl, meeting], class: 'event-teaser-box' do %>
         <% if meeting.starts_at_date %>
           <div class="date">

@@ -8,8 +8,4 @@ module PollsHelper
     end
   end
 
-  def poll_type_path(poll_type)
-    region_polls_path
-  end
-
 end

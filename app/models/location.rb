@@ -29,12 +29,14 @@ class Location < ApplicationRecord
 
   has_many :meetings
   has_many :upcoming_meetings, -> { upcoming }, class_name: "Meeting"
+  has_one  :next_upcoming_meeting, -> { upcoming.order(:starts_at_date) }, class_name: "Meeting"
   has_many :room_offers
   has_many :room_demands
   has_many :tool_offers
   has_many :crowd_campaigns
   has_many :zuckerls
-  has_many :live_zuckerls, -> { live }, class_name: "Zuckerl"
+  has_many :live_zuckerls, -> { live }, class_name: 'Zuckerl'
+  has_one  :latest_live_zuckerl, -> { live.order(created_at: :desc) }, class_name: 'Zuckerl'
 
   enum state: { pending: 0, approved: 1 }
 
@@ -62,8 +64,8 @@ class Location < ApplicationRecord
     preload(
       :user,
       :location_category,
-      :live_zuckerls,
-      :upcoming_meetings,
+      :latest_live_zuckerl,
+      :next_upcoming_meeting,
       :location_menus,
       :location_posts
     )

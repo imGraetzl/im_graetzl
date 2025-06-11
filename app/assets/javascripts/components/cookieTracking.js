@@ -42,10 +42,11 @@ APP.components.cookieTracking = (function() {
     document.head.appendChild(script);
 
     // Setup
-    gtag('set', 'linker', {'domains': ['imgraetzl.at', 'welocally.at']});
+    // Cross Domain Tracking now deactivated / activate under analytics settings -> datastreams -> settings
+    // gtag('set', 'linker', {'domains': ['imgraetzl.at', 'welocally.at']});
     gtag('js', new Date());
     if (userid) { gtag('set', {'user_id': userid}); }
-    gtag('config', uaid, { 'anonymize_ip': true, 'debug_mode': testmode });
+    gtag('config', uaid, { 'anonymize_ip': true, 'debug_mode': testmode, 'allow_linker': false });
 
     // Cookie Consent Banner
     var eventSubmitted = false;
