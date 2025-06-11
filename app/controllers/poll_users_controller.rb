@@ -6,11 +6,6 @@ class PollUsersController < ApplicationController
     render 'polls/show'
   end
 
-  def show
-    @poll_user = @poll.poll_users.find { |pu| pu.user_id == current_user.id }
-    @next_meeting = @poll.meetings.upcoming.first
-  end
-
   def create
 
     if @poll.poll_users.exists?(user_id: current_user.id)
@@ -54,7 +49,7 @@ class PollUsersController < ApplicationController
   private
 
   def set_poll
-    @poll = Poll.includes(poll_questions: :poll_options).find(params[:poll_id])
+    @poll = Poll.find(params[:poll_id])
   end
 
   def poll_user_params
