@@ -12,7 +12,7 @@
     margin-right: 12px;
     flex: 0 0 auto;
   }
-  span, {
+  span {
     @include ellipsis;
   }
 }
@@ -43,6 +43,9 @@
   &.-faved {
     color: $color-ambient-rosa-dark;
   }
+}
+.toggle-admin-ico {
+  color: $color-ambient-rosa;
 }
 .cardBox .toggle-fav-ico, .cardBox .toggle-admin-ico {
   display: none;
