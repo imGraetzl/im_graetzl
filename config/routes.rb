@@ -413,13 +413,17 @@ Rails.application.routes.draw do
     resources :meetings, only: [:index]
   end
 
-  # Redirects for legacy routes
-  get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
-  get 'raum' => redirect('region/raumteiler')
-  get 'raumsuche' => redirect('region/raumteiler')
-  get 'energieteiler' => redirect('region/energieteiler')
-  get 'energiegemeinschaft' => redirect('region/energieteiler')
-  get 'suche-energiegemeinschaft' => redirect('region/energieteiler')
+# Redirects for legacy routes
+  get 'wien(/*wien_path)', to: 'redirect#wien', wien_path: /.*/
+
+  %w[raum raumsuche].each do |path|
+    get path, to: 'redirect#rooms'
+  end
+
+  %w[energieteiler energiegemeinschaft suche-energiegemeinschaft].each do |path|
+    get path, to: 'redirect#energies'
+  end
+
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member

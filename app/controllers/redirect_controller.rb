@@ -14,4 +14,20 @@ class RedirectController < ApplicationController
     end
   end
 
+  def rooms
+    if current_region
+      redirect_to region_rooms_url
+    else
+      redirect_to root_url
+    end
+  end
+
+  def energies
+    if current_region
+      redirect_to region_energies_url
+    else
+      redirect_to root_url
+    end
+  end
+
 end
