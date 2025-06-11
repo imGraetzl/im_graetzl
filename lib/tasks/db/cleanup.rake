@@ -5,13 +5,13 @@ namespace :db do
 
     task_starts_at = Time.now
 
-    # Delete unconfirmed OLD Users (older 3 months)
-    User.registered.where(confirmed_at: nil).where('created_at < ?', 3.months.ago).delete_all
+    # Delete unconfirmed OLD Users (older 1 month)
+    User.registered.where(confirmed_at: nil).where('created_at < ?', 1.month.ago).delete_all
 
     # Delete incomplete OLD Items
-    Zuckerl.incomplete.where('created_at < ?', 2.weeks.ago).where(payment_status: nil).destroy_all
-    CrowdBoostCharge.general.incomplete.where('created_at < ?', 2.weeks.ago).destroy_all
-    CrowdPledge.incomplete.where(inclomplete_reminder_sent_at: nil).where('created_at < ?', 12.months.ago).destroy_all
+    Zuckerl.incomplete.where('created_at < ?', 1.week.ago).where(payment_status: nil).destroy_all
+    CrowdBoostCharge.general.incomplete.where('created_at < ?', 1.week.ago).destroy_all
+    CrowdPledge.incomplete.where(inclomplete_reminder_sent_at: nil).where('created_at < ?', 6.months.ago).destroy_all
 
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web
