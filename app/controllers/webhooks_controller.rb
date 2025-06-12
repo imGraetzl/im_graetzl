@@ -275,7 +275,7 @@ class WebhooksController < ApplicationController
       invoice_id = object[:id].to_s
       Rails.logger.info "[stripe webhook] invoice.payment_failed: Versuche payment_intent nachzuladen für invoice_id=#{invoice_id} (id.class=#{object[:id].class})"
 
-      full_invoice = ::Stripe::Invoice.retrieve(invoice_id, { expand: ['payment_intent'] })
+      full_invoice = ::Stripe::Invoice.retrieve(invoice_id, expand: ['payment_intent'])
       payment_intent = full_invoice.payment_intent
 
       if payment_intent
