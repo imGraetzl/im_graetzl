@@ -248,7 +248,6 @@ class SubscriptionService
 
     coupon = nil
 
-    # Versuche, Discount-ID aus der ersten Line Item Discount Amount zu ziehen
     begin
       lines = object[:lines]
       line_item = lines.respond_to?(:data) ? lines.data.first : nil
@@ -256,22 +255,30 @@ class SubscriptionService
 
       if discount_id.present?
         Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
-        coupon = Coupon.find_by(stripe_id: discount_id)
 
-        if coupon
-          Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id}"
-          CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
-            redeemed_at: Time.current,
-            stripe_id: coupon.stripe_id
-          )
-        else
-          Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für Discount-ID #{discount_id}"
+        # Versuche, Coupon via Discount-API zu holen
+        begin
+          discount = Stripe::Discount.retrieve(discount_id)
+          stripe_coupon_id = discount&.coupon&.id
+          coupon = Coupon.find_by(stripe_id: stripe_coupon_id)
+
+          if coupon
+            Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id} (from coupon_id #{stripe_coupon_id})"
+            CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
+              redeemed_at: Time.current,
+              stripe_id: coupon.stripe_id
+            )
+          else
+            Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für Stripe-Coupon-ID #{stripe_coupon_id}"
+          end
+        rescue => e
+          Rails.logger.warn "[stripe webhook] invoice_paid: Fehler beim Laden des Discounts: #{e.message} (discount_id: #{discount_id})"
         end
       else
         Rails.logger.info "[stripe webhook] invoice_paid: Keine Discount-ID im Line Item gefunden"
       end
     rescue => e
-      Rails.logger.warn "[stripe webhook] invoice_paid: Fehler beim Laden des Coupons: #{e.message}"
+      Rails.logger.warn "[stripe webhook] invoice_paid: Allgemeiner Fehler: #{e.message}"
     end
 
     subscription_invoice = user.subscription_invoices.find_or_initialize_by(stripe_id: object.id)
