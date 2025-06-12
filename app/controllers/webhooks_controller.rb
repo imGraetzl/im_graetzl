@@ -269,13 +269,22 @@ class WebhooksController < ApplicationController
       return
     end
 
-    payment_intent_id = object[:payment_intent].is_a?(String) ? object[:payment_intent] : object[:payment_intent]&.[](:id)
+    # PaymentIntent ID holen (String oder Hash)
+    payment_intent_id = case object[:payment_intent]
+                        when String then object[:payment_intent]
+                        when Hash   then object[:payment_intent][:id]
+                        else nil
+                        end
 
-    payment_intent = begin
-      Stripe::PaymentIntent.retrieve(payment_intent_id) if payment_intent_id
-    rescue => e
-      Rails.logger.warn "[stripe webhook] invoice.payment_failed: Kein zugehöriger PaymentIntent: (#{e.message})"
-      nil
+    payment_intent = nil
+    if payment_intent_id.present?
+      begin
+        payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
+      rescue => e
+        Rails.logger.warn "[stripe webhook] invoice.payment_failed: PaymentIntent konnte nicht geladen werden: #{e.message}"
+      end
+    else
+      Rails.logger.info "[stripe webhook] invoice.payment_failed: Kein payment_intent in Invoice-Event enthalten"
     end
 
     # Failed on Create
