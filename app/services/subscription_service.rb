@@ -205,9 +205,9 @@ class SubscriptionService
       status:object.status,
       amount:object.amount_due / 100,
       created_at: Time.at(object.created),
-      invoice_pdf: object.invoice_pdf,
-      invoice_number: object.number,
-      stripe_payment_intent_id: object.payment_intent,
+      invoice_pdf: object[:invoice_pdf],
+      invoice_number: object[:number],
+      stripe_payment_intent_id: object[:payment_intent],
       coupon_id: coupon&.id # Zuweisung der Coupon-ID, falls vorhanden
     )
   end
@@ -251,9 +251,9 @@ class SubscriptionService
       status: object.status,
       amount: object.amount_paid / 100.0, # Betrag in Euro
       created_at: Time.at(object.created), # Timestamp von Stripe
-      invoice_pdf: object.invoice_pdf,
-      invoice_number: object.number,
-      stripe_payment_intent_id: object.payment_intent,
+      invoice_pdf: object[:invoice_pdf],
+      invoice_number: object[:number],
+      stripe_payment_intent_id: object[:payment_intent],
       coupon_id: coupon&.id # Zuweisung der Coupon-ID, falls vorhanden
     }
   
