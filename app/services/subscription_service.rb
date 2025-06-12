@@ -191,21 +191,26 @@ class SubscriptionService
     return if user.subscription_invoices.exists?(stripe_id: object.id)
 
     coupon = nil
-    begin
-      if object[:subscription].present?
-        stripe_subscription = ::Stripe::Subscription.retrieve(object[:subscription])
-        stripe_coupon_id = stripe_subscription&.discount&.dig(:coupon, :id)
-        coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
-      end
-    rescue => e
-      Rails.logger.warn "[stripe webhook] Coupon konnte nicht geladen werden: #{e.message}"
-    end
+    
+    lines = object[:lines]
+    line_item = lines.respond_to?(:data) ? lines.data.first : nil
+    discount_id = line_item&.discount_amounts&.first&.discount
 
-    if coupon
-      CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
-        redeemed_at: Time.current,
-        stripe_id: coupon.stripe_id
-      )
+    if discount_id.present?
+      Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
+      coupon = Coupon.find_by(code: subscription&.coupon_code) if subscription&.coupon_code.present?
+
+      if coupon
+        Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id} (from subscription.coupon_code=#{subscription.coupon_code})"
+        CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
+          redeemed_at: Time.current,
+          stripe_id: coupon.stripe_id
+        )
+      else
+        Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für subscription.coupon_code=#{subscription.coupon_code}"
+      end
+    else
+      Rails.logger.info "[stripe webhook] invoice_paid: Keine Discount-ID im Line Item gefunden"
     end
 
     user.subscription_invoices.create(
@@ -248,34 +253,25 @@ class SubscriptionService
 
     coupon = nil
 
-    begin
-      lines = object[:lines]
-      line_item = lines.respond_to?(:data) ? lines.data.first : nil
-      discount_id = line_item&.discount_amounts&.first&.discount
+    lines = object[:lines]
+    line_item = lines.respond_to?(:data) ? lines.data.first : nil
+    discount_id = line_item&.discount_amounts&.first&.discount
 
-      if discount_id.present?
-        Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
+    if discount_id.present?
+      Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
+      coupon = Coupon.find_by(code: subscription&.coupon_code) if subscription&.coupon_code.present?
 
-        begin
-          coupon = Coupon.find_by(code: subscription&.coupon_code) if subscription&.coupon_code.present?
-
-          if coupon
-            Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id} (from subscription.coupon_code=#{subscription.coupon_code})"
-            CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
-              redeemed_at: Time.current,
-              stripe_id: coupon.stripe_id
-            )
-          else
-            Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für subscription.coupon_code=#{subscription.coupon_code}"
-          end
-        rescue => e
-          Rails.logger.warn "[stripe webhook] invoice_paid: Fehler beim Laden des Discounts: #{e.message} (discount_id: #{discount_id})"
-        end
+      if coupon
+        Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id} (from subscription.coupon_code=#{subscription.coupon_code})"
+        CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
+          redeemed_at: Time.current,
+          stripe_id: coupon.stripe_id
+        )
       else
-        Rails.logger.info "[stripe webhook] invoice_paid: Keine Discount-ID im Line Item gefunden"
+        Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für subscription.coupon_code=#{subscription.coupon_code}"
       end
-    rescue => e
-      Rails.logger.warn "[stripe webhook] invoice_paid: Allgemeiner Fehler: #{e.message}"
+    else
+      Rails.logger.info "[stripe webhook] invoice_paid: Keine Discount-ID im Line Item gefunden"
     end
 
     subscription_invoice = user.subscription_invoices.find_or_initialize_by(stripe_id: object.id)
