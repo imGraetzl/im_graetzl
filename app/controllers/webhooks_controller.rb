@@ -272,8 +272,7 @@ class WebhooksController < ApplicationController
     # PaymentIntent manuell nachladen
     payment_intent = nil
     begin
-      full_invoice = ::Stripe::Invoice.retrieve(object.id, expand: ['payment_intent'])
-
+      full_invoice = ::Stripe::Invoice.retrieve(object.id, { expand: ['payment_intent'] })
       payment_intent = full_invoice.respond_to?(:payment_intent) ? full_invoice.payment_intent : nil
 
       unless payment_intent
