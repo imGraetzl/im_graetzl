@@ -271,20 +271,20 @@ class WebhooksController < ApplicationController
 
     # PaymentIntent manuell nachladen
     payment_intent = nil
+    invoice_id = object[:id] || object['id']
+
     begin
-      invoice_id = object[:id].to_s
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: Versuche payment_intent nachzuladen für invoice_id=#{invoice_id} (id.class=#{object[:id].class})"
+      Rails.logger.info "[stripe webhook] invoice.payment_failed: Versuche payment_intent manuell nachzuladen für invoice_id=#{invoice_id}"
+      invoice = ::Stripe::Invoice.retrieve(invoice_id)
 
-      full_invoice = ::Stripe::Invoice.retrieve(invoice_id, expand: ['payment_intent'])
-      payment_intent = full_invoice.payment_intent
-
-      if payment_intent
-        Rails.logger.info "[stripe webhook] invoice.payment_failed: PaymentIntent erfolgreich geladen: #{payment_intent.id}, status=#{payment_intent.status}"
+      if invoice.respond_to?(:payment_intent) && invoice.payment_intent.present?
+        payment_intent = ::Stripe::PaymentIntent.retrieve(invoice.payment_intent)
+        Rails.logger.info "[stripe webhook] invoice.payment_failed: PaymentIntent erfolgreich geladen: status=#{payment_intent.status}"
       else
-        Rails.logger.warn "[stripe webhook] invoice.payment_failed: payment_intent nach expand war nil (invoice_id=#{invoice_id})"
+        Rails.logger.warn "[stripe webhook] invoice.payment_failed: invoice.payment_intent war nicht gesetzt oder leer"
       end
     rescue => e
-      Rails.logger.warn "[stripe webhook] invoice.payment_failed: Fehler beim Nachladen von payment_intent: #{e.message} (invoice_id=#{object[:id]})"
+      Rails.logger.warn "[stripe webhook] invoice.payment_failed: Fehler beim Nachladen von payment_intent: #{e.message} (invoice_id=#{invoice_id})"
     end
 
 
