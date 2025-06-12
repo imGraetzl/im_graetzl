@@ -247,21 +247,30 @@ class SubscriptionService
     return if user.nil?
 
     coupon = nil
+
+    # Versuche, Discount-ID aus der ersten Line Item Discount Amount zu ziehen
     begin
-      if object[:subscription].present?
-        stripe_subscription = ::Stripe::Subscription.retrieve(object[:subscription])
-        stripe_coupon_id = stripe_subscription&.discount&.dig(:coupon, :id)
-        coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
+      line_item = object[:lines]&.dig(:data)&.first
+      discount_id = line_item&.dig(:discount_amounts)&.first&.dig(:discount)
+
+      if discount_id.present?
+        Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
+        coupon = Coupon.find_by(stripe_id: discount_id)
+
+        if coupon
+          Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id}"
+          CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
+            redeemed_at: Time.current,
+            stripe_id: coupon.stripe_id
+          )
+        else
+          Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für Discount-ID #{discount_id}"
+        end
+      else
+        Rails.logger.info "[stripe webhook] invoice_paid: Keine Discount-ID im Line Item gefunden"
       end
     rescue => e
-      Rails.logger.warn "[stripe webhook] Coupon konnte nicht geladen werden: #{e.message}"
-    end
-
-    if coupon
-      CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
-        redeemed_at: Time.current,
-        stripe_id: coupon.stripe_id
-      )
+      Rails.logger.warn "[stripe webhook] invoice_paid: Fehler beim Laden des Coupons: #{e.message}"
     end
 
     subscription_invoice = user.subscription_invoices.find_or_initialize_by(stripe_id: object.id)
