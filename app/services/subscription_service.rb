@@ -250,8 +250,9 @@ class SubscriptionService
 
     # Versuche, Discount-ID aus der ersten Line Item Discount Amount zu ziehen
     begin
-      line_item = object[:lines]&.dig(:data)&.first
-      discount_id = line_item&.dig(:discount_amounts)&.first&.dig(:discount)
+      lines = object[:lines]
+      line_item = lines.respond_to?(:data) ? lines.data.first : nil
+      discount_id = line_item&.discount_amounts&.first&.discount
 
       if discount_id.present?
         Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
