@@ -256,20 +256,17 @@ class SubscriptionService
       if discount_id.present?
         Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
 
-        # Versuche, Coupon via Discount-API zu holen
         begin
-          discount = Stripe::Discount.retrieve(discount_id)
-          stripe_coupon_id = discount&.coupon&.id
-          coupon = Coupon.find_by(stripe_id: stripe_coupon_id)
+          coupon = Coupon.find_by(code: subscription&.coupon_code) if subscription&.coupon_code.present?
 
           if coupon
-            Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id} (from coupon_id #{stripe_coupon_id})"
+            Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id} (from subscription.coupon_code=#{subscription.coupon_code})"
             CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
               redeemed_at: Time.current,
               stripe_id: coupon.stripe_id
             )
           else
-            Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für Stripe-Coupon-ID #{stripe_coupon_id}"
+            Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für subscription.coupon_code=#{subscription.coupon_code}"
           end
         rescue => e
           Rails.logger.warn "[stripe webhook] invoice_paid: Fehler beim Laden des Discounts: #{e.message} (discount_id: #{discount_id})"
