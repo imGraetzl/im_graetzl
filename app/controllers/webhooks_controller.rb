@@ -295,7 +295,7 @@ class WebhooksController < ApplicationController
       SubscriptionMailer.invoice_payment_failed_on_create(subscription.user).deliver_later(wait: 1.minute)
 
     # Failed bei Verlängerung 1. Versuch -> Mail
-    elsif object.attempt_count == 1 && object.billing_reason != "subscription_create" && payment_intent&.status == "requires_payment_method"
+    elsif object.attempt_count == 1 && object.billing_reason != "subscription_create"
       line = object.lines&.data&.first
       period_start = line&.period&.start
       period_end   = line&.period&.end
