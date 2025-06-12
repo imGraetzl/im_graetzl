@@ -192,7 +192,8 @@ class SubscriptionService
     return if user.subscription_invoices.where(stripe_id: object.id).any?
 
     # Coupon aus dem Stripe-Response extrahieren
-    stripe_coupon_id = object.discount&.coupon&.id
+    # stripe_coupon_id = object.discount&.coupon&.id
+    stripe_coupon_id = object[:discount]&.dig(:coupon, :id)
     coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
     CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(redeemed_at: Time.current, stripe_id: coupon.stripe_id) if coupon
 
@@ -235,7 +236,8 @@ class SubscriptionService
     return if user.nil?
 
     # Coupon aus dem Stripe-Response extrahieren
-    stripe_coupon_id = object.discount&.coupon&.id
+    # stripe_coupon_id = object.discount&.coupon&.id
+    stripe_coupon_id = object[:discount]&.dig(:coupon, :id)
     coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
     CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(redeemed_at: Time.current, stripe_id: coupon.stripe_id) if coupon
   
