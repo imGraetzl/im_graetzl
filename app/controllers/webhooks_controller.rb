@@ -178,7 +178,9 @@ class WebhooksController < ApplicationController
   end
 
   def invoice_paid(object)
-    subscription_id = object.try(:subscription)
+    extractor = Stripe::InvoiceDataExtractor.new(object)
+    subscription_id = extractor.subscription_id
+
     if subscription_id.blank?
       Rails.logger.warn "[stripe webhook] invoice.paid ohne zugehörige Subscription – wird ignoriert"
       return
@@ -195,29 +197,30 @@ class WebhooksController < ApplicationController
   end
 
   def invoice_upcoming(object)
-    subscription_id = object.try(:subscription)
+    extractor = Stripe::InvoiceDataExtractor.new(object)
+    subscription_id = extractor.subscription_id
+
     if subscription_id.blank?
       Rails.logger.warn "[stripe webhook] invoice.upcoming: Kein subscription_id vorhanden – wird ignoriert"
       return
     end
-  
+
     subscription = Subscription.find_by(stripe_id: subscription_id)
     if subscription.nil?
       Rails.logger.warn "[stripe webhook] invoice.upcoming: Keine Subscription gefunden für stripe_id #{subscription_id}"
       return
     end
-  
-    amount = (object.amount_remaining || 0) / 100.0
-    period_start = object.lines&.data&.first&.period&.start
-  
+
+    period_start = extractor.period_start
+    amount = extractor.amount_eur
+
     if period_start.present?
-      Rails.logger.info "[stripe webhook] invoice.upcoming: Reminder für Subscription##{subscription.id}, Start: #{period_start}, Betrag: €#{amount}"
+      Rails.logger.info "[stripe webhook] invoice.upcoming: Reminder für Subscription##{subscription.id}, Start: #{Time.at(period_start)}, Betrag: €#{amount}"
       SubscriptionMailer.invoice_upcoming(subscription, amount, period_start).deliver_later
     else
-      Rails.logger.warn "[stripe webhook] invoice.upcoming: Kein Zeitraum gefunden für Invoice #{object.id}"
+      Rails.logger.warn "[stripe webhook] invoice.upcoming: Kein Zeitraum gefunden für Invoice #{object[:id]}"
     end
   end
-  
 
   def invoice_marked_uncollectible(object)
     invoice = SubscriptionInvoice.find_by(stripe_id: object.id)
@@ -225,7 +228,9 @@ class WebhooksController < ApplicationController
   end
 
   def invoice_payment_action_required(object)
-    subscription_id = object.try(:subscription)
+    extractor = Stripe::InvoiceDataExtractor.new(object)
+    subscription_id = extractor.subscription_id
+
     if subscription_id.blank?
       Rails.logger.warn "[stripe webhook] invoice.payment_action_required: Kein subscription_id vorhanden – wird ignoriert"
       return
@@ -250,7 +255,9 @@ class WebhooksController < ApplicationController
   end  
 
   def invoice_payment_failed(object)
-    subscription_id = object.try(:subscription)
+    extractor = Stripe::InvoiceDataExtractor.new(object)
+    subscription_id = extractor.subscription_id
+    
     if subscription_id.blank?
       Rails.logger.warn "[stripe webhook] invoice.payment_failed: Kein subscription_id vorhanden – wird ignoriert"
       return
