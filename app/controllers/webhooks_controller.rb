@@ -248,7 +248,7 @@ class WebhooksController < ApplicationController
   
       Rails.logger.info "[stripe webhook] invoice.payment_action_required für Subscription##{subscription.id}"
       SubscriptionService.new.invoice_payment_open(subscription, object)
-      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later
+      SubscriptionMailer.invoice_payment_failed(object[:payment_intent], subscription, period_start, period_end).deliver_later
     else
       Rails.logger.info "[stripe webhook] invoice.payment_action_required: Keine Aktion notwendig"
     end
@@ -269,7 +269,8 @@ class WebhooksController < ApplicationController
       return
     end
 
-    payment_intent_id = object.try(:payment_intent).is_a?(String) ? object.payment_intent : object.payment_intent&.id
+    payment_intent_id = object[:payment_intent].is_a?(String) ? object[:payment_intent] : object[:payment_intent]&.[](:id)
+
     payment_intent = begin
       Stripe::PaymentIntent.retrieve(payment_intent_id) if payment_intent_id
     rescue => e
@@ -290,7 +291,7 @@ class WebhooksController < ApplicationController
 
       Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 1. Versuch: Zahlungsaufforderung an #{subscription.user.email} für Zeitraum #{period_start} – #{period_end}"
       SubscriptionService.new.invoice_payment_open(subscription, object)
-      SubscriptionMailer.invoice_payment_failed(object.payment_intent, subscription, period_start, period_end).deliver_later(wait: 1.minute)
+      SubscriptionMailer.invoice_payment_failed(object[:payment_intent], subscription, period_start, period_end).deliver_later(wait: 1.minute)
 
     # Failed bei Verlängerung 3. Versuch -> Mail Storno
     elsif object.attempt_count == 3
