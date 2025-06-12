@@ -273,10 +273,11 @@ class WebhooksController < ApplicationController
     payment_intent = nil
     begin
       invoice_id = object[:id] || object.id
-      invoice_id = invoice_id.to_s.strip
+      invoice_id = invoice_id.to_s
 
-      full_invoice = ::Stripe::Invoice.retrieve(invoice_id, { expand: ['payment_intent'] })
-      payment_intent = full_invoice.respond_to?(:payment_intent) ? full_invoice.payment_intent : nil
+      full_invoice = ::Stripe::Invoice.retrieve(id: invoice_id, expand: ['payment_intent'])
+
+      payment_intent = full_invoice.payment_intent
 
       unless payment_intent
         Rails.logger.warn "[stripe webhook] invoice.payment_failed: payment_intent nach expand war nil"
@@ -284,6 +285,7 @@ class WebhooksController < ApplicationController
     rescue => e
       Rails.logger.warn "[stripe webhook] invoice.payment_failed: Fehler beim Nachladen von payment_intent: #{e.message} (invoice_id=#{invoice_id.inspect})"
     end
+
 
 
 
