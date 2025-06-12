@@ -186,31 +186,49 @@ class SubscriptionService
   end
 
   def invoice_payment_open(subscription, object)
-
     user = subscription.user
     return if user.nil?
-    return if user.subscription_invoices.where(stripe_id: object.id).any?
+    return if user.subscription_invoices.exists?(stripe_id: object.id)
 
-    # Coupon aus dem Stripe-Response extrahieren
-    # stripe_coupon_id = object.discount&.coupon&.id
-    stripe_coupon_id = object[:discount]&.dig(:coupon, :id)
-    coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
-    CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(redeemed_at: Time.current, stripe_id: coupon.stripe_id) if coupon
+    # Coupon-Handling
+    coupon = nil
+    if object[:discounts].is_a?(Array) && object[:discounts].any?
+      discount_id = object[:discounts].first
+      begin
+        stripe_discount = ::Stripe::Discount.retrieve(discount_id)
+        coupon_id = stripe_discount&.coupon&.id
+        coupon = Coupon.find_by(stripe_id: coupon_id) if coupon_id.present?
+      rescue => e
+        Rails.logger.warn "[stripe webhook] Discount konnte nicht geladen werden: #{e.message}"
+      end
+    end
+
+    # CouponHistory schreiben, falls Coupon existiert
+    if coupon
+      CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
+        redeemed_at: Time.current,
+        stripe_id: coupon.stripe_id
+      )
+    end
+
+    # Fallback-safe PaymentIntent
+    payment_intent_id = object[:payment_intent] rescue nil
 
     user.subscription_invoices.create(
       subscription_id: subscription.id,
       crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
       crowd_boost_id: subscription.crowd_boost_id,
       stripe_id: object.id,
-      status:object.status,
-      amount:object.amount_due / 100,
-      created_at: Time.at(object.created),
+      status: object[:status],
+      amount: (object[:amount_due] || 0) / 100.0,
+      created_at: Time.at(object[:created] || Time.current.to_i),
       invoice_pdf: object[:invoice_pdf],
       invoice_number: object[:number],
-      stripe_payment_intent_id: object[:payment_intent],
-      coupon_id: coupon&.id # Zuweisung der Coupon-ID, falls vorhanden
+      stripe_payment_intent_id: payment_intent_id,
+      coupon_id: coupon&.id
     )
   end
+
 
   def invoice_refunded(subscription_invoice, object)
     subscription_invoice.update(
@@ -235,12 +253,30 @@ class SubscriptionService
     user = subscription.user
     return if user.nil?
 
-    # Coupon aus dem Stripe-Response extrahieren
-    # stripe_coupon_id = object.discount&.coupon&.id
-    stripe_coupon_id = object[:discount]&.dig(:coupon, :id)
-    coupon = Coupon.find_by(stripe_id: stripe_coupon_id) if stripe_coupon_id.present?
-    CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(redeemed_at: Time.current, stripe_id: coupon.stripe_id) if coupon
-  
+    # Coupon-Handling
+    coupon = nil
+    if object[:discounts].is_a?(Array) && object[:discounts].any?
+      discount_id = object[:discounts].first
+      begin
+        stripe_discount = ::Stripe::Discount.retrieve(discount_id)
+        coupon_id = stripe_discount&.coupon&.id
+        coupon = Coupon.find_by(stripe_id: coupon_id) if coupon_id.present?
+      rescue => e
+        Rails.logger.warn "[stripe webhook] Discount konnte nicht geladen werden: #{e.message}"
+      end
+    end
+
+    # CouponHistory schreiben, falls Coupon existiert
+    if coupon
+      CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
+        redeemed_at: Time.current,
+        stripe_id: coupon.stripe_id
+      )
+    end
+
+    # Fallback-safe PaymentIntent
+    payment_intent_id = object[:payment_intent] rescue nil
+
     subscription_invoice = user.subscription_invoices.find_or_initialize_by(stripe_id: object.id)
 
     attributes = {
@@ -248,18 +284,19 @@ class SubscriptionService
       crowd_boost_charge_amount: subscription.crowd_boost_charge_amount,
       crowd_boost_id: subscription.crowd_boost_id,
       stripe_id: object.id,
-      status: object.status,
-      amount: object.amount_paid / 100.0, # Betrag in Euro
-      created_at: Time.at(object.created), # Timestamp von Stripe
+      status: object[:status],
+      amount: (object[:amount_paid] || 0) / 100.0,
+      created_at: Time.at(object[:created] || Time.current.to_i),
       invoice_pdf: object[:invoice_pdf],
       invoice_number: object[:number],
-      stripe_payment_intent_id: object[:payment_intent],
-      coupon_id: coupon&.id # Zuweisung der Coupon-ID, falls vorhanden
+      stripe_payment_intent_id: payment_intent_id,
+      coupon_id: coupon&.id
     }
-  
+
     subscription_invoice.assign_attributes(attributes)
     subscription_invoice.save
   end
+
 
   def update_payment_intent(subscription)
     Stripe::PaymentIntent.update(
