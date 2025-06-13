@@ -54,15 +54,15 @@
 
 <body
   data-controller="<%= controller_name %>"
-  data-region="<%= current_region.id %>"
-  data-domain="<%= current_region.domain %>"
+  data-region="<%= current_region&.id %>"
+  data-domain="<%= current_region&.domain %>"
   data-uaid="<%= Rails.env.production? ? 'G-TG0TEXE9MY' : 'G-C6SFGFCR84' %>"
   data-env-mode="<%= Rails.env.production? ? 'prod' : 'dev' %>"
   data-userid="<%= current_user&.id %>"
   class="
     <%= 'signed-in' if user_signed_in? %>
     <%= 'admin' if current_user&.admin? %>
-    region-<%= current_region.id %>
+    region-<%= current_region&.id %>
     <%= controller_name %>
   ">
 
