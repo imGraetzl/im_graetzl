@@ -122,7 +122,7 @@ class WebhooksController < ApplicationController
       end
   
     else
-      Rails.logger.info "[stripe webhook] payment_intent_succeeded: Unhandled meta type: #{type.inspect}"
+      Rails.logger.info "[stripe webhook] payment_intent_succeeded: Unhandled metadata type: #{type.inspect}"
     end
   end  
 
@@ -162,7 +162,7 @@ class WebhooksController < ApplicationController
       end
   
     else
-      Rails.logger.info "[stripe webhook] payment_intent_failed: Unhandled meta type: #{type.inspect}"
+      Rails.logger.info "[stripe webhook] payment_intent_failed: Unhandled metadata type: #{type.inspect}"
     end
   end  
   
@@ -170,11 +170,13 @@ class WebhooksController < ApplicationController
   def subscription_updated(object)
     subscription = Subscription.find_by(stripe_id: object.id)
     SubscriptionService.new.update_subscription(subscription, object) if subscription
+    Rails.logger.info "[stripe webhook] subscription_updated: subscription: #{subscription&.id}"
   end
 
   def subscription_deleted(object)
     subscription = Subscription.find_by(stripe_id: object.id)
     SubscriptionService.new.delete_subscription(subscription, object) if subscription
+    Rails.logger.info "[stripe webhook] subscription_deleted: subscription: #{subscription&.id}"
   end
 
   def invoice_paid(object)
@@ -182,17 +184,17 @@ class WebhooksController < ApplicationController
     subscription_id = extractor.subscription_id
 
     if subscription_id.blank?
-      Rails.logger.warn "[stripe webhook] invoice.paid ohne zugehörige Subscription – wird ignoriert"
+      Rails.logger.warn "[stripe webhook] invoice_paid: no subscription found – ignoring"
       return
     end
   
     subscription = Subscription.find_by(stripe_id: subscription_id)
     if subscription
-      Rails.logger.info "[stripe webhook] invoice.paid für Subscription##{subscription.id}"
+      Rails.logger.info "[stripe webhook] invoice_paid: subscription: #{subscription&.id}"
       SubscriptionService.new.invoice_paid(subscription, object)
       SubscriptionMailer.invoice(subscription).deliver_later
     else
-      Rails.logger.warn "[stripe webhook] invoice.paid: Subscription mit stripe_id #{subscription_id} nicht gefunden"
+      Rails.logger.warn "[stripe webhook] invoice_paid: no subscription found with stripe_id #{subscription_id}"
     end
   end
 
@@ -201,13 +203,13 @@ class WebhooksController < ApplicationController
     subscription_id = extractor.subscription_id
 
     if subscription_id.blank?
-      Rails.logger.warn "[stripe webhook] invoice.upcoming: Kein subscription_id vorhanden – wird ignoriert"
+      Rails.logger.warn "[stripe webhook] invoice_upcoming: no subscription found – ignoring"
       return
     end
 
     subscription = Subscription.find_by(stripe_id: subscription_id)
     if subscription.nil?
-      Rails.logger.warn "[stripe webhook] invoice.upcoming: Keine Subscription gefunden für stripe_id #{subscription_id}"
+      Rails.logger.warn "[stripe webhook] invoice_upcoming: no subscription found with stripe_id #{subscription_id}"
       return
     end
 
@@ -215,16 +217,17 @@ class WebhooksController < ApplicationController
     amount = extractor.amount_eur
 
     if period_start.present?
-      Rails.logger.info "[stripe webhook] invoice.upcoming: Reminder für Subscription##{subscription.id}, Start: #{Time.at(period_start)}, Betrag: €#{amount}"
+      Rails.logger.info "[stripe webhook] invoice_upcoming: Reminder for subscription #{subscription&.id}, period_start: #{Time.at(period_start)}, amount: €#{amount}"
       SubscriptionMailer.invoice_upcoming(subscription, amount, period_start).deliver_later
     else
-      Rails.logger.warn "[stripe webhook] invoice.upcoming: Kein Zeitraum gefunden für Invoice #{object[:id]}"
+      Rails.logger.warn "[stripe webhook] invoice_upcoming: no period_start found for subscription #{subscription&.id}, object: #{object[:id]}"
     end
   end
 
   def invoice_marked_uncollectible(object)
     invoice = SubscriptionInvoice.find_by(stripe_id: object.id)
     SubscriptionService.new.invoice_uncollectible(invoice, object) if invoice
+    Rails.logger.info "[stripe webhook] invoice_marked_uncollectible: invoice: #{invoice&.id}"
   end
 
   def invoice_payment_action_required(object)
@@ -232,25 +235,25 @@ class WebhooksController < ApplicationController
     subscription_id = extractor.subscription_id
 
     if subscription_id.blank?
-      Rails.logger.warn "[stripe webhook] invoice.payment_action_required: Kein subscription_id vorhanden – wird ignoriert"
+      Rails.logger.warn "[stripe webhook] invoice_payment_action_required: no subscription found – ignoring"
       return
     end
   
     subscription = Subscription.find_by(stripe_id: subscription_id)
     if subscription.nil?
-      Rails.logger.warn "[stripe webhook] invoice.payment_action_required: Keine Subscription gefunden für stripe_id #{subscription_id}"
+      Rails.logger.warn "[stripe webhook] invoice_payment_action_required: no subscription found with stripe_id #{subscription_id}"
       return
     end
   
-    if object.billing_reason != "subscription_create" && subscription.status == "active"
+    if object.billing_reason == "subscription_cycle" && subscription.status == "active"
       period_start = object.lines&.data&.first&.period&.start
       period_end   = object.lines&.data&.first&.period&.end
   
-      Rails.logger.info "[stripe webhook] invoice.payment_action_required für Subscription##{subscription.id}"
+      Rails.logger.info "[stripe webhook] invoice_payment_action_required: subscription: #{subscription&.id}: PaymentIntent: #{object[:payment_intent]}"
       SubscriptionService.new.invoice_payment_open(subscription, object)
       SubscriptionMailer.invoice_payment_failed(object[:payment_intent], subscription, period_start, period_end).deliver_later
     else
-      Rails.logger.info "[stripe webhook] invoice.payment_action_required: Keine Aktion notwendig"
+      Rails.logger.info "[stripe webhook] invoice_payment_action_required: no action needed for subscription #{subscription&.id} (billing_reason: #{object.billing_reason}, status: #{subscription&.status})"
     end
   end  
 
@@ -259,58 +262,38 @@ class WebhooksController < ApplicationController
     subscription_id = extractor.subscription_id
     
     if subscription_id.blank?
-      Rails.logger.warn "[stripe webhook] invoice.payment_failed: Kein subscription_id vorhanden – wird ignoriert"
+      Rails.logger.warn "[stripe webhook] invoice_payment_failed: no subscription found – ignoring"
       return
     end
 
     subscription = Subscription.find_by(stripe_id: subscription_id)
     if subscription.nil?
-      Rails.logger.warn "[stripe webhook] invoice.payment_failed: Keine Subscription gefunden für stripe_id #{subscription_id}"
+      Rails.logger.warn "[stripe webhook] invoice_payment_failed: no subscription found with stripe_id #{subscription_id}"
       return
     end
 
-    # PaymentIntent manuell nachladen
-    payment_intent = nil
-    invoice_id = object[:id] || object['id']
-
-    begin
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: Versuche payment_intent manuell nachzuladen für invoice_id=#{invoice_id}"
-      invoice = ::Stripe::Invoice.retrieve(invoice_id)
-
-      if invoice.respond_to?(:payment_intent) && invoice.payment_intent.present?
-        payment_intent = ::Stripe::PaymentIntent.retrieve(invoice.payment_intent)
-        Rails.logger.info "[stripe webhook] invoice.payment_failed: PaymentIntent erfolgreich geladen: status=#{payment_intent.status}"
-      else
-        Rails.logger.warn "[stripe webhook] invoice.payment_failed: invoice.payment_intent war nicht gesetzt oder leer"
-      end
-    rescue => e
-      Rails.logger.warn "[stripe webhook] invoice.payment_failed: Fehler beim Nachladen von payment_intent: #{e.message} (invoice_id=#{invoice_id})"
-    end
-
-
-
     # Failed on Create
-    if object.billing_reason == "subscription_create" && payment_intent&.status == "requires_payment_method"
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: scheduled email invoice_payment_failed_on_create for #{subscription.user.email}"
+    if object.billing_reason == "subscription_create"
+      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: scheduled email invoice_payment_failed_on_create for #{subscription.user.email}"
       SubscriptionMailer.invoice_payment_failed_on_create(subscription.user).deliver_later(wait: 1.minute)
 
     # Failed bei Verlängerung 1. Versuch -> Mail
-    elsif object.attempt_count == 1 && object.billing_reason != "subscription_create"
+    elsif object.billing_reason == "subscription_cycle" && object.attempt_count == 1
       line = object.lines&.data&.first
       period_start = line&.period&.start
       period_end   = line&.period&.end
 
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 1. Versuch: Zahlungsaufforderung an #{subscription.user.email} für Zeitraum #{period_start} – #{period_end}"
+      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: Verlängerung 1. Versuch: Zahlungsaufforderung an #{subscription.user.email} für Zeitraum #{period_start} – #{period_end}"
       SubscriptionService.new.invoice_payment_open(subscription, object)
-      SubscriptionMailer.invoice_payment_failed(object[:payment_intent], subscription, period_start, period_end).deliver_later(wait: 1.minute)
+      SubscriptionMailer.invoice_payment_failed(subscription, period_start, period_end).deliver_later(wait: 1.minute)
 
     # Failed bei Verlängerung 3. Versuch -> Mail Storno
-    elsif object.attempt_count == 3
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: Verlängerung 3. Versuch: Subscription canceled for #{subscription.user.email}"
+    elsif object.billing_reason == "subscription_cycle" && object.attempt_count == 3
+      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: Verlängerung 3. Versuch: Subscription canceled for #{subscription.user.email}"
       SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later
 
     else
-      Rails.logger.info "[stripe webhook] invoice.payment_failed: Keine Aktion notwendig (Status: #{payment_intent&.status}, Attempt: #{object.attempt_count})"
+      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: Keine Aktion notwendig (Status: #{payment_intent&.status}, Attempt: #{object.attempt_count})"
     end
   end
 
@@ -361,10 +344,10 @@ class WebhooksController < ApplicationController
     if !handled && invoice_id.present?
       invoice = SubscriptionInvoice.find_by(stripe_id: invoice_id)
       if invoice
-        Rails.logger.info "[stripe webhook] Starte invoice_refunded für SubscriptionInvoice##{invoice.id}"
+        Rails.logger.info "[stripe webhook] charge_refunded: SubscriptionInvoice: #{invoice.id}"
         SubscriptionService.new.invoice_refunded(invoice, charge)
       else
-        Rails.logger.warn "[stripe webhook] Kein SubscriptionInvoice gefunden mit stripe_id=#{invoice_id}"
+        Rails.logger.warn "[stripe webhook] charge_refunded: No SubscriptionInvoice found with stripe_id=#{invoice_id}"
       end
     end
 
@@ -397,7 +380,7 @@ class WebhooksController < ApplicationController
     case type
     when "CrowdPledge"
       if (id = charge.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
-        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute für CrowdPledge##{id}"
+        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute for CrowdPledge##{id}"
         CrowdPledgeService.new.payment_disputed(record)
         handled = true
       end
@@ -408,10 +391,10 @@ class WebhooksController < ApplicationController
     if !handled && invoice_id.present?
       invoice = SubscriptionInvoice.find_by(stripe_id: invoice_id)
       if invoice
-        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute für Invoice##{invoice.id}"
+        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute for Invoice##{invoice.id}"
         SubscriptionService.new.invoice_disputed(invoice, charge)
       else
-        Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein Invoice-Record für #{invoice_id}"
+        Rails.logger.warn "[stripe webhook] charge_dispute_closed: No Invoice-Record for #{invoice_id}"
       end
     elsif !handled
       Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein passender Verweis in metadata oder invoice"

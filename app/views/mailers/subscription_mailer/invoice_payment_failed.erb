@@ -37,7 +37,7 @@
         <% if @subscription.canceled? %>
           <%= render 'mailers/shared/button', title: "Zu den Fördermitgliedschaften", url: subscription_plans_url %>
         <% else %>
-          <%= render 'mailers/shared/button', title: "Zahlungsmethode aktualisieren", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent) %>
+          <%= render 'mailers/shared/button', title: "Zahlungsmethode aktualisieren", url: payment_method_user_url %>
         <% end %>
       </td>
     </tr>

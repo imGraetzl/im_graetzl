@@ -135,13 +135,12 @@ class SubscriptionService
   end
 
   def update_subscription(subscription, object)
-    Rails.logger.info "[stripe webhook] Updating subscription #{subscription.id} (stripe_id=#{subscription.stripe_id})"
-    Rails.logger.info "[stripe webhook] Subscription object keys: #{object.to_hash.keys}"
+    Rails.logger.info "[stripe webhook] update_subscription: #{subscription.id} (stripe_id=#{subscription.stripe_id})"
 
     first_item = object.items&.data&.first
 
     if object.status == "incomplete_expired"
-      Rails.logger.info "[stripe webhook] Subscription is 'incomplete_expired', destroying local record."
+      Rails.logger.info "[stripe webhook] update_subscription: Subscription is 'incomplete_expired', destroying local record."
       subscription.destroy
       return
     end
@@ -151,13 +150,13 @@ class SubscriptionService
     if first_item&.respond_to?(:current_period_start)
       subscription.current_period_start = Time.at(first_item.current_period_start)
     else
-      Rails.logger.warn "[stripe webhook] current_period_start not found on first_item"
+      Rails.logger.warn "[stripe webhook] update_subscription: current_period_start not found on first_item"
     end
 
     if first_item&.respond_to?(:current_period_end)
       subscription.current_period_end = Time.at(first_item.current_period_end)
     else
-      Rails.logger.warn "[stripe webhook] current_period_end not found on first_item"
+      Rails.logger.warn "[stripe webhook] update_subscription: current_period_end not found on first_item"
     end
 
     if object.ended_at
@@ -169,9 +168,9 @@ class SubscriptionService
     end
 
     if subscription.save
-      Rails.logger.info "[stripe webhook] Subscription #{subscription.id} successfully updated."
+      Rails.logger.info "[stripe webhook] update_subscription: Subscription #{subscription.id} successfully updated."
     else
-      Rails.logger.error "[stripe webhook] Failed to update subscription #{subscription.id}: #{subscription.errors.full_messages.join(', ')}"
+      Rails.logger.error "[stripe webhook] update_subscription: Failed to update subscription #{subscription.id}: #{subscription.errors.full_messages.join(', ')}"
     end
   end
 
@@ -197,20 +196,20 @@ class SubscriptionService
     discount_id = line_item&.discount_amounts&.first&.discount
 
     if discount_id.present?
-      Rails.logger.info "[stripe webhook] invoice_paid: found discount_id #{discount_id}"
+      Rails.logger.info "[stripe webhook] invoice_payment_open: found discount_id #{discount_id}"
       coupon = Coupon.find_by(code: subscription&.coupon_code) if subscription&.coupon_code.present?
 
       if coupon
-        Rails.logger.info "[stripe webhook] invoice_paid: matched coupon.id=#{coupon.id} (from subscription.coupon_code=#{subscription.coupon_code})"
+        Rails.logger.info "[stripe webhook] invoice_payment_open: matched coupon.id=#{coupon.id} (from subscription.coupon_code=#{subscription.coupon_code})"
         CouponHistory.find_or_create_by(user: user, coupon: coupon)&.update(
           redeemed_at: Time.current,
           stripe_id: coupon.stripe_id
         )
       else
-        Rails.logger.warn "[stripe webhook] invoice_paid: Kein Coupon gefunden für subscription.coupon_code=#{subscription.coupon_code}"
+        Rails.logger.warn "[stripe webhook] invoice_payment_open: Kein Coupon gefunden für subscription.coupon_code=#{subscription.coupon_code}"
       end
     else
-      Rails.logger.info "[stripe webhook] invoice_paid: Keine Discount-ID im Line Item gefunden"
+      Rails.logger.info "[stripe webhook] invoice_payment_open: Keine Discount-ID im Line Item gefunden"
     end
 
     user.subscription_invoices.create(
