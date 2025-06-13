@@ -18,9 +18,12 @@ class UserService
     Stripe::Customer.update(user.stripe_customer, invoice_settings: { default_payment_method: payment_method.id })
 
     user.update(
+      payment_method_stripe_id: payment_method.id,
       payment_method: payment_method.type,
       payment_card_last4: payment_method_last4(payment_method),
       payment_wallet: payment_wallet(payment_method),
+      payment_exp_month: payment_method.respond_to?(:card) ? payment_method.card&.exp_month : nil,
+      payment_exp_year: payment_method.respond_to?(:card) ? payment_method.card&.exp_year : nil
     )
   end
 

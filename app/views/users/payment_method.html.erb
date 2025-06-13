@@ -15,6 +15,9 @@
     <h3>Deine aktuelle Zahlungsmethode</h3>
     <div>
       <%= I18n.t("activerecord.attributes.payment_method.#{current_user.payment_method}") %> endet auf ****<%= current_user.payment_card_last4 %>
+      <% if current_user.payment_exp_month? %>
+      (Gültig bis: <%= current_user.payment_exp_month %>/<%= current_user.payment_exp_year %>)
+      <% end %>
        | <%= link_to 'Zahlungsmethode ändern', 'javascript:', id: 'change_payment' %>
     </div>
     <br><br>

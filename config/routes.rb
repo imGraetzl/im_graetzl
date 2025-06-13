@@ -265,8 +265,6 @@ Rails.application.routes.draw do
   resources :subscriptions, path: 'mitgliedschaft' do
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member
-    get 'change_payment', on: :member
-    get 'payment_changed', on: :member
     get 'summary', on: :member
     patch :resume, on: :member
   end

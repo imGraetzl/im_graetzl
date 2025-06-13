@@ -574,8 +574,8 @@ de:
           month: pro Monat
           year: pro Jahr
       payment_method:
-        card: Kreditkarte
-        sepa_debit: Bankkonto
+        card: Karte
+        sepa_debit: IBAN
       region_call:
         gemeinden: Stadt / Gemeinden(n)
         name: Ansprechpartner

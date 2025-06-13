@@ -99,30 +99,6 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  def change_payment
-    @subscription = current_user.subscriptions.find_by_id(params[:id])
-    @plan = @subscription.subscription_plan
-    @payment_intent = Stripe::PaymentIntent.update(
-      params[:payment_intent],
-      setup_future_usage: 'off_session',
-    )
-  end
-
-  def payment_changed
-    @subscription = current_user.subscriptions.find_by_id(params[:id])
-    redirect_to [:summary, @subscription] if params[:payment_intent].blank?
-
-    success, error = SubscriptionService.new.payment_changed(@subscription, params[:payment_intent])
-
-    if success
-      flash[:notice] = "Deine Zahlungsmethode wurde erfolgreich authorisiert."
-      redirect_to [:summary, @subscription]
-    else
-      flash[:error] = error
-      redirect_to [:change_payment, @subscription]
-    end
-  end
-
   def summary
     @subscription = current_user.subscription
     @plan = @subscription.subscription_plan

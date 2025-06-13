@@ -67,30 +67,6 @@ class SubscriptionService
     true
   end
 
-
-  def payment_changed(subscription, payment_intent_id)
-    begin
-      payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
-    rescue Stripe::InvalidRequestError => e
-      Rails.logger.warn "[stripe] payment_changed: PaymentIntent #{payment_intent_id} konnte nicht geladen werden: #{e.message}"
-      return [false, "Ein Fehler ist aufgetreten. Bitte versuche es später erneut."]
-    end
-
-    unless payment_intent.status.in?(%w[succeeded processing])
-      Rails.logger.warn "[stripe] payment_changed: PaymentIntent #{payment_intent.id} hat ungültigen Status: #{payment_intent.status}"
-      return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
-    end
-
-    if payment_intent.payment_method.nil?
-      Rails.logger.warn "[stripe] payment_changed: PaymentIntent #{payment_intent.id} hat keine verknüpfte Zahlungsmethode"
-      return [false, "Zahlungsmethode konnte nicht gelesen werden."]
-    end
-
-    UserService.new.update_payment_method(subscription.user, payment_intent.payment_method.id)
-
-    true
-  end
-
   def finalize_invoice(subscription)
     return unless subscription.stripe_id
 
@@ -110,7 +86,7 @@ class SubscriptionService
     rescue Stripe::InvalidRequestError => e
       Rails.logger.warn "[stripe] finalize_invoice: Fehler bei Subscription #{subscription.id}: #{e.message}"
     rescue => e
-      Rails.logger.error "[stripe] finalize_invoice: Unerwarteter Fehler: #{e.class} – #{e.message}"
+      Rails.logger.error "[stripe] finalize_invoice: Fehler: #{e.class} – #{e.message}"
     end
   end
 
