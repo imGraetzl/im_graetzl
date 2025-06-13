@@ -112,7 +112,7 @@
           <div class="flex-row xlarge" role="cell"><%= invoice.invoice_number %></div>
           <div class="flex-row xlarge" role="cell">
           <% if invoice.status == "open" && @subscription.past_due? %>
-            <%= link_to 'Zahlung abschließen', change_payment_subscription_path(@subscription, payment_intent: invoice.stripe_payment_intent_id), class: '-pay' %>
+            <%= link_to 'Fehlgeschlagen | Zahlungsmethode ändern', payment_method_user_path, class: '-pay' %>
           <% else %>
             <%= link_to 'Download', invoice.generate_invoice_pdf %>
           <% end %>

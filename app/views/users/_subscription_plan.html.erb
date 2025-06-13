@@ -122,11 +122,6 @@
 
       <%= link_to "Zur Mitgliedschaft Übersicht", subscription_plans_path, class: 'btn-primary -mint' %>
 
-    <% elsif @subscription.past_due? && @subscription.subscription_invoices.unpaid.any? %>
-
-      <% invoice = @subscription.subscription_invoices.unpaid.last %>
-      <%= link_to "Zahlung abschließen", change_payment_subscription_path(@subscription, payment_intent: invoice.stripe_payment_intent_id), class: 'btn-primary' %>
-
     <% elsif @subscription.past_due? %>
 
       <%= link_to "Zahlungsmethode aktualisieren", payment_method_user_path, class: 'btn-primary' %>

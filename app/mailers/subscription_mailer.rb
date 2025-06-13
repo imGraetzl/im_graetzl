@@ -39,9 +39,8 @@ class SubscriptionMailer < ApplicationMailer
     )
   end
 
-  def invoice_payment_failed(payment_intent, subscription, period_start, period_end)
+  def invoice_payment_failed(subscription, period_start, period_end)
     @subscription = subscription
-    @payment_intent = payment_intent
     @period_start = Time.at(period_start).to_datetime
     @period_end = Time.at(period_end).to_datetime
     @user = @subscription.user
