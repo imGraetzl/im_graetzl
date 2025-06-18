@@ -13,9 +13,6 @@ class NavigationController < ApplicationController
     when 'rooms'
       @room_offers = current_user.room_offers.in(current_region).first(3)
       @room_demands = current_user.room_demands.in(current_region).first(3)
-    when 'tools'
-      @tool_offers = current_user.tool_offers.in(current_region).non_deleted.first(3)
-      @tool_demands = current_user.tool_demands.in(current_region).first(3)
     when 'energies'
       @energy_offers = current_user.energy_offers.in(current_region).first(3)
       @energy_demands = current_user.energy_demands.in(current_region).first(3)

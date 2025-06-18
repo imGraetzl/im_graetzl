@@ -9,8 +9,6 @@ class Favorite < ApplicationRecord
   scope :meetings, -> { where(favoritable_type: 'Meeting') }
   scope :room_demands, -> { where(favoritable_type: 'RoomDemand') }
   scope :room_offers, -> { where(favoritable_type: 'RoomOffer') }
-  scope :tool_demands, -> { where(favoritable_type: 'ToolDemand') }
-  scope :tool_offers, -> { where(favoritable_type: 'ToolOffer') }
   scope :users, -> { where(favoritable_type: 'User') }
 
   validates :user_id, uniqueness: {

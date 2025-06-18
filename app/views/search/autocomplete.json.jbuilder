@@ -13,22 +13,6 @@ json.rooms do
   end
 end
 
-json.tools do
-  json.array!(@results.select{|r| r.is_a?(ToolOffer) || r.is_a?(ToolDemand)}) do |tool|
-    json.count @results.find{|r| r[:tools_count]} [:tools_count]
-    json.type tool.class.name
-    if tool.is_a?(ToolOffer)
-      json.name tool.title
-      json.url tool_offer_path(tool)
-      json.icon tool.cover_photo_url(:thumb)
-    elsif tool.is_a?(ToolDemand)
-      json.name tool.slogan
-      json.url tool_demand_path(tool)
-      json.icon tool.user.avatar_url(:thumb)
-    end
-  end
-end
-
 json.meetings do
   json.array!(@results.select{|r| r.is_a?(Meeting)}) do |meeting|
     json.count @results.find{|r| r[:meetings_count]} [:meetings_count]

@@ -53,20 +53,6 @@
 
         <br><br>
 
-        <!--
-        <strong>6.)</strong>
-        <em>
-          <% if @user.region.use_districts? %>
-            <strong>Hast du gerade ein besonderes Angebot oder einen Rabatt?</strong> Dann ist das Zuckerl dafür das Richtige, das spielt dein Angebot bezirksweise oder in ganz <%= @user.region.name %> aus, einen ganzen Monat lang (kostenpflichtig):<br>
-            <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
-          <% else %>
-            <strong>Hast du gerade ein besonderes Angebot oder einen Rabatt?</strong> Dann ist das Zuckerl dafür das Richtige, das spielt dein Angebot in deiner Gemeinde oder in der ganzen Region <%= @user.region.name %> aus, einen ganzen Monat lang (kostenpflichtig):<br>
-            <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
-          <% end %>
-        </em>
-        <br><br>
-        -->
-
         <p>Viel Freude mit <%= t("region.#{@user.region.id}.domain_full") %> und wenn du Fragen hast, dann melde dich einfach bei mir. Wenn dir <%= t("region.#{@user.region.id}.domain_short") %> gefällt, erzähle es weiter. Danke!</p>
 
         Liebe Grüße,<br>

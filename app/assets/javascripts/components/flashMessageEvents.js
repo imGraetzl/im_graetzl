@@ -90,20 +90,6 @@ APP.components.flashMsgEvents = (function() {
         );
       }
 
-      // Activate ToolDemand
-      else if (flashMsg('Deine Gerätesuche ist nun aktiv')){
-        gtag(
-          'event', 'Gerätesuche :: Click :: Status Aktiv'
-        );
-      }
-
-      // Deactivate ToolDemand
-      else if (flashMsg('Deine Gerätesuche ist nun deaktiviert')){
-        gtag(
-          'event', 'Gerätesuche :: Click :: Status Inaktiv'
-        );
-      }
-
       // Favorite Graetzls
       else if (flashMsg('Deine Favoriten wurden gespeichert')){
         gtag(

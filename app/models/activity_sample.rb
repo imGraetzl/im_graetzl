@@ -116,18 +116,6 @@ class ActivitySample
     end
   end
 
-  def tools
-    scope = if @graetzl
-      @graetzl.tool_offers
-    elsif @district
-      @district.tool_offers
-    else
-      ToolOffer
-    end
-
-    load_for(:tools, scope.in(@current_region).enabled.include_for_box.by_currentness)
-  end
-
   def polls
     scope = if @graetzl
       @graetzl.polls

@@ -26,12 +26,6 @@ class DistrictsController < ApplicationController
     end
   end
 
-  def tools
-    if params[:category].present?
-      @category = ToolCategory.find_by(slug: params[:category])
-    end
-  end
-
   def groups
     @featured_groups = @district.groups.in(current_region).featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])

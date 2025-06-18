@@ -117,15 +117,6 @@ context.instance_eval do
         end
       end
 
-      panel 'Geräteteiler' do
-        table_for user.tool_offers do
-          column :id
-          column :title
-          column(:state){|l| status_tag(l.status)}
-          column(''){|l| link_to 'Anzeigen', admin_tool_offer_path(l) }
-        end
-      end
-
       panel 'Gruppen Mitglied' do
         table_for user.groups do
           column :id

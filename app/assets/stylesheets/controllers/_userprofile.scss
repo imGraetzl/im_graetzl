@@ -104,14 +104,6 @@ section.userprofile {
     display: table;
   }
 
-  .cardBox {
-    &.-toolteiler {
-      .graetzl-sideflag {
-        display:none;
-      }
-    }
-  }
-
   .userContent {
     @include cf;
     margin-bottom: 30px;
@@ -143,18 +135,6 @@ section.userprofile {
       }
       .sticky-btns {
         margin-top: 20px;
-      }
-    }
-
-    .rating-block {
-      display: flex;
-      align-items: center;
-      .img-round {
-        width: 30px !important;
-        height: 30px !important;
-        padding: 2px !important;
-        margin:0 !important;
-        margin-right: 10px !important;
       }
     }
 

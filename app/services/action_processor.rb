@@ -296,29 +296,6 @@ class ActionProcessor
       end
       notify_comment(subject, child)
 
-    when [ToolOffer, :create]
-      Activity.add_public(subject, to: subject.graetzl)
-      Notifications::NewToolOffer.generate(subject, to: { graetzl: subject.graetzl })
-
-    when [ToolOffer, :comment]
-      if subject.enabled?
-        Activity.add_public(subject, child, to: subject.graetzl)
-      end
-      notify_comment(subject, child)
-
-    when [ToolDemand, :create]
-      Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewToolDemand.generate(subject, to: { graetzls: subject.graetzls })
-
-    when [ToolDemand, :update]
-      Activity.add_public(subject, to: subject.graetzls)
-
-    when [ToolDemand, :comment]
-      if subject.enabled?
-        Activity.add_public(subject, child, to: subject.graetzls)
-      end
-      notify_comment(subject, child)
-
     when [Subscription, :create]
       Activity.add_public(subject, to: :entire_region)
 

@@ -32,9 +32,6 @@ class MessengerController < ApplicationController
       if params[:room_rental_id].present?
         room_rental = RoomRental.find(params[:room_rental_id])
         UserMessageThread.create_for_room_rental(room_rental)
-      elsif params[:tool_rental_id].present?
-        tool_rental = ToolRental.find(params[:tool_rental_id])
-        UserMessageThread.create_for_tool_rental(tool_rental)
       elsif params[:user_id].present? && params[:user_id] != current_user.id
         user = User.find(params[:user_id])
         UserMessageThread.create_general(current_user, user)

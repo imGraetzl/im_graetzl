@@ -383,7 +383,7 @@
     padding: 10px 0px 15px 0px;
   }
 
-  &.-roomdemand, &.-coopdemand, &.-tooldemand, &.-energydemand {
+  &.-roomdemand, &.-coopdemand, &.-energydemand {
     .type-description {
       padding-top: 0px;
       margin-top:-10px;
@@ -429,23 +429,6 @@
   }
   .waiting-list {
     background-color: $color-ambient-mint-light;
-  }
-
-  .tool-usage-period {
-    margin: 0px 0px 15px 0px;
-    padding: 5px;
-    text-decoration: none;
-    font-style: italic;
-    background-color: $color-ambient-mint-light;
-    color: $color-ambient-mint-dark;
-    display: flex;
-    align-items: center;
-    + .streamElement {
-      margin-top: 15px;
-    }
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
 
   .updateteaser, .zuckerlteasertxt, .event-teaser-box, .basic-message-box, .goodieteasertxt {

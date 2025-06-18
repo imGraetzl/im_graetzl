@@ -23,7 +23,7 @@ section.usersetup {
     }
   }
 
-  .introcontainer .introtxt, &.-toolteiler, &.-rooms {
+  .introcontainer .introtxt, &.-rooms {
     h1 {
       @include font-size-secondaryFont('base');
       font-family: $font-secondary;
@@ -103,7 +103,7 @@ section.usersetup {
 
   }
 
-  &.-toolteiler, &.-rooms {
+  &.-rooms {
     .tabs-nav {
       margin: 0 auto;
       margin-bottom: 50px;
@@ -175,25 +175,6 @@ section.usersetup {
 
   .link-more {
     display:table;
-  }
-
-  &.-toolteiler {
-    .cardBox.-toolteiler {
-      .graetzl-sideflag, .-btn-rent {
-        display: none;
-      }
-    }
-    .no-rentals-box {
-      p {
-        padding-top:10px;
-        font-style: italic;
-      }
-    }
-  }
-
-  .tool-messenger {
-    text-align: center;
-    font-style: italic;
   }
 
   &.-meetings {

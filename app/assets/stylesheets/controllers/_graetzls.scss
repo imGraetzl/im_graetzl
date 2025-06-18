@@ -49,7 +49,7 @@ section.graetzls {
 
 // ---------------------------------------------------------------------- blocks for logged categories
 
-.block-locations, .block-meetings, .block-zuckerls, .block-rooms, .block-groups, .block-tools, .block-coops, .block-crowdcampaigns {
+.block-locations, .block-meetings, .block-zuckerls, .block-rooms, .block-groups, .block-energies, .block-coops, .block-crowdcampaigns {
   margin-bottom: 60px;
   @include respond-to(">=large") {
     margin-bottom: 80px;
