@@ -4,7 +4,7 @@ namespace :db do
 
     # remove old data
     puts 'remove old data'
-    [User, Meeting, Location, Post, Group, RoomOffer, RoomDemand, ToolOffer, Activity].each(&:destroy_all)
+    [User, Meeting, Location, Post, Group, RoomOffer, RoomDemand, Activity].each(&:destroy_all)
 
     # check for seed data
     puts 'check for graetzl and districts'

@@ -22,7 +22,6 @@
 @import "jBox.min";
 @import "lightslider";
 //@import "jquery.tagsinput";
-//@import "datatables.min";
 //@import "uppy";
 
 //---------------------------------------------------------------------------------------------*\
@@ -61,7 +60,6 @@
 @import "components/userEntry";
 @import "components/calendarSheet";
 @import "components/priceSheet";
-@import "components/userRating";
 @import "components/payment";
 @import "components/priceSummary";
 @import "components/lists";
@@ -123,9 +121,6 @@
 @import "controllers/offerDetail";
 //@import "controllers/coopDemandForm";
 @import "controllers/demandDetail";
-@import "controllers/toolDetail";
-//@import "controllers/toolForm";
-@import "controllers/tool_rentals";
 @import "controllers/room_rentals";
 //@import "controllers/room_rentals_timetable";
 //@import "controllers/groupForm";
@@ -143,7 +138,7 @@
 //---------------------------------------------------------------------------------------------*/
 
 @import "controllers/info_balkonsolar";
-@import "controllers/info_crowd2raum";
+//@import "controllers/info_crowd2raum";
 //@import "controllers/info_popup";
 //@import "controllers/info_mentoring";
 
@@ -152,5 +147,3 @@
 //---------------------------------------------------------------------------------------------*/
 
 @import "components/region";
-
-//@import "controllers/reports";

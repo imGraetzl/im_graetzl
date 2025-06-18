@@ -116,20 +116,6 @@ class RoomRentalsController < ApplicationController
     redirect_to messenger_url(thread_id: @room_rental.user_message_thread.id)
   end
 
-  def leave_rating
-    @room_rental = RoomRental.find(params[:id])
-
-    if @room_rental.owner == current_user
-      @room_rental.update(renter_rating: params[:rating])
-      @room_rental.renter.recalculate_rating
-    elsif @room_rental.renter == current_user
-      @room_rental.update(owner_rating: params[:rating])
-      @room_rental.owner.recalculate_rating
-    end
-
-    redirect_to messenger_url(thread_id: @room_rental.user_message_thread.id)
-  end
-
   private
 
   def initial_rental_params

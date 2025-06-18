@@ -20,8 +20,6 @@ module Notifications
     NewRoomOffer,
     NewEnergyOffer,
     NewEnergyDemand,
-    NewToolOffer,
-    NewToolDemand,
     NewWallComment,
     NewCoopDemand,
     NewCrowdCampaign,

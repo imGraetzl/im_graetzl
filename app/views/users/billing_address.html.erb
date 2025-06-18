@@ -98,25 +98,6 @@
       <div class="formRow"></div>
     </div>
 
-    <!--
-    <div class="formBlock">
-      <div class="hl-subtext">
-        <h2>Dein <span>Auszahlungs Konto</span></h2>
-        <p>Falls du Räumlichkeiten über den Raumteiler, oder Geräte über den Toolteiler vermietest, so werden deine Mieteinnahmen auf folgendes Konto ausbezahlt:</p>
-      </div>
-
-      <div class="formRow">
-        <div class="input-field">
-          <%= f.label :iban do %>
-            <%= icon_tag "profile-vcard" %>
-            <span>IBAN</span>
-          <% end %>
-          <%= f.text_field :iban, placeholder: 'IBAN' %>
-        </div>
-      </div>
-    </div>
-    -->
-
     <% end %>
 
     <%= f.submit 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>

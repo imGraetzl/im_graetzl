@@ -101,14 +101,3 @@
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Messenger Nachrichten", collection: UserMessage %>
     </tbody>
   </table>
-
-  
-  <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-    <%= render 'mailers/admin_mailer/daily_mail_row', title: "Geräteteiler", thead: true %>
-    <tbody>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Gerät | Active", collection: ToolOffer.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Habe Gerät", collection: ToolOffer %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät | Active", collection: ToolDemand.enabled, sum: true %>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Suche Gerät", collection: ToolDemand %>
-    </tbody>
-  </table>

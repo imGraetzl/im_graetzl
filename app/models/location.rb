@@ -32,7 +32,6 @@ class Location < ApplicationRecord
   has_one  :next_upcoming_meeting, -> { upcoming.order(:starts_at_date) }, class_name: "Meeting"
   has_many :room_offers
   has_many :room_demands
-  has_many :tool_offers
   has_many :crowd_campaigns
   has_many :zuckerls
   has_many :live_zuckerls, -> { live }, class_name: 'Zuckerl'

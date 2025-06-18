@@ -100,12 +100,7 @@ class WebhooksController < ApplicationController
       if (id = payment_intent.metadata["room_rental_id"]) && (record = RoomRental.find_by(id: id))
         RoomRentalService.new.payment_succeeded(record, payment_intent)
       end
-  
-    when "ToolRental"
-      if (id = payment_intent.metadata["tool_rental_id"]) && (record = ToolRental.find_by(id: id))
-        ToolRentalService.new.payment_succeeded(record, payment_intent)
-      end
-  
+    
     when "RoomBooster"
       if (id = payment_intent.metadata["room_booster_id"]) && (record = RoomBooster.find_by(id: id))
         RoomBoosterService.new.payment_succeeded(record, payment_intent)
@@ -140,12 +135,7 @@ class WebhooksController < ApplicationController
       if (id = payment_intent.metadata["room_rental_id"]) && (record = RoomRental.find_by(id: id))
         RoomRentalService.new.payment_failed(record, payment_intent)
       end
-  
-    when "ToolRental"
-      if (id = payment_intent.metadata["tool_rental_id"]) && (record = ToolRental.find_by(id: id))
-        ToolRentalService.new.payment_failed(record, payment_intent)
-      end
-  
+    
     when "Zuckerl"
       if (id = payment_intent.metadata["zuckerl_id"]) && (record = Zuckerl.find_by(id: id))
         ZuckerlService.new.payment_failed(record, payment_intent)
@@ -313,13 +303,7 @@ class WebhooksController < ApplicationController
         RoomRentalService.new.payment_refunded(record)
         handled = true
       end
-  
-    when "ToolRental"
-      if (id = charge.metadata["tool_rental_id"]) && (record = ToolRental.find_by(id: id))
-        ToolRentalService.new.payment_refunded(record)
-        handled = true
-      end
-  
+    
     when "RoomBooster"
       if (id = charge.metadata["room_booster_id"]) && (record = RoomBooster.find_by(id: id))
         RoomBoosterService.new.payment_refunded(record)

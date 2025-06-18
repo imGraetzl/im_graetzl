@@ -9,7 +9,6 @@ module FavoriteHelper
       ['Events & Workshops', 'Events & Workshops', '["meeting"]'],
       ['Crowdfunding', 'Crowdfunding', '["crowd_campaign"]'],
       ['Coop & Share', 'Coop & Share', '["coop_demand"]'],
-      ['Geräteteiler', 'Geräteteiler', '["tool_offer", "tool_demand"]'],
     ]
   end
 

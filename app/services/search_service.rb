@@ -13,7 +13,6 @@ class SearchService
     search_rooms.first(2) +
     search_meetings.first(2) +
     search_locations.first(2) +
-    search_tools.first(2) +
     search_coop_demands.first(2) +
     search_groups.first(2) +
     search_polls.first(2) +
@@ -21,7 +20,6 @@ class SearchService
     [:rooms_count => search_rooms.length] +
     [:meetings_count => search_meetings.length] +
     [:locations_count => search_locations.length] +
-    [:tools_count => search_tools.length] +
     [:coop_demands_count => search_coop_demands.length] +
     [:crowd_campaigns_count => search_crowd_campaigns.length] +
     [:groups_count => search_groups.length] + 
@@ -46,7 +44,6 @@ class SearchService
     results += search_groups if @options[:type].blank? || @options[:type] == 'groups'
     results += search_locations if @options[:type].blank? || @options[:type] == 'locations'
     results += search_rooms if @options[:type].blank? || @options[:type] == 'rooms'
-    results += search_tools if @options[:type].blank? || @options[:type] == 'tools'
     results += search_polls if @options[:type].blank? || @options[:type] == 'polls'
     results += search_energies if @options[:type].blank? || @options[:type] == 'energies'
     results += search_coop_demands if @options[:type].blank? || @options[:type] == 'coop_demands'
@@ -98,12 +95,6 @@ class SearchService
     energy_offers = EnergyOffer.in(@region).enabled.where("title ILIKE :q", q: like_query)
     energy_demands = EnergyDemand.in(@region).enabled.where("title ILIKE :q", q: like_query)
     (energy_offers + energy_demands).sort_by(&:last_activated_at).reverse
-  end
-
-  def search_tools
-    tool_offers = ToolOffer.in(@region).enabled.where("title ILIKE :q", q: like_query).order('created_at DESC')
-    tool_demands = ToolDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query)
-    (tool_offers + tool_demands).sort_by(&:created_at).reverse
   end
 
   def search_coop_demands

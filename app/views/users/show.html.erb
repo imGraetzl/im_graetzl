@@ -22,13 +22,10 @@
       <%= avatar_image @user, class: 'img-round -largest show-badge' %>
       <div class="sideBarbox">
 
-        <div class="rating-block icontxt">
+        <div class="icontxt">
           <%= icon_tag "user-avatar" %>
           <div>
             <span class="name"><%= @user.full_name %></span>
-            <div class="rating-container">
-              <%= user_rating(@user) %>
-            </div>
           </div>
         </div>
 
@@ -73,7 +70,6 @@
       <% if @user.locations.in(current_region).approved.present? %><li data-submit="#location-submit" data-target="locations-card-container"><a href="#tab-locations">Schaufenster</a></li><% end %>
       <% if @user.initiated_meetings.in(current_region).present? %><li data-submit="#meeting-submit" data-target="meetings-card-container"><a href="#tab-meetings">Events</a></li><% end %>
       <% if @user.room_offers.in(current_region).enabled.present? || @user.room_demands.in(current_region).enabled.present? %><li data-submit="#room-submit" data-target="rooms-card-container"><a href="#tab-raumteiler">Raumteiler</a></li><% end %>
-      <% if @user.tool_offers.in(current_region).enabled.present? || @user.tool_demands.in(current_region).enabled.present? %><li data-submit="#tool-submit" data-target="tools-card-container"><a href="#tab-toolteiler">Geräteteiler</a></li><% end %>
       <% if @user.energy_offers.in(current_region).enabled.present? || @user.energy_demands.in(current_region).enabled.present? %><li data-submit="#energy-submit" data-target="energies-card-container"><a href="#tab-energieteiler">Energieteiler</a></li><% end %>
       <% if @user.coop_demands.in(current_region).enabled.present? %><li data-submit="#coopdemand-submit" data-target="coopdemands-card-container"><a href="#tab-coop">Coop & Share</a></li><% end %>
     </ul>
@@ -94,12 +90,6 @@
       <%= form_tag rooms_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'room-submit' do; end %>
       <div class="cardBoxCollection -tripple" data-behavior="rooms-card-container"></div>
       <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' }, rel: 'nofollow' %>
-    </div>
-
-    <div id="tab-toolteiler">
-      <%= form_tag tools_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'tool-submit' do; end %>
-      <div class="cardBoxCollection -tripple" data-behavior="tools-card-container"></div>
-      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'tools-paginate-link' }, rel: 'nofollow' %>
     </div>
 
     <div id="tab-energieteiler">

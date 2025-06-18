@@ -97,12 +97,12 @@
         margin-right:5px;
       }
     }
-    &.RoomOffer, &.ToolOffer, &.Location, &.Group, &.CrowdCampaign, &.Poll, &.EnergyOffer {
+    &.RoomOffer, &.Location, &.Group, &.CrowdCampaign, &.Poll, &.EnergyOffer {
       img {
         @extend .img-square;
       }
     }
-    &.RoomDemand, &.CoopDemand, &.ToolDemand, &.User, &.EnergyDemand {
+    &.RoomDemand, &.CoopDemand, &.User, &.EnergyDemand {
       img {
         @extend .img-round;
       }
