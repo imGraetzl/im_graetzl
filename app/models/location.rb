@@ -24,7 +24,6 @@ class Location < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  has_one :contact, dependent: :destroy
   accepts_nested_attributes_for :contact
 
   has_many :meetings
