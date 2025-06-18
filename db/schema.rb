@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_13_114155) do
+ActiveRecord::Schema.define(version: 2025_06_18_111747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1520,138 +1520,6 @@ ActiveRecord::Schema.define(version: 2025_06_13_114155) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "tool_categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "main_photo_id"
-    t.string "main_photo_content_type"
-    t.integer "position", default: 0
-    t.jsonb "main_photo_data"
-    t.string "slug"
-    t.string "icon"
-    t.index ["slug"], name: "index_tool_categories_on_slug", unique: true
-  end
-
-  create_table "tool_demand_graetzls", force: :cascade do |t|
-    t.bigint "tool_demand_id"
-    t.bigint "graetzl_id"
-    t.index ["graetzl_id"], name: "index_tool_demand_graetzls_on_graetzl_id"
-    t.index ["tool_demand_id"], name: "index_tool_demand_graetzls_on_tool_demand_id"
-  end
-
-  create_table "tool_demands", force: :cascade do |t|
-    t.string "slogan"
-    t.text "demand_description"
-    t.text "usage_description"
-    t.string "slug"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "website"
-    t.string "email"
-    t.string "phone"
-    t.integer "status", default: 0
-    t.string "region_id"
-    t.date "last_activated_at"
-    t.boolean "usage_period", default: false
-    t.date "usage_period_from"
-    t.date "usage_period_to"
-    t.integer "usage_days"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
-    t.bigint "location_id"
-    t.bigint "tool_category_id"
-    t.decimal "budget", precision: 10, scale: 2
-    t.index ["location_id"], name: "index_tool_demands_on_location_id"
-    t.index ["region_id"], name: "index_tool_demands_on_region_id"
-    t.index ["slug"], name: "index_tool_demands_on_slug"
-    t.index ["tool_category_id"], name: "index_tool_demands_on_tool_category_id"
-    t.index ["user_id"], name: "index_tool_demands_on_user_id"
-  end
-
-  create_table "tool_offers", force: :cascade do |t|
-    t.string "title"
-    t.string "slug"
-    t.text "description"
-    t.string "brand"
-    t.string "model"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
-    t.bigint "tool_category_id"
-    t.integer "tool_subcategory_id"
-    t.bigint "user_id"
-    t.bigint "location_id"
-    t.bigint "graetzl_id"
-    t.integer "value_up_to"
-    t.string "serial_number"
-    t.text "known_defects"
-    t.decimal "price_per_day", precision: 10, scale: 2
-    t.integer "two_day_discount", default: 0
-    t.integer "weekly_discount", default: 0
-    t.integer "status", default: 0
-    t.string "first_name"
-    t.string "last_name"
-    t.string "iban"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "address_id"
-    t.jsonb "cover_photo_data"
-    t.string "region_id"
-    t.decimal "deposit", precision: 10, scale: 2
-    t.string "address_street"
-    t.string "address_zip"
-    t.string "address_city"
-    t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
-    t.string "address_description"
-    t.index ["address_id"], name: "index_tool_offers_on_address_id"
-    t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
-    t.index ["location_id"], name: "index_tool_offers_on_location_id"
-    t.index ["region_id"], name: "index_tool_offers_on_region_id"
-    t.index ["status"], name: "index_tool_offers_on_status"
-    t.index ["tool_category_id"], name: "index_tool_offers_on_tool_category_id"
-    t.index ["tool_subcategory_id"], name: "index_tool_offers_on_tool_subcategory_id"
-    t.index ["user_id"], name: "index_tool_offers_on_user_id"
-  end
-
-  create_table "tool_rentals", force: :cascade do |t|
-    t.bigint "tool_offer_id"
-    t.bigint "user_id"
-    t.date "rent_from"
-    t.date "rent_to"
-    t.string "renter_company"
-    t.string "renter_name"
-    t.string "renter_address"
-    t.string "renter_zip"
-    t.string "renter_city"
-    t.integer "rental_status", default: 0
-    t.string "stripe_payment_intent_id"
-    t.integer "owner_rating"
-    t.integer "renter_rating"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "payment_method"
-    t.decimal "basic_price", precision: 10, scale: 2, default: "0.0"
-    t.decimal "discount", precision: 10, scale: 2, default: "0.0"
-    t.decimal "service_fee", precision: 10, scale: 2, default: "0.0"
-    t.decimal "insurance_fee", precision: 10, scale: 2, default: "0.0"
-    t.string "payment_status"
-    t.string "stripe_source_id"
-    t.string "stripe_charge_id"
-    t.decimal "tax", precision: 10, scale: 2, default: "0.0"
-    t.string "invoice_number"
-    t.decimal "daily_price", precision: 10, scale: 2, default: "0.0"
-    t.string "payment_card_last4"
-    t.string "region_id"
-    t.string "stripe_payment_method_id"
-    t.datetime "debited_at"
-    t.string "payment_wallet"
-    t.index ["region_id"], name: "index_tool_rentals_on_region_id"
-    t.index ["stripe_payment_intent_id"], name: "index_tool_rentals_on_stripe_payment_intent_id"
-    t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"
-    t.index ["user_id"], name: "index_tool_rentals_on_user_id"
-  end
-
   create_table "user_graetzls", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "graetzl_id"
@@ -1673,7 +1541,6 @@ ActiveRecord::Schema.define(version: 2025_06_13_114155) do
   end
 
   create_table "user_message_threads", force: :cascade do |t|
-    t.bigint "tool_rental_id"
     t.datetime "last_message_at"
     t.text "last_message"
     t.datetime "created_at", null: false
@@ -1683,7 +1550,6 @@ ActiveRecord::Schema.define(version: 2025_06_13_114155) do
     t.string "user_key"
     t.index ["last_message"], name: "index_user_message_threads_on_last_message"
     t.index ["room_rental_id"], name: "index_user_message_threads_on_room_rental_id"
-    t.index ["tool_rental_id"], name: "index_user_message_threads_on_tool_rental_id"
   end
 
   create_table "user_messages", force: :cascade do |t|
@@ -1940,23 +1806,11 @@ ActiveRecord::Schema.define(version: 2025_06_13_114155) do
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "subscription_plans", on_delete: :nullify
   add_foreign_key "subscriptions", "users", on_delete: :nullify
-  add_foreign_key "tool_demand_graetzls", "graetzls", on_delete: :cascade
-  add_foreign_key "tool_demand_graetzls", "tool_demands", on_delete: :cascade
-  add_foreign_key "tool_demands", "locations", on_delete: :nullify
-  add_foreign_key "tool_demands", "tool_categories", on_delete: :nullify
-  add_foreign_key "tool_demands", "users", on_delete: :cascade
-  add_foreign_key "tool_offers", "graetzls", on_delete: :nullify
-  add_foreign_key "tool_offers", "locations", on_delete: :nullify
-  add_foreign_key "tool_offers", "tool_categories", on_delete: :nullify
-  add_foreign_key "tool_offers", "users", on_delete: :cascade
-  add_foreign_key "tool_rentals", "tool_offers", on_delete: :nullify
-  add_foreign_key "tool_rentals", "users", on_delete: :nullify
   add_foreign_key "user_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "user_graetzls", "users", on_delete: :cascade
   add_foreign_key "user_message_thread_members", "user_message_threads", on_delete: :cascade
   add_foreign_key "user_message_thread_members", "users", on_delete: :cascade
   add_foreign_key "user_message_threads", "room_rentals", on_delete: :nullify
-  add_foreign_key "user_message_threads", "tool_rentals", on_delete: :nullify
   add_foreign_key "user_messages", "user_message_threads", on_delete: :cascade
   add_foreign_key "user_messages", "users", on_delete: :cascade
   add_foreign_key "users", "location_categories", on_delete: :nullify
