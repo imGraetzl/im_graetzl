@@ -26,29 +26,16 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
-  def crowd2raum(room_demand)
-    @user = room_demand.user
-    @region = @user.region
+  def toolteiler_sunset(tool_offer)
+    @tool_offer = tool_offer
+    @user = @tool_offer.user
+    @region = @tool_offer.region
 
-    headers("X-MC-Tags" => "crowd2raum")
+    headers("X-MC-Tags" => "toolteiler-sunset")
 
     mail(
-      subject: "Brauchst du Raum? Hier ist deine Chance!",
+      subject: "Der Geräteteiler-Bereich auf #{t("region.#{@region.id}.domain_short")} wird eingestellt",
       from: platform_email("wir"),
-      to: @user.email,
-    )
-  end
-
-  def hot_august_room_pusher(room_offer)
-    @room_offer = room_offer
-    @user = @room_offer.user
-    @region = @room_offer.region
-
-    headers("X-MC-Tags" => "hot-august-room-pusher")
-
-    mail(
-      subject: "Dein Raum braucht mehr Aufmerksamkeit? Lass uns das pushen!",
-      from: platform_email("mirjam", "Mirjam Mieschendahl"),
       to: @user.email,
     )
   end
