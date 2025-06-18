@@ -1,0 +1,43 @@
+class RemoveDeprecatedImageColumns < ActiveRecord::Migration[6.1]
+  def change
+    # Entferne alte CarrierWave-Spalten nur, wenn sie existieren
+    remove_column :meetings, :cover_photo_id, :string if column_exists?(:meetings, :cover_photo_id)
+    remove_column :polls, :cover_photo_id, :string if column_exists?(:polls, :cover_photo_id)
+    remove_column :room_offers, :cover_photo_id, :string if column_exists?(:room_offers, :cover_photo_id)
+    remove_column :zuckerls, :cover_photo_id, :string if column_exists?(:zuckerls, :cover_photo_id)
+    remove_column :room_categories, :main_photo_id, :string if column_exists?(:room_categories, :main_photo_id)
+    remove_column :location_categories, :main_photo_id, :string if column_exists?(:location_categories, :main_photo_id)
+    remove_column :crowd_campaigns, :cover_photo_id, :string if column_exists?(:crowd_campaigns, :cover_photo_id)
+    remove_column :crowd_categories, :main_photo_id, :string if column_exists?(:crowd_categories, :main_photo_id)
+    remove_column :event_categories, :main_photo_id, :string if column_exists?(:event_categories, :main_photo_id)
+    remove_column :groups, :cover_photo_id, :string if column_exists?(:groups, :cover_photo_id)
+    remove_column :locations, :avatar_id, :string if column_exists?(:locations, :avatar_id)
+    remove_column :locations, :cover_photo_id, :string if column_exists?(:locations, :cover_photo_id)
+    remove_column :room_demands, :avatar_id, :string if column_exists?(:room_demands, :avatar_id)
+    remove_column :room_offers, :avatar_id, :string if column_exists?(:room_offers, :avatar_id)
+    remove_column :users, :avatar_id, :string if column_exists?(:users, :avatar_id)
+    remove_column :users, :cover_photo_id, :string if column_exists?(:users, :cover_photo_id)
+    remove_column :zuckerls, :image_id, :string if column_exists?(:zuckerls, :image_id)
+    remove_column :images, :file_id, :string if column_exists?(:images, :file_id)
+
+    # Entferne veraltete *_content_type-Felder nur, wenn sie existieren
+    remove_column :meetings, :cover_photo_content_type, :string if column_exists?(:meetings, :cover_photo_content_type)
+    remove_column :polls, :cover_photo_content_type, :string if column_exists?(:polls, :cover_photo_content_type)
+    remove_column :room_offers, :cover_photo_content_type, :string if column_exists?(:room_offers, :cover_photo_content_type)
+    remove_column :zuckerls, :cover_photo_content_type, :string if column_exists?(:zuckerls, :cover_photo_content_type)
+    remove_column :room_categories, :main_photo_content_type, :string if column_exists?(:room_categories, :main_photo_content_type)
+    remove_column :location_categories, :main_photo_content_type, :string if column_exists?(:location_categories, :main_photo_content_type)
+    remove_column :crowd_campaigns, :cover_photo_content_type, :string if column_exists?(:crowd_campaigns, :cover_photo_content_type)
+    remove_column :crowd_categories, :main_photo_content_type, :string if column_exists?(:crowd_categories, :main_photo_content_type)
+    remove_column :event_categories, :main_photo_content_type, :string if column_exists?(:event_categories, :main_photo_content_type)
+    remove_column :groups, :cover_photo_content_type, :string if column_exists?(:groups, :cover_photo_content_type)
+    remove_column :locations, :avatar_content_type, :string if column_exists?(:locations, :avatar_content_type)
+    remove_column :locations, :cover_photo_content_type, :string if column_exists?(:locations, :cover_photo_content_type)
+    remove_column :room_demands, :avatar_content_type, :string if column_exists?(:room_demands, :avatar_content_type)
+    remove_column :room_offers, :avatar_content_type, :string if column_exists?(:room_offers, :avatar_content_type)
+    remove_column :users, :avatar_content_type, :string if column_exists?(:users, :avatar_content_type)
+    remove_column :users, :cover_photo_content_type, :string if column_exists?(:users, :cover_photo_content_type)
+    remove_column :zuckerls, :image_content_type, :string if column_exists?(:zuckerls, :image_content_type)
+    remove_column :images, :file_content_type, :string if column_exists?(:images, :file_content_type)
+  end
+end

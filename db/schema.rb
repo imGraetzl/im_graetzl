@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_18_111747) do
+ActiveRecord::Schema.define(version: 2025_06_18_130423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -363,8 +363,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.boolean "benefit"
     t.integer "billable"
     t.string "video"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
     t.jsonb "cover_photo_data"
     t.string "contact_company"
     t.string "contact_name"
@@ -427,8 +425,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
   create_table "crowd_categories", force: :cascade do |t|
     t.string "title"
     t.string "css_ico_class"
-    t.string "main_photo_id"
-    t.string "main_photo_content_type"
     t.jsonb "main_photo_data"
     t.string "slug"
     t.integer "position", default: 0
@@ -748,8 +744,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
   create_table "event_categories", force: :cascade do |t|
     t.string "title"
     t.string "css_ico_class"
-    t.string "main_photo_id"
-    t.string "main_photo_content_type"
     t.integer "position", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -877,8 +871,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.datetime "updated_at", null: false
     t.integer "room_demand_id"
     t.integer "location_id"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
     t.boolean "featured", default: false
     t.boolean "hidden", default: false
     t.text "welcome_message"
@@ -893,12 +885,10 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
   end
 
   create_table "images", id: :serial, force: :cascade do |t|
-    t.string "file_id"
     t.integer "imageable_id"
     t.string "imageable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "file_content_type"
     t.jsonb "file_data"
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
@@ -908,8 +898,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "icon"
-    t.string "main_photo_id"
-    t.string "main_photo_content_type"
     t.integer "position", default: 0
     t.jsonb "main_photo_data"
     t.string "slug"
@@ -968,14 +956,10 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.string "name"
     t.string "slogan"
     t.text "description"
-    t.string "avatar_id"
-    t.string "cover_photo_id"
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "graetzl_id"
-    t.string "avatar_content_type"
-    t.string "cover_photo_content_type"
     t.integer "state", default: 0
     t.integer "location_category_id"
     t.datetime "last_activity_at"
@@ -1031,8 +1015,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.time "starts_at_time"
     t.time "ends_at_time"
     t.integer "graetzl_id"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
     t.integer "location_id"
     t.integer "state", default: 0
     t.boolean "approved_for_api", default: false
@@ -1160,8 +1142,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.string "title"
     t.text "description"
     t.string "region_id"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
     t.jsonb "cover_photo_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1225,8 +1205,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "main_photo_id"
-    t.string "main_photo_content_type"
     t.integer "position", default: 0
     t.string "css_ico_class"
     t.jsonb "main_photo_data"
@@ -1265,8 +1243,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.string "email"
     t.string "phone"
     t.integer "location_id"
-    t.string "avatar_id"
-    t.string "avatar_content_type"
     t.integer "status", default: 0
     t.date "last_activated_at"
     t.jsonb "avatar_data"
@@ -1345,16 +1321,12 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.datetime "updated_at", null: false
     t.integer "graetzl_id"
     t.integer "district_id"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
     t.integer "offer_type", default: 0
     t.string "first_name"
     t.string "last_name"
     t.string "website"
     t.string "email"
     t.string "phone"
-    t.string "avatar_id"
-    t.string "avatar_content_type"
     t.integer "status", default: 0
     t.date "last_activated_at"
     t.boolean "rental_enabled", default: false
@@ -1584,16 +1556,12 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.string "last_name", limit: 255
     t.boolean "newsletter", default: false, null: false
     t.integer "graetzl_id"
-    t.string "avatar_id"
     t.integer "enabled_website_notifications", default: 0
     t.integer "role"
-    t.string "avatar_content_type"
     t.integer "immediate_mail_notifications", default: 0
     t.integer "daily_mail_notifications", default: 0
     t.integer "weekly_mail_notifications", default: 0
     t.string "slug"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
     t.text "bio"
     t.string "website"
     t.string "origin"
@@ -1652,8 +1620,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_111747) do
     t.integer "location_id"
     t.string "title"
     t.text "description"
-    t.string "image_id"
-    t.string "image_content_type"
     t.string "aasm_state"
     t.datetime "debited_at"
     t.datetime "created_at", null: false
