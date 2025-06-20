@@ -681,9 +681,6 @@ de:
     balkonsolar:
       title: 'Balkon-Solar Workshops in %{region}'
       description: 'Kosten senken – Strom selber produzieren! Entdecke mit uns die Mini-PV Anlagen für den Balkon! Du interessierst dich für Balkon-Solar und möchtest wissen, wie es funktioniert? Dann bist du bei unserem Balkon-Solar Workshop genau richtig, in zwei Stunden lernst du von Michael Puttinger alles über Balkonkraftwerke.'
-    popup:
-      title: 'WeLocally Pop-Up in Graz - Gemeinsam bringen wir mehr zusammen: WeLocally.at startet in Graz!'
-      description: 'Lerne uns kennen und komm zum WeLocally Pop-up in Graz. Crowdfunding / Raumteiler / Balkonsolar. Alle WeLocally Sessions sind kostenlos.'
 
   contact_list_entries:
     crowd2raum:

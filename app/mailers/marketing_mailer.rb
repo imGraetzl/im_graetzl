@@ -13,19 +13,6 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
-  def subscription_meeting_invite(user)
-    @user = user
-    @region = @user.region
-
-    headers("X-MC-Tags" => "subscription-meeting-invite")
-
-    mail(
-      subject: "Erinnerung: Einladung zum Jahrestreffen für imGrätzl Förder*innen am 23.11.",
-      from: platform_email("wir"),
-      to: @user.email,
-    )
-  end
-
   def agb_change_and_crowdfunding(user)
     @user = user
     @region = @user.region
