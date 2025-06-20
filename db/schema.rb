@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_20_120509) do
+ActiveRecord::Schema.define(version: 2025_06_20_123701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -360,7 +360,6 @@ ActiveRecord::Schema.define(version: 2025_06_20_120509) do
     t.integer "active_state", default: 0
     t.string "invoice_number"
     t.boolean "crowdfunding_call", default: false
-    t.decimal "percentage_fee", precision: 5, scale: 2
     t.decimal "service_fee_percentage", precision: 5, scale: 2
     t.string "visibility_status"
     t.string "contact_instagram"
