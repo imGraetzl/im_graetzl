@@ -25,11 +25,6 @@ class ZuckerlsController < ApplicationController
     @zuckerl.entire_region = true if entire_region?
     @zuckerl.amount = @zuckerl.total_price / 100
 
-    if current_region.hot_august?
-      @zuckerl.crowd_boost_id = current_region.default_crowd_boost_id
-      @zuckerl.crowd_boost_charge_amount = @zuckerl.basic_price / 100
-    end
-
     if @zuckerl.save
       @zuckerl.link ||= nil
 

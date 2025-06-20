@@ -51,11 +51,6 @@ class Region
     @use_energieteiler
   end
 
-  def hot_august?
-    false
-    #self.is?('wien') && Date.today.to_datetime.between?('2024-08-01', '2024-08-31')
-  end
-
   def is?(region_id)
     region_id == id ? true : false
   end
@@ -77,19 +72,19 @@ class Region
   end
 
   def zuckerl_graetzl_price
-    self.hot_august? && @zuckerl_graetzl_discount_price ? @zuckerl_graetzl_discount_price.to_f : @zuckerl_graetzl_price.to_f
+    @zuckerl_graetzl_discount_price ? @zuckerl_graetzl_discount_price.to_f : @zuckerl_graetzl_price.to_f
   end
 
   def zuckerl_region_price
-    self.hot_august? && @zuckerl_region_discount_price ? @zuckerl_region_discount_price.to_f : @zuckerl_region_price.to_f
+    @zuckerl_region_discount_price ? @zuckerl_region_discount_price.to_f : @zuckerl_region_price.to_f
   end
 
   def zuckerl_graetzl_old_price
-    self.hot_august? && @zuckerl_graetzl_discount_price ? @zuckerl_graetzl_price.to_f : false
+    @zuckerl_graetzl_discount_price ? @zuckerl_graetzl_price.to_f : false
   end
 
   def zuckerl_region_old_price
-    self.hot_august? && @zuckerl_region_discount_price ? @zuckerl_region_price.to_f : false
+    @zuckerl_region_discount_price ? @zuckerl_region_price.to_f : false
   end
 
   def room_booster_price
