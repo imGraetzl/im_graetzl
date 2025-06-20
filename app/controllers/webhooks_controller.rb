@@ -368,7 +368,7 @@ class WebhooksController < ApplicationController
     return unless dispute.status == 'lost'
   
     charge = begin
-      Stripe::Charge.retrieve(id: dispute.charge)
+      Stripe::Charge.retrieve(id: dispute.charge, expand: ["payment_intent"])
     rescue => e
       Rails.logger.warn "[stripe webhook] charge_dispute_closed: Charge konnte nicht geladen werden (#{e.message})"
       return
@@ -386,30 +386,25 @@ class WebhooksController < ApplicationController
       end
     end
   
-    # Fallback für Subscriptions via Invoice-Referenz
-    invoice_id = charge.try(:invoice) || charge["invoice"]
-    if !handled && invoice_id.present?
-      invoice = SubscriptionInvoice.find_by(stripe_id: invoice_id)
+    # Fallback für SubscriptionInvoice via PaymentIntent
+    if !handled && charge.payment_intent.present?
+      payment_intent_id = charge.payment_intent.id
+      invoice = SubscriptionInvoice.find_by(stripe_payment_intent_id: payment_intent_id)
+
       if invoice
-        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute for Invoice##{invoice.id}"
+        Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute for SubscriptionInvoice##{invoice.id} (via PaymentIntent)"
         SubscriptionService.new.invoice_disputed(invoice, charge)
+        handled = true
       else
-        Rails.logger.warn "[stripe webhook] charge_dispute_closed: No Invoice-Record for #{invoice_id}"
+        Rails.logger.warn "[stripe webhook] charge_dispute_closed: Keine SubscriptionInvoice für PaymentIntent #{payment_intent_id}"
       end
-    elsif !handled
-      Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein passender Verweis in metadata oder invoice"
-      Rails.logger.warn "[stripe webhook] charge_dispute_closed: charge data: #{charge.to_json}"
-
-      if charge.payment_intent.present?
-        begin
-          payment_intent = Stripe::PaymentIntent.retrieve(charge.payment_intent)
-          Rails.logger.info "[stripe webhook] charge_dispute_closed: charge.payment_intent data: #{payment_intent.to_json}"
-        rescue => e
-          Rails.logger.warn "[stripe webhook] charge_dispute_closed: PaymentIntent konnte nicht geladen werden (#{e.message})"
-        end
-      end
-
     end
+
+    if !handled
+      Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein passender Verweis in metadata, invoice oder payment_intent"
+      Rails.logger.warn "[stripe webhook] charge_dispute_closed: charge data: #{charge.to_json}"
+    end
+
   end
   
 
