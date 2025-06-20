@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_18_130423) do
+ActiveRecord::Schema.define(version: 2025_06_20_124501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -98,25 +98,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_130423) do
     t.index ["user_id"], name: "index_business_interests_users_on_user_id"
   end
 
-  create_table "campaign_users", force: :cascade do |t|
-    t.string "campaign_title"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email", default: "", null: false
-    t.string "website"
-    t.string "zip"
-    t.string "city"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "categories_meetings", id: false, force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "meeting_id"
-    t.index ["category_id"], name: "index_categories_meetings_on_category_id"
-    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id"
-  end
-
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "content"
     t.integer "user_id"
@@ -139,18 +120,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_130423) do
     t.text "message"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_contact_list_entries_on_user_id"
-  end
-
-  create_table "contacts", id: :serial, force: :cascade do |t|
-    t.string "website"
-    t.string "email"
-    t.string "phone"
-    t.integer "location_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "hours"
-    t.string "online_shop"
-    t.index ["location_id"], name: "index_contacts_on_location_id"
   end
 
   create_table "coop_demand_categories", force: :cascade do |t|
@@ -320,7 +289,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_130423) do
     t.string "title"
     t.string "slogan"
     t.text "description"
-    t.text "charge_description"
     t.jsonb "avatar_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -385,7 +353,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_130423) do
     t.integer "active_state", default: 0
     t.string "invoice_number"
     t.boolean "crowdfunding_call", default: false
-    t.decimal "percentage_fee", precision: 5, scale: 2
     t.decimal "service_fee_percentage", precision: 5, scale: 2
     t.string "visibility_status"
     t.string "contact_instagram"
@@ -927,16 +894,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_130423) do
     t.index ["region_id"], name: "index_location_menus_on_region_id"
   end
 
-  create_table "location_ownerships", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "location_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "state", default: 0
-    t.index ["location_id"], name: "index_location_ownerships_on_location_id"
-    t.index ["user_id"], name: "index_location_ownerships_on_user_id"
-  end
-
   create_table "location_posts", id: :serial, force: :cascade do |t|
     t.text "content"
     t.integer "graetzl_id"
@@ -1251,13 +1208,6 @@ ActiveRecord::Schema.define(version: 2025_06_18_130423) do
     t.index ["location_id"], name: "index_room_demands_on_location_id"
     t.index ["region_id"], name: "index_room_demands_on_region_id"
     t.index ["user_id"], name: "index_room_demands_on_user_id"
-  end
-
-  create_table "room_modules", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "icon"
   end
 
   create_table "room_offer_availabilities", force: :cascade do |t|
