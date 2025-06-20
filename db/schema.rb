@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_20_130001) do
+ActiveRecord::Schema.define(version: 2025_06_20_130408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1517,8 +1517,6 @@ ActiveRecord::Schema.define(version: 2025_06_20_130001) do
     t.boolean "business", default: true
     t.string "stripe_customer_id", limit: 50
     t.string "iban"
-    t.decimal "rating", precision: 3, scale: 2
-    t.integer "ratings_count", default: 0
     t.integer "address_id"
     t.jsonb "avatar_data"
     t.jsonb "cover_photo_data"
