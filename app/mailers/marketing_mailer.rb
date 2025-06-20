@@ -26,6 +26,19 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
+  def beat_1060(user)
+    @user = user
+    @region = @user.region
+
+    headers("X-MC-Tags" => "beat-1060")
+
+    mail(
+      subject: "Einladung zur Schnupperstunde im beat1060 – direkt bei dir ums Eck!",
+      from: platform_email("wir"),
+      to: @user.email,
+    )
+  end
+
   def toolteiler_sunset(tool_offer)
     @tool_offer = tool_offer
     @user = @tool_offer.user

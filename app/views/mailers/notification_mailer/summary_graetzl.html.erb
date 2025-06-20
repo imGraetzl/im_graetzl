@@ -23,7 +23,7 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
 
   <!-- Insert Feature Boxes -->
-  <%= render 'featured/crowdfunding_sprechstunde' if @period == 'weekly' && current_position == 1 %>
+  <%# render 'featured/crowdfunding_sprechstunde' if @period == 'weekly' && current_position == 1 %>
   <%= render 'featured/subscription' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
   <%# render 'summary/new_good_morning_dates', meetings: @good_morning_dates if @region.is?('wien') && @period == 'weekly' && current_position == 4 %>
 
@@ -34,8 +34,6 @@
   
   <!-- Hack: Insert Footer Text for RoomOffers in Mails in Vienna --> 
   <%= render "summary/#{notifications[0].mail_template}_footer" if notifications[0].type == 'Notifications::NewRoomOffer' && @region.is?('wien') %>
-
-  <!-- Insert Feature Boxes -->
 
 <% end %>
 

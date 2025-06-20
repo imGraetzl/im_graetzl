@@ -398,6 +398,17 @@ class WebhooksController < ApplicationController
       end
     elsif !handled
       Rails.logger.warn "[stripe webhook] charge_dispute_closed: Kein passender Verweis in metadata oder invoice"
+      Rails.logger.warn "[stripe webhook] charge_dispute_closed: charge data: #{charge.to_json}"
+
+      if charge.payment_intent.present?
+        begin
+          payment_intent = Stripe::PaymentIntent.retrieve(charge.payment_intent)
+          Rails.logger.info "[stripe webhook] charge_dispute_closed: charge.payment_intent data: #{payment_intent.to_json}"
+        rescue => e
+          Rails.logger.warn "[stripe webhook] charge_dispute_closed: PaymentIntent konnte nicht geladen werden (#{e.message})"
+        end
+      end
+
     end
   end
   
