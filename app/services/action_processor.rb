@@ -135,11 +135,11 @@ class ActionProcessor
     when [CrowdCampaign, :ending]
 
       if subject.newsletter_platform?
-        Notifications::EndingCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { entire_platform: true })
+        Notifications::EndingCrowdCampaign.generate(subject, time_range: [Time.current, subject.enddate], to: { entire_platform: true })
       elsif subject.newsletter_region?
-        Notifications::EndingCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { region: subject.region })
+        Notifications::EndingCrowdCampaign.generate(subject, time_range: [Time.current, subject.enddate], to: { region: subject.region })
       elsif subject.newsletter_graetzl?
-        Notifications::EndingCrowdCampaign.generate(subject, time_range: subject.notification_time_range, to: { graetzl: subject.graetzl })
+        Notifications::EndingCrowdCampaign.generate(subject, time_range: [Time.current, subject.enddate], to: { graetzl: subject.graetzl })
       end
 
     when [CrowdPledge, :create]
