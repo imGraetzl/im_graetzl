@@ -6,7 +6,11 @@ ActiveAdmin.register User, as: "User Notification Settings" do
 
   scope :all, default: true
 
-  filter :id, label: 'User', as: :select, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :id_eq, label: "User Suche", as: :string, input_html: {
+    class: 'admin-autocomplete-component',
+    placeholder: 'Name, Username oder E-Mail ...',
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[id_eq]' }
+  }
 
   filter :user_mail_setting, as: :select, collection: proc {[
     ['New Meeting - Weekly','weekly_NewMeeting'],['New Meeting - Daily','daily_NewMeeting'],['New Meeting - Immediate','immediate_NewMeeting'],['New Meeting - Off','off_NewMeeting'],

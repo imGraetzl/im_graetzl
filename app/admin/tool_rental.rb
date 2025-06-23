@@ -19,7 +19,11 @@ ActiveAdmin.register ToolRental do
   filter :rental_status, as: :select, collection: ToolRental.rental_statuses, input_html: { class: 'admin-filter-select'}
   filter :payment_status, as: :select, collection: ToolRental.payment_statuses.keys, input_html: { class: 'admin-filter-select'}
   filter :tool_offer, collection: proc { ToolOffer.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user_id_eq, label: "User Suche", as: :string, input_html: {
+    class: 'admin-autocomplete-component',
+    placeholder: 'Name, Username oder E-Mail ...',
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
+  }
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :stripe_payment_intent_id

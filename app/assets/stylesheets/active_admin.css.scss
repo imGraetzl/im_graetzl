@@ -96,3 +96,59 @@ a.btn-dark {
 .SumoSelect .select-all {
   display: inline-flex;
 }
+
+.admin-autocomplete-component, .sidebar_section input.admin-autocomplete-component[type=text] {
+  width:100%;
+}
+
+.admin-autocomplete-container {
+  position: relative;
+  width:100%;
+}
+
+.admin-autocomplete-results {
+  display: none;
+  position: absolute;
+  width:100%;
+  background-color: white;
+  z-index: 9999;
+  border-radius: 4px 0 0 4px;
+  border: solid 1px #DBEFEC;
+  border-top: 0;
+  padding-top:5px;
+  padding-bottom:5px;
+
+  .eac-item div.item {
+    padding: 5px;
+    padding-left:10px;
+    display: inline-flex;
+    align-items: center;
+    width:100%;
+    &:hover {
+      background-color: #DBEFEC;
+      cursor: pointer;
+    }
+    img {
+      margin-right:5px;
+      width:40px;
+      height:40px;
+      min-width:40px;
+      min-height:40px;
+      border-radius: 20px;;
+    }
+  }
+
+  .txt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #615454;
+
+    span {
+      font-style: italic;
+      color: #aaaaaa;
+    }
+
+  }
+
+}

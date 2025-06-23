@@ -10,13 +10,15 @@ ActiveAdmin.register Meeting do
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :event_categories, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :users, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user_id_eq, label: "User Suche", as: :string, input_html: {
+    class: 'admin-autocomplete-component',
+    placeholder: 'Name, Username oder E-Mail ...',
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
+  }
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  #filter :state, as: :select, collection: Meeting.states.keys, input_html: { class: 'admin-filter-select'}
   filter :name
   filter :description
   filter :created_at
-  #filter :starts_at_date
   filter :online_meeting, input_html: { class: 'admin-filter-select'}
   filter :entire_region, input_html: { class: 'admin-filter-select'}
 

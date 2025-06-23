@@ -3,7 +3,11 @@ ActiveAdmin.register PollUser do
   actions :all, except: [:new, :edit]
 
   scope :all, default: true
-  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user_id_eq, label: "User Suche", as: :string, input_html: {
+    class: 'admin-autocomplete-component',
+    placeholder: 'Name, Username oder E-Mail ...',
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
+  }
   filter :poll, collection: proc { Poll.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
 
   index { render 'index', context: self }

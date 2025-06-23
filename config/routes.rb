@@ -39,6 +39,10 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
+  namespace :admin do
+    get 'autocomplete/:resource', to: 'autocomplete#show', as: :autocomplete
+  end
+
   if Rails.configuration.upload_server == :s3
     mount Shrine.presign_endpoint(:cache) => "/s3/params"
   elsif Rails.configuration.upload_server == :app
