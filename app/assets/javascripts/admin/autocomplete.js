@@ -29,7 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      fetch(`${url}?q=${encodeURIComponent(q)}`)
+      const scope = input.dataset.scope;
+      const resource = 'users'; // fix oder optional parametrierbar
+
+      // Entscheide, ob ? oder & verwendet wird (je nachdem ob url schon ? enthält)
+      const joiner = url.includes('?') ? '&' : '?';
+      const finalUrl = `${url}${joiner}q=${encodeURIComponent(q)}&resource=${resource}${scope ? `&scope=${encodeURIComponent(scope)}` : ''}`;
+
+      fetch(finalUrl)
         .then(res => res.json())
         .then(data => {
           resultsBox.innerHTML = '';
@@ -39,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="eac-item">
                 <div class="item User">
                   <img src="${item.image_url}">
-                  <div class="txt">${item.full_name} (${item.username})<br><span>(${item.email})</span></div>
+                  <div class="txt"><span>${item.region}</span><br><strong>${item.full_name}</strong> (${item.username})<br><span>${item.email}</span></div>
                 </div>
               </div>
             `;

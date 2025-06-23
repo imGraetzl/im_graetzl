@@ -13,7 +13,7 @@ ActiveAdmin.register Meeting do
   filter :user_id_eq, label: "User Suche", as: :string, input_html: {
     class: 'admin-autocomplete-component',
     placeholder: 'Name, Username oder E-Mail ...',
-    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]', scope: 'with_meetings' }
   }
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :name
