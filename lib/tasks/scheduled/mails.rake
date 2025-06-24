@@ -2,12 +2,7 @@ namespace :scheduled do
 
   desc 'Send daily Admin Mail'
   task daily_mail: :environment do
-    task_starts_at = Time.now
-
     AdminMailer.daily_mail.deliver_now
-
-    task_ends_at = Time.now
-    #AdminMailer.task_info('daily_mail', 'finished', task_starts_at, task_ends_at).deliver_now
   end
 
   desc 'Send messenger notifications'
@@ -28,40 +23,13 @@ namespace :scheduled do
   task daily_summary_mail: :environment do
     puts "Rake daily_summary_mail start at #{Time.now}"
 
-    task_starts_at = Time.now
-
-    #User.confirmed.find_each do |user|
-    #  NotificationMailer.summary_graetzl(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
-    #  NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
-    #end
-
     User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
-      users_batch.each do |user|
-        NotificationMailer.summary_graetzl(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
-        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
+      users_batch.each_with_index do |user, index|
+        delay = index * 0.5.seconds
+        NotificationMailer.summary_graetzl(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', wait: delay)
+        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails', wait: delay)
       end
     end
-
-    task_ends_at = Time.now
-    #AdminMailer.task_info('daily_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
-    
-  end
- 
-   # TASK JUST FOR DELAYED_JOB TESTING - CAN BE REMOVED LATER:
-  desc 'Send daily personal summary mail'
-  task daily_personal_summary_mail: :environment do
-    puts "Rake daily_personal_summary_mail start at #{Time.now}"
-
-    task_starts_at = Time.now
-
-    User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
-      users_batch.each do |user|
-        NotificationMailer.summary_personal(user, user.region_id, 'daily').deliver_later(queue: 'summary-mails')
-      end
-    end
-
-    task_ends_at = Time.now
-    #AdminMailer.task_info('daily_personal_summary_mail', 'finished', task_starts_at, task_ends_at).deliver_now
     
   end
 
@@ -71,22 +39,12 @@ namespace :scheduled do
 
     if Date.today.tuesday?
 
-      task_starts_at = Time.now
-
-      #User.confirmed.find_each do |user|
-      #  NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
-      #  NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
-      #end
-
       User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
         users_batch.each do |user|
           NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
           NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
         end
       end
-
-      task_ends_at = Time.now
-      #AdminMailer.task_info("weekly_summary_mail_#{region.id}", 'finished', task_starts_at, task_ends_at).deliver_now  
   
     end
     
