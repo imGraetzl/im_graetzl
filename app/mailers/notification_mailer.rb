@@ -107,12 +107,17 @@ class NotificationMailer < ApplicationMailer
       )
 
       @notifications.update_all(sent: true)
+
+    rescue Net::OpenTimeout => e
+      Rails.logger.warn "[OpenTimeout Graetzl Summary Mail] #{@user&.email}: #{e.message}"
+      raise e  # explizit reraisen, damit delayed_job retryen kann
+    rescue Errno::ECONNRESET => e
+      Rails.logger.warn "[ECONNRESET Graetzl Summary Mail] #{@user&.email}: #{e.message}"
+      # kein raise, da Mail wahrscheinlich trotzdem rausging
+      return
     rescue => e
       Rails.logger.error "[Error Graetzl Summary Mail]: #{@user&.email}: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
-      # Optional: Fehler an Monitoring-Tool wie Sentry senden
-      # Sentry.capture_exception(e)
-      # Fehler erneut auslösen, um Delayed Job zu signalisieren, dass der Job fehlschlug
       raise e
     end
   end
@@ -184,12 +189,17 @@ class NotificationMailer < ApplicationMailer
       )
 
       @notifications.values.each { |n| n.update_all(sent: true) }
+
+    rescue Net::OpenTimeout => e
+      Rails.logger.warn "[OpenTimeout Personal Summary Mail] #{@user&.email}: #{e.message}"
+      raise e  # explizit reraisen, damit delayed_job retryen kann
+    rescue Errno::ECONNRESET => e
+      Rails.logger.warn "[ECONNRESET Personal Summary Mail] #{@user&.email}: #{e.message}"
+      # kein raise, da Mail wahrscheinlich trotzdem rausging
+      return
     rescue => e
       Rails.logger.error "[Error Personal Summary Mail]: #{@user&.email}: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
-      # Optional: Fehler an Monitoring-Tool wie Sentry senden
-      # Sentry.capture_exception(e)
-      # Fehler erneut auslösen, um Delayed Job zu signalisieren, dass der Job fehlschlug
       raise e
     end
   end
