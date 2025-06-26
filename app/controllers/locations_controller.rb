@@ -32,6 +32,43 @@ class LocationsController < ApplicationController
 
     @graetzl = @location.graetzl
 
+    # Use a single UNION query to get the combined stream data sorted by created_at
+    query = <<-SQL
+      (SELECT 'LocationPost' AS item_type, id, created_at FROM location_posts WHERE location_id = #{@location.id})
+      UNION
+      (SELECT 'LocationMenu' AS item_type, id, created_at FROM location_menus WHERE location_id = #{@location.id})
+      UNION
+      (SELECT 'Comment' AS item_type, id, created_at FROM comments WHERE commentable_id = #{@location.id} AND commentable_type = 'Location')
+      ORDER BY created_at DESC
+      LIMIT 60
+    SQL
+
+    # Execute the raw SQL query
+    results = ActiveRecord::Base.connection.select_all(query)
+
+    # Extract IDs for each item type
+    post_ids = results.select { |r| r['item_type'] == 'LocationPost' }.map { |r| r['id'] }
+    menu_ids = results.select { |r| r['item_type'] == 'LocationMenu' }.map { |r| r['id'] }
+    comment_ids = results.select { |r| r['item_type'] == 'Comment' }.map { |r| r['id'] }
+
+    # Eager load associations for each item type
+    posts = LocationPost.includes(:images, comments: [:user, :images]).where(id: post_ids).index_by(&:id)
+    menus = LocationMenu.includes(:images, comments: [:user, :images]).where(id: menu_ids).index_by(&:id)
+    comments = Comment.includes(:user, :images).where(id: comment_ids).index_by(&:id)
+
+    # Construct the @stream array by mapping over the results
+    @stream = results.map do |result|
+      case result['item_type']
+      when 'LocationPost'
+        posts[result['id']]
+      when 'LocationMenu'
+        menus[result['id']]
+      when 'Comment'
+        comments[result['id']]
+      end
+    end.compact
+
+    # Keep the original variables for backward compatibility
     @posts = LocationPost.includes(:images, comments: [:user, :images])
               .where(location_id: @location.id)
               .order(id: :desc)
@@ -43,8 +80,6 @@ class LocationsController < ApplicationController
               .limit(30)
 
     @comments = @location.comments
-    
-    @stream = (@posts + @menus + @comments).sort_by(&:created_at).reverse
 
     @zuckerls = @location.zuckerls.live
     @crowd_campaign = @location.crowd_campaigns.funding.last
