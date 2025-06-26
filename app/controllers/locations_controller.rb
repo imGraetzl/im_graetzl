@@ -68,19 +68,6 @@ class LocationsController < ApplicationController
       end
     end.compact
 
-    # Keep the original variables for backward compatibility
-    @posts = LocationPost.includes(:images, comments: [:user, :images])
-              .where(location_id: @location.id)
-              .order(id: :desc)
-              .limit(30)
-
-    @menus = LocationMenu.includes(:images, comments: [:user, :images])
-              .where(location_id: @location.id)
-              .order(id: :desc)
-              .limit(30)
-
-    @comments = @location.comments
-
     @zuckerls = @location.zuckerls.live
     @crowd_campaign = @location.crowd_campaigns.funding.last
     @room_offer = @location.room_offers.enabled.last
