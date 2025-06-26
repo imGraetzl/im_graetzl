@@ -1,7 +1,7 @@
 ActiveAdmin.register CrowdPledge do
   menu parent: 'Crowdfunding'
   includes :crowd_campaign, :user, :crowd_reward
-  actions :all, except: [:new, :create, :destroy, :edit]
+  actions :all, except: [:new, :create, :destroy]
   config.batch_actions = false
 
   config.sort_order = 'created_at_desc'
@@ -46,10 +46,42 @@ ActiveAdmin.register CrowdPledge do
   form partial: 'form'
 
   controller do
+    before_action :authorize_superadmin_for_editing, only: [:edit, :update]
+
+    def authorize_superadmin_for_editing
+      pledge = CrowdPledge.find(params[:id])
+
+      unless current_user.superadmin? && pledge.status == "authorized"
+        redirect_to admin_crowd_pledge_path(params[:id]), alert: "Bearbeitung nur für Superadmins & Pledge-Status 'authorized' erlaubt."
+      end
+    end
+
+    def permitted_params
+      allowed = []
+      allowed << :crowd_boost_charge_amount if current_user.superadmin? && resource.crowd_boost_charge.present?
+      params.permit(crowd_pledge: allowed)
+    end
+
+    def update
+      @crowd_pledge = CrowdPledge.find(params[:id])
+      attributes = permitted_params[:crowd_pledge] || {}
+
+      if attributes.present? && @crowd_pledge.update(attributes)
+        @crowd_pledge.calculate_price
+        @crowd_pledge.save
+        redirect_to admin_crowd_pledge_path(@crowd_pledge), notice: "CrowdPledge wurde erfolgreich aktualisiert."
+      elsif attributes.blank?
+        redirect_to admin_crowd_pledge_path(@crowd_pledge), notice: "Keine Änderungen vorgenommen."
+      else
+        render :edit
+      end
+    end
+
     def apply_pagination(chain)
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
     end
+
     def apply_filtering(chain)
         super(chain).distinct
     end

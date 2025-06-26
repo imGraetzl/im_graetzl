@@ -113,11 +113,16 @@ class CrowdPledge < ApplicationRecord
   end
 
   def update_crowd_boost_charge
-    self.crowd_boost_charge.update(
-      payment_status: self.status,
-      debited_at: self.debited_at,
-      amount: self.crowd_boost_charge_amount,
-    )
+    if crowd_boost_charge_amount.to_d.zero?
+      crowd_boost_charge&.destroy
+      update_column(:crowd_boost_id, nil)
+    else
+      crowd_boost_charge&.update(
+        payment_status: self.status,
+        debited_at: self.debited_at,
+        amount: self.crowd_boost_charge_amount
+      )
+    end
   end
 
 end
