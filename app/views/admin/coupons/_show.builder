@@ -14,5 +14,8 @@ context.instance_eval do
     row :valid_until
     row :enabled
     row(:coupon_histroy_count){|c| c.users.count}
+    row(:coupon_histroy_sent_count){|c| c.coupon_histories.sent.count}
+    row(:coupon_histroy_redeemed_count){|c| c.coupon_histories.redeemed.count}
+    row(:subscriptions_active_count){|c| c.subscriptions.active.count}
   end
 end

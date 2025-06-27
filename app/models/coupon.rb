@@ -45,13 +45,13 @@ class Coupon < ApplicationRecord
     end
   end
 
-  private
-
   # Überprüfen, ob der Coupon im System gültig ist
   def valid_in_system?
     self.enabled && (valid_from.nil? || valid_from <= Time.current) &&
       (valid_until.nil? || valid_until > Time.current)
   end
+
+  private
 
   # Prüfen, ob der Coupon für ein Stripe-Produkt gültig ist
   def valid_for_stripe_product?(product_id)
