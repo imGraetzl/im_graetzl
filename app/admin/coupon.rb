@@ -15,7 +15,7 @@ ActiveAdmin.register Coupon do
 
   controller do
     def scoped_collection
-      super.select(<<~SQL.squish)
+      super.includes(coupon_histories: :user).select(<<~SQL.squish)
         coupons.*,
         (
           SELECT COUNT(*) FROM coupon_histories
