@@ -1,6 +1,8 @@
 ActiveAdmin.register RoomCategory do
   menu parent: 'Raumteiler'
 
+  config.filters = false
+  
   index { render 'index', context: self }
   form partial: 'form'
 

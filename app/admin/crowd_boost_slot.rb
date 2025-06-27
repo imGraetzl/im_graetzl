@@ -14,6 +14,11 @@ ActiveAdmin.register CrowdBoostSlot do
   show { render 'show', context: self }
   form partial: 'form'
 
+  remove_filter :crowd_boost_pledges
+  remove_filter :crowd_boost_slot_graetzls
+  remove_filter :graetzls
+
+
   permit_params :slot_amount_limit, :starts_at, :ends_at, :crowd_boost_id, :threshold_pledge_count, :threshold_funding_percentage, :boost_amount, :boost_percentage, :boost_amount_limit, :slot_description, :slot_process_description, :slot_detail_description, :slot_terms, graetzl_ids: []
 
   controller do

@@ -11,6 +11,8 @@ ActiveAdmin.register CrowdBoost do
   show { render 'show', context: self }
   form partial: 'form'
 
+  config.filters = false
+
   permit_params :status, :pledge_charge, :slug, :title, :slogan, :description, :avatar, :remove_avatar, :chargeable_status, :region_ids => []
 
   controller do
