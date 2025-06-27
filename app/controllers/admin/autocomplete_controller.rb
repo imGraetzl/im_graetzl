@@ -34,6 +34,8 @@ module Admin
                 User.registered.joins(:room_demands).distinct
               when 'with_room_offers'
                 User.registered.joins(:room_offers).distinct
+              when 'with_coupon_histories'
+                User.registered.joins(:coupon_histories).distinct
               else
                 User.registered
               end
