@@ -164,14 +164,45 @@ class CrowdCampaignsController < ApplicationController
 
   def posts
     head :ok and return if browser.bot? && !request.format.js?
+
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @posts = @crowd_campaign.crowd_campaign_posts.includes(:images, :comments).order(created_at: :desc)
+
+    @posts = @crowd_campaign.crowd_campaign_posts
+      .includes(:images, comments: [:user, :images])
+      .order(created_at: :desc)
+
+    # Kommentare gruppieren
+    post_comments = Comment.includes(:user, :images)
+      .where(commentable_type: 'CrowdCampaignPost', commentable_id: @posts.map(&:id))
+      .group_by(&:commentable_id)
+
+    # Singleton-Methode robust setzen
+    @posts.each do |post|
+      post.define_singleton_method(:preloaded_comments) do
+        post_comments[post.id] || []
+      end
+    end
   end
 
   def comments
     head :ok and return if browser.bot? && !request.format.js?
+
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @comments = @crowd_campaign.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
+
+    @comments = @crowd_campaign.comments
+      .includes(:user, :images)
+      .order(created_at: :desc)
+
+    # verschachtelte Kommentare (z. B. Antworten auf Kommentare) laden
+    nested_comments = Comment.includes(:user, :images)
+      .where(commentable_type: 'Comment', commentable_id: @comments.map(&:id))
+      .group_by(&:commentable_id)
+
+    @comments.each do |comment|
+      comment.define_singleton_method(:preloaded_comments) do
+        nested_comments[comment.id] || []
+      end
+    end
   end
 
   def supporters

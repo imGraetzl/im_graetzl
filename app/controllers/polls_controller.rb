@@ -13,7 +13,7 @@ class PollsController < ApplicationController
     return if redirect_to_region?(@poll)
     @poll_user = @poll.poll_users.find { |pu| pu.user_id == current_user&.id }
     @next_meeting = @poll.meetings.upcoming.first
-    @comments = @poll.comments.includes(:user, :images).order(created_at: :desc)
+    @comments = @poll.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
   end
 
   def unattend

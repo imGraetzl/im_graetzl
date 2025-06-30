@@ -32,8 +32,8 @@ class LocationsController < ApplicationController
 
     @graetzl = @location.graetzl
 
-    # Use a single UNION query to get the combined stream data sorted by created_at
-    query = <<-SQL
+    # IDs der zu ladenden Objekte über Union-Query holen
+    query = <<~SQL
       (SELECT 'LocationPost' AS item_type, id, created_at FROM location_posts WHERE location_id = #{@location.id})
       UNION
       (SELECT 'LocationMenu' AS item_type, id, created_at FROM location_menus WHERE location_id = #{@location.id})
@@ -43,20 +43,39 @@ class LocationsController < ApplicationController
       LIMIT 60
     SQL
 
-    # Execute the raw SQL query
     results = ActiveRecord::Base.connection.select_all(query)
 
-    # Extract IDs for each item type
-    post_ids = results.select { |r| r['item_type'] == 'LocationPost' }.map { |r| r['id'] }
-    menu_ids = results.select { |r| r['item_type'] == 'LocationMenu' }.map { |r| r['id'] }
+    post_ids  = results.select { |r| r['item_type'] == 'LocationPost' }.map { |r| r['id'] }
+    menu_ids  = results.select { |r| r['item_type'] == 'LocationMenu' }.map { |r| r['id'] }
     comment_ids = results.select { |r| r['item_type'] == 'Comment' }.map { |r| r['id'] }
 
-    # Eager load associations for each item type
-    posts = LocationPost.includes(:images, comments: [:user, :images]).where(id: post_ids).index_by(&:id)
-    menus = LocationMenu.includes(:images, comments: [:user, :images]).where(id: menu_ids).index_by(&:id)
+    posts = LocationPost.includes(:images).where(id: post_ids).index_by(&:id)
+    menus = LocationMenu.includes(:images).where(id: menu_ids).index_by(&:id)
     comments = Comment.includes(:user, :images).where(id: comment_ids).index_by(&:id)
 
-    # Construct the @stream array by mapping over the results
+    comments.each_value do |comment|
+      comment.define_singleton_method(:preloaded_user) { comment.user }
+    end
+
+    # Gemeinsame Methode zum Laden der assoziierten Kommentare
+    preload_comments = ->(klass, ids) {
+      Comment.includes(:user, :images)
+            .where(commentable_type: klass, commentable_id: ids)
+            .group_by(&:commentable_id)
+    }
+
+    post_comments = preload_comments.call('LocationPost', post_ids)
+    menu_comments = preload_comments.call('LocationMenu', menu_ids)
+
+    # Singleton-Methoden setzen (=> keine N+1 mehr)
+    posts.each do |id, post|
+      post.define_singleton_method(:preloaded_comments) { post_comments[id] || [] }
+    end
+    menus.each do |id, menu|
+      menu.define_singleton_method(:preloaded_comments) { menu_comments[id] || [] }
+    end
+
+    # Stream zusammenbauen
     @stream = results.map do |result|
       case result['item_type']
       when 'LocationPost'
