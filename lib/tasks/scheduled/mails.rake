@@ -40,9 +40,10 @@ namespace :scheduled do
     if Date.today.tuesday?
 
       User.confirmed.find_in_batches(batch_size: 100) do |users_batch|
-        users_batch.each do |user|
-          NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
-          NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails')
+        users_batch.each_with_index do |user, index|
+          delay = index * 0.5.seconds
+          NotificationMailer.summary_graetzl(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails', wait: delay)
+          NotificationMailer.summary_personal(user, user.region_id, 'weekly').deliver_later(queue: 'summary-mails', wait: delay)
         end
       end
   
