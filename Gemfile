@@ -55,7 +55,6 @@ gem "image_processing", "~> 1.8"
 gem 'marcel'
 
 gem 'sassc-rails'
-gem 'terser'
 gem 'jquery-rails'
 gem 'underscore-rails'
 gem 'autoprefixer-rails'
@@ -96,3 +95,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "terser", "= 1.2.5"

@@ -30,12 +30,11 @@
 <div class="notifications-block">
   <div class="settingHead">
     <div class="col1">
-      <h2><span>Raumteiler</span> & <span>Geräteteiler</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h2>
+      <h2><span>Raumteiler</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h2>
     </div>
   </div>
   <%= render 'notification_settings/slice', type: Notifications::NewRoomOffer %>
   <%= render 'notification_settings/slice', type: Notifications::NewRoomDemand %>
-  <%= render 'notification_settings/slice', type: Notifications::NewToolOffer %>
   <%= render 'notification_settings/slice', type: Notifications::NewEnergyOffer if current_region.use_energieteiler? %>
 </div>
 

@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  get 'reports' => 'reports#index'
-  get 'reports/mailchimp'
   get 'sitemap.xml' => 'sitemaps#sitemap'
   get 'search' => 'search#index'
   get 'search/results' => 'search#results'
@@ -95,7 +93,6 @@ Rails.application.routes.draw do
     get 'raumteiler', action: 'rooms', as: 'rooms'
     get 'energieteiler', action: 'energies', as: 'energies'
     get 'raumbooster', action: 'room_boosters', as: 'room_boosters'
-    get 'toolteiler', action: 'tools', as: 'tools'
     get 'coop-share', action: 'coop_demands', as: 'coop_demands'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
@@ -111,7 +108,6 @@ Rails.application.routes.draw do
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
-    get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
     get 'energieteiler', action: 'energies', as: 'energies'
     get 'mach-mit', action: 'polls', as: 'polls'
@@ -126,7 +122,6 @@ Rails.application.routes.draw do
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
-    get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
     get 'energieteiler', action: 'energies', as: 'energies'
     get 'gruppen', action: 'groups', as: 'groups'
@@ -262,7 +257,6 @@ Rails.application.routes.draw do
     post 'cancel', on: :member
     post 'approve', on: :member
     post 'reject', on: :member
-    post 'leave_rating', on: :member
   end
 
   resource :subscription_plans, path: 'foerdermitgliedschaft'
@@ -273,30 +267,6 @@ Rails.application.routes.draw do
     patch :resume, on: :member
   end
   resources :subscription_invoices
-
-
-  resources :tools, only: [:index]
-  resources :tool_demands, path: 'toolsuche', except: [:index] do
-    patch 'update_status', on: :member
-  end
-  resources :tool_offers, path: 'toolteiler' do
-    get 'select', on: :collection
-    get 'calculate_price', on: :member
-    patch 'update_status', on: :member
-  end
-
-  resources :tool_rentals, only: [:new, :create, :edit, :update] do
-    get 'choose_payment', on: :member
-    get 'payment_authorized', on: :member
-    get 'change_payment', on: :member
-    get 'payment_changed', on: :member
-    get 'summary', on: :member
-    post 'cancel', on: :member
-    post 'approve', on: :member
-    post 'reject', on: :member
-    post 'confirm_return', on: :member
-    post 'leave_rating', on: :member
-  end
 
   resources :groups do
     resources :discussions, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
@@ -350,13 +320,11 @@ Rails.application.routes.draw do
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'balkonsolar-workshops', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar_wien', as: 'balkonsolar_wien'
-  #get 'popup', to: 'static_pages#popup', as: 'popup'
 
   get 'info', to: 'static_pages#info'
   get 'info/crowdfunding', to: 'static_pages#info_crowdfunding'
   get 'info/coop-share', to: 'static_pages#info_coop_demands'
   get 'info/raumteiler', to: 'static_pages#info_raumteiler'
-  get 'info/toolteiler', to: 'static_pages#info_toolteiler'
   get 'info/gruppen', to: 'static_pages#info_groups'
   get 'info/anbieter-und-locations', to: 'static_pages#info_location'
   get 'info/events-und-workshops', to: 'static_pages#info_meetings'
@@ -431,7 +399,6 @@ Rails.application.routes.draw do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
     get 'locations(/category/:category)', action: 'locations', as: 'locations', on: :member
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms', on: :member
-    get 'toolteiler(/category/:category)', action: 'tools', as: 'tools', on: :member
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns', on: :member

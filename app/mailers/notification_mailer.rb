@@ -67,12 +67,6 @@ class NotificationMailer < ApplicationMailer
     'Aktuelle Menüpläne' => [
       Notifications::NewLocationMenu
     ],
-    'Neue Geräteteiler' => [
-      Notifications::NewToolOffer
-    ],
-    'Auf der Suche nach einem Gerät' => [
-      Notifications::NewToolDemand
-    ],
   }
 
   def summary_graetzl(user, region_id, period)

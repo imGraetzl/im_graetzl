@@ -8,8 +8,6 @@ module Notifications
     NewRoomOffer,
     NewEnergyOffer,
     NewEnergyDemand,
-    NewToolOffer,
-    NewToolDemand,
     NewCoopDemand,
     NewCrowdCampaign,
     EndingCrowdCampaign,

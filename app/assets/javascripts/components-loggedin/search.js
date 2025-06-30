@@ -36,10 +36,6 @@ APP.components.search = (function() {
           header: "Raumteiler"
         },
         {
-          listLocation: "tools",
-          header: "Geräteteiler"
-        },
-        {
           listLocation: "coop_demands",
           header: "Coop & Share"
         },
@@ -124,12 +120,6 @@ APP.components.search = (function() {
               count = 0;
               counts.RoomOffer ? count += counts.RoomOffer : count;
               counts.RoomDemand ? count += counts.RoomDemand : count;
-              break;
-            case 'Geräteteiler':
-              type = 'tools'
-              count = 0;
-              counts.ToolOffer ? count += counts.ToolOffer : count;
-              counts.ToolDemand ? count += counts.ToolDemand : count;
               break;
             case 'Coop & Share':
               type = 'coop_demands'

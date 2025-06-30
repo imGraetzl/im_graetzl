@@ -470,7 +470,7 @@ GEM
       sprockets (>= 3.0.0)
     stripe (15.2.1)
       execjs (>= 0.3.0, < 3)
-    terser (1.2.6)
+    terser (1.2.5)
       execjs (>= 0.3.0, < 3)
     thor (1.3.2)
     tilt (2.6.0)
@@ -564,7 +564,7 @@ DEPENDENCIES
   sitemap_generator
   skylight
   stripe (~> 15.2)
-  terser
+  terser (= 1.2.5)
   tzinfo-data
   underscore-rails
   webmock
@@ -573,4 +573,4 @@ RUBY VERSION
    ruby 3.2.8p263
 
 BUNDLED WITH
-   2.6.8
+   2.6.2

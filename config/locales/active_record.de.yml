@@ -79,12 +79,6 @@ de:
       coop_demand:
         one: Coop & Share Angebot
         other: Coop & Share Angebote
-      tool_offer:
-        one: Geräteteiler
-        other: Geräteteiler
-      tool_demand:
-        one: Gerätesuche
-        other: Gerätesuche
       room_offer:
         one: Raumangebot
         other: Raumangebote
@@ -100,9 +94,6 @@ de:
       energy_category:
         one: Kategorie
         other: Kategorien
-      tool_category:
-        one: Kategorie
-        other: Kategorien
       room_category:
         one: Kategorie
         other: Kategorien
@@ -115,9 +106,6 @@ de:
       room_booster:
         one: Raumteiler Pusher
         other: Raumteiler Pusher
-      tool_rental:
-        one: Transaktion
-        other: Transaktionen
       crowd_campaign:
         one: Kampagne
         other: Kampagnen
@@ -386,54 +374,6 @@ de:
           rejected: Anfrage abgelehnt
           approved: Anfrage akzeptiert
           paid_out: Abgeschlossen
-      tool_offer:
-        address: Adresse
-        title: Titel
-        description: Beschreibung
-        cover_photo: Headerbild
-        first_name: Vorname
-        last_name: Nachname
-        email: Email
-        tool_category_id: Kategorie
-        price_per_day: Tagespreis
-        iban: Kontoverbindung (IBAN)
-        statuses:
-          enabled: Aktiv
-          disabled: Inaktiv
-          deleted: Deleted
-      tool_demand:
-        slogan: Titel
-        tool_category_id: Kategorie
-        demand_description: Beschreibung
-        usage_description: Verwendung
-        budget: Budget
-        usage_days: Anzahl benötigte Tage
-        usage_period_from: Zeitraum Anfang
-        usage_period_to: Zeitraum Ende
-        first_name: Vorname
-        last_name: Nachname
-        email: Email
-        statuses:
-          enabled: Aktiv
-          disabled: Inaktiv
-        status_message:
-          enabled: Deine Gerätesuche ist nun aktiv und sichtbar.
-          disabled: Deine Gerätesuche ist nun deaktiviert und scheint nicht mehr im Bereich Geräteteiler auf.
-      tool_rental:
-        rental_statuses:
-          pending: Noch nicht akzeptiert
-          canceled: Anfrage zurückgezogen
-          rejected: Anfrage abgelehnt
-          approved: Anfrage akzeptiert
-          return_pending: Rückgabe noch nicht bestätigt
-          return_confirmed: Rückgabe bestätigt
-          expired: Anfrage abgelaufen
-          paid_out: Abgeschlossen
-        payment_statuses:
-          authorized: authorisiert
-          processing: in Bearbeitung
-          debited: erfolgreich
-          failed: fehlgeschlagen
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am

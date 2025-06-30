@@ -86,11 +86,6 @@ de:
       description: 'Finde passende Räumlichkeiten zum einmieten in %{region}. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
       title_category: '%{category} einmieten in %{region} | Gewerbeflächen teilen - Kosten teilen'
       description_category: 'Finde passende Räume aus dem Bereich „%{category}“ in %{region}. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
-    tools:
-      title: 'Geräteteiler in %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
-      description: 'Du kannst über den Geräteteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
-      title_category: 'Geräte für „%{category}“ ausleihen in %{region} | Geräteteiler'
-      description_category: 'Du kannst über den „Geräteteiler“ Geräte aus dem Bereich „%{category}“ ausleihen & verleihen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
     coop_demands:
       title: '%{category}Coop & Share Marktplatz Angebote in %{region}'
       description: 'Finde Kooperationspartner*innen für dein Vorhaben%{category}. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
@@ -143,9 +138,6 @@ de:
       description: 'Neue Räume und Raumsuchende aus dem %{numeric}. Bezirk. Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler finden ...'
       title_category: '%{category} einmieten in %{zip} %{region} | Gewerbeflächen teilen - Kosten teilen'
       description_category: 'Finde passende Räume aus dem Bereich „%{category}“ im %{numeric}. Bezirk. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
-    tools:
-      title: 'Geräteteiler in %{zip} %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
-      description: 'Du kannst über den Geräteteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
     groups:
       title: 'Gruppen im %{numeric}. Bezirk'
       description: 'Durchstöbere jetzt die Gruppen in %{region}. Neben Gruppen für ganz %{region} gibt es auch Gruppen nur für deinen Bezirk. Egal ob Kooperationen im Bezirk, Gegengeschäfte oder Gruppen für Aufträge & Zusammenarbeit. Schau mal rein ...'
@@ -280,26 +272,6 @@ de:
         <<: *default
         title: 'Energieteiler & Energiegemeinschaften im Stadtteil %{graetzl} in %{region}'
         description: 'Du hast oder gründest eine Energiegemeinschaft und suchst noch Leute die such andocken können, oder du suchst nach einer Energiegemeinschaft im Stadtteil %{graetzl} ...'
-      kaernten:
-        <<: *default
-      muehlviertler-kernland:
-        <<: *default
-    tools:
-      default: &default
-        title: 'Geräteteiler aus der Gemeinde %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-        description: 'Du kannst über den Geräteteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
-      wien:
-        <<: *default
-        title: 'Geräteteiler im Grätzl %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-      graz:
-        <<: *default
-        title: 'Geräteteiler im Bezirk %{graetzl} in %{region} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-      linz:
-        <<: *default
-        title: 'Geräteteiler im Bezirk %{graetzl} in %{region} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-      innsbruck:
-        <<: *default
-        title: 'Geräteteiler im Stadtteil %{graetzl} in %{region} - Arbeitsequipment leihen & Geräte am Standort nutzen'
       kaernten:
         <<: *default
       muehlviertler-kernland:
@@ -460,8 +432,6 @@ de:
       title: 'Meine Energieteiler'
     subscription:
       title: 'Meine Fördermitgliedschaft'
-    tools:
-      title: 'Meine Geräteteiler'
     zuckerls:
       title: 'Meine Zuckerln'
     room_boosters:
@@ -561,26 +531,6 @@ de:
       title: '%{title}'
       description: '%{type}: %{desc}...'
 
-  tool_offers:
-    show:
-      title: '%{title}'
-      description: '%{desc}'
-
-  tool_demands:
-    show:
-      title: '%{title}'
-      description: '%{desc}'
-
-  tool_rentals:
-    login:
-      title: 'Geräteteiler anfragen - Einloggen'
-    new:
-      title: 'Geräteteiler anfragen - Rechnungsadresse'
-    choose_payment:
-      title: 'Geräteteiler anfragen - Zahlungsart wählen'
-    summary:
-      title: 'Geräteteiler anfragen - Zusammenfassung'
-
   room_rentals:
     login:
       title: 'Raumteiler anfragen - Einloggen'
@@ -637,11 +587,6 @@ de:
     index:
       title: 'Messenger'
 
-  reports:
-    index:
-      title: 'Admin Reports'
-      description: 'Reporting Tool'
-
   search:
     index:
       title: 'Suche'
@@ -679,9 +624,6 @@ de:
     info_raumteiler:
       title: 'Raumteiler – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Raumteiler / Teilen von Gewerbeflächen'
-    info_toolteiler:
-      title: 'Geräteteiler – Hilfe, Tipps & Tricks.'
-      description: 'Fragen & Antworten zum Geräteteiler / Arbeitsequipment leihen & Geräte am Standort nutzen'
     info_location:
       title: 'Anbieter & Macherinnen – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Schaufenster und weitere Funktionen für lokale Anbieter.'
@@ -709,9 +651,6 @@ de:
     mentoring:
       title: 'Mentoring Programm - Komm in dein Unterstützer Team'
       description: 'Die Unterstützer-Teams werden ins Leben gerufen, um Selbständige, GründerInnen und MacherInnen darin zu bestärken ihre Ideen auf den Boden zu bringen und sie gleichzeitig in ein lokales Netzwerk aus Gleichgesinnten einzubinden.'
-    supporter:
-      title: 'DANKE an unsere MöglichmacherInnen'
-      description: 'Der Betrieb und die Weiterentwicklung von imGrätzl.at & WeLocally.at wird ermöglicht durch diese großartigen Menschen und Unternehmen.'
     impressum:
       title: 'Impressum'
       description: 'Impressum & Kontaktdaten'
@@ -739,9 +678,6 @@ de:
     balkonsolar:
       title: 'Balkon-Solar Workshops in %{region}'
       description: 'Kosten senken – Strom selber produzieren! Entdecke mit uns die Mini-PV Anlagen für den Balkon! Du interessierst dich für Balkon-Solar und möchtest wissen, wie es funktioniert? Dann bist du bei unserem Balkon-Solar Workshop genau richtig, in zwei Stunden lernst du von Michael Puttinger alles über Balkonkraftwerke.'
-    popup:
-      title: 'WeLocally Pop-Up in Graz - Gemeinsam bringen wir mehr zusammen: WeLocally.at startet in Graz!'
-      description: 'Lerne uns kennen und komm zum WeLocally Pop-up in Graz. Crowdfunding / Raumteiler / Balkonsolar. Alle WeLocally Sessions sind kostenlos.'
 
   contact_list_entries:
     crowd2raum:

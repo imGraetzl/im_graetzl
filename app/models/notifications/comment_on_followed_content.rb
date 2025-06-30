@@ -49,8 +49,6 @@ class Notifications::CommentOnFollowedContent < Notification
       'Raumteiler'
     when 'EnergyOffer', 'EnergyDemand'
       'Energieteiler'
-    when 'ToolOffer', 'ToolDemand'
-      'Geräteteiler'
     when 'CoopDemand'
       'Coop & Share Angebot'
     when 'CrowdCampaign'

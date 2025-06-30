@@ -24,15 +24,11 @@ class Location < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  has_one :contact, dependent: :destroy
-  accepts_nested_attributes_for :contact
-
   has_many :meetings
   has_many :upcoming_meetings, -> { upcoming }, class_name: "Meeting"
   has_one  :next_upcoming_meeting, -> { upcoming.order(:starts_at_date) }, class_name: "Meeting"
   has_many :room_offers
   has_many :room_demands
-  has_many :tool_offers
   has_many :crowd_campaigns
   has_many :zuckerls
   has_many :live_zuckerls, -> { live }, class_name: 'Zuckerl'

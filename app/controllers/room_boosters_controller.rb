@@ -37,11 +37,6 @@ class RoomBoostersController < ApplicationController
     @room_booster.amount = @room_booster.total_price / 100
     @room_booster.status = "incomplete"
 
-    if current_region.hot_august?
-      @room_booster.crowd_boost_id = current_region.default_crowd_boost_id
-      @room_booster.crowd_boost_charge_amount = @room_booster.basic_price / 100
-    end
-
     if @room_booster.save
       if current_user.admin? && params[:freeadmin].present?
         RoomBoosterService.new.create_for_free(@room_booster)

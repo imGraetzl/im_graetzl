@@ -27,12 +27,18 @@ APP.components.cookieTracking = (function() {
     }
 
     // Dev Mode Infos
-    if ($("body").attr("data-env-mode") == 'dev') {
-      testmode = true;
-      console.log('Testmode: ' + testmode);
-      console.log('Analytics Permission: ' + $.fn.ihavecookies.preference('analytics'));
-      console.log('Analytics Tracking: ' + trackAnalytics);
-      console.log('cookieControl exists: ' + checkCookie());
+    if ($("body").attr("data-env-mode") === 'dev') {
+      const testmode = true;
+      const analyticsPermission = $.fn.ihavecookies.preference('analytics');
+      const analyticsTracking = trackAnalytics;
+      const cookieControlExists = checkCookie();
+
+      console.table({
+        'Testmode': testmode,
+        'Analytics Permission': analyticsPermission,
+        'Analytics Tracking': analyticsTracking,
+        'CookieControl vorhanden': cookieControlExists
+      });
     }
 
     // LOAD ANALYTICS ASYNC

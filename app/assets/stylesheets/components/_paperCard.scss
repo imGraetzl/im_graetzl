@@ -194,13 +194,13 @@
     $webp1x: image_path('illu/illu-wirtschaft2-plain.webp'),
   );
 }
-.paperCard.-rooms .wrp, .paperCard.-tools .wrp {
+.paperCard.-rooms .wrp {
   @include bg-url(
     image_path('illu/illu-werkbank-plain.png'),
     $webp1x: image_path('illu/illu-werkbank-plain.webp'),
   );
 }
-.paperCard.-room-boosters .wrp, .paperCard.-tools .wrp, .paperCard.-favorites .wrp {
+.paperCard.-room-boosters .wrp, .paperCard.-favorites .wrp {
   @include bg-url(
     image_path('illu/illu-ideen-weissbg.png'),
     $webp1x: image_path('illu/illu-ideen-weissbg.webp'),
