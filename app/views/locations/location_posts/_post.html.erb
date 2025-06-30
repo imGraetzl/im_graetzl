@@ -36,10 +36,12 @@
         </div>
       <% end %>
 
+      <% preloaded_comments = post.respond_to?(:preloaded_comments) ? post.preloaded_comments : post.comments.includes(:user, :images).order(:created_at) %>
+
       <div class="post-comments comments-container">
         <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments' %>
-        <% post.comments.order(:created_at).each do |comment| %>
-          <div class="comment-container" >
+        <% preloaded_comments.sort_by(&:created_at).each do |comment| %>
+          <div class="comment-container">
             <%= render comment %>
           </div>
         <% end %>
