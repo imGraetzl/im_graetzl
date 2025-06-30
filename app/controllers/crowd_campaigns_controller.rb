@@ -171,7 +171,7 @@ class CrowdCampaignsController < ApplicationController
   def comments
     head :ok and return if browser.bot? && !request.format.js?
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
+    @comments = @crowd_campaign.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
   end
 
   def supporters
