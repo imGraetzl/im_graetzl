@@ -9,7 +9,7 @@ class EnergyCategory < ApplicationRecord
 
   include CategoryImageUploader::Attachment(:main_photo)
 
-  string_enum group: ["member_type", "space_type", "exchange_type", "expert_type", "expert_sub_type"]
+  enum group: { member_type: "member_type", space_type: "space_type", exchange_type: "exchange_type", expert_type: "expert_type", expert_sub_type: "expert_sub_type" }
   scope :main_categories, -> { where.not(group: "expert_sub_type") }
 
   def to_s

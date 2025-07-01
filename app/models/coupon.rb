@@ -9,7 +9,7 @@ class Coupon < ApplicationRecord
 
   before_destroy :nullify_associations
 
-  string_enum duration: ["once","forever", "repeating"]
+  enum duration: { once: "once", forever: "forever", repeating: "repeating" }
 
   scope :currently_valid, -> {
     where(enabled: true)

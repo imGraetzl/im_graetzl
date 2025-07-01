@@ -15,9 +15,9 @@ class EnergyDemand < ApplicationRecord
   has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum status: { enabled: 0, disabled: 1 }
-  string_enum energy_type: ["beg", "eeg_local", "eeg_regional", "unclear"]
-  string_enum orientation_type: ["small", "big", "poor"]
-  string_enum organization_form: ["verein", "genossenschaft", "other"]
+  enum energy_type: { beg: "beg", eeg_local: "eeg_local", eeg_regional: "eeg_regional", unclear: "unclear" }
+  enum orientation_type: { small: "small", big: "big", poor: "poor" }
+  enum organization_form: { verein: "verein", genossenschaft: "genossenschaft", other: "other" }
 
   acts_as_taggable_on :energy
 

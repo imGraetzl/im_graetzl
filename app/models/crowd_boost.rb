@@ -10,7 +10,8 @@ class CrowdBoost < ApplicationRecord
   has_many :crowd_campaigns, through: :crowd_boost_slots
 
   enum status: { enabled: 0, disabled: 1 }
-  string_enum chargeable_status: ["charge_enabled"]
+
+  enum chargeable_status: { charge_enabled: "charge_enabled" }
 
   before_save :remove_blank_region_ids
   before_destroy :can_destroy?
