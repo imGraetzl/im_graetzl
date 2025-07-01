@@ -15,27 +15,24 @@ Bundler.require(*Rails.groups)
 
 module ImGraetzl
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.1
     config.exceptions_app = self.routes
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    config.time_zone = "Europe/Vienna"
+    # Optional:
+    # config.autoload_lib(ignore: %w(assets tasks))
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.time_zone = "Europe/Vienna"
     config.active_record.time_zone_aware_types = [:datetime, :time]
     config.i18n.default_locale = :de
+    config.generators.system_tests = nil
 
     # Disable Rails field_with_errors
     ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
       html_tag.html_safe
     end
 
-    # Configure shrine upload location
+    # Shrine
     config.upload_server = if ENV["UPLOAD_SERVER"].present?
       ENV["UPLOAD_SERVER"].to_sym
     elsif Rails.env.production? || Rails.env.staging?
@@ -44,13 +41,13 @@ module ImGraetzl
       :app
     end
 
-    # gzip compression
+    # gzip
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
 
+    # Skylight
     if ENV["SKYLIGHT_ENABLED"] == "true"
       config.skylight.environments << Rails.env
       config.skylight.probes << 'delayed_job'
     end
-
   end
 end
