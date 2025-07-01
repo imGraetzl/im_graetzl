@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 ruby '3.2.8'
 
-gem 'rails', '~> 6.1.7.10'
+gem 'rails', '~> 7.1.3'
 gem 'puma'
 gem 'puma_worker_killer', '~> 1.0'
 gem 'pg'
-gem 'activerecord-postgis-adapter', '~> 7.1'
+gem 'activerecord-postgis-adapter', '~> 9.0'
 gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
@@ -14,17 +14,12 @@ gem 'delayed_job_web'
 gem 'activerecord-import'
 gem 'active_link_to'
 
-# Remove in Rails 7
-gem 'net-smtp', require: false
-gem 'net-imap', require: false
-gem 'net-pop', require: false
-
 gem 'rack-attack'
 gem 'rack-cors', '~> 2.0', require: 'rack/cors'
 gem 'rack-rewrite'
 
 gem 'aasm'
-gem 'acts-as-taggable-on', '~> 10.0'
+gem 'acts-as-taggable-on', '~> 11.0'
 gem 'browser'
 gem 'cocoon'
 gem 'devise'
@@ -45,13 +40,10 @@ gem "sentry-ruby"
 gem "sentry-rails"
 gem "sentry-delayed_job"
 gem "skylight"
-#gem 'rollbar'
-#gem 'newrelic_rpm'
-#gem 'scout_apm'
 
 gem "shrine", "~> 3.6"
 gem "aws-sdk-s3", "~> 1"
-gem "image_processing", "~> 1.8"
+gem "image_processing", "~> 1.14"
 gem 'marcel'
 
 gem 'sassc-rails'
@@ -65,24 +57,20 @@ gem 'oj'
 gem 'jquery-ui-rails'
 gem 'bb-ruby'
 gem 'stripe', '~> 15.2'
-#gem 'stripe', "~> 8.0"
 
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
 group :development do
-  # gem 'spring'
   gem 'letter_opener'
 end
 
 group :development, :test do
   gem 'listen'
-  # Helpers don't work if required, https://github.com/rspec/rspec-rails/issues/1525
   gem 'rails-controller-testing', require: false
-  gem 'rspec-rails', '< 7.0'
+  gem 'rspec-rails', '< 8.0'
   gem 'factory_bot_rails'
   gem 'dotenv-rails'
-  #gem 'guard-livereload'
   gem 'foreman', require: false
   gem 'faker'
 end

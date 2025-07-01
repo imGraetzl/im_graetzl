@@ -3,8 +3,9 @@ class ApplicationRecord < ActiveRecord::Base
 
   def self.string_enum(enum_options)
     name, values = enum_options.first
-    enum_options[name] = values.to_h{|k| [k, k.to_s]}
-    enum(enum_options)
+    raise ArgumentError, "Enum values for #{name} must not be empty! (#{self.name})" if values.empty?
+    enum_hash = values.each_with_index.to_h { |k, idx| [k.to_sym, idx] }
+    enum(name => enum_hash)
   end
 
   def self.in(region)
