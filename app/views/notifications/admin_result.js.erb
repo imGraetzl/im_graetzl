@@ -2,7 +2,7 @@
   var $cardContainer = $("[data-behavior='notification-card-container']");
   var $paginateLink = $("[data-behavior='notification-paginate-link']");
 
-  $('.notification-count').text(<%= @notifications_count %>);
+  $('.notification-count').text(<%= @notifications.total_count %>);
 
   <% rendered_notifications = @notifications.map { |notification|
     subject       = notification.subject
