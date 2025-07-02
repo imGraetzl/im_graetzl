@@ -9,14 +9,15 @@ class EnergiesController < ApplicationController
       []
     else
       meeting_category = EventCategory.where("title ILIKE :q", q: "%Energieteiler%").last
-      Meeting.in(current_region)
+      meetings = Meeting.in(current_region)
         .upcoming
         .include_for_box
         .joins(:event_categories)
         .where(event_categories: {id: meeting_category&.id})
         .order(:starts_at_date)
         .limit(15)
-        .to_a
+      meetings = filter_meetings(meetings)
+      meetings.to_a
     end
 
     # Energy Offers & Demands, sortiert nach last_activated_at, gemeinsam
@@ -122,7 +123,7 @@ class EnergiesController < ApplicationController
 
     energy_type = params.dig(:filter, :energy_type)
     if energy_type.present? && energy_type != 'meeting'
-      return Meeting.none
+      return meetings.none
     end
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
