@@ -3,13 +3,13 @@
   var $paginateLink = $("[data-behavior='rooms-paginate-link']");
 
   <% if params[:page].blank? %>
-    $cardContainer.html("<%= j render @rooms %>");
+    $cardContainer.html("<%= j render partial: 'rooms/room_polymorphic', collection: @rooms, as: :room %>");
   <% else %>
-    $cardContainer.append("<%= j render @rooms %>");
+    $cardContainer.append("<%= j render partial: 'rooms/room_polymorphic', collection: @rooms, as: :room %>");
   <% end %>
 
-  <% if @next_page %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+  <% if @rooms.next_page.present? %>
+    $paginateLink.attr('href', "<%= raw(next_page_url(@rooms)) %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");
   <% end %>

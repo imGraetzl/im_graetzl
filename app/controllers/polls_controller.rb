@@ -5,7 +5,7 @@ class PollsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @polls = collection_scope.in(current_region).include_for_box
     @polls = filter_collection(@polls)
-    @polls = @polls.by_currentness.page(params[:page]).per(params[:per_page] || 30)
+    @polls = @polls.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show

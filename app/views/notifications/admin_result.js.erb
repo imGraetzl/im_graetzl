@@ -26,7 +26,7 @@
   <% end %>
 
   <% if @notifications.next_page %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+    $paginateLink.attr('href', "<%= raw(next_page_url(@notifications)) %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");
   <% end %>

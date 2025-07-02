@@ -21,7 +21,7 @@
 
 
   <% if @locations.next_page.present? %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+    $paginateLink.attr('href', "<%= raw(next_page_url(@locations)) %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");
   <% end %>
