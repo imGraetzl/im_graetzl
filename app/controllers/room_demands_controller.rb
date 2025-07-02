@@ -1,5 +1,5 @@
 class RoomDemandsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :reactivate]
+  before_action :authenticate_user!, except: [:show, :reactivate]
 
   def show
     @room_demand = RoomDemand.find(params[:id])
@@ -51,17 +51,17 @@ class RoomDemandsController < ApplicationController
   end
 
   def reactivate
-    @room_demand = RoomDemand.find(params[:id])
-    if @room_demand.disabled? && params[:activation_code].to_i == @room_demand.activation_code
+    @room_demand = RoomDemand.find_by_token_for(:activation, params[:activation_token])
+    if @room_demand&.disabled?
       @room_demand.update(status: :enabled)
       ActionProcessor.track(@room_demand, :update) if @room_demand.refresh_activity
       flash[:notice] = "Deine Raumsuche wurde erfolgreich verlängert!"
-    elsif @room_demand.enabled?
+    elsif @room_demand&.enabled?
       flash[:notice] = "Deine Raumsuche ist bereits aktiv."
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
     end
-    redirect_to @room_demand
+    redirect_to RoomDemand.find(params[:id])
   end
 
   def destroy
@@ -86,7 +86,7 @@ class RoomDemandsController < ApplicationController
         :tenant_description,
         :wants_collaboration,
         :avatar,
-        :activation_code,
+        :activation_token,
         :remove_avatar,
         :last_activated_at,
         :first_name, :last_name, :website, :email, :phone, :location_id,

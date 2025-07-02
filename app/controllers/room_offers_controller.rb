@@ -64,17 +64,17 @@ class RoomOffersController < ApplicationController
   end
 
   def reactivate
-    @room_offer = RoomOffer.find(params[:id])
-    if @room_offer.disabled? && params[:activation_code].to_i == @room_offer.activation_code
+    @room_offer = RoomOffer.find_by_token_for(:activation, params[:activation_token])
+    if @room_offer&.disabled?
       @room_offer.update(status: :enabled)
       ActionProcessor.track(@room_offer, :update) if @room_offer.refresh_activity
       flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
-    elsif @room_offer.enabled?
+    elsif @room_offer&.enabled?
       flash[:notice] = "Dein Raumteiler ist bereits aktiv."
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
     end
-    redirect_to @room_offer
+    redirect_to RoomOffer.find(params[:id])
   end
 
   def rental_timetable
@@ -154,7 +154,7 @@ class RoomOffersController < ApplicationController
         :cover_photo,
         :remove_cover_photo,
         :avatar,
-        :activation_code,
+        :activation_token,
         :remove_avatar,
         :general_availability,
         :rental_enabled,

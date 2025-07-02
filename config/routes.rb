@@ -152,7 +152,7 @@ Rails.application.routes.draw do
 
   resources :coop_demands, path: 'coop-share' do
     post 'toggle', on: :member
-    get 'reactivate/:activation_code' => 'coop_demands#reactivate', on: :member
+    get 'reactivate/:activation_token' => 'coop_demands#reactivate', on: :member
     patch 'update_status', on: :member
   end
 
@@ -217,24 +217,22 @@ Rails.application.routes.draw do
 
   resources :energies, only: [:index]
   resources :energy_demands, path: 'suche-energiegemeinschaft', except: [:index] do
-    get 'reactivate/:activation_code' => 'energy_demands#reactivate', on: :member
     patch 'update_status', on: :member
   end
   resources :energy_offers, path: 'energiegemeinschaft', except: [:index] do
     get 'select', on: :collection
-    get 'reactivate/:activation_code' => 'room_offers#reactivate', on: :member
     patch 'update_status', on: :member
   end
 
   resources :rooms, only: [:index]
   resources :room_demands, path: 'raumsuche', except: [:index] do
     post 'toggle', on: :member
-    get 'reactivate/:activation_code' => 'room_demands#reactivate', on: :member
+    get 'reactivate/:activation_token' => 'room_demands#reactivate', on: :member
     patch 'update_status', on: :member
   end
   resources :room_offers, path: 'raum', except: [:index] do
     get 'select', on: :collection
-    get 'reactivate/:activation_code' => 'room_offers#reactivate', on: :member
+    get 'reactivate/:activation_token' => 'room_offers#reactivate', on: :member
     get 'rental_timetable', on: :member
     get 'available_hours', on: :member
     get 'calculate_price', on: :member
