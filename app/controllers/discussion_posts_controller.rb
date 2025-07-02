@@ -1,5 +1,5 @@
 class DiscussionPostsController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :comments]
+  before_action :authenticate_user!
   before_action :check_group
 
   def create

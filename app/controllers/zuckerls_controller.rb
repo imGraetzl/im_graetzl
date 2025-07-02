@@ -6,7 +6,6 @@ class ZuckerlsController < ApplicationController
     @zuckerls = collection_scope.in(current_region).include_for_box
     @zuckerls = filter_collection(@zuckerls)
     @zuckerls = @zuckerls.page(params[:page]).per(15).reorder(Arel.sql("RANDOM()"))
-
   end
 
   def new
