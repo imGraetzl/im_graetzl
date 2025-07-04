@@ -27,7 +27,10 @@ class LocationsController < ApplicationController
       graetzl: []
     ).find(params[:id])
 
-    redirect_enqueued if @location.pending?
+    # Nur redirect für Nicht-Admins!
+    if @location.pending? && !(current_user&.admin?)
+      redirect_enqueued and return
+    end
     return if redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
