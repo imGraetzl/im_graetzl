@@ -231,7 +231,7 @@
                   method: :delete,
                   data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich unwiderruflich löschen?" },
                   class: 'btn-secondary -grey -small' if !f.object.new_record? %>
-    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary -saving' %>
+    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary -saving-legacy' %>
   </div>
 
 <% end %>
