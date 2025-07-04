@@ -46,6 +46,7 @@ gem "aws-sdk-s3", "~> 1"
 gem "image_processing", "~> 1.14"
 gem 'marcel'
 
+gem "terser"
 gem 'sassc-rails'
 gem 'jquery-rails'
 gem 'underscore-rails'
@@ -83,5 +84,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "terser", "= 1.2.5"
