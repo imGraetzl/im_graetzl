@@ -16,7 +16,7 @@
           <%= icon_tag "unlocked" %>
           <span>Passwort</span>
         <% end %>
-        <%= f.password_field :password %>
+        <%= f.password_field :password, placeholder: 'Neues Passwort wählen ...', autocomplete: 'new-password' %>
       </div>
     </div>
   </div>

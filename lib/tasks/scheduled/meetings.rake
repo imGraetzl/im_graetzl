@@ -56,7 +56,7 @@ namespace :scheduled do
     return
 
     region = Region.get('wien')
-    category = EventCategory.where("title ILIKE :q", q: "%Good Morning%").last
+    category = EventCategory.find_by!(slug: 'good-morning-dates')
     meetings = Meeting.joins(:event_categories).where(event_categories: {id: category&.id})
     
     meetings.in(region).where(starts_at_date: 21.days.from_now).find_each do |meeting|

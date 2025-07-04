@@ -3,22 +3,6 @@
     <% categories = EventCategory.visible.sort_by(&:position) %>
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
 
-    <% if current_region.is?('graz') && category = EventCategory.where("title ILIKE :q", q: "%Balkon-Solar%").last %>
-      <div class="-category -href" data-href="<%= balkonsolar_path %>" data-id="balkonsolar" data-label="Balkon-Solar" data-slug="balkonsolar">
-        <picture>
-          <source srcset="<%= image_path('categories/balkonsolar.webp') %>" type="image/webp" />
-          <%= image_tag('categories/balkonsolar.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
-        </picture>
-        <div class="cat -balkonsolar">
-          <%= category_icon('solar', class: 'catimg', width:85, height:85) %>
-        </div>
-        <h3><%= link_to "Balkon-Solar Workshops", balkonsolar_path %></h3>
-        <%= button_tag '', class: 'close-ico' do %>
-          <%= icon_tag "cross" %>
-        <% end %>
-      </div>
-    <% end %>
-
     <% if current_region.is?('wien') %>
       <div class="-category -href" data-href="<%= good_morning_dates_path %>" data-id="good-moring-dates" data-label="Good Morning Dates" data-slug="good-morning-dates">
         <picture>

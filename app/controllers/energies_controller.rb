@@ -8,7 +8,7 @@ class EnergiesController < ApplicationController
     meetings_upcoming = if params[:user_id].present?
       []
     else
-      meeting_category = EventCategory.where("title ILIKE :q", q: "%Energieteiler%").last
+      meeting_category = EventCategory.find_by!(slug: 'energieteiler')
       meetings = Meeting.in(current_region)
         .upcoming
         .include_for_box

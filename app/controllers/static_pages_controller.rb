@@ -12,12 +12,12 @@ class StaticPagesController < ApplicationController
   end
 
   def balkonsolar
-    @category = EventCategory.where("title ILIKE :q", q: "%Balkon%").last
+    @category = EventCategory.find_by!(slug: 'balkon-solar')
     @meetings = Meeting.in(current_region).joins(:event_categories).where(event_categories: {id: @category&.id})
   end
 
   def balkonsolar_wien
-    @category = EventCategory.where("title ILIKE :q", q: "%Balkon%").last
+    @category = EventCategory.find_by!(slug: 'balkon-solar')
     @meetings = Meeting.in(current_region).joins(:event_categories).where(event_categories: {id: @category&.id})
   end
 
