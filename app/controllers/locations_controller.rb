@@ -275,9 +275,8 @@ class LocationsController < ApplicationController
       return redirect_to root_url, notice: message
     end
 
-    flash.now[:notice] = message
+    redirect_to @location, notice: message
   end
-
 
   def location_params
     params.require(:location).permit(

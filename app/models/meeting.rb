@@ -66,6 +66,7 @@ class Meeting < ApplicationRecord
 
   validates_presence_of :name, :description, :starts_at_date, :graetzl
   validates :cover_photo, presence: true, on: :create
+  validates :name, length: { maximum: 255 }
   validates :description, presence: true, length: { minimum: 150 }, on: :create
   validate :starts_at_date_cannot_be_in_the_past, on: :create
   validates :max_going_tos, numericality: { greater_than_or_equal_to: 1, :allow_nil => true }
