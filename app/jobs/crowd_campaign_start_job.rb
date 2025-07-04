@@ -5,5 +5,6 @@ class CrowdCampaignStartJob < ApplicationJob
   def perform(campaign_id)
     campaign = CrowdCampaign.find(campaign_id)
     CrowdCampaignService.new.start(campaign)
+    Sentry.logger.info("[CrowdCampaignStartJob] Campaign %{campaign_id} started", campaign_id: campaign.id)
   end
 end
