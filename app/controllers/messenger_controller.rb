@@ -11,6 +11,10 @@ class MessengerController < ApplicationController
     # 1. Kein Zugriff für untrusted
     if current_user.untrusted?
       Rails.logger.warn "[Messenger Blocked] User #{current_user.id} (#{current_user.email}) wurde wegen trust_level=:untrusted blockiert."
+      Sentry.logger.warn(
+        "[Messenger] User-ID %{user_id} wurde wegen trust_level=:untrusted blockiert.",
+        user_id: current_user.id, action: "start_thread"
+      )
       redirect_to root_path, notice: 'Du kannst den Messenger derzeit nicht verwenden.' and return
     end
 
@@ -19,10 +23,10 @@ class MessengerController < ApplicationController
       recent_messages = current_user.recent_sent_messages_by_thread
 
       if recent_messages.size >= 20
-        Rails.logger.warn "[Messenger Blocked Spam] User #{current_user.id} hat #{recent_messages.size} Threads gestartet."
+        Rails.logger.warn "[Messenger Spam Alert] User #{current_user.id} hat #{recent_messages.size} Threads gestartet."
         redirect_to root_path, notice: "Du hast sehr viele Messenger-Konversationen in kurzer Zeit gestartet. Bitte warte etwas." and return
       elsif recent_messages.size == 10
-        Rails.logger.info "[Messenger Blocked Warning] User #{current_user.id} hat #{recent_messages.size} Threads erreicht."
+        Rails.logger.info "[Messenger Spam Warning] User #{current_user.id} hat #{recent_messages.size} Threads erreicht."
         AdminMailer.messenger_spam_alert(current_user, recent_messages.values).deliver_later
       end
     end

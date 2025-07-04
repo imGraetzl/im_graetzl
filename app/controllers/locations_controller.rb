@@ -31,6 +31,12 @@ class LocationsController < ApplicationController
     if @location.pending? && !(current_user&.admin?)
       redirect_enqueued and return
     end
+
+    # Für Admins: Flash-Message anzeigen (ohne redirect)
+    if @location.pending? && current_user&.admin?
+      flash.now[:notice] = "Admin-Ansicht! Schaufenster noch nicht freigeschaltet."
+    end
+
     return if redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
