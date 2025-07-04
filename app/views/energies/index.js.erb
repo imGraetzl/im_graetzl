@@ -3,13 +3,13 @@
   var $paginateLink = $("[data-behavior='energies-paginate-link']");
 
   <% if params[:page].blank? %>
-    $cardContainer.html("<%= j render @energies %>");
+    $cardContainer.html("<%= j render partial: 'energies/energies_polymorphic', collection: @energies, as: :energy %>");
   <% else %>
-    $cardContainer.append("<%= j render @energies %>");
+    $cardContainer.append("<%= j render partial: 'energies/energies_polymorphic', collection: @energies, as: :energy %>");
   <% end %>
 
-  <% if @next_page %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+  <% if @energies.next_page.present? %>
+    $paginateLink.attr('href', "<%= raw(next_page_url(@energies)) %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");
   <% end %>

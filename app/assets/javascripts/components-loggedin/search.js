@@ -111,63 +111,50 @@ APP.components.search = (function() {
       var search_phrase = $input.val();
       var type;
 
+      const categoryConfig = {
+        'Raumteiler': {
+          type: 'rooms',
+          count: () => Math.max(counts.RoomOffer || 0, counts.RoomDemand || 0)
+        },
+        'Coop & Share': {
+          type: 'coop_demands',
+          count: () => counts.CoopDemand || 0
+        },
+        'Events & Workshops': {
+          type: 'meetings',
+          count: () => counts.Meeting || 0
+        },
+        'Anbieter & Macherinnen': {
+          type: 'locations',
+          count: () => counts.Location || 0
+        },
+        'Gruppen': {
+          type: 'groups',
+          count: () => counts.Group || 0
+        },
+        'Crowdfunding Kampagnen': {
+          type: 'crowd_campaigns',
+          count: () => counts.CrowdCampaign || 0
+        },
+        'Umfragen': {
+          type: 'polls',
+          count: () => counts.Poll || 0
+        },
+        'Energieteiler': {
+          type: 'energies',
+          count: () => (counts.EnergyOffer || 0) + (counts.EnergyDemand || 0)
+        }
+      };
+
       // Find Categories and add Link
-      $('.eac-category').each( function( index, element ) {
-
-          switch($(this).text()) {
-            case 'Raumteiler':
-              type = 'rooms';
-              count = 0;
-              counts.RoomOffer ? count += counts.RoomOffer : count;
-              counts.RoomDemand ? count += counts.RoomDemand : count;
-              break;
-            case 'Coop & Share':
-              type = 'coop_demands'
-              count = 0;
-              counts.CoopDemand ? count += counts.CoopDemand : count;
-              break;
-            case 'Events & Workshops':
-              type = 'meetings'
-              count = 0;
-              counts.Meeting ? count += counts.Meeting : count;
-              break;
-            case 'Anbieter & Macherinnen':
-              type = 'locations'
-              count = 0;
-              counts.Location ? count += counts.Location : count;
-              break;
-            case 'Gruppen':
-              type = 'groups'
-              count = 0;
-              counts.Group ? count += counts.Group : count;
-              break;
-            case 'Crowdfunding Kampagnen':
-              type = 'crowd_campaigns'
-              count = 0;
-              counts.CrowdCampaign ? count += counts.CrowdCampaign : count;
-              break;
-            case 'Umfragen':
-              type = 'polls'
-              count = 0;
-              counts.Poll ? count += counts.Poll : count;
-              break;
-            case 'Energieteiler':
-              type = 'energies';
-              count = 0;
-              counts.EnergyOffer ? count += counts.EnergyOffer : count;
-              counts.EnergyDemand ? count += counts.EnergyDemand : count;
-              break;
-            default:
-              type = ''
-              count = ''
-          }
-
-          var link = "<a href='/search?q="+search_phrase+"&search_type="+type+"'>alle anzeigen ("+count+")</a>"
-
+      $('.eac-category').each(function(index, element) {
+        const config = categoryConfig[$(this).text()];
+        if (config) {
+          const link = `<a href='/search?q=${search_phrase}&search_type=${config.type}'>alle anzeigen (${config.count()})</a>`;
           if ($(this).find('a').length == 0) {
             $(this).append(link);
           }
-
+        }
       });
     }
 

@@ -13,7 +13,7 @@
   <% end %>
 
   <% if @favorites.next_page %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+    $paginateLink.attr('href', "<%= raw(next_page_url(@favorites)) %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");
   <% end %>

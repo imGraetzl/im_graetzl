@@ -1,24 +1,27 @@
 class RoomsController < ApplicationController
+  MAX_FEED_SIZE = 1000
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
 
     room_offers = room_offers_scope.in(current_region).includes(:user)
-    room_offers = filter_offers(room_offers)
-    room_offers = room_offers.by_currentness.page(params[:page]).per(params[:per_page] || 15)
-    room_offers = room_offers.where.not(id: params[:exclude_room_offer].to_i) if params[:exclude_room_offer]
+    room_offers = filter_offers(room_offers).by_currentness
 
     room_demands = room_demands_scope.in(current_region).includes(:user, :room_categories)
-    room_demands = filter_demands(room_demands)
-    room_demands = room_demands.by_currentness.page(params[:page]).per(params[:per_page] || 8)
+    room_demands = filter_demands(room_demands).by_currentness
 
-    @rooms = []
-    @rooms += (room_offers + room_demands).sort_by(&:last_activated_at).reverse
-    @next_page = room_offers.next_page.present? || room_demands.next_page.present?
+    # Beide Arrays in Ruby mischen und nach last_activated_at sortieren
+    rooms = (room_offers.to_a + room_demands.to_a)
+              .sort_by(&:last_activated_at)
+              .reverse
+              .first(MAX_FEED_SIZE)
 
-    if params[:page].blank? && params[:user_id].blank? && params[:exclude_room_offer].blank?
-      @rooms = insert_zuckerls(@rooms)
-    end
+    rooms = insert_zuckerls(rooms) if params[:page].blank? && params[:user_id].blank? && params[:exclude_room_offer].blank?
+
+    page = params[:page] || 1
+    per_page = (params[:per_page] || 15).to_i
+
+    @rooms = Kaminari.paginate_array(rooms).page(page).per(per_page)
 
   end
 

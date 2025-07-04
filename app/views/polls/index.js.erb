@@ -8,8 +8,8 @@
     $cardContainer.append("<%= j render @polls %>");
   <% end %>
 
-  <% if @next_page %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+  <% if @polls.next_page.present? %>
+    $paginateLink.attr('href', "<%= raw(next_page_url(@polls)) %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");
   <% end %>

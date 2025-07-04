@@ -7,6 +7,10 @@ class DerivativesJob < ApplicationJob
     record = record_class.constantize.find(record_id)
     attacher = attacher_class.constantize.from_model(record, name)
     attacher.create_derivatives
-    attacher.atomic_persist
+    begin
+      attacher.atomic_persist
+    rescue Shrine::AttachmentChanged => e
+      Rails.logger.warn "[Shrine::AttachmentChanged] #{record_class}##{record_id} – Attachment wurde ersetzt, Derivate werden verworfen"
+    end
   end
 end

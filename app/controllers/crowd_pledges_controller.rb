@@ -138,11 +138,11 @@ class CrowdPledgesController < ApplicationController
 
   def change_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
-    redirect_to [:details, @crowd_pledge] if !@crowd_pledge.failed?
+    return redirect_to [:details, @crowd_pledge] unless @crowd_pledge.failed?
 
     if @crowd_pledge.crowd_campaign.payment_closed?
       flash[:notice] = "Sorry, die Kampagne wurde bereits geschlossen und kann daher nicht mehr unterstützt werden."
-      redirect_to [:details, @crowd_pledge]
+      return redirect_to [:details, @crowd_pledge]
     end
 
     @payment_intent = CrowdPledgeService.new.create_retry_intent(@crowd_pledge)

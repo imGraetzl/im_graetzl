@@ -36,10 +36,10 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, through: :crowd_campaign_posts
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
-
-  string_enum boost_status: ["boost_declined", "boost_waitlist", "boost_approved", "boost_authorized", "boost_debited", "boost_cancelled"]
-  string_enum transfer_status: ["payout_waiting", "payout_ready", "payout_processing", "payout_completed", "payout_failed"]
-  string_enum visibility_status: ["graetzl","region", "platform"]
+  
+  enum boost_status: { boost_declined: "boost_declined", boost_waitlist: "boost_waitlist", boost_approved: "boost_approved", boost_authorized: "boost_authorized", boost_debited: "boost_debited", boost_cancelled: "boost_cancelled" }
+  enum transfer_status: { payout_waiting: "payout_waiting", payout_ready: "payout_ready", payout_processing: "payout_processing", payout_completed: "payout_completed", payout_failed: "payout_failed" }
+  enum visibility_status: { graetzl: "graetzl", region: "region", platform: "platform" }
   enum newsletter_status: { none: "none", graetzl: "graetzl", region: "region", platform: "platform" }, _prefix: :newsletter
   enum active_state: { enabled: 0, disabled: 1, hidden: 2 }
   enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6, re_draft: 7 }

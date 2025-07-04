@@ -8,8 +8,8 @@ class CrowdBoostCharge < ApplicationRecord
   belongs_to :crowd_pledge, optional: true
   belongs_to :subscription_invoice, optional: true
 
-  string_enum charge_type: ["general", "zuckerl", "room_booster", "subscription_invoice", "crowd_pledge", "good_morning_date"]
-  string_enum payment_status: ["incomplete", "authorized", "processing", "debited", "failed", "refunded"]
+  enum charge_type: { general: "general", zuckerl: "zuckerl", room_booster: "room_booster", subscription_invoice: "subscription_invoice", crowd_pledge: "crowd_pledge", good_morning_date: "good_morning_date"}
+  enum payment_status: { incomplete: "incomplete", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", refunded: "refunded" }
 
   scope :expected, -> { where(payment_status: [:authorized, :processing]) }
   scope :initialized, -> { where.not(payment_status: :incomplete) }

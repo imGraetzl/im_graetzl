@@ -52,6 +52,9 @@ namespace :scheduled do
 
   desc 'Send Good Morning Date Invite'
   task good_morning_date_invite: :environment do
+    # Temporär deaktiviert am 2025-06-30 – Michael
+    return
+
     region = Region.get('wien')
     category = EventCategory.where("title ILIKE :q", q: "%Good Morning%").last
     meetings = Meeting.joins(:event_categories).where(event_categories: {id: category&.id})

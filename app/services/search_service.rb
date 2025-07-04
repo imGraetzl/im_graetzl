@@ -1,5 +1,7 @@
 class SearchService
 
+  LIMIT_COUNT = 500
+
   def initialize(region, query, options = {})
     @region = region
     @query = query.to_s.strip
@@ -62,51 +64,73 @@ class SearchService
   end
 
   def search_rooms
-    room_offer_title_matches = RoomOffer.in(@region).enabled.joins(:room_categories).where("slogan ILIKE :q OR room_categories.name ILIKE :q", q: like_query).distinct
-    room_offer_tag_matches = RoomOffer.in(@region).enabled.tagged_with(exact_query, any: true)
-    room_offers = RoomOffer.where(id: room_offer_title_matches.pluck(:id) + room_offer_tag_matches.pluck(:id))
+    room_offer_title_ids = RoomOffer.in(@region).enabled
+      .joins(:room_categories)
+      .where("slogan ILIKE :q OR room_categories.name ILIKE :q", q: like_query)
+      .distinct
+      .limit(LIMIT_COUNT)
+      .pluck(:id)
 
-    room_demand_title_matches = RoomDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query)
-    room_demand_tag_matches = RoomDemand.in(@region).enabled.tagged_with(exact_query, any: true)
-    room_demands = RoomDemand.where(id: room_demand_title_matches.pluck(:id) + room_demand_tag_matches.pluck(:id))
+    room_offer_tag_ids = RoomOffer.in(@region).enabled
+      .tagged_with(exact_query, any: true)
+      .limit(LIMIT_COUNT)
+      .pluck(:id)
+
+    room_offer_ids = (room_offer_title_ids + room_offer_tag_ids).uniq
+    room_offers = RoomOffer.where(id: room_offer_ids).limit(LIMIT_COUNT)
+
+    room_demand_title_ids = RoomDemand.in(@region).enabled
+      .where("slogan ILIKE :q", q: like_query)
+      .limit(LIMIT_COUNT)
+      .pluck(:id)
+
+    room_demand_tag_ids = RoomDemand.in(@region).enabled
+      .tagged_with(exact_query, any: true)
+      .limit(LIMIT_COUNT)
+      .pluck(:id)
+
+    room_demand_ids = (room_demand_title_ids + room_demand_tag_ids).uniq
+    room_demands = RoomDemand.where(id: room_demand_ids).limit(LIMIT_COUNT)
 
     (room_offers + room_demands).sort_by(&:last_activated_at).reverse
   end
 
+
   def search_meetings
-    Meeting.in(@region).upcoming.left_outer_joins(:location).where("meetings.name ILIKE :q OR locations.name ILIKE :q", q: like_query).order('starts_at_date DESC')
+    Meeting.in(@region).upcoming.left_outer_joins(:location).where("meetings.name ILIKE :q OR locations.name ILIKE :q", q: like_query).order('starts_at_date DESC').limit(LIMIT_COUNT)
   end
 
   def search_crowd_campaigns
-    CrowdCampaign.in(@region).scope_public.where("title ILIKE :q OR slogan ILIKE :q", q: like_query).order('created_at DESC')
+    CrowdCampaign.in(@region).scope_public.where("title ILIKE :q OR slogan ILIKE :q", q: like_query).order('created_at DESC').limit(LIMIT_COUNT)
   end
 
   def search_locations
-    title_matches = Location.in(@region).approved.where("name ILIKE :q OR slogan ILIKE :q", q: like_query)
-    tag_matches = Location.in(@region).approved.tagged_with(exact_query, any: true)
-    Location.where(id: title_matches.pluck(:id) + tag_matches.pluck(:id)).sort_by(&:last_activity_at).reverse
+    title_ids = Location.in(@region).approved.where("name ILIKE :q OR slogan ILIKE :q", q: like_query).limit(LIMIT_COUNT).pluck(:id)
+    tag_ids = Location.in(@region).approved.tagged_with(exact_query, any: true).limit(LIMIT_COUNT).pluck(:id)
+    ids = (title_ids + tag_ids).uniq
+    Location.where(id: ids).limit(LIMIT_COUNT).sort_by(&:last_activity_at).reverse
   end
 
   def search_polls
-    Poll.in(@region).enabled.where("title ILIKE :q OR description ILIKE :q", q: like_query).order('created_at DESC')
+    Poll.in(@region).enabled.where("title ILIKE :q OR description ILIKE :q", q: like_query).order('created_at DESC').limit(LIMIT_COUNT)
   end
 
   def search_energies
-    energy_offers = EnergyOffer.in(@region).enabled.where("title ILIKE :q", q: like_query)
-    energy_demands = EnergyDemand.in(@region).enabled.where("title ILIKE :q", q: like_query)
+    energy_offers = EnergyOffer.in(@region).enabled.where("title ILIKE :q", q: like_query).limit(LIMIT_COUNT)
+    energy_demands = EnergyDemand.in(@region).enabled.where("title ILIKE :q", q: like_query).limit(LIMIT_COUNT)
     (energy_offers + energy_demands).sort_by(&:last_activated_at).reverse
   end
 
   def search_coop_demands
-    CoopDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query).order('created_at DESC')
+    CoopDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query).order('created_at DESC').limit(LIMIT_COUNT)
   end
 
   def search_groups
-    Group.in(@region).non_hidden.where("title ILIKE :q", q: like_query).order('created_at DESC')
+    Group.in(@region).non_hidden.where("title ILIKE :q", q: like_query).order('created_at DESC').limit(LIMIT_COUNT)
   end
 
   def search_users
-    User.in(@region).registered.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct
+    User.in(@region).registered.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct.limit(LIMIT_COUNT)
   end
 
 end

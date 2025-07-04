@@ -12,7 +12,7 @@ class PollQuestion < ApplicationRecord
   scope :scope_options, -> { where(option_type: [:radio_button, :check_box]) }
   scope :scope_free_answer, -> { where(option_type: [:free_answer, :free_answer_public_comment]) }
 
-  string_enum option_type: ["radio_button", "check_box", "free_answer", "free_answer_public_comment"]
+  enum option_type: { radio_button: "radio_button", check_box: "check_box", free_answer: "free_answer", free_answer_public_comment: "free_answer_public_comment" }
 
   def to_s
     title

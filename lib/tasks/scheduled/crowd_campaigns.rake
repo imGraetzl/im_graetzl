@@ -9,7 +9,7 @@ namespace :scheduled do
     campaign_start = Date.tomorrow.in_time_zone("Vienna").beginning_of_day.utc
 
     CrowdCampaign.approved.where(startdate: Date.tomorrow).find_each do |campaign|
-      CrowdCampaignService.new.delay(run_at: campaign_start).start(campaign)
+      CrowdCampaignStartJob.set(wait_until: campaign_start).perform_later(campaign.id)
     end
 
     # Send email to funding campaign after 7 days
@@ -21,7 +21,7 @@ namespace :scheduled do
     campaign_end = Date.today.in_time_zone("Vienna").end_of_day.utc
 
     CrowdCampaign.funding.where(enddate: Date.today).find_each do |campaign|
-      CrowdCampaignService.new.delay(run_at: campaign_end).complete(campaign)
+      CrowdCampaignCompleteJob.set(wait_until: campaign_end).perform_later(campaign.id)
     end
 
     # Close and generate Invoice after 14 Days

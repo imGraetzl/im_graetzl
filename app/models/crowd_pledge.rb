@@ -20,7 +20,7 @@ class CrowdPledge < ApplicationRecord
   validates :donation_amount, numericality: { greater_than_or_equal_to: 1 }, if: :donation_amount?
   validates :total_price, numericality: { less_than_or_equal_to: 25_000 }, if: :total_price?
 
-  string_enum status: ["incomplete", "authorized", "processing", "debited", "failed", "canceled", "refunded"]
+  enum status: { incomplete: "incomplete", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", canceled: "canceled", refunded: "refunded" }
 
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :disputed, -> { where.not(disputed_at: nil).where(status: 'failed') }
@@ -113,11 +113,16 @@ class CrowdPledge < ApplicationRecord
   end
 
   def update_crowd_boost_charge
-    self.crowd_boost_charge.update(
-      payment_status: self.status,
-      debited_at: self.debited_at,
-      amount: self.crowd_boost_charge_amount,
-    )
+    if crowd_boost_charge_amount.to_d.zero?
+      crowd_boost_charge&.destroy
+      update_column(:crowd_boost_id, nil)
+    else
+      crowd_boost_charge&.update(
+        payment_status: self.status,
+        debited_at: self.debited_at,
+        amount: self.crowd_boost_charge_amount
+      )
+    end
   end
 
 end

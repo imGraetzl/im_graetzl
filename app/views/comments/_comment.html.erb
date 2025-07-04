@@ -10,16 +10,21 @@
         <% end %>
       </div>
     <% end %>
+
+    <% user = comment.respond_to?(:preloaded_user) ? comment.preloaded_user : comment.user %>
+
     <div class="userEntry">
-      <%= link_to comment.user, rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round show-badge' %>
-    <% end %>
+      <%= link_to user, rel: 'nofollow' do %>
+        <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round show-badge' %>
+      <% end %>
       <span class="userAndType">
-        <span>Kommentar von </span><%= link_to comment.user.username, comment.user, rel: 'nofollow' %>
+        <span>Kommentar von </span><%= link_to user.username, user, rel: 'nofollow' %>
         <span>vor <%= time_ago_in_words(comment.created_at) %></span>
       </span>
     </div>
+
     <div class="txt txtlinky"><%= comment.content %></div>
+
     <% if comment.images.present? %>
       <div class="entryImgUploads">
         <% comment.images.each do |image| %>

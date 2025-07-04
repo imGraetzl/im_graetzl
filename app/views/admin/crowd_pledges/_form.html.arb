@@ -1,0 +1,28 @@
+active_admin_form_for [:admin, resource] do |f|
+  f.semantic_errors
+
+  if f.object.crowd_boost_charge.present?
+    panel "Zugehöriger Crowd Boost Charge" do
+      attributes_table_for f.object.crowd_boost_charge do
+        row(:id)
+        row(:amount)
+        row(:payment_status)
+        row(:debited_at)
+        row(:created_at)
+        row(:updated_at)
+      end
+    end
+  end
+
+  inputs do
+    f.input :crowd_boost_charge_amount,
+            input_html: { disabled: f.object.crowd_boost_charge.blank? },
+            hint: (f.object.crowd_boost_charge.blank? ? "Kein zugehöriger Boost vorhanden" : nil)
+
+    f.input :total_overall_price, input_html: { disabled: true }
+    f.input :total_price, input_html: { disabled: true }
+    f.input :donation_amount, input_html: { disabled: true }
+  end
+
+  actions
+end

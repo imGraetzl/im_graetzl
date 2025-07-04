@@ -1,6 +1,7 @@
 ActiveAdmin.register EnergyCategory do
   menu parent: 'Energieteiler'
-
+  config.filters = false
+  
   index { render 'index', context: self }
   form partial: 'form'
 

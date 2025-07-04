@@ -8,7 +8,7 @@ class MeetingsController < ApplicationController
     @meetings = @meetings.include_for_box(params[:show_going_tos].present?)
 
     @meetings = filter_collection(@meetings)
-    @meetings = @meetings.page(params[:page]).per(params[:per_page] || 30)
+    @meetings = @meetings.page(params[:page]).per(params[:per_page] || 15)
     @meetings = @meetings.upcoming if params[:upcoming]
     @meetings = @meetings.past if params[:past]
     @meetings = @meetings.where.not(id: params[:exclude].to_i) if params[:exclude]
@@ -18,7 +18,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.includes(:user, :graetzl, :location, :participants).find(params[:id])
     return if redirect_to_region?(@meeting)
     @graetzl = @meeting.graetzl
-    @comments = @meeting.comments.includes(:user, :images).order(created_at: :desc)
+    @comments = @meeting.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
   end
 
   def new

@@ -1,10 +1,10 @@
 class EnergyOffersController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :reactivate]
+  before_action :authenticate_user!, except: [:show]
 
   def show
     @energy_offer = EnergyOffer.find(params[:id])
     return if redirect_to_region?(@energy_offer)
-    @comments = @energy_offer.comments.includes(:user, :images).order(created_at: :desc)
+    @comments = @energy_offer.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
   end
 
   def select
@@ -48,20 +48,6 @@ class EnergyOffersController < ApplicationController
     ActionProcessor.track(@energy_offer, :update) if @energy_offer.refresh_activity
     flash[:notice] = t("activerecord.attributes.energy_offer.status_message.#{@energy_offer.status}")
     redirect_back(fallback_location: energies_user_path)
-  end
-
-  def reactivate
-    @energy_offer = EnergyOffer.find(params[:id])
-    if @energy_offer.disabled? && params[:activation_code].to_i == @energy_offer.activation_code
-      @energy_offer.update(status: :enabled)
-      ActionProcessor.track(@energy_offer, :update) if @energy_offer.refresh_activity
-      flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
-    elsif @energy_offer.enabled?
-      flash[:notice] = "Dein Raumteiler ist bereits aktiv."
-    else
-      flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
-    end
-    redirect_to @energy_offer
   end
 
   def destroy
@@ -109,7 +95,6 @@ class EnergyOffersController < ApplicationController
         :cover_photo,
         :remove_cover_photo,
         :avatar,
-        :activation_code,
         :remove_avatar,
         :last_activated_at,
         :graetzl_id,

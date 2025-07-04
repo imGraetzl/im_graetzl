@@ -16,10 +16,10 @@ class EnergyOffer < ApplicationRecord
   has_many :favorites, as: :favoritable, dependent: :destroy
 
   enum status: { enabled: 0, disabled: 1 }
-  string_enum energy_type: ["beg", "eeg_local", "eeg_regional", "unclear"]
-  string_enum operation_state: ["progress", "active"]
-  string_enum organization_form: ["verein", "genossenschaft", "other"]
-  string_enum members_count: ["to_5", "5_to_10", "10_to_20", "20_to_50", "50_to"]
+  enum energy_type:      { beg: "beg", eeg_local: "eeg_local", eeg_regional: "eeg_regional", unclear: "unclear" }
+  enum operation_state:  { progress: "progress", active: "active" }
+  enum organization_form:{ verein: "verein", genossenschaft: "genossenschaft", other: "other" }
+  enum members_count:    { to_5: "to_5", _5_to_10: "5_to_10", _10_to_20: "10_to_20", _20_to_50: "20_to_50", _50_to: "50_to" }
 
   acts_as_taggable_on :energy
 

@@ -1,0 +1,8 @@
+<% case room.class.name %>
+<% when 'RoomOffer' %>
+  <%= render partial: "room_offers/room_offer", locals: { room_offer: room } %>
+<% when 'RoomDemand' %>
+  <%= render partial: "room_demands/room_demand", locals: { room_demand: room } %>
+<% when 'Zuckerl' %>
+  <%= render partial: "zuckerls/zuckerl", locals: { zuckerl: room } %>
+<% end %>

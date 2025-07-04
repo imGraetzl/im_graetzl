@@ -1,7 +1,7 @@
 ActiveAdmin.register CrowdPledge do
   menu parent: 'Crowdfunding'
   includes :crowd_campaign, :user, :crowd_reward
-  actions :all, except: [:new, :create, :destroy, :edit]
+  actions :all, except: [:new, :create, :destroy]
   config.batch_actions = false
 
   config.sort_order = 'created_at_desc'
@@ -21,7 +21,11 @@ ActiveAdmin.register CrowdPledge do
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_campaign, collection: proc { CrowdCampaign.scope_public.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_reward, collection: proc { CrowdReward.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user_id_eq, label: "User Suche", as: :string, input_html: {
+    class: 'admin-autocomplete-component',
+    placeholder: 'Name, Username oder E-Mail ...',
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
+  }
   filter :guest_newsletter, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_method, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :payment_wallet, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -42,10 +46,42 @@ ActiveAdmin.register CrowdPledge do
   form partial: 'form'
 
   controller do
+    before_action :authorize_superadmin_for_editing, only: [:edit, :update]
+
+    def authorize_superadmin_for_editing
+      pledge = CrowdPledge.find(params[:id])
+
+      unless current_user.superadmin? && pledge.status == "authorized"
+        redirect_to admin_crowd_pledge_path(params[:id]), alert: "Bearbeitung nur für Superadmins & Pledge-Status 'authorized' erlaubt."
+      end
+    end
+
+    def permitted_params
+      allowed = []
+      allowed << :crowd_boost_charge_amount if current_user.superadmin? && resource.crowd_boost_charge.present?
+      params.permit(crowd_pledge: allowed)
+    end
+
+    def update
+      @crowd_pledge = CrowdPledge.find(params[:id])
+      attributes = permitted_params[:crowd_pledge] || {}
+
+      if attributes.present? && @crowd_pledge.update(attributes)
+        @crowd_pledge.calculate_price
+        @crowd_pledge.save
+        redirect_to admin_crowd_pledge_path(@crowd_pledge), notice: "CrowdPledge wurde erfolgreich aktualisiert."
+      elsif attributes.blank?
+        redirect_to admin_crowd_pledge_path(@crowd_pledge), notice: "Keine Änderungen vorgenommen."
+      else
+        render :edit
+      end
+    end
+
     def apply_pagination(chain)
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
     end
+
     def apply_filtering(chain)
         super(chain).distinct
     end

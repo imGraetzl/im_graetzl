@@ -28,7 +28,11 @@ ActiveAdmin.register Subscription do
   end
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  #filter :user, collection: proc { User.registered.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user_id_eq, label: "User Suche", as: :string, input_html: {
+    class: 'admin-autocomplete-component',
+    placeholder: 'Name, Username oder E-Mail ...',
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
+  }
   filter :subscription_plan, include_blank: true, input_html: { class: 'admin-filter-select'}
 
   index { render 'index', context: self }
