@@ -23,6 +23,7 @@ module ImGraetzl
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.time_zone = "Europe/Vienna"
+    config.active_record.default_timezone = :utc
     config.active_record.time_zone_aware_types = [:datetime, :time]
     config.i18n.default_locale = :de
     config.generators.system_tests = nil

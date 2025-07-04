@@ -43,6 +43,9 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :letter_opener
 
+  # --- Active Job ---
+  config.active_job.queue_adapter = :async
+
   # Deprecation und Migration Errors
   config.active_support.deprecation = :log
   config.active_support.disallowed_deprecation = :raise

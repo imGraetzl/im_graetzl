@@ -1,13 +1,13 @@
-Rails.application.config.active_job.queue_adapter = :delayed_job
-Delayed::Worker.delay_jobs = Rails.env.staging? || Rails.env.production?
+Delayed::Worker.delay_jobs = true
 Delayed::Worker.destroy_failed_jobs = false
 Delayed::Worker.raise_signal_exceptions = false
 Delayed::Worker.max_attempts = 3
 Delayed::Worker.max_run_time = 5.minutes
-Delayed::Worker.default_priority = 1
+Delayed::Worker.default_priority = 2
 Delayed::Worker.queue_attributes = {
-  'action-processor' => { priority: 0 },
-  'shrine_derivatives' => { priority: 2 },
-  'mailchimp' => { priority: 3 },
-  'summary-mails' => { priority: 4 }
+  'crowd_pledge_charge' => { priority: 0 },
+  'action-processor' => { priority: 1 },
+  'shrine_derivatives' => { priority: 3 },
+  'mailchimp' => { priority: 4 },
+  'summary-mails' => { priority: 5 }
 }

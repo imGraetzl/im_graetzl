@@ -17,7 +17,7 @@ class CrowdCampaignService
         campaign.update(transfer_status: 'payout_waiting')
       end
       campaign.crowd_pledges.authorized.find_each do |pledge|
-        CrowdPledgeService.new.delay.charge(pledge)
+        CrowdPledgeChargeJob.perform_later(pledge.id)
       end
       campaign.crowd_donation_pledges.find_each do |pledge|
         CrowdCampaignMailer.crowd_donation_pledge_success(pledge).deliver_later
