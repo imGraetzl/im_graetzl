@@ -47,7 +47,6 @@ APP.controllers.groups = (function() {
 
       APP.components.cardBoxFilter.updateFilterLabels($('#filter-modal-category'));
       APP.components.cardBoxFilter.submitForm();
-      APP.components.cardBoxFilter.gtag_tracking($('#filter-modal-category'));
 
     }
 

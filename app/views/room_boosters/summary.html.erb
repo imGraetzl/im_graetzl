@@ -4,7 +4,7 @@
   )
 %>
 
-<section class="room-booster-page summary-screen" data-transaction-id="<%= "BOOSTER_#{@room_booster.id}" %>" data-value="<%= @room_booster.amount %>">
+<section class="room-booster-page summary-screen" data-transaction-id="<%= "ROOM_PUSHER_#{@room_booster.id}" %>" data-value="<%= @room_booster.amount %>">
 
   <div class="col-content">
     <%= render 'room_boosters/new/summary' %>
