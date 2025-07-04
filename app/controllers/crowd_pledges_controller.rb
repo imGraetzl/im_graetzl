@@ -62,6 +62,12 @@ class CrowdPledgesController < ApplicationController
 
   def choose_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
+
+    if @crowd_pledge.crowd_campaign.completed?
+      flash[:notice] = "Sorry, die Kampagne wurde bereits geschlossen und kann daher nicht mehr unterstützt werden."
+      return redirect_to @crowd_pledge.crowd_campaign
+    end
+
     redirect_to [:summary, @crowd_pledge] and return if !@crowd_pledge.incomplete?
 
     @crowd_pledge.calculate_price
