@@ -46,12 +46,12 @@
 
   <div class="input-button">
     <%= button_tag "Zurück", type: 'button', class: 'btn-secondary prev-screen', data: { tab: 'tab-packages' } %>
-    <%= button_tag "Speichern", data: { disable_with: 'speichert...' }, class: 'btn-primary -saving', name: 'tab', value: 'slots' if !f.object.new_record? %>
+    <%= button_tag "Speichern", data: { disable_with: 'speichert...' }, class: 'btn-primary -saving-legacy', name: 'tab', value: 'slots' if !f.object.new_record? %>
 
     <% if f.object.new_record? %>
-      <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary -saving' %>
+      <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary -saving-legacy' %>
     <% else %>
-      <%= f.button "Zum Raumteiler", data: { disable_with: 'speichert...' }, class: 'btn-secondary -saving' %>
+      <%= f.button "Zum Raumteiler", data: { disable_with: 'speichert...' }, class: 'btn-secondary -saving-legacy' %>
     <% end %>
 
   </div>
