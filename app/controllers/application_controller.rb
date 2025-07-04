@@ -41,14 +41,17 @@ class ApplicationController < ActionController::Base
     if user
       session[:guest_user_id] = user.id
       session[:guest_user_created_at] ||= Time.current
-      Rails.logger.error("ApplicationController: current_or_guest_user_by: Existing Guest User found for: #{email}")
+      Rails.logger.info("ApplicationController: current_or_guest_user_by: Existing Guest User found for: #{email}")
+      Sentry.logger.info("[ApplicationController] Existing Guest User found for: %{email}", user_id: user.id, email: email, action: "current_or_guest_user_by")
       return user
     end
   
     guest = create_guest_user
     session[:guest_user_id] = guest.id
     session[:guest_user_created_at] = Time.current
-    Rails.logger.error("ApplicationController: current_or_guest_user_by: New Guest User created for: #{email}")
+    Rails.logger.info("ApplicationController: current_or_guest_user_by: New Guest User created for: #{email}")
+    Sentry.logger.info("[ApplicationController] New Guest User created for: %{email}", user_id: guest.id, email: email, action: "current_or_guest_user_by")
+
     guest
   rescue => e
     Rails.logger.error("ApplicationController: current_or_guest_user_by: Error occurred - #{e.message}")
