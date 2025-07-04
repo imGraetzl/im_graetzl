@@ -44,17 +44,13 @@ class Location < ApplicationRecord
   before_validation :smart_add_url_protocol_online_shop, if: -> { online_shop_url.present? }
   before_validation :smart_add_url_protocol_website, if: -> { website_url.present? }
 
-  validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
+  validates_presence_of :name, :slogan, :description, :cover_photo, :avatar
   validates :description, presence: true, length: { minimum: 250 }, on: :create
 
   before_create { |location| location.last_activity_at = Time.current }
 
   after_update :update_last_activity, if: -> { saved_change_to_goodie? }
   after_update :destroy_activity_and_notifications, if: -> { pending? && saved_change_to_state?}
-
-  #def self.include_for_box
-  #  includes(:user, :location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
-  #end
 
   def self.include_for_box
     preload(
