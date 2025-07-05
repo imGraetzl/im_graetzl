@@ -19,7 +19,7 @@ gem 'rack-cors', '~> 2.0', require: 'rack/cors'
 gem 'rack-rewrite'
 
 gem 'aasm'
-gem 'acts-as-taggable-on', '~> 11.0'
+gem 'acts-as-taggable-on'
 gem 'browser'
 gem 'cocoon'
 gem 'devise'
