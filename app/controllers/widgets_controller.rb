@@ -14,10 +14,7 @@ class WidgetsController < ApplicationController
       @image_url = @crowd_campaign.cover_photo_url(:header, :large, host: "https://#{ENV['UPLOADS_BUCKET']}.s3.eu-central-1.amazonaws.com")
     end
 
-    respond_to do |format|
-      format.json 
-      render "widgets/crowd_campaign.json"
-    end
+    render formats: [:json]
   end
 
   private
