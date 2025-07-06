@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   layout :set_layout
 
   def robots
-    render formats: [:text]
+    render formats: [:text], layout: false
   end
 
   def good_morning_dates
