@@ -56,11 +56,11 @@ class CrowdBoostsController < ApplicationController
     else
 
       if region_id
-        redirect_to leerstand_url(host: welocally_platform_host)
+        redirect_to leerstand_url(host: welocally_platform_host), allow_other_host: true
       else
         # Build Special /leerstand page for welocally domain without region
         # render 'home/about'
-        redirect_to about_platform_url(host: welocally_platform_host)
+        redirect_to about_platform_url(host: welocally_platform_host), allow_other_host: true
       end
       
     end

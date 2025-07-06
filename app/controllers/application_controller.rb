@@ -83,7 +83,11 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_region?(record)
     if record.region != current_region
-      redirect_to url_for(request.params.merge(host: record.region.host)), :status => 301
+      redirect_to(
+        url_for(request.params.merge(host: record.region.host)),
+        status: 301,
+        allow_other_host: true
+      )
       return true
     end
     false
