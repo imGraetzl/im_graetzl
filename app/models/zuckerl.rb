@@ -23,7 +23,7 @@ class Zuckerl < ApplicationRecord
   validates_presence_of :title, :description, :cover_photo, :starts_at, :ends_at
   validates :amount, presence: true, on: :create
 
-  string_enum payment_status: ["free", "authorized", "processing", "debited", "failed", "refunded"]
+  enum payment_status: { free: "free", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", refunded: "refunded" }
 
   scope :redeemed, -> { free.where.not(aasm_state: [:storno]) }
   scope :initialized, -> { where.not(aasm_state: [:incomplete, :cancelled, :storno]) }
@@ -210,7 +210,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def can_destroy?
-    if self.invoice_number? || self.aasm_state != "incomplete"
+    unless ["incomplete", "pending"].include?(self.aasm_state)
       throw :abort
     end
   end

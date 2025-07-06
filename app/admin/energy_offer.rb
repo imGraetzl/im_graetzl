@@ -44,7 +44,6 @@ ActiveAdmin.register EnergyOffer do
     :cover_photo,
     :remove_cover_photo,
     :avatar,
-    :activation_code,
     :remove_avatar,
     :last_activated_at,
     :graetzl_id,

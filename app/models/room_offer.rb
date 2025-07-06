@@ -58,12 +58,12 @@ class RoomOffer < ApplicationRecord
 
   after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status? }
 
-  def to_s
-    slogan
+  generates_token_for :activation, expires_in: 7.days do
+    created_at
   end
 
-  def activation_code
-    self.created_at.to_i
+  def to_s
+    slogan
   end
 
   def available_days

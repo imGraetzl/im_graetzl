@@ -1,10 +1,11 @@
 class ActionProcessor
 
   def self.track(subject, action, child = nil)
-    new.delay(queue: 'action-processor').track(subject, action, child)
+    ActionProcessorJob.perform_later(subject, action, child)
   end
 
   def track(subject, action, child = nil)
+
     case [subject.class, action]
 
     when [Meeting, :create]

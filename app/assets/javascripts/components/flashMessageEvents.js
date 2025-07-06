@@ -1,134 +1,29 @@
 APP.components.flashMsgEvents = (function() {
 
-    function init() {
+  function flashMsg(message) {
+    var notice = document.querySelector("#flash .notice");
+    return notice && notice.textContent.includes(message);
+  }
 
-      function flashMsg(message) {
-        if ( $("#flash .notice").text().indexOf(message) >= 0 ){
-          return true;
-        }
-      }
-
-      // Registration SignUp
-      if (flashMsg('Super, du bist nun registriert!')){
-        gtag('event', 'sign_up');
-      }
-
-      // Activate Coop & Share
-      else if (flashMsg('Dein Coop & Share Angebot ist nun aktiv')){
-        gtag(
-          'event', 'Coop & Share :: Click :: Status Aktiv'
-        );
-      }
-
-      // Deactivate Coop & Share
-      else if (flashMsg('Dein Coop & Share Angebot ist nun deaktiviert')){
-        gtag(
-          'event', 'Coop & Share :: Click :: Status Inaktiv'
-        );
-      }
-
-      // Reactivate Coop & Share
-      else if (flashMsg('Dein Coop & Share Angebot wurde erfolgreich verlängert!')){
-        gtag(
-          'event', 'Coop & Share :: Click :: E-Mail Aktivierungslink'
-        );
-      }
-
-      // Activate RoomOffer
-      else if (flashMsg('Dein Raumteiler ist nun aktiv')){
-        gtag(
-          'event', 'Raumangebot :: Click :: Status Aktiv'
-        );
-      }
-
-      // Deactivate RoomOffer
-      else if (flashMsg('Dein Raumteiler ist nun deaktiviert')){
-        gtag(
-          'event', 'Raumangebot :: Click :: Status Inaktiv'
-        );
-      }
-
-      // Reactivate RoomsOffers
-      else if (flashMsg('Dein Raumteiler wurde erfolgreich verlängert!')){
-        gtag(
-          'event', 'Raumangebot :: Click :: E-Mail Aktivierungslink'
-        );
-      }
-
-      // Warteliste RoomOffer
-      else if (flashMsg('Dein Raumteiler hat nun eine Warteliste')){
-        gtag(
-          'event', 'Raumangebot :: Click :: Status Warteliste'
-        );
-      }
-
-      // Activate RoomDemand
-      else if (flashMsg('Deine Raumsuche ist nun aktiv')){
-        gtag(
-          'event', 'Raumsuche :: Click :: Status Aktiv'
-        );
-      }
-
-      // Deactivate RoomDemand
-      else if (flashMsg('Deine Raumsuche ist nun deaktiviert')){
-        gtag(
-          'event', 'Raumsuche :: Click :: Status Inaktiv'
-        );
-      }
-
-      // Reactivate RoomDemand
-      else if (flashMsg('Deine Raumsuche wurde erfolgreich verlängert!')){
-        gtag(
-          'event', 'Raumsuche :: Click :: E-Mail Aktivierungslink'
-        );
-      }
-
-      // Deactivate RoomDemand
-      else if (flashMsg('Der Aktivierungslink ist leider ungültig')){
-        gtag(
-          'event', 'Error :: Aktivierungslink ungültig'
-        );
-      }
-
-      // Favorite Graetzls
-      else if (flashMsg('Deine Favoriten wurden gespeichert')){
-        gtag(
-          'event', 'User Settings :: Favorite Graetzls :: Save'
-        );
-      }
-
-      // Meeting Error
-      else if (flashMsg('Du hast bereits ein zukünftiges Treffen mit dem Titel')){
-        gtag(
-          'event', 'Error :: Meeting :: Duplicate', {
-          'event_label': 'Duplicate: ' + $("#meeting_name").val()
+  function init() {
+    // Registration SignUp
+    if (flashMsg('Super, du bist nun registriert!')) {
+      console.log('signup');
+      gtag('event', 'sign_up');
+    }
+    // Purchase
+    else if (flashMsg('Deine Zahlung wurde erfolgreich autorisiert.')) {
+      var summaryScreen = document.querySelector(".summary-screen[data-transaction-id]");
+      if (summaryScreen) {
+        gtag("event", "purchase", {
+          transaction_id: summaryScreen.dataset.transactionId,
+          value: summaryScreen.dataset.value,
+          currency: "EUR"
         });
       }
-
-      // Location Error
-      else if (flashMsg('Du hast bereits ein Schaufenster')){
-        gtag(
-          'event', 'Error :: Location :: Further Location', {
-          'event_label': 'User: ' + $("body").attr("data-userid")
-        });
-      }
-
-      // Purchase
-      else if (flashMsg('Deine Zahlung wurde erfolgreich autorisiert.')){
-        if ($("[data-transaction-id]").exists()) {
-          var $data = $(".summary-screen");
-          gtag("event", "purchase", {
-            transaction_id: $data.data('transaction-id'),
-            value: $data.data('value'),
-            currency: "EUR"
-          });
-        }
-      }
-
     }
+  }
 
-    return {
-      init: init
-    }
+  return { init };
 
 })();

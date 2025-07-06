@@ -1,0 +1,8 @@
+<% case energy.class.name %>
+<% when 'EnergyOffer' %>
+  <%= render partial: "energy_offers/energy_offer", locals: { energy_offer: energy } %>
+<% when 'EnergyDemand' %>
+  <%= render partial: "energy_demands/energy_demand", locals: { energy_demand: energy } %>
+<% when 'Meeting' %>
+  <%= render partial: "meetings/meeting", locals: { meeting: energy } %>
+<% end %>

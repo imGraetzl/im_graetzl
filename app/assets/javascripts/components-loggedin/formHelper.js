@@ -1,36 +1,34 @@
 APP.components.formHelper = (function() {
 
-  // Safari Fix - Disable Sumbit Button onClick (rails disable_with not working) and Submit Form
+  // Safari Fix: Disable Submit Button onClick (rails disable_with not working) and Submit Form robust
   function savingBtn() {
-    $('.-saving').on('click', function(){
+    $('.-saving-legacy').on('click', function(event){
       var $btn = $(this);
-      var btnOriginalText = $btn.text();
       var btnDisabledText = $btn.data('disable-with');
+      if (!btnDisabledText) {
+        return;
+      }
+      var $form = $btn.closest('form');
 
-      var $form = $($btn).closest('form');
-      // Submit Form
-      if ($form.length) {
+      // Validierung (optional)
+      let valid = true;
+      $form.find('[required]').each(function() {
+        if ($(this).is(':invalid') || !$(this).val()) valid = false;
+      });
+      if (!valid) return;
 
-        let valid = true;
-        $form.find('[required]').each(function() {
-          if ($(this).is(':invalid') || !$(this).val()) valid = false;
-        })
-        if (valid) {
-          // Submit Valid Form via JS
-          // Append Hidden Field to Form from (Button Name and Value)
+      // Button deaktivieren und Text ändern
+      $btn.prop('disabled', true);
+      $btn.text(btnDisabledText);
 
-          $btn.addClass('-disabled');
-          $btn.text(btnDisabledText);
-    
-          if ($btn[0].name == 'tab') {
-            $('<input>').attr({ type: 'hidden', name: $btn[0].name, value: $btn[0].value}).appendTo($form)
-          }
-          event.preventDefault();
-          setTimeout(function(){ $form.submit(); }, 200);
-        } 
-        
+      // Optional: Button-Name als Hidden Field
+      if ($btn[0].name && $btn[0].value) {
+        $('<input>').attr({ type: 'hidden', name: $btn[0].name, value: $btn[0].value}).appendTo($form);
       }
 
+      // Standard-Submit verhindern und manuell submitten (Safari-Fix!)
+      event.preventDefault();
+      $form.submit();
     });
   }
 

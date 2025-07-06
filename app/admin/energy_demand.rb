@@ -37,7 +37,6 @@ ActiveAdmin.register EnergyDemand do
     :goal_roofspace,
     :goal_freespace,
     :avatar,
-    :activation_code,
     :remove_avatar,
     :last_activated_at,
     :graetzl_id,

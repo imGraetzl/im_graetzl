@@ -27,7 +27,16 @@ class LocationsController < ApplicationController
       graetzl: []
     ).find(params[:id])
 
-    redirect_enqueued if @location.pending?
+    # Nur redirect für Nicht-Admins!
+    if @location.pending? && !(current_user&.admin?)
+      redirect_enqueued and return
+    end
+
+    # Für Admins: Flash-Message anzeigen (ohne redirect)
+    if @location.pending? && current_user&.admin?
+      flash.now[:notice] = "Admin-Ansicht! Schaufenster noch nicht freigeschaltet."
+    end
+
     return if redirect_to_region?(@location)
 
     @graetzl = @location.graetzl
@@ -275,9 +284,8 @@ class LocationsController < ApplicationController
       return redirect_to root_url, notice: message
     end
 
-    flash.now[:notice] = message
+    redirect_to @location, notice: message
   end
-
 
   def location_params
     params.require(:location).permit(

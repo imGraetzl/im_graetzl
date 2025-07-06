@@ -23,8 +23,8 @@ class Poll < ApplicationRecord
 
   validates_presence_of :title, :graetzls, :description
 
-  string_enum status: ["enabled", "disabled"]
-  string_enum poll_type: ["Umfrage", "Raumteiler", "Energieteiler"]
+  enum status: { enabled: "enabled", disabled: "disabled" }
+  enum poll_type: { Umfrage: "Umfrage", Raumteiler: "Raumteiler", Energieteiler: "Energieteiler" }
 
   scope :by_currentness, -> { order(last_activity_at: :desc) }
   scope :by_zip, -> { order(zip: :asc) }

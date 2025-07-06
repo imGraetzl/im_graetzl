@@ -59,17 +59,17 @@ class CoopDemandsController < ApplicationController
   end
 
   def reactivate
-    @coop_demand = CoopDemand.find(params[:id])
-    if @coop_demand.disabled? && params[:activation_code].to_i == @coop_demand.activation_code
+    @coop_demand = CoopDemand.find_by_token_for(:activation, params[:activation_token])
+    if @coop_demand&.disabled?
       @coop_demand.update(status: :enabled)
       ActionProcessor.track(@coop_demand, :update) if @coop_demand.refresh_activity
       flash[:notice] = "Dein Coop & Share Angebot wurde erfolgreich verlängert!"
-    elsif @coop_demand.enabled?
+    elsif @coop_demand&.enabled?
       flash[:notice] = "Dein Coop & Share Angebot ist bereits aktiv."
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um dein Coop & Share Angebot zu aktivieren."
     end
-    redirect_to @coop_demand
+    redirect_to CoopDemand.find(params[:id])
   end
 
   def destroy
@@ -117,7 +117,7 @@ class CoopDemandsController < ApplicationController
         :personal_description,
         :tenant_description,
         :avatar,
-        :activation_code,
+        :activation_token,
         :remove_avatar,
         :last_activated_at,
         :first_name, :last_name, :website, :email, :phone, :location_id,

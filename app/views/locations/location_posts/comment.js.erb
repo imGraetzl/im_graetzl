@@ -3,7 +3,7 @@
     var $commentForm = $("[data-behavior='comment-form-<%= @location_post.id %>']");
     $commentForm.before("<%= j render @comment %>");
     $commentForm.replaceWith("<%= j render 'locations/location_posts/comment_form', post: @location_post %>");
-    APP.components.stream.initCommentForm();
+    APP.components.stream.init();
     APP.components.stream.initLinkify($("#comment_" + <%= @comment.id %> + " .txt"));
     APP.controllers.application.jBoxGallery();
   <% else %>

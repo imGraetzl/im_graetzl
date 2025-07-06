@@ -1,5 +1,5 @@
 class EnergyOffersController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :reactivate]
+  before_action :authenticate_user!, except: [:show]
 
   def show
     @energy_offer = EnergyOffer.find(params[:id])
@@ -50,20 +50,6 @@ class EnergyOffersController < ApplicationController
     redirect_back(fallback_location: energies_user_path)
   end
 
-  def reactivate
-    @energy_offer = EnergyOffer.find(params[:id])
-    if @energy_offer.disabled? && params[:activation_code].to_i == @energy_offer.activation_code
-      @energy_offer.update(status: :enabled)
-      ActionProcessor.track(@energy_offer, :update) if @energy_offer.refresh_activity
-      flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
-    elsif @energy_offer.enabled?
-      flash[:notice] = "Dein Raumteiler ist bereits aktiv."
-    else
-      flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
-    end
-    redirect_to @energy_offer
-  end
-
   def destroy
     @energy_offer = current_user.energy_offers.find(params[:id])
     @energy_offer.destroy
@@ -109,7 +95,6 @@ class EnergyOffersController < ApplicationController
         :cover_photo,
         :remove_cover_photo,
         :avatar,
-        :activation_code,
         :remove_avatar,
         :last_activated_at,
         :graetzl_id,
