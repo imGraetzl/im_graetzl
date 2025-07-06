@@ -25,10 +25,10 @@
     <div class="coverImg">
       <% if @crowd_campaign.video? %>
         <%= link_to 'javascript:', class: 'play-icon jBoxVideo', rel: 'nofollow' do %>
-          <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
+          <%= cover_header_image(@crowd_campaign, class: 'titleImg', fetchpriority: 'high') %>
         <% end %>
       <% else %>
-          <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
+          <%= cover_header_image(@crowd_campaign, class: 'titleImg', fetchpriority: 'high') %>
       <% end %>
       <div class="social-icons">
         <em>Erzähls weiter:</em>
