@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.2.8'
+ruby '3.3.7'
 
 gem 'rails', '~> 7.1.3'
 gem 'puma'
