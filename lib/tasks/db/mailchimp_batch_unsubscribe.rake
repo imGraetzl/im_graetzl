@@ -5,7 +5,7 @@ namespace :db do
     ARGV.each { |a| task a.to_sym do ; end }
 
     # heroku run rake db:mailchimp_batch_unsubscribe 0 1000 -a imgraetzl-staging
-    list_id = Rails.application.secrets.mailchimp_list_id
+    list_id = ENV['MAILCHIMP_LIST_ID']
     offset = ARGV[1].to_i
     count = ARGV[2].to_i
     logging_count_unsubscribed = 0
