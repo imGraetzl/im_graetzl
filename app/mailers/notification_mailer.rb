@@ -111,10 +111,6 @@ class NotificationMailer < ApplicationMailer
     rescue Net::OpenTimeout => e
       Rails.logger.warn "[OpenTimeout Graetzl Summary Mail] #{@user&.email}: #{e.message}"
       raise e  # explizit reraisen, damit delayed_job retryen kann
-    rescue Errno::ECONNRESET => e
-      Rails.logger.warn "[ECONNRESET Graetzl Summary Mail] #{@user&.email}: #{e.message}"
-      # kein raise, da Mail wahrscheinlich trotzdem rausging
-      return
     rescue => e
       Rails.logger.error "[Error Graetzl Summary Mail]: #{@user&.email}: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
@@ -193,10 +189,6 @@ class NotificationMailer < ApplicationMailer
     rescue Net::OpenTimeout => e
       Rails.logger.warn "[OpenTimeout Personal Summary Mail] #{@user&.email}: #{e.message}"
       raise e  # explizit reraisen, damit delayed_job retryen kann
-    rescue Errno::ECONNRESET => e
-      Rails.logger.warn "[ECONNRESET Personal Summary Mail] #{@user&.email}: #{e.message}"
-      # kein raise, da Mail wahrscheinlich trotzdem rausging
-      return
     rescue => e
       Rails.logger.error "[Error Personal Summary Mail]: #{@user&.email}: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
