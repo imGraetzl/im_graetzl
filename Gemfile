@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 ruby '3.3.7'
 
-gem 'rails', '~> 7.1.3'
+gem 'rails', '~> 7.2.0'
 gem 'puma'
 gem 'puma_worker_killer', '~> 1.0'
 gem 'pg'
-gem 'activerecord-postgis-adapter', '~> 9.0'
+gem 'activerecord-postgis-adapter', '~> 10.0'
 gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
