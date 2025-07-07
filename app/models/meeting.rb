@@ -74,7 +74,7 @@ class Meeting < ApplicationRecord
   after_create :update_location_activity
 
   def self.include_for_box(with_attendees = false)
-    scope = includes(:meeting_additional_dates, :user, location: :user)
+    scope = includes(:meeting_additional_dates, :user, :graetzl, location: :user)
     with_attendees ? scope.includes(:attendees) : scope
   end
 
