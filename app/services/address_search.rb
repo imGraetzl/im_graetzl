@@ -35,7 +35,7 @@ class AddressSearch
   def search_mapbox(region, query, graetzl_id)
     # if needed add graetzl.proximity to db and in search
     response = HTTP.get(MAPBOX_URL + ERB::Util.url_encode(query) + ".json", params: {
-      access_token: Rails.application.secrets.mapbox_token,
+      access_token: ENV['MAPBOX_TOKEN'],
       country: "at",
       language: "de",
       types: 'address',
@@ -77,7 +77,7 @@ class AddressSearch
     end
 
     response = HTTP.basic_auth(
-      user: Rails.application.secrets.open_data_key, pass: nil
+      user: ENV['OPEN_DATA_KEY'], pass: nil
     ).get(OPEN_DATA_URL, params: {
       country: "at",
       # city: TODO?,

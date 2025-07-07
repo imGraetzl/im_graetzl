@@ -1,0 +1,1 @@
+Rails.application.config.yjit = ENV["YJIT_ENABLE"] == "1"

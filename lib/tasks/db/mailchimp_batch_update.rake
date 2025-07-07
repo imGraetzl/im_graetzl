@@ -4,7 +4,7 @@ namespace :db do
 
     ARGV.each { |a| task a.to_sym do ; end }
 
-    list_id = Rails.application.secrets.mailchimp_list_id
+    list_id = ENV['MAILCHIMP_LIST_ID']
     method = ARGV[1] # PATCH: Update existing, PUT: create & update
     user_from = ARGV[2].to_i # Start User ID
     user_to = ARGV[3].to_i # End User ID
