@@ -84,6 +84,8 @@ class NotificationMailer < ApplicationMailer
         type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
       )
 
+      preload_notification_associations(@notifications)
+
       if @notifications.empty?
         Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: None found")
         return
@@ -205,6 +207,26 @@ class NotificationMailer < ApplicationMailer
   end
 
   private
+
+  def preload_notification_associations(notifications)
+    ActiveRecord::Associations::Preloader.new.preload(notifications, [:user => :graetzl, :child])
+
+    notifications_by_type = notifications.group_by(&:type)
+
+    notifications_by_type.each do |type, notifications_of_type|
+      associations_to_preload = case type
+                                when "Notifications::NewMeeting"
+                                  { subject: [:graetzl, :meeting_additional_dates] }
+                                when "Notifications::NewCrowdCampaign", "Notifications::EndingCrowdCampaign", "Notifications::NewLocation", "Notifications::NewRoomOffer", "Notifications::NewCrowdCampaignPost", "Notifications::NewLocationPost", "Notifications::NewLocationMenu", "Notifications::NewToolOffer"
+                                  { subject: :graetzl }
+                                when "Notifications::NewRoomDemand", "Notifications::NewEnergyDemand"
+                                  { subject: :user }
+                                else
+                                  {}
+                                end
+      ActiveRecord::Associations::Preloader.new.preload(notifications_of_type, associations_to_preload) if associations_to_preload.present?
+    end
+  end
 
   def prepend_view_paths
     prepend_view_path 'app/views/mailers/notification_mailer'
