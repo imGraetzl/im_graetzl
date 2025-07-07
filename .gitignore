@@ -48,3 +48,5 @@ cookbooks/
 .DS_Store
 
 Procfile.dev
+
+/config/master.key

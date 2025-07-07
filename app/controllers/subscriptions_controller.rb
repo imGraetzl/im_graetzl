@@ -11,7 +11,7 @@ class SubscriptionsController < ApplicationController
 
   def new
     if current_user.subscribed?
-      redirect_to subscription_plans_path, notice: "Du hast bereits eine Mitgliedschaft. | Du möchtest wechseln? Schrieb uns an #{ActionController::Base.helpers.mail_to(t("region.#{current_region.id}.contact_email"))}" and return
+      redirect_to subscription_plans_path, notice: "Du hast bereits eine Mitgliedschaft. | Du möchtest wechseln? Schreib uns an #{ActionController::Base.helpers.mail_to(t("region.#{current_region.id}.contact_email"))}" and return
     elsif current_user&.subscription&.past_due?
       redirect_to subscription_plans_path, notice: "Du hast bereits eine Mitgliedschaft (mit einer noch offenen Rechnung). | #{ActionController::Base.helpers.link_to('Zur Mitgliedschaft', subscription_user_url)}" and return
     end

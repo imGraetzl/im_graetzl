@@ -30,13 +30,13 @@
   <link rel="dns-prefetch" href="//welocally.at">
 
   <% if user_signed_in? || ['registrations', 'crowd_pledges', 'crowd_donation_pledges'].include?(controller_name)  %>
-    <%= stylesheet_link_tag 'application-loggedin', media: 'all' %>
+    <%= stylesheet_link_tag 'application-loggedin', media: 'all', fetchpriority: 'high' %>
   <% else %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all', fetchpriority: 'high' %>
   <% end %>
 
-  <%= javascript_include_tag 'application', defer: true, onload: 'applicationLoadedInit();' %>
-  <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || ['registrations', 'crowd_pledges', 'crowd_boost_charges', 'room_rentals'].include?(controller_name) %>
+  <%= javascript_include_tag 'application', fetchpriority: 'high', defer: true, onload: 'applicationLoadedInit();' %>
+  <%= javascript_include_tag "application-loggedin", fetchpriority: 'high', defer: true if user_signed_in? || ['registrations', 'crowd_pledges', 'crowd_boost_charges', 'room_rentals'].include?(controller_name) %>
 
   <!-- DNS Prefetch for better Performance -->
   <% if ['home', 'regions', 'districts', 'graetzls'].include? controller_name %>

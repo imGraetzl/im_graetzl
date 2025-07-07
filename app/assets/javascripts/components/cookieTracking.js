@@ -45,6 +45,7 @@ APP.components.cookieTracking = (function() {
     var script = document.createElement('script');
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + uaid;
     script.setAttribute('async', 'async');
+    script.setAttribute('fetchpriority', 'low');
     document.head.appendChild(script);
 
     // Setup

@@ -14,7 +14,7 @@
 
   <div class="imgHeader -cloudy2">
     <%= avatar_image @location, class: 'locationAvatar' %>
-    <%= cover_header_image(@location, class: 'titleImg') %>
+    <%= cover_header_image(@location, class: 'titleImg', fetchpriority: 'high') %>
     <% if @location.owned_by?(current_user) %>
       <%= link_to 'javascript:', class: 'bigicontext-element createentry', id: 'editPage' do %>
         <%= icon_tag "dot-3" %>
