@@ -130,9 +130,9 @@ class ApplicationController < ActionController::Base
   end
 
   def maybe_authenticate
-    return # for now
+    # Staging Basic Auth
     return unless Rails.env.staging?
-    return if ENV["ALLOW_WORKER"] == 'true'
+    return if ENV["STAGING_AUTH_DISABLED"].present?
     # Paths, die KEIN Basic Auth brauchen
     allowed_prefixes = [
       '/assets',        # alle normalen Assets (Sprockets oder Webpacker)
