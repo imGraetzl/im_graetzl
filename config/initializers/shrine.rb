@@ -9,13 +9,24 @@ when :s3
     secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
   }
 
-  Shrine.storages = {
-    cache: Shrine::Storage::S3.new(prefix: "shrine/cache", **s3_options),
-    store: Shrine::Storage::S3.new(prefix: "shrine/store", public: true, **s3_options),
+  # store: Optional host für CloudFront nur wenn ENV gesetzt!
+  store_options = {
+    prefix: "shrine/store",
+    public: true,
+    **s3_options
   }
+  if ENV['SHRINE_S3_CLOUDFRONT_HOST'].present?
+    store_options[:host] = ENV['SHRINE_S3_CLOUDFRONT_HOST']
+    Rails.logger.info "[Shrine] CloudFront Host für S3 Assets aktiv: #{ENV['SHRINE_S3_CLOUDFRONT_HOST']}"
+  end
+
+  Shrine.storages = {
+    cache: Shrine::Storage::S3.new(prefix: "shrine/cache", **s3_options), # bleibt S3, immer direkt!
+    store: Shrine::Storage::S3.new(**store_options),                      # CloudFront NUR wenn ENV gesetzt
+  }
+
 when :app
   require "shrine/storage/file_system"
-
   Shrine.storages = {
     cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
     store: Shrine::Storage::FileSystem.new("public", prefix: "uploads/store"),
@@ -27,7 +38,7 @@ Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
 Shrine.plugin :remove_attachment
-#Shrine.plugin :delete_raw
+# Shrine.plugin :delete_raw
 Shrine.plugin :determine_mime_type, analyzer: :marcel, log_subscriber: nil
 
 Shrine.plugin :instrumentation if Rails.env.development? || Rails.env.staging?
