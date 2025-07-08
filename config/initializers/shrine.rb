@@ -9,31 +9,26 @@ when :s3
     secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
   }
 
-  # store: Optional host für CloudFront nur wenn ENV gesetzt!
-  store_options = {
-    prefix: "shrine/store",
-    public: true,
-    **s3_options
-  }
-  if ENV['SHRINE_S3_CLOUDFRONT_HOST'].present?
-    store_options[:host] = ENV['SHRINE_S3_CLOUDFRONT_HOST']
-    Rails.logger.info "[Shrine] CloudFront Host für S3 Assets aktiv: #{ENV['SHRINE_S3_CLOUDFRONT_HOST']}"
-  end
-
   Shrine.storages = {
-    cache: Shrine::Storage::S3.new(prefix: "shrine/cache", **s3_options), # bleibt S3, immer direkt!
-    store: Shrine::Storage::S3.new(**store_options),                      # CloudFront NUR wenn ENV gesetzt
+    cache: Shrine::Storage::S3.new(prefix: "shrine/cache", **s3_options),
+    store: Shrine::Storage::S3.new(prefix: "shrine/store", public: true, **s3_options),
   }
+
+  # WICHTIG: CDN/CloudFront Host für alle S3-STORE-URLs setzen (NUR für store)
+  if ENV["SHRINE_S3_CLOUDFRONT_HOST"].present?
+    Shrine.plugin :default_url_options, store: { host: ENV["SHRINE_S3_CLOUDFRONT_HOST"] }
+  end
 
 when :app
   require "shrine/storage/file_system"
+
   Shrine.storages = {
     cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
     store: Shrine::Storage::FileSystem.new("public", prefix: "uploads/store"),
   }
 end
 
-Shrine.plugin :upload_options, store: {cache_control: "public, max-age=31536000"}
+Shrine.plugin :upload_options, store: { cache_control: "public, max-age=31536000" }
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
