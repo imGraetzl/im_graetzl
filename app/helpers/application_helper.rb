@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def icon_tag(name, options = {})
-    sprite_url = asset_path('svg/icon_sprite.svg')
+    sprite_url = '/assets/svg/icon_sprite.svg'
     "<svg class='icon-#{name} icon #{options[:class]}'><use xlink:href='#{sprite_url}#icon-#{name}'></use></svg>".html_safe
   end
 
