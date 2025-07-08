@@ -43,8 +43,6 @@
     <link rel="preconnect" href="//api.mapbox.com" crossorigin>
   <% end %>
   <link rel="dns-prefetch" href="//api.mapbox.com">
-  <link rel="preconnect" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com" crossorigin>
-  <link rel="dns-prefetch" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com">
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
   <%= favicon_link_tag 'favicon.ico' %>
@@ -75,7 +73,7 @@
 
   <%= render 'footer' %>
   <%= render partial: 'controller_footer' rescue nil %>
-  <%= image_tag "/assets/icons_220125.svg", loading: 'lazy', style: 'display:none;' %>
+  <%= image_tag "/assets/icons_220125.svg", fetchpriority: 'high', style: 'display:none;' %>
 
 </body>
 
