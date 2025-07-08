@@ -128,7 +128,7 @@ class CrowdCampaignsController < ApplicationController
       collection_options: {fields: 'currently_due'},
     )
 
-    redirect_to account_link.url
+    redirect_to account_link.url, allow_other_host: true
   end
 
   def stripe_connect_completed
