@@ -6,8 +6,6 @@ class ApplicationController < ActionController::Base
 
   # hide staging app from public
   before_action :maybe_authenticate
-  # http_basic_authenticate_with name: 'user', password: 'secret' if Rails.env.staging? && !(ENV["ALLOW_WORKER"] == 'true')
-
 
   def after_sign_in_path_for(resource)
     params[:redirect].presence || stored_location_for(resource) || root_url
@@ -132,16 +130,14 @@ class ApplicationController < ActionController::Base
   end
 
   def maybe_authenticate
+    return # for temp staging testing
     return unless Rails.env.staging?
     return if ENV["ALLOW_WORKER"] == 'true'
     # Paths, die KEIN Basic Auth brauchen
     allowed_prefixes = [
       '/assets',        # alle normalen Assets (Sprockets oder Webpacker)
-      '/packs',         # Webpacker-Assets (falls im Einsatz)
-      '/fonts',         # eigene Fonts (falls so organisiert)
-      '/favicon.ico',
-      '/robots.txt',
-      '/apple-touch-icon'
+      '/packs',         # Webpacker-Assets
+      '/favicon.ico'
     ]
     return if allowed_prefixes.any? { |p| request.path.starts_with?(p) }
 
