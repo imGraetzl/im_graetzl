@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   before_action :set_sentry_user_context
 
   # hide staging app from public
-  http_basic_authenticate_with name: 'user', password: 'secret' if Rails.env.staging? && !(ENV["ALLOW_WORKER"] == 'true')
+  before_action :maybe_authenticate
+  # http_basic_authenticate_with name: 'user', password: 'secret' if Rails.env.staging? && !(ENV["ALLOW_WORKER"] == 'true')
+
 
   def after_sign_in_path_for(resource)
     params[:redirect].presence || stored_location_for(resource) || root_url
@@ -126,6 +128,25 @@ class ApplicationController < ActionController::Base
         id: session[:guest_user_id],
         segment: "guest"
       )
+    end
+  end
+
+  def maybe_authenticate
+    return unless Rails.env.staging?
+    return if ENV["ALLOW_WORKER"] == 'true'
+    # Paths, die KEIN Basic Auth brauchen
+    allowed_prefixes = [
+      '/assets',        # alle normalen Assets (Sprockets oder Webpacker)
+      '/packs',         # Webpacker-Assets (falls im Einsatz)
+      '/fonts',         # eigene Fonts (falls so organisiert)
+      '/favicon.ico',
+      '/robots.txt',
+      '/apple-touch-icon'
+    ]
+    return if allowed_prefixes.any? { |p| request.path.starts_with?(p) }
+
+    authenticate_or_request_with_http_basic('Application') do |name, password|
+      name == 'user' && password == 'secret'
     end
   end
 
