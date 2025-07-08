@@ -130,7 +130,6 @@ class ApplicationController < ActionController::Base
   end
 
   def maybe_authenticate
-    return # for temp staging testing
     return unless Rails.env.staging?
     return if ENV["ALLOW_WORKER"] == 'true'
     # Paths, die KEIN Basic Auth brauchen
@@ -141,8 +140,12 @@ class ApplicationController < ActionController::Base
     ]
     return if allowed_prefixes.any? { |p| request.path.starts_with?(p) }
 
-    authenticate_or_request_with_http_basic('Application') do |name, password|
-      name == 'user' && password == 'secret'
+    username = ENV.fetch('STAGING_AUTH_USER', 'user')
+    password = ENV.fetch('STAGING_AUTH_PASSWORD', 'secret')
+
+    authenticate_or_request_with_http_basic('Application') do |name, pass|
+      ActiveSupport::SecurityUtils.secure_compare(name, username) &&
+        ActiveSupport::SecurityUtils.secure_compare(pass, password)
     end
   end
 
