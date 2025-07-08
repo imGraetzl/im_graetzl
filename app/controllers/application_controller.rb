@@ -130,6 +130,7 @@ class ApplicationController < ActionController::Base
   end
 
   def maybe_authenticate
+    return # for now
     return unless Rails.env.staging?
     return if ENV["ALLOW_WORKER"] == 'true'
     # Paths, die KEIN Basic Auth brauchen
