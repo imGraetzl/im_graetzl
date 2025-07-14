@@ -42,7 +42,8 @@ Rails.application.configure do
   config.assets.compile = false
 
   # Use welocally.at for assets
-  config.asset_host = 'https://assets-staging-app.welocally.at'
+  # config.asset_host = 'https://assets-staging-app.welocally.at'
+  config.asset_host = 'https://staging.welocally.at'
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
