@@ -2,13 +2,7 @@ class StaticPagesController < ApplicationController
   layout :set_layout
 
   def robots
-    if request.host == "assets-app.welocally.at"
-      # Erlaubt alles für alle Crawler auf dem Asset-Host
-      render plain: "User-agent: *\nDisallow:\n", content_type: "text/plain"
-    else
-      # Dynamisches Rendering für Hauptdomains/Regionen
-      render formats: [:text], layout: false
-    end
+    render formats: [:text], layout: false
   end
 
   def good_morning_dates
