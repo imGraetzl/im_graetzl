@@ -27,17 +27,15 @@
   </style>
 
   <% if user_signed_in? || controller_name == 'registrations' %>
-    <%= stylesheet_link_tag 'application-loggedin', media: 'all' %>
+    <%= stylesheet_link_tag 'application-loggedin', fetchpriority: 'high', media: 'all' %>
   <% else %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application', fetchpriority: 'high', media: 'all' %>
   <% end %>
 
-  <%= javascript_include_tag 'application', defer: true, onload: 'applicationLoadedInit();' %>
-  <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || controller_name == 'registrations' %>
+  <%= javascript_include_tag 'application', fetchpriority: 'high', defer: true, onload: 'applicationLoadedInit();' %>
+  <%= javascript_include_tag "application-loggedin", fetchpriority: 'high', defer: true if user_signed_in? || controller_name == 'registrations' %>
 
   <!-- DNS Prefetch for better Performance -->
-  <link rel="preconnect" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com" crossorigin>
-  <link rel="dns-prefetch" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com">
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
   <%= favicon_link_tag 'favicon.ico' %>
@@ -63,7 +61,7 @@
   </main>
 
   <%= render 'platform/footer' %>
-  <%= image_tag "/assets/icons_220125.svg", loading: 'lazy', style: 'display:none;' %>
+  <img fetchpriority="high" style="display:none;" src="/assets/icons_220125.svg"/>
 
 </body>
 

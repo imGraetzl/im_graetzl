@@ -13,6 +13,12 @@ when :s3
     cache: Shrine::Storage::S3.new(prefix: "shrine/cache", **s3_options),
     store: Shrine::Storage::S3.new(prefix: "shrine/store", public: true, **s3_options),
   }
+
+  # WICHTIG: CDN/CloudFront Host für alle S3-STORE-URLs setzen (NUR für store)
+  if ENV["SHRINE_S3_CLOUDFRONT_HOST"].present?
+    Shrine.plugin :default_url_options, store: { host: ENV["SHRINE_S3_CLOUDFRONT_HOST"] }
+  end
+
 when :app
   require "shrine/storage/file_system"
 
@@ -22,12 +28,12 @@ when :app
   }
 end
 
-Shrine.plugin :upload_options, store: {cache_control: "public, max-age=31536000"}
+Shrine.plugin :upload_options, store: { cache_control: "public, max-age=31536000" }
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
 Shrine.plugin :remove_attachment
-#Shrine.plugin :delete_raw
+# Shrine.plugin :delete_raw
 Shrine.plugin :determine_mime_type, analyzer: :marcel, log_subscriber: nil
 
 Shrine.plugin :instrumentation if Rails.env.development? || Rails.env.staging?
