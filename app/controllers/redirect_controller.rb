@@ -33,7 +33,16 @@ class RedirectController < ApplicationController
   private
 
   def normalized_path(path)
-    "/" + path.to_s.sub(%r{^/+}, '')
+    str = "/" + path.to_s.sub(%r{^/+}, '')
+    uri = URI.parse(str)
+    # Nur relative Pfade ohne Host/Scheme erlauben
+    if uri.host.nil? && uri.scheme.nil?
+      str
+    else
+      root_path # oder eine sichere Fallback-Seite
+    end
+  rescue URI::InvalidURIError
+    root_path
   end
 
 end
