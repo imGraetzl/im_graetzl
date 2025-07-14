@@ -27,7 +27,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Asset host für CDN/andere Domains
-  config.asset_host = 'https://www.welocally.at'
+  config.asset_host = 'https://assets-app.welocally.at'
 
   # Asset Kompression
   config.assets.js_compressor = :terser
