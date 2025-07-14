@@ -1,0 +1,3 @@
+# Used fpr Cloudfront assets-app.welocally.at
+User-agent: *
+Disallow:
