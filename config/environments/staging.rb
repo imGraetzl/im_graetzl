@@ -1,28 +1,20 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-
+  # --- Security & Performance ---
   config.middleware.use Rack::Attack
 
-  # Taxrates for Stripe
+  # --- App-spezifisch ---
   config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
-
-  # Settings specified here will take precedence over those in config/application.rb.
   config.imgraetzl_host = "staging.imgraetzl.at"
   config.welocally_host = "staging.welocally.at"
-
   config.platform_admin_email = 'michael@imgraetzl.at'
 
-  # Code is not reloaded between requests.
+  # --- Code loading & Caching ---
   config.cache_classes = true
-
-  # Eager load code on boot. This eager loads most of Rails and
-  # your application in memory, allowing both threaded web servers
-  # and those relying on copy on write to perform better.
-  # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
-  # Full error reports are disabled and caching is turned on.
+  # --- Error Reporting ---
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
@@ -79,6 +71,7 @@ Rails.application.configure do
 
   # Mailer config
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_caching = false
   config.action_mailer.smtp_settings = {
     address: 'smtp.mandrillapp.com',
     port: 587,
@@ -124,4 +117,11 @@ Rails.application.configure do
 
   # Use delayed jobs
   config.active_job.queue_adapter = :delayed_job
+
+  # Whitelist für alle genutzten Domains & Subdomains (wie in production.rb!)
+  config.hosts << /.*\.welocally\.at/
+  config.hosts << "welocally.at"
+  config.hosts << /.*\.imgraetzl\.at/
+  config.hosts << "imgraetzl.at"
+
 end
