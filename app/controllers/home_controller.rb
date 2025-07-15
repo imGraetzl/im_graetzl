@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     if current_region.nil?
       region = find_best_region
       if region
-        redirect_to region_root_url(region) and return
+        redirect_to region_root_url(region), allow_other_host: true and return
       else
         render 'about', layout: 'platform' and return
       end
