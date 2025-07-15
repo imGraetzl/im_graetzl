@@ -198,12 +198,6 @@ class User < ApplicationRecord
     end
   end
 
-  def self.admin_select_collection
-    order(created_at: :desc).pluck(:id, :first_name, :last_name, :username).map do |id, first_name, last_name, username|
-      ["#{first_name} #{last_name} (#{username})", id]
-    end
-  end
-
   def to_s
     full_name
   end
@@ -214,6 +208,10 @@ class User < ApplicationRecord
 
   def full_name_with_email
     "#{full_name} (#{email})"
+  end
+
+  def full_name_with_username
+   "#{full_name} (#{username})"
   end
 
   def full_name_with_user_and_email

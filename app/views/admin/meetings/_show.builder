@@ -51,8 +51,8 @@ context.instance_eval do
     end
     column do
       panel "#{meeting.attendees.count} TeilnehmerInnen" do
-        table_for meeting.attendees do
-          column(:id){|g| g.user}
+        table_for meeting.going_tos do
+          column(:id){|g| g.user.full_name_with_email}
           column(:going_to_date){|g| g.going_to_date}
           column(:created_at){|g| g.created_at}
         end

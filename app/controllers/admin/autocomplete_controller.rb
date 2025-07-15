@@ -51,7 +51,8 @@ module Admin
                     region: u.region.name,
                     image_url: image_url,
                     username: u.username,
-                    full_name: "#{u.first_name} #{u.last_name}",
+                    full_name: u.full_name,
+                    full_name_with_username: u.full_name_with_username,
                     email: u.email
                   }
                 end
