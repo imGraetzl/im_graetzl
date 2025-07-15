@@ -44,3 +44,5 @@ when :s3
 when :app
   Shrine.plugin :upload_endpoint
 end
+
+Shrine.plugin :url_options
