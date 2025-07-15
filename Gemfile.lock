@@ -261,7 +261,7 @@ GEM
       has_scope (>= 0.6)
       railties (>= 6.0)
       responders (>= 2)
-    io-console (0.8.0)
+    io-console (0.8.1)
     irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
@@ -312,13 +312,12 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
-    mini_magick (5.2.0)
-      benchmark
+    mini_magick (5.3.0)
       logger
     mini_mime (1.1.5)
     minitest (5.25.5)
     moneta (1.0.0)
-    multi_json (1.15.0)
+    multi_json (1.16.0)
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
     net-http (0.6.0)
