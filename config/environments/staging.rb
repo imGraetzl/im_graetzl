@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # --- Security & Performance ---
-  config.middleware.use Rack::Attack
+  config.middleware.insert_before 0, Rack::Attack
 
   # --- App-spezifisch ---
   config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
