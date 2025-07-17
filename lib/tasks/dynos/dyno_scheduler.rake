@@ -41,15 +41,15 @@ namespace :dyno do
 
       # Worker-Dynos Dienstag Scale-Up
       if day_of_week == 'Tuesday' && hour >= 6 && hour < 8
-        scale_dyno(heroku, 'worker', 'Standard-2X', 2)
+        scale_dyno(heroku, 'worker', 'Standard-1X', 2)
       elsif day_of_week == 'Tuesday'
         scale_dyno(heroku, 'worker', 'Standard-1X', 1)
       end
 
       # Web-Dynos: Dienstag Scale-Up
       if ENV.fetch('DYNO_SCALE_ENABLED', 'true').downcase == 'true'
-        # if %w[Monday Tuesday Wednesday Thursday Friday].include?(day_of_week) && hour >= 6 && hour < 22
-        if day_of_week == 'Tuesday' && hour >= 6 && hour < 20
+        # if %w[Monday Tuesday Wednesday Thursday Friday].include?(day_of_week) && hour >= 6 && hour < 18
+        if day_of_week == 'Tuesday' && hour >= 6 && hour < 18
           scale_dyno(heroku, 'web', 'Standard-2X', 2)
         else
           scale_dyno(heroku, 'web', 'Standard-2X', 1)

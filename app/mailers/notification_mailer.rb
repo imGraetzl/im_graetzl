@@ -79,7 +79,7 @@ class NotificationMailer < ApplicationMailer
       )
 
       if @notifications.empty?
-        Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: None found")
+        # Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: None found")
         return
       else
         Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: Found: #{@notifications.size}")
@@ -164,7 +164,7 @@ class NotificationMailer < ApplicationMailer
       )
 
       if @notifications.values.all?(&:empty?)
-        Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: None found")
+        # Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: None found")
         return
       else
         Rails.logger.info("[#{@period} Personal Summary Mail] [#{@region.id}] [#{@user.id}] [#{@user.email}]: Found: #{@notifications.values.sum(&:size)}")

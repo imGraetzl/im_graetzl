@@ -3,7 +3,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.default_url_options = { port: 3000 }
 Rails.application.configure do
 
-  config.middleware.use Rack::Attack
+  config.middleware.insert_before 0, Rack::Attack
 
   # Taxrates for Stripe
   config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
