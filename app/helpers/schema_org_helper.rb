@@ -16,8 +16,8 @@ module SchemaOrgHelper
 
     return unless data
 
-    data["@context"] = "https://schema.org"
-    content_tag(:script, data.to_json.html_safe, type: 'application/ld+json')
+    ordered_data = { "@context" => "https://schema.org" }.merge(data)
+    content_tag(:script, ordered_data.to_json.html_safe, type: 'application/ld+json')
     
   end
 
@@ -96,7 +96,7 @@ module SchemaOrgHelper
     hash["url"] = graetzl_location_url(location.graetzl, location)
     hash["name"] = location.name
     hash["slogan"] = location.slogan if location.slogan.present?
-    hash["description"] = location.description if location.description.present?
+    hash["description"] = truncate(location.description.to_s.gsub(/[\r\n]+/, " "), length: 300) if location.description.present?
     hash["email"] = location.email if location.email.present?
     hash["telephone"] = location.phone if location.phone.present?
     hash["address"] = structured_data_address(location) if location.using_address?
