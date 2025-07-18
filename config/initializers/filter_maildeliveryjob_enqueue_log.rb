@@ -8,7 +8,7 @@ if Rails.env.production? || Rails.env.staging? || Rails.env.development?
   class CustomActiveJobLogSubscriber < ActiveJob::LogSubscriber
     def enqueue(event)
       job = event.payload[:job]
-      return if job == "ActionMailer::MailDeliveryJob" || job.to_s == "ActionMailer::MailDeliveryJob"
+      return if job.to_s == "ActionMailer::MailDeliveryJob"
       super
     end
   end

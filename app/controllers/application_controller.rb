@@ -93,6 +93,12 @@ class ApplicationController < ActionController::Base
     false
   end
 
+  protected
+
+  def set_structured_data_object(obj)
+    @structured_data_object = obj
+  end
+
   private
 
   def guest_login_authentication_key(key)
