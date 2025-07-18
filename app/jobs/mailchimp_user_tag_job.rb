@@ -2,7 +2,7 @@ class MailchimpUserTagJob < ApplicationJob
   queue_as :mailchimp # Spezielle Warteschlange für Mailchimp-Jobs
 
   def perform(user, tag, status)
-    list_id = Rails.application.secrets.mailchimp_list_id
+    list_id = ENV['MAILCHIMP_LIST_ID']
     member_id = user.mailchimp_member_id
 
     begin

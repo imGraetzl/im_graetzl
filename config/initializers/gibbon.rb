@@ -1,1 +1,1 @@
-Gibbon::Request.api_key = Rails.application.secrets.mailchimp_api_key
+Gibbon::Request.api_key = ENV['MAILCHIMP_API_KEY']

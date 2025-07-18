@@ -32,7 +32,7 @@ namespace :db do
     graetzl_map_id = map_ids[region.id][:graetzls]
     if graetzl_map_id
       features = HTTP.get("https://api.mapbox.com/datasets/v1/malano78/#{graetzl_map_id}/features", params: {
-        access_token: Rails.application.secrets.mapbox_token,
+        access_token: ENV['MAPBOX_TOKEN'],
       }).parse(:json)['features']
 
       features.each do |feature|
@@ -51,7 +51,7 @@ namespace :db do
     district_map_id = map_ids[region.id][:districts]
     if district_map_id
       features = HTTP.get("https://api.mapbox.com/datasets/v1/malano78/#{district_map_id}/features", params: {
-        access_token: Rails.application.secrets.mapbox_token,
+        access_token: ENV['MAPBOX_TOKEN'],
       }).parse(:json)['features']
 
       features.each do |feature|

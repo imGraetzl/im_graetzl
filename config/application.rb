@@ -15,7 +15,7 @@ Bundler.require(*Rails.groups)
 
 module ImGraetzl
   class Application < Rails::Application
-    config.load_defaults 7.1
+    config.load_defaults 7.2
     config.exceptions_app = self.routes
 
     # Optional:
