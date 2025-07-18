@@ -38,6 +38,7 @@ class LocationsController < ApplicationController
     end
 
     return if redirect_to_region?(@location)
+    set_structured_data_object(@location)
 
     @graetzl = @location.graetzl
 
