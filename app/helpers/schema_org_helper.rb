@@ -16,7 +16,9 @@ module SchemaOrgHelper
 
     return unless data
 
-    ordered_data = { "@context" => "https://schema.org" }.merge(data)
+    ordered_data = ActiveSupport::OrderedHash.new
+    ordered_data["@context"] = "https://schema.org"
+    data.each { |k, v| ordered_data[k] = v }
     content_tag(:script, ordered_data.to_json.html_safe, type: 'application/ld+json')
     
   end
