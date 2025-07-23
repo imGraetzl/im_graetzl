@@ -1,4 +1,4 @@
-# robots.txt für <%= if current_region ? current_region.host : 'welocally.at' %>
+# robots.txt für <%= current_region&.host || 'welocally.at' %>
 
 User-agent: *
 Disallow: /admin/
