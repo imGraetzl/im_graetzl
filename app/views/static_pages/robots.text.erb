@@ -1,10 +1,11 @@
-# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-#
-# To ban all spiders from the entire site uncomment the next two lines:
-# User-agent: *
-# Disallow: /
+# robots.txt für imgraetzl.at – Steuerung für Crawler
+
+User-agent: *
+Disallow: /admin/
+Disallow: /users/
+
 <% if current_region %>
-  Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/<%= current_region.id %>/sitemap.xml.gz
+Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/<%= current_region.id %>/sitemap.xml.gz
 <% else %>
-  Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/welocally/sitemap.xml.gz
+Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/welocally/sitemap.xml.gz
 <% end %>
