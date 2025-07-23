@@ -12,9 +12,9 @@ class Rack::Attack
   blocklist('block common exploit patterns') do |req|
     req.path =~ %r{
       \.(php|asp|aspx|jsp|cgi|exe|jsf|pl|py|sh|cfm)$   |
-      ^/(wp-|\.git|cgi-bin)                           |
-      /\/\.env(?:[^\/]*)?                             |
-      \/admin-ajax\.php                               |
+      ^/(wp-|\.git|cgi-bin)                            |
+      \.env[^\/]*                                      |
+      \/admin-ajax\.php                                |
       \/phpinfo\.php
     }ix
   end
