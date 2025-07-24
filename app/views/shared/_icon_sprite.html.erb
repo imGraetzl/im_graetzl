@@ -1,0 +1,17 @@
+<script type="text/javascript">
+(function() {
+  var SPRITE_URL = "<%= asset_url('icon_sprite.svg') %>";
+  if (!document.getElementById('svg-sprite')) {
+    fetch(SPRITE_URL, {credentials: 'omit'})
+      .then(function(r){ return r.text(); })
+      .then(function(svg){
+        var div = document.createElement('div');
+        div.innerHTML = svg;
+        var el = div.firstElementChild;
+        el.id = 'svg-sprite';
+        el.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden;');
+        document.body.appendChild(el);
+      });
+  }
+})();
+</script>

@@ -32,8 +32,14 @@ module ApplicationHelper
   end
 
   def icon_tag(name, options = {})
-    sprite_path = URI.parse(ActionController::Base.helpers.asset_path('icon_sprite.svg')).path
-    "<svg class='icon-#{name} icon #{options[:class]}'><use xlink:href='#{sprite_path}#icon-#{name}'></use></svg>".html_safe
+    # Referenz-String zum Symbol:
+    href = "##{ERB::Util.html_escape("icon-#{name}")}"  # z.B. "#icon-user"
+    
+    # CSS-Klassen
+    classes = ["icon-#{name}", "icon", options[:class]].compact.join(" ")
+    
+    # SVG-Tag (html_safe!)
+    "<svg class='#{classes}'><use xlink:href='#{href}'></use></svg>".html_safe
   end
 
   def icon_with_badge(icon_name, number, options = {})
