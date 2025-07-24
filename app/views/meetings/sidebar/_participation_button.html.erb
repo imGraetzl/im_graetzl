@@ -65,4 +65,4 @@
   <%= toggle_favorite_icon(meeting, class: 'btn-secondary -mint') if current_user %>
 </div>
 
-<%= render 'meetings/attend_meeting', meeting: meeting %>
+<%= render 'meetings/attend_meeting', meeting: meeting if user_signed_in? %>
