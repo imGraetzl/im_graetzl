@@ -64,41 +64,8 @@ section.zuckerl-page {
     }
   }
 
-
-  // --------------------------------------------------- zuckerl form
-
-  .booking-block {
-    .btn-container {
-      display: none;
-      margin-left: auto;
-      .btn-primary {
-        flex: 0 0 auto;
-      }
-      &.is-visible {
-        display: block;
-        transition: opacity 0.3s;
-        display: table;
-        @include respond-to(">=large") {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-        }
-      }
-      span {
-        margin-bottom: 10px;
-        flex: 0 0 auto;
-        font-weight: bold;
-        font-style: italic;
-        margin-right: 20px;
-        display: block;
-        @include respond-to(">=large") {
-          margin-bottom: 0;
-        }
-      }
-    }
-    .btn-secondary, .btn-primary {
-      margin-left: auto;
-    }
+  .form-block {
+    margin-bottom: 20px;
     .upload-previews {
       display: none;
     }
@@ -107,9 +74,6 @@ section.zuckerl-page {
       min-height:120px;
     }
   }
-
-
-  // --------------------------------------------------- sidebar
 
   .cardBox {
     margin-bottom: 20px;
