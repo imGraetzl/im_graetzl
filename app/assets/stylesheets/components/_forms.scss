@@ -873,7 +873,8 @@ input[type=url]:invalid + em::after {
 
 }
 
-.usage-period-switch, .location-post-switch {
+.usage-period-switch {
+  margin-top: 20px;
   margin-bottom: 20px;
   text-align: center;
   display: block;
@@ -881,8 +882,8 @@ input[type=url]:invalid + em::after {
     display: inline-block;
   }
   label {
-    min-width: 0px;
-    margin-right: 20px;
+    min-width: 0px !important;
+    margin-right: 20px !important;
   }
 }
 

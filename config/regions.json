@@ -13,7 +13,7 @@
     },
     "zuckerl":{
       "graetzl":{
-        "price": "16_50",
+        "price": "20_00",
         "discount_price": false
       },
       "region":{
@@ -112,10 +112,10 @@
     },
     "zuckerl":{
       "graetzl":{
-        "price": "5_00"
+        "price": "8_00"
       },
       "region":{
-        "price": "30_00"
+        "price": "33_00"
       }
     },
     "wow": []
@@ -134,10 +134,10 @@
     },
     "zuckerl":{
       "graetzl":{
-        "price": "5_00"
+        "price": "8_00"
       },
       "region":{
-        "price": "30_00"
+        "price": "33_00"
       }
     },
     "wow": []

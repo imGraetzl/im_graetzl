@@ -52,7 +52,7 @@
     <p>
       Je nach eingestellter Sichtbarkeit deines Zuckerls (<%= t("region.#{current_region.id}.zuckerl.graetzl") %> oder <%= t("region.#{current_region.id}.zuckerl.region") %>),
       erscheint dein Angebot <%= t("region.#{current_region.id}.zuckerl.visibility_graetzl") %> auf <%= t("region.#{current_region.id}.domain_full") %>, oder sogar in ganz <%= current_region %>.
-      Ausserdem werden Zuckerln in die jeweiligen <%= t("region.#{current_region.id}.graetzl") %>-Streams gestreut und erscheinen auch in den wöchentlichen <%= t("region.#{current_region.id}.graetzl") %>-Newslettern an die NutzerInnen.
+      Ausserdem werden Zuckerln in die jeweiligen <%= t("region.#{current_region.id}.graetzl") %>-Streams gestreut und erscheinen auch in den wöchentlichen <strong><%= t("region.#{current_region.id}.graetzl") %>-Newslettern</strong> an die NutzerInnen.
     </p>
   </div>
 
@@ -63,6 +63,21 @@
       Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.region") %>" kostet <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong><span data-behavior="oldpricepreview"><%= " statt #{number_to_currency(Zuckerl.region_old_price(current_region) / 100)} " if Zuckerl.region_old_price(current_region) %></span> (inkl. 20% USt.).
     </p>
   </div>
+
+  <div class="wrp">
+    <h3>Ich bin Fördermitglied und möchte mein Zuckerlguthaben einlösen.</h3>
+    <p>
+      Auf der Übersichtsseite <%= link_to 'deiner Mitgliedschaft', subscription_user_path %> siehst du, ob du noch Zuckerlguthaben hast und bis wann es einlösbar ist.
+      Wenn deine Mitgliedschaft ein Zuckerl für "<%= t("region.#{current_region.id}.zuckerl.region") %>" beinhaltet, kannst du es wie folgt einlösen:
+    </p>
+    <ol class="list-basic -slim">
+      <li>Erstelle ein <%= link_to 'neues Zuckerl', new_zuckerl_path %>.</li>
+      <li>Wähle bei der Sichtbarkeit unbedingt "<%= t("region.#{current_region.id}.zuckerl.region") %>" aus (<strong>wichtig!</strong>)</li>
+      <li>Im nächsten Schritt wird dir dein offenes Guthaben angezeigt, das du mit einem Klick einlösen kannst.</li>
+    </ol>
+  </div>
+
+  
 
   <div class="wrp">
     <h3>Kann ich die Laufzeit meines Zuckerls bestimmen?</h3>
@@ -81,7 +96,7 @@
   <div class="wrp">
     <h3>Wo finde ich eine Mwst Rechnung für mein Zuckerl?</h3>
     <p>
-      Nachdem dein Zuckerl bezahlt wurde, senden wir dir deine Rechnung per E-Mail zu.
+      Nachdem dein Zuckerl freigeschalten wurde, senden wir dir deine Rechnung per E-Mail zu.
       Du kannst aber auch nachträglich eingeloggt im Bereich "<%= link_to 'Buchungen verwalten', zuckerls_user_path %>" deine Zuckerl Rechnungen downloaden.
     </p>
   </div>

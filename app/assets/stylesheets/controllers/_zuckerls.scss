@@ -14,6 +14,15 @@ section.zuckerl-page {
     position: relative;
     justify-content: center;
     flex-wrap: wrap;
+
+    .visibility-switch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding:10px;
+    }
+
     .input-select {
       margin-bottom:0;
     }
@@ -26,7 +35,7 @@ section.zuckerl-page {
     .badge {
       z-index: 99;
       position: absolute;
-      top:-0px;
+      top:-55px;
       right:0;
       @include respond-to(">=medium") {
         top:-20px;

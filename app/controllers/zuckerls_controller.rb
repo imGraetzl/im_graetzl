@@ -12,21 +12,21 @@ class ZuckerlsController < ApplicationController
     @zuckerl = current_user.zuckerls.new
     @zuckerl.location = set_location_for_new
     @zuckerl.user = current_user
-    @zuckerl.region_id = current_user.region_id
+    @zuckerl.region_id = current_region.id
     @zuckerl.starts_at = Date.tomorrow + 1
     @zuckerl.ends_at = @zuckerl.starts_at + 1.month - 1.day
+    @zuckerl.entire_region = true
   end
 
   def create
     @zuckerl = current_user.zuckerls.new(zuckerl_params)
     @zuckerl.user = current_user
-    @zuckerl.region_id = current_user.region_id
-    @zuckerl.entire_region = true if entire_region?
+    @zuckerl.region_id = current_region.id
+    @zuckerl.entire_region = params[:zuckerl][:entire_region] == "true"
     @zuckerl.amount = @zuckerl.total_price / 100
 
     if @zuckerl.save
       @zuckerl.link ||= nil
-
       set_zuckerl_graetzls
 
       if valid_zuckerl_voucher_for(@zuckerl)
@@ -35,12 +35,17 @@ class ZuckerlsController < ApplicationController
         redirect_to [:address, @zuckerl]
       end
     else
+      set_zuckerl_graetzls
       render :new
     end
   end
 
   def update
     set_zuckerl_or_redirect or return
+
+    if params[:zuckerl].key?(:entire_region)
+      @zuckerl.entire_region = params[:zuckerl][:entire_region] == "true"
+    end
 
     if params[:zuckerl][:subscription_id].present?
       @zuckerl.update zuckerl_voucher_params
@@ -62,6 +67,7 @@ class ZuckerlsController < ApplicationController
         set_zuckerl_graetzls
         redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde aktualisiert'
       else
+        set_zuckerl_graetzls
         render :edit
       end
 
@@ -157,41 +163,18 @@ class ZuckerlsController < ApplicationController
     params[:zuckerl].key?(:district_ids) && params[:zuckerl][:district_ids].present?
   end
 
-  def entire_region?
-    if has_graetzl_ids?
-      Array(params[:zuckerl][:graetzl_ids]).include?("entire_region")
-    elsif has_district_ids?
-      Array(params[:zuckerl][:district_ids]).include?("entire_region")
-    else
-      false
-    end
-  end
-
   def set_zuckerl_graetzls
-
-    if has_graetzl_ids?
-
-      if Array(params[:zuckerl][:graetzl_ids]).include?("entire_region")
-        @zuckerl.update_column(:entire_region, true)
-        @zuckerl.graetzl_ids = []
-      else
+    if @zuckerl.entire_region?
+      @zuckerl.graetzl_ids = []
+    else
+      if has_graetzl_ids?
         graetzl_ids = Array(params[:zuckerl][:graetzl_ids])
         @zuckerl.graetzl_ids = graetzl_ids
-        @zuckerl.update_column(:entire_region, false)
-      end
-
-    elsif has_district_ids?
-
-      if Array(params[:zuckerl][:district_ids]).include?("entire_region")
-        @zuckerl.update_column(:entire_region, true)
-        @zuckerl.graetzl_ids = []
-      else
+      elsif has_district_ids?
         district_ids = Array(params[:zuckerl][:district_ids])
         graetzl_ids = District.where(id: district_ids).joins(:graetzls).pluck('graetzls.id').uniq
         @zuckerl.graetzl_ids = graetzl_ids
-        @zuckerl.update_column(:entire_region, false)
       end
-
     end
   end
 
@@ -287,6 +270,7 @@ class ZuckerlsController < ApplicationController
       :description,
       :cover_photo,
       :remove_cover_photo,
+      :entire_region,
       :link,
       :location_id,
       graetzl_ids: [],
