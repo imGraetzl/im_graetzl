@@ -23,7 +23,7 @@ APP.components.createzuckerl = (function() {
         updatelink();
         updatedistricts();
         toggleAvatarBlock();
-        //$linkpreview.hide();
+        toggleDistrictDropdown();
 
         $('.starts_at').pickadate({
           formatSubmit: 'yyyy-mm-dd',
@@ -47,6 +47,9 @@ APP.components.createzuckerl = (function() {
               $runtimepreview.text(startFormatted + ' – ' + endFormatted);
 
             }
+          },
+          onClose: function() {
+            $(document.activeElement).blur();
           },
         });
   
@@ -89,6 +92,10 @@ APP.components.createzuckerl = (function() {
         $linkinput.on("keyup change", updatelink);
         $imageinput.on("upload:complete", function() { setTimeout(updateimage, 300) });
         $districtinput.on("change", updatedistricts);
+        $(document).on('change', 'input[name="zuckerl[entire_region]"]', function() {
+          toggleDistrictDropdown();
+          updatedistricts();
+        });
     }
 
     function updatetitle() {
@@ -112,23 +119,46 @@ APP.components.createzuckerl = (function() {
     }
 
     function updatedistricts() {
-      var selected_input = $districtinput.find('option:selected');
-      $pricepreview.text(formatPrice(selected_input.data("price")));
-      $graetzlpreview.text(selected_input.text());
-      $gratzl_visibility.text(selected_input.data("label"));
+      var isEntireRegion = $('input[name="zuckerl[entire_region]"]:checked').val() === "true";
+      var $selected_radio = $('input[name="zuckerl[entire_region]"]:checked');
+      var $selected_option = $districtinput.find('option:selected');
 
-      if (selected_input.data("old-price")) {
-        $oldpricepreview.text('(statt ' + formatPrice(selected_input.data("old-price")) + ')');
-      } else {
-        $oldpricepreview.text('');
-      }
+      if (isEntireRegion) {
+        var radioId = $selected_radio.attr('id');
+        var radioLabelText = $('label[for="' + radioId + '"]').text();
 
-      if (selected_input.val() === "entire_region") {
-        $('.description .graetzl').hide();
+        $pricepreview.text(formatPrice($selected_radio.data("price")));
+        $gratzl_visibility.text($selected_radio.data("label"));
+        $graetzlpreview.text(radioLabelText);
+        if ($selected_radio.data("old-price")) {
+          $oldpricepreview.text('(statt ' + formatPrice($selected_radio.data("old-price")) + ')');
+        } else {
+          $oldpricepreview.text('');
+        }
         $('.description .entire_region').show();
+        $('.description .graetzl').hide();
       } else {
+        $pricepreview.text(formatPrice($selected_option.data("price")));
+        $gratzl_visibility.text($selected_option.data("label"));
+        $graetzlpreview.text($selected_option.text());
+        if ($selected_option.data("old-price")) {
+          $oldpricepreview.text('(statt ' + formatPrice($selected_option.data("old-price")) + ')');
+        } else {
+          $oldpricepreview.text('');
+        }
         $('.description .entire_region').hide();
         $('.description .graetzl').show();
+      }
+    }
+
+    function toggleDistrictDropdown() {
+      var isEntireRegion = $('input[name="zuckerl[entire_region]"]:checked').val() === "true";
+      var $dropdownWrapper = $('.district-select-wrapper');
+
+      if (isEntireRegion) {
+        $dropdownWrapper.addClass('-hidden');
+      } else {
+        $dropdownWrapper.removeClass('-hidden');
       }
     }
 

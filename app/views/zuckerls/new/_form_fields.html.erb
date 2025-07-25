@@ -79,6 +79,8 @@
   <%= f.collection_select(:location_id, current_user.locations.approved, :id, :name, {:include_blank => 'Schaufenster verknüpfen..'}, { class: "location-selector" }) %>
 </div>
 
+<% is_edit = !@zuckerl.new_record? %>
+
 <div class="input-labledcheckbox">
   <%= f.label :entire_region do %>
     <%= icon_tag "map-location" %>
@@ -86,7 +88,18 @@
   <% end %>
   <div class="field-wrp visibility_select">
 
-    <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzln") %>">
+    <div class="usage-period-switch">
+      <div class="input-radio <%= 'disabled' if is_edit && !@zuckerl.entire_region? %>">
+        <%= f.radio_button :entire_region, true, data: { behavior: 'entire_region_true', price: Zuckerl.region_price(current_region), old_price: Zuckerl.region_old_price(current_region), label: t("region.#{current_region.id}.zuckerl.visibility_region") }, disabled: (is_edit && !@zuckerl.entire_region?) %>
+        <%= f.label "entire_region_true", t("region.#{current_region.id}.zuckerl.region") %>
+      </div>
+      <div class="input-radio <%= 'disabled' if is_edit && @zuckerl.entire_region? %>">
+        <%= f.radio_button :entire_region, false, data: { behavior: 'entire_region_false', price: Zuckerl.price(current_region), old_price: Zuckerl.old_price(current_region) }, disabled: (is_edit && @zuckerl.entire_region?) %>
+        <%= f.label "entire_region_false", t("region.#{current_region.id}.zuckerl.choose_graetzl") %>
+      </div>
+    </div>
+
+    <div id="area-select" class="district-select-wrapper" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzln") %>">
       <% if current_region.use_districts? %>
         <div class="input-select">
           <%= f.select :district_ids, district_select_options_zuckerl(@zuckerl), { selected: @zuckerl.saved_or_default_district(params.dig(:zuckerl, :district_ids)) }, { multiple: false, class: 'district-select' } %>

@@ -48,6 +48,11 @@ ol.list-formal {
 .list-basic {
   padding-left: 20px;
   margin-bottom: 20px;
+  &.-slim {
+    li {
+      padding-bottom: 5px !important;
+    }
+  }
 }
 
 ul.list-arrow {

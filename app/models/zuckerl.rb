@@ -174,7 +174,6 @@ class Zuckerl < ApplicationRecord
   end
 
   def saved_main_district
-    return "entire_region" if entire_region?
     graetzls
       .joins(:districts)
       .group('districts.id')
@@ -185,7 +184,6 @@ class Zuckerl < ApplicationRecord
   end
 
   def saved_graetzl
-    return "entire_region" if entire_region?
     graetzls
       .limit(1)
       .pluck('id')

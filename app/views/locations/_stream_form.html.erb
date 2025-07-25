@@ -1,6 +1,6 @@
 <% if @location.owned_by?(current_user) && @location.can_create_menu? %>
   <div data-behavior="stream-form" class="stream-form">
-    <div class="location-post-switch">
+    <div class="usage-period-switch">
       <div class="input-radio">
         <%= radio_button_tag :stream, 'post', true, :class => 'stream-switch' %>
         <%= label_tag :stream_post, "Neuigkeit" %>
