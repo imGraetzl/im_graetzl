@@ -6,11 +6,8 @@
 </div>
 
 <%= form_for [@zuckerl], data: { behavior: 'zuckerlform' } do |f| %>
-
-  <div class="booking-block">
-    <div class="form-block">
-      <%= render 'zuckerls/new/form_fields', f: f %>
-      <%= f.button 'Weiter', class: 'btn-primary' %>
-    </div>
+  <div class="form-block">
+    <%= render 'zuckerls/new/form_fields', f: f %>
+    <%= f.button 'Weiter', class: 'btn-primary' %>
   </div>
 <% end %>
