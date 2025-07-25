@@ -7,10 +7,8 @@
 
 <%= form_for [@zuckerl], data: { behavior: 'zuckerlform' } do |f| %>
 <%= hidden_field_tag :edit_zuckerl, true %>
-  <div class="booking-block">
-    <div class="form-block">
-      <%= render 'zuckerls/new/form_fields', f: f %>
-      <%= f.button 'Zuckerl speichern', class: 'btn-primary' %>
-    </div>
+  <div class="form-block">
+    <%= render 'zuckerls/new/form_fields', f: f %>
+    <%= f.button 'Zuckerl speichern', class: 'btn-primary' %>
   </div>
 <% end %>

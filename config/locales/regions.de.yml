@@ -35,7 +35,9 @@ de:
         subline: "Dieses wird in allen Gemeinden deiner Region angezeigt."
         graetzl: "Gemeinde"
         region: "Ganze Region"
+        choose_graetzl: "Gemeinde"
         visibility_graetzl: "in der Gemeinde"
+        visibility_region: "in der gesamten Region (alle Gemeinden)"
         visibility_info: "in deiner Gemeinde & Region"
       info:
         meeting:
@@ -81,9 +83,11 @@ de:
       zuckerl:
         headline: "Das Zuckerl für ganz Wien"
         subline: "Dieses wird in allen Grätzln und Bezirken in ganz Wien angezeigt."
-        graetzl: "Grätzl & Bezirk"
+        graetzl: "Bezirk"
         region: "Ganz Wien"
+        choose_graetzl: "Bezirk"
         visibility_graetzl: "im Bezirk und allen zugehörigen Grätzln"
+        visibility_region: "in ganz Wien (alle Bezirke)"
         visibility_info: "in deinem Grätzl, Bezirk & Wien"
       info:
         meeting:
@@ -129,7 +133,9 @@ de:
         subline: "Dieses wird in allen Bezirken in Graz angezeigt."
         graetzl: "Bezirk"
         region: "Ganz Graz"
+        choose_graetzl: "Bezirk"
         visibility_graetzl: "im Bezirk"
+        visibility_region: "in ganz Graz (alle Bezirke)"
         visibility_info: "im Bezirk & ganz Graz"
       info:
         meeting:
@@ -176,7 +182,9 @@ de:
         subline: "Dieses wird in allen Bezirken in Linz angezeigt."
         graetzl: "Bezirk"
         region: "Ganz Linz"
+        choose_graetzl: "Bezirk"
         visibility_graetzl: "im Bezirk"
+        visibility_region: "in ganz Linz (alle Bezirke)"
         visibility_info: "im Bezirk & ganz Linz"
       info:
         meeting:
@@ -223,7 +231,9 @@ de:
         subline: "Dieses wird in allen Stadtteilen in Innsbruck angezeigt."
         graetzl: "Stadtteil"
         region: "Ganz Innsbruck"
+        choose_graetzl: "Stadtteil"
         visibility_graetzl: "im Stadtteil"
+        visibility_region: "in ganz Innsbruck (alle Stadtteile)"
         visibility_info: "im Stadtteil & ganz Innsbruck"
       info:
         meeting:
