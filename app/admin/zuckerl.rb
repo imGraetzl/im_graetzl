@@ -17,7 +17,6 @@ ActiveAdmin.register Zuckerl do
     placeholder: 'Name, Username oder E-Mail ...',
     data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
   }
-  filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :entire_region, input_html: { class: 'admin-filter-select'}
   filter :aasm_state, as: :select, collection: Zuckerl.aasm.states_for_select, input_html: { class: 'admin-filter-select'}
   filter :payment_status, as: :select, collection: Zuckerl.payment_statuses.keys, input_html: { class: 'admin-filter-select'}

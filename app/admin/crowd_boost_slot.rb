@@ -10,6 +10,8 @@ ActiveAdmin.register CrowdBoostSlot do
   scope :active
   scope :expired
 
+  filter :crowd_boost, collection: proc { CrowdBoost.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
+
   index { render 'index', context: self }
   show { render 'show', context: self }
   form partial: 'form'
