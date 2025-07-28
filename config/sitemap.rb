@@ -191,10 +191,6 @@ Region.all.each do |region|
     add info_impressum_path, changefreq: 'never', priority: 0.3
 
     # Registration (only get paths)
-    add new_user_session_path, changefreq: 'never', priority: 0.3
-    add new_password_path, changefreq: 'never', priority: 0.3
-    add edit_password_path, changefreq: 'never', priority: 0.3
-    add new_confirmation_path, changefreq: 'never', priority: 0.3
     add new_registration_path, changefreq: 'never', priority: 0.3
   end
 
