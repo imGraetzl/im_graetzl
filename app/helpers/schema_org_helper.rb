@@ -26,70 +26,66 @@ module SchemaOrgHelper
   # //////////////////////////// Create Structured Data for MEETINGS
   def structured_data_meeting(meeting)
     hash = { "@type" => "Event" }
-    hash["name"] = meeting.name
-    hash["description"] = meeting.description if meeting.description.present?
-
-    if meeting.starts_at_date
-      hash["startDate"] = I18n.localize(meeting.starts_at_date, format: '%Y-%m-%d')
-      hash["startDate"] += "T#{I18n.localize(meeting.starts_at_time, format: '%H:%M')}+01:00" if meeting.starts_at_time
-    end
-
-    if meeting.ends_at_date
-      hash["endDate"] = I18n.localize(meeting.ends_at_date, format: '%Y-%m-%d')
-      hash["endDate"] += "T#{I18n.localize(meeting.ends_at_time, format: '%H:%M')}+01:00" if meeting.ends_at_time
-    elsif meeting.starts_at_date
-      hash["endDate"] = I18n.localize(meeting.starts_at_date, format: '%Y-%m-%d')
-      hash["endDate"] += "T#{I18n.localize(meeting.ends_at_time, format: '%H:%M')}+01:00" if meeting.ends_at_time
-    end
-
-    hash["image"] = meeting.cover_photo_url || asset_url('meta/og_logo.png')
+    hash["@id"] = graetzl_location_url(meeting.graetzl, meeting)
     hash["url"] = graetzl_meeting_url(meeting.graetzl, meeting)
     hash["eventStatus"] = "https://schema.org/EventScheduled"
+    hash["name"] = meeting.name
+    hash["description"] = strip_tags(meeting.description.bbcode_to_html).truncate(300) if meeting.description.present?
+    hash["startDate"] = iso8601_in_vienna(meeting.starts_at_date, meeting.starts_at_time)
+    hash["endDate"]   = iso8601_in_vienna(meeting.ends_at_date.presence || meeting.starts_at_date, meeting.ends_at_time)
+    hash["image"] = meeting.cover_photo_url || asset_url('meta/og_logo.png')
+
+    if meeting.location
+      hash["organizer"] = structured_data_location_reference(meeting.location)
+    elsif meeting.user
+      hash["organizer"] = structured_data_person_reference(meeting.user)
+    end
+
+    if meeting.event_categories.any?
+      titles = meeting.event_categories.map(&:title).compact.uniq
+      hash["keywords"] = titles.join(', ')
+    end
 
     if meeting.online_meeting?
       hash["eventAttendanceMode"] = "https://schema.org/OnlineEventAttendanceMode"
-      hash["location"] = {
+      location_hash = {
         "@type" => "VirtualLocation",
-        "url" => graetzl_meeting_url(meeting.graetzl, meeting)
+        "url"   => meeting.online_url.presence || graetzl_meeting_url(meeting.graetzl, meeting)
       }
+      location_hash["name"] = meeting.online_description if meeting.online_description.present?
+      hash["location"] = location_hash
+
     else
       hash["eventAttendanceMode"] = "https://schema.org/OfflineEventAttendanceMode"
       location_hash = { "@type" => "Place" }
-      if meeting.using_address?
-        location_hash["name"] = meeting.address_description if meeting.address_description.present?
+      location_hash["name"] = meeting.address_description if meeting.address_description.present?
+      if meeting.address_street.present? || meeting.address_city.present?
         location_hash["address"] = structured_data_address(meeting)
       end
-      if meeting.location
-        location_hash["name"] = meeting.location.name
-        location_hash["image"] = meeting.location.cover_photo_url || asset_url('meta/og_logo.png')
-        location_hash["sameAs"] = graetzl_location_url(meeting.location.graetzl, meeting.location)
+      if meeting.address_coordinates.present?
+        location_hash["geo"] = {
+          "@type" => "GeoCoordinates",
+          "longitude" => meeting.address_coordinates.x,
+          "latitude" => meeting.address_coordinates.y
+        }
       end
       hash["location"] = location_hash
     end
 
-    hash["organizer"] = structured_data_person(meeting.user) if meeting.user
+    if meeting.meeting_additional_dates.any?
+      hash["subEvent"] = meeting.meeting_additional_dates.order(:starts_at_date, :starts_at_time).map do |date_obj|
+        structured_data_meeting_reference(
+          meeting,
+          start_date: date_obj.starts_at_date,
+          start_time: date_obj.starts_at_time,
+          end_time: date_obj.ends_at_time
+        )
+      end
+    end
 
     hash
   end
 
-  # //////////////////////////// Create Structured Data for ADDRESS
-  def structured_data_address(object)
-    hash = { "@type" => "PostalAddress" }
-    hash["streetAddress"] = object.address_street if object.address_street.present?
-    hash["addressLocality"] = object.address_city if object.address_city.present?
-    hash["addressRegion"] = object.address_city if object.address_city.present?
-    hash["postalCode"] = object.address_zip if object.address_zip.present?
-    hash["addressCountry"] = "AT"
-    hash
-  end
-
-  # //////////////////////////// Create Structured Data for PERSONS
-  def structured_data_person(user)
-    hash = { "@type" => "Person" }
-    hash["name"] = user.full_name
-    hash["image"] = user.avatar_url || asset_url('meta/og_logo.png')
-    hash
-  end
 
   # //////////////////////////// Create Structured Data for LOCATIONS
   def structured_data_location(location)
@@ -98,12 +94,17 @@ module SchemaOrgHelper
     hash["url"] = graetzl_location_url(location.graetzl, location)
     hash["name"] = location.name
     hash["slogan"] = location.slogan if location.slogan.present?
-    hash["description"] = truncate(location.description.to_s.gsub(/[\r\n]+/, " "), length: 300) if location.description.present?
+    hash["description"] = strip_tags(location.description).truncate(300) if location.description.present?
     hash["email"] = location.email if location.email.present?
     hash["telephone"] = location.phone if location.phone.present?
     hash["address"] = structured_data_address(location) if location.using_address?
     hash["logo"] = location.avatar_url || asset_url('fallbacks/location_avatar.png')
-    hash["founder"] = structured_data_person(location.user) if location.user
+    hash["founder"] = structured_data_person_reference(location.user) if location.user
+
+    keywords = []
+    keywords << location.location_category.name if location.location_category
+    keywords += location.products.pluck(:name) if location.respond_to?(:products)
+    hash["keywords"] = keywords.uniq.join(", ") if keywords.any?
 
     images = []
     images << location.cover_photo_url if location.cover_photo_url.present?
@@ -124,9 +125,12 @@ module SchemaOrgHelper
       }
     end
 
-    if location.upcoming_meetings.present?
-      next_location_event = location.upcoming_meetings.where.not(starts_at_date: nil).sort_by(&:starts_at_date).first
-      hash["event"] = structured_data_meeting(next_location_event) unless next_location_event.nil?
+    if location.upcoming_meetings.any?
+      hash["event"] = location.upcoming_meetings
+                        .where.not(starts_at_date: nil)
+                        .order(:starts_at_date, :starts_at_time)
+                        .limit(5)
+                        .map { |meeting| structured_data_meeting_reference(meeting) }
     end
 
     same_as = []
@@ -137,17 +141,149 @@ module SchemaOrgHelper
     hash
   end
 
+
   # //////////////////////////// Create Structured Data for ROOM_OFFERS
   def structured_data_room_offer(room_offer)
-    hash = { "@type" => "RentAction" }
-    hash["object"] = { "@type" => "Room" }
-    hash["object"]["name"] = t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") + ': ' + room_offer.slogan
-    hash["object"]["address"] = structured_data_address(room_offer) if room_offer.using_address?
-    hash["image"] = room_offer.cover_photo_url || asset_url('meta/og_logo.png')
-    hash["landlord"] = structured_data_person(room_offer.user) if room_offer.user
-    hash["landlord"] = structured_data_location(room_offer.location) if room_offer.location
+    hash = { "@type" => "Offer" }
+    hash["@id"] = room_offer_url(room_offer)
+    hash["url"] = room_offer_url(room_offer)
+    hash["name"] = room_offer.slogan.presence || "Raum zu vermieten"
+    hash["description"] = strip_tags(room_offer.room_description.bbcode_to_html).truncate(300) if room_offer.room_description.present?
+    hash["availability"] = "https://schema.org/InStock"
+
+    # Bilder sammeln
+    images = [room_offer.cover_photo_url]
+    if room_offer.images.respond_to?(:each)
+      room_offer.images.each { |img| images << img.file_url if img.respond_to?(:file_url) }
+    end
+    images << asset_url('meta/og_logo.png') if images.compact.blank?
+    hash["image"] = images.compact.uniq if images.any?
+
+    # POTENTIAL ACTION (nur bei Online-Buchung)
+    if room_offer.rental_enabled?
+      hash["potentialAction"] = {
+        "@type" => "ReserveAction",
+        "target" => "#{room_offer_url(room_offer)}#booking-box"
+      }
+    end
+
+    # Categories
+    if room_offer.room_categories.present?
+      hash["category"] = room_offer.room_categories.map(&:name)
+    end
+
+    # priceSpecification für verschiedene Raumteilerpakete
+    price_specs = []
+    if room_offer.room_offer_prices.present?
+      room_offer.room_offer_prices.order(:amount).each do |price|
+        spec = {
+          "@type" => "UnitPriceSpecification",
+          "name" => price.name.presence || "Preisangebot"
+        }
+        if price.amount.present?
+          spec["price"] = price.amount.to_s
+          spec["priceCurrency"] = "EUR"
+        end
+        price_specs << spec
+      end
+    end
+
+    # Onlinebuchung – als weitere priceSpecs für RoomRentals
+    if room_offer.rental_enabled? && room_offer.respond_to?(:room_rental_price) && room_offer.room_rental_price
+      rental = room_offer.room_rental_price
+      if rental.price_per_hour.present?
+        price_specs << {
+          "@type" => "UnitPriceSpecification",
+          "name" => "Stundentarif",
+          "price" => rental.price_per_hour.to_s,
+          "priceCurrency" => "EUR",
+          "unitText" => "HOUR",
+          "eligibleQuantity" => { 
+            "@type" => "QuantitativeValue", 
+            "unitCode" => "HUR", 
+            "value" => 1 
+          }
+        }
+      end
+      if rental.daily_price.present?
+        desc = "Tagestarif (8 Stunden)"
+        desc += ", #{rental.eight_hour_discount}% Rabatt" if rental.eight_hour_discount.present? && rental.eight_hour_discount.to_i > 0
+        
+        price_specs << {
+          "@type" => "UnitPriceSpecification",
+          "name" => desc,
+          "price" => rental.daily_price.to_s,
+          "priceCurrency" => "EUR",
+          "unitText" => "DAY",
+          "eligibleQuantity" => { 
+            "@type" => "QuantitativeValue", 
+            "unitCode" => "DAY", 
+            "value" => 1 
+          }
+        }
+      end
+    end
+    price_specs.sort_by! { |spec| spec["price"].to_f } if price_specs.any?
+    hash["priceSpecification"] = price_specs if price_specs.any?
+
+    # Das Raum-Objekt (itemOffered)
+    room = { "@type" => "LocalBusiness" }
+    room["name"] = room_offer.slogan.presence || "Raum zu vermieten"
+    room["description"] = strip_tags(room_offer.room_description.bbcode_to_html).truncate(200) if room_offer.room_description.present?
+    room["image"] = images.compact.uniq if images.any?
+    room["address"] = structured_data_address(room_offer)
+    # Fläche zur Miete (additionalProperty, im Raumobjekt)
+    if room_offer.rented_area.present?
+      room["additionalProperty"] ||= []
+      room["additionalProperty"] << {
+        "@type" => "PropertyValue",
+        "name" => "Fläche zur Miete",
+        "value" => room_offer.rented_area,
+        "unitCode" => "MTK"
+      }
+    end
+    # Ausstattung (amenityFeature, im Raumobjekt)
+    if room_offer.keyword_list.present?
+      room["amenityFeature"] = room_offer.keyword_list.map do |keyword|
+        { "@type" => "LocationFeatureSpecification", "name" => keyword }
+      end
+    end
+    # openingHours aus RoomOfferAvailability generieren
+    if room_offer.room_offer_availability.present?
+      availability = room_offer.room_offer_availability
+      opening_hours = []
+      
+      # Wochentage mapping (day_0 = Sonntag, day_1 = Montag, etc.)
+      days_mapping = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+      
+      (0..6).each do |day_index|
+        from_hour = availability.send("day_#{day_index}_from")
+        to_hour = availability.send("day_#{day_index}_to")
+        
+        if from_hour.present? && to_hour.present?
+          # Stunden zu HH:MM Format konvertieren
+          from_time = sprintf("%02d:00", from_hour)
+          to_time = sprintf("%02d:00", to_hour)
+          
+          day_code = days_mapping[day_index]
+          opening_hours << "#{day_code} #{from_time}-#{to_time}"
+        end
+      end
+      room["openingHours"] = opening_hours if opening_hours.any?
+    end
+    hash["itemOffered"] = room
+
+    # Vermieter*in/Kontakt
+    hash["seller"] =
+      if room_offer.location.present?
+        structured_data_location_reference(room_offer.location)
+      elsif room_offer.user.present?
+        structured_data_person_reference(room_offer.user)
+      end
+
     hash
   end
+
 
   # //////////////////////////// Create Structured Data for ROOM_DEMANDS
   def structured_data_room_demand(room_demand)
@@ -160,4 +296,60 @@ module SchemaOrgHelper
     hash["seeks"] = t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") + ': ' + room_demand.slogan
     hash
   end
+
+  
+  # //////////////////////////// HELPERS ////////////////////////////
+
+  # //////////////////////////// Create Structured Data Reference for ADDRESS
+  def structured_data_address(object)
+    hash = { "@type" => "PostalAddress" }
+    hash["streetAddress"] = object.address_street if object.address_street.present?
+    hash["addressLocality"] = object.address_city if object.address_city.present?
+    hash["addressRegion"] = object.address_city if object.address_city.present?
+    hash["postalCode"] = object.address_zip if object.address_zip.present?
+    hash["addressCountry"] = "AT"
+    hash
+  end
+
+  # //////////////////////////// Create Structured Data Reference for USERS
+  def structured_data_person_reference(user)
+    hash = { "@type" => "Person" }
+    hash["name"] = user.full_name
+    hash["image"] = user.avatar_url || asset_url('meta/og_logo.png')
+    hash
+  end
+
+  # //////////////////////////// Create Structured Data Reference for MEETINGS
+  def structured_data_meeting_reference(meeting, start_date: nil, start_time: nil, end_time: nil)
+    {
+      "@type"     => "Event",
+      "url"       => graetzl_meeting_url(meeting.graetzl, meeting),
+      "name"      => meeting.name,
+      "startDate" => iso8601_in_vienna(start_date || meeting.starts_at_date, start_time),
+      "endDate"   => iso8601_in_vienna(start_date || meeting.starts_at_date, end_time)
+    }
+  end
+
+  # //////////////////////////// Create Structured Data Reference for LOCATIONS
+  def structured_data_location_reference(location)
+    hash = { "@type" => "LocalBusiness" }
+    hash["@id"]  = graetzl_location_url(location.graetzl, location)
+    hash["url"]  = graetzl_location_url(location.graetzl, location)
+    hash["name"] = location.name
+    hash["image"] = location.cover_photo_url || asset_url('meta/og_logo.png')
+    hash
+  end
+
+  # //////////////////////////// Date / Time Helper for ISO8601 in Vienna Timezone
+  def iso8601_in_vienna(date, time = nil)
+    return nil unless date
+
+    if time
+      dt = Time.zone.local(date.year, date.month, date.day, time.hour, time.min)
+      dt.in_time_zone('Vienna').iso8601
+    else
+      date.strftime('%Y-%m-%d')
+    end
+  end
+
 end
