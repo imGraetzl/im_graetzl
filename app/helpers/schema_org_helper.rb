@@ -29,11 +29,11 @@ module SchemaOrgHelper
     hash["@id"] = graetzl_location_url(meeting.graetzl, meeting)
     hash["url"] = graetzl_meeting_url(meeting.graetzl, meeting)
     hash["eventStatus"] = "https://schema.org/EventScheduled"
-    hash["name"] = meeting.name
+    hash["name"] = meeting.name if meeting.name.present?
     hash["description"] = strip_tags(meeting.description.bbcode_to_html).truncate(300) if meeting.description.present?
-    hash["startDate"] = iso8601_in_vienna(meeting.starts_at_date, meeting.starts_at_time)
-    hash["endDate"]   = iso8601_in_vienna(meeting.ends_at_date.presence || meeting.starts_at_date, meeting.ends_at_time)
-    hash["image"] = meeting.cover_photo_url || asset_url('meta/og_logo.png')
+    hash["startDate"] = iso8601_in_vienna(meeting.starts_at_date, meeting.starts_at_time) if meeting.starts_at_date
+    hash["endDate"]   = iso8601_in_vienna(meeting.ends_at_date.presence || meeting.starts_at_date, meeting.ends_at_time) if meeting.ends_at_date || meeting.starts_at_date
+    hash["image"] = meeting.cover_photo_url.presence || asset_url('meta/og_logo.png')
 
     if meeting.location
       hash["organizer"] = structured_data_location_reference(meeting.location)
@@ -43,7 +43,7 @@ module SchemaOrgHelper
 
     if meeting.event_categories.any?
       titles = meeting.event_categories.map(&:title).compact.uniq
-      hash["keywords"] = titles.join(', ')
+      hash["keywords"] = titles.compact.join(', ') if titles.any?
     end
 
     if meeting.online_meeting?
@@ -87,24 +87,26 @@ module SchemaOrgHelper
   end
 
 
+
   # //////////////////////////// Create Structured Data for LOCATIONS
   def structured_data_location(location)
     hash = { "@type" => "LocalBusiness" }
     hash["@id"] = graetzl_location_url(location.graetzl, location)
     hash["url"] = graetzl_location_url(location.graetzl, location)
-    hash["name"] = location.name
+    hash["name"] = location.name if location.name.present?
     hash["slogan"] = location.slogan if location.slogan.present?
     hash["description"] = strip_tags(location.description).truncate(300) if location.description.present?
     hash["email"] = location.email if location.email.present?
     hash["telephone"] = location.phone if location.phone.present?
     hash["address"] = structured_data_address(location) if location.using_address?
-    hash["logo"] = location.avatar_url || asset_url('fallbacks/location_avatar.png')
+    hash["logo"] = location.avatar_url.presence || asset_url('fallbacks/location_avatar.png')
     hash["founder"] = structured_data_person_reference(location.user) if location.user
 
     keywords = []
-    keywords << location.location_category.name if location.location_category
-    keywords += location.products.pluck(:name) if location.respond_to?(:products)
-    hash["keywords"] = keywords.uniq.join(", ") if keywords.any?
+    keywords << location.location_category&.name if location.location_category&.name.present?
+    keywords += location.products.pluck(:name) if location.products.present?
+    keywords = keywords.compact.reject(&:blank?).uniq
+    hash["keywords"] = keywords.join(", ") if keywords.any?
 
     images = []
     images << location.cover_photo_url if location.cover_photo_url.present?
@@ -136,10 +138,12 @@ module SchemaOrgHelper
     same_as = []
     same_as << location.website_url if location.website_url.present?
     same_as << location.online_shop_url if location.online_shop_url.present?
+    same_as = same_as.compact.reject(&:blank?).uniq
     hash["sameAs"] = same_as if same_as.any?
 
     hash
   end
+
 
 
   # //////////////////////////// Create Structured Data for ROOM_OFFERS
@@ -150,26 +154,22 @@ module SchemaOrgHelper
     hash["name"] = room_offer.slogan.presence || "Raum zu vermieten"
     hash["description"] = strip_tags(room_offer.room_description.bbcode_to_html).truncate(300) if room_offer.room_description.present?
     hash["availability"] = "https://schema.org/InStock"
+    hash["businessFunction"] = "http://purl.org/goodrelations/v1#LeaseOut"
 
-    # Bilder sammeln
-    images = [room_offer.cover_photo_url]
+    # Images
+    images = [room_offer.cover_photo_url].compact
     if room_offer.images.respond_to?(:each)
       room_offer.images.each { |img| images << img.file_url if img.respond_to?(:file_url) }
     end
     images << asset_url('meta/og_logo.png') if images.compact.blank?
     hash["image"] = images.compact.uniq if images.any?
 
-    # POTENTIAL ACTION (nur bei Online-Buchung)
+    # Potential Action (nur bei Online-Buchung)
     if room_offer.rental_enabled?
       hash["potentialAction"] = {
         "@type" => "ReserveAction",
         "target" => "#{room_offer_url(room_offer)}#booking-box"
       }
-    end
-
-    # Categories
-    if room_offer.room_categories.present?
-      hash["category"] = room_offer.room_categories.map(&:name)
     end
 
     # priceSpecification für verschiedene Raumteilerpakete
@@ -227,50 +227,45 @@ module SchemaOrgHelper
     hash["priceSpecification"] = price_specs if price_specs.any?
 
     # Das Raum-Objekt (itemOffered)
-    room = { "@type" => "LocalBusiness" }
+    room = { "@type" => "Room" }
     room["name"] = room_offer.slogan.presence || "Raum zu vermieten"
     room["description"] = strip_tags(room_offer.room_description.bbcode_to_html).truncate(200) if room_offer.room_description.present?
     room["image"] = images.compact.uniq if images.any?
     room["address"] = structured_data_address(room_offer)
-    # Fläche zur Miete (additionalProperty, im Raumobjekt)
-    if room_offer.rented_area.present?
-      room["additionalProperty"] ||= []
-      room["additionalProperty"] << {
-        "@type" => "PropertyValue",
-        "name" => "Fläche zur Miete",
-        "value" => room_offer.rented_area,
-        "unitCode" => "MTK"
-      }
-    end
-    # Ausstattung (amenityFeature, im Raumobjekt)
+
+    # Ausstattung
     if room_offer.keyword_list.present?
       room["amenityFeature"] = room_offer.keyword_list.map do |keyword|
         { "@type" => "LocationFeatureSpecification", "name" => keyword }
       end
     end
-    # openingHours aus RoomOfferAvailability generieren
+
+    # Categories als permittedUsage
+    if room_offer.room_categories.present?
+      permitted_usages = room_offer.room_categories.map(&:name).reject(&:blank?).uniq
+      room["permittedUsage"] = permitted_usages if permitted_usages.any?
+    end
+
+    # OpeningHoursSpecification aus RoomOfferAvailability generieren
     if room_offer.room_offer_availability.present?
-      availability = room_offer.room_offer_availability
-      opening_hours = []
-      
-      # Wochentage mapping (day_0 = Sonntag, day_1 = Montag, etc.)
-      days_mapping = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-      
+    availability = room_offer.room_offer_availability
+      opening_hours_spec = []
+      days_mapping = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
       (0..6).each do |day_index|
         from_hour = availability.send("day_#{day_index}_from")
         to_hour = availability.send("day_#{day_index}_to")
-        
         if from_hour.present? && to_hour.present?
-          # Stunden zu HH:MM Format konvertieren
-          from_time = sprintf("%02d:00", from_hour)
-          to_time = sprintf("%02d:00", to_hour)
-          
-          day_code = days_mapping[day_index]
-          opening_hours << "#{day_code} #{from_time}-#{to_time}"
+          opening_hours_spec << {
+            '@type' => 'OpeningHoursSpecification',
+            'dayOfWeek' => "https://schema.org/#{days_mapping[day_index]}",
+            'opens' => sprintf('%02d:00', from_hour),
+            'closes' => sprintf('%02d:00', to_hour)
+          }
         end
       end
-      room["openingHours"] = opening_hours if opening_hours.any?
+      room["openingHoursSpecification"] = opening_hours_spec if opening_hours_spec.any?
     end
+
     hash["itemOffered"] = room
 
     # Vermieter*in/Kontakt
@@ -285,17 +280,45 @@ module SchemaOrgHelper
   end
 
 
+
   # //////////////////////////// Create Structured Data for ROOM_DEMANDS
   def structured_data_room_demand(room_demand)
     hash = { "@type" => "Person" }
-    if room_demand.first_name.present? && room_demand.last_name.present?
-      hash["name"] = "#{room_demand.first_name} #{room_demand.last_name}"
+    hash["name"] = [room_demand.first_name, room_demand.last_name].compact.join(' ') if room_demand.first_name || room_demand.last_name
+    hash["image"] = room_demand.avatar_url.presence || asset_url('meta/og_logo.png')
+    hash["description"] = room_demand.personal_description if room_demand.personal_description.present?
+    hash["email"] = room_demand.email if room_demand.email.present?
+    hash["telephone"] = room_demand.phone if room_demand.phone.present?
+    hash["url"] = room_demand.website if room_demand.website.present?
+
+    # Demand-Struktur für seeks
+    demand = { "@type" => "Demand" }
+    item_offered = { "@type" => "Room" }
+
+    # Titel, Beschreibung, gesuchte Kategorien
+    item_offered["name"] = room_demand.slogan if room_demand.slogan.present?
+    item_offered["description"] = room_demand.demand_description if room_demand.demand_description.present?
+
+    # Raumarten/Kategorien
+    if room_demand.room_categories.present?
+      item_offered["permittedUsage"] = room_demand.room_categories.map(&:name).reject(&:blank?).uniq
     end
-    hash["image"] = room_demand.avatar_url || asset_url('meta/og_logo.png')
-    hash["description"] = room_demand.personal_description if room_demand.personal_description
-    hash["seeks"] = t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") + ': ' + room_demand.slogan
+
+    # Ausstattung (amenityFeature)
+    if room_demand.keyword_list.present?
+      amenity_list = room_demand.keyword_list.is_a?(String) ? room_demand.keyword_list.split(',') : room_demand.keyword_list
+      item_offered["amenityFeature"] = amenity_list.map do |feat|
+        { "@type" => "LocationFeatureSpecification", "name" => feat.strip }
+      end
+    end
+
+    # itemOffered nur befüllen, wenn etwas vorhanden
+    demand["itemOffered"] = item_offered if item_offered.size > 1
+    hash["seeks"] = demand if demand["itemOffered"].present?
+
     hash
   end
+
 
   
   # //////////////////////////// HELPERS ////////////////////////////
