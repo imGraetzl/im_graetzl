@@ -46,9 +46,9 @@
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
 
   <%= favicon_link_tag 'favicon.ico' %>
-  <%= render partial: 'shared/structured_data', locals: { object: @structured_data_object } %>
+  <%= schema_org_tag(@schema_org_object) if @schema_org_object.present? %>
   <%= Sentry.get_trace_propagation_meta.html_safe %>
-  </head>
+</head>
 
 <body
   data-controller="<%= controller_name %>"

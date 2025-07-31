@@ -4,7 +4,7 @@ class RoomOffersController < ApplicationController
   def show
     @room_offer = RoomOffer.includes(:images).find(params[:id])
     return if redirect_to_region?(@room_offer)
-    set_structured_data_object(@room_offer)
+    set_schema_org_object(SchemaOrg::RoomOffer.new(@room_offer, host: request.base_url))
     @comments = @room_offer.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
   end
 

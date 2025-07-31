@@ -95,8 +95,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def set_structured_data_object(obj)
-    @structured_data_object = obj
+  def set_schema_org_object(obj)
+    @schema_org_object = obj
   end
 
   private
