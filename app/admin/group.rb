@@ -12,9 +12,9 @@ ActiveAdmin.register Group do
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzls, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :districts, collection: proc { District.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :group_categories
+  filter :group_categories, input_html: { class: 'admin-filter-select'}
+  filter :private, input_html: { class: 'admin-filter-select'}
   filter :title
-  filter :private
   filter :created_at
 
   index { render 'index', context: self }

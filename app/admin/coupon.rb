@@ -12,12 +12,12 @@ ActiveAdmin.register Coupon do
   scope :currently_valid
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :enabled, input_html: { class: 'admin-filter-select'}
   filter :name
   filter :code
   filter :created_at
   filter :valid_from
   filter :valid_until
-  filter :enabled, input_html: { class: 'admin-filter-select'}
   filter :amount_off
   filter :percent_off
   filter :stripe_id

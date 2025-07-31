@@ -8,12 +8,13 @@ ActiveAdmin.register GoingTo do
   scope :attendee, default: true
   scope :initiator
 
-  filter :meeting, collection: proc { Meeting.order(:starts_at_date).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user_id_eq, label: "User Suche", as: :string, input_html: {
     class: 'admin-autocomplete-component',
     placeholder: 'Name, Username oder E-Mail ...',
     data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
   }
+  filter :meeting, collection: proc { Meeting.order(:starts_at_date).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
+
   index { render 'index', context: self }
 
   controller do

@@ -18,12 +18,12 @@ ActiveAdmin.register CrowdCampaign do
   scope 'Guest NL', :guest_newsletter
   scope 'End NL', :ending_newsletter
 
-  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user_id_eq, label: "User Suche", as: :string, input_html: {
     class: 'admin-autocomplete-component',
     placeholder: 'Name, Username oder E-Mail ...',
     data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
   }
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_categories, input_html: { class: 'admin-filter-select'}
   filter :active_state, as: :select, collection: CrowdCampaign.active_states, input_html: { class: 'admin-filter-select'}
   filter :visibility_status, as: :select, collection: CrowdCampaign.visibility_statuses, input_html: { class: 'admin-filter-select'}

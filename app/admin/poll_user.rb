@@ -3,6 +3,7 @@ ActiveAdmin.register PollUser do
   actions :all, except: [:new, :edit]
 
   scope :all, default: true
+  
   filter :user_id_eq, label: "User Suche", as: :string, input_html: {
     class: 'admin-autocomplete-component',
     placeholder: 'Name, Username oder E-Mail ...',

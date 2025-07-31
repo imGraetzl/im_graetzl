@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.3.8'
+ruby '3.3.9'
 
 gem 'rails', '~> 7.2.0'
 gem 'puma'
@@ -82,5 +82,4 @@ group :test do
   gem 'webmock'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]

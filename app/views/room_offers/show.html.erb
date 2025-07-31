@@ -151,8 +151,8 @@
       <% else %>
         <div class="contact-login-msg">
             Du musst eingeloggt sein, um die vollständigen Kontaktinformationen zu sehen.<br />
-            <%= link_to 'Zum Login', new_user_session_path(redirect: request.original_url, origin: request.path) %> |
-            <%= link_to 'Zur Registrierung', new_registration_path(origin: request.path) %>
+            <%= link_to 'Zum Login', new_user_session_path(redirect: request.original_url, origin: request.path), rel: 'nofollow' %> |
+            <%= link_to 'Zur Registrierung', new_registration_path(origin: request.path), rel: 'nofollow' %>
         </div>
       <% end %>
 

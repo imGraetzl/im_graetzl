@@ -6,18 +6,18 @@ ActiveAdmin.register Location do
   scope :pending
   scope :approved
 
-  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user_id_eq, label: "User Suche", as: :string, input_html: {
     class: 'admin-autocomplete-component',
     placeholder: 'Name, Username oder E-Mail ...',
     data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]', scope: 'with_locations' }
   }
-  filter :location_category
-  filter :state, as: :select, collection: Location.states.keys
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :location_category, input_html: { class: 'admin-filter-select'}
+  filter :verified, input_html: { class: 'admin-filter-select'}
+  filter :state, as: :select, collection: Location.states.keys, input_html: { class: 'admin-filter-select'}
   filter :name
-  filter :verified
   filter :slogan
   filter :description
   filter :online_shop

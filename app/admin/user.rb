@@ -12,14 +12,14 @@ ActiveAdmin.register User do
     scope(region.name) { |scope| scope.registered.where(region_id: region.id) }
   end
 
-  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select' }
-  filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :id_eq, label: "User Suche", as: :string, input_html: {
     class: 'admin-autocomplete-component',
     placeholder: 'Name, Username oder E-Mail ...',
     data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[id_eq]' }
   }
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select' }
+  filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location_category, collection: proc { LocationCategory.pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :subscribed, label: 'Fördermitglied', input_html: { class: 'admin-filter-select'}
   filter :first_name

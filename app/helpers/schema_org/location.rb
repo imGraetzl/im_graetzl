@@ -11,12 +11,12 @@ module SchemaOrg
       hash["@id"] = graetzl_location_url(@location.graetzl, @location, host: @host)
       hash["url"] = graetzl_location_url(@location.graetzl, @location, host: @host)
       hash["name"] = @location.name if @location.name.present?
-      hash["slogan"] = @location.slogan if @location.slogan.present?
-      hash["description"] = strip_tags(@location.description).truncate(300) if @location.description.present?
+      hash["slogan"] = clean_for_schema(@location.slogan) if @location.slogan.present?
+      hash["description"] = clean_for_schema(strip_tags(@location.description).truncate(300)) if @location.description.present?
       hash["email"] = @location.email if @location.email.present?
       hash["telephone"] = @location.phone if @location.phone.present?
       hash["founder"] = schema_org_person_reference(@location.user, host: @host) if @location.user
-      hash["address"] = schema_org_address(@location) if @location.using_address?
+      hash["address"] = schema_org_address(@location)
       hash["geo"] = schema_org_geo(@location) if @location.address_coordinates.present?
       hash["logo"] = @location.avatar_url.presence || asset_url('fallbacks/location_avatar.png')
       hash["image"] = schema_org_images(@location, placeholder: asset_url('meta/og_logo.png'), limit: 5)

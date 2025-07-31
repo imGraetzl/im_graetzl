@@ -10,7 +10,7 @@ module SchemaOrg
       hash = { "@type" => "Person" }
       hash["name"] = [@room_demand.first_name, @room_demand.last_name].compact.join(' ') if @room_demand.first_name || @room_demand.last_name
       hash["image"] = @room_demand.avatar_url.presence || asset_url('meta/og_logo.png')
-      hash["description"] = @room_demand.personal_description if @room_demand.personal_description.present?
+      hash["description"] = clean_for_schema(@room_demand.personal_description) if @room_demand.personal_description.present?
       hash["email"] = @room_demand.email if @room_demand.email.present?
       hash["telephone"] = @room_demand.phone if @room_demand.phone.present?
       hash["url"] = @room_demand.website if @room_demand.website.present?
