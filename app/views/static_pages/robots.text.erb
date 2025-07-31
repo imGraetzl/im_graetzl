@@ -3,7 +3,6 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /users/
-Allow: /users/registrierung
 
 <% if current_region %>
 Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/<%= current_region.id %>/sitemap.xml.gz

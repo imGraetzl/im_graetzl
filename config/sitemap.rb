@@ -190,8 +190,6 @@ Region.all.each do |region|
     add info_datenschutz_path, changefreq: 'never', priority: 0.3
     add info_impressum_path, changefreq: 'never', priority: 0.3
 
-    # Registration (only get paths)
-    add new_registration_path, changefreq: 'never', priority: 0.3
   end
 
   SitemapGenerator::Sitemap.ping_search_engines if Rails.env.production?
