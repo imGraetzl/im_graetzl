@@ -11,7 +11,7 @@ module SchemaOrg
         "@type" => "Offer",
         "@id" => room_offer_url(@room_offer, host: @host),
         "url" => room_offer_url(@room_offer, host: @host),
-        "name" => @room_offer.slogan.presence || "Raum zu vermieten",
+        "name" => clean_for_schema(@room_offer.slogan.presence || "Raum zu vermieten"),
         "availability" => "https://schema.org/InStock",
         "businessFunction" => "http://purl.org/goodrelations/v1#LeaseOut",
         "image" => schema_org_images(@room_offer, placeholder: asset_url('meta/og_logo.png'), limit: 5),
@@ -21,7 +21,7 @@ module SchemaOrg
         "seller" => seller_schema
       }
       if @room_offer.room_description.present?
-        hash["description"] = strip_tags(@room_offer.room_description.bbcode_to_html).truncate(300)
+        hash["description"] = clean_for_schema(strip_tags(@room_offer.room_description.bbcode_to_html).truncate(300))
       end
       hash.compact
     end
