@@ -17,6 +17,7 @@ class MeetingsController < ApplicationController
   def show
     @meeting = Meeting.includes(:user, :graetzl, :location, :participants).find(params[:id])
     return if redirect_to_region?(@meeting)
+    set_schema_org_object(SchemaOrg::Meeting.new(@meeting, host: request.base_url))
     @graetzl = @meeting.graetzl
     @comments = @meeting.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
   end

@@ -38,6 +38,7 @@ class LocationsController < ApplicationController
     end
 
     return if redirect_to_region?(@location)
+    set_schema_org_object(SchemaOrg::Location.new(@location, host: request.base_url))
 
     @graetzl = @location.graetzl
 

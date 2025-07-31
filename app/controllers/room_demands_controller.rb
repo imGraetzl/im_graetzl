@@ -4,6 +4,7 @@ class RoomDemandsController < ApplicationController
   def show
     @room_demand = RoomDemand.find(params[:id])
     return if redirect_to_region?(@room_demand)
+    set_schema_org_object(SchemaOrg::RoomDemand.new(@room_demand, host: request.base_url))
     @comments = @room_demand.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
   end
 
