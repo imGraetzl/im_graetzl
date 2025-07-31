@@ -1,6 +1,26 @@
 module SchemaOrg
   module References
 
+    # Collects up to `limit` image URLs (cover + gallery)
+    def schema_org_images(object, cover_method: :cover_photo_url, images_method: :images, file_method: :file_url, placeholder: nil, limit: 5)
+      images = [object.send(cover_method)].compact
+
+      if object.respond_to?(images_method)
+        images += Array(object.send(images_method)).map { |img| img.send(file_method) if img.respond_to?(file_method) }
+      end
+
+      images << placeholder if images.compact.blank? && placeholder.present?
+      images.compact.uniq.first(limit)
+    end
+
+    # Create Structured Data Reference for GEO-COORDINATES
+    def schema_org_geo(object)
+      hash = { "@type" => "GeoCoordinates" }
+      hash["longitude"] = object.address_coordinates.x if object.address_coordinates.present?
+      hash["latitude"] = object.address_coordinates.y if object.address_coordinates.present?
+      hash
+    end
+
     # Create Structured Data Reference for ADDRESS
     def schema_org_address(object)
       hash = { "@type" => "PostalAddress" }

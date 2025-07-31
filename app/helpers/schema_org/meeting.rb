@@ -15,7 +15,7 @@ module SchemaOrg
       hash["description"] = strip_tags(@meeting.description.bbcode_to_html).truncate(300) if @meeting.description.present?
       hash["startDate"] = iso8601_in_vienna(@meeting.starts_at_date, @meeting.starts_at_time) if @meeting.starts_at_date
       hash["endDate"] = iso8601_in_vienna(@meeting.ends_at_date.presence || @meeting.starts_at_date, @meeting.ends_at_time) if @meeting.ends_at_date || @meeting.starts_at_date
-      hash["image"] = @meeting.cover_photo_url.presence || asset_url('meta/og_logo.png')
+      hash["image"] = schema_org_images(@meeting, placeholder: asset_url('meta/og_logo.png'), limit: 5)
 
       if @meeting.location
         hash["organizer"] = schema_org_location_reference(@meeting.location, host: @host)
@@ -44,11 +44,7 @@ module SchemaOrg
           location_hash["address"] = schema_org_address(@meeting)
         end
         if @meeting.address_coordinates.present?
-          location_hash["geo"] = {
-            "@type" => "GeoCoordinates",
-            "longitude" => @meeting.address_coordinates.x,
-            "latitude" => @meeting.address_coordinates.y
-          }
+          location_hash["geo"] = schema_org_geo(@meeting)
         end
         hash["location"] = location_hash
       end
