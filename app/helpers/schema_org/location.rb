@@ -15,34 +15,17 @@ module SchemaOrg
       hash["description"] = strip_tags(@location.description).truncate(300) if @location.description.present?
       hash["email"] = @location.email if @location.email.present?
       hash["telephone"] = @location.phone if @location.phone.present?
-      hash["address"] = schema_org_address(@location) if @location.using_address?
-      hash["logo"] = @location.avatar_url.presence || asset_url('fallbacks/location_avatar.png')
       hash["founder"] = schema_org_person_reference(@location.user, host: @host) if @location.user
+      hash["address"] = schema_org_address(@location) if @location.using_address?
+      hash["geo"] = schema_org_geo(@location) if @location.address_coordinates.present?
+      hash["logo"] = @location.avatar_url.presence || asset_url('fallbacks/location_avatar.png')
+      hash["image"] = schema_org_images(@location, placeholder: asset_url('meta/og_logo.png'), limit: 5)
 
       keywords = []
       keywords << @location.location_category&.name if @location.location_category&.name.present?
       keywords += @location.products.pluck(:name) if @location.products.present?
       keywords = keywords.compact.reject(&:blank?).uniq
       hash["keywords"] = keywords.join(", ") if keywords.any?
-
-      images = []
-      images << @location.cover_photo_url if @location.cover_photo_url.present?
-      if @location.images.respond_to?(:each)
-        @location.images.each do |img|
-          img_url = img.file_url if img.respond_to?(:file_url)
-          images << img_url if img_url.present? && !images.include?(img_url)
-        end
-      end
-      images << asset_url('meta/og_logo.png') if images.empty?
-      hash["image"] = images.size == 1 ? images.first : images
-
-      if @location.address_coordinates.present?
-        hash["geo"] = {
-          "@type" => "GeoCoordinates",
-          "longitude" => @location.address_coordinates.x,
-          "latitude" => @location.address_coordinates.y
-        }
-      end
 
       if @location.upcoming_meetings.any?
         hash["event"] = @location.upcoming_meetings

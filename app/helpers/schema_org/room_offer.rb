@@ -14,7 +14,7 @@ module SchemaOrg
         "name" => @room_offer.slogan.presence || "Raum zu vermieten",
         "availability" => "https://schema.org/InStock",
         "businessFunction" => "http://purl.org/goodrelations/v1#LeaseOut",
-        "image" => collect_images,
+        "image" => schema_org_images(@room_offer, placeholder: asset_url('meta/og_logo.png'), limit: 5),
         "potentialAction" => potential_action,
         "priceSpecification" => price_specs,
         "itemOffered" => room_schema,
@@ -27,15 +27,6 @@ module SchemaOrg
     end
 
     private
-
-    def collect_images
-      images = [@room_offer.cover_photo_url].compact
-      if @room_offer.images.respond_to?(:each)
-        @room_offer.images.each { |img| images << img.file_url if img.respond_to?(:file_url) }
-      end
-      images << asset_url('meta/og_logo.png') if images.compact.blank?
-      images.compact.uniq
-    end
 
     def potential_action
       if @room_offer.rental_enabled?
@@ -100,23 +91,31 @@ module SchemaOrg
       room = {
         "@type" => "Room",
         "name" => @room_offer.slogan.presence || "Raum zu vermieten",
-        "image" => collect_images,
+        "image" => schema_org_images(@room_offer, placeholder: asset_url('meta/og_logo.png'), limit: 5),
         "address" => schema_org_address(@room_offer)
       }
+
+      if @room_offer.address_coordinates.present?
+        room["geo"] = schema_org_geo(@room_offer)
+      end
+
       if @room_offer.room_description.present?
         room["description"] = strip_tags(@room_offer.room_description.bbcode_to_html).truncate(200)
       end
+
       # Ausstattung
       if @room_offer.keyword_list.present?
         room["amenityFeature"] = @room_offer.keyword_list.map do |keyword|
           { "@type" => "LocationFeatureSpecification", "name" => keyword }
         end
       end
+
       # Categories als permittedUsage
       if @room_offer.room_categories.present?
         usages = @room_offer.room_categories.map(&:name).reject(&:blank?).uniq
         room["permittedUsage"] = usages if usages.any?
       end
+      
       # OpeningHoursSpecification
       if @room_offer.room_offer_availability.present?
         availability = @room_offer.room_offer_availability
