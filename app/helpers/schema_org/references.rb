@@ -92,7 +92,13 @@ module SchemaOrg
       hash = { "@type" => "LocalBusiness" }
       hash["@id"]  = graetzl_location_url(location.graetzl, location, host: host)
       hash["url"]  = graetzl_location_url(location.graetzl, location, host: host)
-      hash["name"] = clean_for_schema(location.name)
+      hash["name"] = clean_for_schema(location.name) if location.name.present?
+      hash["slogan"] = clean_for_schema(location.slogan) if location.slogan.present?
+      hash["description"] = clean_for_schema(strip_tags(location.description).truncate(150)) if location.description.present?
+      hash["email"] = location.email if location.email.present?
+      hash["telephone"] = location.phone if location.phone.present?
+      hash["address"] = schema_org_address(location)
+      hash["geo"] = schema_org_geo(location) if location.address_coordinates.present?
       hash["image"] = location.cover_photo_url || asset_url('meta/og_logo.png')
       hash
     end
