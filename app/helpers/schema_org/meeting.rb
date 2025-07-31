@@ -8,7 +8,7 @@ module SchemaOrg
 
     def to_schema
       hash = { "@type" => "Event" }
-      hash["@id"] = graetzl_location_url(@meeting.graetzl, @meeting, host: @host)
+      hash["@id"] = graetzl_meeting_url(@meeting.graetzl, @meeting, host: @host)
       hash["url"] = graetzl_meeting_url(@meeting.graetzl, @meeting, host: @host)
       hash["eventStatus"] = "https://schema.org/EventScheduled"
       hash["name"] = clean_for_schema(@meeting.name) if @meeting.name.present?
