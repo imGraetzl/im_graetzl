@@ -16,9 +16,12 @@ APP.controllers.home = (function() {
         $.ajax({
           type: "POST",
           url: "/geolocation",
-          data: position.coords
-          //data: testcoords
-        })
+          data: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          }
+        });
       }
 
       function errorPosition(error) {
