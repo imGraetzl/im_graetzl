@@ -128,6 +128,9 @@ GEM
     bigdecimal (3.2.2)
     browser (6.2.0)
     builder (3.3.0)
+    bullet (8.0.8)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     capybara (3.40.0)
       addressable
       matrix
@@ -522,6 +525,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     underscore-rails (1.8.3)
+    uniform_notifier (1.17.0)
     uri (1.0.3)
     useragent (0.16.11)
     warden (1.2.9)
@@ -554,6 +558,7 @@ DEPENDENCIES
   aws-sdk-s3 (~> 1)
   bb-ruby
   browser
+  bullet
   capybara
   caxlsx
   caxlsx_rails

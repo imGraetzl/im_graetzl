@@ -17,11 +17,19 @@
   </div>
 <% elsif current_region.is?('wien') %>
   <div id="betaflash">
+    Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_url %>!
+    <%= link_to 'javascript:', class: 'close-ico' do %>
+      <%= icon_tag "cross" %>
+    <% end %>
+  </div>
+  <!--
+  <div id="betaflash">
     Jeden Mittwoch - <%= link_to 'Crowdfunding Sprechstunde!', '/crowdfunding' %>
     <%= link_to 'javascript:', class: 'close-ico' do %>
       <%= icon_tag "cross" %>
     <% end %>
   </div>
+  -->
 <% end %>
 
 <section class="homeRegion">

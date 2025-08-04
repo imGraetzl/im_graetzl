@@ -66,4 +66,11 @@ Rails.application.configure do
   # File Watcher
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true           # Popup im Browser
+    Bullet.bullet_logger = true   # log/bullet.log
+    Bullet.rails_logger = true    # Zeigt es im Rails-Log
+  end
+
 end
