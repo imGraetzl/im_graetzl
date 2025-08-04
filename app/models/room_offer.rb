@@ -63,7 +63,7 @@ class RoomOffer < ApplicationRecord
   end
 
   def self.include_for_box
-    includes(:user, :room_rental_price)
+    includes(:room_rental_price)
   end
 
   def to_s
