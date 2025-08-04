@@ -95,7 +95,12 @@ class Zuckerl < ApplicationRecord
   
 
   def self.include_for_box
-    includes(location: [:location_category])
+    includes(
+      location: [
+        :location_category,
+        :graetzl
+      ]
+    )
   end
 
   def self.random(n)
