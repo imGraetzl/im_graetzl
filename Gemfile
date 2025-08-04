@@ -74,6 +74,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'foreman', require: false
   gem 'faker'
+  gem 'bullet'
 end
 
 group :test do
