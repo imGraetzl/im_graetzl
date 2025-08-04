@@ -62,6 +62,10 @@ class RoomOffer < ApplicationRecord
     created_at
   end
 
+  def self.include_for_box
+    includes(:user, :room_rental_price)
+  end
+
   def to_s
     slogan
   end
