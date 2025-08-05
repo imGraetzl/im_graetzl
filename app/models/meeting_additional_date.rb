@@ -1,12 +1,11 @@
 class MeetingAdditionalDate < ApplicationRecord
-  belongs_to :meeting
+  belongs_to :meeting, counter_cache: true
   has_many :going_tos
   has_many :users, through: :going_tos
 
   after_update :update_going_tos
   before_destroy :check_for_going_tos, prepend: true
 
-  #scope :upcoming, -> { where("starts_at_date >= :today", today: Date.today).order(starts_at_date: :asc, starts_at_time: :asc)}
   scope :upcoming, -> { order(starts_at_date: :asc, starts_at_time: :asc)}
 
   def display_starts_at_date
@@ -21,22 +20,22 @@ class MeetingAdditionalDate < ApplicationRecord
 
   private
 
-    def check_for_going_tos
-      # Reset GoingTos if Future Date will be deleted
-      if self.starts_at_date >= Date.today
-        self.going_tos.update_all(
-          going_to_date: nil,
-          going_to_time: nil
-        )
-      end
-    end
-
-    def update_going_tos
-      #May send Reminder Mail here for existing GoingTos forDate Change ?!
+  def check_for_going_tos
+    # Reset GoingTos if Future Date will be deleted
+    if self.starts_at_date >= Date.today
       self.going_tos.update_all(
-        going_to_date: self.starts_at_date,
-        going_to_time: self.starts_at_time
+        going_to_date: nil,
+        going_to_time: nil
       )
     end
+  end
+
+  def update_going_tos
+    #May send Reminder Mail here for existing GoingTos forDate Change ?!
+    self.going_tos.update_all(
+      going_to_date: self.starts_at_date,
+      going_to_time: self.starts_at_time
+    )
+  end
 
 end

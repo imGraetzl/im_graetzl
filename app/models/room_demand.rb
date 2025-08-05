@@ -41,7 +41,7 @@ class RoomDemand < ApplicationRecord
   end
 
   def self.include_for_box
-    includes(:room_categories)
+    preload(:room_categories)
   end
 
   def to_s

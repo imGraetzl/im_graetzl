@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_05_210450) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_05_103325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -371,6 +371,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_05_210450) do
     t.decimal "crowd_pledges_finalized_sum", precision: 10, scale: 2
     t.decimal "crowd_boost_pledges_finalized_sum", precision: 10, scale: 2
     t.integer "pledges_and_donations_finalized_count"
+    t.integer "crowd_donation_pledges_count", default: 0, null: false
     t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_crowd_campaigns_on_last_activity_at"
@@ -992,6 +993,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_05_210450) do
     t.bigint "poll_id"
     t.boolean "entire_region", default: false, null: false
     t.integer "max_going_tos"
+    t.integer "meeting_additional_dates_count", default: 0, null: false
     t.index ["address_id"], name: "index_meetings_on_address_id"
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"

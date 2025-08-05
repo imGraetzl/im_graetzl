@@ -4,11 +4,11 @@ class RoomsController < ApplicationController
   def index
     head :ok and return if browser.bot? && !request.format.js?
 
-    room_offers = room_offers_scope.in(current_region).includes(:user)
+    room_offers = room_offers_scope.in(current_region).include_for_box
     room_offers = filter_offers(room_offers).by_currentness
     room_offers = room_offers.where.not(id: params[:exclude_room_offer].to_i) if params[:exclude_room_offer]
 
-    room_demands = room_demands_scope.in(current_region).includes(:user, :room_categories)
+    room_demands = room_demands_scope.in(current_region).include_for_box
     room_demands = filter_demands(room_demands).by_currentness
 
     # Beide Arrays in Ruby mischen und nach last_activated_at sortieren

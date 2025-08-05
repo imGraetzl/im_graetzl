@@ -49,7 +49,7 @@
           <% else %>
             <%= I18n.localize(@notification.meeting.starts_at_date, format:'%A %d. %B') %>
             <% if @notification.meeting.meeting_additional_dates.present? %>
-              (+ <%= @notification.meeting.meeting_additional_dates.count %> weitere Termine)
+              (+ <%= @notification.meeting.meeting_additional_dates_count %> weitere Termine)
             <% end %>
           <% end %>
         </em>

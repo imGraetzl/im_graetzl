@@ -54,11 +54,9 @@ class Location < ApplicationRecord
 
   def self.include_for_box
     preload(
-      :user,
       :location_category,
       :latest_live_zuckerl,
       :next_upcoming_meeting,
-      :location_menus,
       :location_posts
     )
   end

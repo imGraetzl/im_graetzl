@@ -72,11 +72,11 @@ class ActivitySample
   def rooms
     @rooms ||= begin
       offers = if @graetzl
-        @graetzl.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
+        @graetzl.room_offers.in(@current_region).enabled.include_for_box.by_currentness.limit(2).to_a
       elsif @district
-        @district.room_offers.in(@current_region).enabled.by_currentness.limit(2).to_a
+        @district.room_offers.in(@current_region).enabled.include_for_box.by_currentness.limit(2).to_a
       else
-        RoomOffer.in(@current_region).enabled.by_currentness.limit(2).to_a
+        RoomOffer.in(@current_region).enabled.include_for_box.by_currentness.limit(2).to_a
       end
 
       demands = if @graetzl

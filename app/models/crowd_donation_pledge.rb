@@ -1,7 +1,7 @@
 class CrowdDonationPledge < ApplicationRecord
   include Trackable
   belongs_to :user, optional: true
-  belongs_to :crowd_campaign
+  belongs_to :crowd_campaign, counter_cache: true
   belongs_to :crowd_donation
 
   enum donation_type: { material: 0, assistance: 1 , room: 2 }
