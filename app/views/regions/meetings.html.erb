@@ -46,7 +46,7 @@
 
     <!-- Insert Featured Card -->
     <% if current_region.is?('wien') %>
-      <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).active.sample if Subscription.in(current_region).active.any? %>
+      <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).includes(:user).active.sample if Subscription.in(current_region).active.any? %>
       <%# render 'shared/featured_cards/good_morning_dates' %>
     <% end %>
 

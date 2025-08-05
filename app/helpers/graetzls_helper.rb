@@ -13,7 +13,18 @@ module GraetzlsHelper
   end
 
   def graetzl_select_options
-    current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id, 'data-district-id' => g.district&.id] }
+    graetzls = current_region.graetzls
+
+    # Preload Districts - Immer eine Relation, außer explizit ein Array (dann Preloader nutzen)
+    if current_region.use_districts?
+      if graetzls.is_a?(Array)
+        ActiveRecord::Associations::Preloader.new(records: graetzls, associations: :districts).call
+      else
+        graetzls = graetzls.includes(:districts)
+      end
+    end
+
+    graetzls.sort_by(&:zip_name).map { |g| [g.zip_name, g.id, 'data-district-id' => g.district&.id] }
   end
 
   def compact_graetzl_list(graetzls)

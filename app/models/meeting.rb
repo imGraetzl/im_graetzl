@@ -75,7 +75,7 @@ class Meeting < ApplicationRecord
   after_create :update_location_activity
 
   def self.include_for_box(with_attendees = false)
-    scope = preload(:user, :graetzl, location: :user)
+    scope = preload(:user, location: :user)
     with_attendees ? scope.preload(:attendees) : scope
   end
 
