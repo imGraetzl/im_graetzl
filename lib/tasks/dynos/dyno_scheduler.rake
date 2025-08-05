@@ -50,7 +50,7 @@ namespace :dyno do
       if ENV.fetch('DYNO_SCALE_ENABLED', 'true').downcase == 'true'
         # if day_of_week == 'Tuesday' && hour >= 6 && hour < 18
         # if %w[Monday Tuesday Wednesday Thursday Friday].include?(day_of_week) && hour >= 6 && hour < 22
-        if hour >= 6 && hour < 22
+        if hour >= 6 && hour < 23
           scale_dyno(heroku, 'web', 'Standard-2X', 2)
         else
           scale_dyno(heroku, 'web', 'Standard-2X', 1)

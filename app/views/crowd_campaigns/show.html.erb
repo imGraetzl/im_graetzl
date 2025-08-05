@@ -84,11 +84,10 @@
     </div>
   </div>
 
-  <% pledges_count = (@crowd_campaign.boostable? && @crowd_campaign&.crowd_boost_slot&.closed?) ? 3 : 4 %>
-  <div class="last-supporters-container <%= "items-#{pledges_count}" %>">
-    <% if @crowd_campaign.crowd_pledges.initialized.visible.exists? %>
-      <div class="last-supporters <%= "items-#{pledges_count}" %>">
-        <% @crowd_campaign.crowd_pledges.initialized.visible.order(created_at: :desc).first(pledges_count).each do |crowd_pledge| %>
+  <div class="last-supporters-container <%= "items-#{@last_pledges_count}" %>">
+    <% if @last_pledges.any? %>
+      <div class="last-supporters <%= "items-#{@last_pledges_count}" %>">
+        <% @last_pledges.each do |crowd_pledge| %>
           <div class="supporter">
             <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
             <div class="name">
@@ -99,7 +98,7 @@
         <% end %>
       </div>
     <% end %>
-    <% if pledges_count == 3 %>
+    <% if @last_pledges_count == 3 %>
       <div class="last-boosters">
         <div class="supporter">
           <div class="img-booster <%= @crowd_campaign.boosted? ? 'boosted' : '' %>">
@@ -125,11 +124,11 @@
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
         <li class="active"><a href="#tab-info"><h3>Über das Projekt</h3></a></li>
-        <% if current_user == @crowd_campaign.user || @crowd_campaign.crowd_campaign_posts.present? %>
-          <li><a href="#tab-posts"><h3>Projekt Updates</h3> <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
+        <% if current_user == @crowd_campaign.user || @posts_count > 0 %>
+          <li><a href="#tab-posts"><h3>Projekt Updates</h3> <small><%= @posts_count %></small></a></li>
         <% end %>
-        <li><a href="#tab-comments"><h3>Pinnwand</h3> <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
-        <li><a href="#tab-supporters"><h3>Unterstützer*innen</h3><% if @crowd_campaign.pledges_and_donations_count > 0 %><small><%= @crowd_campaign.pledges_and_donations_count %></small><% end %></a></li>
+        <li><a href="#tab-comments"><h3>Pinnwand</h3> <% if @comments_count > 0 %><small><%= @comments_count %></small><% end %></a></li>
+        <li><a href="#tab-supporters"><h3>Unterstützer*innen</h3><% if @supporters_count > 0 %><small><%= @supporters_count %></small><% end %></a></li>
         <% if current_user == @crowd_campaign.user && (@crowd_campaign.funding? || @crowd_campaign.completed?) %>
           <li><a href="#tab-compose-mail"><h3>E-Mail senden</h3></a></li>
         <% end %>

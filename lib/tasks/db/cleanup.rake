@@ -66,9 +66,9 @@ namespace :db do
       Meeting.reset_counters(meeting.id, :meeting_additional_dates)
     end
 
-    Group.find_each do |group|
-      Group.reset_counters(group.id, :group_users)
-    end
+    #Group.find_each do |group|
+    #  Group.reset_counters(group.id, :group_users)
+    #end
 
     PollOption.find_each do |option|
       PollOption.reset_counters(option.id, :poll_user_answers)

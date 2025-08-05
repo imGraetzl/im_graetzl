@@ -37,6 +37,17 @@ class CrowdCampaignsController < ApplicationController
     return if redirect_to_region?(@crowd_campaign)
     @crowd_pledges = @crowd_campaign.crowd_pledges
     @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges
+    @last_pledges_count = (@crowd_campaign.boostable? && @crowd_campaign.scope_public?) ? 3 : 4
+    @last_pledges = @crowd_campaign.crowd_pledges
+      .initialized
+      .visible
+      .order(created_at: :desc)
+      .limit(@last_pledges_count)
+      .includes(:user)
+    @posts_count = @crowd_campaign.crowd_campaign_posts.size
+    @comments_count = @crowd_campaign.comments.size
+    @supporters_count = @crowd_campaign.pledges_and_donations_count
+    @images = @crowd_campaign.images.to_a
     @preview = params[:preview] == 'true' ?  true : false
     show_status_message?
   end
