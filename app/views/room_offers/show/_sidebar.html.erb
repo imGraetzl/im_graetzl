@@ -145,13 +145,13 @@
   <% end %>
 
   <!-- OTHER PRICING -->
-  <% if @room_offer.room_offer_prices.present? %>
+  <% if @room_offer_prices.any? %>
     <div class="sideBarbox -pricing">
       <h3 class="sidebar -pakete">Raumteiler Pakete</h3>
       <div class="iconlist">
         <div class="pricing icontxt">
           <ul class="pricing-list">
-            <% @room_offer.room_offer_prices.order(:amount).each do |price| %>
+            <% @room_offer_prices.each do |price| %>
               <li>
                 <% if price.amount %><div class="cost"><%= price.amount ? "%g €" % price.amount : '' %></div><% end %>
                 <div class="costname"><%= price.name %></div>

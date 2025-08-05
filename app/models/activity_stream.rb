@@ -9,7 +9,8 @@ class ActivityStream
       activities = activities.where(group_id: nil)
     end
 
-    activities = activities.includes(:subject, :child).order(id: :desc)
+    # activities = activities.includes(:subject, :child).order(id: :desc)
+    activities = activities.includes(subject: :user, child: :user).order(id: :desc)
     activities
   end
 end

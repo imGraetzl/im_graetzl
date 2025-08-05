@@ -6,6 +6,7 @@ class RoomOffersController < ApplicationController
     return if redirect_to_region?(@room_offer)
     set_schema_org_object(SchemaOrg::RoomOffer.new(@room_offer, host: request.base_url))
     @comments = @room_offer.comments.includes(:user, :images, comments: [:user, :images]).order(created_at: :desc)
+    @room_offer_prices = @room_offer.room_offer_prices.order(:amount).to_a
   end
 
   def select
