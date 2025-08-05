@@ -11,6 +11,10 @@ class Comment < ApplicationRecord
 
   after_create :set_last_activity
 
+  def self.include_for_box
+    preload(:user, :commentable)
+  end
+
   def edit_permission?(by_user)
     by_user && (by_user.admin? || user_id == by_user.id || commentable == by_user)
   end

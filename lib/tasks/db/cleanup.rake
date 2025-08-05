@@ -58,6 +58,14 @@ namespace :db do
 
     # Reset & Update all Counter Caches to keep in Sync
 
+    CrowdCampaign.funding.find_each do |campaign|
+      CrowdCampaign.reset_counters(campaign.id, :crowd_donation_pledges)
+    end
+
+    Meeting.upcoming.find_each do |meeting|
+      Meeting.reset_counters(meeting.id, :meeting_additional_dates)
+    end
+
     Group.find_each do |group|
       Group.reset_counters(group.id, :group_users)
     end

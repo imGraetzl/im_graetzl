@@ -172,7 +172,7 @@ class CrowdCampaign < ApplicationRecord
       pledges_and_donations_finalized_count
     else
       @pledges_and_donations_count ||= (
-        crowd_pledges.initialized.count + crowd_donation_pledges.count
+        crowd_pledges.initialized.count + crowd_donation_pledges_count
       )
     end
   end

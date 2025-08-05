@@ -18,6 +18,8 @@ class ActivitiesController < ApplicationController
     @activities = ActivityStream.new.fetch(current_region, current_user, graetzl_ids)
     @activities = @activities.page(params[:page]).per(12)
 
+    ActivityEagerLoader.eager_load_children_and_subjects(@activities)
+
     if params[:page].blank?
       @activities_with_zuckerls = insert_zuckerls(@activities, graetzl_ids)
     end
