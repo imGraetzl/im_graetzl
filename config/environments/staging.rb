@@ -4,6 +4,22 @@ Rails.application.configure do
   # --- Security & Performance ---
   config.middleware.insert_before 0, Rack::Attack
 
+   # Use a different logger for distributed setups.
+  # require "syslog/logger"
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+
+  # --- Logging ---
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger = ActiveSupport::Logger.new(STDOUT)
+    logger.level = Logger::INFO
+    logger.formatter = proc do |severity, datetime, progname, msg|
+      "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
+    end
+    config.logger = logger
+  end
+
+  config.log_level = :info
+
   # --- App-spezifisch ---
   config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
   config.imgraetzl_host = "staging.imgraetzl.at"
@@ -93,22 +109,6 @@ Rails.application.configure do
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
-
-  # Use a different logger for distributed setups.
-  # require "syslog/logger"
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
-  # --- Logging ---
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.level = Logger::INFO
-    logger.formatter = proc do |severity, datetime, progname, msg|
-      "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
-    end
-    config.logger = logger
-  end
-
-  config.log_level = :info
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
