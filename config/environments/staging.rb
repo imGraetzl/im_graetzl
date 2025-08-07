@@ -100,11 +100,14 @@ Rails.application.configure do
 
   # --- Logging ---
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    config.logger = Logger.new(STDOUT)
-    config.logger.level = Logger::INFO
-    config.logger.formatter = proc do |severity, datetime, progname, msg|
+    stdout_logger = ActiveSupport::Logger.new(STDOUT)
+    stdout_logger.level = Logger::INFO
+    stdout_logger.formatter = proc do |severity, datetime, progname, msg|
       "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
     end
+    
+    config.logger = stdout_logger
+    config.broadcast_logs = false  # Das ist der wichtige Teil für Rails 7!
   end
 
   config.log_level = :info
