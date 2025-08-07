@@ -53,19 +53,19 @@ namespace :scheduled do
   desc 'Send Good Morning Date Invite'
   task good_morning_date_invite: :environment do
 
-    # Temporär deaktiviert am 2025-06-30 – Michael
-    if false
-      region = Region.get('wien')
-      category = EventCategory.find_by!(slug: 'good-morning-dates')
-      meetings = Meeting.joins(:event_categories).where(event_categories: {id: category&.id})
+    # Temporär deaktivieren mit if false
+    # if false
+    # end
+    region = Region.get('wien')
+    category = EventCategory.find_by!(slug: 'good-morning-dates')
+    meetings = Meeting.joins(:event_categories).where(event_categories: {id: category&.id})
 
-      meetings.in(region).where(starts_at_date: 21.days.from_now).find_each do |meeting|
-        # User.confirmed.in(region).where(newsletter: true).joins(:favorite_graetzls).where(favorite_graetzls: {id: meeting.graetzl.id}).or(User.confirmed.where(newsletter: true).where(graetzl_id: meeting.graetzl.id)).distinct.find_each do |user|
-        # next if meeting.id == 17614
-        User.confirmed.in(region).where(newsletter: true).joins(:districts).where(districts: {id: meeting.graetzl.district.id}).find_each do |user|
-          next if meeting.users.include?(user)
-          MeetingMailer.good_morning_date_invite(user, meeting).deliver_later
-        end
+    meetings.in(region).where(starts_at_date: 21.days.from_now).find_each do |meeting|
+      # User.confirmed.in(region).where(newsletter: true).joins(:favorite_graetzls).where(favorite_graetzls: {id: meeting.graetzl.id}).or(User.confirmed.where(newsletter: true).where(graetzl_id: meeting.graetzl.id)).distinct.find_each do |user|
+      # next if meeting.id == 17614
+      User.confirmed.in(region).where(newsletter: true).joins(:districts).where(districts: {id: meeting.graetzl.district.id}).find_each do |user|
+        next if meeting.users.include?(user)
+        MeetingMailer.good_morning_date_invite(user, meeting).deliver_later
       end
     end
 
