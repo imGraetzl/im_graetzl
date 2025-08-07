@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  # Skip CSRF für Asset-Requests
+  skip_forgery_protection if: -> { request.path.start_with?('/assets/') }
+  
   before_action :set_sentry_user_context
 
   # hide staging app from public
