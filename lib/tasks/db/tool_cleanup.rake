@@ -2,7 +2,6 @@
 namespace :cleanup do
   desc "Entfernt alle Tool-Datenmodelle inklusive Bilder via .destroy. Mit DRY_RUN=true nur Simulation."
   task remove_tool_data: :environment do
-    Rails.logger = Logger.new(STDOUT)
     logger = Rails.logger
 
     dry_run = ENV["DRY_RUN"] == "true"
