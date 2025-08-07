@@ -1,7 +1,18 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  
   # --- Logging ---
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger = Logger.new(STDOUT)
+    logger.level = Logger::DEBUG
+    logger.formatter = proc do |severity, datetime, progname, msg|
+      "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
+    end
+
+    Rails.logger = logger
+    config.logger = logger
+  end
   config.log_level = :info
 
   # --- Security & Performance ---
