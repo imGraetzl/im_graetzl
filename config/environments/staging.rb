@@ -105,7 +105,7 @@ Rails.application.configure do
     logger.formatter = proc do |severity, datetime, progname, msg|
       "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
     end
-    Rails.logger = logger
+    config.logger = logger
   end
 
   config.log_level = :info
