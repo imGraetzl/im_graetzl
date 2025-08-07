@@ -1,5 +1,7 @@
 class ErrorsController < ApplicationController
 
+  skip_forgery_protection
+
   def not_found
     respond_to do |format|
       format.html { render 'errors/not_found', status: 404 }
