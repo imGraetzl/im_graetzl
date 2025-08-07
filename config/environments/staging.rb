@@ -99,17 +99,13 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # --- Logging ---
-  config.log_level = :info
-  config.log_tags = [:request_id]
-
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = Logger.new(STDOUT)
+    config.logger.level = Logger::INFO
+    config.logger.formatter = proc do |severity, datetime, progname, msg|
+      "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
+    end
   end
-
-  # Formatter NACH dem if-Block:
-  config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
