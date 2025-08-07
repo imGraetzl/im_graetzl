@@ -40,4 +40,11 @@ class Rack::Attack
     }ix
   end
 
+  ### Blockiere .js/.css außerhalb von erlaubten Pfaden
+  blocklist('block js/css outside allowed paths') do |req|
+    req.path =~ /\.(js|css)$/ && 
+    !req.path.start_with?('/assets/') && 
+    !req.path.start_with?('/static-assets/')
+  end
+
 end

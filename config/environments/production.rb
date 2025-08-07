@@ -89,10 +89,6 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation = :log
   config.active_support.disallowed_deprecation_warnings = []
 
-  # --- Logging Formatter ---
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
-
   # --- Schema ---
   config.active_record.dump_schema_after_migration = false
 
