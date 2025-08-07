@@ -163,12 +163,10 @@ class ApplicationController < ActionController::Base
   def test_logging
     puts "[PUTS] Web request test"
     STDOUT.puts "[STDOUT] Web request test"
-    
-    # Standard Ruby Logger Test:
     logger = Logger.new(STDOUT)
     logger.info "[RUBY LOGGER] Web request test"
-    
     Rails.logger.info "[RAILS.LOGGER] Web request test"
+    logger.info "[LOGGER] Web request test"
   end
 
 end

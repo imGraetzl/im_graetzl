@@ -1,23 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-
-  # Use a different logger for distributed setups.
-  # require "syslog/logger"
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
   # --- Logging ---
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.level = Logger::INFO
-    logger.formatter = proc do |severity, datetime, progname, msg|
-      "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
-    end
-    config.logger = logger
-    Rails.logger = logger
-  end
-
-  config.broadcast_logs = false
   config.log_level = :info
 
   # --- Security & Performance ---
