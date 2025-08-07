@@ -1,10 +1,8 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # --- Security & Performance ---
-  config.middleware.insert_before 0, Rack::Attack
 
-   # Use a different logger for distributed setups.
+  # Use a different logger for distributed setups.
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
@@ -16,9 +14,13 @@ Rails.application.configure do
       "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
     end
     config.logger = logger
+    Rails.logger = logger
   end
 
   config.log_level = :info
+
+  # --- Security & Performance ---
+  config.middleware.insert_before 0, Rack::Attack
 
   # --- App-spezifisch ---
   config.stripe_default_tax_rates = "txr_1NzlODESnSu3ZRERf9VJorBc"
