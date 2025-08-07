@@ -107,6 +107,8 @@ Rails.application.configure do
     end
   end
 
+  config.log_level = :info
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
