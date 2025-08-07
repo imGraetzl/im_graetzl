@@ -1,7 +1,9 @@
 <div class="filter-areas" data-filter-label="Grätzl / Bezirk">
   <% if current_region.use_districts? && local_assigns[:graetzl] %>
+  <!-- uncheck graetzl if district is checked (vienna) -->
+  <% checked = !local_assigns[:district] %>
     <div class="input-checkbox filter-input-graetzl">
-      <%= check_box_tag "select-home-graetzl", local_assigns[:graetzl].id, true, data: { label: local_assigns[:graetzl].name} %>
+      <%= check_box_tag "select-home-graetzl", local_assigns[:graetzl].id, checked, data: { label: local_assigns[:graetzl].name} %>
       <%= label_tag "select-home-graetzl", local_assigns[:graetzl].name %>
     </div>
   <% end %>

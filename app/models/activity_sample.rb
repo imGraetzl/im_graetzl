@@ -6,8 +6,20 @@ class ActivitySample
   end
 
   def meetings
+    #scope = if @graetzl
+    #  @graetzl.meetings
+    #elsif @district
+    #  @district.meetings
+    #else
+    #  Meeting
+    #end
+    # User Meetings from whole region or whole district
     scope = if @graetzl
-      @graetzl.meetings
+      if @current_region.use_districts?
+        @graetzl.district.meetings
+      else
+        Meeting
+      end
     elsif @district
       @district.meetings
     else
