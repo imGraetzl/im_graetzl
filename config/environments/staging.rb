@@ -37,7 +37,7 @@ Rails.application.configure do
   config.asset_host = 'https://assets-staging-app.welocally.at'
 
   # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  config.assets.quiet = false
 
   config.assets.unknown_asset_fallback = false
 
