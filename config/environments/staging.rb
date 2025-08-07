@@ -3,17 +3,17 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   
   # --- Logging ---
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = Logger.new(STDOUT)
-    logger.level = Logger::DEBUG
-    logger.formatter = proc do |severity, datetime, progname, msg|
-      "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} #{severity}: #{msg}\n"
-    end
-
-    Rails.logger = logger
-    config.logger = logger
-  end
   config.log_level = :info
+  config.log_tags = [:request_id]
+
+  # Empfohlen: Standard-Logger (so wenig PII wie möglich)
+  config.log_formatter = ::Logger::Formatter.new
+
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
 
   # --- Security & Performance ---
   config.middleware.insert_before 0, Rack::Attack
