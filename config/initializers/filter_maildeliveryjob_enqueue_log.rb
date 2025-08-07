@@ -1,4 +1,5 @@
-if Rails.env.production? || Rails.env.staging? || Rails.env.development?
+# if Rails.env.production? || Rails.env.staging? || Rails.env.development?
+if false # Temporarily disable this initializer
   require "active_job/log_subscriber"
 
   # Rails-Standard-Subscriber entfernen
