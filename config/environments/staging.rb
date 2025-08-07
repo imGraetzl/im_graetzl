@@ -39,6 +39,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.assets.unknown_asset_fallback = false
+
   # This will affect assets served from /app/assets
   config.static_cache_control = 'public, max-age=31536000'
 
