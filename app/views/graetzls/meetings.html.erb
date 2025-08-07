@@ -39,8 +39,10 @@
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">
       <% if @graetzl.id == current_user&.graetzl_id %>
         <%= render 'filters/areas', favorites: current_user %>
+      <% elsif current_region.use_districts? %>
+        <%= render 'filters/areas', district: @graetzl.district, graetzl: @graetzl %>
       <% else %>
-        <%= render 'filters/areas', graetzl: @graetzl %>
+        <%= render 'filters/areas', entire_region: true %>
       <% end %>
     </div>
   <% end %>
