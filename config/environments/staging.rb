@@ -4,16 +4,13 @@ Rails.application.configure do
   
   # --- Logging ---
   config.log_level = :info
-  config.log_tags = [:request_id]
-
-  # Empfohlen: Standard-Logger (so wenig PII wie möglich)
+  config.log_tags  = [:request_id]
   config.log_formatter = ::Logger::Formatter.new
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  end
+  # Erzwinge STDOUT immer (unabhängig von ENV)
+  stdout_logger           = ActiveSupport::Logger.new(STDOUT)
+  stdout_logger.formatter = config.log_formatter
+  config.logger           = ActiveSupport::TaggedLogging.new(stdout_logger)
 
   # --- Security & Performance ---
   config.middleware.insert_before 0, Rack::Attack
