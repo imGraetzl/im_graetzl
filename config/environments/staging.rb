@@ -17,6 +17,7 @@ Rails.application.configure do
     Rails.logger = logger
   end
 
+  config.broadcast_logs = false
   config.log_level = :info
 
   # --- Security & Performance ---
