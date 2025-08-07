@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception  
   before_action :set_sentry_user_context
 
+  before_action :test_logging, only: [:index]
+
   # hide staging app from public
   before_action :maybe_authenticate
 
@@ -101,6 +103,8 @@ class ApplicationController < ActionController::Base
 
   private
 
+  
+
   def guest_login_authentication_key(key)
     key &&= nil unless key.to_s.match(/^guest/)
     key ||= "guest_" + 9.times.map { SecureRandom.rand(0..9) }.join
@@ -154,6 +158,12 @@ class ApplicationController < ActionController::Base
       ActiveSupport::SecurityUtils.secure_compare(name, username) &&
         ActiveSupport::SecurityUtils.secure_compare(pass, password)
     end
+  end
+
+  def test_logging
+    puts "[PUTS] Web request test"
+    STDOUT.puts "[STDOUT] Web request test" 
+    Rails.logger.info "[RAILS.LOGGER] Web request test"
   end
 
 end
