@@ -2,20 +2,42 @@ require 'set'
 
 class Rack::Attack
 
-  ### Logging der geblockten Anfragen
+  # 403-Responder mit erweitertem Logging
   Rack::Attack.blocklisted_responder = lambda do |req|
-    Rails.logger.info "[403 Forbidden | Blocked request: #{req.ip} | path: #{req.fullpath}]"
+    payload = {
+      status:          403,
+      event:           "rack_attack_block",
+      method:          req.request_method,
+      path:            req.path,
+      fullpath:        req.fullpath,
+      host:            req.host,
+      ip:              req.ip,
+      forwarded_for:   req.get_header('HTTP_X_FORWARDED_FOR'),
+      user_agent:      req.user_agent&.slice(0, 200),
+      referer:         req.referer,
+      content_type:    req.get_header('CONTENT_TYPE'),
+      content_length:  req.get_header('CONTENT_LENGTH'),
+      request_id:      req.get_header('action_dispatch.request_id'),
+      heroku_request_id: req.get_header('HTTP_HEROKU_REQUEST_ID')
+    }.compact
+
+    # Einzeilig & maschinenlesbar
+    Rails.logger.warn(payload.to_json)
+
     [403, { 'Content-Type' => 'text/plain' }, ['403 Forbidden']]
   end
 
   ### Blockiere typische Exploit-Versuche
   blocklist('block common exploit patterns') do |req|
     req.path =~ %r{
-      \.(php|asp|aspx|jsp|cgi|exe|jsf|pl|py|sh|cfm)$   |
-      ^/(wp-|\.git|cgi-bin)                            |
-      \.env[^\/]*                                      |
-      \/admin-ajax\.php                                |
-      \/phpinfo\.php
+      \.(php|asp|aspx|jsp|cgi|exe|jsf|pl|py|sh|cfm)$ |
+      (?:^|/)(?:wp-|\.git|cgi-bin)(?:/|$)            |
+      (?:
+        (?:^|/)\.env[^/]*$                           |
+        \.env(?:\.[^/]+)?$
+      )                                              |
+      /admin-ajax\.php$                              |
+      /phpinfo\.php$
     }ix
   end
 

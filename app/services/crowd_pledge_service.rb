@@ -247,12 +247,12 @@ class CrowdPledgeService
       begin
         balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
         stripe_fee = balance_transaction.fee.to_d / 100
-        Rails.logger.info "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} gespeichert: #{stripe_fee} EUR"
+        Rails.logger.info "[CrowdPledgeService]: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} gespeichert: #{stripe_fee} EUR"
       rescue Stripe::InvalidRequestError => e
-        Rails.logger.warn "CrowdPledgeService: charge_updated: Stripe fee konnte nicht geladen werden – #{e.message}"
+        Rails.logger.warn "[CrowdPledgeService]: charge_updated: Stripe fee konnte nicht geladen werden – #{e.message}"
       end
     else
-      Rails.logger.warn "CrowdPledgeService: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} konnte nicht gespeichert werden – keine balance_transaction vorhanden"
+      Rails.logger.warn "[CrowdPledgeService]: charge_updated: Stripe fee für CrowdPledge #{crowd_pledge.id} konnte nicht gespeichert werden – keine balance_transaction vorhanden"
     end
 
     crowd_pledge.update(stripe_fee: stripe_fee)
@@ -268,17 +268,17 @@ class CrowdPledgeService
 
     if crowd_pledge.user&.stripe_customer_id.present?
       # Zugehöriger Pledge User hat bereits stripe_customer_id
-      Rails.logger.info "CrowdPledgeService: get_stripe_customer_id: Zugehöriger Pledge User hat bereits stripe_customer_id: #{crowd_pledge.user.email}"
+      Rails.logger.info "[CrowdPledgeService]: get_stripe_customer_id: Zugehöriger Pledge User hat bereits stripe_customer_id: #{crowd_pledge.user.email}"
       crowd_pledge.update(stripe_customer_id: crowd_pledge.user.stripe_customer_id)
 
     elsif crowd_pledge.user.present?
       # Zugehöriger Pledge User ohne stripe_customer_id -> Wird nun erstellt
-      Rails.logger.info "CrowdPledgeService: get_stripe_customer_id: Zugehöriger Pledge User ohne stripe_customer_id:  Wird nun erstellt: #{crowd_pledge.user.email}"
+      Rails.logger.info "[CrowdPledgeService]: get_stripe_customer_id: Zugehöriger Pledge User ohne stripe_customer_id:  Wird nun erstellt: #{crowd_pledge.user.email}"
       crowd_pledge.update(stripe_customer_id: crowd_pledge.user.stripe_customer)
 
     else
       # Legacy Fallback (Bevor es Guest User gab)
-      Rails.logger.info "CrowdPledgeService: get_stripe_customer_id: Legacy Fallback: Create stripe_customer_id without User for #{crowd_pledge.email}"
+      Rails.logger.info "[CrowdPledgeService]: get_stripe_customer_id: Legacy Fallback: Create stripe_customer_id without User for #{crowd_pledge.email}"
       stripe_customer = Stripe::Customer.create(email: crowd_pledge.email)
       crowd_pledge.update(stripe_customer_id: stripe_customer.id)
     end
