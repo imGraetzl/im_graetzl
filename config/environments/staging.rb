@@ -2,15 +2,22 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   
-  # --- Logging ---
-  config.log_level = :info
-  config.log_tags  = [:request_id]
-  config.log_formatter = ::Logger::Formatter.new
-
-  # Erzwinge STDOUT immer (unabhängig von ENV)
-  stdout_logger           = ActiveSupport::Logger.new(STDOUT)
-  stdout_logger.formatter = config.log_formatter
-  config.logger           = ActiveSupport::TaggedLogging.new(stdout_logger)
+  # LOGGING - Identisch zu Production
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
+  
+  # Staging könnte mehr Debug-Info brauchen
+  config.log_level = ENV.fetch('LOG_LEVEL', 'debug').to_sym  # 'debug' statt 'info'
+  
+  # Optional: Mehr Details in Staging
+  config.consider_all_requests_local = false  # true wenn du Error-Pages debuggen willst
+  config.action_controller.perform_caching = true
+  
+  # Staging-spezifische Identifier in Logs
+  config.log_tags = [:request_id, -> request { "staging" }]
 
   # --- Security & Performance ---
   config.middleware.insert_before 0, Rack::Attack
