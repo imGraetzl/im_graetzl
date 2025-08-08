@@ -1,6 +1,7 @@
 class CrowdDonationPledgesController < ApplicationController
   before_action :load_active_campaign, only: [:new, :create, :choice, :login]
   before_action :ensure_valid_donation!, only: [:new, :choice, :login]
+  rate_limit to: 5, within: 30.minutes, only: [:create]
 
   def new
     @crowd_donation_pledge.assign_attributes(current_user_params) if current_user

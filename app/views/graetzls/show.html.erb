@@ -9,12 +9,21 @@
 %>
 
 <% if current_region.is?('wien') && user_signed_in? && current_user.show_subscription_hint? %>
-  <div id="betaflash">
-    Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_url %>!
-    <%= link_to 'javascript:', class: 'close-ico' do %>
-      <%= icon_tag "cross" %>
-    <% end %>
-  </div>
+  <% if Date.today >= Date.new(2025, 8, 12) %>
+    <div id="betaflash">
+      Die neuen <%= link_to 'Good Morning Date', good_morning_dates_path %> Termine sind da!
+      <%= link_to 'javascript:', class: 'close-ico' do %>
+        <%= icon_tag "cross" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div id="betaflash">
+      Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_path %>!
+      <%= link_to 'javascript:', class: 'close-ico' do %>
+        <%= icon_tag "cross" %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 
 
