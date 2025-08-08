@@ -50,16 +50,14 @@ Rails.application.configure do
   config.force_ssl = true
 
   # --- Logging ---
-  config.log_level = :info
+  config.log_level = ENV.fetch('LOG_LEVEL', 'info').to_sym  # ENV Variable nutzen!
   config.log_tags = [:request_id]
-
-  # Empfohlen: Standard-Logger (so wenig PII wie möglich)
   config.log_formatter = ::Logger::Formatter.new
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # --- Caching (alternative: mem_cache_store, redis, etc. je nach Deployment)
