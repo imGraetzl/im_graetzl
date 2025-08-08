@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception  
   before_action :set_sentry_user_context
 
-  before_action :test_logging, only: [:index]
-
   # hide staging app from public
   before_action :maybe_authenticate
 
@@ -103,8 +101,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  
-
   def guest_login_authentication_key(key)
     key &&= nil unless key.to_s.match(/^guest/)
     key ||= "guest_" + 9.times.map { SecureRandom.rand(0..9) }.join
@@ -158,33 +154,6 @@ class ApplicationController < ActionController::Base
       ActiveSupport::SecurityUtils.secure_compare(name, username) &&
         ActiveSupport::SecurityUtils.secure_compare(pass, password)
     end
-  end
-
-  # Erweitere deine test_logging Methode:
-  def test_logging
-    puts "=== LOGGER DEBUG START ==="
-    puts "Rails.logger class: #{Rails.logger.class}"
-    puts "Rails.logger level: #{Rails.logger.level}"
-    
-    if Rails.logger.respond_to?(:broadcasts)
-      puts "Broadcasts count: #{Rails.logger.broadcasts.size}"
-      Rails.logger.broadcasts.each_with_index do |broadcast, i|
-        puts "Broadcast #{i}: #{broadcast.class} - Level: #{broadcast.level}"
-      end
-    end
-    
-    # Deine Tests
-    puts "[PUTS] Web request test"
-    STDOUT.puts "[STDOUT] Web request test"
-    
-    logger = Logger.new(STDOUT)
-    logger.info "[RUBY LOGGER] Web request test"
-    
-    Rails.logger.info "[RAILS.LOGGER INFO] Web request test"
-    Rails.logger.warn "[RAILS.LOGGER WARN] Web request test"
-    Rails.logger.error "[RAILS.LOGGER ERROR] Web request test"
-    
-    puts "=== LOGGER DEBUG END ==="
   end
 
 end
