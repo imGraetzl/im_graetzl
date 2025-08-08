@@ -1,9 +1,7 @@
 class RegionsController < ApplicationController
-  before_action :redirect_unless_region, only: %i[
-    locations meetings rooms groups coop_demands
-    crowd_campaigns energies polls zuckerls
-  ]
+  before_action :redirect_unless_region
 
+  # /karte
   def index
     remember_region if !current_user
   end
