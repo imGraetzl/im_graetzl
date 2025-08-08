@@ -160,13 +160,31 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Erweitere deine test_logging Methode:
   def test_logging
+    puts "=== LOGGER DEBUG START ==="
+    puts "Rails.logger class: #{Rails.logger.class}"
+    puts "Rails.logger level: #{Rails.logger.level}"
+    
+    if Rails.logger.respond_to?(:broadcasts)
+      puts "Broadcasts count: #{Rails.logger.broadcasts.size}"
+      Rails.logger.broadcasts.each_with_index do |broadcast, i|
+        puts "Broadcast #{i}: #{broadcast.class} - Level: #{broadcast.level}"
+      end
+    end
+    
+    # Deine Tests
     puts "[PUTS] Web request test"
     STDOUT.puts "[STDOUT] Web request test"
+    
     logger = Logger.new(STDOUT)
     logger.info "[RUBY LOGGER] Web request test"
-    Rails.logger.info "[RAILS.LOGGER] Web request test"
-    logger.info "[LOGGER] Web request test"
+    
+    Rails.logger.info "[RAILS.LOGGER INFO] Web request test"
+    Rails.logger.warn "[RAILS.LOGGER WARN] Web request test"
+    Rails.logger.error "[RAILS.LOGGER ERROR] Web request test"
+    
+    puts "=== LOGGER DEBUG END ==="
   end
 
 end
