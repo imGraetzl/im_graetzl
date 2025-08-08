@@ -22,7 +22,7 @@ class Rack::Attack
     }.compact
 
     # Einzeilig & maschinenlesbar
-    Rails.logger.warn(payload.to_json)
+    Rails.logger.warn("[RA_BLOCK] " + payload.to_json)
 
     [403, { 'Content-Type' => 'text/plain' }, ['403 Forbidden']]
   end
