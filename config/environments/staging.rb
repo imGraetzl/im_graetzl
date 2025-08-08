@@ -1,6 +1,24 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  
+  # LOGGING - Identisch zu Production
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
+  
+  # Staging könnte mehr Debug-Info brauchen
+  config.log_level = ENV.fetch('LOG_LEVEL', 'debug').to_sym  # 'debug' statt 'info'
+  
+  # Optional: Mehr Details in Staging
+  config.consider_all_requests_local = false  # true wenn du Error-Pages debuggen willst
+  config.action_controller.perform_caching = true
+  
+  # Staging-spezifische Identifier in Logs
+  config.log_tags = [:request_id, -> request { "staging" }]
+
   # --- Security & Performance ---
   config.middleware.insert_before 0, Rack::Attack
 
@@ -37,7 +55,9 @@ Rails.application.configure do
   config.asset_host = 'https://assets-staging-app.welocally.at'
 
   # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  config.assets.quiet = false
+
+  config.assets.unknown_asset_fallback = false
 
   # This will affect assets served from /app/assets
   config.static_cache_control = 'public, max-age=31536000'

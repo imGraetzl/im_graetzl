@@ -1,0 +1,1 @@
+Rails.logger.info "[LOG_PROBE] Booting #{Rails.env} pid=#{Process.pid}"

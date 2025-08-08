@@ -4,6 +4,15 @@ Rails.application.routes.draw do
     mount DelayedJobWeb, at: "/delayed_job"
   end
 
+  get '/test_logging' => proc { |env|
+    Rails.logger.debug "TEST-ENDPOINT: Debug message"
+    Rails.logger.info "TEST-ENDPOINT: Info message"
+    Rails.logger.warn "TEST-ENDPOINT: Warn message"
+    Rails.logger.error "TEST-ENDPOINT: Error message"
+    
+    [200, {'Content-Type' => 'text/plain'}, ["Logging test completed. Check heroku logs"]]
+  }
+
   get 'errors/not_found'
   get 'errors/internal_server_error'
   match "/404", :to => "errors#not_found", :via => :all
