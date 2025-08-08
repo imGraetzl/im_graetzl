@@ -41,18 +41,18 @@ class ApplicationController < ActionController::Base
     if user
       session[:guest_user_id] = user.id
       session[:guest_user_created_at] ||= Time.current
-      Rails.logger.info("ApplicationController: current_or_guest_user_by: Existing Guest User found for: #{email}")
+      Rails.logger.info("[ApplicationController]: current_or_guest_user_by: Existing Guest User found for: #{email}")
       return user
     end
   
     guest = create_guest_user
     session[:guest_user_id] = guest.id
     session[:guest_user_created_at] = Time.current
-    Rails.logger.info("ApplicationController: current_or_guest_user_by: New Guest User created for: #{email}")
+    Rails.logger.info("[ApplicationController]: current_or_guest_user_by: New Guest User created for: #{email}")
 
     guest
   rescue => e
-    Rails.logger.error("ApplicationController: current_or_guest_user_by: Error occurred - #{e.message}")
+    Rails.logger.error("[ApplicationController]: current_or_guest_user_by: Error occurred - #{e.message}")
     raise # Optional, um den Fehler weiterzugeben
   end
 

@@ -380,7 +380,7 @@ Rails.application.routes.draw do
     resources :meetings, only: [:index]
   end
 
-# Redirects for legacy routes
+  # Redirects for legacy routes
   get 'wien(/*wien_path)', to: 'redirect#wien', wien_path: /.*/
 
   %w[raum raumsuche].each do |path|
@@ -390,7 +390,6 @@ Rails.application.routes.draw do
   %w[energieteiler energiegemeinschaft suche-energiegemeinschaft].each do |path|
     get path, to: 'redirect#energies'
   end
-
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
@@ -405,5 +404,8 @@ Rails.application.routes.draw do
     resources :groups, path: 'gruppen', only: [:show]
     resources :locations, only: [:show]
   end
+
+  # 404 Noise reduce
+  get '/apple-touch-icon-precomposed.png', to: redirect('/apple-touch-icon.png')
 
 end
