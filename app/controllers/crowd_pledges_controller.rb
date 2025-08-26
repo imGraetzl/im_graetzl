@@ -19,6 +19,7 @@ class CrowdPledgesController < ApplicationController
 
     if @crowd_pledge.crowd_reward&.fully_claimed?
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
+      return
     end
 
     @crowd_pledge.calculate_price
