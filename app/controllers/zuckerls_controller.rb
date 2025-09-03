@@ -40,6 +40,34 @@ class ZuckerlsController < ApplicationController
     end
   end
 
+  def duplicate
+    source = current_user.zuckerls.find(params[:id])
+
+    # 1) neues, NICHT gespeichertes Objekt für das Formular
+    @zuckerl = current_user.zuckerls.new(
+      title:         source.title,
+      description:   source.description,
+      link:          source.link,
+      entire_region: source.entire_region,
+      location_id:   source.location_id,
+      region_id:     source.region_id,
+      cover_photo:   source.cover_photo
+    )
+
+    # 2) Zeitraum
+    @zuckerl.starts_at = Date.tomorrow + 1
+    @zuckerl.ends_at   = @zuckerl.starts_at + 1.month - 1.day
+
+    # 3) >>> HIER: params[:zuckerl] künstlich befüllen, damit die View-Selektion greift
+    params[:zuckerl] ||= ActionController::Parameters.new
+    params[:zuckerl][:district_ids] ||= source.saved_or_default_district
+    
+    first_graetzl_id = Array(source.graetzl_ids).first
+    params[:zuckerl][:graetzl_ids]  ||= first_graetzl_id
+
+    render :new
+  end
+
   def update
     set_zuckerl_or_redirect or return
 

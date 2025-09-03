@@ -73,6 +73,7 @@
       <% elsif zuckerl.free? %>
         <%= link_to "Eingelöst aus Zuckerlguthaben", '#', class: 'btn-primary -small -disabled -invoice' %>
       <% end %>
+      <%= link_to 'Zuckerl nochmals schalten', duplicate_zuckerl_path(zuckerl), class: 'btn-primary -mint -small -actions' %>
     </div>
     <% end %>
 

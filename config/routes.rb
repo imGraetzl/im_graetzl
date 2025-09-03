@@ -135,7 +135,9 @@ Rails.application.routes.draw do
     post 'send_mail', on: :member
   end
 
-  resources :zuckerls, path: 'zuckerl', except: [:show]
+  resources :zuckerls, path: 'zuckerl', except: [:show] do
+    get :duplicate, on: :member
+  end
 
   resources :locations do
     post :add_post, on: :member
