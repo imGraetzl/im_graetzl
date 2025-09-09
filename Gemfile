@@ -62,6 +62,8 @@ gem 'stripe', '~> 15.2'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+gem "redis", "~> 5.0"
+
 group :development do
   gem 'letter_opener'
 end
