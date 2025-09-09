@@ -72,8 +72,9 @@
     <%= yield %>
   </main>
 
-  <%= render 'footer' %>
-  <%= render partial: 'controller_footer' rescue nil %>
+  <% cache ["footer", current_region.id], expires_in: 1.day do %>
+    <%= render "footer" %>
+  <% end %>
 
 </body>
 
