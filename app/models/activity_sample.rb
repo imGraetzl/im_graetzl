@@ -1,4 +1,6 @@
 class ActivitySample
+  DEFAULT_EXPIRES = 10.minutes
+
   def initialize(graetzl: nil, district: nil, current_region: nil)
     @graetzl = graetzl
     @district = district
@@ -6,14 +8,6 @@ class ActivitySample
   end
 
   def meetings
-    #scope = if @graetzl
-    #  @graetzl.meetings
-    #elsif @district
-    #  @district.meetings
-    #else
-    #  Meeting
-    #end
-    # User Meetings from whole region or whole district
     scope = if @graetzl
       if @current_region.use_districts?
         @graetzl.district.meetings
@@ -26,7 +20,7 @@ class ActivitySample
       Meeting
     end
 
-    load_for(:meetings, scope.in(@current_region).include_for_box.by_currentness)
+    cached(:meetings) { load_for(:meetings, scope.in(@current_region).include_for_box.by_currentness) }
   end
 
   def groups
@@ -38,7 +32,7 @@ class ActivitySample
       Group
     end
 
-    load_for(:groups, scope.in(@current_region).featured.include_for_box)
+    cached(:groups) { load_for(:groups, scope.in(@current_region).featured.include_for_box) }
   end
 
   def locations
@@ -50,14 +44,19 @@ class ActivitySample
       Location
     end
 
-    load_for(:locations, scope.in(@current_region).approved.include_for_box.by_currentness).tap do |locations|
-      @actual_newest_post_map ||= locations.index_with(&:actual_newest_post)
+    cached(:locations) do
+      load_for(:locations, scope.in(@current_region).approved.include_for_box.by_currentness).tap do |locations|
+        @actual_newest_post_map ||= locations.index_with(&:actual_newest_post)
+      end
     end
   end
 
   def crowd_campaigns
-    @crowd_campaigns ||= begin
-      funding = CrowdCampaign.in(@current_region).region.funding.or(CrowdCampaign.platform.funding).by_currentness.limit(2).to_a
+    cached(:crowd_campaigns, expires_in: 15.minutes) do
+      funding = CrowdCampaign.in(@current_region).region.funding
+        .or(CrowdCampaign.platform.funding)
+        .by_currentness.limit(2).to_a
+
       if funding.size >= 2
         funding
       else
@@ -78,11 +77,11 @@ class ActivitySample
       CoopDemand
     end
 
-    load_for(:coop_demands, scope.in(@current_region).enabled.include_for_box.by_currentness)
+    cached(:coop_demands) { load_for(:coop_demands, scope.in(@current_region).enabled.include_for_box.by_currentness) }
   end
 
   def rooms
-    @rooms ||= begin
+    cached(:rooms) do
       offers = if @graetzl
         @graetzl.room_offers.in(@current_region).enabled.include_for_box.by_currentness.limit(2).to_a
       elsif @district
@@ -107,7 +106,7 @@ class ActivitySample
   end
 
   def energies
-    @energies ||= begin
+    cached(:energies) do
       offer = if @graetzl
         @graetzl.energy_offers.in(@current_region).enabled.by_currentness.first
       elsif @district
@@ -137,11 +136,11 @@ class ActivitySample
       Poll
     end
 
-    load_for(:polls, scope.in(@current_region).enabled.by_currentness)
+    cached(:polls) { load_for(:polls, scope.in(@current_region).enabled.by_currentness) }
   end
 
   def zuckerls
-    @zuckerls ||= begin
+    cached(:zuckerls) do
       if @graetzl
         Zuckerl.in(@current_region).live.in_area(@graetzl.id).include_for_box.random(2).to_a
       elsif @district
@@ -156,5 +155,14 @@ class ActivitySample
 
   def load_for(name, scope)
     instance_variable_get("@#{name}") || instance_variable_set("@#{name}", scope.limit(2).to_a)
+  end
+
+  def cached(name, expires_in: DEFAULT_EXPIRES)
+    key = ["activity_sample", name, cache_scope_key]
+    Rails.cache.fetch(key, expires_in: expires_in) { yield }
+  end
+
+  def cache_scope_key
+    [@graetzl&.id, @district&.id, @current_region&.id]
   end
 end
