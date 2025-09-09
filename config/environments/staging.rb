@@ -62,14 +62,16 @@ Rails.application.configure do
     connect_timeout: 2,
     read_timeout: 1,
     write_timeout: 1,
-    # Pool optional, an Puma-Threads anpassen (z. B. 6)
     pool: { size: Integer(ENV.fetch("RAILS_MAX_THREADS", 3)), timeout: 1 },
+    ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }, # <— wichtig für Mini
     error_handler: -> (method:, returning:, exception:) {
       Rails.logger.warn("Redis cache error #{method}: #{exception.class} #{exception.message}")
     }
   }
-  # For Testing/Debugging:
+
+  # Optional fürs Debugging:
   config.action_controller.enable_fragment_cache_logging = true
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
