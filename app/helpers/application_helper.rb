@@ -76,7 +76,7 @@ module ApplicationHelper
             content_tag(:div, "Aus E-Mails löschen", class: 'icontxt')
           end : nil),
 
-        link_to(messenger_start_thread_path(user_id: subject.user.id), target: "_blank") do
+        link_to(messenger_start_thread_path(user_id: subject.user&.id), target: "_blank") do
           icon_tag("speech-bubbles") +
           content_tag(:div, "Message an User", class: 'icontxt')
         end,

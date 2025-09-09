@@ -1,5 +1,7 @@
 class RegionsController < ApplicationController
+  before_action :redirect_unless_region
 
+  # /karte
   def index
     remember_region if !current_user
   end
@@ -51,6 +53,18 @@ class RegionsController < ApplicationController
   end
 
   def zuckerls
+  end
+
+  private
+
+  def redirect_unless_region
+    return if current_region
+
+    if action_name.to_sym == :crowd_campaigns
+      redirect_to start_crowd_campaigns_path, status: :moved_permanently
+    else
+      redirect_to about_platform_path, status: :moved_permanently
+    end
   end
 
 end
