@@ -32,7 +32,7 @@ class ActivitySample
       Group
     end
 
-    cached(:groups) { load_for(:groups, scope.in(@current_region).featured.include_for_box) }
+    cached(:groups, expires_in: 1.hour) { load_for(:groups, scope.in(@current_region).featured.include_for_box) }
   end
 
   def locations
@@ -106,7 +106,7 @@ class ActivitySample
   end
 
   def energies
-    cached(:energies) do
+    cached(:energies, expires_in: 1.hour) do
       offer = if @graetzl
         @graetzl.energy_offers.in(@current_region).enabled.by_currentness.first
       elsif @district
@@ -136,7 +136,7 @@ class ActivitySample
       Poll
     end
 
-    cached(:polls) { load_for(:polls, scope.in(@current_region).enabled.by_currentness) }
+    cached(:polls, expires_in: 1.hour) { load_for(:polls, scope.in(@current_region).enabled.by_currentness) }
   end
 
   def zuckerls

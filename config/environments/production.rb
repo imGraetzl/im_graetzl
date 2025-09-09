@@ -60,8 +60,27 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  # --- Caching (alternative: mem_cache_store, redis, etc. je nach Deployment)
-  # config.cache_store = :mem_cache_store
+  # --- Caching mit Redis (Fallback auf MemoryStore falls REDIS_URL fehlt) ---
+  if ENV["REDIS_URL"].present?
+    config.cache_store = :redis_cache_store, {
+      url: ENV.fetch("REDIS_URL"),
+      namespace: "imgraetzl:cache:prod:v1",
+      connect_timeout: 2,
+      read_timeout: 1,
+      write_timeout: 1,
+      pool: { size: Integer(ENV.fetch("RAILS_MAX_THREADS", 3)), timeout: 1 },
+      ssl_params: (ENV["REDIS_URL"].include?("rediss://") ? { verify_mode: OpenSSL::SSL::VERIFY_NONE } : {}),
+      error_handler: -> (method:, returning:, exception:) {
+        Rails.logger.warn("Redis cache error #{method}: #{exception.class} #{exception.message}")
+      }
+    }
+  else
+    Rails.logger.warn("⚠️ REDIS_URL not set, falling back to MemoryStore")
+    config.cache_store = :memory_store
+  end
+
+  # Optional fürs Debugging
+  config.action_controller.enable_fragment_cache_logging = false
 
   # --- Mailer ---
   config.action_mailer.raise_delivery_errors = true
