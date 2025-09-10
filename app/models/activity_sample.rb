@@ -1,5 +1,7 @@
 class ActivitySample
-  DEFAULT_EXPIRES = 10.minutes
+  REGION_EXPIRES  = 15.minutes
+  DISTRICT_EXPIRES = 30.minutes
+  GRAETZL_EXPIRES = 30.minutes
 
   def initialize(graetzl: nil, district: nil, current_region: nil)
     @graetzl = graetzl
@@ -52,7 +54,7 @@ class ActivitySample
   end
 
   def crowd_campaigns
-    cached(:crowd_campaigns, expires_in: 15.minutes) do
+    cached(:crowd_campaigns) do
       funding = CrowdCampaign.in(@current_region).region.funding
         .or(CrowdCampaign.platform.funding)
         .by_currentness.limit(2).to_a
@@ -157,9 +159,20 @@ class ActivitySample
     instance_variable_get("@#{name}") || instance_variable_set("@#{name}", scope.limit(2).to_a)
   end
 
-  def cached(name, expires_in: DEFAULT_EXPIRES)
+  def cached(name, expires_in: nil)
+    ttl = expires_in || dynamic_expires
     key = ["activity_sample", name, cache_scope_key]
-    Rails.cache.fetch(key, expires_in: expires_in) { yield }
+    Rails.cache.fetch(key, expires_in: ttl) { yield }
+  end
+
+  def dynamic_expires
+    if @graetzl
+      GRAETZL_EXPIRES
+    elsif @district
+      DISTRICT_EXPIRES
+    else
+      REGION_EXPIRES
+    end
   end
 
   def cache_scope_key

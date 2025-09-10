@@ -1,3 +1,4 @@
+<% cache ["featured_subscription_card", current_region.id], expires_in: 10.minutes do %>
 <div class="cardBox -subscription featuredCard -hidden" data-behavior="masonry-card" data-card-id="subscription-<%= subscription.id %>">
 
   <div class="cardBoxHeader">
@@ -32,5 +33,5 @@
     <%= link_to 'Hier kannst du unterstützen', subscription_plans_path, class: 'btn-primary' %>
 
   </div>
-
 </div>
+<% end %>
