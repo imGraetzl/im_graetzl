@@ -1,3 +1,4 @@
+<% cache ["coop_demand_categories_slider", @category&.id, CoopDemandCategory.maximum(:updated_at).to_i], expires_in: 1.day do %>
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Coop & Share" class="cS-hidden">
     <% categories = CoopDemandCategory.all.sort_by(&:position) %>
@@ -17,3 +18,4 @@
   </div>
   <div class="filter-line"></div>
 </div>
+<% end %>
