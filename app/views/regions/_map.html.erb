@@ -1,3 +1,4 @@
+<% cache ["region_map_block", current_region.id, current_region.graetzls.maximum(:updated_at).to_i], expires_in: 1.day do %>
 <div class="mapImgBlock">
   <%= area_map(current_region.use_districts? ? current_region.districts : current_region.graetzls, 'APP.components.areaMap.init($("#area-map"), { interactive: true, zoomSnap:0.25 });') %>
 
@@ -19,3 +20,4 @@
     </select>
   </div>
 </div>
+<% end %>

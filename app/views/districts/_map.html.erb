@@ -1,3 +1,4 @@
+<% cache ["district_map_block", @district.id, Graetzl.maximum(:updated_at).to_i], expires_in: 1.day do %>
 <% graetzls = District.memoized(@district.id).graetzls %>
 <div class="mapImgBlock">
   <%= area_map(graetzls, 'APP.components.areaMap.init($("#area-map"), { interactive: true });') %>
@@ -17,3 +18,4 @@
     </select>
   </div>
 </div>
+<% end %>
