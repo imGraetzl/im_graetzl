@@ -1,6 +1,7 @@
 <div id="tab-info" class="layoutArea">
 
   <div class="mainArea">
+    <% cache ["crowd_campaign_main_text", @crowd_campaign.id, @crowd_campaign.updated_at.to_i], expires_in: 1.day do %>
 
     <div class="content-block bbcode"><%= @crowd_campaign.description.bbcode_to_html.html_safe if @crowd_campaign.description.present? %></div>
 
@@ -95,8 +96,10 @@
           </div>
         </div></div>
     </div>
+    <% end %>
 
-     <% if @images.any? || @crowd_campaign.video? %>
+    <% if @images.any? || @crowd_campaign.video? %>
+      <% cache ["crowd_campaign_gallery", @crowd_campaign.id, @images.maximum(:updated_at)&.to_i], expires_in: 1.day do %>
       <div class="content-block -toggable -open">
         <h3><% if @crowd_campaign.video? %>Video und <% end %>Bilder zum Projekt</h3>
         <div class="-toggle-content">
@@ -116,6 +119,7 @@
 
         </div>
       </div>
+      <% end %>
     <% end %>
 
   </div>

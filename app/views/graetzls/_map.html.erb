@@ -1,3 +1,4 @@
+<% cache ["graetzl_map_block", @graetzl.id, @graetzl.updated_at.to_i], expires_in: 1.day do %>
 <div class="mapImgBlock -hasillu">
   <%= area_map(@graetzl, 'APP.components.areaMap.init($("#area-map"));') %>
   <div class="illuDistrict"></div>
@@ -20,3 +21,4 @@
     </div>
   </div>
 </div>
+<% end %>

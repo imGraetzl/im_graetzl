@@ -35,7 +35,7 @@ function initAdminAutocompleteInput(input) {
     }
 
     const scope = input.dataset.scope;
-    const resource = 'users';
+    const resource = input.dataset.resource || 'users';
     const joiner = url.includes('?') ? '&' : '?';
     const finalUrl = `${url}${joiner}q=${encodeURIComponent(q)}&resource=${resource}${scope ? `&scope=${encodeURIComponent(scope)}` : ''}`;
 
@@ -43,35 +43,72 @@ function initAdminAutocompleteInput(input) {
       .then(res => res.json())
       .then(data => {
         resultsBox.innerHTML = '';
-        data.forEach(item => {
-          const li = document.createElement('li');
-          li.innerHTML = `
-            <div class="eac-item">
-              <div class="item User">
-                <img src="${item.image_url}">
-                <div class="txt"><span>${item.region}</span><br><strong>${item.full_name}</strong> (${item.username})<br><span>${item.email}</span></div>
+        
+        const renderItem = (item) => {
+          if (resource === 'users') {
+            return `
+              <div class="eac-item">
+                <div class="item User">
+                  <img src="${item.image_url}">
+                  <div class="txt">
+                    <span>${item.region}</span><br>
+                    <strong>${item.full_name}</strong> (${item.username})<br>
+                    <span>${item.email}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          `;
-          li.addEventListener('click', () => {
-            // Schreibe ID ins Hidden-Feld (über data-user-autocomplete-id)
+            `;
+          }
+          if (resource === 'locations') {
+            return `
+              <div class="eac-item">
+                <div class="item Location">
+                  <img src="${item.image_url}">
+                  <div class="txt">
+                    <span>${item.region || ''}</span><br>
+                    <strong>${item.name}</strong><br>
+                    <span>${item.autocomplete_display_name || ''}</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        };
+
+        const handleClick = (item) => {
+          if (resource === 'users') {
             const autocompleteId = input.dataset.userAutocompleteId;
             if (autocompleteId) {
               const hiddenInput = input.form.querySelector(`.admin-autocomplete-id-target[data-user-autocomplete-id="${autocompleteId}"]`);
               if (hiddenInput) hiddenInput.value = item.id;
             }
-            // Schreibe Namen ins sichtbare Feld
-            input.value = item.full_name_with_username || `${item.full_name} (${item.username})`;
-            const hidden = ensureHiddenInput();
-            if (hidden) hidden.value = item.id;
-            resultsBox.style.display = 'none';
-            // Bei Filter-Formular direkt absenden
-            if (input.form && input.form.classList.contains('filter_form')) {
-              input.form.submit();
+            input.value = item.autocomplete_display_name || `${item.full_name} (${item.username})`;
+          }
+
+          if (resource === 'locations') {
+            const autocompleteId = input.dataset.locationAutocompleteId;
+            if (autocompleteId) {
+              const hiddenInput = input.form.querySelector(`.admin-autocomplete-id-target[data-location-autocomplete-id="${autocompleteId}"]`);
+              if (hiddenInput) hiddenInput.value = item.id;
             }
-          });
+            input.value = item.name;
+          }
+
+          const hidden = ensureHiddenInput();
+          if (hidden) hidden.value = item.id;
+          resultsBox.style.display = 'none';
+          if (input.form && input.form.classList.contains('filter_form')) {
+            input.form.submit();
+          }
+        };
+
+        data.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = renderItem(item);
+          li.addEventListener('click', () => handleClick(item));
           resultsBox.appendChild(li);
         });
+
         resultsBox.style.display = 'block';
       });
   });

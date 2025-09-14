@@ -134,7 +134,10 @@ a.btn-dark {
       height:40px;
       min-width:40px;
       min-height:40px;
-      border-radius: 20px;;
+      border-radius: 20px;
+    }
+    &.Location img {
+      border-radius: 2px;
     }
   }
 
