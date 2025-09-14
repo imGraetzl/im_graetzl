@@ -1,8 +1,29 @@
 active_admin_form_for [:admin, resource] do |f|
   inputs do
     f.semantic_errors
-    input :user, collection: User.confirmed.sort_by(&:username), include_blank: false, input_html: { :class => 'admin-filter-select'}
-    input :location, collection: Location.order(:name), input_html: { :class => 'admin-filter-select'}
+
+    random_id = SecureRandom.uuid
+    input :user, label: "User", as: :string, input_html: {
+      class: 'admin-autocomplete-component',
+      placeholder: 'Name, Username oder E-Mail ...',
+      data: { autocomplete_url: '/admin/autocomplete/users', user_autocomplete_id: "user_#{random_id}" }
+    }
+    input :user_id, as: :hidden, input_html: { 
+      class: 'admin-autocomplete-id-target', 
+      data: { user_autocomplete_id: "user_#{random_id}" }
+    }
+
+    random_id = SecureRandom.uuid
+    input :location, label: "Location", as: :string, input_html: {
+      class: 'admin-autocomplete-component',
+      placeholder: 'Title, Slogan oder E-Mail ...',
+      data: { autocomplete_url: '/admin/autocomplete/locations', resource: 'locations', location_autocomplete_id: "location_#{random_id}" }
+    }
+    input :location_id, as: :hidden, input_html: { 
+      class: 'admin-autocomplete-id-target', 
+      data: { location_autocomplete_id: "location_#{random_id}" }
+    }
+
     input :title
     input :description
     input :link
