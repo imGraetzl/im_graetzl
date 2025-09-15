@@ -4,11 +4,11 @@ module CrowdPledgesHelper
     raw_values =
       case total_price
       when 0...50
-        [0.0, 1.5, 3.0, 5.0]
+        [1.5, 3.0, 5.0, 7.5]
       when 50..250
-        [0.0, 5.0, 10.0, 20.0]
+        [5.0, 10.0, 15.0, 20.0]
       else
-        [0.0, 10.0, 25.0, 50.0]
+        [7.5, 15.0, 30.0, 50.0]
       end
   
     default_amount = raw_values[2] # z. B. mittlerer Wert als Default
