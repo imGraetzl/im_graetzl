@@ -14,7 +14,7 @@ APP.components.favorites = (function() {
       hideElement($(this));
     });
 
-    $('.touch .admin [data-behavior="masonry-card"] .cardBoxHeader').on('click', function (event) {
+    $('.touch .admin [data-behavior="masonry-card"] .categoryicon').on('click', function (event) {
       const $toggleAdmin = $(this).find('.toggle-admin-ico.jBoxTooltip');
       if (!$toggleAdmin.length) return; // Touch-Verhalten nur für Admin-Version
       const wasPreviewed = $(this).data('previewed') === true;
