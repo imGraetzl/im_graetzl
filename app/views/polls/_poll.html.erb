@@ -11,16 +11,8 @@
       <div class="categoryicon">
         <div class="fav-exchange">
           <%= icon_tag "pie-chart" %>
-          <!--
-          <span>
-            <% if false && plz_list(poll) %>
-              <%= plz_list(poll).first(3).join(", ") %>
-              <%= plz_list(poll).size > 3 ? '...' : '' %>
-            <% end %>
-          </span>
-          -->
         </div>
-        <%= toggle_favorite_icon(poll) if current_user %>
+        <%= toggle_favorite_icon(poll) if current_user && !current_user.admin? %>
         <%= toggle_admin_icon(poll, notification: local_assigns[:notification]) if current_user&.admin? %>
       </div>
       <div class="sideflag -R -label"><%= link_to 'Umfrage', region_polls_path %></div>

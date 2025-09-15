@@ -13,7 +13,7 @@
         <%= avatar_image room_demand, size: :large, class: 'coverImg' %>
       </div>
       <div class="categoryicon toggle-fav-ico toggle-admin-ico">
-        <%= toggle_favorite_icon(room_demand) if current_user %>
+        <%= toggle_favorite_icon(room_demand) if current_user && !current_user.admin? %>
         <%= toggle_admin_icon(room_demand, notification: local_assigns[:notification]) if current_user&.admin? %>
       </div>
     <% end %>
