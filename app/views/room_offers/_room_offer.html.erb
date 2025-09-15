@@ -14,7 +14,7 @@
           <span><%= "#{graetzl.district.zip}, " if graetzl&.district&.zip %><%= graetzl.name %></span>
           <%= icon_tag "rocket" if room_offer.boosted? %>
         </div>
-        <%= toggle_favorite_icon(room_offer) if current_user %>
+        <%= toggle_favorite_icon(room_offer) if current_user && !current_user.admin? %>
         <%= toggle_admin_icon(room_offer, notification: local_assigns[:notification]) if current_user&.admin? %>
       </div>
     <% end %>
