@@ -22,7 +22,7 @@
       <p>
         <strong>Werdet Unterstützer*innen unserer Arbeit!</strong>
         <br>
-        <strong><%= Subscription.in(current_region).active.count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.
+        <strong><%= @subscription_count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.
         <br>
         <strong>Unser nächstes Ziel: <%= current_region.subscription_goal %> Förder*innen.</strong>
       </p>
@@ -35,17 +35,21 @@
     <%= render 'subscription_plans/subscription_plan_wow' %>
   </div>
 
-  <center><em>
-    Du bekommst selbstverständlich eine Rechnung über deine Fördermitgliedschaft ausgestellt.
-    <% if current_region.is?('wien') %>
-      <br>Mehr Hintergrundinfos zur Fördermitgliedschaft gibt es außerdem auf unserem <%= link_to 'imGrätzl Blog',  'https://blog.imgraetzl.at/allgemein/die-imgraetzl-foerdermitgliedschaft-ist-da-haltet-mit-uns-den-raum-offen/', target: 'blank' %>
-    <% end %>
-  </em></center>
+  <div class="subscription-note">
+    <em>
+      Du bekommst selbstverständlich eine Rechnung über deine Fördermitgliedschaft ausgestellt.
+      <% if current_region.is?('wien') %>
+        <br>Mehr Hintergrundinfos zur Fördermitgliedschaft gibt es außerdem auf unserem <%= link_to 'imGrätzl Blog',  'https://blog.imgraetzl.at/allgemein/die-imgraetzl-foerdermitgliedschaft-ist-da-haltet-mit-uns-den-raum-offen/', target: 'blank' %>
+      <% end %>
+    </em>
+  </div>
 
   <div class="allBoxes">
     <div class="inner cardBoxCollection">
       <%= render :partial => 'subscription_plans/subscribers_wow', :collection => current_region.wow, :as => :wow %>
-      <%= render :partial => 'subscription_plans/subscribers', :collection => @subscriptions, :as => :subscription %>
+      <% cache ["subscribers-list", @subscription_count] do %>
+        <%= render partial: "subscription_plans/subscribers", collection: @subscriptions, as: :subscription %>
+      <% end %>
     </div>
   </div>
 
