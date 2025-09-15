@@ -48,15 +48,25 @@
       </div>
     </div>
 
-    <%= button_tag type: 'submit',
-               class: 'btn-primary -rose -shadow',
-               id: 'roundup-button',
-               data: {
-                 up_text: "Weiter mit %{amount}",
-                 down_text: "Weiter mit %{amount}"
-               } do %>
-      <span class="charge_button_text"></span>
-    <% end %>
+    <div class="button-block">
+      <%= button_tag type: 'submit',
+                class: 'btn-primary -grey -shadow',
+                id: 'skip-roundup-button',
+                name: 'crowd_pledge[crowd_boost_charge_amount]',
+                value: '0' do %>
+        Nein, weiter ohne Aufrunden
+      <% end %>
+
+      <%= button_tag type: 'submit',
+                class: 'btn-primary -rose -shadow',
+                id: 'roundup-button',
+                data: {
+                  up_text: "Ja, gerne %{amount} in den Fördertopf",
+                  down_text: "Ja, gerne %{amount} in den Fördertopf"
+                } do %>
+        <span class="charge_button_text"></span>
+      <% end %>
+    </div>
     
   <% end %>
   

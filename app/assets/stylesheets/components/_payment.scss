@@ -278,12 +278,6 @@
     }
   }
   &.crowd-boost-charge-screen {
-    .content-block {
-      //margin-top:30px;
-    }
-    .btn-primary {
-      //width:100%;
-    }
     .hl-subtext {
       margin-bottom:0px;
     }
@@ -394,6 +388,28 @@
         &::placeholder {
           color: transparent;
         }
+      }
+    }
+  }
+  .button-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+   @include respond-to("<=medium") {
+      flex-direction: column-reverse;
+      gap: 0.75rem;
+    }
+    .btn-primary {
+      flex: 1;
+      text-align: center;
+      &.-rose {
+        white-space: nowrap;
+      }
+      @include respond-to("<=medium") {
+        width: 100%;
+        flex: none;
       }
     }
   }
