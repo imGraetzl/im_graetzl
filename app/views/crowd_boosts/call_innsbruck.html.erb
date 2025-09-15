@@ -48,23 +48,23 @@
         </div>
         <!-- /Slot Box -->
 
-        <% if @next_slot.slot_detail_description %>
+        <% if @next_slot.slot_detail_description&.present? %>
           <div class="content-block -toggable">
-            <h3>Wie funktioniert der <%= @crowd_boost.title %></h3>
+            <h3>So funktioniert der <%= @crowd_boost.title %></h3>
             <div class="-toggle-content bbcode"><%= @next_slot.slot_detail_description.bbcode_to_html.html_safe %></div>
           </div>
         <% end %>
 
-        <% if @next_slot.slot_terms %>
+        <% if @next_slot.slot_terms&.present? %>
           <div class="content-block -toggable">
-            <h3>Welche Vorhaben können teilnehmen</h3>
+            <h3>Ablauf & Teilnahmebedingungen</h3>
             <div class="-toggle-content bbcode"><%= @next_slot.slot_terms.bbcode_to_html.html_safe %></div>
           </div>
          <% end %>
          
-        <% if @next_slot.slot_process_description %>
+        <% if @next_slot.slot_process_description&.present? %>
           <div class="content-block -toggable">
-            <h3>Qualifizierung - Wie bewertet die Jury</h3>
+            <h3>Hintergrund</h3>
             <div class="-toggle-content bbcode"><%= @next_slot.slot_process_description.bbcode_to_html.html_safe %></div>
           </div>
         <% end %>
@@ -80,26 +80,16 @@
     </div>
 
     <div class="introSide">
-
       <% if @next_slot && @next_slot.open? %>
         <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true %>
       <% else %>
         <%= render 'crowd_boosts/crowd_boost', crowd_boost: @crowd_boost %>
       <% end %>
-
-      <% if current_region.is?('graz') && @crowd_boost.title.include?("ViertelFonds") %>
-        <div class="logo-side">
-          <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
-            <%= image_tag 'logo-graz.png', width:363, height:100 %>
-          </a>
-          <p class="side-txt">In Kooperation mit dem Bezirksrat Jakomini</p>
-        </div>
-      <% end %>
-
     </div>
     
   </div>
 
+  <!--
   <div class="tabs-ctrl -plain">
     <ul class="tabs-nav">
       <li class="active">
@@ -133,51 +123,17 @@
       </div>
     <% end %>
   </div>
+  -->
 
-  <% if current_region.is?('graz') && @crowd_boost.title.include?("ViertelFonds") %>
-    <div class="content-wide -end logo-footer">
-      <div class="wrp-inner">
-        <div class="logos">
-          <a href="https://www.welocally.at/home" target="_blank">
-            <%= image_tag("regions/logo.svg", class: 'logo-desktop', alt:'logo', width:120, height:84) %>
-          </a>
-          <a href="https://stadtlaborgraz.at/de/" target="_blank">
-            <%= image_tag 'logo-stadtlabor.png', width:76, height:65 %>
-          </a>
-          <a href="https://wieneuplus.wien.gv.at/" target="_blank">
-            <%= image_tag 'logo-wieneuplus.png', width:190, height:100 %>
-          </a>
-        </div>
-        <p>
-          Der „ViertelFonds“ wird im Rahmen des Forschungsprojektes „crowd2raum“ eingerichtet zur gezielten Leerstandsaktivierung und Schaffung von Raumnutzungen für lokale Macher*innen.
-          Projektkonsortium: <a href="https://www.welocally.at/home" target="_blank">WeLocally</a> / morgenjungs GmbH (Konsortialführer); <a href="https://stadtlaborgraz.at/de/" target="_blank">StadtLABOR</a> - Innovationen für urbane Lebensqualität GmbH; <a href="https://wieneuplus.wien.gv.at/" target="_blank">Stadt Wien</a> – MA25 Technische Stadterneuerung
-        </p>
-      </div>
-      <div class="wrp-inner">
-        <div class="logos">
-          <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
-            <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
-          </a>
-          <a href="https://www.bmk.gv.at" target="_blank">
-            <%= image_tag 'logo-bmk.png', width:556, height:200 %>
-          </a>
-        </div>
-        <p>
-          Fördergeber: Klima- und Energiefonds & BMK im Rahmen der Sondierung für die Ausschreibung „Technologien und Innovationen für die Klimaneutrale Stadt 2023“ 
-        </p>
-      </div>
+  <div class="content-wide -end logo-footer">
+    <div class="wrp-inner">
+      <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
+        <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
+      </a>
+      <p>
+        Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
+      </p>
     </div>
-  <% else %>
-    <div class="content-wide -end logo-footer">
-      <div class="wrp-inner">
-        <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">
-          <%= image_tag 'logo-klimafonds.png', width:76, height:65 %>
-        </a>
-        <p>
-          Das Projekt ist Teil von <a href="https://smartcities.at/projects/stadtkern-plus/" target="_blank">Stadtkern_Plus</a> und wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen des Programms „Leuchttürme für resiliente Städte 2040" durchgeführt.
-        </p>
-      </div>
-    </div>
-  <% end %>
+  </div>
 
 </section>

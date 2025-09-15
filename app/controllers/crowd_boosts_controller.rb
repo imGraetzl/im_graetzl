@@ -49,6 +49,8 @@ class CrowdBoostsController < ApplicationController
       when 'graz'
         @contact_list_entry = ContactListEntry.new
         render :call_graz
+      when 'innsbruck'
+        render :call_innsbruck
       else
         render :show
       end

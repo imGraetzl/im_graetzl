@@ -512,7 +512,13 @@ de:
     call:
       title: '%{title}'
       description: '%{desc}'
+    call_wien:
+      title: '%{title}'
+      description: '%{desc}'
     call_graz:
+      title: '%{title}'
+      description: '%{desc}'
+    call_innsbruck:
       title: '%{title}'
       description: '%{desc}'
 
