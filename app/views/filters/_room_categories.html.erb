@@ -1,4 +1,4 @@
-<% cache ["room_categories_slider", @category&.id, RoomCategory.maximum(:updated_at).to_i], expires_in: 1.day do %>
+<% cache ["room_categories_slider", @category&.id, RoomCategory.maximum(:updated_at).to_i], expires_in: 1.week do %>
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Raumteiler" class="cS-hidden">
     <!-- RoomOffers with Rental Option-->
