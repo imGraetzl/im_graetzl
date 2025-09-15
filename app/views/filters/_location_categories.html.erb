@@ -1,4 +1,4 @@
-<% cache ["location_categories_slider", current_region.id, @category&.id, LocationCategory.maximum(:updated_at).to_i], expires_in: 1.day do %>
+<% cache ["location_categories_slider", current_region.id, @category&.id, LocationCategory.maximum(:updated_at).to_i], expires_in: 1.week do %>
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Locations" class="cS-hidden">
     <!-- Goodies -->
