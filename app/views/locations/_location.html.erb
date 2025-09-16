@@ -9,7 +9,7 @@
     <% end %>
     <div class="categoryicon">
       <%= icon_tag "#{location.verified? ? 'flash' : 'location'}", class: 'fav-exchange' %>
-      <%= toggle_favorite_icon(location) if current_user %>
+      <%= toggle_favorite_icon(location) if current_user && !current_user.admin? %>
       <%= toggle_admin_icon(location, notification: local_assigns[:notification]) if current_user&.admin? %>
     </div>
     <%= graetzl_flag(graetzl) %>

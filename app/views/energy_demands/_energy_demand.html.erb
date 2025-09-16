@@ -8,7 +8,7 @@
     </div>
     <div class="categoryicon">
       <%= icon_tag "sun", class: 'fav-exchange' %>
-      <%= toggle_favorite_icon(energy_demand) if current_user %>
+      <%= toggle_favorite_icon(energy_demand) if current_user && !current_user.admin? %>
       <%= toggle_admin_icon(energy_demand, notification: local_assigns[:notification]) if current_user&.admin? %>
     </div>
   </div>

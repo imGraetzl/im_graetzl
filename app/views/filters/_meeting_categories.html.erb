@@ -1,3 +1,4 @@
+<% cache ["meeting_categories_slider", current_region.id, @category&.id, EventCategory.maximum(:updated_at).to_i], expires_in: 1.week do %>
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Events & Workshops" class="cS-hidden">
     <% categories = EventCategory.visible.sort_by(&:position) %>
@@ -34,3 +35,4 @@
   </div>
   <div class="filter-line"></div>
 </div>
+<% end %>

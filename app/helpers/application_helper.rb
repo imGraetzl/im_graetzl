@@ -60,6 +60,7 @@ module ApplicationHelper
 
   def toggle_admin_icon(subject, notification: nil, options: {})
     return "".html_safe unless current_user&.admin?
+    faved = current_user&.has_favorite?(subject)
 
     link_to(icon_tag("gear"), 'javascript:',
       class: ["toggle-admin-ico #{options[:class]} jBoxTooltip"],
@@ -89,7 +90,16 @@ module ApplicationHelper
         link_to(send("admin_#{subject.class.name.underscore.downcase}_path", subject), target: "_blank") do
           icon_tag("link") +
           content_tag(:div, "Im AdminTool ansehen", class: 'icontxt')
+        end,
+
+        link_to(toggle_favorite_favorite_path(subject.id, subject.class),
+          remote: true, method: :post,
+          id: "favorite_#{subject.class.name.underscore}_#{subject.id}",
+          class: ["toggle-fav-ico #{faved ? '-faved' : ''}"]) do
+            icon_tag("favorite") +
+            content_tag(:div, faved ? "Von deiner Merkliste entfernen" : "Auf deine Merkliste setzen", class: 'icontxt')
         end
+
       ].compact)
     end
   end

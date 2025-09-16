@@ -4,21 +4,21 @@
   var $favoriteContainer = $(favoriteIcon).closest('.favorites-container');
   <% if @favor %>
     favoriteIcon.addClass( "-faved" );
-    gtag(
-      'event', 'Favorites :: Auf die Merkliste', {
-      'event_label': favoriteIcon.attr('id')
-    });
+    var $iconTxt = favoriteIcon.find('.icontxt');
+    if ($iconTxt.length) {
+      $iconTxt.text("Von deiner Merkliste entfernen");
+    }
   <% else %>
     favoriteIcon.removeClass( "-faved" );
+    var $iconTxt = favoriteIcon.find('.icontxt');
+    if ($iconTxt.length) {
+      $iconTxt.text("Auf deine Merkliste setzen");
+    }
     if ($favoriteContainer.exists()) {
       $('.card-grid').masonry( 'remove', $favoriteElement ).masonry('layout');
       if ($favoriteContainer.find('[data-behavior="masonry-card"]').length <= 1) {
         APP.components.cardBoxFilter.init(); // Show ActionCard again if empty
       }
     }
-    gtag(
-      'event', 'Favorites :: Von Merkliste entfernen', {
-      'event_label': favoriteIcon.attr('id')
-    });
   <% end %>
 })();

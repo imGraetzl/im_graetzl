@@ -19,37 +19,24 @@
       <h3><%= link_to "Fördertopf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
     </div>
 
-    <% if crowd_boost.open_slot %>
+    <% icon, text =
+      if region.is?('graz') && crowd_boost.open_slot
+        ["horn-promote", "<strong>Die neue Runde ist gestartet!</strong> Vom 14. Mai bis zum 30. Sep 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen."]
+      elsif region.is?('innsbruck') && crowd_boost.open_slot
+        ["horn-promote", "<strong>Die neue Runde ist gestartet!</strong> Vom 24. Sep bis zum 30. Nov 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen."]
+      elsif region.is?('wien')
+        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“ und zusätzlich über die Good Morning Dates, ein neuer Call folgt in Kürze."]
+      elsif region.is?('innsbruck')
+        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“ - Der erste Call ist in Vorbereitung."]
+      else
+        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“, der nächste Call ist in Vorbereitung."]
+      end
+    %>
 
-      <div class="facts icontxt -mint">
-        <%= icon_tag "horn-promote" %>
-        <div><strong>Die neue Runde ist gestartet!</strong> Vom 14. Mai bis zum 30. Sep 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen.</div>
-      </div>
-
-    <% elsif region.is?('wien') %>
-
-      <div class="facts icontxt -mint">
-        <%= icon_tag "slots" %>
-        <div>Der Topf füllt sich aktuell über „Aufrunden bitte“ und zusätzlich über die Good Morning Dates, ein neuer Call folgt in Kürze.</div>
-      </div>
-    
-    <% elsif region.is?('innsbruck') %>
-
-      <div class="facts icontxt -mint">
-        <%= icon_tag "slots" %>
-        <div>Der Topf füllt sich aktuell über „Aufrunden bitte“ - Der erste Call ist in Vorbereitung.</div>
-      </div>
-
-    <% else %>
-
-      <div class="facts icontxt -mint">
-        <%= icon_tag "slots" %>
-        <div>Der Topf füllt sich aktuell über „Aufrunden bitte“, der nächste Call ist in Vorbereitung.</div>
-      </div>
-
-    <% end %>
-
-      
+    <div class="facts icontxt -mint">
+      <%= icon_tag icon %>
+      <div><%= text.html_safe %></div>
+    </div>
 
     <% if crowd_boost.crowd_campaigns.boost_initialized.count > 0 %>
 

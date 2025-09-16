@@ -37,7 +37,7 @@
       <% else %>
         <%= icon_tag "users", class: 'fav-exchange' %>
       <% end %>
-      <%= toggle_favorite_icon(meeting) if current_user %>
+      <%= toggle_favorite_icon(meeting) if current_user && !current_user.admin? %>
       <%= toggle_admin_icon(meeting, notification: local_assigns[:notification]) if current_user&.admin? %>
     </div>
 

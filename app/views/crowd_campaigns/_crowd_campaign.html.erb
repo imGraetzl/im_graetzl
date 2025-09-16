@@ -10,7 +10,7 @@
     <% end %>
     <div class="categoryicon">
       <%= icon_tag "crowd", class: 'fav-exchange' %>
-      <%= toggle_favorite_icon(crowd_campaign) if current_user %>
+      <%= toggle_favorite_icon(crowd_campaign) if current_user && !current_user.admin? %>
       <%= toggle_admin_icon(crowd_campaign, notification: local_assigns[:notification]) if current_user&.admin? %>
     </div>
     <div class="sideflag -R -label">- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</div>
