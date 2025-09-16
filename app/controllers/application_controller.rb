@@ -156,4 +156,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def handle_rate_limit!(retry_after: 60)
+    Sentry.capture_message(
+      "Rate limit hit",
+      level: :warning,
+      extra: {
+        ip: request.remote_ip,
+        path: request.fullpath,
+        ua: request.user_agent
+      }
+    )
+
+    Rails.logger.warn("[RateLimit] ip=#{request.remote_ip} path=#{request.fullpath} ua=#{request.user_agent}")
+
+    response.set_header('Retry-After', retry_after.to_s)
+    head :too_many_requests
+  end
+
 end
