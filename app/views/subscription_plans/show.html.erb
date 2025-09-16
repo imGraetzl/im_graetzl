@@ -47,7 +47,7 @@
   <div class="allBoxes">
     <div class="inner cardBoxCollection">
       <%= render :partial => 'subscription_plans/subscribers_wow', :collection => current_region.wow, :as => :wow %>
-      <% cache ["subscribers-list", current_region.id, @subscription_count], expires_in: 1.week do %>
+      <% cache ["subscribers-list", current_region.id, @subscription_count], expires_in: 2.hours do %>
         <%= render partial: "subscription_plans/subscribers", collection: @subscriptions, as: :subscription %>
       <% end %>
     </div>
