@@ -1,4 +1,26 @@
 class DistrictsController < ApplicationController
+
+  rate_limit to: 10, within: 60.seconds, with: -> { rate_limited! }
+
+  def rate_limited!
+    # Log an Sentry
+    Sentry.capture_message(
+      "Rate limit hit",
+      level: :warning,
+      extra: {
+        ip: request.remote_ip,
+        path: request.fullpath,
+        ua: request.user_agent
+      }
+    )
+
+    # Optionale Info in dein normales Rails-Log
+    Rails.logger.warn("[RateLimit] ip=#{request.remote_ip} path=#{request.fullpath} ua=#{request.user_agent}")
+
+    response.set_header('Retry-After', '60')
+    head :too_many_requests
+  end
+
   before_action :load_district
 
   def index
