@@ -122,7 +122,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # CSRF Trusted Origins (Rails 7.2+)
-  config.action_controller.permitted_csrf_origins = [
+  config.action_controller.csrf_trusted_origins = [
     "https://www.imgraetzl.at",
     "https://www.welocally.at",
     "https://graz.welocally.at",
