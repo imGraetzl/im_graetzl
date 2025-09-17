@@ -121,14 +121,4 @@ Rails.application.configure do
   # Optional: Healthcheck-Exception
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  # CSRF Trusted Origins (Rails 7.2+)
-  config.action_controller.csrf_trusted_origins = [
-    "https://www.imgraetzl.at",
-    "https://www.welocally.at",
-    "https://graz.welocally.at",
-    "https://linz.welocally.at",
-    "https://innsbruck.welocally.at",
-    "https://muehlviertler-kernland.welocally.at",
-    "https://kaernten.welocally.at"
-  ]
 end
