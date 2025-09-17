@@ -1,6 +1,6 @@
 class DistrictsController < ApplicationController
 
-  rate_limit to: 60, within: 30.seconds, with: -> { handle_rate_limit!(retry_after: 30) }
+  rate_limit to: 30, within: 15.seconds, with: -> { handle_rate_limit!(retry_after: 15) }
   before_action :load_district
 
   def index
