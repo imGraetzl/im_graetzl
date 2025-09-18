@@ -46,6 +46,12 @@ class Rack::Attack
     req.get? && req.path =~ /\/(attend|comment_post)$/
   end
 
+  ### Blockiere Archiv-Downloads
+  blocklist('block archive requests: .zip') do |req|
+    path = req.path.to_s
+    path.match?(/\.zip\z/i)
+  end
+
   ### Blockiere IPs aus ENV
   BLOCKED_IP_SET = Set.new((ENV['BLOCKED_IPS'] || '').split(',').map(&:strip))
   blocklist('block specific IPs') { |req| BLOCKED_IP_SET.include?(req.ip) }
