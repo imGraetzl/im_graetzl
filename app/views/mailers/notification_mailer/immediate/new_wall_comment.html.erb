@@ -52,4 +52,4 @@
   </tbody>
 </table>
 
-<%= render 'featured/subscription' if @region.id == 'wien' && !@user.subscribed? %>
+<%= render 'featured/subscription' if @region.use_subscription? && !@user.subscribed? %>
