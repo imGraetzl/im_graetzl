@@ -22,7 +22,7 @@
       <p>
         <strong>Werdet Unterstützer*innen unserer Arbeit!</strong>
         <br>
-        <strong><%= @subscription_count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.
+        <strong><%= @subscription_count %></strong> Menschen unterstützen <%= current_region.is?('wien') ? 'imGrätzl' : 'WeLocally.at & imGrätzl.at' %> bereits mit einer Fördermitgliedschaft.
         <br>
         <strong>Unser nächstes Ziel: <%= current_region.subscription_goal %> Förder*innen.</strong>
       </p>

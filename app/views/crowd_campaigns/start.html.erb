@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
-    og_image: image_url('meta/crowdfunding.jpg')
+    og_image: image_url('meta/crowdfunding-v2.jpg')
   )
 %>
 
@@ -96,7 +96,7 @@
         </p>
       </div>
       <div class="introSide">
-        <%= render 'crowd_boosts/crowd_boost_welocally', crowd_boost: @crowd_boost %>
+        <%= render 'crowd_boosts/crowd_boost_info', crowd_boost: @crowd_boost %>
       </div>
     </div>
   <% end %>

@@ -145,41 +145,6 @@
 
   // -------------------------- CrowdBoost Cardbox
   &.-crowd_boost {
-    .sideflag {
-      color: $color-ambient-rosa-dark;
-      background-color: $color-ambient-rosa-light;
-      &.-R {
-        &:after {
-          border-color: $color-ambient-rosa-dark transparent transparent transparent;
-        }
-      }
-    }
-    .cardBoxContent {
-      .btn-primary { margin-top:10px; }
-    }
-    &.-active {
-      .categoryicon {
-        color: $color-ambient-rosa;
-      }
-    }
-    .facts-headline {
-      text-align: center;
-      padding: 15px;
-      border-top: 1px solid $color-ambient-mint-light;
-    }
-    .via-link {
-      text-decoration: underline;
-      color: $color-ambient-grey;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-
-
-
-  // -------------------------- CrowdBoost WeLocally Cardbox
-  &.-crowd_boost.-welocally {
     .cardBoxHeader {
       background-color: rgba($color-ambient-mint, 0.1);
     }
@@ -194,10 +159,22 @@
       color: $color-ambient-rosa;
       @include font-size-secondaryFont('base');
     }
-    &.-open {
-      .coverImgWrapper svg {
-        fill: rgba($color-ambient-rosa, 1.0);
+    .sideflag {
+      color: $color-ambient-rosa-dark;
+      background-color: $color-ambient-rosa-light;
+      &.-R {
+        &:after {
+          border-color: $color-ambient-rosa-dark transparent transparent transparent;
+        }
       }
+    }
+    .cardBoxContent {
+      .btn-primary { margin-top:10px; }
+    }
+    .facts-headline {
+      text-align: center;
+      padding: 15px;
+      border-top: 1px solid $color-ambient-mint-light;
     }
   }
 
