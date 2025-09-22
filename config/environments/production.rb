@@ -120,4 +120,5 @@ Rails.application.configure do
 
   # Optional: Healthcheck-Exception
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
 end

@@ -1,0 +1,24 @@
+<div class="cardBox featuredCard -static -hidden" data-behavior="masonry-card">
+
+  <div class="cardBoxHeader">
+    <%= link_to leerstand_path do %>
+      <div class="coverImgWrapper">
+        <%= image_tag 'info/crowd_boost/cardbox.jpg', class: 'coverImg' %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= icon_tag "horn-promote" %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+    <div class="txt">
+      <h3>1.000 € Crowdfunding-Zuschuss für dein Raumvorhaben aus dem ViertelFonds.</h3>
+      <p>
+        Der ViertelFonds unterstützt dein Raumvorhaben in Innsbruck mit einem Crowdfunding-Zuschuss. Reiche jetzt dein Vorhaben <strong>bis zum 30. November</strong> ein und starte dein Crowdfunding.
+      </p>
+    </div>
+    <%= link_to 'Zuschuss sichern', leerstand_path, class: 'btn-primary' %>
+  </div>
+
+</div>

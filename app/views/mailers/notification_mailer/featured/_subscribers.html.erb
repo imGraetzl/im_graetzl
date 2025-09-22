@@ -4,8 +4,7 @@
     <tr>
       <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
         <strong>Damit wir <%= t("region.#{@region.id}.domain_short") %> weiterhin für euch <%= t("region.#{@region.id}.in_your_region") %> zur Verfügung stellen können, sind wir auf jeden Euro angewiesen.</strong>
-        Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform mit dem Raumteiler und all 
-        den anderen Services für alle zugänglich sein muss, weshalb wir keine Paywalls haben.
+        Wir sind der Überzeugung, dass so eine gemeinwohlorientierte lokale Plattform für alle zugänglich sein muss, weshalb wir keine Paywalls haben.
         Euer Beitrag unterstützt nicht nur das <%= t("region.#{@region.id}.domain_short") %> Team, sondern auch alle anderen lokalen Macher*innen. 
         <strong><%= link_to 'Werde jetzt Fördermitglied', subscription_plans_url, target: '_blank', style: 'color:#ec776a; font-weight:bold;' %>.</strong>
       </td>
@@ -30,7 +29,7 @@
   <tbody>
     <tr>
       <td valign="top" align="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px; padding-top:0; text-align:center;">
-        <strong><%= @subscriptions.size %></strong> Menschen unterstützen <%= @region.is?('wien') ? 'imGrätzl' : 'WeLocally' %> bereits mit einer Fördermitgliedschaft.
+        <strong><%= @subscriptions.size %></strong> Menschen unterstützen <%= @region.is?('wien') ? 'imGrätzl' : 'WeLocally.at & imGrätzl.at' %> bereits mit einer Fördermitgliedschaft.
         <br><strong>Unser nächstes Ziel: <%= @region.subscription_goal %> Förder*innen.</strong>
       </td>
     </tr>

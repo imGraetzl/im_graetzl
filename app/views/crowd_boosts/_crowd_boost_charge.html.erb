@@ -1,11 +1,14 @@
+<% region = Region.get(crowd_boost.region_ids.last) %>
 <% @next_slot = crowd_boost.next_slot(current_region) %>
 
-<div class="cardBox -crowd_boost <%= @next_slot ? "-active" : "" %>" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
+<div class="cardBox -crowd_boost" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
   
   <div class="cardBoxHeader">
     <%= link_to crowd_boost do %>
       <div class="coverImgWrapper">
-        <%= avatar_image(crowd_boost, class: 'coverImg') %>
+        <div class="coverImgWrapper">
+          <%= icon_tag "region-#{region.id}" %>
+        </div>
       </div>
     <% end %>
     <div class="categoryicon">

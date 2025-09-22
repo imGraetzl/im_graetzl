@@ -24,7 +24,7 @@
     </div>
 
     <div class="slogan">
-      <strong><%= Subscription.in(current_region).active.count %></strong>  Menschen unterstützen imGrätzl bereits mit einer Fördermitgliedschaft.
+      <strong><%= Subscription.active.count %></strong>  Menschen unterstützen imGrätzl bereits mit einer Fördermitgliedschaft.
       <br>
       <strong>Unser nächstes Ziel: <%= current_region.subscription_goal %> Förder*innen.</strong>
     </div>

@@ -68,4 +68,4 @@
   </tr>
 </table>
 
-<%= render 'mailers/notification_mailer/featured/subscription' if @region.id == 'wien' && !@room_rental.owner.subscribed? %>
+<%= render 'mailers/notification_mailer/featured/subscription' if @region.use_subscription? && !@room_rental.owner.subscribed? %>
