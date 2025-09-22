@@ -989,6 +989,13 @@ section.startcampaign {
 
 .-userquotes {
   margin-top:50px;
+  .lightSlider {
+    height:auto !important;
+    display: flex;
+    .lslide {
+      margin-bottom: 0;
+    }
+  }
 }
 
 section.usersetup.-crowd_campaigns {
