@@ -14,6 +14,7 @@
         für <%= link_to 'Wien', '#filter-modal-region', data: { no_filter_label: 'Wien'} %> 
         aus <%= link_to 'allen Bereichen', '#filter-modal-type', data: { no_filter_label: 'allen Bereichen'} %> 
         <span class="region_graetzl_filter -hidden">in <%= link_to "allen Bezirken", '#filter-modal-areas', data: { no_filter_label: "allen Bezirken"}, class: 'filter-modal-areas' %></span>
+        <%= link_to 'nach Aktualität', '#filter-modal-sort', data: { no_filter_label: 'nach Aktualität'} %>
         - <a class="plain-link notification-count -rosa" href="javascript:">0</a>
       </div>
     </div>
@@ -25,6 +26,9 @@
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">
       <%= render 'filters/areas', entire_region: true %>
+    </div>
+    <div id="filter-modal-sort" class="filter-modal-jbox oneclick">
+      <%= render 'filters/notification_sort', sort: 'user' %>
     </div>
   <% end %>
 

@@ -88,6 +88,12 @@ class NotificationsController < ApplicationController
     # 1. Duplikate entfernen (wie in notification_destroy)
     uniq_notifications = notifications.uniq { |n| [n.subject_type, n.subject_id, n.type, n.child_type] }
 
+    # Sortierlogik
+    case params.dig(:filter, :sort)
+    when 'user'
+      uniq_notifications.sort_by! { |n| n.subject&.user&.id.to_i }
+    end
+
     # 3. Pagination + direkte Übergabe an View
     @notifications = Kaminari.paginate_array(uniq_notifications).page(params[:page]).per(params[:per_page] || 21)
 
