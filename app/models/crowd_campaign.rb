@@ -77,6 +77,7 @@ class CrowdCampaign < ApplicationRecord
   }
 
   after_create :set_transaction_fee
+  after_commit :send_draft_mail, on: :create
   after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
 
   def entire_graetzl?
@@ -392,6 +393,10 @@ class CrowdCampaign < ApplicationRecord
   def set_transaction_fee
     self.service_fee_percentage = self.transaction_fee_percentage
     self.save
+  end
+
+  def send_draft_mail
+    CrowdCampaignMailer.draft(self).deliver_later
   end
 
 end

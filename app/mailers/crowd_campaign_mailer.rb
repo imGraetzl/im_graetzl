@@ -1,5 +1,17 @@
 class CrowdCampaignMailer < ApplicationMailer
 
+  def draft(crowd_campaign)
+    @crowd_campaign = crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-campaign-draft")
+    mail(
+      subject: "Kurz sprechen, dann gut starten",
+      from: platform_email('no-reply'),
+      to: @crowd_campaign.user.email,
+      bcc: platform_admin_email,
+    )
+  end
+
   def pending(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
