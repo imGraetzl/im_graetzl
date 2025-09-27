@@ -1,4 +1,9 @@
 context.instance_eval do
+
+  h3 class: "balance-summary" do
+    "Gesamtbalance: #{number_to_currency CrowdBoost.all.sum(&:balance)}"
+  end
+
   selectable_column
   id_column
   column :regions do |b|
