@@ -101,12 +101,13 @@ class NotificationsController < ApplicationController
     # Sortierlogik
     case params.dig(:filter, :sort)
     when 'user'
-      # nil-Owner ans Ende, dann owner_id ASC, innerhalb owner: created_at DESC
+      owner_counts = Hash.new(0).merge(uniq_notifications.map(&:owner_id).compact.tally)
       uniq_notifications.sort_by! do |n|
         [
-          n.owner_id.nil? ? 1 : 0,           # nil-owner last
-          n.owner_id || Float::INFINITY,     # owner sort
-          -n.created_at.to_i                 # newest first within owner
+          n.owner_id.nil? ? 1 : 0,      # nil-Owner ans Ende
+          -owner_counts[n.owner_id],     # Owner mit den meisten Inhalten zuerst
+          n.owner_id || Float::INFINITY, # stabile Reihenfolge zwischen Ownern
+          -(n.created_at || Time.at(0)).to_i # innerhalb Owner: neueste zuerst
         ]
       end
     end
