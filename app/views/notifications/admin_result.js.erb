@@ -4,6 +4,11 @@
 
   $('.notification-count').text(<%= @notifications.total_count %>);
 
+  <% if @owner.present? %>
+    $('.notification-owner-wrp').removeClass('-hidden');
+    $('.notification-owner').text("<%= @owner %>");
+  <% end %>
+
   <% rendered_notifications = @notifications.map { |notification|
     subject       = notification.subject
     model_name    = subject.class.name.underscore

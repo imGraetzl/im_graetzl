@@ -57,11 +57,18 @@ class NotificationsController < ApplicationController
     notifications = notifications
       .where(type: admin_types)
       .includes(:subject)
-      .order(id: :desc)
+      .order(created_at: :desc)
 
+    # Filtern nach Type
     if params.dig(:filter, :type).present?
       type_classes = params.dig(:filter, :type)
       notifications = notifications.select { |n| type_classes.include?(n.subject_type) }
+    end
+
+    # Filtern nach owner_id
+    if params.dig(:filter, :owner_id).present?
+      notifications = notifications.where(owner_id: params[:filter][:owner_id])
+      @owner = notifications.first&.owner.full_name
     end
 
     # Filtern nach graetzl_id über die Subjects
@@ -88,10 +95,20 @@ class NotificationsController < ApplicationController
     # 1. Duplikate entfernen (wie in notification_destroy)
     uniq_notifications = notifications.uniq { |n| [n.subject_type, n.subject_id, n.type, n.child_type] }
 
+    # 2. Zählen der Notifications pro Owner (User)
+    @notification_counts_by_owner = uniq_notifications.map(&:owner_id).reject(&:blank?).tally
+
     # Sortierlogik
     case params.dig(:filter, :sort)
     when 'user'
-      uniq_notifications.sort_by! { |n| n.subject&.user&.id.to_i }
+      # nil-Owner ans Ende, dann owner_id ASC, innerhalb owner: created_at DESC
+      uniq_notifications.sort_by! do |n|
+        [
+          n.owner_id.nil? ? 1 : 0,           # nil-owner last
+          n.owner_id || Float::INFINITY,     # owner sort
+          -n.created_at.to_i                 # newest first within owner
+        ]
+      end
     end
 
     # 3. Pagination + direkte Übergabe an View
