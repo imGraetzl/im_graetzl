@@ -12,4 +12,11 @@ module NotificationHelper
     ]
   end
 
+  def filter_notification_sorts
+    [
+      ['Nach Aktualität', 'date'],
+      ['Nach User', 'user'],
+    ]
+  end
+
 end

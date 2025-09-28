@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_05_103325) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_27_190034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -1031,8 +1031,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_05_103325) do
     t.date "daily_send_at"
     t.date "weekly_send_at"
     t.bigint "graetzl_id"
+    t.integer "owner_id"
     t.index ["child_type", "child_id"], name: "index_notifications_on_child_type_and_child_id"
     t.index ["graetzl_id"], name: "index_notifications_on_graetzl_id"
+    t.index ["owner_id"], name: "index_notifications_on_owner_id"
     t.index ["region_id"], name: "index_notifications_on_region_id"
     t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
     t.index ["user_id", "notify_at"], name: "index_notifications_on_user_id_and_notify_at"

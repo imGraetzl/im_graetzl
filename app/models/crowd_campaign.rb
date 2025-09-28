@@ -77,6 +77,7 @@ class CrowdCampaign < ApplicationRecord
   }
 
   after_create :set_transaction_fee
+  after_commit :send_draft_mail, on: :create
   after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
 
   def entire_graetzl?
@@ -199,9 +200,9 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def stripe_fee_percentage_calculated
-    return 0.0 if enddate.blank? || enddate < Date.new(2025, 4, 1)
+    # return 0.0 if enddate.blank? || enddate < Date.new(2025, 4, 1)
     # calculated real percentage - observe
-    pledges = crowd_pledges.debited
+    pledges = crowd_pledges.debited.where.not(stripe_fee: nil)
     return 0.0 if pledges.empty?
     total_price = pledges.sum(:total_price)
     return 0.0 if total_price.zero?
@@ -392,6 +393,10 @@ class CrowdCampaign < ApplicationRecord
   def set_transaction_fee
     self.service_fee_percentage = self.transaction_fee_percentage
     self.save
+  end
+
+  def send_draft_mail
+    CrowdCampaignMailer.draft(self).deliver_later
   end
 
 end

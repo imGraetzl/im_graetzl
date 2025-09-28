@@ -1,0 +1,8 @@
+<% filter_notification_sorts.each do |label, value| %>
+  <div class="input-radio filter-input filter-sort">
+    <%= radio_button :filter, :sort, value,
+          data: { label: label, filter_label: 'Sort' },
+          checked: (sort.to_s == value.to_s || (sort.blank? && value == '')) %>
+    <%= label_tag "filter_sort_#{value}", label %>
+  </div>
+<% end %>

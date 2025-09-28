@@ -100,7 +100,7 @@ class CouponService
   def users_with_recent_coupons_with_prefix(prefix)
     User
       .joins(coupon_histories: :coupon)
-      .where('coupon_histories.sent_at >= ?', 9.months.ago)
+      .where('coupon_histories.sent_at >= ?', 12.months.ago)
       .where('coupons.code LIKE ?', "%-#{prefix}%")
       .distinct
       .pluck(:id)

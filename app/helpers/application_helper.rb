@@ -61,8 +61,9 @@ module ApplicationHelper
   def toggle_admin_icon(subject, notification: nil, options: {})
     return "".html_safe unless current_user&.admin?
     faved = current_user&.has_favorite?(subject)
+    count = (notification.present? && notification.owner_id.present?) ? @notification_counts_by_owner[notification.owner_id] : 0
 
-    link_to(icon_tag("gear"), 'javascript:',
+    link_to(icon_with_badge("gear", count > 1 ? count : 0), 'javascript:',
       class: ["toggle-admin-ico #{options[:class]} jBoxTooltip"],
       data: { tooltip_id: "tt-admin_#{subject.class.name.underscore}_#{subject.id}" }
     ) +
@@ -76,6 +77,14 @@ module ApplicationHelper
             icon_tag("cross") +
             content_tag(:div, "Aus E-Mails löschen", class: 'icontxt')
           end : nil),
+
+        (notification.present? && count > 1 ? link_to("javascript:void(0)",
+          class: "js-owner-filter",
+          onclick: "APP.controllers_loggedin.notifications.filterOwner(#{notification.owner_id}); return false;"
+        ) do
+          icon_with_badge("user-avatar", count) +
+          content_tag(:div, "Weitere Inhalte des Users", class: "icontxt")
+        end : nil),
 
         link_to(messenger_start_thread_path(user_id: subject.user&.id), target: "_blank") do
           icon_tag("speech-bubbles") +

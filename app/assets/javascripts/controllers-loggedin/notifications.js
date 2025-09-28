@@ -9,7 +9,6 @@ APP.controllers_loggedin.notifications = (function() {
 
     const regionRadios = document.querySelectorAll("#filter-modal-region input[type='radio']");
     const graetzlFilter = document.querySelector(".region_graetzl_filter");
-    const filterAreaCheckboxes = document.querySelectorAll(".filter-areas input[type='checkbox']");
 
     function updateFilter() {
       const selectedRadio = document.querySelector("#filter-modal-region input[type='radio']:checked");
@@ -21,7 +20,6 @@ APP.controllers_loggedin.notifications = (function() {
 
         // Alle Checkboxen in .filter-areas abwählen
         $('#filter-modal-areas').closest('.jBox-container').find('.jBox-Confirm-button-cancel').click();
-        //$('#filter-modal-type input#filter_type_').prop('checked', true).trigger('change');
       }
     }
 
@@ -35,8 +33,22 @@ APP.controllers_loggedin.notifications = (function() {
 
   }
 
+  function filterOwner(owner_id) {
+    let $input = $('input[name="filter[owner_id]"]');
+    $input.val(owner_id);
+    $(".notification-owner-wrp").show();
+    APP.components.cardBoxFilter.submitForm();
+  }
+
+  $('.notification-owner-wrp').on('click', function(event){
+    $('input[name="filter[owner_id]"]').val('');
+    $(this).hide();
+    APP.components.cardBoxFilter.submitForm();
+  });
+
   return {
-    init: init
+    init: init,
+    filterOwner: filterOwner
   }
 
 })();
