@@ -55,11 +55,13 @@ APP.components.headerNavigation = (function() {
       if (menuLink.hasClass("is-open")) {
         menuLink.removeClass("is-open");
         menu.removeClass("mobile-dropdown");
+        toggleMessengerScroll("unscroll");
       } else {
         container.find(".is-open").removeClass("is-open");
         menuLink.addClass("is-open");
         container.find(".mobile-dropdown").removeClass("mobile-dropdown");
         menu.addClass("mobile-dropdown").appendTo(container);
+        toggleMessengerScroll("scroll");
       }
     }
 
