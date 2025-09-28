@@ -31,9 +31,24 @@ APP.components.headerNavigation = (function() {
         menu.removeClass("jq-dropdown jq-dropdown-tip jq-dropdown-relative");
         menu.removeClass("jq-dropdown-anchor-" + menuLink.data("anchor") || "left");
         menuLink.jqDropdown('detach', '#' + menu.attr('id'));
+        toggleMessengerScroll("unscroll");
       });
       $('#betaflash').fadeOut();
+      toggleMessengerScroll("scroll");
     }
+
+    function toggleMessengerScroll(mode) {
+      if (!document.querySelector('.messenger-page')) return;
+
+      if (mode === "unscroll") {
+        $('footer').hide();
+        unscroll();
+      } else if (mode === "scroll") {
+        $('footer').show();
+        unscroll.reset();
+      }
+    }
+
 
     function toggleMobileMenu(menuLink) {
       var menu = $('#' + menuLink.data('dropdown'));
