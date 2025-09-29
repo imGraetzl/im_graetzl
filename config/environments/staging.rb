@@ -112,11 +112,13 @@ Rails.application.configure do
   config.log_tags      = [:request_id, ->(_req) { "staging" }]
   config.log_formatter = ::Logger::Formatter.new
 
-  stdout_logger = ActiveSupport::Logger.new($stdout)
-  stdout_logger.level     = Logger.const_get(config.log_level.to_s.upcase)
-  stdout_logger.formatter = config.log_formatter
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    stdout_logger = ActiveSupport::Logger.new($stdout)
+    stdout_logger.level     = Logger.const_get(config.log_level.to_s.upcase)
+    stdout_logger.formatter = config.log_formatter
 
-  config.logger = ActiveSupport::TaggedLogging.new(stdout_logger)
+    config.logger = ActiveSupport::TaggedLogging.new(stdout_logger)
+  end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

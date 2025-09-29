@@ -7,7 +7,7 @@ if Rails.env.production? || Rails.env.staging?
     dj_logger.formatter = Rails.application.config.log_formatter
     dj_logger.level = Logger::WARN
 
-    Delayed::Worker.logger = dj_logger
+    Delayed::Worker.logger = ActiveSupport::TaggedLogging.new(dj_logger)
 
     Rails.logger.info "[DelayedJobLogger] Initialized separate DJ logger with level WARN"
   end
