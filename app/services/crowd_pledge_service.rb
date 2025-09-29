@@ -28,7 +28,7 @@ class CrowdPledgeService
     end
 
     unless setup_intent.status.in?(%w[succeeded processing])
-      Rails.logger.info "[stripe] SetupIntent #{setup_intent_id} nicht erfolgreich (Status: #{setup_intent.status})"
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent_id} nicht erfolgreich (Status: #{setup_intent.status})"
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 

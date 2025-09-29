@@ -59,16 +59,16 @@ class NotificationsController < ApplicationController
       .includes(:subject)
       .order(created_at: :desc)
 
-    # Filtern nach Type
-    if params.dig(:filter, :type).present?
-      type_classes = params.dig(:filter, :type)
-      notifications = notifications.select { |n| type_classes.include?(n.subject_type) }
-    end
-
     # Filtern nach owner_id
     if params.dig(:filter, :owner_id).present?
       notifications = notifications.where(owner_id: params[:filter][:owner_id])
       @owner = notifications.first&.owner.full_name
+    end
+
+    # Filtern nach Type
+    if params.dig(:filter, :type).present?
+      type_classes = params.dig(:filter, :type)
+      notifications = notifications.select { |n| type_classes.include?(n.subject_type) }
     end
 
     # Filtern nach graetzl_id über die Subjects
