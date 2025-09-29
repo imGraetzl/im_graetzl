@@ -24,8 +24,8 @@ class MessengerController < ApplicationController
         Sentry.logger.warn("[Messenger Spam Alert] User-ID %{user_id} hat %{thread_count} Threads gestartet.", user_id: current_user.id, thread_count: recent_messages.size )
         redirect_to root_path, notice: "Du hast sehr viele Messenger-Konversationen in kurzer Zeit gestartet. Bitte warte etwas." and return
       elsif recent_messages.size == 10
-        Rails.logger.info "[Messenger Spam Warning] User #{current_user.id} hat #{recent_messages.size} Threads erreicht."
-        Sentry.logger.info("[Messenger Spam Warning] User-ID %{user_id} hat %{thread_count} Threads erreicht.", user_id: current_user.id, thread_count: recent_messages.size )
+        Rails.logger.warn "[Messenger Spam Warning] User #{current_user.id} hat #{recent_messages.size} Threads erreicht."
+        Sentry.logger.warn("[Messenger Spam Warning] User-ID %{user_id} hat %{thread_count} Threads erreicht.", user_id: current_user.id, thread_count: recent_messages.size )
         AdminMailer.messenger_spam_alert(current_user, recent_messages.values).deliver_later
       end
     end
