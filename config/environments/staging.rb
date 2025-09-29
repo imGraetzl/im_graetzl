@@ -108,15 +108,16 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   # --- Logging ---
-  config.log_level = ENV.fetch('LOG_LEVEL', 'info').to_sym  # Gleich wie Production!
-  config.log_tags = [:request_id, -> request { "staging" }]  # Mit staging Tag
+  config.log_level = ENV.fetch('LOG_LEVEL', 'debug').to_sym  # in Staging meist debug sinnvoll
+  config.log_tags  = [:request_id, -> request { "staging" }]
   config.log_formatter = ::Logger::Formatter.new
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
-  end
+  logger = ActiveSupport::Logger.new($stdout)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+  # Wichtig für Rails 7.2: BroadcastLogger deaktivieren
+  config.remove_existing_log_subscriptions = true
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
