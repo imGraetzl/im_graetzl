@@ -49,15 +49,17 @@ Rails.application.configure do
   # --- SSL & Security ---
   config.force_ssl = true
 
-  # --- Logging ---
-  config.log_level = ENV.fetch('LOG_LEVEL', 'info').to_sym  # ENV Variable nutzen!
-  config.log_tags = [:request_id]
+  # --- Logging (Production) ---
+  config.log_level     = ENV.fetch('LOG_LEVEL', 'info').to_sym
+  config.log_tags      = [:request_id, ->(_req) { "production" }]
   config.log_formatter = ::Logger::Formatter.new
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    stdout_logger = ActiveSupport::Logger.new($stdout)
+    stdout_logger.level     = Logger.const_get(config.log_level.to_s.upcase)
+    stdout_logger.formatter = config.log_formatter
+
+    config.logger = ActiveSupport::TaggedLogging.new(stdout_logger)
   end
 
   # --- Caching mit Redis (Fallback auf MemoryStore falls REDIS_URL fehlt) ---
