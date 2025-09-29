@@ -21,8 +21,7 @@ class Rack::Attack
       heroku_request_id: req.get_header('HTTP_HEROKU_REQUEST_ID')
     }.compact
 
-    # Einzeilig & maschinenlesbar
-    Rails.logger.warn("[RA_BLOCK] " + payload.to_json)
+    Rails.logger.warn("[RA_BLOCK] " + payload.to_json.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?'))
 
     [403, { 'Content-Type' => 'text/plain' }, ['403 Forbidden']]
   end
@@ -56,17 +55,23 @@ class Rack::Attack
   BLOCKED_IP_SET = Set.new((ENV['BLOCKED_IPS'] || '').split(',').map(&:strip))
   blocklist('block specific IPs') { |req| BLOCKED_IP_SET.include?(req.ip) }
 
-  ### Blockiere SQLi/XSS Signaturen in GET-Requests
-  blocklist('block confirmed SQLi/XSS patterns') do |req|
-    req.get? && CGI.unescape(req.fullpath.to_s) =~ %r{
-      (waitfor\s+delay       |
-       benchmark\(           |
-       dbms_pipe             |
-       \(select\W*.*sleep\(  |
-       xor\(.*if\(.*sleep\(  |
-       %3Cscript             )
-    }ix
-  end
+    ### Blockiere SQLi/XSS Signaturen in GET-Requests
+    blocklist('block confirmed SQLi/XSS patterns') do |req|
+      begin
+        # Falls fullpath ungültige Byte-Sequenzen enthält, fangen wir ArgumentError ab
+        req.get? && CGI.unescape(req.fullpath.to_s) =~ %r{
+          (waitfor\s+delay       |
+          benchmark\(           |
+          dbms_pipe             |
+          \(select\W*.*sleep\(  |
+          xor\(.*if\(.*sleep\(  |
+          %3Cscript             )
+        }ix
+      rescue ArgumentError
+        # Im Fall von invalid byte sequences: nicht blocken (kein 500), einfach false
+        false
+      end
+    end
 
   ### Blockiere .js/.css außerhalb von erlaubten Pfaden
   blocklist('block js/css outside allowed paths') do |req|
