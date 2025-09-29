@@ -5,12 +5,20 @@ Rails.application.routes.draw do
   end
 
   get '/test_logging' => proc { |env|
-    Rails.logger.debug "TEST-ENDPOINT: Debug message"
-    Rails.logger.info "TEST-ENDPOINT: Info message"
-    Rails.logger.warn "TEST-ENDPOINT: Warn message"
-    Rails.logger.error "TEST-ENDPOINT: Error message"
-    
-    [200, {'Content-Type' => 'text/plain'}, ["Logging test completed. Check heroku logs"]]
+    Rails.logger.debug "TEST-ENDPOINT (Rails): Debug message"
+    Rails.logger.info  "TEST-ENDPOINT (Rails): Info message"
+    Rails.logger.warn  "TEST-ENDPOINT (Rails): Warn message"
+    Rails.logger.error "TEST-ENDPOINT (Rails): Error message"
+
+    if defined?(Delayed::Worker) && Delayed::Worker.logger
+      dj_logger = Delayed::Worker.logger
+      dj_logger.debug "TEST-ENDPOINT (DJ): Debug message"
+      dj_logger.info  "TEST-ENDPOINT (DJ): Info message"
+      dj_logger.warn  "TEST-ENDPOINT (DJ): Warn message"
+      dj_logger.error "TEST-ENDPOINT (DJ): Error message"
+    end
+
+    [200, { 'Content-Type' => 'text/plain' }, ["Logging test completed. Check heroku logs"]]
   }
 
   get 'errors/not_found'
