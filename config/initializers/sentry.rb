@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 Sentry.init do |config|
-  config.breadcrumbs_logger = [:active_support_logger, :http_logger]
   config.dsn = ENV['SENTRY_DSN']
   config.traces_sample_rate = 0.2
-  config.enable_logs = true
   config.enabled_environments = %w[production staging]
+
+  # nur eigene Logs & evtl. HTTP
+  config.breadcrumbs_logger = [:http_logger]
+  config.enable_logs = true
+  config.rails.structured_logging.enabled = false
 
   config.rails.report_rescued_exceptions = true
 
@@ -16,5 +19,4 @@ Sentry.init do |config|
     return nil if exc.is_a?(ActionController::UnknownFormat)
     event
   end
-
 end
