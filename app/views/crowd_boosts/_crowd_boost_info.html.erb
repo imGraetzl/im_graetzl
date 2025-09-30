@@ -23,13 +23,11 @@
       if region.is?('graz') && crowd_boost.open_slot
         ["horn-promote", "<strong>Die neue Runde ist gestartet!</strong><br>Bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen."]
       elsif region.is?('innsbruck') && crowd_boost.open_slot
-        ["horn-promote", "<strong>Die neue Runde ist gestartet!</strong><br>Vom 15. September bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen."]
+        ["horn-promote", "<strong>Die neue Runde ist gestartet!</strong><br>Bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen."]
       elsif region.is?('wien')
-        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“ und zusätzlich über die Good Morning Dates, ein neuer Call folgt in Kürze."]
-      elsif region.is?('innsbruck')
-        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“ - Der erste Call ist in Vorbereitung."]
+        ["slots", "<strong>Die neue Runde startet bald ...</strong><br>Der Topf füllt sich aktuell über „Aufrunden bitte“ und zusätzlich über die Good Morning Dates."]
       else
-        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“, der nächste Call ist in Vorbereitung."]
+        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“, die nächste Runde ist in Vorbereitung."]
       end
     %>
 
