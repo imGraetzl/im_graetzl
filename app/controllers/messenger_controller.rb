@@ -26,7 +26,14 @@ class MessengerController < ApplicationController
       elsif recent_messages.size == 10
         Rails.logger.warn "[Messenger Spam Warning] User #{current_user.id} hat #{recent_messages.size} Threads erreicht."
         Sentry.logger.warn("[Messenger Spam Warning] User-ID %{user_id} hat %{thread_count} Threads erreicht.", user_id: current_user.id, thread_count: recent_messages.size )
-        AdminMailer.messenger_spam_alert(current_user, recent_messages.values).deliver_later
+        
+        cache_key = "messenger_spam_alert_sent:#{current_user.id}"
+        unless Rails.cache.exist?(cache_key)
+          AdminMailer.messenger_spam_alert(current_user, recent_messages.values).deliver_later
+          Rails.cache.write(cache_key, true, expires_in: 1.hour)
+        else
+          Rails.logger.info "Spam-Alert für User #{current_user.id} bereits versendet / aktuell unterdrückt (RateLimit aktiv)."
+        end
       end
     end
 
