@@ -90,7 +90,7 @@ class AdminMailer < ApplicationMailer
     mail(
       subject: "[#{@region.host_domain_name}] Messenger Spam Alert - Check User: #{@user.username}",
       from: platform_email("no-reply"),
-      to: platform_admin_email,
+      to: platform_admin_email('michael@imgraetzl.at, mirjam@imgraetzl.at'),
     )
   end
 
