@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_27_190034) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_02_184907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -372,6 +372,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_27_190034) do
     t.decimal "crowd_boost_pledges_finalized_sum", precision: 10, scale: 2
     t.integer "pledges_and_donations_finalized_count"
     t.integer "crowd_donation_pledges_count", default: 0, null: false
+    t.integer "importance", default: 1, null: false
     t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_crowd_campaigns_on_last_activity_at"
