@@ -2,33 +2,48 @@ APP.components.formHelper = (function() {
 
   // Safari Fix: Disable Submit Button onClick (rails disable_with not working) and Submit Form robust
   function savingBtn() {
-    $('.-saving-legacy').on('click', function(event){
-      var $btn = $(this);
-      var btnDisabledText = $btn.data('disable-with');
-      if (!btnDisabledText) {
-        return;
+    
+    document.querySelectorAll('.-saving-legacy').forEach(function(btn) {
+      // Originaltext sichern (nur einmal)
+      if (!btn.dataset.originalText) {
+        btn.dataset.originalText = btn.textContent;
       }
-      var $form = $btn.closest('form');
 
-      // Validierung (optional)
-      let valid = true;
-      $form.find('[required]').each(function() {
-        if ($(this).is(':invalid') || !$(this).val()) valid = false;
+      // Reset beim Init: Button wieder freigeben
+      btn.disabled = false;
+      btn.textContent = btn.dataset.originalText;
+
+      // Vorherigen Handler entfernen, falls savingBtn() mehrfach läuft
+      btn.replaceWith(btn.cloneNode(true));
+    });
+
+    document.querySelectorAll('.-saving-legacy').forEach(function(btn) {
+      btn.addEventListener('click', function(event) {
+        const btnDisabledText = btn.dataset.disableWith;
+        if (!btnDisabledText) return;
+
+        const form = btn.closest('form');
+        if (form.checkValidity && !form.checkValidity()) {
+          return;
+        }
+
+        // Button deaktivieren und Text ändern
+        btn.disabled = true;
+        btn.textContent = btnDisabledText;
+
+        // Optional: Button-Name als Hidden Field sichern
+        if (btn.name && btn.value) {
+          const hidden = document.createElement('input');
+          hidden.type = 'hidden';
+          hidden.name = btn.name;
+          hidden.value = btn.value;
+          form.appendChild(hidden);
+        }
+
+        // Standard-Submit verhindern und nativ submitten
+        event.preventDefault();
+        form.submit();
       });
-      if (!valid) return;
-
-      // Button deaktivieren und Text ändern
-      $btn.prop('disabled', true);
-      $btn.text(btnDisabledText);
-
-      // Optional: Button-Name als Hidden Field
-      if ($btn[0].name && $btn[0].value) {
-        $('<input>').attr({ type: 'hidden', name: $btn[0].name, value: $btn[0].value}).appendTo($form);
-      }
-
-      // Standard-Submit verhindern und manuell submitten (Safari-Fix!)
-      event.preventDefault();
-      $form.submit();
     });
   }
 
