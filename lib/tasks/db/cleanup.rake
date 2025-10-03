@@ -30,9 +30,9 @@ namespace :db do
       end
     end
 
-    # Delete WeLocally Activities after 12 Months and imGraetzl Activities after 6 Months
-    Activity.where('created_at < ?', 12.months.ago).destroy_all
-    Activity.where('region_id = ?', 'wien').where('created_at < ?', 6.months.ago).destroy_all
+    # Delete WeLocally Activities after 18 Months and imGraetzl Activities after 8 Months
+    Activity.where('created_at < ?', 18.months.ago).destroy_all
+    Activity.where('region_id = ?', 'wien').where('created_at < ?', 8.months.ago).destroy_all
 
     # Delete expired Meeting Activities
     Activity.where(subject_type: 'Meeting').find_each do |activity|
