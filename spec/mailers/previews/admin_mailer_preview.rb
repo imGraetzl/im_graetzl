@@ -16,4 +16,8 @@ class AdminMailerPreview < ActionMailer::Preview
   def new_crowd_boost_charge
     AdminMailer.new_crowd_boost_charge(CrowdBoostCharge.last)
   end
+
+  def messenger_spam_alert
+    AdminMailer.messenger_spam_alert(User.first, User.first.recent_sent_messages_by_thread.values)
+  end
 end

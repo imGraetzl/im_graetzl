@@ -27,6 +27,8 @@ function initAdminAutocompleteInput(input) {
 
   // Autocomplete-Listener
   input.addEventListener('input', () => {
+    resetHiddenIfEmpty(input);
+
     const q = input.value.trim();
     if (q.length < 4) {
       resultsBox.innerHTML = '';
@@ -144,3 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   observer.observe(form, { childList: true, subtree: true });
 });
+
+function resetHiddenIfEmpty(input) {
+  if (input.value.trim() !== "") return;
+
+  // Alle bekannten Autocomplete-IDs prüfen (user, location, …)
+  ["userAutocompleteId", "locationAutocompleteId"].forEach(attr => {
+    const autocompleteId = input.dataset[attr];
+    if (autocompleteId) {
+      const hiddenInput = input.form.querySelector(
+        `.admin-autocomplete-id-target[data-${attr.replace("AutocompleteId", "").toLowerCase()}-autocomplete-id="${autocompleteId}"]`
+      );
+      if (hiddenInput) hiddenInput.value = "";
+    }
+  });
+}
