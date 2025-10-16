@@ -12,8 +12,8 @@ class MarketingMailerPreview < ActionMailer::Preview
     MarketingMailer.agb_change_and_crowdfunding(User.last)
   end
 
-  def crowdfunding_310
-    MarketingMailer.crowdfunding_310(User.last)
+  def crowdfunding_280
+    MarketingMailer.crowdfunding_280(User.last)
   end
 
 end
