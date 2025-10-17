@@ -18,11 +18,11 @@
     <% elsif room_rental.pending? %>
 
       <div class="note">
-        <strong><%= room_rental.owner.full_name %> wurde über deine Anfrage benachrichtigt.</strong> Ihr könnt jetzt im Chat noch offene Fragen klären.
+        <strong><%= room_rental.owner.full_name %> wurde über deine Anfrage benachrichtigt.</strong> Ihr könnt jetzt hier im Messenger noch offene Fragen klären.
         Eine zahlungspflichtige Buchung erfolgt erst nach Bestätigung deiner Anfrage durch den Vermieter. Du kannst deine Anfrage auch noch zurückziehen.
       </div>
       <div class="buttons">
-        <%= link_to "Anfrage zurückziehen", cancel_room_rental_path(room_rental), method: :post, class: "btn-primary -small -grey" %>
+        <%= link_to "Anfrage zurückziehen", cancel_room_rental_path(room_rental), method: :post, class: "btn-primary -small -grey", data: { confirm: "Willst du die Anfrage wirklich zurückziehen?" } %>
       </div>
 
     <% elsif room_rental.canceled? %>
@@ -40,7 +40,7 @@
           <%= room_rental.owner.full_name %>, <%= room_rental.room_offer.address_street %>,
           <%= room_rental.room_offer.address_zip %> <%= room_rental.room_offer.address_city %>
         </p>
-        Offene Fragen zur Miete könnt ihr am besten gleich hier im Chat besprechen.
+        Offene Fragen zur Miete könnt ihr am besten gleich hier im Messenger besprechen.
       </div>
 
     <% elsif room_rental.rejected? %>
