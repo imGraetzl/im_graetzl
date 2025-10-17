@@ -16,7 +16,7 @@ when :s3
 
   # WICHTIG: CDN/CloudFront Host für alle S3-STORE-URLs setzen (NUR für store)
   if ENV["SHRINE_S3_CLOUDFRONT_HOST"].present?
-    Shrine.plugin :default_url_options, store: { host: ENV["SHRINE_S3_CLOUDFRONT_HOST"] }
+    Shrine.plugin :url_options, store: { host: ENV["SHRINE_S3_CLOUDFRONT_HOST"] }
   end
 
 when :app
