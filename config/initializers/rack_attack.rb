@@ -21,7 +21,12 @@ class Rack::Attack
       heroku_request_id: req.get_header('HTTP_HEROKU_REQUEST_ID')
     }.compact
 
-    Rails.logger.warn("[RA_BLOCK] " + payload.to_json.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?'))
+    safe_payload = payload.transform_values do |value|
+      next value unless value.is_a?(String)
+      value.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+    end
+
+    Rails.logger.warn("[RA_BLOCK] " + safe_payload.to_json)
 
     [403, { 'Content-Type' => 'text/plain' }, ['403 Forbidden']]
   end
