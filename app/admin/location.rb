@@ -122,16 +122,16 @@ ActiveAdmin.register Location do
 
   csv do
     column :id
-    column :created_at
     column :state
-    column(:l_graetzl) {|l| l.graetzl.name}
+    column :name
+    column :slogan
+    column(:products)  { |l| l.products.map(&:name).join(", ") }
+    column(:graetzl) {|l| l.graetzl.name}
     column(:plz) { |l| l.graetzl.zip }
     column :region
     #column(:email) {|l| l.user.email if l.user}
-    #column(:l_plz) {|l| l.address_zip}
-    #column(:location_category) {|l| l.location_category.name if l.location_category}
-    #column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_path(l.graetzl, l)}
-    #column(:l_graetzl_url) { |l| Rails.application.routes.url_helpers.graetzl_path(l.graetzl)}
+    column(:location_category) {|l| l.location_category.name if l.location_category}
+    column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_url(l.graetzl, l, host: l.region.host)}
   end
 
 end

@@ -15,12 +15,11 @@
     <% elsif room_rental.pending? %>
 
       <div class="note">
-        Bitte klicke auf Akzeptieren um die Buchung anzunehmen oder auf Ablehnen, wenn eine Vermietung
-        nicht möglich ist. Weitere Fragen kannst Du mit dem Mieter im Chat klären.
+        Bevor Du die Buchung annimmst, <strong>kläre bitte alle offenen Fragen</strong> direkt mit dem Mieter hier im Messenger. Anschließend kannst Du auf <strong>Akzeptieren</strong> klicken, um die Buchung verbindlich anzunehmen, oder auf <strong>Ablehnen</strong>, wenn eine Vermietung nicht möglich ist.
       </div>
       <div class="buttons">
-        <%= link_to "Ablehnen", reject_room_rental_path(room_rental), method: :post, class: "btn-primary -small -grey" %>
-        <%= link_to "Akzeptieren", approve_room_rental_path(room_rental), method: :post, class: "btn-primary -small" %>
+        <%= link_to "Ablehnen", reject_room_rental_path(room_rental), method: :post, class: "btn-primary -small -grey", data: { confirm: "Willst du die Anfrage wirklich ablehnen?" } %>
+        <%= link_to "Akzeptieren", approve_room_rental_path(room_rental), method: :post, class: "btn-primary -small", data: { confirm: "Durch das Akzeptieren der Anfrage wird die Buchung bestätigt." } %>
       </div>
 
     <% elsif room_rental.canceled? %>
@@ -34,7 +33,7 @@
       <div class="note">
         <strong>Glückwunsch, du hast die Anfrage akzeptiert und damit die Buchung bestätigt.</strong>
         Wir haben <%= room_rental.renter.first_name %> eine Buchungsbestätigung per E-Mail gesendet.
-        Weitere Infos zur Miete kannst du mit <%= room_rental.renter.first_name %> am besten gleich hier im Chat besprechen.
+        Weitere Infos zur Miete kannst du mit <%= room_rental.renter.first_name %> am besten gleich hier im Messenger besprechen.
       </div>
 
     <% elsif room_rental.rejected? %>

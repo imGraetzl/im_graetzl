@@ -6,7 +6,7 @@
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
 #
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 3 }
+threads_count = Integer(ENV.fetch("RAILS_MAX_THREADS", 3))
 threads threads_count, threads_count
 
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
@@ -31,7 +31,10 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-workers ENV.fetch("WEB_CONCURRENCY") { 0 }
+workers Integer(ENV.fetch("WEB_CONCURRENCY", 0))
+
+# Align keep-alive handling with Heroku Router 2.0 defaults.
+persistent_timeout Integer(ENV.fetch("PUMA_PERSISTENT_TIMEOUT", 60))
 
 #before_fork do
 #  Barnes.start
@@ -43,3 +46,8 @@ workers ENV.fetch("WEB_CONCURRENCY") { 0 }
 # process behavior so workers use less memory.
 #
 preload_app!
+
+# Reconnect shared resources when running clustered workers.
+before_worker_boot do
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+end

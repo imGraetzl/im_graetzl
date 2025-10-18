@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   post 'geolocation' => 'home#geolocation'
 
   # Vorübergehende Weiterleitung Campaigns
-  get  '/lautstark', to: redirect('https://innsbruck.welocally.at/crowdfunding/hilf-mit-damit-lautstark-weiterklingen-kann')
+  get  '/lautstark', to: redirect('https://innsbruck.welocally.at/crowdfunding/lautstark')
 
   # Special CrowdBoosts
   get  '/raumbooster', to: redirect('/leerstand')
