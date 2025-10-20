@@ -2,6 +2,9 @@ require 'set'
 
 class Rack::Attack
 
+  # Statische Assets etc. sollen die Limits nicht triggern
+  THROTTLE_EXCLUDED_PREFIXES = %w[/assets /packs /static-assets /favicon.ico].freeze
+
   # 403-Responder mit erweitertem Logging
   Rack::Attack.blocklisted_responder = lambda do |req|
     payload = {
@@ -86,11 +89,44 @@ class Rack::Attack
     !req.path.start_with?('/delayed_job')
   end
 
-  ### Soft-Limit pro IP über längeren Zeitraum
-  throttle('requests per ip', limit: 200, period: 10.minutes) do |req|
+  ### Burst-Limit: 40 Requests / 60 Sekunden (stoppt sehr schnelle Abfolgen)
+  throttle('req/ip/burst', limit: 40, period: 60.seconds) do |req|
     next if req.ip.blank?
-    next if req.path.start_with?('/assets', '/packs', '/static-assets', '/favicon.ico')
+    next if THROTTLE_EXCLUDED_PREFIXES.any? { |prefix| req.path.start_with?(prefix) }
     req.ip
   end
 
+  ### Dauer-Limit: 900 Requests / 15 Minuten (begrenzt dauerhaft hohes Volumen)
+  throttle('req/ip/steady', limit: 900, period: 15.minutes) do |req|
+    next if req.ip.blank?
+    next if THROTTLE_EXCLUDED_PREFIXES.any? { |prefix| req.path.start_with?(prefix) }
+    req.ip
+  end
+
+end
+
+# Ergänze Logging für ausgelöste Throttles (identifiziert exakt, welches Limit gegriffen hat)
+ActiveSupport::Notifications.subscribe("throttle.rack_attack") do |_name, _start, _finish, _id, payload|
+  req = payload[:request]
+  next unless req
+
+  data = {
+    event: "rack_attack_throttle",
+    throttle: payload[:name],
+    method: req.request_method,
+    path: req.path,
+    fullpath: req.fullpath,
+    host: req.host,
+    ip: req.ip,
+    forwarded_for: req.get_header('HTTP_X_FORWARDED_FOR'),
+    user_agent: req.user_agent&.slice(0, 200),
+    request_id: req.get_header('action_dispatch.request_id')
+  }.compact
+
+  safe_data = data.transform_values do |value|
+    next value unless value.is_a?(String)
+    value.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+  end
+
+  Rails.logger.warn("[RA_THROTTLE] " + safe_data.to_json)
 end

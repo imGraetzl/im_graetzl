@@ -160,8 +160,9 @@ class ApplicationController < ActionController::Base
 
   def handle_rate_limit!(retry_after: 60)
     identity = rate_limit_identity
-    cache_key = "rate-limit:notify:#{identity}:#{request.path}"
-    count = Rails.cache.increment(cache_key, 1, expires_in: retry_after, initial: 1)
+    cache_key = "rate-limit:notify:#{identity}:#{controller_path}"
+    expiry = [retry_after, 120].max
+    count = Rails.cache.increment(cache_key, 1, expires_in: expiry, initial: 1)
     count ||= 1
 
     if count == 1
@@ -175,8 +176,8 @@ class ApplicationController < ActionController::Base
         }
       )
       Rails.logger.warn("[RateLimit] ip=#{request.remote_ip} path=#{request.fullpath} ua=#{request.user_agent}")
-    elsif (count % 10).zero?
-      Rails.logger.warn("[RateLimitBurst] ip=#{request.remote_ip} path=#{request.fullpath} ua=#{request.user_agent} count=#{count} window=#{retry_after}s")
+    elsif (count % 30).zero?
+      Rails.logger.warn("[RateLimitBurst] controller=#{controller_path} ip=#{request.remote_ip} ua=#{request.user_agent} count=#{count} window=#{expiry}s")
     end
 
     response.set_header('Retry-After', retry_after.to_s)
