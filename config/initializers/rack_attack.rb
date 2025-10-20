@@ -86,4 +86,11 @@ class Rack::Attack
     !req.path.start_with?('/delayed_job')
   end
 
+  ### Soft-Limit pro IP über längeren Zeitraum
+  throttle('requests per ip', limit: 200, period: 10.minutes) do |req|
+    next if req.ip.blank?
+    next if req.path.start_with?('/assets', '/packs', '/static-assets', '/favicon.ico')
+    req.ip
+  end
+
 end

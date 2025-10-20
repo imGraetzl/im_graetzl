@@ -70,7 +70,7 @@ Rails.application.configure do
       connect_timeout: 2,
       read_timeout: 1,
       write_timeout: 1,
-      pool: { size: Integer(ENV.fetch("RAILS_MAX_THREADS", 3)) + 2, timeout: 2 }
+      pool: { size: Integer(ENV.fetch("RAILS_MAX_THREADS", 3)) + 2, timeout: 2 },
       ssl_params: (ENV["REDIS_URL"].include?("rediss://") ? { verify_mode: OpenSSL::SSL::VERIFY_NONE } : {}),
       error_handler: -> (method:, returning:, exception:) {
         Rails.logger.warn("Redis cache error #{method}: #{exception.class} #{exception.message}")
