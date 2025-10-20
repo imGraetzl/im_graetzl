@@ -11,8 +11,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :confirmable, :masqueradable
 
-  enum role: { admin: 0, beta: 1, superadmin: 2 }
-  enum trust_level: { untrusted: -1, default: 0, trusted: 1 }
+  enum :role, { admin: 0, beta: 1, superadmin: 2 }
+  enum :trust_level, { untrusted: -1, default: 0, trusted: 1 }
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)

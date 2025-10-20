@@ -1,6 +1,6 @@
 class RegionCall < ApplicationRecord
 
-  enum region_type: { new_region: 0, existing_region: 1 }
+  enum :region_type, { new_region: 0, existing_region: 1 }
 
   validates :gemeinden, presence: true
   validates :name, presence: true

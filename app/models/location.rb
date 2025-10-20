@@ -34,7 +34,7 @@ class Location < ApplicationRecord
   has_many :live_zuckerls, -> { live }, class_name: 'Zuckerl'
   has_one  :latest_live_zuckerl, -> { live.order(created_at: :desc) }, class_name: 'Zuckerl'
 
-  enum state: { pending: 0, approved: 1 }
+  enum :state, { pending: 0, approved: 1 }
 
   scope :online_shop, -> { where("online_shop_url != ''") }
   scope :goodie, -> { where("goodie != ''") }

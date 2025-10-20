@@ -23,7 +23,7 @@ class Zuckerl < ApplicationRecord
   validates_presence_of :title, :description, :cover_photo, :starts_at, :ends_at
   validates :amount, presence: true, on: :create
 
-  enum payment_status: { free: "free", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", refunded: "refunded" }
+  enum :payment_status, { free: "free", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", refunded: "refunded" }
 
   scope :redeemed, -> { free.where.not(aasm_state: [:storno]) }
   scope :initialized, -> { where.not(aasm_state: [:incomplete, :cancelled, :storno]) }

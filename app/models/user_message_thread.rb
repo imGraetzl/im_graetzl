@@ -5,7 +5,7 @@ class UserMessageThread < ApplicationRecord
 
   belongs_to :room_rental, optional: true
 
-  enum thread_type: { general: 0, room_rental: 1 }
+  enum :thread_type, { general: 0, room_rental: 1 }
 
   before_create :set_last_message_at
 
