@@ -1,26 +1,35 @@
 class HomeController < ApplicationController
 
   def index
-    if current_region.nil?
-      region = find_best_region
-      if region
-        redirect_to region_root_url(region), allow_other_host: true and return
-      else
-        render 'about', layout: 'platform' and return
-      end
-    end
+    respond_to do |format|
+      format.html do
+        if current_region.nil?
+          region = find_best_region
+          if region
+            redirect_to region_root_url(region), allow_other_host: true and return
+          else
+            render 'about', layout: 'platform' and return
+          end
+        end
 
-    if current_user && user_home_graetzl
-      redirect_to user_home_graetzl
-    else
-      remember_region if !current_user
-      @activity_sample = ActivitySample.new(current_region: current_region)
-      render 'region'
+        if current_user && user_home_graetzl
+          redirect_to user_home_graetzl
+        else
+          remember_region if !current_user
+          @activity_sample = ActivitySample.new(current_region: current_region)
+          render 'region'
+        end
+      end
+
+      format.any { head :not_acceptable }
     end
   end
 
   def about
-    render 'about', layout: 'platform'
+    respond_to do |format|
+      format.html { render 'about', layout: 'platform' }
+      format.any  { head :not_acceptable }
+    end
   end
 
   def geolocation

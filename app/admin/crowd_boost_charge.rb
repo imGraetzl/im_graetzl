@@ -1,7 +1,7 @@
 ActiveAdmin.register CrowdBoostCharge do
   menu parent: 'Crowdfunding'
   includes :crowd_boost, :user
-  actions :all, except: [:new, :create, :destroy, :edit]
+  actions :all, except: [:new, :create, :destroy]
 
   config.sort_order = 'created_at_desc'
 
@@ -37,9 +37,19 @@ ActiveAdmin.register CrowdBoostCharge do
   show { render 'show', context: self }
   form partial: 'form'
 
+  permit_params :user_id, :contact_name, :email, :charge_type, :address_street, :address_zip, :address_city
+
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
   controller do
+    before_action :authorize_superadmin_for_editing, only: [:edit, :update]
+
+    def authorize_superadmin_for_editing
+      unless current_user.superadmin?
+        redirect_to admin_crowd_boost_charge_path(params[:id]), alert: "Bearbeitung nur für Superadmins erlaubt."
+      end
+    end
+
     def apply_pagination(chain)
         chain = super unless formats.include?(:json) || formats.include?(:csv)
         chain

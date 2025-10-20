@@ -5,8 +5,11 @@ class Notification < ApplicationRecord
   DEFAULT_WEBSITE_NOTIFICATION = :off
 
   belongs_to :user
+  belongs_to :owner, class_name: "User", optional: true
   belongs_to :subject, polymorphic: true
   belongs_to :child, optional: true, polymorphic: true
+
+  before_validation :set_owner_id_from_subject, on: :create
 
   # notify_at >= CURRENT_DATE for Local Testing Preview
   scope :ready_to_be_sent, -> {
@@ -133,6 +136,13 @@ class Notification < ApplicationRecord
 
   def mail_subject
     raise NotImplementedError, "mail_subject method not implemented for #{self.class}"
+  end
+
+  private
+  
+  def set_owner_id_from_subject
+    return if owner_id.present?
+    self.owner_id = subject&.user_id if subject.respond_to?(:user_id)
   end
 
 end

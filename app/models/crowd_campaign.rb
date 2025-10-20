@@ -37,14 +37,15 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
   
-  enum boost_status: { boost_declined: "boost_declined", boost_waitlist: "boost_waitlist", boost_approved: "boost_approved", boost_authorized: "boost_authorized", boost_debited: "boost_debited", boost_cancelled: "boost_cancelled" }
-  enum transfer_status: { payout_waiting: "payout_waiting", payout_ready: "payout_ready", payout_processing: "payout_processing", payout_completed: "payout_completed", payout_failed: "payout_failed" }
-  enum visibility_status: { graetzl: "graetzl", region: "region", platform: "platform" }
-  enum newsletter_status: { none: "none", graetzl: "graetzl", region: "region", platform: "platform" }, _prefix: :newsletter
-  enum active_state: { enabled: 0, disabled: 1, hidden: 2 }
-  enum status: { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6, re_draft: 7 }
-  enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
-  enum billable: { no_bill: 0, bill: 1, donation_bill: 2 }
+  enum :boost_status, { boost_declined: "boost_declined", boost_waitlist: "boost_waitlist", boost_approved: "boost_approved", boost_authorized: "boost_authorized", boost_debited: "boost_debited", boost_cancelled: "boost_cancelled" }
+  enum :transfer_status, { payout_waiting: "payout_waiting", payout_ready: "payout_ready", payout_processing: "payout_processing", payout_completed: "payout_completed", payout_failed: "payout_failed" }
+  enum :visibility_status, { graetzl: "graetzl", region: "region", platform: "platform" }
+  enum :newsletter_status, { none: "none", graetzl: "graetzl", region: "region", platform: "platform" }, prefix: :newsletter
+  enum :active_state, { enabled: 0, disabled: 1, hidden: 2 }
+  enum :status, { draft: 0, submit: 1, pending: 2, declined: 3, approved: 4, funding: 5, completed: 6, re_draft: 7 }
+  enum :funding_status, { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
+  enum :billable, { no_bill: 0, bill: 1, donation_bill: 2 }
+  enum :importance, { low: 0, medium: 1, high: 2 }, prefix: :importance
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
@@ -77,6 +78,7 @@ class CrowdCampaign < ApplicationRecord
   }
 
   after_create :set_transaction_fee
+  after_commit :send_draft_mail, on: :create
   after_update :set_visibility_and_newsletter, if: -> { saved_change_to_status? && approved? }
 
   def entire_graetzl?
@@ -199,9 +201,9 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def stripe_fee_percentage_calculated
-    return 0.0 if enddate.blank? || enddate < Date.new(2025, 4, 1)
+    # return 0.0 if enddate.blank? || enddate < Date.new(2025, 4, 1)
     # calculated real percentage - observe
-    pledges = crowd_pledges.debited
+    pledges = crowd_pledges.debited.where.not(stripe_fee: nil)
     return 0.0 if pledges.empty?
     total_price = pledges.sum(:total_price)
     return 0.0 if total_price.zero?
@@ -392,6 +394,10 @@ class CrowdCampaign < ApplicationRecord
   def set_transaction_fee
     self.service_fee_percentage = self.transaction_fee_percentage
     self.save
+  end
+
+  def send_draft_mail
+    CrowdCampaignMailer.draft(self).deliver_later
   end
 
 end

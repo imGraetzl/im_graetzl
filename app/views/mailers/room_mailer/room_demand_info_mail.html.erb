@@ -45,4 +45,4 @@
   </tbody>
 </table>
 
-<%= render 'mailers/notification_mailer/featured/subscription' if @region.id == 'wien' && !@room_demand.user.subscribed? %>
+<%= render 'mailers/notification_mailer/featured/subscription' if @region.use_subscription? && !@room_demand.user.subscribed? %>

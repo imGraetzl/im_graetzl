@@ -70,7 +70,7 @@ section.crowd_boost {
     margin-bottom:30px;
   }
 
-  .introSide .-crowd_boost.-open {
+  .introSide .-crowd_boost {
     h3 {
       @include font-size-primaryFont('larger');
       margin-bottom:15px;
@@ -122,6 +122,7 @@ section.crowd_boost {
         margin-right: 2%;
         padding-left: 20px;
         padding-right: 20px;
+        margin-top:40px;
         margin-bottom: 0;
         width: 65%;
       }

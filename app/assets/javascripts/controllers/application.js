@@ -4,7 +4,7 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
-    APP.components.cross_platform_links.init(document.querySelector('main'));
+    //APP.components.cross_platform_links.init(document.querySelector('main'));
 
     if($(".welocally").exists()) chooseRegionModal();
     if ($("[data-jbox-image]").exists()) jBoxGallery();

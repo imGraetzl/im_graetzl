@@ -1,44 +1,78 @@
-<% @next_slot = crowd_boost.next_slot(current_region) %>
+<% region = Region.get(crowd_boost.region_ids.last) %>
 
-<div class="cardBox -crowd_boost <%= @next_slot ? "-active" : "" %>" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
+<div class="cardBox -crowd_boost" data-behavior="masonry-card" data-card-id="crowd_boost-<%= crowd_boost.id %>">
   
   <div class="cardBoxHeader">
-    <%= link_to crowd_boost do %>
+    <%= link_to crowd_boost_url(crowd_boost, host: region.host) do %>
       <div class="coverImgWrapper">
-        <%= avatar_image(crowd_boost, class: 'coverImg') %>
+        <%= icon_tag "region-#{region.id}" %>
       </div>
     <% end %>
     <div class="categoryicon">
-      <%= image_tag 'svg/icon-booster.svg', class:'icon' %>
+      <%= region %>
     </div>
   </div>
 
   <div class="cardBoxContent">
 
     <div class="txt">
-      <h3><%= link_to crowd_boost.title.truncate(110), crowd_boost %></h3>
-      <p><%= crowd_boost.slogan.truncate(110) %></p>
+      <h3><%= link_to "Fördertopf „#{crowd_boost.title.truncate(110)}”", crowd_boost %></h3>
     </div>
 
-    <% if @next_slot && !local_assigns[:hide_facts].present? %>
+    <% icon, text =
+      if region.is?('graz') && crowd_boost.open_slot
+        ["horn-promote", "<strong>Die neue Runde ist gestartet!</strong><br>Bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen."]
+      elsif region.is?('innsbruck') && crowd_boost.open_slot
+        ["horn-promote", "<strong>Die neue Runde ist gestartet!</strong><br>Bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen."]
+      elsif region.is?('wien')
+        ["slots", "<strong>Die neue Runde startet bald ...</strong><br>Der Topf füllt sich aktuell über „Aufrunden bitte“ und zusätzlich über die Good Morning Dates."]
+      else
+        ["slots", "Der Topf füllt sich aktuell über „Aufrunden bitte“, die nächste Runde ist in Vorbereitung."]
+      end
+    %>
+
+    <div class="facts icontxt -mint">
+      <%= icon_tag icon %>
+      <div><%= text.html_safe %></div>
+    </div>
+
+    <% if crowd_boost.crowd_campaigns.boost_initialized.count > 0 %>
+
       <div class="facts icontxt -mint">
-        <%= icon_tag "time-clock" %>
-        Einreichfrist: <%= I18n.localize(@next_slot.ends_at, format:'%d. %b %Y') %>
+        <%= icon_tag "flag" %>
+        <div><%= pluralize_de(crowd_boost.crowd_campaigns.boost_initialized.count, 'Projekt', 'Projekte') %> bisher unterstützt.</div>
       </div>
-      <% if @next_slot.boost_amount? %>
-        <div class="facts icontxt -rosa">
-          <%= icon_tag "rocket" %>
-          <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Boost für dein Projekt
-        </div>
-      <% elsif @next_slot.boost_percentage? %>
-        <div class="facts icontxt -rosa">
-          <%= icon_tag "rocket" %>
-          Bis zu <%= @next_slot.boost_percentage.to_i %>% Boost für dein Projekt
-        </div>
-      <% end %>
+
+      <div class="facts icontxt -mint">
+        <%= icon_tag "currency-euro" %>
+        <div><%= number_to_currency(crowd_boost.total_amount_pledged, precision: 2, unit: "€") %> bisher ausgeschüttet.</div>
+      </div>
+
     <% end %>
 
-    <%= link_to 'Mehr Infos', crowd_boost, class: 'btn-primary -mint' %>
+    <% if @next_slot %>
+
+      <div class="facts icontxt -rosa">
+        <%= icon_tag "currency-euro" %>
+        <div><%= number_to_currency(@next_slot.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
+      </div>
+
+    <% else %>
+
+      <div class="facts icontxt -rosa">
+        <%= icon_tag "currency-euro" %>
+        <div><%= number_to_currency(crowd_boost.balance, precision: 2, unit: "€") %> aktuell im Topf.</div>
+      </div>
+
+    <% end %>
+
+    <% if local_assigns[:crowd_boost_page] %>
+      <%= link_to "Los geht's – Kampagne starten", start_crowd_campaigns_path, class: 'btn-primary -rose -shadow' %>
+    <% elsif crowd_boost.open_slot %>
+      <%= link_to "Open Call – Alle Infos", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -rose -shadow" %>
+    <% else %>
+      <%= link_to "Coming Soon – Alle Infos", crowd_boost_url(crowd_boost, host: region.host), class: "btn-primary -mint -shadow" %>
+    <% end %>
 
   </div>
 </div>

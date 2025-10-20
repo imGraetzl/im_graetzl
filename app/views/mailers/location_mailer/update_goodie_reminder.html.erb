@@ -77,4 +77,4 @@
   </tr>
 </table>
 
-<%= render 'mailers/notification_mailer/featured/subscription' if @region.id == 'wien' && !@location.user.subscribed? %>
+<%= render 'mailers/notification_mailer/featured/subscription' if @region.use_subscription? && !@location.user.subscribed? %>

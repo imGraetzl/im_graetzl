@@ -31,20 +31,37 @@ APP.components.headerNavigation = (function() {
         menu.removeClass("jq-dropdown jq-dropdown-tip jq-dropdown-relative");
         menu.removeClass("jq-dropdown-anchor-" + menuLink.data("anchor") || "left");
         menuLink.jqDropdown('detach', '#' + menu.attr('id'));
+        toggleMessengerScroll("unscroll");
       });
       $('#betaflash').fadeOut();
+      toggleMessengerScroll("scroll");
     }
+
+    function toggleMessengerScroll(mode) {
+      if (!document.querySelector('.messenger-page')) return;
+
+      if (mode === "unscroll") {
+        $('footer').hide();
+        unscroll();
+      } else if (mode === "scroll") {
+        $('footer').show();
+        unscroll.reset();
+      }
+    }
+
 
     function toggleMobileMenu(menuLink) {
       var menu = $('#' + menuLink.data('dropdown'));
       if (menuLink.hasClass("is-open")) {
         menuLink.removeClass("is-open");
         menu.removeClass("mobile-dropdown");
+        toggleMessengerScroll("unscroll");
       } else {
         container.find(".is-open").removeClass("is-open");
         menuLink.addClass("is-open");
         container.find(".mobile-dropdown").removeClass("mobile-dropdown");
         menu.addClass("mobile-dropdown").appendTo(container);
+        toggleMessengerScroll("scroll");
       }
     }
 

@@ -1,21 +1,87 @@
-<h4>Check Messenger Nachrichten von User:</h4>
+<% content_for(:above_title, "Admin Info Mail") %>
+<% content_for(:title, "Spam-Alert für Messenger Nachrichten") %>
 
-<p>
-  Username: <%= @user.username %><br>
-  Name: <%= @user.full_name %><br>
-  E-Mail: <%= @user.email %><br>
-  Region: <%= @region.name %><br>
-  Admin-Link zum User: <a href="<%= admin_user_url(@user) %>"><%= admin_user_url(@user) %></a>
-</p>
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:30px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Check Messenger Nachrichten von User:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td class="mcnTextContent">
+             <p>
+              <strong>User:</strong> <%= @user.username %><br>
+              <strong>Name:</strong> <%= @user.full_name %><br>
+              <strong>E-Mail:</strong> <%= @user.email %><br>
+              <strong>Region:</strong> <%= @region.name %><br>
+              <strong>Admin-Link:</strong> <a href="<%= admin_user_url(@user) %>"><%= admin_user_url(@user) %></a>
+            </p>
+            <p>
+              <em>
+              User hat in kurzer Zeit <%= @messages.size %> unterschiedliche Messenger-Konversationen gestartet.
+              <br>
+              <strong>Wenn Spam</strong>, dann Trust-Level des Users im Admin-Tool auf <strong>untrusted</strong> setzen.<br>
+              <strong>Wenn kein Spam</strong>, dann Trust-Level auf <strong>trusted</strong> setzen.<br>
+              </em>
+            </p>
+            </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
 
-<hr>
 
-<h4>Letzte Nachrichten des Users in verschiedenen Threads:</h4>
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+          Letzte Nachrichten des Users an unterschiedliche User:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td class="mcnTextContent">
+              <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
 
-
-<% @messages.each do |message| %>
-  <p>
-    <strong><%= message.created_at.strftime("%d.%m.%Y %H:%M") %></strong> | <strong>Thread ID:</strong> <%= message.user_message_thread_id %><br>
-    <strong>Inhalt:</strong> <%= truncate(message.message, length: 250) %>
-  </p>
-<% end %>
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+ <tbody>
+   <% @messages.each do |message| %>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-left:18px; padding-right:18px; vertical-align:top;">
+       <%= avatar_image message.user, size: :thumb, style:"width:60px; height:60px; border-radius: 33px; max-width:60px; min-width:60px; border: 1px solid #83C7BD; background-color: #ffffff; padding: 2px;", class: "mcnImage" %>
+     </td>
+     <td class="mcnTextContent" style="padding-right:18px; width:100%;">
+       <p>
+         <em><strong><%= message.user.full_name %></strong>, am <%= message.created_at.strftime("%d.%m.%Y %H:%M") %> an </em>
+       </p>
+       <p>
+         <%= message.message.truncate(2000, separator: ' ').gsub("\r\n", "<br/>").html_safe %>
+       </p>
+     </td>
+   </tr>
+   <tr>
+     <td colspan="2" style="padding-bottom:20px;"></td>
+   </tr>
+   <% end %>
+ </tbody>
+</table>

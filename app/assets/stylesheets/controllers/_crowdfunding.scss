@@ -789,10 +789,13 @@ section.crowd_campaign {
     margin-bottom: -65px;
   }
   @include respond-to(">=large") {
-    margin-bottom: -200px;
+    margin-bottom: -160px;
+    &.-welocally {
+      margin-bottom: -140px;
+    }
   }
   .imgHeader {
-    background-image: url(image_path('info/header-crowdfunding.jpg'));
+    background-image: url(image_path('info/header-crowdfunding-v2.jpg'));
     background-size: cover;
     background-repeat: no-repeat;
     height: 180px;
@@ -805,18 +808,7 @@ section.crowd_campaign {
   }
   .imgHeader::after {
     background-image: linear-gradient(to bottom, rgba(252,252,252,0), rgba(252,252,252,1));
-    top: 25%;
-  }
-  &.-welocally {
-    @include respond-to(">=large") {
-      margin-bottom: -85px;
-    }
-    .imgHeader {
-      background-image: url(image_path('info/crowd_boost/header.jpg'));
-    }
-    .imgHeader::after {
-      top: 75%;
-    }
+    top: 50%;
   }
 }
 
@@ -997,6 +989,13 @@ section.startcampaign {
 
 .-userquotes {
   margin-top:50px;
+  .lightSlider {
+    height:auto !important;
+    display: flex;
+    .lslide {
+      margin-bottom: 0;
+    }
+  }
 }
 
 section.usersetup.-crowd_campaigns {

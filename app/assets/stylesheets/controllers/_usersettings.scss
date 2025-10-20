@@ -119,6 +119,16 @@ section.user-settings {
 
 }
 
+// ---------------------------------------------------------------------- notification admin
+
+section.usersetup.notification-container {
+  .result-info {
+    margin-top:5px;
+    padding-top:5px;
+    border-top: 1px dashed $color-ambient-grey;
+  }
+}
+
 // ---------------------------------------------------------------------- zuckerl
 
 section.usersetup.-zuckerl {

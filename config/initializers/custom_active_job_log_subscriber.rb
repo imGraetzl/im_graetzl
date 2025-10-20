@@ -1,3 +1,6 @@
+# Custom ActiveJob LogSubscriber:
+# skips MailDeliveryJob logs to reduce noise in production/staging.
+
 if defined?(ActiveJob::LogSubscriber)
 
   # Filter out Log Noise

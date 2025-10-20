@@ -7,14 +7,24 @@
 <section class="usersetup notification-container">
 
   <%= form_with url: notifications_admin_result_path, remote: true, method: :get, class: 'cards-filter' do |f| %>
-
+    <%= hidden_field_tag 'filter[owner_id]', params.dig(:filter, :owner_id), id: "filter-owner-id" %>
     <div class="hl-subtext">
       <h1>Nächster <span>Newsletter</span></h1>
       <div class="filter-selection-text-jbox">
         für <%= link_to 'Wien', '#filter-modal-region', data: { no_filter_label: 'Wien'} %> 
         aus <%= link_to 'allen Bereichen', '#filter-modal-type', data: { no_filter_label: 'allen Bereichen'} %> 
         <span class="region_graetzl_filter -hidden">in <%= link_to "allen Bezirken", '#filter-modal-areas', data: { no_filter_label: "allen Bezirken"}, class: 'filter-modal-areas' %></span>
-        - <a class="plain-link notification-count -rosa" href="javascript:">0</a>
+        <span class="notification-owner-wrp -hidden" style="position:relative;">-  
+          <a class="plain-link notification-owner -rosa" href="javascript:void(0)">
+            <%= @owner || 'allen Usern' %>
+          </a>
+        </span>
+        <div class="result-info">
+          <%= link_to 'Aktualität', '#filter-modal-sort', data: { no_filter_label: 'Aktualität'} %>
+          - <a class="plain-link notification-count -rosa" href="javascript:void(0)">0</a>
+        </div>
+        
+
       </div>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox oneclick">
@@ -26,6 +36,11 @@
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">
       <%= render 'filters/areas', entire_region: true %>
     </div>
+    
+    <div id="filter-modal-sort" class="filter-modal-jbox oneclick">
+      <%= render 'filters/notification_sort', sort: 'date' %>
+    </div>
+    
   <% end %>
 
   <div class="card-grid-container">

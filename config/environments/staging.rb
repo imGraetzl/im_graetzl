@@ -107,15 +107,17 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
-  # --- Logging ---
-  config.log_level = ENV.fetch('LOG_LEVEL', 'info').to_sym  # Gleich wie Production!
-  config.log_tags = [:request_id, -> request { "staging" }]  # Mit staging Tag
+  # --- Logging (Staging) ---
+  config.log_level     = ENV.fetch('LOG_LEVEL', 'debug').to_sym
+  config.log_tags      = [:request_id, ->(_req) { "staging" }]
   config.log_formatter = ::Logger::Formatter.new
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    stdout_logger = ActiveSupport::Logger.new($stdout)
+    stdout_logger.level     = Logger.const_get(config.log_level.to_s.upcase)
+    stdout_logger.formatter = config.log_formatter
+
+    config.logger = ActiveSupport::TaggedLogging.new(stdout_logger)
   end
 
   # Do not dump schema after migrations.

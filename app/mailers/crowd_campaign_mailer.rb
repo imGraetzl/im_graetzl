@@ -1,5 +1,17 @@
 class CrowdCampaignMailer < ApplicationMailer
 
+  def draft(crowd_campaign)
+    @crowd_campaign = crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-campaign-draft")
+    mail(
+      subject: "Kurz austauschen, dann gut starten",
+      from: platform_email('no-reply'),
+      to: @crowd_campaign.user.email,
+      bcc: platform_admin_email,
+    )
+  end
+
   def pending(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
@@ -240,7 +252,7 @@ class CrowdCampaignMailer < ApplicationMailer
 
   def crowd_pledge_newsletter(crowd_pledge, crowd_campaigns)
     @crowd_pledge = crowd_pledge
-    @crowd_campaigns = CrowdCampaign.where(id: crowd_campaigns).order(enddate: :desc)
+    @crowd_campaigns = CrowdCampaign.where(id: crowd_campaigns).order(importance: :desc, enddate: :asc)
     @region = @crowd_pledge.region
     @unsubscribe_info_text = "Du bekommst diesen Newsletter, weil du dich bei deiner letzten Crowdfunding Untestützung dafür angemeldet hast. Hier kannst du dich wieder "
     @unsubscribe_link_text = "abmelden"

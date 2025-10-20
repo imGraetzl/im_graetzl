@@ -1,7 +1,8 @@
 (function() {
   var favoriteIcon = $(<%= @favoritable.target_url_params %>);
-  var $favoriteElement = $(favoriteIcon).closest('[data-behavior="masonry-card"]');
-  var $favoriteContainer = $(favoriteIcon).closest('.favorites-container');
+  var $favoriteContainer = $("section.favorites-container");
+  var $favoriteElement = $favoriteContainer.find("[data-card-id='<%= @favorite_element %>']");
+
   <% if @favor %>
     favoriteIcon.addClass( "-faved" );
     var $iconTxt = favoriteIcon.find('.icontxt');

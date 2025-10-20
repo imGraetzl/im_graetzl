@@ -57,8 +57,15 @@ class NotificationsController < ApplicationController
     notifications = notifications
       .where(type: admin_types)
       .includes(:subject)
-      .order(id: :desc)
+      .order(created_at: :desc)
 
+    # Filtern nach owner_id
+    if params.dig(:filter, :owner_id).present?
+      notifications = notifications.where(owner_id: params[:filter][:owner_id])
+      @owner = notifications.first&.owner.full_name
+    end
+
+    # Filtern nach Type
     if params.dig(:filter, :type).present?
       type_classes = params.dig(:filter, :type)
       notifications = notifications.select { |n| type_classes.include?(n.subject_type) }
@@ -87,6 +94,23 @@ class NotificationsController < ApplicationController
     
     # 1. Duplikate entfernen (wie in notification_destroy)
     uniq_notifications = notifications.uniq { |n| [n.subject_type, n.subject_id, n.type, n.child_type] }
+
+    # 2. Zählen der Notifications pro Owner (User)
+    @notification_counts_by_owner = uniq_notifications.map(&:owner_id).reject(&:blank?).tally
+
+    # Sortierlogik
+    case params.dig(:filter, :sort)
+    when 'user'
+      owner_counts = Hash.new(0).merge(uniq_notifications.map(&:owner_id).compact.tally)
+      uniq_notifications.sort_by! do |n|
+        [
+          n.owner_id.nil? ? 1 : 0,      # nil-Owner ans Ende
+          -owner_counts[n.owner_id],     # Owner mit den meisten Inhalten zuerst
+          n.owner_id || Float::INFINITY, # stabile Reihenfolge zwischen Ownern
+          -(n.created_at || Time.at(0)).to_i # innerhalb Owner: neueste zuerst
+        ]
+      end
+    end
 
     # 3. Pagination + direkte Übergabe an View
     @notifications = Kaminari.paginate_array(uniq_notifications).page(params[:page]).per(params[:per_page] || 21)

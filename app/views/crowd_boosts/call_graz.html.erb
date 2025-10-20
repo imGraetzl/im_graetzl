@@ -1,9 +1,9 @@
 <% meta(
-    title: t('.title', title: "#{@crowd_boost.title} - Der Crowdfunding-Zuschuss zum Leerstände beleben & Räumen eine neue Zukunft geben!"),
-    description: t('.description', desc: "Der ViertelFonds ist ein Fördertopf für Raumvorhaben in Graz, die durch Crowdfunding finanziert werden sollen. Pro erfolgreich abgeschlossenem Crowdfunding-Projekt kann ein Zuschuss von 2.250 € vergeben werden."),
+    title: t('.title', title: "#{@crowd_boost.title} - 2.250 € Crowdfunding-Zuschuss für Raumvorhaben in Graz! - Jetzt einreichen!"),
+    description: t('.description', desc: "Der ViertelFonds ist ein Fördertopf für Raumvorhaben in Graz, die durch Crowdfunding finanziert werden sollen. Pro erfolgreich abgeschlossenem Crowdfunding-Projekt kann ein Zuschuss von 2.250 € vergeben werden. Die Einreichung ist bis zum 30.11.2025 möglich."),
     robots: 'index, follow',
-    og_title: t('.title', title: "#{@crowd_boost.title} - Der Crowdfunding-Zuschuss zum Leerstände beleben & Räumen eine neue Zukunft geben!"),
-    og_description: t('.description', desc: "Der ViertelFonds ist ein Fördertopf für Raumvorhaben in Graz, die durch Crowdfunding finanziert werden sollen. Pro erfolgreich abgeschlossenem Crowdfunding-Projekt kann ein Zuschuss von 2.250 € vergeben werden."),
+    og_title: t('.title', title: "#{@crowd_boost.title} - 2.250 € Crowdfunding-Zuschuss für Raumvorhaben in Graz! - Jetzt einreichen!"),
+    og_description: t('.description', desc: "Der ViertelFonds ist ein Fördertopf für Raumvorhaben in Graz, die durch Crowdfunding finanziert werden sollen. Pro erfolgreich abgeschlossenem Crowdfunding-Projekt kann ein Zuschuss von 2.250 € vergeben werden. Die Einreichung ist bis zum 30.11.2025 möglich."),
     og_image: image_url('meta/crowd_boost.jpg')
   )
 %>
@@ -18,18 +18,21 @@
     <div class="introtxt">
       <div class="hl-subtext">
         <h1><em><%= @crowd_boost.title %></em></h1>
-        <p><strong>Sicher dir einen Crowdfunding-Zuschuss von 2.250 €</strong></p>
+        <p><strong>Der ViertelFonds - Setze dein Raumvorhaben via Crowdfunding und viel Rückenwind um!</strong></p>
       </div>
-      <p><strong>Der ViertelFonds</strong> ist ein Fördertopf für Raumvorhaben in Graz, die durch Crowdfunding finanziert werden sollen. Es gibt noch zwei Plätze, reiche dein Vorhaben <strong>bis zum 30. September 2025</strong> ein und starte dann dein Crowdfunding. Sobald dein Crowdfunding 30 Unterstützer*innen und 30 % des Mindestziels erreicht, kommt der <strong>Zuschuss von 2.250 €</strong> oben drauf. Ausgezahlt wird er, wenn du dein Crowdfunding erfolgreich abschließt.</p>
+      <p>Planst du ein Crowdfunding, um dein Raumvorhaben zu verwirklichen? Dann reiche ein und hol dir <strong>2.250 € extra Zuschuss</strong> für dein Raumvorhaben.</p>
+      <p>Sobald dein Crowdfunding 30 % des Mindestziels erreicht und 30 Unterstützer*innen gewonnen hat, wird der Zuschuss von 2.250 € direkt in deinem Crowdfunding ausgeschüttet. <strong>Die Einreichung ist bis zum 30.11.2025 möglich.</strong></p>
+      <p>Das bekommst du zusätzlich:</p>
       <ul>
-        <li><strong>Du hast einen Leerstand</strong> (alles außer Wohnraum) in Lend, Geidorf, St. Leonhard, Jakomini, der Inneren Stadt oder in Gries im Blick? Du würdest ihn gerne anmieten, aber hohe Aktivierungskosten bremsen dich noch aus? Oder hast du kürzlich einen Leerstand aktiviert und dir fehlen jetzt die Mittel für nötige Renovierungsarbeiten oder die Ausstattung?</li>
-        <li>Dann könnte der <strong>ViertelFonds</strong> genau die Unterstützung sein, die du suchst. Ziel ist es, finanzielle Hürden abzubauen und Mut zu machen, den Schritt in Richtung Raumanmietung zu gehen.</li>
+        <li><strong>Begleitung:</strong> Wir bereiten mit dir deine Kampagne vor.</li>
+        <li><strong>Sichtbarkeit:</strong> Wir machen dein Projekt über unsere Kanäle bekannt.</li>
+        <li><strong>Abzeichen:</strong> Dein Projekt wird als „Unterstützenswertes Projekt“ hervorgehoben.</li>
       </ul>
-      <p>In der neuen Runde wurde der ViertelFonds durch die Unterstützung der Volksbank Steiermark AG gefüllt.</p>
+      <p>Studien zeigen, dass solche Matchfunding-Mechaniken mehr Unterstützende anziehen und dass dadurch das Mindestziel schneller erreicht wird. In der neuen Runde wurde der ViertelFonds durch die Unterstützung der Volksbank Steiermark AG gefüllt.</p>
     </div>
     <div class="introSide">
 
-      <%= render 'crowd_boosts/crowd_boost_welocally', crowd_boost: @crowd_boost, crowd_boost_page: true %>
+      <%= render 'crowd_boosts/crowd_boost_info', crowd_boost: @crowd_boost, crowd_boost_page: true %>
       <%#= image_tag'info/crowd2raum/graz-call.png', class: 'map-img' %>
       <div class="logo-side">
         <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
@@ -51,8 +54,8 @@
   <div class="content-wide">
     <div class="wrp-inner">
       <div class="hl-subtext">
-        <h1>Die neue Runde startet!</h1>
-        <p>Vom 14. Mai bis zum 30. September 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen - Mach mit, so funktionierts:</p>
+        <h1>Die neue Runde ist gestartet!</h1>
+        <p>Bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen. <br>Mach mit, so funktionierts:</p>
       </div>
       <div class="content-wide-text">
 
@@ -99,7 +102,7 @@
                 <%= icon_tag "layout-document" %>
                 <span>Dein Vohaben</span>
               <% end %>
-              <%= f.text_area :message, placeholder: 'Was ist deine Tätigkeit und wofür benötigst du Raum? Schreib uns 2-3 Sätze ...', required: true %>
+              <%= f.text_area :message, placeholder: 'Beschreibe kurz dein Vorhaben in 2-3 Sätzen ...', required: true %>
             </div>
             <%= submit_tag "Mein Vorhaben absenden", class: 'btn-primary -rose -large -shadow' %>
             <p class="hint">
@@ -117,16 +120,16 @@
       <h3>So funktioniert der ViertelFonds</h3>
       <div class="-toggle-content">
 
-        <p>Wenn euer Raumvorhaben schon konkret ist, ihr ein bestimmtes Objekt im Blick habt, es im Pilotgebiet liegt und ihr eine nachhaltige Nutzung plant, dann qulifiziert ihr euch für den Zuschuss.</p>
+        <p>Wir sichten alle Einreichungen. Passt dein Vorhaben grundsätzlich zu den Zielen, melden wir uns für ein kurzes Erstgespräch. Direkt danach erfährst du, ob dein Projekt qualifiziert ist und in die Vorbereitung für den Start geht. Gesucht werden Projekte zur Aktivierung von Räumen in Graz, zum Beispiel Leerstand nutzbar machen, oder zur Sicherung bestehender Räume, zum Beispiel durch Renovierung, Ausstattung. Alle Raumarten sind möglich, außer Wohnraum. Kampagnen-Mindestziel ab 6.000 €</p>
         <p>Nach der Qualifizierungszusage könnt ihr eure Crowdfunding-Kampagne starten.</p>
-        <p><strong>Die ersten drei Projekte, die ...</strong></p>
+        <p><strong>Die ersten zwei Projekte, die ...</strong></p>
         <ul class="arrow">
           <li>30 % des Mindestziels erreichen,</li>
           <li>mindestens 30 Unterstützer*innen gewinnen und</li>
           <li>ihr Crowdfunding erfolgreich abschließen,</li>
         </ul>
-        <p>... <strong>erhalten einen Zuschuss von 2.250 € – nach dem First-Come-First-Serve-Prinzip.</strong></p>
-        <p>Schnell sein lohnt sich! Der Topf ist in der neuen Runde mit 4.500 € gefüllt.</p>
+        <p>... erhalten einen Zuschuss von 2.250 € – nach dem First-Come-First-Serve-Prinzip.</p>
+        <p><strong>Schnell sein lohnt sich! Der Topf ist in der neuen Runde mit 4.500 € begrenzt.</strong></p>
         <p>Alle qualifizierten ViertelFonds-Projekte erhalten auf ihrer Kampagnenseite außerdem das <strong>Badge „Gewinn für die Nachbarschaft“</strong> – damit sofort erkennbar ist, welches Potenzial in eurer Idee steckt.</p>
       </div>
     </div>

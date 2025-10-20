@@ -7,7 +7,7 @@ class FavoritesController < ApplicationController
     favoritable_type = params[:format]
 
     favoritable = current_user.favorites.where(favoritable_id: favoritable_id, favoritable_type: favoritable_type).last
-
+    @favorite_element = "#{favoritable_type.underscore}-#{favoritable_id}"
     if favoritable
       @favoritable = favoritable.destroy
       @favor = false

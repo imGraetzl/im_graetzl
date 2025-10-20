@@ -26,4 +26,17 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
+  def crowdfunding_280(user)
+    @user = user
+    @region = @user.region
+
+    headers("X-MC-Tags" => "marketing-mail-crowdfunding")
+
+    mail(
+      subject: "Gemeinsam das Grätzl-Blattl sichern fürs Volkert- & Alliiertenviertel",
+      from: platform_email("wir"),
+      to: @user.email,
+    )
+  end
+
 end

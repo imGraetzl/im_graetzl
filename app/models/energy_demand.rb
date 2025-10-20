@@ -14,10 +14,10 @@ class EnergyDemand < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  enum status: { enabled: 0, disabled: 1 }
-  enum energy_type: { beg: "beg", eeg_local: "eeg_local", eeg_regional: "eeg_regional", unclear: "unclear" }
-  enum orientation_type: { small: "small", big: "big", poor: "poor" }
-  enum organization_form: { verein: "verein", genossenschaft: "genossenschaft", other: "other" }
+  enum :status, { enabled: 0, disabled: 1 }
+  enum :energy_type, { beg: "beg", eeg_local: "eeg_local", eeg_regional: "eeg_regional", unclear: "unclear" }
+  enum :orientation_type, { small: "small", big: "big", poor: "poor" }
+  enum :organization_form, { verein: "verein", genossenschaft: "genossenschaft", other: "other" }
 
   acts_as_taggable_on :energy
 

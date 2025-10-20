@@ -20,7 +20,7 @@ class CrowdPledge < ApplicationRecord
   validates :donation_amount, numericality: { greater_than_or_equal_to: 1 }, if: :donation_amount?
   validates :total_price, numericality: { less_than_or_equal_to: 25_000 }, if: :total_price?
 
-  enum status: { incomplete: "incomplete", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", canceled: "canceled", refunded: "refunded" }
+  enum :status, { incomplete: "incomplete", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", canceled: "canceled", refunded: "refunded" }
 
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :disputed, -> { where.not(disputed_at: nil).where(status: 'failed') }

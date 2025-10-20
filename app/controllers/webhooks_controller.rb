@@ -39,7 +39,7 @@ class WebhooksController < ApplicationController
     when "charge.dispute.closed"
       charge_dispute_closed(event.data.object)
     else
-      Rails.logger.info "[stripe webhook] Unhandled event type: #{event.type}"
+      Rails.logger.warn "[stripe webhook] Unhandled event type: #{event.type}"
     end
 
     head :ok
@@ -64,7 +64,7 @@ class WebhooksController < ApplicationController
     when "payout.paid"
       payout_paid(event.data.object, event.account)
     else
-      Rails.logger.info "[stripe webhook connected] Unhandled event type: #{event.type}"
+      Rails.logger.warn "[stripe webhook connected] Unhandled event type: #{event.type}"
     end
 
     head :ok
@@ -117,7 +117,7 @@ class WebhooksController < ApplicationController
       end
   
     else
-      Rails.logger.info "[stripe webhook] payment_intent_succeeded: Unhandled metadata type: #{type.inspect}"
+      Rails.logger.warn "[stripe webhook] payment_intent_succeeded: Unhandled metadata type: #{type.inspect}"
     end
   end  
 
@@ -152,7 +152,7 @@ class WebhooksController < ApplicationController
       end
   
     else
-      Rails.logger.info "[stripe webhook] payment_intent_failed: Unhandled metadata type: #{type.inspect}"
+      Rails.logger.warn "[stripe webhook] payment_intent_failed: Unhandled metadata type: #{type.inspect}"
     end
   end  
   

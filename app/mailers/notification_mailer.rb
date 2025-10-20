@@ -84,8 +84,8 @@ class NotificationMailer < ApplicationMailer
       else
         Rails.logger.info("[#{@period} Graetzl Summary Mail] [#{@user.id}] [#{@region.id}] [#{@user.email}]: Found: #{@notifications.size}")
         @zuckerls = Zuckerl.in(@region).live.include_for_box
-        @subscriptions = Subscription.in(@region).active
-        @good_morning_dates = Meeting.in(@region).good_morning_dates.upcoming
+        @subscriptions = Subscription.active
+        @good_morning_dates = Meeting.in(@region).good_morning_dates.upcoming.where.not(id: 23449)
       end
 
       headers(

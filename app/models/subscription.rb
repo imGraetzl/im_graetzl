@@ -8,7 +8,7 @@ class Subscription < ApplicationRecord
   has_many :subscription_invoices
   has_many :zuckerls
   
-  enum status: { incomplete: "incomplete", active: "active", canceled: "canceled", past_due: "past_due" }
+  enum :status, { incomplete: "incomplete", active: "active", canceled: "canceled", past_due: "past_due" }
 
   scope :initialized, -> { where(status: %w[active canceled past_due]) }
   scope :on_grace_period, -> { where("ends_at > ?", Time.zone.now) }

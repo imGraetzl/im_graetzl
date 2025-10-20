@@ -4,7 +4,7 @@ class CrowdDonationPledge < ApplicationRecord
   belongs_to :crowd_campaign, counter_cache: true
   belongs_to :crowd_donation
 
-  enum donation_type: { material: 0, assistance: 1 , room: 2 }
+  enum :donation_type, { material: 0, assistance: 1 , room: 2 }
 
   before_create :set_region_and_type
   before_save :normalize_email

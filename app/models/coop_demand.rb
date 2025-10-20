@@ -14,8 +14,8 @@ class CoopDemand < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  enum coop_type: { demand: 0, offer: 1 }
-  enum status: { enabled: 0, disabled: 1 }
+  enum :coop_type, { demand: 0, offer: 1 }
+  enum :status, { enabled: 0, disabled: 1 }
 
   acts_as_taggable_on :keywords
 

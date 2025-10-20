@@ -8,7 +8,6 @@ class ZuckerlMailer < ApplicationMailer
       subject: "Dein Zuckerl wurde freigeschalten.",
       from: platform_email("no-reply"),
       to: @zuckerl.user.email,
-      bcc: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 

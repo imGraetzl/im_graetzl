@@ -22,7 +22,7 @@
       <p>
         <strong>Werdet Unterstützer*innen unserer Arbeit!</strong>
         <br>
-        <strong><%= @subscription_count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.
+        <strong><%= @subscription_count %></strong> Menschen unterstützen <%= current_region.is?('wien') ? 'imGrätzl' : 'WeLocally.at & imGrätzl.at' %> bereits mit einer Fördermitgliedschaft.
         <br>
         <strong>Unser nächstes Ziel: <%= current_region.subscription_goal %> Förder*innen.</strong>
       </p>
@@ -38,9 +38,6 @@
   <div class="subscription-note">
     <em>
       Du bekommst selbstverständlich eine Rechnung über deine Fördermitgliedschaft ausgestellt.
-      <% if current_region.is?('wien') %>
-        <br>Mehr Hintergrundinfos zur Fördermitgliedschaft gibt es außerdem auf unserem <%= link_to 'imGrätzl Blog',  'https://blog.imgraetzl.at/allgemein/die-imgraetzl-foerdermitgliedschaft-ist-da-haltet-mit-uns-den-raum-offen/', target: 'blank' %>
-      <% end %>
     </em>
   </div>
 
