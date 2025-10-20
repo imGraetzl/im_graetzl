@@ -4,7 +4,7 @@ class CrowdReward < ApplicationRecord
 
   include AvatarUploader::Attachment(:avatar)
 
-  enum status: { enabled: 0, disabled: 1 }
+  enum :status, { enabled: 0, disabled: 1 }
 
   validates_presence_of :title, :amount
 

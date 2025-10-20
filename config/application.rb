@@ -49,6 +49,8 @@ module ImGraetzl
     if ENV["SKYLIGHT_ENABLED"] == "true"
       config.skylight.environments << Rails.env
       config.skylight.probes << 'delayed_job'
+    else
+      config.skylight.environments = []
     end
   end
 end

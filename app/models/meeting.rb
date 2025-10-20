@@ -30,7 +30,7 @@ class Meeting < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  enum state: { active: 0, disabled: 1 }
+  enum :state, { active: 0, disabled: 1 }
 
   scope :entire_region, -> { where(entire_region: true) }
   scope :online_meeting, -> { where(online_meeting: true) }

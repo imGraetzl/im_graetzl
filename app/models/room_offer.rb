@@ -32,8 +32,8 @@ class RoomOffer < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
-  enum offer_type: { offering_room: 0, seeking_roommate: 1 }
-  enum status: { enabled: 0, disabled: 1, occupied: 2 }
+  enum :offer_type, { offering_room: 0, seeking_roommate: 1 }
+  enum :status, { enabled: 0, disabled: 1, occupied: 2 }
 
   acts_as_taggable_on :keywords
 

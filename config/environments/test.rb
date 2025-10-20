@@ -2,6 +2,8 @@ Rails.application.configure do
   config.enable_reloading = false
   config.cache_classes = true
   config.platform_admin_email = 'michael@imgraetzl.at'
+  config.imgraetzl_host = "local.imgraetzl.at"
+  config.welocally_host = "local.welocally.at"
 
   config.eager_load = ENV["CI"].present?
 
@@ -32,6 +34,6 @@ Rails.application.configure do
 
   # Wenn du wirklich für alle URL-Generierungen die Domain setzen willst:
   config.after_initialize do
-    Rails.application.routes.default_url_options[:host] = 'www.imgraetzl.at'
+    Rails.application.routes.default_url_options[:host] = config.imgraetzl_host
   end
 end

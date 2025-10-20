@@ -7,7 +7,7 @@ class CrowdBoostPledge < ApplicationRecord
 
   before_create :set_region
 
-  enum status: { authorized: "authorized", debited: "debited", canceled: "canceled" }
+  enum :status, { authorized: "authorized", debited: "debited", canceled: "canceled" }
 
   scope :initialized, -> { where(status: [:authorized, :debited]) }
 

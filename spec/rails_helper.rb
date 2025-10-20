@@ -42,6 +42,9 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Warden::Test::Helpers, type: :request
+  config.include RequestHostHelper, type: :request
 
   # render views by default
   config.render_views
@@ -53,6 +56,10 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each) do
+    ActionMailer::Base.deliveries.clear
   end
 
   config.before(:each, js: true) do
@@ -69,6 +76,22 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  config.before(:suite) do
+    Warden.test_mode!
+  end
+
+  config.before(:each, type: :request) do
+    set_default_request_host
+  end
+
+  config.after(:each, type: :request) do
+    Warden.test_reset!
+  end
+
+  config.after(:each, type: :request) do
+    reset_request_host!
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   #config.fixture_path = "#{::Rails.root}/spec/fixtures"
