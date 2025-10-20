@@ -109,10 +109,15 @@ end
 ActiveSupport::Notifications.subscribe("throttle.rack_attack") do |_name, _start, _finish, _id, payload|
   req = payload[:request]
   next unless req
+  match_data = req.env["rack.attack.match_data"] || {}
 
   data = {
     event: "rack_attack_throttle",
-    throttle: payload[:name],
+    throttle: req.env["rack.attack.matched"],
+    match_type: req.env["rack.attack.match_type"],
+    limit: match_data[:limit],
+    count: match_data[:count],
+    period: match_data[:period],
     method: req.request_method,
     path: req.path,
     fullpath: req.fullpath,
