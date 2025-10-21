@@ -165,19 +165,19 @@ class ApplicationController < ActionController::Base
     count = Rails.cache.increment(cache_key, 1, expires_in: expiry, initial: 1)
     count ||= 1
 
-    # evtl kein throttle-logging sondern immer, weil sentry eh filtert ... ?!
-    if count == 1
-      Sentry.capture_message(
-        "Rate limit hit",
-        level: :warning,
-        extra: {
-          ip: request.remote_ip,
-          path: request.fullpath,
-          ua: request.user_agent
-        }
-      )
-      Rails.logger.warn("[RateLimit] ip=#{request.remote_ip} path=#{request.fullpath} ua=#{request.user_agent}")
-    elsif (count % 30).zero?
+    Sentry.capture_message(
+      "Rate limit hit",
+      level: :warning,
+      extra: {
+        ip: request.remote_ip,
+        path: request.fullpath,
+        ua: request.user_agent
+      }
+    )
+
+    Rails.logger.warn("[RateLimit] ip=#{request.remote_ip} path=#{request.fullpath} ua=#{request.user_agent}") if count == 1
+
+    if (count % 30).zero?
       Rails.logger.warn("[RateLimitBurst] controller=#{controller_path} ip=#{request.remote_ip} ua=#{request.user_agent} count=#{count} window=#{expiry}s")
     end
 

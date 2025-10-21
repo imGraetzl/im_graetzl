@@ -1,7 +1,7 @@
 class DistrictsController < ApplicationController
 
   # Evtl rausnehmen und vorerst nur rack attack?
-  rate_limit to: 60, within: 120.seconds, by: -> { rate_limit_identity }, with: -> { handle_rate_limit!(retry_after: 60) }
+  # rate_limit to: 60, within: 120.seconds, by: -> { rate_limit_identity }, with: -> { handle_rate_limit!(retry_after: 60) }
   before_action :load_district
 
   def index

@@ -89,15 +89,15 @@ class Rack::Attack
     !req.path.start_with?('/delayed_job')
   end
 
-  ### Burst-Limit: 40 Requests / 60 Sekunden (stoppt sehr schnelle Abfolgen)
-  throttle('req/ip/burst', limit: 40, period: 60.seconds) do |req|
+  ### Burst-Limit: 80 Requests / 60 Sekunden (stoppt sehr schnelle Abfolgen)
+  throttle('req/ip/burst', limit: 80, period: 60.seconds) do |req|
     next if req.ip.blank?
     next if THROTTLE_EXCLUDED_PREFIXES.any? { |prefix| req.path.start_with?(prefix) }
     req.ip
   end
 
-  ### Dauer-Limit: 900 Requests / 15 Minuten (begrenzt dauerhaft hohes Volumen)
-  throttle('req/ip/steady', limit: 900, period: 15.minutes) do |req|
+  ### Dauer-Limit: 1500 Requests / 15 Minuten (begrenzt dauerhaft hohes Volumen)
+  throttle('req/ip/steady', limit: 1500, period: 15.minutes) do |req|
     next if req.ip.blank?
     next if THROTTLE_EXCLUDED_PREFIXES.any? { |prefix| req.path.start_with?(prefix) }
     req.ip
