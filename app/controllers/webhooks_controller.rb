@@ -36,6 +36,10 @@ class WebhooksController < ApplicationController
       charge_refunded(event.data.object)
     when "charge.updated"
       charge_updated(event.data.object)
+    when "charge.dispute.created"
+      charge_dispute_created(event.data.object)
+    when "charge.dispute.updated"
+      charge_dispute_updated(event.data.object)
     when "charge.dispute.closed"
       charge_dispute_closed(event.data.object)
     else
@@ -347,17 +351,34 @@ class WebhooksController < ApplicationController
     end
   end
 
+  def charge_dispute_created(dispute)
+    charge = retrieve_dispute_charge(dispute, "charge_dispute_created")
+    return unless charge
+
+    type = charge.metadata&.[]("type")
+
+    case type
+    when "CrowdPledge"
+      if (id = charge.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        Rails.logger.info "[stripe webhook] charge_dispute_created: Dispute opened for CrowdPledge##{id}"
+        CrowdPledgeService.new.payment_dispute_opened(record, dispute)
+        return
+      end
+    end
+
+    Rails.logger.warn "[stripe webhook] charge_dispute_created: Kein passender CrowdPledge für Dispute #{dispute.id}"
+    Rails.logger.warn "[stripe webhook] charge_dispute_created: charge data: #{charge.to_json}"
+  end
+
   def charge_dispute_closed(dispute)
-    # Nur reagieren, wenn der Dispute verloren wurde
-    return unless dispute.status == 'lost'
-  
-    charge = begin
-      Stripe::Charge.retrieve(id: dispute.charge, expand: ["payment_intent"])
-    rescue => e
-      Rails.logger.warn "[stripe webhook] charge_dispute_closed: Charge konnte nicht geladen werden (#{e.message})"
+    charge = retrieve_dispute_charge(dispute, "charge_dispute_closed")
+    return unless charge
+
+    unless dispute.status.in?(%w[lost won warning_closed])
+      Rails.logger.warn "[stripe webhook] charge_dispute_closed: Unsupported dispute status #{dispute.status} – ignoriert"
       return
     end
-  
+
     type = charge.metadata&.[]("type")
     handled = false
   
@@ -365,8 +386,7 @@ class WebhooksController < ApplicationController
     when "CrowdPledge"
       if (id = charge.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
         Rails.logger.info "[stripe webhook] charge_dispute_closed: Dispute for CrowdPledge##{id}"
-        CrowdPledgeService.new.payment_disputed(record)
-        handled = true
+        handled = CrowdPledgeService.new.payment_dispute_closed(record, dispute)
       end
     end
   
@@ -389,6 +409,32 @@ class WebhooksController < ApplicationController
       Rails.logger.warn "[stripe webhook] charge_dispute_closed: charge data: #{charge.to_json}"
     end
 
+  end
+
+  def charge_dispute_updated(dispute)
+    charge = retrieve_dispute_charge(dispute, "charge_dispute_updated")
+    return unless charge
+
+    type = charge.metadata&.[]("type")
+
+    case type
+    when "CrowdPledge"
+      if (id = charge.metadata["pledge_id"]) && (record = CrowdPledge.find_by(id: id))
+        Rails.logger.info "[stripe webhook] charge_dispute_updated: Dispute update for CrowdPledge##{id}"
+        CrowdPledgeService.new.payment_dispute_updated(record, dispute)
+        return
+      end
+    end
+
+    Rails.logger.warn "[stripe webhook] charge_dispute_updated: Kein passender CrowdPledge für Dispute #{dispute.id}"
+    Rails.logger.warn "[stripe webhook] charge_dispute_updated: charge data: #{charge.to_json}"
+  end
+
+  def retrieve_dispute_charge(dispute, context)
+    Stripe::Charge.retrieve(id: dispute.charge, expand: ["payment_intent"])
+  rescue => e
+    Rails.logger.warn "[stripe webhook] #{context}: Charge konnte nicht geladen werden (#{e.message})"
+    nil
   end
   
 
