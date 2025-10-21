@@ -1,3 +1,5 @@
+require "digest"
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -153,6 +155,43 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic('Application') do |name, pass|
       ActiveSupport::SecurityUtils.secure_compare(name, username) &&
         ActiveSupport::SecurityUtils.secure_compare(pass, password)
+    end
+  end
+
+  def handle_rate_limit!(retry_after: 60)
+    identity = rate_limit_identity
+    cache_key = "rate-limit:notify:#{identity}:#{controller_path}"
+    expiry = [retry_after, 120].max
+    count = Rails.cache.increment(cache_key, 1, expires_in: expiry, initial: 1)
+    count ||= 1
+
+    Sentry.capture_message(
+      "Rate limit hit",
+      level: :warning,
+      extra: {
+        ip: request.remote_ip,
+        path: request.fullpath,
+        ua: request.user_agent
+      }
+    )
+
+    Rails.logger.warn("[RateLimit] ip=#{request.remote_ip} path=#{request.fullpath} ua=#{request.user_agent}") if count == 1
+
+    if (count % 30).zero?
+      Rails.logger.warn("[RateLimitBurst] controller=#{controller_path} ip=#{request.remote_ip} ua=#{request.user_agent} count=#{count} window=#{expiry}s")
+    end
+
+    response.set_header('Retry-After', retry_after.to_s)
+    head :too_many_requests
+  end
+
+  def rate_limit_identity
+    ua = request.user_agent.to_s
+    if ua.present?
+      digest = Digest::SHA1.hexdigest(ua)[0, 12]
+      "ip:#{request.remote_ip}:ua:#{digest}"
+    else
+      "ip:#{request.remote_ip}"
     end
   end
 
