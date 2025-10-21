@@ -137,8 +137,9 @@ ActiveSupport::Notifications.subscribe("throttle.rack_attack") do |_name, _start
 
   # Temporarily send throttle hits to Sentry as well; remove later if too noisy.
   Sentry.capture_message(
-    "Rack::Attack throttle hit",
+    "Rack::Attack throttle hit (ip=#{safe_data[:ip]})",
     level: :warning,
-    extra: safe_data
+    extra: safe_data,
+    fingerprint: ['rack_attack', safe_data[:throttle], safe_data[:ip]]
   )
 end
