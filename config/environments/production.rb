@@ -51,7 +51,14 @@ Rails.application.configure do
 
   # --- Logging (Production) ---
   config.log_level     = ENV.fetch('LOG_LEVEL', 'info').to_sym
-  config.log_tags      = [:request_id, ->(_req) { "production" }]
+  config.log_tags      = [
+    :request_id,
+    ->(_req) { "production" },
+    lambda do |request|
+      user_agent = request.user_agent.to_s.gsub('"', "'")
+      %(ua="#{user_agent.presence || '-'}")
+    end
+  ]
   config.log_formatter = ::Logger::Formatter.new
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?

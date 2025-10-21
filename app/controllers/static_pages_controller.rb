@@ -8,7 +8,10 @@ class StaticPagesController < ApplicationController
   def good_morning_dates
     @category = EventCategory.find_by!(slug: 'good-morning-dates')
     @meetings = Meeting.good_morning_dates.in(current_region).where('starts_at_date > ?', '2025-09-01')
-    @locations = Location.in(current_region).where(meetings: @meetings).distinct
+    @locations = Location.in(current_region)
+                         .include_for_box
+                         .where(meetings: @meetings)
+                         .distinct
   end
 
   def balkonsolar
