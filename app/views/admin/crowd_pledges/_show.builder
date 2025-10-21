@@ -39,6 +39,7 @@ context.instance_eval do
           row :updated_at
           row :failed_at
           row :disputed_at
+          row(:dispute_status) { |r| status_tag(r.dispute_status) if r.dispute_status.present? }
         end
       end
       panel 'Crowd Boost Charge' do

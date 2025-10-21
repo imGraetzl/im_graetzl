@@ -164,17 +164,21 @@ class CrowdPledgeService
       end
     end
 
-    crowd_pledge.update(
-      status: 'debited',
-      debited_at: Time.current,
-      stripe_fee: stripe_fee
-    )
+    updates = { stripe_fee: stripe_fee }
 
-    Rails.logger.info "[stripe] CrowdPledge #{crowd_pledge.id} - als debited gespeichert#{stripe_fee ? " (fee: #{stripe_fee} EUR)" : " (ohne fee)"}."
+    if crowd_pledge.disputed? || crowd_pledge.dispute_status.present?
+      updates[:debited_at] = Time.current if crowd_pledge.debited_at.blank?
+      Rails.logger.info "[stripe] CrowdPledge #{crowd_pledge.id} - Stripe fee aktualisiert, Status bleibt aufgrund offener Anfechtung unverändert."
+    else
+      updates[:status] = 'debited'
+      updates[:debited_at] = Time.current
+      Rails.logger.info "[stripe] CrowdPledge #{crowd_pledge.id} - als debited gespeichert#{stripe_fee ? " (fee: #{stripe_fee} EUR)" : ' (ohne fee)'}."
+    end
+
+    crowd_pledge.update(updates)
 
     { success: true }
   end
-
 
   def payment_failed(crowd_pledge, payment_intent)
     return if !crowd_pledge.processing?
@@ -235,8 +239,45 @@ class CrowdPledgeService
     true
   end
 
-  def payment_disputed(crowd_pledge)
-    crowd_pledge.update(status: 'failed', disputed_at: Time.current)
+  def payment_dispute_opened(crowd_pledge, stripe_dispute)
+    persist_open_dispute_state(crowd_pledge, stripe_dispute)
+    Rails.logger.info "[CrowdPledgeService]: payment_dispute_opened: CrowdPledge #{crowd_pledge.id} (Stripe Dispute #{stripe_dispute.id})"
+
+    true
+  end
+
+  def payment_dispute_updated(crowd_pledge, stripe_dispute)
+    if dispute_closed_status?(stripe_dispute.status)
+      return payment_dispute_closed(crowd_pledge, stripe_dispute)
+    end
+
+    persist_open_dispute_state(crowd_pledge, stripe_dispute)
+    Rails.logger.info "[CrowdPledgeService]: payment_dispute_updated: CrowdPledge #{crowd_pledge.id} (Stripe Dispute #{stripe_dispute.id}, Status #{stripe_dispute.status})"
+
+    true
+  end
+
+  def payment_dispute_closed(crowd_pledge, stripe_dispute)
+    case stripe_dispute.status
+    when 'lost', 'warning_closed'
+      crowd_pledge.update(
+        status: 'failed',
+        dispute_status: stripe_dispute.status
+      )
+      Rails.logger.info "[CrowdPledgeService]: payment_dispute_closed: CrowdPledge #{crowd_pledge.id} marked failed (Stripe Dispute #{stripe_dispute.id})"
+    when 'won'
+      updates = {
+        status: 'debited',
+        dispute_status: 'won'
+      }
+      updates[:debited_at] = Time.current if crowd_pledge.debited_at.blank?
+      crowd_pledge.update(updates)
+      Rails.logger.info "[CrowdPledgeService]: payment_dispute_closed: CrowdPledge #{crowd_pledge.id} restored to debited (Stripe Dispute #{stripe_dispute.id})"
+    else
+      Rails.logger.warn "[CrowdPledgeService]: payment_dispute_closed: Unsupported dispute status #{stripe_dispute.status} for CrowdPledge #{crowd_pledge.id}"
+      return false
+    end
+
     true
   end
 
@@ -262,6 +303,19 @@ class CrowdPledgeService
 
 
   private
+
+  def persist_open_dispute_state(crowd_pledge, _stripe_dispute)
+    updates = {
+      status: 'disputed',
+      dispute_status: 'open'
+    }
+    updates[:disputed_at] = Time.current if crowd_pledge.disputed_at.blank?
+    crowd_pledge.update(updates)
+  end
+
+  def dispute_closed_status?(status)
+    %w[won lost warning_closed].include?(status)
+  end
 
   def get_stripe_customer_id(crowd_pledge)
     return crowd_pledge.stripe_customer_id if crowd_pledge.stripe_customer_id.present?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_02_184907) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -472,6 +472,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_184907) do
     t.datetime "charge_seen_at", precision: nil
     t.datetime "disputed_at", precision: nil
     t.datetime "failed_at", precision: nil
+    t.string "dispute_status"
     t.index ["comment_id"], name: "index_crowd_pledges_on_comment_id"
     t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
