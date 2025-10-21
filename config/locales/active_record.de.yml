@@ -503,9 +503,15 @@ de:
           authorized: autorisiert
           processing: wird bearbeitet
           debited: abgebucht
+          disputed: angefochten
           failed: fehlgeschlagen
           canceled: canceled
-          refunded: zurückgetreten        
+          refunded: zurückgetreten
+        dispute_statuses:
+          open: offen
+          won: gewonnen
+          lost: verloren
+          warning_closed: Warnung geschlossen
       subscription_plan:
         intervals:
           month: Monat

@@ -20,10 +20,11 @@ class CrowdPledge < ApplicationRecord
   validates :donation_amount, numericality: { greater_than_or_equal_to: 1 }, if: :donation_amount?
   validates :total_price, numericality: { less_than_or_equal_to: 25_000 }, if: :total_price?
 
-  enum :status, { incomplete: "incomplete", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", canceled: "canceled", refunded: "refunded" }
+  enum :status, { incomplete: "incomplete", authorized: "authorized", processing: "processing", debited: "debited", disputed: "disputed", failed: "failed", canceled: "canceled", refunded: "refunded" }
+  enum :dispute_status, { open: "open", won: "won", lost: "lost", warning_closed: "warning_closed" }, prefix: :dispute
 
   scope :initialized, -> { where.not(status: :incomplete) }
-  scope :disputed, -> { where.not(disputed_at: nil).where(status: 'failed') }
+  scope :disputed, -> { where.not(disputed_at: nil) }
   scope :donation, -> { where(crowd_reward_id: nil) }
   scope :reward, -> { where.not(crowd_reward_id: nil) }
   scope :charges, -> { where("crowd_boost_charge_amount > 0") }
