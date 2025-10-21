@@ -25,7 +25,7 @@ module LocationsHelper
     end
 
     # Fallback wenn keine Map vorhanden
-    location.location_menus.select { |m| m.menu_to > Date.yesterday }.max_by(&:created_at)
+    location.upcoming_location_menus.max_by(&:created_at)
   end
 
 end

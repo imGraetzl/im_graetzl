@@ -21,6 +21,7 @@ class Location < ApplicationRecord
   belongs_to :location_category
   has_many :location_posts, dependent: :destroy
   has_many :location_menus, dependent: :destroy
+  has_many :upcoming_location_menus, -> { upcoming }, class_name: "LocationMenu"
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :favorites, as: :favoritable, dependent: :destroy
 
@@ -55,9 +56,11 @@ class Location < ApplicationRecord
   def self.include_for_box
     preload(
       :location_category,
+      :upcoming_location_menus,
       :latest_live_zuckerl,
       :next_upcoming_meeting,
-      :location_posts
+      :location_posts,
+      :user
     )
   end
 
@@ -86,7 +89,7 @@ class Location < ApplicationRecord
   end
 
   def actual_newest_post
-    menus = location_menus.upcoming
+    menus = upcoming_location_menus
     posts = location_posts.select{|p| p.created_at > 4.weeks.ago}
     (menus + posts).max_by(&:created_at)
   end
