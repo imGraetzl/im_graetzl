@@ -4,6 +4,7 @@ Sentry.init do |config|
   config.dsn = ENV['SENTRY_DSN']
   config.traces_sample_rate = 0.2
   config.enabled_environments = %w[production staging]
+  config.release = ENV['HEROKU_RELEASE_VERSION'] if ENV['HEROKU_RELEASE_VERSION']
 
   # nur eigene Logs & evtl. HTTP
   config.breadcrumbs_logger = [:http_logger]
