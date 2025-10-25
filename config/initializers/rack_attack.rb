@@ -103,6 +103,30 @@ class Rack::Attack
     req.ip
   end
 
+  # Liefert konventionelle RateLimit-* Header (siehe Rack::Attack GitHub README)
+  Rack::Attack.throttled_responder = lambda do |request|
+    match_data = request.env['rack.attack.match_data'] || {}
+    now = match_data[:epoch_time] || Time.now.to_i
+    limit = (match_data[:limit] || 0).to_i
+    period = (match_data[:period] || 60).to_i
+    count = (match_data[:count] || 0).to_i
+
+    # Reset-Zeitpunkt gemäß Doku: aktueller Epoch + verbleibende Periodendauer
+    reset = now + (period - now % period)
+    retry_after = [reset - now, 0].max
+
+    headers = {
+      'Content-Type' => 'text/plain; charset=utf-8',
+      'RateLimit-Limit' => limit.to_s,
+      'RateLimit-Remaining' => [limit - count, 0].max.to_s,
+      'RateLimit-Reset' => reset.to_s,
+      'Retry-After' => retry_after.to_s,
+    }
+
+    # Kurzer Body (RFC-konform, minimal)
+    [429, headers, ["Throttled\n"]]
+  end
+
 end
 
 # Ergänze Logging für ausgelöste Throttles (identifiziert exakt, welches Limit gegriffen hat)
