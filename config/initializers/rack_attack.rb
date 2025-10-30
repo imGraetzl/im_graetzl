@@ -4,6 +4,12 @@ class Rack::Attack
 
   # Statische Assets etc. sollen die Limits nicht triggern
   THROTTLE_EXCLUDED_PREFIXES = %w[/assets /packs /static-assets /favicon.ico].freeze
+  SOCIAL_BOT_USER_AGENTS = [
+    /facebookexternalhit|Facebot/i,
+    /Twitterbot/i,
+    /LinkedInBot/i,
+    /Google.*ImageProxy/i
+  ].freeze
 
   # 403-Responder mit erweitertem Logging
   Rack::Attack.blocklisted_responder = lambda do |req|
@@ -87,6 +93,12 @@ class Rack::Attack
     !req.path.start_with?('/assets/') && 
     !req.path.start_with?('/static-assets/') &&
     !req.path.start_with?('/delayed_job')
+  end
+
+  # Social-Media Bots dürfen unlimitiert cachen, da sie Previews liefern
+  safelist('allow social media crawlers') do |req|
+    ua = req.user_agent
+    ua.present? && SOCIAL_BOT_USER_AGENTS.any? { |regex| ua.match?(regex) }
   end
 
   ### Burst-Limit: 80 Requests / 60 Sekunden (stoppt sehr schnelle Abfolgen)

@@ -1,0 +1,35 @@
+<%= render 'mailers/notification_mailer/summary/block_header', title: "Ein etwas ungewöhnlicher Aufruf, aber ein wichtiger:" %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px;">
+
+        <%= link_to "https://www.gofundme.com/f/thomas-braucht-unsere-hilfe", target:'_blank' do %>
+          <%= image_tag 'mailings/glanzrad.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
+        <% end %>
+
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+          <tr>
+            <td>
+              <p>
+                <strong>Thomas braucht unsere Unterstützung.</strong> Vor seiner Krankheit hat er im 2. Bezirk eigene Fahrräder gebaut, verkauft und einen Reparaturservice angeboten. Nun ist er schwer erkrankt - und als Selbständiger kann man in so einer Situation schnell ins Rutschen kommen.
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+        <p>
+          Karin Kiendler - manchen vielleicht bekannt als frühere Good Morning Date-Gastgeber*in im 3. Bezirk - hat deshalb eine Spendenaktion gestartet, um Thomas in dieser schwierigen Zeit zu helfen und zu verhindern, dass er nun auch noch seine Wohnung verliert.
+        </p>
+        <p>
+          <strong>Wenn ihr könnt, <%= link_to 'unterstützt bitte', "https://www.gofundme.com/f/thomas-braucht-unsere-hilfe", target:'_blank', style:'font-weight:bold; color:#ec776a;' %>. Jede Hilfe zählt.</strong>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
