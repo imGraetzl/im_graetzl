@@ -16,30 +16,32 @@
 
   <div class="-fullwidth">
 
-    <div class="hl-subtext">
-      <h1 class="title"><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h1>
-      <h1><%= @crowd_campaign.title %></h1>
-      <p><%= @crowd_campaign.slogan %></p>
-    </div>
-
-    <div class="coverImg">
-      <% if @crowd_campaign.video? %>
-        <%= link_to 'javascript:', class: 'play-icon jBoxVideo', rel: 'nofollow' do %>
-          <%= cover_header_image(@crowd_campaign, class: 'titleImg', fetchpriority: 'high') %>
-        <% end %>
-      <% else %>
-          <%= cover_header_image(@crowd_campaign, class: 'titleImg', fetchpriority: 'high') %>
-      <% end %>
-      <div class="social-icons">
-        <em>Erzähls weiter:</em>
-        <%= link_to icon_tag("mail-1"), "mailto:?subject=Crowdfunding auf #{current_region.host_domain_name}: #{@crowd_campaign.title}&body=Dieses Crowdfunding Projekt auf #{current_region.host_domain_name} könnte dich interessieren:%0A%0A#{crowd_campaign_url(@crowd_campaign)}%0A%0A%0A%0A", target: "_blank", title: 'E-Mail' %>
-        <%= link_to image_tag("svg/icon-social-whatsapp.svg", class: 'icon', alt: 'Whats App'), "whatsapp://send?text=#{@crowd_campaign.title}: #{crowd_campaign_url(@crowd_campaign)}", class: 'whatsapp', target: "_blank", title: 'Whats App', :data => { :'action' => 'share/whatsapp/share' } %>
-        <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Facebook' %>
-        <%= link_to image_tag("svg/icon-social-twitter.svg", class: 'icon twitter', alt: 'Twitter'), "http://twitter.com/share?text=Crowdfunding: #{@crowd_campaign.title}&url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Twitter' %>
-        <%= link_to image_tag("svg/icon-social-linkedin.svg", class: 'icon linkedin', alt: 'LinkedIn'), "https://www.linkedin.com/sharing/share-offsite/?url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'LinkedIn' %>
+    <% cache ["crowd_campaign_hero", @crowd_campaign.id, @crowd_campaign.updated_at.to_i], expires_in: 1.day do %>
+      <div class="hl-subtext">
+        <h1 class="title"><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h1>
+        <h1><%= @crowd_campaign.title %></h1>
+        <p><%= @crowd_campaign.slogan %></p>
       </div>
-    </div>
-    <div class="coverImgBottom"></div>
+
+      <div class="coverImg">
+        <% if @crowd_campaign.video? %>
+          <%= link_to 'javascript:', class: 'play-icon jBoxVideo', rel: 'nofollow' do %>
+            <%= cover_header_image(@crowd_campaign, class: 'titleImg', fetchpriority: 'high') %>
+          <% end %>
+        <% else %>
+            <%= cover_header_image(@crowd_campaign, class: 'titleImg', fetchpriority: 'high') %>
+        <% end %>
+        <div class="social-icons">
+          <em>Erzähls weiter:</em>
+          <%= link_to icon_tag("mail-1"), "mailto:?subject=Crowdfunding auf #{current_region.host_domain_name}: #{@crowd_campaign.title}&body=Dieses Crowdfunding Projekt auf #{current_region.host_domain_name} könnte dich interessieren:%0A%0A#{crowd_campaign_url(@crowd_campaign)}%0A%0A%0A%0A", target: "_blank", title: 'E-Mail' %>
+          <%= link_to image_tag("svg/icon-social-whatsapp.svg", class: 'icon', alt: 'Whats App'), "whatsapp://send?text=#{@crowd_campaign.title}: #{crowd_campaign_url(@crowd_campaign)}", class: 'whatsapp', target: "_blank", title: 'Whats App', :data => { :'action' => 'share/whatsapp/share' } %>
+          <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Facebook' %>
+          <%= link_to image_tag("svg/icon-social-twitter.svg", class: 'icon twitter', alt: 'Twitter'), "http://twitter.com/share?text=Crowdfunding: #{@crowd_campaign.title}&url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Twitter' %>
+          <%= link_to image_tag("svg/icon-social-linkedin.svg", class: 'icon linkedin', alt: 'LinkedIn'), "https://www.linkedin.com/sharing/share-offsite/?url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'LinkedIn' %>
+        </div>
+      </div>
+      <div class="coverImgBottom"></div>
+    <% end %>
 
     <div class="layoutArea fundingArea">
       <div class="mainArea">

@@ -341,22 +341,10 @@ class CrowdCampaignsController < ApplicationController
   private
 
   def value_to_percentage(value)
-    case value
-    when 0
-      5
-    when 1
-      6
-    when 2
-      7
-    when 3
-      8
-    when 4
-      9
-    when 5
-      10
-    else
-      7
-    end
+    int_value = value.to_i
+    return int_value if (5..12).cover?(int_value)
+
+    CrowdCampaign::DEFAULT_SERVICE_FEE_PERCENTAGE
   end
 
   def fetch_user_crowd_campaign(id)

@@ -3,99 +3,99 @@
   <div class="mainArea">
     <% cache ["crowd_campaign_main_text", @crowd_campaign.id, @crowd_campaign.updated_at.to_i], expires_in: 1.day do %>
 
-    <div class="content-block bbcode"><%= @crowd_campaign.description.bbcode_to_html.html_safe if @crowd_campaign.description.present? %></div>
+      <div class="content-block bbcode"><%= @crowd_campaign.description.bbcode_to_html.html_safe if @crowd_campaign.description.present? %></div>
 
-    <div class="content-block -facts">
+      <div class="content-block -facts">
 
-      <div class="block">
-        <h4>Finanzierungszeitraum</h4>
-        <p><strong><%= I18n.localize(@crowd_campaign.startdate, format:'%d.%m.%y') if @crowd_campaign.startdate %> - <%= I18n.localize(@crowd_campaign.enddate, format:'%d.%m.%y') if @crowd_campaign.enddate %></strong></p>
+        <div class="block">
+          <h4>Finanzierungszeitraum</h4>
+          <p><strong><%= I18n.localize(@crowd_campaign.startdate, format:'%d.%m.%y') if @crowd_campaign.startdate %> - <%= I18n.localize(@crowd_campaign.enddate, format:'%d.%m.%y') if @crowd_campaign.enddate %></strong></p>
+        </div>
+
+        <div class="block">
+          <h4>Projekt Kategorie</h4>
+          <p><strong><%= @crowd_campaign.crowd_categories.map(&:title).join(", ") %></strong></p>
+        </div>
+
+        <div class="block">
+          <h4>Benötigter Mindestbetrag</h4>
+          <p><strong><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></strong></p>
+          <p class="desc"><%= @crowd_campaign.funding_1_description %></p>
+        </div>
+
+        <% if @crowd_campaign.funding_2_amount %>
+        <div class="block">
+          <h4>Optimalbetrag</h4>
+          <p><strong><%= number_to_currency(@crowd_campaign.funding_2_amount, unit: "€") %></strong></p>
+          <p class="desc"><%= @crowd_campaign.funding_2_description %></p>
+        </div>
+        <% end %>
+
       </div>
 
-      <div class="block">
-        <h4>Projekt Kategorie</h4>
-        <p><strong><%= @crowd_campaign.crowd_categories.map(&:title).join(", ") %></strong></p>
+      <div class="content-block -toggable">
+        <h3>Warum sollte jemand dieses Projekt unterstützen?</h3>
+        <div class="bbcode -toggle-content"><%= @crowd_campaign.support_description.bbcode_to_html.html_safe if @crowd_campaign.support_description.present? %></div>
       </div>
 
-      <div class="block">
-        <h4>Benötigter Mindestbetrag</h4>
-        <p><strong><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></strong></p>
-        <p class="desc"><%= @crowd_campaign.funding_1_description %></p>
+      <div class="content-block -toggable">
+        <h3>Was sind die Ziele?</h3>
+        <div class="bbcode -toggle-content"><%= @crowd_campaign.aim_description.bbcode_to_html.html_safe if @crowd_campaign.aim_description.present? %></div>
       </div>
 
-      <% if @crowd_campaign.funding_2_amount %>
-      <div class="block">
-        <h4>Optimalbetrag</h4>
-        <p><strong><%= number_to_currency(@crowd_campaign.funding_2_amount, unit: "€") %></strong></p>
-        <p class="desc"><%= @crowd_campaign.funding_2_description %></p>
+      <% if @crowd_campaign.benefit? %>
+      <div class="content-block -toggable">
+        <h3>Wie profitieren andere Menschen von diesem Vorhaben?</h3>
+        <div class="bbcode -toggle-content"><%= @crowd_campaign.benefit_description.bbcode_to_html.html_safe %></div>
       </div>
       <% end %>
 
-    </div>
-
-    <div class="content-block -toggable">
-      <h3>Warum sollte jemand dieses Projekt unterstützen?</h3>
-      <div class="bbcode -toggle-content"><%= @crowd_campaign.support_description.bbcode_to_html.html_safe if @crowd_campaign.support_description.present? %></div>
-    </div>
-
-    <div class="content-block -toggable">
-      <h3>Was sind die Ziele?</h3>
-      <div class="bbcode -toggle-content"><%= @crowd_campaign.aim_description.bbcode_to_html.html_safe if @crowd_campaign.aim_description.present? %></div>
-    </div>
-
-    <% if @crowd_campaign.benefit? %>
-    <div class="content-block -toggable">
-      <h3>Wie profitieren andere Menschen von diesem Vorhaben?</h3>
-      <div class="bbcode -toggle-content"><%= @crowd_campaign.benefit_description.bbcode_to_html.html_safe %></div>
-    </div>
-    <% end %>
-
-    <div class="content-block -toggable">
-      <h3>Wer steht hinter dem Projekt?</h3>
-      <div class="bbcode -toggle-content"><%= @crowd_campaign.about_description.bbcode_to_html.html_safe if @crowd_campaign.about_description.present? %>
-        <div class="imprint">
-          <h3>Impressum</h3>
-          <div>
-            <p><%= @crowd_campaign.contact_company if @crowd_campaign.contact_company.present? %></p>
-            <p><%= @crowd_campaign.contact_name if @crowd_campaign.contact_name.present? %></p>
-            <p><%= @crowd_campaign.contact_address if @crowd_campaign.contact_address.present? %></p>
-            <p>
-              <%= @crowd_campaign.contact_zip if @crowd_campaign.contact_zip.present? %>
-              <%= @crowd_campaign.contact_city if @crowd_campaign.contact_city.present? %>
-            </p>
-          </div>
-          <div>
-            <%= link_to @crowd_campaign.user, class: 'user-wrp', rel: 'nofollow' do %>
-              <%= avatar_image_with_tooltip @crowd_campaign.user, size: :thumb, class: 'img-round show-badge' %>
-              <span class="name"><%= @crowd_campaign.user.full_name %></span>
-            <% end %>
-            <% if @crowd_campaign.contact_email.present? %>
-              <%= mail_to @crowd_campaign.contact_email, class: 'icontxt' do %>
-                <%= icon_tag "at-symbol" %>
-                <span><%= @crowd_campaign.contact_email %></span>
+      <div class="content-block -toggable">
+        <h3>Wer steht hinter dem Projekt?</h3>
+        <div class="bbcode -toggle-content"><%= @crowd_campaign.about_description.bbcode_to_html.html_safe if @crowd_campaign.about_description.present? %>
+          <div class="imprint">
+            <h3>Impressum</h3>
+            <div>
+              <p><%= @crowd_campaign.contact_company if @crowd_campaign.contact_company.present? %></p>
+              <p><%= @crowd_campaign.contact_name if @crowd_campaign.contact_name.present? %></p>
+              <p><%= @crowd_campaign.contact_address if @crowd_campaign.contact_address.present? %></p>
+              <p>
+                <%= @crowd_campaign.contact_zip if @crowd_campaign.contact_zip.present? %>
+                <%= @crowd_campaign.contact_city if @crowd_campaign.contact_city.present? %>
+              </p>
+            </div>
+            <div>
+              <%= link_to @crowd_campaign.user, class: 'user-wrp', rel: 'nofollow' do %>
+                <%= avatar_image_with_tooltip @crowd_campaign.user, size: :thumb, class: 'img-round show-badge' %>
+                <span class="name"><%= @crowd_campaign.user.full_name %></span>
               <% end %>
-            <% end %>
-            <% if @crowd_campaign.contact_website.present? %>
-              <%= link_to @crowd_campaign.contact_website, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
-                <%= icon_tag "globe" %>
-                <span><%= @crowd_campaign.contact_website.sub(/^https?\:\/\//,'').chomp("/") %></span>
+              <% if @crowd_campaign.contact_email.present? %>
+                <%= mail_to @crowd_campaign.contact_email, class: 'icontxt' do %>
+                  <%= icon_tag "at-symbol" %>
+                  <span><%= @crowd_campaign.contact_email %></span>
+                <% end %>
               <% end %>
-            <% end %>
-            <% if @crowd_campaign.contact_instagram.present? %>
-              <%= link_to @crowd_campaign.contact_instagram, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
-                <%= icon_tag "social-instagram" %>
-                <span><%= @crowd_campaign.contact_instagram.sub(/^https?\:\/\/www./,'').chomp("/") %></span>
+              <% if @crowd_campaign.contact_website.present? %>
+                <%= link_to @crowd_campaign.contact_website, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
+                  <%= icon_tag "globe" %>
+                  <span><%= @crowd_campaign.contact_website.sub(/^https?\:\/\//,'').chomp("/") %></span>
+                <% end %>
               <% end %>
-            <% end %>
-            <% if @crowd_campaign.contact_facebook.present? %>
-              <%= link_to @crowd_campaign.contact_facebook, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
-                <%= icon_tag "social-facebook" %>
-                <span><%= @crowd_campaign.contact_facebook.sub(/^https?\:\/\/www./,'').chomp("/") %></span>
+              <% if @crowd_campaign.contact_instagram.present? %>
+                <%= link_to @crowd_campaign.contact_instagram, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
+                  <%= icon_tag "social-instagram" %>
+                  <span><%= @crowd_campaign.contact_instagram.sub(/^https?\:\/\/www./,'').chomp("/") %></span>
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
-        </div></div>
-    </div>
+              <% if @crowd_campaign.contact_facebook.present? %>
+                <%= link_to @crowd_campaign.contact_facebook, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
+                  <%= icon_tag "social-facebook" %>
+                  <span><%= @crowd_campaign.contact_facebook.sub(/^https?\:\/\/www./,'').chomp("/") %></span>
+                <% end %>
+              <% end %>
+            </div>
+          </div></div>
+      </div>
     <% end %>
 
     <% if @images.any? || @crowd_campaign.video? %>
