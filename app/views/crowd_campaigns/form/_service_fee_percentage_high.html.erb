@@ -1,0 +1,141 @@
+<% percentage_values = [7, 8, 9, 10, 11, 12] %>
+<% current_percentage = crowd_campaign.service_fee_percentage&.to_i || CrowdCampaign::DEFAULT_SERVICE_FEE_PERCENTAGE %>
+<% current_index = percentage_values.index(current_percentage) || 0 %>
+
+<div class="form-block percentage-block" data-percent="<%= current_index %>">
+
+  <div class="hl-subtext">
+    <h2>Dein <span>Kostenbeitrag</span></h2>
+    <p><strong>Ab 7,0 % bei Erfolg – alles inklusive.</strong></p>
+  </div>
+  <p>
+    In diesem Beitrag sind bereits <strong>alle Gebühren enthalten – inklusive 3,5 % für den Zahlungsdienstleister (Stripe)</strong> und der <strong>MwSt.</strong>
+    Keine versteckten Kosten, keine Überraschungen. Du zahlst nur, wenn deine Kampagne erfolgreich ist.
+    Über den <strong>Schieberegler</strong> bestimmst du selbst, wie viel du beitragen möchtest – und welche zusätzlichen Leistungen du aktivierst.
+  </p>
+
+  <div class="input-range">
+
+    <div class="range">
+      <input
+        id="percentage"
+        type="range"
+        min="0"
+        max="<%= percentage_values.size - 1 %>"
+        value="<%= current_index %>"
+        data-url="<%= set_percentage_crowd_campaign_path(crowd_campaign) %>"
+        data-percentage-values="<%= percentage_values.join(',') %>"
+        <%= crowd_campaign.editable? ? '' : 'disabled=true' %>
+      /> 
+      <ul class="<%= crowd_campaign.editable? ? 'editable' : '' %>">
+        <% percentage_values.each_with_index do |value, idx| %>
+          <li class="percent-<%= idx %>" data-value="<%= idx %>" data-percentage="<%= value %>"><%= "#{value},0 %" %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- graz facts are hidden via css -->
+    
+    <div class="percent-info-container">
+      <div class="percent-0 cardBox">
+        <h3>Do-it-yourself</h3>
+        <div class="facts">
+          <ul>
+            <li class="check"><strong>Komplette Abwicklung & Support</strong> – wir sind 24/7 für deine Unterstützer*innen erreichbar.</li>
+            <li class="uncheck"><strong>3 individuelle Beratungssessions:</strong> Grundlagen, Kampagnen-Check & Kampagnenplan.<small>ab 8%</small></li>
+            <li class="uncheck"><strong>Deine Kampagne wird</strong> <strong><%= t("region.#{current_region.id}.region_wide_newsletter") %></strong> prominent vorgestellt.<small>ab 9%</small></li>
+            <li class="uncheck"><strong>Zusätzliche Platzierung</strong> im monatlichen Crowdfunding-Newsletter & auf Social Media.<small>ab 10%</small></li>
+            <li class="uncheck"><strong>Unterstützung bei Pressearbeit</strong>, wenn dein Projekt geeignet ist.<small>ab 11%</small></li>
+            <li class="uncheck"><strong>Kampagnen-Widget</strong> für deine Website.<small>ab 12%</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="percent-1 cardBox">
+        <h3>Starter</h3>
+        <div class="facts">
+          <ul>
+            <li class="check"><strong>Komplette Abwicklung & Support</strong> – wir sind 24/7 für deine Unterstützer*innen erreichbar.</li>
+            <li class="check"><strong>3 individuelle Beratungssessions:</strong> Grundlagen, Kampagnen-Check & Kampagnenplan.</li>
+            <li class="uncheck"><strong>Deine Kampagne wird</strong> <strong><%= t("region.#{current_region.id}.region_wide_newsletter") %></strong> prominent vorgestellt.<small>ab 9%</small></li>
+            <li class="uncheck"><strong>Zusätzliche Platzierung</strong> im monatlichen Crowdfunding-Newsletter & auf Social Media.<small>ab 10%</small></li>
+            <li class="uncheck"><strong>Unterstützung bei Pressearbeit</strong>, wenn dein Projekt geeignet ist.<small>ab 11%</small></li>
+            <li class="uncheck"><strong>Kampagnen-Widget</strong> für deine Website.<small>ab 12%</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="percent-2 cardBox">
+        <h3>Booster</h3>
+        <div class="facts">
+          <ul>
+            <li class="check"><strong>Komplette Abwicklung & Support</strong> – wir sind 24/7 für deine Unterstützer*innen erreichbar.</li>
+            <li class="check"><strong>3 individuelle Beratungssessions:</strong> Grundlagen, Kampagnen-Check & Kampagnenplan.</li>
+            <li class="check"><strong>Deine Kampagne wird</strong> <strong><%= t("region.#{current_region.id}.region_wide_newsletter") %></strong> prominent vorgestellt.</li>
+            <li class="uncheck"><strong>Zusätzliche Platzierung</strong> im monatlichen Crowdfunding-Newsletter & auf Social Media.<small>ab 10%</small></li>
+            <li class="uncheck"><strong>Unterstützung bei Pressearbeit</strong>, wenn dein Projekt geeignet ist.<small>ab 11%</small></li>
+            <li class="uncheck"><strong>Kampagnen-Widget</strong> für deine Website.<small>ab 12%</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="percent-3 cardBox">
+        <h3>Pro</h3>
+        <div class="facts">
+          <ul>
+            <li class="check"><strong>Komplette Abwicklung & Support</strong> – wir sind 24/7 für deine Unterstützer*innen erreichbar.</li>
+            <li class="check"><strong>3 individuelle Beratungssessions:</strong> Grundlagen, Kampagnen-Check & Kampagnenplan.</li>
+            <li class="check"><strong>Deine Kampagne wird</strong> <strong><%= t("region.#{current_region.id}.region_wide_newsletter") %></strong> prominent vorgestellt.</li>
+            <li class="check"><strong>Zusätzliche Platzierung</strong> im monatlichen Crowdfunding-Newsletter & auf Social Media.</li>
+            <li class="uncheck"><strong>Unterstützung bei Pressearbeit</strong>, wenn dein Projekt geeignet ist.<small>ab 11%</small></li>
+            <li class="uncheck"><strong>Kampagnen-Widget</strong> für deine Website.<small>ab 12%</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="percent-4 cardBox">
+        <h3>Expert</h3>
+          <div class="facts">
+          <ul>
+            <li class="check"><strong>Komplette Abwicklung & Support</strong> – wir sind 24/7 für deine Unterstützer*innen erreichbar.</li>
+            <li class="check"><strong>3 individuelle Beratungssessions:</strong> Grundlagen, Kampagnen-Check & Kampagnenplan.</li>
+            <li class="check"><strong>Deine Kampagne wird</strong> <strong><%= t("region.#{current_region.id}.region_wide_newsletter") %></strong> prominent vorgestellt.</li>
+            <li class="check"><strong>Zusätzliche Platzierung</strong> im monatlichen Crowdfunding-Newsletter & auf Social Media.</li>
+            <li class="check"><strong>Unterstützung bei Pressearbeit</strong>, wenn dein Projekt geeignet ist.</li>
+            <li class="uncheck"><strong>Kampagnen-Widget</strong> für deine Website.<small>ab 12%</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="percent-5 cardBox">
+        <h3>All-in</h3>
+        <div class="facts">
+          <ul>
+            <li class="check"><strong>Komplette Abwicklung & Support</strong> – wir sind 24/7 für deine Unterstützer*innen erreichbar.</li>
+            <li class="check"><strong>3 individuelle Beratungssessions:</strong> Grundlagen, Kampagnen-Check & Kampagnenplan.</li>
+            <li class="check"><strong>Deine Kampagne wird</strong> <strong><%= t("region.#{current_region.id}.region_wide_newsletter") %></strong> prominent vorgestellt.</li>
+            <li class="check"><strong>Zusätzliche Platzierung</strong> im monatlichen Crowdfunding-Newsletter & auf Social Media.</li>
+            <li class="check"><strong>Unterstützung bei Pressearbeit</strong>, wenn dein Projekt geeignet ist.</li>
+            <li class="check"><strong>Kampagnen-Widget</strong> für deine Website.</li>
+          </ul>
+        </div>
+      </div>    
+      <!--
+      <div class="percent-5 cardBox">
+        <h3>All-in</h3>
+        <div class="facts">
+          <ul>
+            <li class="check"><strong>Kostenlose Hotline</strong> für deine Unterstützer*innen während der Kampagne.</li>
+            <li class="check"><strong>Drei individuelle Beratungssessions:</strong><br>
+              1. Grundlagen, damit dein Crowdfunding erfolgreich wird.<br>
+              2. Review deiner Kampagnenseite inkl. Textoptimierung.<br>
+              3. Kampagnenfahrplan: Was steht wann an?
+            </li>
+            <li class="check"><strong>Deine Kampagne</strong> wird <strong><%= t("region.#{current_region.id}.region_wide_newsletter") %></strong> prominent vorgestellt.</li>
+            <li class="check"><strong>Zusätzliche Platzierung</strong> im monatlichen Crowdfunding-Newsletter & auf Social Media.</li>
+            <li class="check"><strong>Tatkräftige Unterstützung bei Pressearbeit</strong>, wenn dein Projekt geeignet ist.</li>
+            <li class="check"><strong>Kampagnen-Widget</strong> für deine Website.</li>
+          </ul>
+        </div>
+      </div>
+      -->    
+    </div>
+
+  </div>
+
+</div>

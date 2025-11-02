@@ -204,47 +204,48 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         const sliderElement = document.querySelector("#percentage");
         const sliderURL = sliderElement.getAttribute('data-url');
         const disabled = sliderElement.getAttribute('disabled');
+        const sliderValuesAttr = sliderElement.getAttribute('data-percentage-values');
+        const percentageValues = sliderValuesAttr ? sliderValuesAttr.split(',').map(value => parseFloat(value)) : [];
+        const sliderMin = parseInt(sliderElement.getAttribute('min'), 10) || 0;
+        const sliderMax = parseInt(sliderElement.getAttribute('max'), 10) || (percentageValues.length ? percentageValues.length - 1 : 5);
+        const rangeSpan = sliderMax - sliderMin > 0 ? sliderMax - sliderMin : 1;
+
         let sliderColor = "#EC776A";
         if (disabled) {
           sliderColor = "#aaaaaa";
         }
 
         sliderElement.addEventListener("input", (event) => {
-            const tempSliderValue = event.target.value; 
+            const tempSliderValue = parseInt(event.target.value, 10); 
             blockElement.setAttribute('data-percent', tempSliderValue);
-            const progress = (tempSliderValue / sliderElement.max) * 100;
+            const progress = ((tempSliderValue - sliderMin) / rangeSpan) * 100;
             sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${progress}%, #f0f0f0 ${progress}%)`;
             percentageConverter(tempSliderValue);
             savePercentage(tempSliderValue);
         })
 
-        function percentageConverter(value) {
-          $("[class^='percent']").removeClass('-show');
-          $(".percent-"+value).addClass('-show');
-          switch(value) {
-            case '0':
-              return '5'
-            case '1':
-              return '6'
-            case '2':
-              return '7'
-            case '3':
-              return '8'
-            case '4':
-              return '9'
-            case '5':
-              return '10'
-            default:
-              return '7'
+        function percentageForIndex(index) {
+          if (!percentageValues.length) {
+            return index;
           }
+          return percentageValues[index] || percentageValues[0];
+        }
+
+        function percentageConverter(value) {
+          const index = parseInt(value, 10);
+          $("[class^='percent']").removeClass('-show');
+          $(".percent-"+index).addClass('-show');
+          return percentageForIndex(index);
         }
 
         function savePercentage(value) {
+          const index = parseInt(value, 10);
+          const percentage = percentageForIndex(index);
           $.ajax({
             url: sliderURL,
             dataType: "json",
             type: "POST",
-            data: { percentage: value },
+            data: { percentage: percentage },
             success: function(response) {
               //console.log(response);
             }
@@ -252,7 +253,8 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         }
 
         function initSlider() {
-            const sliderValue = (sliderElement.value / sliderElement.max) * 100;
+            const currentValue = parseInt(sliderElement.value, 10);
+            const sliderValue = ((currentValue - sliderMin) / rangeSpan) * 100;
             sliderElement.style.background = `linear-gradient(to right, ${sliderColor} ${sliderValue}%, #f0f0f0 ${sliderValue}%)`;
             percentageConverter(sliderElement.value);
         }
