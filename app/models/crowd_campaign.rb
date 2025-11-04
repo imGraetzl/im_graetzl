@@ -403,7 +403,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def send_draft_mail
-    CrowdCampaignMailer.draft(self).deliver_later
+    CrowdCampaignMailer.draft(self).deliver_later(wait: 15.minutes)
   end
 
 end
