@@ -143,7 +143,7 @@
   </div>
 <% end %>
 
-<% if @crowd_campaign.created_at.present? && @crowd_campaign.created_at >= Time.zone.local(2025, 11, 3) %>
+<% if @crowd_campaign.created_at.present? && @crowd_campaign.created_at >= Time.zone.local(2025, 11, 4) %>
   <%= render "crowd_campaigns/form/service_fee_percentage_high", crowd_campaign: @crowd_campaign %>
 <% elsif @crowd_campaign.service_fee_percentage >= 5.0 %>
   <%= render "crowd_campaigns/form/service_fee_percentage_base", crowd_campaign: @crowd_campaign %>

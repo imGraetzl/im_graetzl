@@ -121,6 +121,7 @@
       }
       li.check {
         background: url(image_path('svg/icon-check.svg')) no-repeat left -3px;
+        small {display: none;}
       }
       li.uncheck {
         background: url(image_path('svg/icon-uncheck.svg')) no-repeat left -3px;
