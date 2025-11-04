@@ -96,6 +96,7 @@ class User < ApplicationRecord
   after_update :mailchimp_user_newsletter_changed, if: -> { saved_change_to_newsletter? }
   after_update :mailchimp_user_update, if: -> { saved_change_to_newsletter? || saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
   after_update :update_user_graetzls, if: -> { saved_change_to_graetzl_id? }
+  after_update :reset_stripe_connect_ready_if_account_removed
   
   before_create :skip_confirmation_for_guests
   before_destroy :mailchimp_user_delete
@@ -382,6 +383,12 @@ class User < ApplicationRecord
   def smart_add_url_protocol
     unless website[/\Ahttp:\/\//] || website[/\Ahttps:\/\//]
       self.website = "https://#{website}"
+    end
+  end
+
+  def reset_stripe_connect_ready_if_account_removed
+    if saved_change_to_stripe_connect_account_id? && stripe_connect_account_id.nil?
+      update_column(:stripe_connect_ready, false)
     end
   end
 
