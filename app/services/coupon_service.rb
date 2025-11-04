@@ -92,7 +92,7 @@ class CouponService
   def users_with_recent_coupons
     User
       .joins(:coupon_histories)
-      .where('coupon_histories.sent_at >= ?', 9.months.ago)
+      .where('coupon_histories.sent_at >= ?', 12.months.ago)
       .distinct
       .pluck(:id)
   end
