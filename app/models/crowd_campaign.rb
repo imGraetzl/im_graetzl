@@ -1,4 +1,6 @@
 class CrowdCampaign < ApplicationRecord
+  DEFAULT_SERVICE_FEE_PERCENTAGE = 9
+
   include Trackable
   include Address
 
@@ -196,7 +198,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def transaction_fee_percentage
-    service_fee_percentage? ? service_fee_percentage : 7
+    service_fee_percentage? ? service_fee_percentage : DEFAULT_SERVICE_FEE_PERCENTAGE
   end
 
   def stripe_fee_percentage
@@ -362,13 +364,13 @@ class CrowdCampaign < ApplicationRecord
 
   def set_visibility_and_newsletter
     attributes = case transaction_fee_percentage
-                when 8.0..10.0 # Ab 8.0%
+                when 10.0..Float::INFINITY # Ab 10.0%
                   { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: true }
-                when 7.0...8.0 # Ab 7.0%
+                when 9.0...10.0 # Ab 9.0%
                   { visibility_status: "region", newsletter_status: "region", guest_newsletter: true, ending_newsletter: false }
-                when 6.0...7.0 # Ab 6.0% 
+                when 8.0...9.0 # Ab 8.0% 
                   { visibility_status: "region", newsletter_status: "graetzl", guest_newsletter: false, ending_newsletter: false }
-                else # Ab 5.0% 
+                else # Unter 8.0%
                   { visibility_status: "graetzl", newsletter_status: "none", guest_newsletter: false, ending_newsletter: false }
                 end
   
