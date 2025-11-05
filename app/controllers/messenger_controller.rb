@@ -19,11 +19,11 @@ class MessengerController < ApplicationController
     unless current_user.trust_level_at_least?(:trusted)
       recent_messages = current_user.recent_sent_messages_by_thread
 
-      if recent_messages.size >= 20
+      if recent_messages.size >= 19
         Rails.logger.warn "[Messenger Spam Alert] User #{current_user.id} hat #{recent_messages.size} Threads gestartet."
         Sentry.logger.warn("[Messenger Spam Alert] User-ID %{user_id} hat %{thread_count} Threads gestartet.", user_id: current_user.id, thread_count: recent_messages.size )
         redirect_to root_path, notice: "Du hast sehr viele Messenger-Konversationen in kurzer Zeit gestartet. Bitte warte etwas." and return
-      elsif recent_messages.size >= 10
+      elsif recent_messages.size >= 9
         cache_key = "messenger_spam_alert_sent:#{current_user.id}"
         unless Rails.cache.exist?(cache_key)
           Rails.logger.warn "[Messenger Spam Warning] User #{current_user.id} hat #{recent_messages.size} Threads erreicht."
