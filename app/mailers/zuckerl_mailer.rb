@@ -17,7 +17,7 @@ class ZuckerlMailer < ApplicationMailer
     headers("X-MC-Tags" => "zuckerl-invoice")
     attachments["Zuckerl_#{@zuckerl.invoice_number}.pdf"] = @zuckerl.zuckerl_invoice.get.body.read
     mail(
-      subject: "Dein Zuckerl wurde bezhalt, anbei deine Rechnung.",
+      subject: "Dein Zuckerl wurde bezahlt, anbei deine Rechnung.",
       from: platform_email("no-reply"),
       to: @zuckerl.user.email,
     )
