@@ -52,7 +52,7 @@ gem 'jquery-rails'
 gem 'underscore-rails'
 gem 'autoprefixer-rails'
 
-gem 'activeadmin', '~> 3.3.0'
+gem 'activeadmin', '~> 3.4.0'
 gem 'rabl'
 gem 'oj'
 gem 'jquery-ui-rails'
