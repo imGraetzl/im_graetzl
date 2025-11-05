@@ -15,7 +15,7 @@ namespace :scheduled do
 
         last_message_id = unseen_messages.map(&:id).max
         if unseen_messages.any? { |message| message.user.nil? || message.user.untrusted? }
-          Rails.logger.info "[Messenger Notification Skipped] Thread #{thread.id} enthält Nachrichten von untrusted oder gelöschtem User."
+          Rails.logger.warn "[Messenger Notification Skipped] Thread #{thread.id} enthält Nachrichten von untrusted oder gelöschtem User."
           user_thread.update(last_message_seen_id: last_message_id)
           next
         end
