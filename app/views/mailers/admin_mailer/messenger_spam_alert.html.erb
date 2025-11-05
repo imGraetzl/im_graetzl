@@ -71,8 +71,11 @@
        <%= avatar_image message.user, size: :thumb, style:"width:60px; height:60px; border-radius: 33px; max-width:60px; min-width:60px; border: 1px solid #83C7BD; background-color: #ffffff; padding: 2px;", class: "mcnImage" %>
      </td>
      <td class="mcnTextContent" style="padding-right:18px; width:100%;">
+       <% sender_name = message.user&.full_name || "(Gelöschter Nutzer)" %>
+       <% recipient = message.user_message_thread.users.find { |u| u.id != message.user_id } %>
+       <% recipient_name = recipient&.full_name || "(Unbekannt)" %>
        <p>
-         <em><strong><%= message.user.full_name %></strong>, am <%= message.created_at.strftime("%d.%m.%Y %H:%M") %> an </em>
+         <em><strong><%= sender_name %></strong>, am <%= message.created_at.strftime("%d.%m.%Y %H:%M") %> an <%= recipient_name %></em>
        </p>
        <p>
          <%= message.message.truncate(2000, separator: ' ').gsub("\r\n", "<br/>").html_safe %>
