@@ -120,12 +120,6 @@ class CrowdCampaignsController < ApplicationController
   def stripe_connect_initiate
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     name_value = @crowd_campaign.contact_company.presence || @crowd_campaign.contact_name.presence || @crowd_campaign.user.full_name
-    address_data = {
-      line1: @crowd_campaign.contact_address,
-      postal_code: @crowd_campaign.contact_zip,
-      city: @crowd_campaign.contact_city,
-      country: 'AT'
-    }.compact_blank
     
     if current_user.stripe_connect_account_id.blank?
       account = Stripe::Account.create(
@@ -139,7 +133,6 @@ class CrowdCampaignsController < ApplicationController
           name: name_value&.strip,
           product_description: "Crowdfunding-Kampagne über #{@crowd_campaign.region.host_domain_name}".strip
         },
-        company: (address_data.presence ? { address: address_data } : nil),
         metadata: {
           user_id: current_user.id
         }
