@@ -119,6 +119,8 @@ class CrowdCampaignsController < ApplicationController
   # add "card_payments: {requested: true}" to capabilities when enabling card payments
   def stripe_connect_initiate
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    name_value = @crowd_campaign.contact_company.presence || @crowd_campaign.contact_name.presence || @crowd_campaign.user.full_name
+
     if current_user.stripe_connect_account_id.blank?
       account = Stripe::Account.create(
         type: 'express',
@@ -126,6 +128,10 @@ class CrowdCampaignsController < ApplicationController
         email: current_user.email,
         capabilities: {
           transfers: {requested: true}
+        },
+        business_profile: {
+          name: name_value&.strip,
+          product_description: "Crowdfunding-Kampagne über #{@crowd_campaign.region.host_domain_name}".strip
         }
       )
       current_user.update(stripe_connect_account_id: account.id)
