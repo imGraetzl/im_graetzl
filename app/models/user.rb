@@ -78,6 +78,7 @@ class User < ApplicationRecord
   validates :email, presence: true, if: :email_required?
   validates :email, uniqueness: { scope: :guest, case_sensitive: false }, if: :email_changed?
   validates :email, format: { with: Devise.email_regexp }, if: :email_changed?, allow_blank: true
+  validate :email_not_blocklisted, on: :create
 
   # Passwort-Validierungen
   validates :password, presence: true, if: :password_required?
@@ -394,6 +395,35 @@ class User < ApplicationRecord
 
   def update_user_graetzls
     self.user_graetzls.where(graetzl_id: self.graetzl.id).delete_all
+  end
+
+  def email_not_blocklisted
+    return if email.blank?
+
+    blocklist = Array(Rails.configuration.registration_email_blocklist)
+    return if blocklist.blank?
+
+    email_downcased = email.downcase
+    email_domain = email_downcased.split('@').last
+
+    blocked = blocklist.any? do |entry|
+      next if entry.blank?
+
+      if entry.include?('@')
+        local_part, domain = entry.split('@', 2)
+        if local_part == '*'
+          email_domain == domain
+        else
+          email_downcased == entry
+        end
+      end
+    end
+
+    return unless blocked
+
+    Rails.logger.warn "[Registration Blocked] Email #{email_downcased} matched blocklist entry."
+    Sentry.logger.warn("[Registration Blocked] Email %{email} matched blocklist entry.", email: email_downcased)
+    errors.add(:email, 'kann nicht für die Registrierung verwendet werden.')
   end
 
   def mailchimp_user_update

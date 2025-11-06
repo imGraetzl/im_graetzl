@@ -9,20 +9,20 @@
 %>
 
 <% if current_region.is?('wien') %>
+  <!--
   <div id="betaflash">
     Die neuen <%= link_to 'Good Morning Date', good_morning_dates_path %> Termine sind da!
     <%= link_to 'javascript:', class: 'close-ico' do %>
       <%= icon_tag "cross" %>
     <% end %>
   </div>
-  <!--
+  -->
   <div id="betaflash">
     Jeden Mittwoch - <%= link_to 'Crowdfunding Sprechstunde!', '/crowdfunding' %>
     <%= link_to 'javascript:', class: 'close-ico' do %>
       <%= icon_tag "cross" %>
     <% end %>
   </div>
-  -->
 <% elsif current_region.is?('graz') || current_region.is?('innsbruck') %>
   <div id="betaflash">
     Crowdfunding-Zuschuss <%= link_to 'ViertelFonds', leerstand_path %><br>Reiche jetzt dein Vorhaben ein!

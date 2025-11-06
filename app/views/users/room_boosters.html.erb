@@ -15,12 +15,14 @@
       </div>
 
       <h3>Das kann der Raumteiler Pusher</h3>
+      <br>
       <ul class="list-basic">
-        <li>Platziere deinen Raumteiler im <strong>wöchentlichen Newsletter</strong> an alle imGrätzl NutzerInnen in ganz <%= current_user.region %>. (Nächster Newsletter am <%= I18n.localize(Date.today.next_occurring(:tuesday) , format:'%a, %d. %B %Y') %>).</li>
-        <li>Liste damit deinen Raumteiler <strong>eine Woche auf der Plattform</strong> in allen Grätzln & Bezirken in ganz <%= current_user.region %>.</li>
-        <li>Dein Raumteiler wird auf allen Raumteilerseiten auf der Plattform eine Woche <strong>täglich hochgespült</strong>.</li>
-        <li>Ein Raumteiler Pusher kostet dich einmalig <%= number_to_currency(RoomBooster.price(current_region) / 100) %> (inkl. USt.).</li>
+        <li>Sei mit deinem Raumteiler im <strong>Dienstags-Newsletter an alle imGrätzl-NutzerInnen in ganz Wien</strong> vertreten.</li>
+        <li>Dein Raumteiler wird zusätzlich <strong>eine Woche lang prominent in allen Grätzln & Bezirken</strong> auf der Plattform präsentiert.</li>
+        <li>Außerdem wird er täglich auf allen Raumteilerseiten hochgespült für maximale Sichtbarkeit.</li>
       </ul>
+      Ein Raumteiler Pusher kostet dich einmalig <strong><%= number_to_currency(RoomBooster.price(current_region) / 100) %></strong> (inkl. USt.).<br>
+      Es gibt maximal zwei Pusher pro Woche, damit jeder Raumteiler die bestmögliche Sichtbarkeit erhält.
 
     </div>
 

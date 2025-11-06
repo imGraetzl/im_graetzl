@@ -116,6 +116,7 @@ class CrowdCampaignsController < ApplicationController
     form_status_message?
   end
 
+  # add "card_payments: {requested: true}" to capabilities when enabling card payments
   def stripe_connect_initiate
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     if current_user.stripe_connect_account_id.blank?
@@ -124,8 +125,7 @@ class CrowdCampaignsController < ApplicationController
         country: 'AT',
         email: current_user.email,
         capabilities: {
-          card_payments: {requested: true},
-          transfers: {requested: true},
+          transfers: {requested: true}
         }
       )
       current_user.update(stripe_connect_account_id: account.id)
