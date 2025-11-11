@@ -51,6 +51,8 @@ class CrowdBoostsController < ApplicationController
         render :call_graz
       when 'innsbruck'
         render :call_innsbruck
+      when 'wien'
+        render :call_wien
       else
         render :show
       end
