@@ -34,12 +34,12 @@
             <li><strong>Einreichzeitraum:</strong> <%= @next_slot.timerange %></li>
             <% if @next_slot.boost_amount? %>
               <li>
-                <strong>Crowdfunding Boost:</strong>
+                <strong>Crowdfunding Zuschuss:</strong>
                 <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Extra-Boost für dein Projekt
               </li>
             <% elsif @next_slot.boost_percentage? %>
               <li>
-                <strong>Crowdfunding Boost:</strong>
+                <strong>Crowdfunding Zuschuss:</strong>
                 <%= @next_slot.boost_percentage.to_i %>% deiner Mindestsumme (max. <%= number_to_currency(@next_slot.boost_amount_limit.to_i, precision: 0, unit: "€") %>) als Extra-Boost für dein Projekt.
               </li>
             <% end %>
