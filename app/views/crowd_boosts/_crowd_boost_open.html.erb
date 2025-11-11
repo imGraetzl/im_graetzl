@@ -17,7 +17,7 @@
   <div class="cardBoxContent">
 
     <h3>Reiche jetzt dein Vorhaben für den <%= crowd_boost.title %> ein!</h3>
-    <p>Falls du unsicher bist, ob der <%= crowd_boost.title %> etwas für dich ist, ruf kurz durch, dann reden wir über dein Vorhaben: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %></p>
+    <p>Falls du unsicher bist, ob der <%= crowd_boost.title %> etwas für dich ist, ruf kurz durch: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %></p>
 
     <% if @next_slot && !local_assigns[:hide_facts].present? %>
       <div class="facts icontxt -mint">
