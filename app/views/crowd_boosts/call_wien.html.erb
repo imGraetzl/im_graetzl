@@ -117,6 +117,7 @@
     <% if @crowd_boost.chargeable? %>
       <div id="tab-charges" class="wrp-inner charges">
         <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+        <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -small -shadow btn-charge" %>
         <div class="charges-container">
           <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
         </div>

@@ -51,6 +51,13 @@ section.info {
 // ----- CrowdBoost Detail Page ------ //
 section.crowd_boost {
 
+  .btn-charge {
+    width: fit-content;
+    margin-left: auto;
+    margin-top:-20px;
+    margin-bottom:20px;
+  }
+
   .card-grid-container {
     max-width:1005px;
   }
