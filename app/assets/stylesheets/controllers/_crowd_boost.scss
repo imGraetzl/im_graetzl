@@ -54,8 +54,11 @@ section.crowd_boost {
   .btn-charge {
     width: fit-content;
     margin: auto;
-    margin-top: -30px;
+    margin-top: -10px;
     margin-bottom:20px;
+    @include respond-to(">=medium") {
+      margin-top: -30px;
+    }
   }
 
   .card-grid-container {
