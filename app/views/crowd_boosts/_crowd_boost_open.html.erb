@@ -17,8 +17,15 @@
   <div class="cardBoxContent">
 
     <h3>Reiche jetzt dein Vorhaben für den <%= crowd_boost.title %> ein!</h3>
-    <p>Falls du unsicher bist, ob der <%= crowd_boost.title %> etwas für dich ist, ruf kurz durch, dann reden wir über dein Vorhaben: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %></p>
-
+    <% if local_assigns[:region_txt].to_s.downcase.include?('wien') %>
+      <p>
+        Falls du unsicher bist, ob der <%= crowd_boost.title %> etwas für dich ist, ruf kurz durch: 0699/150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %><br>
+        <br>
+        Oder schau vorbei beim Online <strong>RaumBooster Workshop am 4.12 von 17 bis 18 Uhr <%= link_to "via Zoom", 'https://us02web.zoom.us/j/89681277696' %>.</strong>
+      </p>
+    <% else %>
+      <p>Falls du unsicher bist, ob der <%= crowd_boost.title %> etwas für dich ist, ruf kurz durch: 0699 / 150 28 277 oder schreib uns an: <%= mail_to t("region.#{current_region.id}.contact_email") %></p>
+    <% end %>
     <% if @next_slot && !local_assigns[:hide_facts].present? %>
       <div class="facts icontxt -mint">
         <%= icon_tag "time-clock" %>

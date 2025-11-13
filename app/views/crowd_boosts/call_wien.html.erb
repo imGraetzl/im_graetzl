@@ -1,103 +1,129 @@
 <% meta(
-    title: t('.title', title: "#{@crowd_boost.title} - Leerstand beleben und Räumen eine neue Zukunft geben!"),
-    description: t('.description', desc: "Der RaumBooster unterstützt euch, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen! Gemeinsam füllen wir ab August den RaumBooster, um mehr Raum zu schaffen – von lokalen Macher*innen für lokale Macher*innen."),
+    title: t('.title', title: @crowd_boost.title),
+    description: t('.description', desc: @next_slot ? strip_tags(@next_slot.slot_description.bbcode_to_html.html_safe).truncate(250) : @crowd_boost.slogan.truncate(250)),
     robots: 'index, follow',
-    og_title: t('.title', title: "#{@crowd_boost.title} - Leerstand beleben und Räumen eine neue Zukunft geben!"),
-    og_description: t('.description', desc: "Der RaumBooster unterstützt euch, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen! Gemeinsam füllen wir ab August den RaumBooster, um mehr Raum zu schaffen – von lokalen Macher*innen für lokale Macher*innen."),
+    og_title: t('.title', title: @crowd_boost.title),
+    og_description: t('.description', desc: @next_slot ? strip_tags(@next_slot.slot_description.bbcode_to_html.html_safe).truncate(250) : @crowd_boost.slogan.truncate(250)),
     og_image: image_url('meta/crowd_boost.jpg')
   )
 %>
 
-<section class="info -boost_call">
+<section class="info -crowdfunding">
   <div class="imgHeader -fullwidth"></div>
 </section>
 
-<section class="crowd_boost boost_call">
+<section class="crowd_boost boost_call -<%= current_region.id %>">
 
   <div class="introcontainer">
     <div class="introtxt">
+
       <div class="hl-subtext">
         <h1><em><%= @crowd_boost.title %></em></h1>
-        <p><strong>Leerstand beleben und Räumen eine neue Zukunft geben!</strong></p>
+        <% if @next_slot %>
+          <div class="bbcode"><%= @next_slot.slot_description.bbcode_to_html.html_safe %></div>
+        <% else %>
+          <div class="bbcode"><strong><%= @crowd_boost.slogan %></strong></div>
+        <% end %>
       </div>
-      <ul> 
-        <li>In Wien bleibt Leerstand ungenutzt, weil die Aktivierungskosten (Renovierung, Sanierung und Provisionen) die finanziellen Möglichkeiten der lokalen Macher*innen übersteigen.</li>
-        <li>Räume können aufgrund steigender Mieten nicht gehalten werden.</li>
-        <li>Es besteht ein großer Bedarf an leistbaren Räumen für lokale Macher*innen in Wien.</li>
-      </ul>
-      <p><strong>Deshalb rufen wir den RaumBooster ins Leben!</strong> Der RaumBooster unterstützt euch, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen! </p>
-      <p><strong>So funktioniert’s:</strong> Im ersten Schritt füllen wir gemeinsam den RaumBooster Topf. Dann startet im Dezember der erste Call und wir laden euch ein, eure Raumvorhaben einzureichen. Alle, die sich qualifizieren, bekommen einen zusätzlichen <strong>RaumBooster von 1.000 € oben drauf</strong>, sobald das Crowdfunding 30% des Mindestziels erreicht hat.</p>
-      <p>Untersuchungen zeigen, dass Crowdfunding-Projekte mit zusätzlicher Fördertopf-Unterstützung ihre <strong>Erfolgsaussichten um bis zu 90 % steigern</strong> können.</p>
+
+      <% if @next_slot %>
+
+        <!-- Slot Box -->
+        <div class="cardBox slotBox">          
+          <ul class="list-arrow -rosa">
+            <li><strong>Einreichzeitraum:</strong> <%= @next_slot.timerange %></li>
+            <% if @next_slot.boost_amount? %>
+              <li>
+                <strong>Crowdfunding Zuschuss:</strong>
+                <%= number_to_currency(@next_slot.boost_amount.to_i, unit: "€") %> Extra-Boost für dein Projekt
+              </li>
+            <% elsif @next_slot.boost_percentage? %>
+              <li>
+                <strong>Crowdfunding Zuschuss:</strong>
+                <%= @next_slot.boost_percentage.to_i %>% deiner Mindestsumme (max. <%= number_to_currency(@next_slot.boost_amount_limit.to_i, precision: 0, unit: "€") %>) als Extra-Boost für dein Projekt.
+              </li>
+            <% end %>
+          </ul>
+          <div class="badge -small"><div class="inner">Nächste<br>Runde</div></div>
+        </div>
+        <!-- /Slot Box -->
+
+        <% if @next_slot.slot_detail_description&.present? %>
+          <div class="content-block -toggable">
+            <h3>Wie funktioniert der <%= @crowd_boost.title %>?</h3>
+            <div class="-toggle-content bbcode"><%= @next_slot.slot_detail_description.bbcode_to_html.html_safe %></div>
+          </div>
+        <% end %>
+
+        <% if @next_slot.slot_terms&.present? %>
+          <div class="content-block -toggable">
+            <h3>Welche Vorhaben können beim RaumBooster teilnehmen?</h3>
+            <div class="-toggle-content bbcode"><%= @next_slot.slot_terms.bbcode_to_html.html_safe %></div>
+          </div>
+         <% end %>
+         
+        <% if @next_slot.slot_process_description&.present? %>
+          <div class="content-block -toggable">
+            <h3>Hintergrund</h3>
+            <div class="-toggle-content bbcode"><%= @next_slot.slot_process_description.bbcode_to_html.html_safe %></div>
+          </div>
+        <% end %>
+
+      <% else %>
+
+        <% if @crowd_boost.description.present? %>
+          <div class="bbcode"><%= @crowd_boost.description.bbcode_to_html.html_safe %></div>
+        <% end %>
+
+      <% end %>
+
     </div>
+
     <div class="introSide">
-      <%= render 'crowd_boosts/crowd_boost_charge', crowd_boost: @crowd_boost %>
+      <% if @next_slot %>
+        <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true, region_txt: current_region.id %>
+      <% else %>
+        <%= render 'crowd_boosts/crowd_boost', crowd_boost: @crowd_boost %>
+      <% end %>
     </div>
+    
   </div>
 
-  <div class="content-wide">
-    <div class="wrp-inner">
-      <div class="hl-subtext">
-        <h1>Gemeinsam füllen wir den RaumBooster</h1>
-        <p>Gemeinsam füllen wir den RaumBooster, um mehr Raum zu schaffen – von lokalen Macher*innen für lokale Macher*innen. Mach mit! Jeder Beitrag schafft neuen Raum!</p>
-      </div>
-      <div class="cardBoxCollection -single">
-        <!--
-        <div class="paperCard -illuteaser -good-morning-date -cord1RT">
-          <div class="wrp">
-            <h3>Komm zu einem <span>Good Morning Date</span> im Herbst!</h3>
-            <p>Wenn du kannst, lege dort 5 € in den RaumBooster Hut, den die Gastgeber*innen beim Treffen aufstellen – als Dankeschön für die Organisation.</p>
-            <%= link_to 'Zu den Good Morning Dates', good_morning_dates_path, class: 'btn-primary -mint -shadow' %>
-          </div>
-          <div class="card"></div>
-        </div>
-        -->
-        <div class="paperCard -illuteaser -favorites -cord1RT">
-          <div class="wrp">
-            <h3>Direkt in den RaumBooster einzahlen.</h3>
-            <p>Mach mit! Unterstütze direkt den RaumBooster. Jeder Beitrag schafft neuen Raum!</p>
-            <%= link_to 'In den Topf einzahlen', new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: 'btn-primary -mint -shadow' %>
-          </div>
-          <div class="card"></div>
-        </div>
-      </div>
-    </div>
+  
+  <div class="tabs-ctrl -plain">
+    <ul class="tabs-nav">
+      <li class="active">
+        <a href="#tab-campaigns">
+          <h3>Unterstütze Projekte</h3>
+          <% if @campaign_count.to_i.positive? %><small><%= @campaign_count %></small><% end %>
+        </a>
+      </li>
+      <% if @crowd_boost.chargeable? %>
+        <li class="<%= @campaign_count == 0 ? 'active' : '' %>">
+          <a href="#tab-charges">
+            <h3>Topf Einzahlungen</h3>
+            <% if @charge_count.to_i.positive? %><small><%= @charge_count %></small><% end %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
   </div>
-
-  <div class="toggle-container">
-    <div class="content-block -toggable">
-      <h3>Hintergrund RaumBooster</h3>
-      <div class="-toggle-content">
-        <p><strong>Räume zu aktivieren und zu halten wird immer kostspieliger</strong> - Die lokalen Macher*innen in Wien benötigen aber leistbare Räume für ihre Ideen, Angebote und Projekte.</p>  
-        <p><strong>Bei einer Raumaktivierung kommen schnell ein paar tausend Euro zusammen:</strong> Provisionen, Renovierung, Ausstattung. Bestehende Räume möchten ebenfalls gehalten werden, diese müssen zukunftsfit gemacht werden z.B. mit neuen Organisationsmodellen oder anderen Anpassungen. Leerstandsförderungen sind großartig, stehen aber nicht allen offen und müssen ausfinanziert werden. Kredite sind schwer zu bekommen.</p>
-        <p>Eine <a href="https://blog.imgraetzl.at/allgemein/raumaktivierung-herausforderungen/" target="_blank">Umfrage im Jahr 2022 unter 599 Macher*innen</a> in Wien zeigte deutlich, dass eine Raumaktivierung in den meisten Fällen an den finanziellen Mitteln scheitert, obwohl es einen großen Raumbedarf gibt.</p>
-        <p><strong>Leerstand beleben und Räumen eine neue Zukunft geben – genau darum geht es beim RaumBooster.</strong></p>
-        <p>Der RaumBooster ist ein neues Format, das euch unterstützt, eure Raumvorhaben via Crowdfunding noch leichter umzusetzen. Als erstes Matchfunding-Programm zur Leerstandsaktivierung im DACH-Raum, das Crowdfunding mit einem Fördertopf kombiniert, baut der RaumBooster finanzielle Hürden ab und erleichtert das Crowdfunding erheblich.</p>
-        <p>Untersuchungen aus den Niederlanden und England zeigen, dass Crowdfunding-Projekte mit zusätzlicher Fördertopf-Unterstützung ihre <strong>Erfolgsaussichten um bis zu 90 % steigern</strong> können. Solche Matchfunding-Mechanismen bewirken zudem höhere Beträge und ziehen mehr Unterstützende an. Eure Raumvorhaben sollen von diesen positiven Effekten profitieren.</p>
-        <p>Außerdem erhalten alle qualifizierten Projekte eine persönliche Crowdfunding-Begleitung, maximale Sichtbarkeit auf imGrätzl und das Abzeichen <strong>"Besonders unterstützenswertes Vorhaben"</strong> auf ihrer Crowdfunding-Seite. Damit möchten wir auch all diejenigen ermutigen, die sich bisher noch nicht an Crowdfunding zur Umsetzung ihrer Raumvorhaben herangewagt haben.</p>
-        <p>Unsere Stadtteile brauchen eure Angebote der Alltagsökonomie, denn ohne euch und eure Angebote veröden die Grätzln, das Miteinander schwindet und die Lebensqualität sinkt. Deshalb: Statt Verdrängung – eine liebevolle Rückeroberung von Räumen!</p>
-      </div>
-    </div>
-    <div class="content-block -toggable">
-      <h3>Ablauf RaumBooster</h3>
-      <div class="-toggle-content">
-        <p>Der erste RaumBooster Call ist vom 10. Dezember 2024 bis 31. Januar 2025 geplant, und wir laden euch ein, eure <%= link_to 'Raumvorhaben einzureichen', crowd_boost_path(@crowd_boost) %>. Bis dahin möchten wir ein paar tausend Euro im Topf haben, um mehrere Raumprojekte gut anschieben zu können!</p>
-      </div>
-    </div>
-  </div>
-
 
   <div id="tabs-container" class="content-wide -grey">
-    <div class="hl-subtext">
-      <h1>Ihr ermöglicht den RaumBooster - Danke!</h1>
-      <p>Tausend Dank an euch, dass ihr den RaumBooster möglich macht!</p>
+    <div id="tab-campaigns" class="wrp-inner card-grid-container">
+      <%= form_tag campaigns_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'cards-filter' do %><% end %>
+      <div class="card-grid" data-behavior="campaigns-card-container"></div>
     </div>
-    <div id="tab-charges" class="wrp-inner charges">
-      <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
-      <div class="charges-container">
-        <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+    <% if @crowd_boost.chargeable? %>
+      <div id="tab-charges" class="wrp-inner charges">
+        <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+        <div class="charges-container">
+          <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
+  
 
   <div class="content-wide -end logo-footer">
     <div class="wrp-inner">
