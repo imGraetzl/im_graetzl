@@ -80,8 +80,8 @@
     </div>
 
     <div class="introSide">
-      <% if @next_slot && @next_slot.open? %>
-        <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true %>
+      <% if @next_slot %>
+        <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true, region_txt: current_region.id %>
       <% else %>
         <%= render 'crowd_boosts/crowd_boost', crowd_boost: @crowd_boost %>
       <% end %>

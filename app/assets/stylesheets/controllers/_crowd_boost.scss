@@ -135,6 +135,25 @@ section.crowd_boost {
             text-align: center;
           }
         }
+        ol {
+          margin-left:0px;
+          margin-bottom:0px;
+          padding-bottom:0px;
+          li {
+            margin-bottom:8px;
+            background: url(image_path('num-badge-1.png')) no-repeat left top;
+            padding-left: 39px;
+            list-style: none;
+            background-size: 30px;
+            padding-bottom:5px;
+            padding-top:3px;
+            &:nth-child(2) { background-image: url(image_path('num-badge-2.png')); }
+            &:nth-child(3) { background-image: url(image_path('num-badge-3.png')); }
+            &:nth-child(4) { background-image: url(image_path('num-badge-4.png')); }
+            &:nth-child(5) { background-image: url(image_path('num-badge-5.png')); }
+            &:nth-child(6) { background-image: url(image_path('num-badge-6.png')); }
+          }
+        }
       }
       .bbcode {
         @include font-size-primaryFont('large');
