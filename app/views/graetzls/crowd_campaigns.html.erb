@@ -47,8 +47,8 @@
     <!-- Insert Featured Card -->
     <% if current_region.is?('graz') || current_region.is?('innsbruck') %>
       <%= render "shared/featured_cards/viertelfonds_#{current_region.id}" %>
-    <% else %>
-       <%= render @meeting, featured_card: 'featuredCard -hidden' if @meeting %>
+    <% elsif current_region.is?('wien') %>
+       <%= render "shared/featured_cards/raumbooster_wien" %>
     <% end %>
     
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'crowd-campaigns-paginate-link' }, rel: 'nofollow' %>

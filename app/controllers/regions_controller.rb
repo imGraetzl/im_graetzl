@@ -42,8 +42,6 @@ class RegionsController < ApplicationController
     if params[:category].present?
       @category = CrowdCategory.find_by(slug: params[:category])
     end
-    # Featured Crowdfunding Meetings
-    @meeting = Meeting.crowdfunding.in(current_region).first
   end
 
   def energies
