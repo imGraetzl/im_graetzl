@@ -8,7 +8,7 @@
   )
 %>
 
-<% if current_region.is?('wien') && user_signed_in? && current_user.show_subscription_hint? %>
+<% if current_region.use_subscription? && user_signed_in? && current_user.show_subscription_hint? %>
   <div id="betaflash">
     Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_path %>!
     <%= link_to 'javascript:', class: 'close-ico' do %>
