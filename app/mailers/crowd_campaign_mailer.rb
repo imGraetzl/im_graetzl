@@ -80,6 +80,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Hurra, das erste Fundingziel ist erreicht!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+      bcc: platform_admin_email,
     )
   end
 
@@ -91,6 +92,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Es ist wieder etwas Schönes passiert, das zweite Fundingziel ist erreicht!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+      bcc: platform_admin_email,
     )
   end
 
@@ -116,7 +118,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Deine Kampagne ist erfolgreich beendet! Dein Vorhaben kann bald starten!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: platform_admin_email('michael@imgraetzl.at'),
+      bcc: platform_admin_email,
     )
   end
 
@@ -128,7 +130,7 @@ class CrowdCampaignMailer < ApplicationMailer
       subject: "Diesmal hat es leider nicht geklappt",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
-      bcc: platform_admin_email('michael@imgraetzl.at'),
+      bcc: platform_admin_email,
     )
   end
 
