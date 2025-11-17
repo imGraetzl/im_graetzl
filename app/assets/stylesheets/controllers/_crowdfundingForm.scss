@@ -39,12 +39,13 @@ section.crowdfunding-form {
   }
 
   .-stripeConnect {
-    margin-bottom: 50px;
-    background-color: #eaf2f4;
     .btn-secondary {
-      @include respond-to(">=medium") {
-        width:50%;
-        margin: auto;
+      width:fit-content;
+      margin: auto;
+      margin-top:15px;
+      margin-bottom: 20px;
+      &.-mint {
+        margin-bottom: 10px;
       }
     }
   }

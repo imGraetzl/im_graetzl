@@ -67,6 +67,8 @@ class WebhooksController < ApplicationController
     case event.type
     when "payout.paid"
       payout_paid(event.data.object, event.account)
+    when "account.updated"
+      account_updated(event.data.object, event.account)
     else
       Rails.logger.warn "[stripe webhook connected] Unhandled event type: #{event.type}"
     end
@@ -448,6 +450,24 @@ class WebhooksController < ApplicationController
     else
       Rails.logger.info "[stripe webhook connected] No Campaign Found for: #{account}"
     end
+  end
+
+  def account_updated(object, account)
+    Rails.logger.info "[stripe webhook connected] Account updated for Account: #{account}"
+    user = User.find_by(stripe_connect_account_id: account)
+
+    unless user
+      Rails.logger.info "[stripe webhook connected] No User Found for: #{account}"
+      return
+    end
+
+    Rails.logger.info "[stripe webhook connected] payouts_enabled=#{object.payouts_enabled}, disabled_reason=#{object.requirements&.disabled_reason}, currently_due=#{object.requirements&.currently_due}"
+    
+    connect_ready = object.payouts_enabled == true
+
+    user.update_column(:stripe_connect_ready, connect_ready)
+
+    Rails.logger.info "[stripe webhook connected] Updated User #{user.id}: stripe_connect_ready=#{connect_ready}"
   end
 
 end

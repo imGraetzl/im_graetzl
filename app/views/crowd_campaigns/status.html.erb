@@ -4,26 +4,44 @@
 
   <%= render 'crowd_campaigns/form/navigation' %>
 
-  <% if !@crowd_campaign.user.stripe_connect_ready? %>
-    <div class="cardBox -stripeConnect">
-      <div class="hl-subtext">
-        <h2><span>Verifizierung</span> deines Auszahlungskontos</h2>
-        <p>
-          <strong>Damit deine Kampagne starten kann, muss zunächst noch dein Auszahlungskonto verifiziert werden. Für die Verifizierung setzen wir vertrauensvoll auf den Zahlungsanbieter <%= link_to 'Stripe', 'https://stripe.com/at/', target: '_blank' %>.</strong>
-        </p>
+  
+
+    <div class="paperCard video -cord1RT -stripeConnect">
+      <div class="wrp">
+        <div class="txt">
+
+          <% if @crowd_campaign.user.stripe_connect_ready? %>
+            <h3>Verifizierung deines Auszahlungskontos</h3>
+            <p>
+              Dein Auszahlungskonto wurde erfolgreich verifiziert. Für die Verifizierung setzen wir vertrauensvoll auf den <strong>Zahlungsanbieter Stripe.</strong> Klicke auf den Button um deine Angaben zu überprüfen oder ggf. zu vervollständigen.
+            </p>
+            <%= link_to stripe_connect_initiate_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -ico -mint' do %>
+              <%= icon_tag "check" %>
+              <span>Stripe Verifizierung durchgeführt</span>
+            <% end %>
+          <% else %>
+            <h3>Verifizierung deines Auszahlungskontos <% if @crowd_campaign.user.stripe_connect_account_id.present? %>(Status: Unvollständig)<% end %></h3>
+            <p>
+              Damit deine Kampagne starten kann, muss zunächst noch dein Auszahlungskonto verifiziert werden. Für die Verifizierung setzen wir vertrauensvoll auf den <strong>Zahlungsanbieter Stripe.</strong> Klicke auf den Button und mache den Prozess vollständig durch.
+            </p>
+            <%= link_to stripe_connect_initiate_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -ico' do %>
+              <%= icon_tag "link" %>
+              <span>Stripe Verifizierung durchführen</span>
+            <% end %>
+            <p>
+              <em>Verifizierung ist für Crowdfunding unumgänglich, weil es gesetzlich vorgeschrieben ist (Geldwäschegesetz §11) Identität und Kontodaten des Auszahlungskontos zu prüfen, um die Unterstützer:innen zu schützen. (Ohne einer erfolgreichen Verifizierung, kann deine Kampagne nicht starten.)</em>
+            </p>
+          <% end %>
+
+          <%= link_to 'https://stripe.com/at', class: 'stripe-logo', rel: 'nofollow', target: '_blank' do %>
+            <%= image_tag 'logo-stripe.svg', alt:'stripe', width:100, height:48 %>
+          <% end %>
+
+        </div>
       </div>
-      <%= link_to stripe_connect_initiate_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -ico' do %>
-        <span>Stripe Verifizierung jetzt durchführen</span>
-        <%= icon_tag "link" %>
-      <% end %>
-      <br>
-      <p><em>
-        Klicke auf den Button und mache den Prozess vollständig durch. Danach kann es 24 Stunden dauern, bis Stripe deine Legitimation geprüft und auf erfolgreich gesetzt hat.
-        <br><br>
-        Verifizierung ist für Crowdfunding unumgänglich, weil es gesetzlich vorgeschrieben ist (Geldwäschegesetz §11) Identität und Kontodaten des Auszahlungskontos zu prüfen, um die Unterstützer:innen zu schützen. (Ohne einer erfolgreichen Verifizierung, kann deine Kampagne nicht starten.)
-      </em></p>
+      <div class="card"></div>
     </div>
-  <% end %>
+  
 
   <% if @crowd_campaign.draft? %>
 
@@ -34,7 +52,13 @@
             <p>Wenn du fertig bist, reiche diese zur Freigabe ein.</p>
           </div>
           <p>
-            Sobald du mit der Bearbeitung deiner Kampagne fertig bist, klicke im Kampagnen-Setup auf der letzten Seite unter <%= link_to 'Projekt Abschluss', edit_finish_crowd_campaign_path(@crowd_campaign) %> auf den Button <strong>"Projekt zur Freigabe einreichen"</strong>, damit wir Bescheid wissen und deine Kampagne prüfen und auch freigeben können.
+            Sobald du mit deiner Kampagne fertig bist, schicke diese (bis spätestens 48 Stunden vor Kampagnenstart) weiter zur Freigabe.
+          </p>
+          <p>
+            <strong>Klicke dazu im Kampagnen-Setup unter <%= link_to 'Projekt Abschluss', edit_finish_crowd_campaign_path(@crowd_campaign) %> auf den Button "Projekt zur Freigabe einreichen".</strong>
+          </p>
+          <p>
+            Anschließend wird deine Kampagne von uns geprüft und du bekommst eine Rückmeldung per E-Mail.
           </p>
         </div>
         <%= render @crowd_campaign, manage_buttons: true %>

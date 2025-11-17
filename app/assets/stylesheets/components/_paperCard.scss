@@ -244,7 +244,18 @@
       }
     }
     .txt {
+      width:100%;
       padding-bottom: 15px;
+    }
+    .stripe-logo {
+      margin-bottom:-30px;
+      margin-right:-20px;
+      float:right;
+      opacity: 0.25;
+      img {
+        width:75px;
+        height:auto;
+      }
     }
   }
   .wrp:last-of-type {
