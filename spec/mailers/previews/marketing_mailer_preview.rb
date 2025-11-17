@@ -16,4 +16,8 @@ class MarketingMailerPreview < ActionMailer::Preview
     MarketingMailer.crowdfunding_280(User.last)
   end
 
+  def supporters_2025
+    MarketingMailer.supporters_2025(User.last)
+  end
+
 end
