@@ -11,9 +11,9 @@
         <div class="txt">
 
           <% if @crowd_campaign.user.stripe_connect_ready? %>
-            <h3>Verifizierung deines Auszahlungskontos</h3>
+            <h3>Dein Auszahlungskonto ist verifiziert.</h3>
             <p>
-              Dein Auszahlungskonto wurde erfolgreich verifiziert. Für die Verifizierung setzen wir vertrauensvoll auf den <strong>Zahlungsanbieter Stripe.</strong> Klicke auf den Button um deine Angaben zu überprüfen oder ggf. zu vervollständigen.
+              Für die Verifizierung setzen wir vertrauensvoll auf den <strong>Zahlungsanbieter Stripe.</strong> Klicke auf den Button um deine Angaben zu überprüfen, zu bearbeiten oder ggf. zu vervollständigen.
             </p>
             <%= link_to stripe_connect_initiate_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -ico -mint' do %>
               <%= icon_tag "check" %>
