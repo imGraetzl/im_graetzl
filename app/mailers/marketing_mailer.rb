@@ -34,7 +34,7 @@ class MarketingMailer < ApplicationMailer
 
     mail(
       subject: "Danke, dass ihr imGrätzl mittragt, unser Update für euch",
-      from: platform_email("wir"),
+      from: platform_email("mirjam", "Mirjam"),
       to: @user.email,
     )
   end
