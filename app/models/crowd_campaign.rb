@@ -263,10 +263,18 @@ class CrowdCampaign < ApplicationRecord
 
   def check_funding
     if funding_2_amount.present? && (not_funded? || goal_1_reached?) && funding_sum_uncached >= funding_2_amount
-      update(funding_status: 'goal_2_reached')
+      reached_at = Time.current
+      update(
+        funding_status: 'goal_2_reached',
+        goal_2_reached_at: goal_2_reached_at || reached_at,
+        goal_1_reached_at: goal_1_reached_at || reached_at
+      )
       return :goal_2_reached
     elsif not_funded? && funding_sum_uncached >= funding_1_amount
-      update(funding_status: 'goal_1_reached')
+      update(
+        funding_status: 'goal_1_reached',
+        goal_1_reached_at: goal_1_reached_at || Time.current
+      )
       return :goal_1_reached
     end
   end
