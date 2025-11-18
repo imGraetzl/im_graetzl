@@ -142,7 +142,7 @@ class CrowdPledgesController < ApplicationController
     redirect_to [:choose_payment, @crowd_pledge] and return if params[:setup_intent].blank?
     redirect_to [:summary, @crowd_pledge] and return unless @crowd_pledge.incomplete? # Abfangen falls Page replaod später?
 
-    simulate_processing = Rails.env.development? &&
+    simulate_processing = (Rails.env.development? || Rails.env.staging?) &&
                           params[:force_processing].present? &&
                           @crowd_pledge.processing_seen_at.blank?
 
