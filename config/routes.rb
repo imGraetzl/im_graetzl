@@ -203,6 +203,8 @@ Rails.application.routes.draw do
   resources :crowd_pledges, only: [] do
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member
+    get 'processing', on: :member
+    get 'processing_status', on: :member
     get 'crowd_boost_charge', on: :member
     get 'summary', on: :member
     get 'details', on: :member

@@ -34,6 +34,7 @@ ActiveAdmin.register CrowdPledge do
   filter :contact_name
   filter :email
   filter :stripe_customer_id
+  filter :stripe_setup_intent_id
   filter :stripe_payment_intent_id
   filter :debited_at
   filter :created_at

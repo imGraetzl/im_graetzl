@@ -13,6 +13,8 @@ context.instance_eval do
           row(:active_state){|l| status_tag(l.active_state)}
           row(:status){|l| status_tag(l.status)}
           row(:funding_status){|l| status_tag(l.funding_status)}
+          row :goal_1_reached_at
+          row :goal_2_reached_at
           row(:visibility_status){|l| status_tag(l.visibility_status)}
           row(:newsletter_status){|l| status_tag(l.newsletter_status)}
           row(:guest_newsletter){|l| status_tag(l.guest_newsletter)}

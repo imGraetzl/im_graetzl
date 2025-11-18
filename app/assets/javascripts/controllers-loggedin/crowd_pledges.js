@@ -4,6 +4,7 @@ APP.controllers_loggedin.crowd_pledges = (function() {
       if      ($(".crowd-pledges-page.amount-screen").exists())  {initAmountScreen();}
       else if ($(".crowd-pledges-page.address-screen").exists()) {initAddressScreen();}
       else if ($(".crowd-pledges-page.payment-screen").exists()) {initPaymentScreen();}
+      else if ($(".crowd-pledges-page.processing-screen").exists()) {initProcessingScreen();}
       else if ($(".crowd-pledges-page.crowd-boost-charge-screen").exists()) {initBoostChargeScreen();}
       else if ($(".crowd-pledges-page.detail-screen").exists()) {initDetailScreen();}
       else if ($(".crowd-pledges-page.change-payment-screen").exists()) {initPaymentChangeScreen();}
@@ -220,6 +221,95 @@ APP.controllers_loggedin.crowd_pledges = (function() {
     function initPaymentScreen() {
       APP.components.tabs.setTab('step3');
       APP.components.stripePayment.init();
+    }
+
+    function initProcessingScreen() {
+      const container = document.querySelector(".crowd-pledges-page.processing-screen");
+      if (!container) return;
+
+      const pollUrl = container.dataset.pollUrl;
+      const initialDelay = parseInt(container.dataset.initialDelayMs || "1500", 10);
+      const intervalMs = parseInt(container.dataset.intervalMs || "3000", 10);
+      const timeoutMs = parseInt(container.dataset.timeoutMs || "9000", 10);
+      const fallbackUrl = container.dataset.fallbackUrl;
+      const statusEl = container.querySelector("[data-processing-status]");
+
+      let elapsed = 0;
+      let pollTimer = null;
+      let polling = false;
+      
+      function stopPolling() {
+        if (pollTimer) clearInterval(pollTimer);
+        pollTimer = null;
+      }
+
+      function updateStatus(text) {
+        if (statusEl) statusEl.textContent = text;
+      }
+
+      function handleFailure(message, redirectUrl) {
+        stopPolling();
+        updateStatus(message || "Die Autorisierung konnte nicht abgeschlossen werden.");
+        if (redirectUrl) {
+          const url = new URL(redirectUrl, window.location.origin);
+          url.searchParams.set("fallback_reason", "processing_failed");
+          setTimeout(function() { window.location = url.toString(); }, 1500);
+        } else if (fallbackUrl) {
+          const url = new URL(fallbackUrl, window.location.origin);
+          url.searchParams.set("fallback_reason", "processing_failed");
+          setTimeout(function() { window.location = url.toString(); }, 1500);
+        }
+      }
+
+      function pollStatus() {
+        if (polling || !pollUrl) return;
+        polling = true;
+
+        fetch(pollUrl, {
+          headers: { "Accept": "application/json" },
+          credentials: "same-origin"
+        })
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error("Polling failed");
+          }
+          return response.json();
+        })
+        .then(function(payload) {
+          if (payload.status === "succeeded" && payload.redirect_url) {
+            stopPolling();
+            updateStatus("Erfolgreich bestätigt. Weiterleitung…");
+            window.location = payload.redirect_url;
+          } else if (payload.status === "failed") {
+            handleFailure(payload.message, payload.redirect_url || fallbackUrl);
+          } else if (payload.status === "invalid") {
+            handleFailure("Der Autorisierungsstatus konnte nicht mehr geprüft werden.", fallbackUrl);
+          } else {
+            updateStatus("Status: " + payload.status.replace(/_/g, ' '));
+          }
+        })
+        .catch(function() {
+          updateStatus("Status: Verbindung unterbrochen – versuche erneut …");
+          handleFailure("Die Verbindung wurde unterbrochen.", null);
+        })
+        .finally(function() {
+          polling = false;
+        });
+      }
+
+      setTimeout(function() {
+        pollStatus();
+        pollTimer = setInterval(function() {
+          elapsed += intervalMs;
+          if (elapsed >= timeoutMs) {
+            handleFailure(null, fallbackUrl);
+            return;
+          }
+          pollStatus();
+        }, intervalMs);
+      }, initialDelay);
+
+      // Optional: Bei Bedarf hier weitere UI-Effekte ergänzen.
     }
 
     function initPaymentChangeScreen() {

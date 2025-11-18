@@ -10,6 +10,7 @@ context.instance_eval do
           row(:status){|r| status_tag(r.status)}
           row :inclomplete_reminder_sent_at
           row :authorized_at
+          row :processing_seen_at
           row :charge_returned_at
           row :charge_seen_at
           row :confirmation_sent_at
@@ -65,6 +66,7 @@ context.instance_eval do
   panel 'Stripe Informationen' do
     attributes_table_for crowd_pledge do
       row :stripe_customer_id
+      row :stripe_setup_intent_id
       row :stripe_payment_method_id
       row :stripe_payment_intent_id
       row :payment_method

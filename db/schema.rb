@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_12_100555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -66,6 +66,30 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.index ["region_id"], name: "index_api_accounts_on_region_id"
   end
 
+  create_table "availability_template_rules", force: :cascade do |t|
+    t.bigint "availability_template_id", null: false
+    t.string "rrule", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.boolean "enabled", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["availability_template_id"], name: "index_availability_template_rules_on_template"
+  end
+
+  create_table "availability_templates", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.integer "scope", default: 0, null: false
+    t.boolean "respect_holidays", default: false, null: false
+    t.string "holiday_region"
+    t.boolean "archived", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "name", "scope"], name: "index_availability_templates_on_user_name_scope", unique: true
+    t.index ["user_id"], name: "index_availability_templates_on_user_id"
+  end
+
   create_table "billing_addresses", id: :serial, force: :cascade do |t|
     t.integer "location_id"
     t.string "first_name"
@@ -81,6 +105,146 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.string "vat_id"
     t.index ["location_id"], name: "index_billing_addresses_on_location_id"
     t.index ["user_id"], name: "index_billing_addresses_on_user_id"
+  end
+
+  create_table "bookables_availability_rules", force: :cascade do |t|
+    t.string "bookable_type", null: false
+    t.bigint "bookable_id", null: false
+    t.string "rrule", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.boolean "enabled", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookable_type", "bookable_id"], name: "index_bookables_availability_rules_on_bookable"
+  end
+
+  create_table "bookables_blackouts", force: :cascade do |t|
+    t.string "bookable_type", null: false
+    t.bigint "bookable_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookable_type", "bookable_id"], name: "index_bookables_blackouts_on_bookable"
+  end
+
+  create_table "bookables_cancellation_policies", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.jsonb "rules", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_bookables_cancellation_policies_on_key", unique: true
+  end
+
+  create_table "bookables_price_rules", force: :cascade do |t|
+    t.string "bookable_type", null: false
+    t.bigint "bookable_id", null: false
+    t.string "strategy", default: "per_unit_rate", null: false
+    t.integer "unit_minutes"
+    t.decimal "amount", precision: 10, scale: 2
+    t.integer "days_of_week", default: [], array: true
+    t.time "time_from"
+    t.time "time_to"
+    t.date "date_from"
+    t.date "date_to"
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookable_type", "bookable_id"], name: "index_bookables_price_rules_on_bookable"
+  end
+
+  create_table "bookables_provider_blackouts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "starts_at"], name: "index_bookables_provider_blackouts_on_user_and_start"
+    t.index ["user_id"], name: "index_bookables_provider_blackouts_on_user_id"
+  end
+
+  create_table "bookables_resource_blackouts", force: :cascade do |t|
+    t.bigint "service_resource_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_resource_id", "starts_at"], name: "index_bookables_resource_blackouts_on_resource_and_start"
+    t.index ["service_resource_id"], name: "index_bookables_resource_blackouts_on_service_resource_id"
+  end
+
+  create_table "bookables_slot_policies", force: :cascade do |t|
+    t.string "bookable_type", null: false
+    t.bigint "bookable_id", null: false
+    t.integer "unit_minutes", null: false
+    t.integer "min_units", default: 1, null: false
+    t.integer "max_units", default: 1, null: false
+    t.string "start_alignment", default: "on_hour", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookable_type", "bookable_id"], name: "index_bookables_slot_policies_on_bookable", unique: true
+  end
+
+  create_table "booking_slots", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id", "starts_at"], name: "index_booking_slots_on_booking_id_and_starts_at", unique: true
+    t.index ["booking_id"], name: "index_booking_slots_on_booking_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.string "bookable_type", null: false
+    t.bigint "bookable_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.integer "quantity", default: 1, null: false
+    t.integer "status", default: 0, null: false
+    t.string "payment_status", default: "incomplete", null: false
+    t.integer "source", default: 0, null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "currency", default: "eur", null: false
+    t.decimal "platform_fee_amount", precision: 10, scale: 2, null: false
+    t.integer "platform_fee_collection_status", default: 0, null: false
+    t.string "region_id", null: false
+    t.string "stripe_payment_intent_id"
+    t.string "stripe_customer_id"
+    t.string "stripe_payment_method_id"
+    t.string "stripe_connect_account_id"
+    t.string "payment_method"
+    t.string "payment_wallet"
+    t.string "payment_card_last4"
+    t.string "application_fee_id"
+    t.string "invoice_number"
+    t.integer "payout_status"
+    t.datetime "debited_at"
+    t.datetime "failed_at"
+    t.datetime "disputed_at"
+    t.datetime "refunded_at"
+    t.datetime "canceled_at"
+    t.datetime "confirmed_at"
+    t.datetime "pending_expires_at"
+    t.string "dispute_status"
+    t.string "canceled_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookable_type", "bookable_id", "starts_at"], name: "index_bookings_on_bookable_type_id_starts_at"
+    t.index ["customer_id"], name: "index_bookings_on_customer_id"
+    t.index ["owner_id"], name: "index_bookings_on_owner_id"
+    t.index ["payment_status"], name: "index_bookings_on_payment_status"
+    t.index ["payout_status"], name: "index_bookings_on_payout_status"
+    t.index ["region_id"], name: "index_bookings_on_region_id"
+    t.index ["status", "pending_expires_at"], name: "index_bookings_on_status_and_pending_expires_at"
   end
 
   create_table "business_interests", id: :serial, force: :cascade do |t|
@@ -373,6 +537,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.integer "pledges_and_donations_finalized_count"
     t.integer "crowd_donation_pledges_count", default: 0, null: false
     t.integer "importance", default: 1, null: false
+    t.datetime "goal_1_reached_at", precision: nil
+    t.datetime "goal_2_reached_at", precision: nil
     t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_crowd_campaigns_on_last_activity_at"
@@ -473,11 +639,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.datetime "disputed_at", precision: nil
     t.datetime "failed_at", precision: nil
     t.string "dispute_status"
+    t.string "stripe_setup_intent_id"
+    t.datetime "processing_seen_at"
     t.index ["comment_id"], name: "index_crowd_pledges_on_comment_id"
     t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
+    t.index ["stripe_setup_intent_id"], name: "index_crowd_pledges_on_stripe_setup_intent_id"
     t.index ["user_id"], name: "index_crowd_pledges_on_user_id"
   end
 
@@ -1042,6 +1211,40 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.index ["user_id", "notify_at"], name: "index_notifications_on_user_id_and_notify_at"
   end
 
+  create_table "owner_payout_items", force: :cascade do |t|
+    t.bigint "owner_payout_id", null: false
+    t.bigint "booking_id", null: false
+    t.decimal "booking_amount", precision: 10, scale: 2, null: false
+    t.decimal "platform_fee_amount", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "refund_amount", precision: 10, scale: 2, default: "0.0", null: false
+    t.string "region_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_owner_payout_items_on_booking_id"
+    t.index ["owner_payout_id", "booking_id"], name: "owner_payout_items_on_owner_payout_booking", unique: true
+    t.index ["owner_payout_id"], name: "index_owner_payout_items_on_owner_payout_id"
+  end
+
+  create_table "owner_payouts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "period_start", null: false
+    t.date "period_end", null: false
+    t.decimal "earnings_amount", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "refunds_amount", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "platform_fees_amount", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "transfer_amount", precision: 10, scale: 2, default: "0.0", null: false
+    t.string "transfer_status", default: "payout_ready", null: false
+    t.string "region_id", null: false
+    t.datetime "payout_attempted_at"
+    t.datetime "payout_completed_at"
+    t.datetime "payout_waived_at"
+    t.string "stripe_transfer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "period_start", "period_end"], name: "owner_payouts_on_user_period", unique: true
+    t.index ["user_id"], name: "index_owner_payouts_on_user_id"
+  end
+
   create_table "poll_graetzls", force: :cascade do |t|
     t.bigint "poll_id"
     t.bigint "graetzl_id"
@@ -1116,6 +1319,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.index ["region_id"], name: "index_polls_on_region_id"
     t.index ["slug"], name: "index_polls_on_slug"
     t.index ["user_id"], name: "index_polls_on_user_id"
+  end
+
+  create_table "refunds", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.decimal "platform_fee_amount", precision: 10, scale: 2, null: false
+    t.string "stripe_refund_id"
+    t.datetime "refunded_at", null: false
+    t.string "canceled_by", default: "customer", null: false
+    t.integer "platform_fee_collection_status", default: 0, null: false
+    t.string "region_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_refunds_on_booking_id"
   end
 
   create_table "region_calls", force: :cascade do |t|
@@ -1355,6 +1572,54 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.index ["room_offer_id"], name: "index_room_rentals_on_room_offer_id"
     t.index ["stripe_payment_intent_id"], name: "index_room_rentals_on_stripe_payment_intent_id"
     t.index ["user_id"], name: "index_room_rentals_on_user_id"
+  end
+
+  create_table "service_resources", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.text "bio"
+    t.integer "avatar_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["avatar_id"], name: "index_service_resources_on_avatar_id"
+    t.index ["user_id"], name: "index_service_resources_on_user_id"
+  end
+
+  create_table "service_resources_services", force: :cascade do |t|
+    t.bigint "service_resource_id", null: false
+    t.bigint "service_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_service_resources_services_on_service_id"
+    t.index ["service_resource_id", "service_id"], name: "index_service_resources_services_on_resource_service", unique: true
+    t.index ["service_resource_id"], name: "index_service_resources_services_on_service_resource_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.bigint "location_category_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "owner_id"
+    t.bigint "availability_template_id", null: false
+    t.bigint "cancellation_policy_id"
+    t.string "title", null: false
+    t.string "summary", limit: 280, null: false
+    t.text "description", null: false
+    t.jsonb "cover_photo_data", default: {}, null: false
+    t.string "slug", null: false
+    t.string "region_id", null: false
+    t.decimal "price_amount", precision: 10, scale: 2, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["availability_template_id"], name: "index_services_on_availability_template_id"
+    t.index ["cancellation_policy_id"], name: "index_services_on_cancellation_policy_id"
+    t.index ["location_category_id"], name: "index_services_on_location_category_id"
+    t.index ["location_id"], name: "index_services_on_location_id"
+    t.index ["owner_id"], name: "index_services_on_owner_id"
+    t.index ["region_id"], name: "index_services_on_region_id"
+    t.index ["slug"], name: "index_services_on_slug", unique: true
+    t.index ["user_id"], name: "index_services_on_user_id"
   end
 
   create_table "subscription_invoices", force: :cascade do |t|
@@ -1617,7 +1882,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
   add_foreign_key "activities", "groups", on_delete: :cascade
   add_foreign_key "activity_graetzls", "activities", on_delete: :cascade
   add_foreign_key "activity_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "availability_template_rules", "availability_templates"
+  add_foreign_key "availability_templates", "users"
   add_foreign_key "billing_addresses", "users", on_delete: :nullify
+  add_foreign_key "bookables_provider_blackouts", "users"
+  add_foreign_key "bookables_resource_blackouts", "service_resources"
+  add_foreign_key "booking_slots", "bookings"
+  add_foreign_key "bookings", "users", column: "customer_id"
+  add_foreign_key "bookings", "users", column: "owner_id"
   add_foreign_key "business_interests_users", "business_interests", on_delete: :cascade
   add_foreign_key "business_interests_users", "users", on_delete: :cascade
   add_foreign_key "contact_list_entries", "users"
@@ -1694,6 +1966,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
   add_foreign_key "meetings", "groups", on_delete: :nullify
   add_foreign_key "meetings", "polls", on_delete: :nullify
   add_foreign_key "meetings", "users", on_delete: :nullify
+  add_foreign_key "owner_payout_items", "bookings"
+  add_foreign_key "owner_payout_items", "owner_payouts"
+  add_foreign_key "owner_payouts", "users"
   add_foreign_key "poll_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "poll_graetzls", "polls", on_delete: :cascade
   add_foreign_key "poll_options", "poll_questions", on_delete: :cascade
@@ -1704,6 +1979,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
   add_foreign_key "poll_users", "polls", on_delete: :cascade
   add_foreign_key "poll_users", "users", on_delete: :cascade
   add_foreign_key "polls", "users", on_delete: :cascade
+  add_foreign_key "refunds", "bookings"
   add_foreign_key "room_boosters", "room_offers", on_delete: :nullify
   add_foreign_key "room_boosters", "users", on_delete: :nullify
   add_foreign_key "room_demand_categories", "room_categories", on_delete: :cascade
@@ -1725,6 +2001,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify
+  add_foreign_key "service_resources", "images", column: "avatar_id"
+  add_foreign_key "service_resources", "users"
+  add_foreign_key "service_resources_services", "service_resources"
+  add_foreign_key "service_resources_services", "services"
+  add_foreign_key "services", "availability_templates"
+  add_foreign_key "services", "bookables_cancellation_policies", column: "cancellation_policy_id"
+  add_foreign_key "services", "location_categories"
+  add_foreign_key "services", "locations"
+  add_foreign_key "services", "users"
+  add_foreign_key "services", "users", column: "owner_id"
   add_foreign_key "subscription_invoices", "coupons"
   add_foreign_key "subscription_invoices", "users", on_delete: :nullify
   add_foreign_key "subscriptions", "coupons"
