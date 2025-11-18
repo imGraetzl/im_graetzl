@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_12_100555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -473,11 +473,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_02_190000) do
     t.datetime "disputed_at", precision: nil
     t.datetime "failed_at", precision: nil
     t.string "dispute_status"
+    t.string "stripe_setup_intent_id"
+    t.datetime "processing_seen_at"
     t.index ["comment_id"], name: "index_crowd_pledges_on_comment_id"
     t.index ["crowd_boost_id"], name: "index_crowd_pledges_on_crowd_boost_id"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
+    t.index ["stripe_setup_intent_id"], name: "index_crowd_pledges_on_stripe_setup_intent_id"
     t.index ["user_id"], name: "index_crowd_pledges_on_user_id"
   end
 

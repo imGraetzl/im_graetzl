@@ -2,6 +2,8 @@ class CrowdPledgesController < ApplicationController
   include ActionView::Helpers::NumberHelper
   before_action :set_active_campaign, only: [:new, :create, :login, :calculate_price, :choose_amount]
   before_action :manage_guest_user_session
+  rate_limit to: 30, within: 1.minutes, only: [:processing_status]
+  rate_limit to: 15, within: 1.minute, only: [:create]
 
   def new
     @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
@@ -64,6 +66,11 @@ class CrowdPledgesController < ApplicationController
   def choose_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
 
+    if params[:fallback_reason] == 'processing_failed'
+      flash.now[:error] = "Deine Zahlungsmethode konnte nicht autorisiert werden, bitte versuche es erneut oder wähle eine andere aus."
+      log_processing_event(:warn, :processing_fallback_redirect, reason: params[:fallback_reason])
+    end
+
     if @crowd_pledge.crowd_campaign.completed?
       flash[:notice] = "Sorry, die Kampagne wurde bereits geschlossen und kann daher nicht mehr unterstützt werden."
       return redirect_to @crowd_pledge.crowd_campaign
@@ -75,14 +82,78 @@ class CrowdPledgesController < ApplicationController
     @setup_intent = CrowdPledgeService.new.create_setup_intent(@crowd_pledge)
   end
 
+  def processing
+    @crowd_pledge = CrowdPledge.find(params[:id])
+
+    unless @crowd_pledge.incomplete? && @crowd_pledge.stripe_setup_intent_id.present?
+      log_processing_event(:warn, :guard_redirect_to_choose_payment)
+      return redirect_to [:choose_payment, @crowd_pledge]
+    end
+
+    log_processing_event(:info, :processing_view)
+    @crowd_pledge.update_column(:processing_seen_at, Time.current) if @crowd_pledge.processing_seen_at.blank?
+  end
+
+  def processing_status
+    @crowd_pledge = CrowdPledge.find(params[:id])
+
+    unless @crowd_pledge.incomplete? && @crowd_pledge.stripe_setup_intent_id.present?
+      log_processing_event(:warn, :status_invalid_guard)
+      return render json: { status: 'invalid' }, status: :unprocessable_entity
+    end
+
+    setup_intent = begin
+      Stripe::SetupIntent.retrieve(id: @crowd_pledge.stripe_setup_intent_id)
+    rescue Stripe::InvalidRequestError => e
+      Sentry.capture_exception(e, extra: { crowd_pledge_id: @crowd_pledge.id, setup_intent_id: @crowd_pledge.stripe_setup_intent_id })
+      return render json: { status: 'error' }, status: :bad_gateway
+    rescue Stripe::StripeError => e
+      Sentry.capture_exception(e, extra: { crowd_pledge_id: @crowd_pledge.id, setup_intent_id: @crowd_pledge.stripe_setup_intent_id })
+      return render json: { status: 'error' }, status: :bad_gateway
+    end
+
+    log_processing_event(:info, :setup_intent_retrieved, status: setup_intent.status)
+
+    case setup_intent.status
+    when 'succeeded'
+      log_processing_event(:info, :setup_intent_succeeded)
+      render json: {
+        status: 'succeeded',
+        redirect_url: payment_authorized_crowd_pledge_path(@crowd_pledge, setup_intent: setup_intent.id)
+      }
+    when 'processing', 'requires_action', 'requires_confirmation'
+      log_processing_event(:info, :setup_intent_pending, status: setup_intent.status)
+      render json: { status: setup_intent.status }
+    when 'requires_payment_method', 'canceled'
+      log_processing_event(:warn, :setup_intent_failed, status: setup_intent.status)
+      render json: {
+        status: 'failed',
+        redirect_url: choose_payment_crowd_pledge_path(@crowd_pledge),
+        message: "Deine Zahlungsdaten konnten nicht bestätigt werden. Bitte versuche es erneut."
+      }
+    else
+      log_processing_event(:warn, :setup_intent_unhandled_status, status: setup_intent.status)
+      render json: { status: setup_intent.status }
+    end
+  end
+
   def payment_authorized
     @crowd_pledge = CrowdPledge.find(params[:id])
     redirect_to [:choose_payment, @crowd_pledge] and return if params[:setup_intent].blank?
     redirect_to [:summary, @crowd_pledge] and return unless @crowd_pledge.incomplete? # Abfangen falls Page replaod später?
 
-    success, error = CrowdPledgeService.new.payment_authorized(@crowd_pledge, params[:setup_intent])
+    simulate_processing = Rails.env.development? &&
+                          params[:force_processing].present? &&
+                          @crowd_pledge.processing_seen_at.blank?
 
-    if success
+    status, message = CrowdPledgeService.new.payment_authorized(
+      @crowd_pledge,
+      params[:setup_intent],
+      simulate_processing: simulate_processing
+    )
+
+    case status
+    when :success
       flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
       if current_region.default_crowd_boost_id
         # Charge Boost Step
@@ -92,8 +163,12 @@ class CrowdPledgesController < ApplicationController
         CrowdCampaignMailer.crowd_pledge_authorized(@crowd_pledge).deliver_now
         redirect_to [:summary, @crowd_pledge]
       end
+    when :already_processed
+      redirect_to [:summary, @crowd_pledge]
+    when :processing
+      redirect_to [:processing, @crowd_pledge]
     else
-      flash[:error] = error
+      flash[:error] = message
       redirect_to [:choose_payment, @crowd_pledge]
     end
   end
@@ -128,6 +203,7 @@ class CrowdPledgesController < ApplicationController
 
   def pledge_comment
     @crowd_pledge = CrowdPledge.find(params[:id])
+    return head :forbidden if @crowd_pledge.incomplete?
     @comment = Comment.new(comment_params)
     @comment.user = @crowd_pledge.user
 
@@ -303,4 +379,18 @@ class CrowdPledgesController < ApplicationController
     end
   end
 
+  def log_processing_event(level, event, attrs = {})
+    payload = {
+      event: event,
+      pledge_id: @crowd_pledge&.id,
+      setup_intent_id: @crowd_pledge&.stripe_setup_intent_id,
+      user_id: @crowd_pledge&.user_id,
+      campaign_id: @crowd_pledge&.crowd_campaign_id
+    }.merge(attrs)
+
+    Sentry.logger.send(level, "[crowd_pledge_processing] #{payload}")
+    #Rails.logger.public_send(level, "[crowd_pledge_processing] #{payload}")
+  rescue => e
+    Rails.logger.debug { "[crowd_pledge_processing] logging_failed=#{e.message} payload=#{payload.inspect}" }
+  end
 end

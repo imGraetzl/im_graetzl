@@ -1,0 +1,34 @@
+<% meta(
+    title: "Wir prüfen deine Zahlung",
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="crowd-pledges-page processing-screen"
+  data-poll-url="<%= processing_status_crowd_pledge_path(@crowd_pledge, format: :json) %>"
+  data-initial-delay-ms="1500"
+  data-interval-ms="3000"
+  data-timeout-ms="9000"
+  data-fallback-url="<%= choose_payment_crowd_pledge_path(@crowd_pledge) %>">
+
+  <div class="col-content">
+
+    <div class="hl-subtext">
+      <h1>Ein kurzer Moment noch ..</h1>
+      <p data-processing-status>
+        Deine Zahlungsdaten werden noch bestätigt, du wirst gleich weitergeleitet.
+      </p>
+      <p>
+        <br><br>
+        <%= image_tag 'svg/loading.svg', width: 80, height: 80, alt: 'Ladevorgang' %>
+        <br><br>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'crowd_pledges/new/sidebar' %>
+  </div>
+
+</section>

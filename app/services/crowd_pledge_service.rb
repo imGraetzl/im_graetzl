@@ -7,7 +7,7 @@ class CrowdPledgeService
     CrowdCampaignMailer.crowd_pledge_incomplete(crowd_pledge).deliver_later(wait: 5.minutes)
 
     stripe_customer_id = get_stripe_customer_id(crowd_pledge)
-    Stripe::SetupIntent.create(
+    setup_intent = Stripe::SetupIntent.create(
       customer: stripe_customer_id,
       payment_method_types: available_payment_methods(crowd_pledge),
       usage: 'off_session',
@@ -17,19 +17,45 @@ class CrowdPledgeService
         campaign_id: crowd_pledge.crowd_campaign.id
       }
     )
+
+    crowd_pledge.update_column(:stripe_setup_intent_id, setup_intent.id)
+
+    setup_intent
   end
 
-  def payment_authorized(crowd_pledge, setup_intent_id)
+  def payment_authorized(crowd_pledge, setup_intent_id, simulate_processing: false)
+    return [:already_processed, nil] if crowd_pledge.authorized? || crowd_pledge.processing?
+
     setup_intent = begin
       Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
     rescue Stripe::InvalidRequestError => e
       Rails.logger.warn "[stripe] SetupIntent #{setup_intent_id} konnte nicht geladen werden: #{e.message}"
-      return [false, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
+      return [:error, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
     end
 
-    unless setup_intent.status.in?(%w[succeeded processing])
+    crowd_pledge.update_column(:stripe_setup_intent_id, setup_intent.id) if setup_intent.id.present?
+
+    if simulate_processing
+      Rails.logger.info "[crowd_pledge] Simuliere SetupIntent processing für Pledge #{crowd_pledge.id}"
+      return [:processing, "Testmodus: Stripe bestätigt deine Zahlung gleich."]
+    end
+
+    case setup_intent.status
+    when 'succeeded'
+      finalize_authorization(crowd_pledge, setup_intent)
+    when 'processing'
+      Rails.logger.info "[stripe] SetupIntent #{setup_intent_id} befindet sich noch in Verarbeitung."
+      [:processing, "Zahlung wird noch verarbeitet."]
+    else
       Rails.logger.warn "[stripe] SetupIntent #{setup_intent_id} nicht erfolgreich (Status: #{setup_intent.status})"
-      return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
+      [:error, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
+    end
+  end
+
+  def finalize_authorization(crowd_pledge, setup_intent)
+    if setup_intent.payment_method.nil?
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent.id} hat keine payment_method – Abbruch."
+      return [:error, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
     end
 
     crowd_pledge.update(
@@ -83,7 +109,7 @@ class CrowdPledgeService
       CrowdCampaignMailer.goal_2_reached(crowd_pledge.crowd_campaign).deliver_later
     end
 
-    true
+    [:success, nil]
   end
 
   def charge(crowd_pledge)
