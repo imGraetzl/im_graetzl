@@ -385,11 +385,13 @@ class CrowdPledgesController < ApplicationController
       pledge_id: @crowd_pledge&.id,
       setup_intent_id: @crowd_pledge&.stripe_setup_intent_id,
       user_id: @crowd_pledge&.user_id,
-      campaign_id: @crowd_pledge&.crowd_campaign_id
+      campaign_id: @crowd_pledge&.crowd_campaign_id,
+      payment_method: @crowd_pledge&.payment_method,
+      payment_wallet: @crowd_pledge&.payment_wallet
     }.merge(attrs)
 
-    Sentry.logger.send(level, "[crowd_pledge_processing] #{payload}")
-    #Rails.logger.public_send(level, "[crowd_pledge_processing] #{payload}")
+    Sentry.logger.public_send(level, "[crowd_pledge_processing] #{event}", **payload)
+    #Rails.logger.public_send(level, "[crowd_pledge_processing] #{event}", **payload)
   rescue => e
     Rails.logger.debug { "[crowd_pledge_processing] logging_failed=#{e.message} payload=#{payload.inspect}" }
   end
