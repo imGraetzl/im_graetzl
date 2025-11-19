@@ -66,30 +66,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
     t.index ["region_id"], name: "index_api_accounts_on_region_id"
   end
 
-  create_table "availability_template_rules", force: :cascade do |t|
-    t.bigint "availability_template_id", null: false
-    t.string "rrule", null: false
-    t.time "start_time", null: false
-    t.time "end_time", null: false
-    t.boolean "enabled", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["availability_template_id"], name: "index_availability_template_rules_on_template"
-  end
-
-  create_table "availability_templates", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name", null: false
-    t.integer "scope", default: 0, null: false
-    t.boolean "respect_holidays", default: false, null: false
-    t.string "holiday_region"
-    t.boolean "archived", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "name", "scope"], name: "index_availability_templates_on_user_name_scope", unique: true
-    t.index ["user_id"], name: "index_availability_templates_on_user_id"
-  end
-
   create_table "billing_addresses", id: :serial, force: :cascade do |t|
     t.integer "location_id"
     t.string "first_name"
@@ -1213,40 +1189,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
     t.index ["user_id", "notify_at"], name: "index_notifications_on_user_id_and_notify_at"
   end
 
-  create_table "owner_payout_items", force: :cascade do |t|
-    t.bigint "owner_payout_id", null: false
-    t.bigint "booking_id", null: false
-    t.decimal "booking_amount", precision: 10, scale: 2, null: false
-    t.decimal "platform_fee_amount", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "refund_amount", precision: 10, scale: 2, default: "0.0", null: false
-    t.string "region_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_owner_payout_items_on_booking_id"
-    t.index ["owner_payout_id", "booking_id"], name: "owner_payout_items_on_owner_payout_booking", unique: true
-    t.index ["owner_payout_id"], name: "index_owner_payout_items_on_owner_payout_id"
-  end
-
-  create_table "owner_payouts", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.date "period_start", null: false
-    t.date "period_end", null: false
-    t.decimal "earnings_amount", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "refunds_amount", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "platform_fees_amount", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "transfer_amount", precision: 10, scale: 2, default: "0.0", null: false
-    t.string "transfer_status", default: "payout_ready", null: false
-    t.string "region_id", null: false
-    t.datetime "payout_attempted_at"
-    t.datetime "payout_completed_at"
-    t.datetime "payout_waived_at"
-    t.string "stripe_transfer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "period_start", "period_end"], name: "owner_payouts_on_user_period", unique: true
-    t.index ["user_id"], name: "index_owner_payouts_on_user_id"
-  end
-
   create_table "poll_graetzls", force: :cascade do |t|
     t.bigint "poll_id"
     t.bigint "graetzl_id"
@@ -1321,20 +1263,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
     t.index ["region_id"], name: "index_polls_on_region_id"
     t.index ["slug"], name: "index_polls_on_slug"
     t.index ["user_id"], name: "index_polls_on_user_id"
-  end
-
-  create_table "refunds", force: :cascade do |t|
-    t.bigint "booking_id", null: false
-    t.decimal "amount", precision: 10, scale: 2, null: false
-    t.decimal "platform_fee_amount", precision: 10, scale: 2, null: false
-    t.string "stripe_refund_id"
-    t.datetime "refunded_at", null: false
-    t.string "canceled_by", default: "customer", null: false
-    t.integer "platform_fee_collection_status", default: 0, null: false
-    t.string "region_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_refunds_on_booking_id"
   end
 
   create_table "region_calls", force: :cascade do |t|
@@ -1574,54 +1502,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
     t.index ["room_offer_id"], name: "index_room_rentals_on_room_offer_id"
     t.index ["stripe_payment_intent_id"], name: "index_room_rentals_on_stripe_payment_intent_id"
     t.index ["user_id"], name: "index_room_rentals_on_user_id"
-  end
-
-  create_table "service_resources", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name", null: false
-    t.text "bio"
-    t.integer "avatar_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["avatar_id"], name: "index_service_resources_on_avatar_id"
-    t.index ["user_id"], name: "index_service_resources_on_user_id"
-  end
-
-  create_table "service_resources_services", force: :cascade do |t|
-    t.bigint "service_resource_id", null: false
-    t.bigint "service_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["service_id"], name: "index_service_resources_services_on_service_id"
-    t.index ["service_resource_id", "service_id"], name: "index_service_resources_services_on_resource_service", unique: true
-    t.index ["service_resource_id"], name: "index_service_resources_services_on_service_resource_id"
-  end
-
-  create_table "services", force: :cascade do |t|
-    t.bigint "location_id", null: false
-    t.bigint "location_category_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "owner_id"
-    t.bigint "availability_template_id", null: false
-    t.bigint "cancellation_policy_id"
-    t.string "title", null: false
-    t.string "summary", limit: 280, null: false
-    t.text "description", null: false
-    t.jsonb "cover_photo_data", default: {}, null: false
-    t.string "slug", null: false
-    t.string "region_id", null: false
-    t.decimal "price_amount", precision: 10, scale: 2, null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["availability_template_id"], name: "index_services_on_availability_template_id"
-    t.index ["cancellation_policy_id"], name: "index_services_on_cancellation_policy_id"
-    t.index ["location_category_id"], name: "index_services_on_location_category_id"
-    t.index ["location_id"], name: "index_services_on_location_id"
-    t.index ["owner_id"], name: "index_services_on_owner_id"
-    t.index ["region_id"], name: "index_services_on_region_id"
-    t.index ["slug"], name: "index_services_on_slug", unique: true
-    t.index ["user_id"], name: "index_services_on_user_id"
   end
 
   create_table "subscription_invoices", force: :cascade do |t|
@@ -1884,14 +1764,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
   add_foreign_key "activities", "groups", on_delete: :cascade
   add_foreign_key "activity_graetzls", "activities", on_delete: :cascade
   add_foreign_key "activity_graetzls", "graetzls", on_delete: :cascade
-  add_foreign_key "availability_template_rules", "availability_templates"
-  add_foreign_key "availability_templates", "users"
   add_foreign_key "billing_addresses", "users", on_delete: :nullify
-  add_foreign_key "bookables_provider_blackouts", "users"
-  add_foreign_key "bookables_resource_blackouts", "service_resources"
-  add_foreign_key "booking_slots", "bookings"
-  add_foreign_key "bookings", "users", column: "customer_id"
-  add_foreign_key "bookings", "users", column: "owner_id"
   add_foreign_key "business_interests_users", "business_interests", on_delete: :cascade
   add_foreign_key "business_interests_users", "users", on_delete: :cascade
   add_foreign_key "contact_list_entries", "users"
@@ -1968,9 +1841,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
   add_foreign_key "meetings", "groups", on_delete: :nullify
   add_foreign_key "meetings", "polls", on_delete: :nullify
   add_foreign_key "meetings", "users", on_delete: :nullify
-  add_foreign_key "owner_payout_items", "bookings"
-  add_foreign_key "owner_payout_items", "owner_payouts"
-  add_foreign_key "owner_payouts", "users"
   add_foreign_key "poll_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "poll_graetzls", "polls", on_delete: :cascade
   add_foreign_key "poll_options", "poll_questions", on_delete: :cascade
@@ -1981,7 +1851,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
   add_foreign_key "poll_users", "polls", on_delete: :cascade
   add_foreign_key "poll_users", "users", on_delete: :cascade
   add_foreign_key "polls", "users", on_delete: :cascade
-  add_foreign_key "refunds", "bookings"
   add_foreign_key "room_boosters", "room_offers", on_delete: :nullify
   add_foreign_key "room_boosters", "users", on_delete: :nullify
   add_foreign_key "room_demand_categories", "room_categories", on_delete: :cascade
@@ -2003,16 +1872,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify
-  add_foreign_key "service_resources", "images", column: "avatar_id"
-  add_foreign_key "service_resources", "users"
-  add_foreign_key "service_resources_services", "service_resources"
-  add_foreign_key "service_resources_services", "services"
-  add_foreign_key "services", "availability_templates"
-  add_foreign_key "services", "bookables_cancellation_policies", column: "cancellation_policy_id"
-  add_foreign_key "services", "location_categories"
-  add_foreign_key "services", "locations"
-  add_foreign_key "services", "users"
-  add_foreign_key "services", "users", column: "owner_id"
   add_foreign_key "subscription_invoices", "coupons"
   add_foreign_key "subscription_invoices", "users", on_delete: :nullify
   add_foreign_key "subscriptions", "coupons"
