@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verfügbarkeitsraster (mit synchroner Kopfzeile)</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f8fafc;
+    margin: 1.5rem;
+  }
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+  .controls {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .controls button {
+    background: #e2e8f0;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .controls button.active {
+    background: #0ea5e9;
+    color: white;
+  }
+  .scroll-buttons {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .availability-wrapper {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .hour-header-wrapper {
+    overflow-x: hidden;
+  }
+
+  .hour-header {
+    display: grid;
+    grid-template-columns: 80px repeat(var(--cols), 1fr);
+    font-size: 0.75rem;
+    color: #475569;
+    background: #f1f5f9;
+    border-bottom: 1px solid #cbd5e1;
+    min-width: 2000px;
+  }
+
+  .hour-header div {
+    text-align: center;
+    border-right: 1px solid #e5e7eb;
+  }
+
+  .availability-grid-wrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .availability-grid {
+    display: grid;
+    grid-template-columns: 80px repeat(var(--cols), 1fr);
+    min-width: 2000px;
+    user-select: none;
+  }
+
+  .day-label {
+    position: sticky;
+    left: 0;
+    background: #f1f5f9;
+    border-right: 1px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .cell {
+    border: 1px solid #e5e7eb;
+    height: 30px;
+    cursor: pointer;
+    background: #fff;
+    transition: background 0.08s;
+  }
+  .cell:hover {
+    background: #e0f2fe;
+  }
+  .cell.selected {
+    background: #a7f3d0;
+  }
+</style>
+</head>
+<body>
+
+<h2>Verfügbarkeitsraster (00 – 24 Uhr)</h2>
+
+<div class="controls">
+  Raster:
+  <button id="btn30" class="active">30 Min</button>
+  <button id="btn60">60 Min</button>
+  <div class="scroll-buttons">
+    <button onclick="scrollGrid(-300)">⟵</button>
+    <button onclick="scrollGrid(300)">⟶</button>
+  </div>
+</div>
+
+<div class="availability-wrapper">
+  <div class="hour-header-wrapper">
+    <div class="hour-header" id="hourHeader"></div>
+  </div>
+
+  <div class="availability-grid-wrapper" id="gridWrapper">
+    <div class="availability-grid" id="availabilityGrid"></div>
+  </div>
+</div>
+
+<script>
+const days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+const grid = document.getElementById("availabilityGrid");
+const header = document.getElementById("hourHeader");
+const gridWrapper = document.getElementById("gridWrapper");
+const headerWrapper = document.querySelector(".hour-header-wrapper");
+const btn30 = document.getElementById("btn30");
+const btn60 = document.getElementById("btn60");
+
+let step = 30;
+let startHour = 0;
+let endHour = 24;
+
+// --- Initialisierung ---
+renderGrid();
+setTimeout(() => scrollToHour(6), 50);
+gridWrapper.addEventListener("scroll", () => {
+  headerWrapper.scrollLeft = gridWrapper.scrollLeft;
+});
+
+// Umschalter
+btn30.addEventListener("click", () => { step = 30; toggleButtons(btn30, btn60); renderGrid(); scrollToHour(6); });
+btn60.addEventListener("click", () => { step = 60; toggleButtons(btn60, btn30); renderGrid(); scrollToHour(6); });
+
+function toggleButtons(active, inactive) {
+  active.classList.add("active");
+  inactive.classList.remove("active");
+}
+
+// --- Grid + Header rendern ---
+function renderGrid() {
+  const slotsPerHour = 60 / step;
+  const totalCols = (endHour - startHour) * slotsPerHour;
+  grid.innerHTML = "";
+  header.innerHTML = "";
+  grid.style.setProperty("--cols", totalCols);
+  header.style.setProperty("--cols", totalCols);
+
+  // Header (Stunden)
+  header.innerHTML = "<div></div>" + Array.from({ length: totalCols }, (_, i) => {
+    const absoluteIndex = i + startHour * slotsPerHour;
+    const hour = Math.floor(absoluteIndex / slotsPerHour);
+    const minute = (absoluteIndex % slotsPerHour) * step;
+    const label = `${String(hour).padStart(2,"0")}:${minute === 0 ? "00" : minute}`;
+    return `<div>${label}</div>`;
+  }).join("");
+
+  // Raster
+  days.forEach(day => {
+    const label = document.createElement("div");
+    label.className = "day-label";
+    label.textContent = day;
+    grid.appendChild(label);
+
+    for (let i = 0; i < totalCols; i++) {
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.dataset.day = day;
+      cell.dataset.index = i;
+      grid.appendChild(cell);
+    }
+  });
+
+  initInteractions();
+}
+
+// --- Interaktionen ---
+let isDragging = false;
+let dragMode = null;
+
+function initInteractions() {
+  grid.onmousedown = onMouseDown;
+  grid.onmouseover = onMouseOver;
+  window.onmouseup = onMouseUp;
+  grid.ontouchstart = onTouchStart;
+  grid.ontouchmove = onTouchMove;
+  window.ontouchend = onTouchEnd;
+}
+
+function onMouseDown(e) {
+  if (!e.target.classList.contains("cell")) return;
+  isDragging = true;
+  dragMode = !e.target.classList.contains("selected") ? "select" : "unselect";
+  toggleCell(e.target, dragMode);
+}
+function onMouseOver(e) {
+  if (isDragging && e.target.classList.contains("cell")) toggleCell(e.target, dragMode);
+}
+function onMouseUp() {
+  if (isDragging) {
+    isDragging = false;
+    console.log("Aktuelle Auswahl →", collectSelections());
+  }
+}
+function onTouchStart(e) {
+  const cell = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+  if (!cell || !cell.classList.contains("cell")) return;
+  isDragging = true;
+  dragMode = !cell.classList.contains("selected") ? "select" : "unselect";
+  toggleCell(cell, dragMode);
+}
+function onTouchMove(e) {
+  if (!isDragging) return;
+  const cell = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+  if (cell && cell.classList.contains("cell")) toggleCell(cell, dragMode);
+}
+function onTouchEnd() {
+  if (isDragging) {
+    isDragging = false;
+    console.log("Touch fertig →", collectSelections());
+  }
+}
+
+function toggleCell(cell, mode) {
+  if (mode === "select") cell.classList.add("selected");
+  if (mode === "unselect") cell.classList.remove("selected");
+}
+
+// --- Daten sammeln ---
+function collectSelections() {
+  const selected = Array.from(document.querySelectorAll(".cell.selected"));
+  const grouped = {};
+  const stepCount = (60 / step);
+  selected.forEach(cell => {
+    const day = cell.dataset.day;
+    const index = parseInt(cell.dataset.index);
+    const startHourCalc = Math.floor(index / stepCount);
+    const startMinCalc = (index % stepCount) * step;
+    const endAbs = index + 1;
+    const endHourCalc = Math.floor(endAbs / stepCount);
+    const endMinCalc = (endAbs % stepCount) * step;
+    if (!grouped[day]) grouped[day] = [];
+    grouped[day].push({
+      start: `${String(startHourCalc).padStart(2, "0")}:${String(startMinCalc).padStart(2, "0")}`,
+      end: `${String(endHourCalc).padStart(2, "0")}:${String(endMinCalc).padStart(2, "0")}`
+    });
+  });
+  return grouped;
+}
+
+// --- Scrollfunktionen ---
+function scrollGrid(px) {
+  gridWrapper.scrollBy({ left: px, behavior: "smooth" });
+}
+function scrollToHour(hour) {
+  const stepCount = 60 / step;
+  const colWidth = grid.scrollWidth / ((endHour - startHour) * stepCount);
+  const target = (hour - startHour) * stepCount * colWidth;
+  gridWrapper.scrollTo({ left: target, behavior: "smooth" });
+  headerWrapper.scrollLeft = gridWrapper.scrollLeft;
+}
+</script>
+</body>
+</html>

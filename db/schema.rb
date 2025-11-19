@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_12_100555) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -238,6 +238,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_12_100555) do
     t.string "canceled_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_setup_intent_id"
     t.index ["bookable_type", "bookable_id", "starts_at"], name: "index_bookings_on_bookable_type_id_starts_at"
     t.index ["customer_id"], name: "index_bookings_on_customer_id"
     t.index ["owner_id"], name: "index_bookings_on_owner_id"
@@ -245,6 +246,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_12_100555) do
     t.index ["payout_status"], name: "index_bookings_on_payout_status"
     t.index ["region_id"], name: "index_bookings_on_region_id"
     t.index ["status", "pending_expires_at"], name: "index_bookings_on_status_and_pending_expires_at"
+    t.index ["stripe_setup_intent_id"], name: "index_bookings_on_stripe_setup_intent_id"
   end
 
   create_table "business_interests", id: :serial, force: :cascade do |t|

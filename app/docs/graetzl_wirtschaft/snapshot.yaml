@@ -1,0 +1,173 @@
+version: 0.2.2
+updated_at: 2025-10-31
+
+project:
+  name: im_graetzl
+  rails_version: 7.2.2
+  hosting: heroku
+  db: postgres 14 (AWS RDS)
+  extensions:
+    - postgis
+  cache: redis
+  ruby: 3.3.9
+  turbo_hotwire: false
+  jobs_adapter: delayed_job
+  feature_flag: custom (user.admin_or_beta?)
+
+feature:
+  code_name: Graetzl Wirtschaft
+  goal: "Digitales Buchungssystem für lokale Wirtschaft, das als Web-App und als Widget funktioniert."
+  requirements:
+    core:
+      - Buchung von Rooms, Services, Events (Runs & Sessions)
+      - EventRuns: booking_mode per_run oder per_session
+      - Events: booking_type paid oder free
+      - Free: Teilnahme (Participation) statt Buchung
+      - Stripe-Zahlungen & Refunds
+      - Provider-Stornogebühren (provider_rules)
+      - Integration in bestehende Web-App
+      - Bereitstellung als WebComponent
+      - API für Verfügbarkeiten & Buchungen
+    functional:
+      - Verfügbarkeitskalender mit Templates
+      - Feiertags- und Abwesenheitslogik
+      - Stornierung mit Refund-Protokoll
+      - Buchungsverlauf für Kund:innen & Anbieter:innen
+      - Admin-Interface für Anbieter:innen
+      - Teilnahme/Buchung auch als Gast möglich
+      - E-Mail-Benachrichtigungen
+  future_requirements:
+    - AI-/Agent-Kompatibilität
+    - Optionale Konfiguration der Plattformgebühr (3–7 %) nach MVP
+  non_goals:
+    - Keine native Mobile App
+  personas:
+    - Selbständige
+    - EPU
+    - Vereine
+  constraints:
+    - DSGVO-konform (minimierte PII)
+    - Antwortzeiten < 500 ms
+    - Widget läuft framework-frei
+  rollout: staged (Admins & Beta-User zuerst)
+
+domain_model:
+  bookables:
+    - Room
+    - Service
+    - EventRun
+    - EventSession
+  non_bookables:
+    - Event
+  booking_models:
+    - Booking
+    - BookingSlot
+    - Refund
+    - Participation
+  resources:
+    - ServiceResource
+  shared_tables:
+    - Bookables::AvailabilityRule
+    - Bookables::Blackout
+    - Bookables::ProviderBlackout
+    - Bookables::ResourceBlackout
+    - Bookables::SlotPolicy
+    - Bookables::PriceRule
+    - Bookables::CancellationPolicy
+  templates:
+    - AvailabilityTemplate
+    - AvailabilityTemplateRule
+  event_structure:
+    - Event.booking_type: paid | free
+    - EventRun.schedule_type: single | multi
+    - EventRun.booking_mode: per_run | per_session
+    - EventSession: starts_at/ends_at, canceled, capacity_override
+cancellation:
+  policies:
+    - service_low
+    - service_medium
+    - service_high
+    - event_low
+    - event_medium
+    - event_high
+    - room_low
+    - room_medium
+    - room_high
+  description: >
+    Einheitliche Stornobedingungen für alle Buchungstypen (Service, Event, Room)
+    mit drei Modellen je Typ (Low, Medium, High). Refunds und Gebühren werden
+    automatisch über Stripe abgewickelt und in der Monatsabrechnung berücksichtigt.
+  rules_structure:
+    refund_tiers: >
+      Definiert Rückerstattungsstufen je nach verbleibender Zeit bis Buchungsbeginn.
+      Beispiel: {24 → 100, 0 → 80} für Medium-Policies oder {72 → 100, 0 → 0} für room_high.
+    provider_rules: >
+      Gilt bei Storno durch Anbieter:innen. Eine Plattformgebühr von 5 % auf das Buchungsvolumen
+      wird berechnet und in der Monatsabrechnung als eigene Position
+      ("Plattformgebühr Anbieter-Storno") ausgewiesen.
+    customer_rules: >
+      Gilt bei Stornierung durch Kund:innen.
+      Der Refund beträgt 80 % (Service/Event) bzw. 0 % (Room), und dem Anbieter werden
+      zusätzlich 5 % Plattformgebühr weiterverrechnet.
+  technical_fields:
+    - platform_fee_amount: "Speichert die 5 %-Plattformgebühr als Dezimalwert, sowohl bei Buchungen als auch Stornierungen."
+    - canceled_by: "Kennzeichnet den Auslöser der Stornierung (customer, provider, system)."
+    - owner_liability_state: "Status der Gebühr in der Abrechnung (pending, collected, invoiced)."
+  integration_notes: >
+    Alle Refunds werden automatisch über Stripe abgewickelt.
+    Die Plattformgebühr (5 %) gilt für Buchungen und Stornos gleichermaßen und deckt alle Stripe-Processing-Kosten ab (keine weitere Gebühr).
+    Die Policies sind in Bookables::CancellationPolicy als Seeds hinterlegt.
+  availability:
+    - Start-Ausrichtung: volle, halbe oder viertel Stunde
+    - Templates: Services verpflichtend, Rooms/EventRuns derzeit ohne
+    - Feiertagslogik: Services via Templates, EventRuns via Run-Flags, Rooms noch offen
+    - Abwesenheiten: Provider-/Resource-Blackouts
+    - Horizon: EventSessionGeneratorJob erzeugt Sessions rollierend
+
+processes:
+  background_jobs:
+    - EventSessionGeneratorJob:
+        cadence: daily
+        horizon_months: 6
+        respects:
+          - availability_rules
+          - blackouts
+  cancellation_flow:
+    - Booking#cancel!(by:, reason:)
+    - Refund-Erzeugung mit Stripe-Integration
+    - Berechnung der 5 %-Plattformgebühr bei Stornos (Anbieter:innen & Kund:innen)
+    - Participation#cancel! für kostenlose Events
+
+tech:
+  auth: devise
+  authorization: custom
+  js: sprockets (Importmap optional)
+  ci: github_actions (nicht eingerichtet)
+  payments:
+    provider: stripe
+    connect: true
+    flow: destination_charges
+    payout_mode: manual
+    refund_model: application_fee_refund
+    accounting_cycle: monthly
+
+links:
+  repo: https://github.com/imGraetzl/im_graetzl
+  branch: feature/graetzl-wirtschaft
+  production: https://www.imgraetzl.at/
+  docs: docs/
+
+open_questions: []
+
+changes:
+  - "Templates verpflichtend für Services; Rooms bleiben vorerst ohne Vorlage/Holiday-Logik"
+  - "Holiday-Flags liegen nun ausschließlich auf AvailabilityTemplates bzw. EventRuns"
+  - "`origin_template*` und `active_from/active_to` aus Availability-Regeln entfernt"
+  - "Rooms- und Event-Dokumentation klärt aktuellen Stand (keine Templates, Feiertage nur via Runs)"
+  - "OwnerPayouts: Monatsabrechnung erfolgt im Admin-Tool - Auswahl der fälligen Auszahlungen, Einträge können auf `waived` gesetzt oder in den Folgemonat übernommen werden"
+  - "PriceRules Release 1: nur `per_unit_rate` (z. B. Wochenendpreise); `quantity_discount` folgt später"
+  - "Rollout-Sequenz: Bookables zuerst für Services live, Events und Rooms inkl. Room-Templates nachgelagert"
+  - "Services: Content-Felder (title, summary, description, cover_photo), Tags und LocationCategory-Anbindung ergänzt"
+  - "Owner defaultet jetzt auf user_id; Region-Felder für Events/Bookings/Refunds/OwnerPayouts dokumentiert"
+  - "Neue Owner-Payout-Lifecycle-Doku (payout_status inkl. recovery_pending), Join-Tabelle owner_payout_items, Refund-Flows mit 5 %-Gebühr präzisiert"
+  - "Bookings: neue Timestamps confirmed_at/pending_expires_at + Kalender/Timeout-Indizes"

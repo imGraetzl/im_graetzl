@@ -8,6 +8,11 @@ development:
   <<: *default
   database: im_graetzl_development
 
+# Separate Dev-DB für dein Bookables
+development_bookables:
+  <<: *default
+  database: im_graetzl_bookables_development
+
 test:
   <<: *default
   database: im_graetzl_test

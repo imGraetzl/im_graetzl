@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Service erstellen – Wizard</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f8fafc; margin: 2rem; }
+  h1 { margin-bottom: 1rem; }
+  fieldset { border: 1px solid #d1d5db; border-radius: 6px; padding: 1.5rem; background: #fff; }
+  legend { font-weight: 600; padding: 0 .5rem; }
+  label { display: block; margin-top: .75rem; font-weight: 500; }
+  input[type=text], input[type=number], textarea, select {
+    width: 100%; padding: .5rem; border: 1px solid #cbd5e1; border-radius: 4px; font-size: .95rem;
+  }
+  .inline-radio label, .inline-checkbox label { display: inline-block; margin-right: 1rem; font-weight: normal; }
+  .buttons { margin-top: 1.5rem; display: flex; justify-content: space-between; }
+  button { background: #0ea5e9; color: #fff; border: none; padding: .6rem 1.2rem; border-radius: 4px; cursor: pointer; font-size: .95rem; }
+  button.secondary { background: #e2e8f0; color: #1e293b; }
+  .address-fields { margin-left: 1rem; border-left: 3px solid #e5e7eb; padding-left: 1rem; }
+  .section { margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+
+<h1>Service erstellen</h1>
+
+<!-- STEP 1 -->
+<section class="section">
+  <form action="/services/step1_submit" method="post">
+    <fieldset>
+      <legend>Schritt 1 – Basisinformationen</legend>
+
+      <label for="title">Titel *</label>
+      <input type="text" id="title" name="service[title]" placeholder="z. B. Ganzkörpermassage 60 Minuten">
+
+      <label for="description">Beschreibung *</label>
+      <textarea id="description" name="service[description]" rows="4"></textarea>
+
+      <label for="category">Kategorie *</label>
+      <select id="category" name="service[category_id]">
+        <option value="">Bitte wählen …</option>
+        <option value="1">Massage</option>
+        <option value="2">Coaching</option>
+        <option value="3">Training</option>
+      </select>
+
+      <label for="tags">Tags</label>
+      <input type="text" id="tags" name="service[tags]" placeholder="z. B. Entspannung, Rücken, Energie">
+
+      <div class="inline-radio" style="margin-top:1rem;">
+        <label><strong>Ort der Leistung:</strong></label><br>
+        <label><input type="radio" name="service[mode]" value="online"> Online</label>
+        <label><input type="radio" name="service[mode]" value="onsite"> Vor Ort</label>
+      </div>
+
+      <!-- Nur anzeigen, wenn "Vor Ort" gewählt -->
+      <div class="address-fields">
+        <label>Straße</label>
+        <input type="text" name="service[address_street]">
+
+        <label>PLZ</label>
+        <input type="text" name="service[address_zip]" style="width:8rem;">
+
+        <label>Ort</label>
+        <input type="text" name="service[address_city]">
+      </div>
+
+      <label for="image">Bild (optional)</label>
+      <input type="file" id="image" name="service[image]">
+
+      <div class="buttons">
+        <span></span>
+        <button type="submit">Weiter →</button>
+      </div>
+    </fieldset>
+  </form>
+</section>
+
+<!-- STEP 2 -->
+<section class="section">
+  <form action="/services/step2_submit" method="post">
+    <fieldset>
+      <legend>Schritt 2 – Dauer, Preis & Stornobedingung</legend>
+
+      <label for="duration">Dauer pro Einheit *</label>
+      <select id="duration" name="service[duration_minutes]">
+        <option value="">Bitte wählen …</option>
+        <option value="30">30 Minuten</option>
+        <option value="45">45 Minuten</option>
+        <option value="60">60 Minuten</option>
+        <option value="90">90 Minuten</option>
+        <option value="120">120 Minuten</option>
+      </select>
+
+      <label for="price">Preis pro Einheit (€) *</label>
+      <input type="number" id="price" name="service[price_amount]" step="0.01" placeholder="z. B. 60">
+
+      <label for="cancellation_policy">Stornobedingung *</label>
+      <select id="cancellation_policy" name="service[cancellation_policy_id]">
+        <option value="">Bitte wählen …</option>
+        <option value="1">Easy – jederzeit kostenlos</option>
+        <option value="2">Easy Flex – bis 24 h kostenlos, danach 0 %</option>
+        <option value="3">Tight Flex – bis 72 h 50 %, danach 0 %</option>
+        <option value="4">Tight – keine Rückerstattung</option>
+      </select>
+
+      <div class="buttons">
+        <button type="button" class="secondary" onclick="window.location='/services/step1'">← Zurück</button>
+        <button type="submit">Weiter →</button>
+      </div>
+    </fieldset>
+  </form>
+</section>
+
+<!-- STEP 3 -->
+<section class="section">
+  <form action="/services/step3_submit" method="post">
+    <fieldset>
+      <legend>Schritt 3 – Verfügbarkeit & Vorlagen</legend>
+
+      <label for="availability_template">Vorlage wählen</label>
+      <select id="availability_template" name="service[availability_template_id]">
+        <option value="1">Bürozeiten</option>
+        <option value="2">Wochenend-Service</option>
+        <option value="__new__">Neue Vorlage aus unten definierten Zeiten erstellen</option>
+      </select>
+
+      <p style="margin-top:.5rem; font-size:.9rem; color:#475569;">
+        Über „Neue Vorlage …“ erzeugst du automatisch eine eigene Vorlage mit den unten eingetragenen Zeiten.
+      </p>
+
+      <label><strong>Verfügbarkeitsraster</strong></label>
+      <div style="border:1px solid #cbd5e1; border-radius:4px; padding:1rem; background:#f1f5f9;">
+        <em>Interaktives Raster (z. B. 00–24 Uhr, Mo–So) – wird später hier eingebettet.</em>
+      </div>
+
+      <div class="inline-checkbox" style="margin-top:1rem;">
+        <label><input type="checkbox" name="template[respect_holidays]" value="1"> Feiertage berücksichtigen</label>
+      </div>
+
+      <div class="inline-checkbox" style="margin-top:.5rem;">
+        <label><input type="checkbox" name="service[save_as_template]" value="1"> Neue Variante speichern (wenn bestehende Vorlage angepasst wird)</label>
+        <input type="text" name="service[template_name]" placeholder="Name der neuen Vorlage" style="margin-left:.5rem; width:14rem;">
+      </div>
+
+      <div class="inline-radio" style="margin-top:1rem;">
+        <label><strong>Buchbarer Startzeitpunkt:</strong></label><br>
+        <label><input type="radio" name="service[start_alignment]" value="on_hour"> Zur vollen Stunde</label>
+        <label><input type="radio" name="service[start_alignment]" value="half_hour"> Zur halben Stunde</label>
+      </div>
+
+      <div class="buttons">
+        <button type="button" class="secondary" onclick="window.location='/services/step2'">← Zurück</button>
+        <button type="submit">Weiter →</button>
+      </div>
+    </fieldset>
+  </form>
+</section>
+
+</body>
+</html>
