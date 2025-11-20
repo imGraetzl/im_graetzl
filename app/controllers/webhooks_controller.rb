@@ -69,6 +69,8 @@ class WebhooksController < ApplicationController
       payout_paid(event.data.object, event.account)
     when "account.updated"
       account_updated(event.data.object, event.account)
+    when "account.application.deauthorized"
+      account_application_deauthorized(event.data.object, event.account)
     else
       Rails.logger.warn "[stripe webhook connected] Unhandled event type: #{event.type}"
     end
@@ -468,6 +470,25 @@ class WebhooksController < ApplicationController
     user.update_column(:stripe_connect_ready, connect_ready)
 
     Rails.logger.info "[stripe webhook connected] Updated User #{user.id}: stripe_connect_ready=#{connect_ready}"
+  end
+
+  def account_application_deauthorized(object, account)
+    Rails.logger.info "[stripe webhook connected] Account deauthorized for Account: #{account}, application: #{object.id}"
+
+    if account.blank?
+      Rails.logger.warn "[stripe webhook connected] account_application_deauthorized: Missing account id on event"
+      return
+    end
+
+    user = User.find_by(stripe_connect_account_id: account)
+
+    unless user
+      Rails.logger.info "[stripe webhook connected] account_application_deauthorized: No User Found for: #{account}"
+      return
+    end
+
+    user.update_columns(stripe_connect_account_id: nil, stripe_connect_ready: false)
+    Rails.logger.info "[stripe webhook connected] account_application_deauthorized: Removed Stripe Connect for User #{user.id}"
   end
 
 end
