@@ -78,7 +78,7 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
 
   def crowd_pledge_newsletter
     region = Region.get('wien')
-    CrowdCampaignMailer.crowd_pledge_newsletter(CrowdPledge.in(region).last, CrowdCampaign.in(region).or(CrowdCampaign.platform))
+    CrowdCampaignMailer.crowd_pledge_newsletter(CrowdPledge.in(region).last, CrowdCampaign.funding.in(region).or(CrowdCampaign.platform))
   end
 
   def crowd_donation_pledge_info
