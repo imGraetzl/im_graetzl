@@ -5,10 +5,7 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     
-    <% if current_region.is?('graz') || current_region.is?('innsbruck') %>
-      <%= render @activity_sample.crowd_campaigns.first %>
-      <%= render "shared/featured_cards/viertelfonds_#{current_region.id}" %>
-    <% elsif current_region.is?('wien') %>
+    <% if current_region.is?('wien') %>
       <%= render @activity_sample.crowd_campaigns.first %>
       <%= render "shared/featured_cards/raumbooster_wien" %>
     <% else %>
