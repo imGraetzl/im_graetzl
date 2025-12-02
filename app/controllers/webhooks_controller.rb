@@ -291,7 +291,7 @@ class WebhooksController < ApplicationController
       SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later
 
     else
-      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: Keine Aktion notwendig (Status: #{payment_intent&.status}, Attempt: #{object.attempt_count})"
+      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: Keine Aktion notwendig (Attempt: #{object.attempt_count}, Invoice: #{object.id})"
     end
   end
 
