@@ -11,7 +11,7 @@ namespace :db do
     # Delete incomplete OLD Items
     Zuckerl.incomplete.where('created_at < ?', 1.week.ago).where(payment_status: nil).destroy_all
     CrowdBoostCharge.general.incomplete.where('created_at < ?', 1.week.ago).destroy_all
-    CrowdPledge.incomplete.where(inclomplete_reminder_sent_at: nil).where('created_at < ?', 6.months.ago).destroy_all
+    CrowdPledge.incomplete.where(incomplete_reminder_sent_at: nil).where('created_at < ?', 6.months.ago).destroy_all
 
     # Delete Expired and already sent Notifications
     # 1.) Delete all SENT Notifications which are not used for Web

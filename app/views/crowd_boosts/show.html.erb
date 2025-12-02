@@ -104,7 +104,7 @@
     <ul class="tabs-nav">
       <li class="active">
         <a href="#tab-campaigns">
-          <h3>Unterstützte Projekte</h3>
+          <h3>Bisher unterstützte Projekte</h3>
           <% if @campaign_count.to_i.positive? %><small><%= @campaign_count %></small><% end %>
         </a>
       </li>
@@ -127,6 +127,7 @@
     <% if @crowd_boost.chargeable? %>
       <div id="tab-charges" class="wrp-inner charges">
         <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+        <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -small -shadow btn-charge" %>
         <div class="charges-container">
           <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
         </div>

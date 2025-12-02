@@ -8,7 +8,7 @@ context.instance_eval do
             link_to('User Unterstützungsdetail Seite','/crowd_pledges/'+crowd_pledge.id+'/details', target: 'blank')
           end
           row(:status){|r| status_tag(r.status)}
-          row :inclomplete_reminder_sent_at
+          row :incomplete_reminder_sent_at
           row :authorized_at
           row :processing_seen_at
           row :charge_returned_at
