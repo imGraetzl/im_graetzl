@@ -6,14 +6,14 @@
           Servus <%= @crowd_pledge.contact_name %>,
         </p>
         <p>
-           Michael von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %> schreibt dir, voll schön, dass du die Kampagne <strong><%= @crowd_pledge.crowd_campaign.title %></strong> unterstützen möchtest!
+           Michael von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %> schreibt dir, voll schön, dass du die Kampagne "<strong><%= @crowd_pledge.crowd_campaign.title %></strong>" unterstützen möchtest!
         </p>
         <p>
          Ich wollte nur kurz nachfragen, ob du beim Abschluss deiner Unterstützung noch Hilfe benötigst oder ob es vielleicht offene Fragen gibt.<br>
          Du kannst mir jederzeit einfach auf diese E-Mail antworten oder mich anrufen (0664 / 132 14 99).
         </p>
         <p>
-          <strong>Hier kannst du deine begonnene </strong><%= link_to 'Unterstützung abschließen', choose_payment_crowd_pledge_url(@crowd_pledge), style: "color:#ec776a; font-weight:bold;" %> oder auf der Kampagnenseite einfach eine neue starten:
+          <strong>Hier kannst du deine begonnene <%= link_to 'Unterstützung abschließen', choose_payment_crowd_pledge_url(@crowd_pledge), style: "color:#ec776a; font-weight:bold;" %> oder auf der Kampagnenseite einfach eine neue starten:</strong><br>
           <%= link_to crowd_campaign_url(@crowd_pledge.crowd_campaign), crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %>
         </p>
         <p>
