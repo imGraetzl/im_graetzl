@@ -13,7 +13,7 @@ class SubscriptionMailerPreview < ActionMailer::Preview
   end
 
   def invoice_payment_failed
-    SubscriptionMailer.invoice_payment_failed('payment-intent-id', Subscription.last, Time.now.to_i, Time.now.to_i)
+    SubscriptionMailer.invoice_payment_failed(Subscription.last, Time.now.to_i, Time.now.to_i)
   end
 
   def invoice_payment_failed_on_create
