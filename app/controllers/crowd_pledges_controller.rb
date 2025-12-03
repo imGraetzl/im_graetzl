@@ -140,7 +140,7 @@ class CrowdPledgesController < ApplicationController
   def payment_authorized
     @crowd_pledge = CrowdPledge.find(params[:id])
     redirect_to [:choose_payment, @crowd_pledge] and return if params[:setup_intent].blank?
-    redirect_to [:summary, @crowd_pledge] and return unless @crowd_pledge.incomplete? # Abfangen falls Page replaod später?
+    redirect_to post_authorization_destination(@crowd_pledge) and return unless @crowd_pledge.incomplete? # Abfangen falls Page reload später?
 
     simulate_processing = (Rails.env.development? || Rails.env.staging?) &&
                           params[:force_processing].present? &&
@@ -154,17 +154,15 @@ class CrowdPledgesController < ApplicationController
 
     case status
     when :success
+      destination = post_authorization_destination(@crowd_pledge)
       flash[:notice] = "Deine Zahlung wurde erfolgreich autorisiert."
-      if current_region.default_crowd_boost_id
-        # Charge Boost Step
-        redirect_to [:crowd_boost_charge, @crowd_pledge]
-      else
+      if destination == [:summary, @crowd_pledge]
         # No Charge Boost Step - Skip and Send Mail Immediate
         CrowdCampaignMailer.crowd_pledge_authorized(@crowd_pledge).deliver_now
-        redirect_to [:summary, @crowd_pledge]
       end
+      redirect_to destination
     when :already_processed
-      redirect_to [:summary, @crowd_pledge]
+      redirect_to post_authorization_destination(@crowd_pledge)
     when :processing
       redirect_to [:processing, @crowd_pledge]
     else
@@ -394,5 +392,13 @@ class CrowdPledgesController < ApplicationController
     #Rails.logger.public_send(level, "[crowd_pledge_processing] #{event}", **payload)
   rescue => e
     Rails.logger.debug { "[crowd_pledge_processing] logging_failed=#{e.message} payload=#{payload.inspect}" }
+  end
+
+  def post_authorization_destination(crowd_pledge)
+    if current_region.default_crowd_boost_id && !crowd_pledge.saved_charge?
+      [:crowd_boost_charge, crowd_pledge]
+    else
+      [:summary, crowd_pledge]
+    end
   end
 end
