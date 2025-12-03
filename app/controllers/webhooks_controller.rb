@@ -115,8 +115,20 @@ class WebhooksController < ApplicationController
       end
 
       status, message = CrowdPledgeService.new.payment_authorized(pledge, setup_intent.id)
-      Rails.logger.info "[stripe webhook] setup_intent_succeeded: CrowdPledge #{pledge.id} result=#{status}"
-      Sentry.logger.info("[stripe webhook] setup_intent_succeeded", pledge_id: pledge.id, setup_intent_id: setup_intent.id, status: status) rescue nil
+      payload = {
+        event: :setup_intent_succeeded,
+        pledge_id: pledge.id,
+        setup_intent_id: setup_intent.id,
+        user_id: pledge.user_id,
+        campaign_id: pledge.crowd_campaign_id,
+        status: status
+      }
+
+      log_method = status == :error ? :warn : :info
+      log_message = "[stripe webhook] setup_intent_succeeded: CrowdPledge #{pledge.id} status=#{status}"
+
+      Rails.logger.public_send(log_method, log_message)
+      Sentry.logger.public_send(log_method, log_message, **payload) rescue nil
 
       if status == :error
         Sentry.capture_message("[stripe webhook] setup_intent_succeeded error: #{message}", level: :warning, extra: { pledge_id: pledge.id, setup_intent_id: setup_intent.id }) rescue nil
