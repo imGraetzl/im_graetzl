@@ -14,6 +14,8 @@ class WebhooksController < ApplicationController
     end
 
     case event.type
+    when "setup_intent.succeeded"
+      setup_intent_succeeded(event.data.object)
     when "payment_intent.succeeded"
       payment_intent_succeeded(event.data.object)
     when "payment_intent.payment_failed"
@@ -69,6 +71,8 @@ class WebhooksController < ApplicationController
       payout_paid(event.data.object, event.account)
     when "account.updated"
       account_updated(event.data.object, event.account)
+    when "account.application.deauthorized"
+      account_application_deauthorized(event.data.object, event.account)
     else
       Rails.logger.warn "[stripe webhook connected] Unhandled event type: #{event.type}"
     end
@@ -92,6 +96,35 @@ class WebhooksController < ApplicationController
   end
 
   private
+
+  def setup_intent_succeeded(setup_intent)
+    type = setup_intent.metadata&.[]("type")
+
+    case type
+    when "CrowdPledge"
+      pledge = if (id = setup_intent.metadata["pledge_id"])
+                 CrowdPledge.find_by(id: id)
+               else
+                 CrowdPledge.find_by(stripe_setup_intent_id: setup_intent.id)
+               end
+
+      unless pledge
+        Rails.logger.warn "[stripe webhook] setup_intent_succeeded: Kein CrowdPledge gefunden (pledge_id: #{setup_intent.metadata['pledge_id']} setup_intent: #{setup_intent.id})"
+        Sentry.logger.warn("[stripe webhook] setup_intent_succeeded: missing pledge", pledge_id: setup_intent.metadata['pledge_id'], setup_intent_id: setup_intent.id) rescue nil
+        return
+      end
+
+      status, message = CrowdPledgeService.new.payment_authorized(pledge, setup_intent.id)
+      Rails.logger.info "[stripe webhook] setup_intent_succeeded: CrowdPledge #{pledge.id} result=#{status}"
+      Sentry.logger.info("[stripe webhook] setup_intent_succeeded", pledge_id: pledge.id, setup_intent_id: setup_intent.id, status: status) rescue nil
+
+      if status == :error
+        Sentry.capture_message("[stripe webhook] setup_intent_succeeded error: #{message}", level: :warning, extra: { pledge_id: pledge.id, setup_intent_id: setup_intent.id }) rescue nil
+      end
+    else
+      Rails.logger.warn "[stripe webhook] setup_intent_succeeded: Unhandled metadata type: #{type.inspect}"
+    end
+  end
 
   def payment_intent_succeeded(payment_intent)
     type = payment_intent.metadata&.[]("type")
@@ -289,7 +322,7 @@ class WebhooksController < ApplicationController
       SubscriptionMailer.invoice_payment_failed_final(subscription).deliver_later
 
     else
-      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: Keine Aktion notwendig (Status: #{payment_intent&.status}, Attempt: #{object.attempt_count})"
+      Rails.logger.info "[stripe webhook] invoice_payment_failed: subscription: #{subscription&.id}: Keine Aktion notwendig (Attempt: #{object.attempt_count}, Invoice: #{object.id})"
     end
   end
 
@@ -468,6 +501,25 @@ class WebhooksController < ApplicationController
     user.update_column(:stripe_connect_ready, connect_ready)
 
     Rails.logger.info "[stripe webhook connected] Updated User #{user.id}: stripe_connect_ready=#{connect_ready}"
+  end
+
+  def account_application_deauthorized(object, account)
+    Rails.logger.info "[stripe webhook connected] Account deauthorized for Account: #{account}, application: #{object.id}"
+
+    if account.blank?
+      Rails.logger.warn "[stripe webhook connected] account_application_deauthorized: Missing account id on event"
+      return
+    end
+
+    user = User.find_by(stripe_connect_account_id: account)
+
+    unless user
+      Rails.logger.info "[stripe webhook connected] account_application_deauthorized: No User Found for: #{account}"
+      return
+    end
+
+    user.update_columns(stripe_connect_account_id: nil, stripe_connect_ready: false)
+    Rails.logger.info "[stripe webhook connected] account_application_deauthorized: Removed Stripe Connect for User #{user.id}"
   end
 
 end

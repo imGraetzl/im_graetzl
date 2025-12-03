@@ -37,10 +37,10 @@ namespace :scheduled do
     end
 
     if Date.today.sunday?
-      wednesday = Date.today + 3  # Übermorgen (Mittwoch)
-      next_tuesday = wednesday + 6 # Dienstag in einer Woche
+      tuesday = Date.today + 2     # Dienstag dieser Woche
+      next_monday = Date.today + 8 # Montag der nächsten Woche
     
-      CrowdCampaign.ending_newsletter.where(enddate: wednesday..next_tuesday).find_each do |campaign|
+      CrowdCampaign.ending_newsletter.where(enddate: tuesday..next_monday).find_each do |campaign|
         ActionProcessor.track(campaign, :ending)
       end
     end
@@ -54,7 +54,7 @@ namespace :scheduled do
   task crowd_campaigns_guest_newsletter: :environment do
     
     scheduled_sending_dates = [
-      '2025-10-10', '2025-11-08', '2025-12-06'
+      '2025-11-08', '2025-12-06', '2026-01-03'
     ]
 
     send_date_today = nil

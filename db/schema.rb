@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_19_100952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -602,7 +602,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_113606) do
     t.boolean "terms", default: false
     t.datetime "debited_at", precision: nil
     t.boolean "guest_newsletter", default: false, null: false
-    t.datetime "inclomplete_reminder_sent_at", precision: nil
+    t.datetime "incomplete_reminder_sent_at", precision: nil
     t.string "payment_wallet"
     t.jsonb "user_agent"
     t.decimal "crowd_boost_charge_amount", precision: 10, scale: 2

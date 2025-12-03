@@ -36,9 +36,7 @@
       <%= render 'crowd_campaigns/action_card' %>
     </div>
     <!-- Insert Featured Card -->
-    <% if current_region.is?('graz') || current_region.is?('innsbruck') %>
-      <%= render "shared/featured_cards/viertelfonds_#{current_region.id}" %>
-    <% elsif current_region.is?('wien') %>
+    <% if current_region.is?('wien') %>
        <%= render "shared/featured_cards/raumbooster_wien" %>
     <% end %>
 

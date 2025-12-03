@@ -48,9 +48,8 @@
       <!-- Insert Featured Card -->
       <% if current_region.is?('wien') %>
         <%= render "shared/featured_cards/raumbooster_wien" %>
-        <%# render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).includes(:user).active.sample if Subscription.in(current_region).active.any? %>
-      <% elsif current_region.is?('graz') || current_region.is?('innsbruck') %>
-        <%= render "shared/featured_cards/viertelfonds_#{current_region.id}" %>
+      <% elsif current_region.use_subscription? %>
+        <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).includes(:user).active.sample if Subscription.in(current_region).active.any? %>
       <% end %>
 
       <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>

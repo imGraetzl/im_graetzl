@@ -22,11 +22,18 @@ namespace :dyno do
       if current_size == target_size && current_quantity == target_quantity
         Rails.logger.info("[Dyno-Scale]: No scaling needed for #{type} dyno. Current configuration matches.")
       else
-        Rails.logger.info("[Dyno-Scale]: Scaling needed for #{type} dyno. Proceeding with scale action.")
+        direction = if target_quantity > current_quantity
+                      '[Dyno-Scale Up]'
+                    elsif target_quantity < current_quantity
+                      '[Dyno-Scale Down]'
+                    else
+                      '[Dyno-Scale]'
+                    end
+        Rails.logger.info("#{direction}: Scaling #{type} dyno from Size=#{current_size}, Quantity=#{current_quantity} to Size=#{target_size}, Quantity=#{target_quantity}.")
         begin
           response = heroku.formation.update(APP_NAME, type, { size: target_size, quantity: target_quantity })
-          Rails.logger.info("[Dyno-Scale]: Scale successful: #{response.inspect}")
-          Sentry.logger.info("[Dyno-Scale]: Scale successful: %{type} / %{size} / %{quantity}", type: type, size: target_size, quantity: target_quantity)
+          Rails.logger.info("#{direction}: Scale successful: #{response.inspect}")
+          Sentry.logger.info("#{direction} Scale: %{type} / %{size} / %{quantity}", type: type, size: target_size, quantity: target_quantity)
         rescue Excon::Error::UnprocessableEntity => e
           Rails.logger.error("[Dyno-Scale]: Error scaling dyno: #{e.message}")
           Rails.logger.error("[Dyno-Scale]: Parameters used: Size=#{target_size}, Quantity=#{target_quantity}")

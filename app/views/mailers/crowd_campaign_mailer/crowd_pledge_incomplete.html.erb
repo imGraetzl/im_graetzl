@@ -6,18 +6,22 @@
           Servus <%= @crowd_pledge.contact_name %>,
         </p>
         <p>
-           <strong>Michael von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %> schreibt dir.<br>
-           Ich wollte nachfragen, ob du eventuell Hilfe bei deiner Crowdfunding Unterstützung für die Kampagne <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> benötigst?</strong>
+           Michael von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %> schreibt dir, voll schön, dass du die Kampagne "<strong><%= @crowd_pledge.crowd_campaign.title %></strong>" unterstützen möchtest!
         </p>
         <p>
-         Solltest du Fragen haben, oder etwas bei dir technisch nicht funktioniert haben, gib kurz Bescheid. Du kannst mir einfach auf diese E-Mail antworten oder auch gerne anrufen (0664 / 132 14 99).
+         Ich wollte nur kurz nachfragen, ob du beim Abschluss deiner Unterstützung noch Hilfe benötigst oder ob es vielleicht offene Fragen gibt.<br>
+         Du kannst mir jederzeit einfach auf diese E-Mail antworten oder mich anrufen (0664 / 132 14 99).
         </p>
         <p>
-          Du kannst deine zuletzt begonnene Unterstützung <%= link_to 'hier abschließen', choose_payment_crowd_pledge_url(@crowd_pledge), style: "color:#ec776a;" %>, oder natürlich auch gerne eine neue Unterstützung auf der Kampagnenseite starten:
+          <strong>Hier kannst du deine begonnene <%= link_to 'Unterstützung abschließen', choose_payment_crowd_pledge_url(@crowd_pledge), style: "color:#ec776a; font-weight:bold;" %> oder auf der Kampagnenseite einfach eine neue starten:</strong><br>
           <%= link_to crowd_campaign_url(@crowd_pledge.crowd_campaign), crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %>
         </p>
         <p>
-          <strong>Tipp:</strong> Bei älteren Android-Smartphone-Modellen kann es zu Problemen beim Zahlungsablauf kommen, da diese manchmal nicht mehr mit den gängigen Zahlungsanbietern kompatibel sind. In solchen Fällen empfehlen wir, die Unterstützung einfach über einen Desktop-PC <%= link_to 'abzuschließen', choose_payment_crowd_pledge_url(@crowd_pledge), style: "color:#ec776a;" %>.
+          <strong>Hinweis:</strong> Wenn dir beim Abschluss eine 0 € Zahlung angezeigt wurde, das passt so!
+          Im ersten Schritt wird nur deine Zahlungsmethode mit 0 € bestätigt. Der eigentliche Betrag wird erst nach Kampagnenende eingezogen.
+        </p>
+        <p>
+          <strong>Tipp:</strong> Bei manchen älteren Android-Smartphones kann es vorkommen, dass Zahlungsanbieter nicht mehr vollständig unterstützt werden. Falls das bei dir der Fall war, klappt der Abschluss meist problemlos am Desktop-PC.
         </p>
         <p>
           Bei Fragen jederzeit gerne,<br>
