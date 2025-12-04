@@ -155,7 +155,7 @@ GEM
       logger (~> 1.5)
     cocoon (1.2.15)
     concurrent-ruby (1.3.5)
-    connection_pool (3.0.1)
+    connection_pool (2.5.5)
     content_disposition (1.0.0)
     crack (1.0.1)
       bigdecimal
@@ -576,6 +576,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   cocoon
+  connection_pool (~> 2.5.5)
   database_cleaner
   delayed_job_active_record
   delayed_job_web

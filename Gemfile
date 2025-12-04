@@ -12,6 +12,7 @@ gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'activerecord-import'
+gem 'connection_pool', '~> 2.5.5'
 gem 'active_link_to'
 
 gem 'rack-attack'
