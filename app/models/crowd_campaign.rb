@@ -207,8 +207,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def stripe_fee_percentage_calculated
-    # return 0.0 if enddate.blank? || enddate < Date.new(2025, 4, 1)
-    # calculated real percentage - observe
+    # calculated real stripe fee percentage
     pledges = crowd_pledges.debited.where.not(stripe_fee: nil)
     return 0.0 if pledges.empty?
     total_price = pledges.sum(:total_price)
