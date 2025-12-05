@@ -1,13 +1,16 @@
 class AdminMailer < ApplicationMailer
 
-  def daily_mail
+  def daily_mail(to: nil, cc: nil)
     @region = Region.get('wien')
+
+    to ||= platform_admin_email
+    cc ||= "lena@imgraetzl.at, carina@imgraetzl.at"
 
     mail(
       subject: "[#{@region.host_domain_name}] Daily Mail",
       from: platform_email("no-reply"),
-      to: platform_admin_email,
-      cc: "lena@imgraetzl.at, carina@imgraetzl.at"
+      to: to,
+      cc: cc
     )
   end
 
