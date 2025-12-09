@@ -20,4 +20,8 @@ class AdminMailerPreview < ActionMailer::Preview
   def messenger_spam_alert
     AdminMailer.messenger_spam_alert(User.first, User.first.recent_sent_messages_by_thread.values)
   end
+
+  def crowd_pledge_manual_followups
+    AdminMailer.crowd_pledge_manual_followups(CrowdPledge.failed.limit(5))
+  end
 end

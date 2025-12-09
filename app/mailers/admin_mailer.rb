@@ -1,14 +1,18 @@
 class AdminMailer < ApplicationMailer
 
-  def daily_mail
+  def daily_mail(to: nil, cc: nil)
     @region = Region.get('wien')
 
-    mail(
+    to ||= platform_admin_email
+
+    mail_params = {
       subject: "[#{@region.host_domain_name}] Daily Mail",
       from: platform_email("no-reply"),
-      to: platform_admin_email,
-      cc: "lena@imgraetzl.at, carina@imgraetzl.at"
-    )
+      to: to
+    }
+    mail_params[:cc] = cc if cc.present?
+
+    mail(mail_params)
   end
 
   def task_info(task_name, execution, task_starts_at = nil, task_ends_at = nil)
@@ -91,6 +95,18 @@ class AdminMailer < ApplicationMailer
       subject: "[#{@region.host_domain_name}] Messenger Spam Alert - Check User: #{@user.username}",
       from: platform_email("no-reply"),
       to: platform_admin_email('michael@imgraetzl.at, mirjam@imgraetzl.at'),
+    )
+  end
+
+  def crowd_pledge_manual_followups(pledges)
+    @region = Region.get('wien')
+    @pledges = pledges.includes(:crowd_campaign).order(:email)
+    @unique_emails_count = @pledges.map(&:email).uniq.size
+
+    mail(
+      subject: "[#{@region.host_domain_name}] Manuelle Follow-ups für fehlgeschlagene CrowdPledges (6 Tage nach Kampagnenende)",
+      from: platform_email("no-reply"),
+      to: platform_admin_email('michael@imgraetzl.at'),
     )
   end
 
