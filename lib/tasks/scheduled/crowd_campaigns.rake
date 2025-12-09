@@ -36,10 +36,19 @@ namespace :scheduled do
       end
     end
 
+    # Manual Follow-up digest for failed pledges 6 days after campaign end
+    manual_followup_campaigns = CrowdCampaign.completed.where(enddate: 6.days.ago)
+    manual_followup_pledges = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns)
+
+    if manual_followup_pledges.any?
+      Rails.logger.info("[CrowdCampaigns Upkeep] Sende manuelles Follow-up Digest für #{manual_followup_pledges.count} Pledges")
+      AdminMailer.crowd_pledge_manual_followups(manual_followup_pledges).deliver_later
+    end
+
     if Date.today.sunday?
       tuesday = Date.today + 2     # Dienstag dieser Woche
       next_monday = Date.today + 8 # Montag der nächsten Woche
-    
+
       CrowdCampaign.ending_newsletter.where(enddate: tuesday..next_monday).find_each do |campaign|
         ActionProcessor.track(campaign, :ending)
       end

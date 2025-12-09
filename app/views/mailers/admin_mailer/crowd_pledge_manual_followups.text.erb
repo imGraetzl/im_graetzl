@@ -1,0 +1,41 @@
+<% if @pledges.blank? %>
+Keine fehlgeschlagenen CrowdPledges 6 Tage nach Kampagnenende – keine manuellen Follow-ups notwendig.
+<% else %>
+Manuelle Follow-ups für fehlgeschlagene CrowdPledges (6 Tage nach Kampagnenende)
+<%= @pledges.size %> Mails, <%= @unique_emails_count %> eindeutige Empfänger
+
+<% @pledges.each_with_index do |pledge, index| %>
+<% platform_name = pledge.region.host_domain_name %>
+
+--- Mail <%= index + 1 %> — To: <%= pledge.email %>
+Betreff: Nachfrage betreffend deiner Crowdfunding Unterstützung für "<%= pledge.crowd_campaign.title %>"
+
+Lieber <%= pledge.contact_name %>,
+
+Michael von der Plattform <%= platform_name %> schreibt dir,
+ich bin nicht sicher ob unsere System-Mails bei dir im Spam Ordner gelandet sind, deswegen schreibe ich dir nochmals persönlich.
+
+Du hast kürzlich die Kampagne "<%= pledge.crowd_campaign.title %>" unterstützt - herzlichen Dank dafür:
+
+<%= details_crowd_pledge_url(pledge, host: pledge.region.host, protocol: 'https') %>
+
+<% campaign_end = pledge.crowd_campaign.enddate.to_date %>
+<% campaign_week_phrase =
+  if campaign_end.cwyear == Date.current.cwyear && campaign_end.cweek == Date.current.cweek
+    "Diese Woche"
+  elsif campaign_end.cwyear == (Date.current - 7.days).cwyear && campaign_end.cweek == (Date.current - 7.days).cweek
+    "Letzte Woche"
+  else
+    "Letzte Woche"
+  end %>
+<%= campaign_week_phrase %> konnte die Kampagne, auch Dank dir, ihr Crowdfunding erfolgreich beenden, sehr, sehr cool!
+Nun gab es leider beim Einzug deiner Unterstützung Probleme, da deine angegebene Zahlungsform nicht belastet werden konnte, du solltest diesbezüglich auch 2 E-Mails erhalten haben.
+Bevor wir "<%= pledge.crowd_campaign.title %>" die erreichte Funding-Summe auszahlen können, wäre es wichtig, dass du deine Unterstützung nochmals via dem Link oberhalb abschließt. Auf der Seite (oberhalb der Link) findest du rechts unten einen Button 'Zahlung abschließen'. Hier steht dir jetzt auch EPS Online-Banking als Zahlungsform zur Verfügung.
+Solltest du von deiner Unterstützung zurücktreten wollen, dann gib bitte kurz Bescheid, dann würden wir dem Team vom <%= pledge.crowd_campaign.title %> diesbezüglich Bescheid geben,
+
+bei Fragen jederzeit gerne,
+liebe Grüße und vielen lieben Dank dir nochmals!
+Michael
+
+<% end %>
+<% end %>
