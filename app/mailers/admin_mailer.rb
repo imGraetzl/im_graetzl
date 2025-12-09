@@ -4,14 +4,15 @@ class AdminMailer < ApplicationMailer
     @region = Region.get('wien')
 
     to ||= platform_admin_email
-    cc ||= "lena@imgraetzl.at, carina@imgraetzl.at"
 
-    mail(
+    mail_params = {
       subject: "[#{@region.host_domain_name}] Daily Mail",
       from: platform_email("no-reply"),
-      to: to,
-      cc: cc
-    )
+      to: to
+    }
+    mail_params[:cc] = cc if cc.present?
+
+    mail(mail_params)
   end
 
   def task_info(task_name, execution, task_starts_at = nil, task_ends_at = nil)
