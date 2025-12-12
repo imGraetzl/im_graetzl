@@ -10,13 +10,13 @@ Manuelle Follow-ups für fehlgeschlagene CrowdPledges (6 Tage nach Kampagnenende
 --- Mail <%= index + 1 %> — To: <%= pledge.email %>
 Betreff: Nachfrage betreffend deiner Crowdfunding Unterstützung für "<%= pledge.crowd_campaign.title %>"
 
-Lieber <%= pledge.contact_name %>,
+Hallo <%= pledge.contact_name %>,
 
 Michael von der Plattform <%= platform_name %> schreibt dir,
 Ich bin nicht sicher ob unsere System-Mails bei dir im Spam Ordner gelandet sind, deswegen schreibe ich dir nochmals persönlich.
 Du hast kürzlich die Kampagne "<%= pledge.crowd_campaign.title %>" unterstützt - herzlichen Dank dafür:
 
-<%= details_crowd_pledge_url(pledge) %>
+<%= details_crowd_pledge_url(pledge, host: pledge.region.host) %>
 
 <% campaign_end = pledge.crowd_campaign.enddate.to_date %>
 <% campaign_week_phrase =
@@ -33,7 +33,7 @@ Nun gab es leider beim Einzug deiner Unterstützung Probleme, da deine angegeben
 
 Bevor wir "<%= pledge.crowd_campaign.title %>" die erreichte Funding-Summe auszahlen können, wäre es wichtig, dass du deine Unterstützung nochmals via dem Link oberhalb abschließt. Du findest dort rechts unten den Button 'Zahlung abschließen'. Hier steht dir nun auch EPS Online-Banking als Zahlungsform zur Verfügung.
 
-Solltest du von deiner Unterstützung zurücktreten wollen, dann gib bitte kurz Bescheid, dann würden wir dem Team vom <%= pledge.crowd_campaign.title %> diesbezüglich Bescheid geben,
+Solltest du von deiner Unterstützung zurücktreten wollen, dann gib bitte kurz Bescheid, dann würden wir dem Team von <%= pledge.crowd_campaign.title %> diesbezüglich Bescheid geben,
 
 bei Fragen jederzeit gerne,
 liebe Grüße und vielen lieben Dank dir nochmals!
