@@ -100,7 +100,8 @@ class AdminMailer < ApplicationMailer
 
   def crowd_pledge_manual_followups(pledges)
     @region = Region.get('wien')
-    @pledges = pledges.includes(:crowd_campaign).order(:email)
+    pledge_ids = Array(pledges).compact.map(&:id)
+    @pledges = CrowdPledge.includes(:crowd_campaign).where(id: pledge_ids).order(:email)
     @unique_emails_count = @pledges.map(&:email).uniq.size
 
     mail(
