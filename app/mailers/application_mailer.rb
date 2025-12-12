@@ -10,7 +10,7 @@ class ApplicationMailer < ActionMailer::Base
   def default_url_options
     region = @region || Region.get('wien')
     host = region.host
-    host = "www.#{host}" if region.id == 'wien' && !host.start_with?('www.')
+    host = "www.#{host}" if Rails.env.production? && region.id == 'wien' && !host.start_with?('www.')
 
     Rails.application.default_url_options.merge(host: host)
   end
