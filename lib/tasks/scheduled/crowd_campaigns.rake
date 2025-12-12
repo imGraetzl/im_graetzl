@@ -30,19 +30,10 @@ namespace :scheduled do
     end
 
     # Send Reminder email to failed Pledges after X Days
-    CrowdCampaign.completed.where(enddate: 3.days.ago).find_each do |campaign|
+    CrowdCampaign.completed.successful.where(enddate: 3.days.ago).find_each do |campaign|
       campaign.crowd_pledges.failed.find_each do |pledge|
         CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
       end
-    end
-
-    # Manual Follow-up digest for failed pledges 6 days after campaign end
-    manual_followup_campaigns = CrowdCampaign.completed.where(enddate: 6.days.ago)
-    manual_followup_pledges = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns)
-
-    if manual_followup_pledges.any?
-      Rails.logger.info("[CrowdCampaigns Upkeep] Sende manuelles Follow-up Digest für #{manual_followup_pledges.count} Pledges")
-      AdminMailer.crowd_pledge_manual_followups(manual_followup_pledges).deliver_later
     end
 
     if Date.today.sunday?
@@ -57,6 +48,17 @@ namespace :scheduled do
     task_ends_at = Time.now
     #AdminMailer.task_info('crowd_campaigns_upkeep', 'finished', task_starts_at, task_ends_at).deliver_now
 
+  end
+
+  desc 'Manual Follow-up digest for failed pledges 6 days after campaign end'
+  task crowd_pledges_failed_manual_followups: :environment do
+    manual_followup_campaigns = CrowdCampaign.completed.successful.where(enddate: 6.days.ago)
+    manual_followup_pledges = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns)
+
+    if manual_followup_pledges.any?
+      Rails.logger.info("[CrowdCampaigns Manual Follow-up] Sende manuelles Follow-up Digest für #{manual_followup_pledges.count} Pledges")
+      AdminMailer.crowd_pledge_manual_followups(manual_followup_pledges).deliver_later
+    end
   end
 
   # Send Crowdfunding Guest Newsletter

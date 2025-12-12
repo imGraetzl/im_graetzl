@@ -13,11 +13,10 @@ Betreff: Nachfrage betreffend deiner Crowdfunding Unterstützung für "<%= pledg
 Lieber <%= pledge.contact_name %>,
 
 Michael von der Plattform <%= platform_name %> schreibt dir,
-ich bin nicht sicher ob unsere System-Mails bei dir im Spam Ordner gelandet sind, deswegen schreibe ich dir nochmals persönlich.
-
+Ich bin nicht sicher ob unsere System-Mails bei dir im Spam Ordner gelandet sind, deswegen schreibe ich dir nochmals persönlich.
 Du hast kürzlich die Kampagne "<%= pledge.crowd_campaign.title %>" unterstützt - herzlichen Dank dafür:
 
-<%= details_crowd_pledge_url(pledge, host: pledge.region.host, protocol: 'https') %>
+<%= details_crowd_pledge_url(pledge) %>
 
 <% campaign_end = pledge.crowd_campaign.enddate.to_date %>
 <% campaign_week_phrase =
@@ -26,11 +25,14 @@ Du hast kürzlich die Kampagne "<%= pledge.crowd_campaign.title %>" unterstützt
   elsif campaign_end.cwyear == (Date.current - 7.days).cwyear && campaign_end.cweek == (Date.current - 7.days).cweek
     "Letzte Woche"
   else
-    "Letzte Woche"
+    weeks_since_end = ((Date.current.beginning_of_week - campaign_end.beginning_of_week).to_i / 7).abs
+    "Vor #{weeks_since_end} Wochen"
   end %>
 <%= campaign_week_phrase %> konnte die Kampagne, auch Dank dir, ihr Crowdfunding erfolgreich beenden, sehr, sehr cool!
 Nun gab es leider beim Einzug deiner Unterstützung Probleme, da deine angegebene Zahlungsform nicht belastet werden konnte, du solltest diesbezüglich auch 2 E-Mails erhalten haben.
-Bevor wir "<%= pledge.crowd_campaign.title %>" die erreichte Funding-Summe auszahlen können, wäre es wichtig, dass du deine Unterstützung nochmals via dem Link oberhalb abschließt. Auf der Seite (oberhalb der Link) findest du rechts unten einen Button 'Zahlung abschließen'. Hier steht dir jetzt auch EPS Online-Banking als Zahlungsform zur Verfügung.
+
+Bevor wir "<%= pledge.crowd_campaign.title %>" die erreichte Funding-Summe auszahlen können, wäre es wichtig, dass du deine Unterstützung nochmals via dem Link oberhalb abschließt. Du findest dort rechts unten den Button 'Zahlung abschließen'. Hier steht dir nun auch EPS Online-Banking als Zahlungsform zur Verfügung.
+
 Solltest du von deiner Unterstützung zurücktreten wollen, dann gib bitte kurz Bescheid, dann würden wir dem Team vom <%= pledge.crowd_campaign.title %> diesbezüglich Bescheid geben,
 
 bei Fragen jederzeit gerne,

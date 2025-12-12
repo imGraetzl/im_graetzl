@@ -104,7 +104,7 @@ class AdminMailer < ApplicationMailer
     @unique_emails_count = @pledges.map(&:email).uniq.size
 
     mail(
-      subject: "[#{@region.host_domain_name}] Manuelle Follow-ups für fehlgeschlagene CrowdPledges (6 Tage nach Kampagnenende)",
+      subject: "[#{@region.host_domain_name}] #{@pledges.size} Manuelle Follow-ups für fehlgeschlagene CrowdPledges (6 Tage nach Kampagnenende)",
       from: platform_email("no-reply"),
       to: platform_admin_email('michael@imgraetzl.at'),
     )
