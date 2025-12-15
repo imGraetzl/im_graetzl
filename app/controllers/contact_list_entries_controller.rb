@@ -22,6 +22,22 @@ class ContactListEntriesController < ApplicationController
     end
   end
 
+  def sheboost
+    @contact_list_entry = ContactListEntry.new
+  end
+
+  def submit_sheboost
+    @contact_list_entry = ContactListEntry.new(contact_list_entries_params)
+    @contact_list_entry.region_id = current_region.id if current_region
+    @contact_list_entry.via_path = request.path
+    if @contact_list_entry.save
+      redirect_to params[:redirect_path]
+      flash[:notice] = "Vielen Dank für deine Nominierung!"
+    else
+      render 'sheboost'
+    end
+  end
+
   private
 
   def contact_list_entries_params

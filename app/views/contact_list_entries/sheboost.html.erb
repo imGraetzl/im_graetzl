@@ -1,0 +1,36 @@
+<section class="info sheboost-page">
+
+  <%= form_for @contact_list_entry, url: url_for do |f| %>
+    <%= form_errors_for @contact_list_entry if @contact_list_entry %>
+    <%= hidden_field_tag :redirect_path, '/sheboost' %>
+
+    <div class="form-block cardBox">
+      <div class="input-field">
+        <%= f.label :name do %>
+          <%= icon_tag "user-avatar" %>
+          <span>Name</span>
+        <% end %>
+        <%= f.text_field :name, placeholder: 'Vorname Nachname', required: true %>
+      </div>
+      <div class="input-field">
+        <%= f.label :email do %>
+          <%= icon_tag "at-symbol" %>
+          <span>E-Mail</span>
+        <% end %>
+        <%= f.text_field :email, placeholder: 'E-Mail Adresse', required: true %>
+      </div>
+      <div class="input-textarea">
+        <%= f.label :message do %>
+          <%= icon_tag "layout-document" %>
+          <span>Dein Vohaben</span>
+        <% end %>
+        <%= f.text_area :message, placeholder: 'Beschreibe kurz dein Vorhaben in 2-3 Sätzen ...', required: true %>
+      </div>
+      <%= submit_tag "Mein Vorhaben absenden", class: 'btn-primary -rose -large -shadow' %>
+      <p class="hint">
+        Wir verwenden die E-Mail-Adresse ausschließlich zur Vorbereitung der Fördereinreichung. Deine E-Mail-Adresse wird nicht an Dritte weitergegeben und ausschließlich im Rahmen dieses Prozesses genutzt.
+      </p>
+    </div>
+  <% end %>
+
+</section>
