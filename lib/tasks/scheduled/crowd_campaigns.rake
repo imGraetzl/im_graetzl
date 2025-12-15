@@ -32,6 +32,7 @@ namespace :scheduled do
     # Send Reminder email to failed Pledges after X Days
     CrowdCampaign.completed.successful.where(enddate: 3.days.ago).find_each do |campaign|
       campaign.crowd_pledges.failed.find_each do |pledge|
+        next if pledge.id.to_s == "fe40a67e-4c94-4259-a06f-cd8cd2f803f0"
         CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
       end
     end
