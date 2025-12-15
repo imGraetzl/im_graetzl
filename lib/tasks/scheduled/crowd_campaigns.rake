@@ -53,11 +53,11 @@ namespace :scheduled do
   desc 'Manual Follow-up digest for failed pledges 6 days after campaign end'
   task crowd_pledges_failed_manual_followups: :environment do
     manual_followup_campaigns = CrowdCampaign.completed.successful.where(enddate: 6.days.ago)
-    manual_followup_pledges = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns)
+    manual_followup_pledge_ids = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns).pluck(:id)
 
-    if manual_followup_pledges.any?
-      Rails.logger.info("[CrowdCampaigns Manual Follow-up] Sende manuelles Follow-up Digest für #{manual_followup_pledges.count} Pledges")
-      AdminMailer.crowd_pledge_manual_followups(manual_followup_pledges).deliver_later
+    if manual_followup_pledge_ids.any?
+      Rails.logger.info("[CrowdCampaigns Manual Follow-up] Sende manuelles Follow-up Digest für #{manual_followup_pledge_ids.count} Pledges")
+      AdminMailer.crowd_pledge_manual_followups(manual_followup_pledge_ids).deliver_later
     end
   end
 
