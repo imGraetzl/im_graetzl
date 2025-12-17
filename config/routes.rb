@@ -30,6 +30,11 @@ Rails.application.routes.draw do
   get  '/leerstand', to: 'crowd_boosts#leerstand', as: :leerstand
   post '/leerstand', to: 'crowd_boosts#submit_contact_list_entry'
 
+  # SheBoost
+  get  '/sheboost', to: 'contact_list_entries#sheboost', as: :sheboost
+  post '/sheboost', to: 'contact_list_entries#submit_sheboost'
+
+  # Region Andocken
   get 'andocken' => redirect('/') #=> 'region_calls#call'
   post 'andocken' => 'region_calls#create'
 
