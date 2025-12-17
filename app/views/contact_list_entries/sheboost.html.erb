@@ -1,36 +1,148 @@
+<!-- TOP HEADER -->
 <section class="info sheboost-page">
-
-  <%= form_for @contact_list_entry, url: url_for do |f| %>
-    <%= form_errors_for @contact_list_entry if @contact_list_entry %>
-    <%= hidden_field_tag :redirect_path, '/sheboost' %>
-
-    <div class="form-block cardBox">
-      <div class="input-field">
-        <%= f.label :name do %>
-          <%= icon_tag "user-avatar" %>
-          <span>Name</span>
-        <% end %>
-        <%= f.text_field :name, placeholder: 'Vorname Nachname', required: true %>
-      </div>
-      <div class="input-field">
-        <%= f.label :email do %>
-          <%= icon_tag "at-symbol" %>
-          <span>E-Mail</span>
-        <% end %>
-        <%= f.text_field :email, placeholder: 'E-Mail Adresse', required: true %>
-      </div>
-      <div class="input-textarea">
-        <%= f.label :message do %>
-          <%= icon_tag "layout-document" %>
-          <span>Dein Vohaben</span>
-        <% end %>
-        <%= f.text_area :message, placeholder: 'Beschreibe kurz dein Vorhaben in 2-3 Sätzen ...', required: true %>
-      </div>
-      <%= submit_tag "Mein Vorhaben absenden", class: 'btn-primary -rose -large -shadow' %>
-      <p class="hint">
-        Wir verwenden die E-Mail-Adresse ausschließlich zur Vorbereitung der Fördereinreichung. Deine E-Mail-Adresse wird nicht an Dritte weitergegeben und ausschließlich im Rahmen dieses Prozesses genutzt.
-      </p>
+  <div class="imgHeader -fullwidth">
+    <div class="header-media">
+      <%= image_tag 'info/sheboost/header-desk.jpg', alt: 'sheBOOST Illustration', class: 'hero-img' %>
     </div>
-  <% end %>
+    <div class="cardBox">
+      <h1>100 Frauen, 100 Vorhaben und 100 Umsetzungen in Wien suchen eine inspirierende Botschafterin!</h1>
+      <p>Wir starten sheBOOST, um in den nächsten drei Jahren 100 Vorhaben von 100 Frauen in Wien in die Umsetzung zu bringen. Nun suchen wir DIE sheBOOST Botschafterin und brauchen eure Schwarmintelligenz!</p>
+    </div>
+  </div>
+</section>
 
+<!-- NOMINATION SECTION -->
+<section class="content-wide sheboost-nomination-block">
+  <div class="wrp-inner">
+    
+    <div class="hl-subtext">
+      <h1>Wir suchen mehr als eine "Berühmtheit"</h1>
+      <p>Damit sheBOOST so viele Frauen wie möglich erreicht, suchen wir eine Botschafterin, die das Programm nach außen verkörpert. Aber wir wollen nicht irgendeine "Berühmtheit", wir wollen wissen, wer euch inspiriert und motiviert. Wen wünscht ihr euch? Wer verkörpert diese Eigenschaften?</p>
+    </div>
+
+    <div class="nomination-grid">
+      <div class="nomination-criteria">
+        <h3>Eine Frau in der Öffentlichkeit in Österreich, die ...</h3>
+        <ul>
+          <li>für Chancengleichheit brennt: Eine Überzeugungstäterin, die sich laut dafür einsetzt, dass Frauen die gleichen Chancen bekommen.</li>
+          <li>Barrieren im Kopf abbaut: Zeigt, dass man groß denken darf, auch wenn man klein startet.</li>
+          <li>versteht, wie wichtig Netzwerke, gegenseitige Unterstützung und Zusammenhalt sind.</li>
+          <li>selber schon viele Hürden überwunden hat und aus eigener Erfahrung weiß, wie es ist, diesen Weg zu gehen.</li>
+          <li>Türen öffnet: Eine gut vernetzte Unterstützerin, die ihre Reichweite und Sichtbarkeit nutzt, um anderen eine Bühne zu geben.</li>
+        </ul>
+      </div>
+      <div class="nomination-form">
+        <h3>Nominiere jetzt hier eine Frau, die dich inspiriert ...</h3>
+        <%= form_for @contact_list_entry, url: url_for do |f| %>
+          <%= form_errors_for @contact_list_entry if @contact_list_entry %>
+          <%= hidden_field_tag :redirect_path, '/sheboost' %>
+          <div class="form-block">
+            <div class="input-field">
+              <%= f.label :title, "Name der Frau" %>
+              <%= f.text_field :title, placeholder: 'z.B. Nina Schneider', required: true %>
+            </div>
+            <div class="input-field">
+              <%= f.label :url do %>
+                <span>Ihr Profil <em>(Social Media)</em></span>
+              <% end %>
+              <%= f.text_field :url, placeholder: 'https://...', required: false %>
+            </div>
+            <div class="input-textarea">
+              <%= f.label :message do %>
+                <span>Warum Sie? <em>(1 - 2 Sätze)</em></span>
+              <% end %>
+              <%= f.text_area :message, placeholder: 'Sie inspiriert mich, weil...', required: true %>
+            </div>
+            <div class="input-field">
+              <%= f.label :name, "Dein Name" %>
+              <%= f.text_field :name, placeholder: 'Dein Name', required: true %>
+            </div>
+            <div class="input-field">
+              <%= f.label :email, "Deine E-Mail" %>
+              <%= f.text_field :email, placeholder: 'Deine E-Mail Adresse', required: true %>
+            </div>
+            <%= submit_tag "Vorschlag absenden", class: 'btn-primary -mint -large -shadow' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT SHEBOOST SECTION -->
+<section class="content-wide sheboost-about-block">
+  <div class="wrp-inner">
+    <div class="hl-subtext">
+      <h1>Was ist sheBOOST?</h1>
+      <p>sheBOOST ist das neue Umsetzungsprogramm für lokale Macherinnen in Wien. Es richtet sich an selbstständig tätige Frauen, Kunst- und Kulturschaffende, Gründerinnen sowie Vereine und Initiativen, die von Frauen getragen werden. Das Ziel: finanzielle Hürden senken und Netzwerke öffnen, damit aus Ideen konkrete Umsetzungen werden.</p>
+    </div>
+    <div class="cardBoxCollection -tripple">
+      <div class="cardBox">
+        <%= icon_tag "crowd" %>
+        <h3>1. Matchfunding</h3>
+        <p>Wir bauen einen Unterstützer*innen-Kreis auf, die Know-How und finanzielle Mittel im sheBoost Fördertopf hinterlegen. Wenn eine Frau eine Crowdfunding-Kampagne startet, bekommt sie einen direkten finanziellen Zuschuss.</p>
+      </div>
+      <div class="cardBox">
+        <%= icon_tag "favorite" %>
+        <h3>2. Coaching & Netzwerk</h3>
+        <p>Geld allein reicht oft nicht. Deshalb arbeiten wir mit den Teilnehmer*innen am Netzwerkaufbau, es gibt Coaching Session für jede Menge “Jetzt geh ich's an Kraft” und eine persönliche Crowdfunding Begleitung.</p>
+      </div>
+      <div class="cardBox">
+        <%= icon_tag "users" %>
+        <h3>3. Tool GrätzlConnect</h3>
+        <p>Damit das Banden bilden für alle möglich wird, entwickeln wir das Tool GrätzlConnect. Ein neuer Service auf imGrätzl.at für alle, die im realen Leben Gleichgesinnte treffen und kennenlernen möchten.</p>
+      </div>
+  </div>
+</section>
+
+<!-- WHY SHEBOOST SECTION -->
+<section class="content-wide sheboost-why-block">
+  <div class="wrp-inner">
+    <div class="hl-subtext">
+      <h1>Warum es sheBOOST braucht:</h1>
+      <p>Selbstständig tätige Frauen (nicht nur diese) verdienen im Schnitt deutlich weniger, verfügen seltener über ausreichende Sicherheiten und haben damit einen systematisch schlechteren Zugang zur Finanzierung (z.B. Kredite) ihrer Vorhaben.</p>
+    </div>
+    <blockquote>
+      "Das ist kein individuelles Scheitern, sondern ein Systemfehler."
+    </blockquote>
+    <p>
+      Einer, der dafür sorgt, dass gute Ideen von Frauen zu oft stecken bleiben. Frauen sind aber laut Studien wesentlich erfolgreicher als Männer beim Crowdfunding, allerdings nutzen sie es seltener, aufgrund fehlender Netzwerke und Selbstvertrauen. Die Scoring Regeln der Banken können wir nicht ändern, aber wir können Crowdfunding zugänglicher machen und Verbündete sein und uns dafür einsetzen, dass die Vorhaben von Frauen mit vereinten Kräften in Umsetzung kommen.
+    </p>
+  </div>
+</section>
+
+<!-- WHY SHEBOOST SECTION -->
+<section class="content-wide sheboost-team-block">
+  <div class="wrp-inner">
+    <div class="cardBoxCollection -double">
+      <div>
+        <h3>Das sheBOOST Team</h3>
+        <p>Für die Entwicklung und Umsetzung von sheBOOST haben wir uns mit großartigen Expertinnen zusammengeschlossen: <a href="#">Elisabeth Siencnik</a> (Finanzierung), <a href="#">Iris Litschauer</a> (Coaching), <a href="#">Victoria Reiter</a> (Marketing) und <a href="#">Sigrid Koloo</a> (Netzwerkaufbau).</p>
+      </div>
+      <div>
+        <%= image_tag 'info/about-us.jpg', alt: 'sheBOOST Teamfoto', class: 'team-photo' %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER SHEBOOST SECTION -->
+<section class="content-wide sheboost-footer-block">
+  <div class="wrp-inner">
+
+    <div class="cardBoxCollection -double">
+      <div>
+        <%= image_tag 'logo-sheBOOST_white.svg', alt: 'sheBOOST Logo', class: 'sheboost-logo' %>
+        <p>
+          Das Projekt "sheBOOST" wird aus Mitteln der Nationalstiftung für Forschung, Technologie und Entwicklung (NATS) finanziert. Die Abwicklung des Förderungsprogramms Laura Bassi erfolgt durch die Österreichische Forschungsförderungsgesellschaft (FFG) und mit freundlicher Unterstützung des Bundesministeriums für Wirtschaft und Arbeit (BMAW).
+        </p>
+      </div>
+      <div class="logos">
+        Logos ...
+      </div>
+    </div>
+
+    
+  </div>
 </section>

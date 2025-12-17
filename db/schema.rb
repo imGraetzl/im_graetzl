@@ -118,6 +118,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_100952) do
     t.datetime "updated_at", null: false
     t.text "message"
     t.bigint "user_id"
+    t.string "title"
+    t.string "url"
     t.index ["user_id"], name: "index_contact_list_entries_on_user_id"
   end
 

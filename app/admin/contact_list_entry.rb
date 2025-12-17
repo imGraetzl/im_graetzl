@@ -13,5 +13,6 @@ ActiveAdmin.register ContactListEntry do
   end
 
   index { render 'index', context: self }
+  show { render 'show', context: self }
 
 end
