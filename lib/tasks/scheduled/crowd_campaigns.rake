@@ -57,7 +57,7 @@ namespace :scheduled do
     manual_followup_pledge_ids = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns).pluck(:id)
 
     if manual_followup_pledge_ids.any?
-      Rails.logger.info("[CrowdCampaigns Manual Follow-up] Sende manuelles Follow-up Digest für #{manual_followup_pledge_ids.count} Pledges")
+      Sentry.logger.info("[CrowdCampaigns Manual Follow-up] Sende manuelles Follow-up Digest für #{manual_followup_pledge_ids.count} Pledges")
       AdminMailer.crowd_pledge_manual_followups(manual_followup_pledge_ids).deliver_later
     end
   end
