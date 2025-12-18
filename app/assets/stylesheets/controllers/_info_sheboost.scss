@@ -14,12 +14,20 @@ section.info {
 
       .header-media {
         width: 100%;
-        img {
-          display: block;
-          width: 100%;
-          height: clamp(240px, 70vw, 420px);
-          object-fit: cover;
-          object-position: center center;
+        background-image: image-url("info/sheboost/header-mob.jpg");
+        background-position: center -20px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: clamp(320px, 90vw, 560px);
+
+        @include respond-to(">=medium") {
+          background-image: image-url("info/sheboost/header-desk.jpg");
+          background-position: 30% 20%;
+          height: 100%;
+        }
+
+        @include respond-to(">=large") {
+          background-position: 50% 20%;
         }
       }
 
@@ -27,8 +35,8 @@ section.info {
         text-align: left;
         background-color: white;
         min-width: 320px;
-        max-width: 440px;
-        width: 36%;
+        max-width: 450px;
+        width: 45%;
         padding:20px;
         z-index: 2;
         @include respond-to("<=medium") {
@@ -37,30 +45,49 @@ section.info {
           margin: 20px auto 20px auto;
           padding: 20px;
           max-width: 100%;
+          margin-top:-50px;
         }
 
         h1 {
+          margin:auto;
           font-family: $font-primary;
           line-height: 1.1;
-          color: #333;
           background: none;
           text-shadow: none;
-          font-weight:bold;
+          font-weight:900;
           font-size: 4.6rem;
           padding:0;
           padding-bottom:10px;
           hyphens: auto;
           word-break: break-word;
+          color: #333;
+          span {
+            font-size: 3.5rem;
+            display: block;
+            margin-top:20px;
+            margin-bottom:20px;
+          }
           @include respond-to("<large") {
             font-size: 3.6rem;
+            span {
+              font-size: 3.0rem;
+            }
           }
           @include respond-to("<=medium") {
             font-size: 3rem;
+            span {
+              font-size: 2.5rem;
+            }
           }
         }
 
-        p {
-          @include font-size-primaryFont('large');
+        h3 {
+          text-align: center;
+          color: $color-ambient-rosa;
+          font-size: 3.8rem;
+          font-family: $font-tertiary;
+          font-weight: bold;
+          padding-bottom: 0px;
         }
       }
 
@@ -70,14 +97,6 @@ section.info {
         justify-content: flex-start;
         height: 600px;
 
-        .header-media {
-          height: 100%;
-          img {
-            height: 100%;
-            object-position: left center;
-          }
-        }
-
         .cardBox {
           position: absolute;
           top: 50%;
@@ -85,8 +104,9 @@ section.info {
           transform: translateY(-50%);
         }
       }
+      
       @include respond-to(">=large") {
-      height: 700px;
+        height: 700px;
       }
 
     }
@@ -221,7 +241,7 @@ section.info {
 
 // About block (outside main hero scope)
 .sheboost-about-block {
-  background: #e6eee9;
+  background: #eaf2f4;
   clip-path: polygon(0% 0%,100% 0%,100% calc(100% - 10px),95% 100%,90% calc(100% - 10px),85% 100%,80% calc(100% - 10px),75% 100%,70% calc(100% - 10px),65% 100%,60% calc(100% - 10px),55% 100%,50% calc(100% - 10px),45% 100%,40% calc(100% - 10px),35% 100%,30% calc(100% - 10px),25% 100%,20% calc(100% - 10px),15% 100%,10% calc(100% - 10px),5% 100%,0% calc(100% - 10px));
 
   .icon {
