@@ -2,11 +2,20 @@
 <section class="info sheboost-page">
   <div class="imgHeader -fullwidth">
     <div class="header-media">
-      <%= image_tag 'info/sheboost/header-desk.jpg', alt: 'sheBOOST Illustration', class: 'hero-img' %>
     </div>
     <div class="cardBox">
-      <h1>100 Frauen, 100 Vorhaben und 100 Umsetzungen in Wien suchen eine inspirierende Botschafterin!</h1>
-      <p>Wir starten sheBOOST, um in den nächsten drei Jahren 100 Vorhaben von 100 Frauen in Wien in die Umsetzung zu bringen. Nun suchen wir DIE sheBOOST Botschafterin und brauchen eure Schwarmintelligenz!</p>
+      <h1>
+        100 Frauen,<br>
+        100 Vorhaben &<br>
+        100 Umsetzungen<br>
+        in Wien!<br>
+        <span>
+        Dafür suchen wir<br>
+        DIE sheBOOST<br>
+        Botschafterinnen.
+        </span>
+      </h1>
+      <h3>Nominiere sie jetzt!</h3>
     </div>
   </div>
 </section>
@@ -16,19 +25,19 @@
   <div class="wrp-inner">
     
     <div class="hl-subtext">
-      <h1>Wir suchen mehr als eine "Berühmtheit"</h1>
-      <p>Damit sheBOOST so viele Frauen wie möglich erreicht, suchen wir eine Botschafterin, die das Programm nach außen verkörpert. Aber wir wollen nicht irgendeine "Berühmtheit", wir wollen wissen, wer euch inspiriert und motiviert. Wen wünscht ihr euch? Wer verkörpert diese Eigenschaften?</p>
+      <h1>Welche Frau inspiriert dich?</h1>
+      <p>sheBOOST braucht eine Botschafterin, die das Programm nach außen trägt. Eine Frau, die motiviert, Türen öffnet und zeigt: Groß denken geht. </p>
     </div>
 
     <div class="nomination-grid">
       <div class="nomination-criteria">
-        <h3>Eine Frau in der Öffentlichkeit in Österreich, die ...</h3>
+        <h3>Wir suchen eine bekannte Persönlichkeit in Österreich, die sheBOOST ein Gesicht gibt. Eine Frau, die...</h3>
         <ul>
-          <li>für Chancengleichheit brennt: Eine Überzeugungstäterin, die sich laut dafür einsetzt, dass Frauen die gleichen Chancen bekommen.</li>
-          <li>Barrieren im Kopf abbaut: Zeigt, dass man groß denken darf, auch wenn man klein startet.</li>
-          <li>versteht, wie wichtig Netzwerke, gegenseitige Unterstützung und Zusammenhalt sind.</li>
-          <li>selber schon viele Hürden überwunden hat und aus eigener Erfahrung weiß, wie es ist, diesen Weg zu gehen.</li>
-          <li>Türen öffnet: Eine gut vernetzte Unterstützerin, die ihre Reichweite und Sichtbarkeit nutzt, um anderen eine Bühne zu geben.</li>
+          <li>sich für Chancengleichheit einsetzt.</li>
+          <li>Groß denkt und zeigt, dass man klein starten und Großes schaffen kann.</li>
+          <li>Den Weg kennt und selbst Hürden gemeistert hat.</li>
+          <li>Zusammenhalt lebt, weiß, wie wichtig gegenseitige Unterstützung ist.</li>
+          <li>Türen öffnet und ihre Bühne nutzt, um andere sichtbar zu machen.</li>
         </ul>
       </div>
       <div class="nomination-form">
@@ -40,12 +49,6 @@
             <div class="input-field">
               <%= f.label :title, "Name der Frau" %>
               <%= f.text_field :title, placeholder: 'z.B. Nina Schneider', required: true %>
-            </div>
-            <div class="input-field">
-              <%= f.label :url do %>
-                <span>Ihr Profil <em>(Social Media)</em></span>
-              <% end %>
-              <%= f.text_field :url, placeholder: 'https://...', required: false %>
             </div>
             <div class="input-textarea">
               <%= f.label :message do %>
@@ -81,17 +84,17 @@
       <div class="cardBox">
         <%= icon_tag "crowd" %>
         <h3>1. Matchfunding</h3>
-        <p>Wir bauen einen Unterstützer*innen-Kreis auf, die Know-How und finanzielle Mittel im sheBoost Fördertopf hinterlegen. Wenn eine Frau eine Crowdfunding-Kampagne startet, bekommt sie einen direkten finanziellen Zuschuss.</p>
+        <p>Wir bauen einen Unterstützer*innen-Kreis auf, die Know-How und finanzielle Mittel in sheBoost Fördertopf legen. Wenn eine Frau eine Crowdfunding-Kampagne startet, bekommt sie einen direkten finanziellen Zuschuss daraus.</p>
       </div>
       <div class="cardBox">
         <%= icon_tag "favorite" %>
-        <h3>2. Coaching & Netzwerk</h3>
-        <p>Geld allein reicht oft nicht. Deshalb arbeiten wir mit den Teilnehmer*innen am Netzwerkaufbau, es gibt Coaching Session für jede Menge “Jetzt geh ich's an Kraft” und eine persönliche Crowdfunding Begleitung.</p>
+        <h3>2. Netzwerkaufbau & Coaching</h3>
+        <p>Geld allein reicht oft nicht. Deshalb arbeiten wir mit den Teilnehmer*innen am Netzwerkaufbau, zusätzlich gibt es Coaching Sessions für jede Menge “Jetzt geh ich's an Kraft”. Außerdem eine persönliche Crowdfunding Begleitung.</p>
       </div>
       <div class="cardBox">
         <%= icon_tag "users" %>
         <h3>3. Tool GrätzlConnect</h3>
-        <p>Damit das Banden bilden für alle möglich wird, entwickeln wir das Tool GrätzlConnect. Ein neuer Service auf imGrätzl.at für alle, die im realen Leben Gleichgesinnte treffen und kennenlernen möchten.</p>
+        <p>Damit das Banden bilden für alle möglich wird, entwickeln wir das Tool GrätzlConnect. Ein neuer Service auf imGrätzl.at für alle, die im realen Leben Gleichgesinnte treffen und sich vernetzen möchten.</p>
       </div>
   </div>
 </section>
@@ -118,7 +121,17 @@
     <div class="cardBoxCollection -double">
       <div>
         <h3>Das sheBOOST Team</h3>
-        <p>Für die Entwicklung und Umsetzung von sheBOOST haben wir uns mit großartigen Expertinnen zusammengeschlossen: <a href="#">Elisabeth Siencnik</a> (Finanzierung), <a href="#">Iris Litschauer</a> (Coaching), <a href="#">Victoria Reiter</a> (Marketing) und <a href="#">Sigrid Koloo</a> (Netzwerkaufbau).</p>
+        <p>An der Entwicklung und Umsetzung von sheBOOST arbeiten Elisabeth Siencnik, Iris Litschauer, Victoria Reiter und Sigrid Koloo, außerdem Lena, Mirjam und Michael von imGrätzl.at Team (Projektleitung) </p>
+        <p>
+          ️<br>
+          <strong>Kooperationspartner*innen: </strong><br>
+          Sorority<br>
+          fase<br>
+          Frau in der Wirtschaft Wien<br>
+          Impact Hub<br>
+          Ig Kultur Wien<br>
+          Frauenservice Stadt Wien
+        </p>
       </div>
       <div>
         <%= image_tag 'info/about-us.jpg', alt: 'sheBOOST Teamfoto', class: 'team-photo' %>
