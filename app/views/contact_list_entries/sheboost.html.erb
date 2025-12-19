@@ -3,25 +3,27 @@
   <div class="imgHeader -fullwidth">
     <div class="header-media">
     </div>
-    <div class="cardBox">
-      <h1>
-        100 Frauen,<br>
-        100 Vorhaben &<br>
-        100 Umsetzungen<br>
-        in Wien!<br>
-        <span>
-        Dafür suchen wir<br>
-        DIE sheBOOST<br>
-        Botschafterinnen.
-        </span>
+    <div class="cardBox sheboost-hero-card">
+      <h1 class="sheboost-hero-title">
+        <span class="hero-count-number">100</span>
+        <span class="hero-count-text">Frauen,</span>
+        <span class="hero-count-number">100</span>
+        <span class="hero-count-text">Vorhaben &</span>
+        <span class="hero-count-number">100</span>
+        <span class="hero-count-text">Umsetzungen</span>
+        <span class="hero-count-text -full">in Wien!</span>
       </h1>
-      <h3>Nominiere sie jetzt!</h3>
+      <div class="sheboost-hero-sub">
+        <span class="hero-subline hero-subline-1">Dafür suchen wir</span>
+        <span class="hero-subline hero-subline-2">DIE <span class="hero-accent">sheBOOST</span> Botschafterinnen.</span>
+      </div>
+      <%= link_to "Nominiere sie jetzt!", "#sheboost-nomination", class: 'btn-primary -rose -large -shadow sheboost-hero-cta' %>
     </div>
   </div>
 </section>
 
 <!-- NOMINATION SECTION -->
-<section class="content-wide sheboost-nomination-block">
+<section class="content-wide sheboost-nomination-block" id="sheboost-nomination">
   <div class="wrp-inner">
     
     <div class="hl-subtext">

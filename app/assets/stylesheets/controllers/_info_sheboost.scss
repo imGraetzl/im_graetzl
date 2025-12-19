@@ -33,61 +33,146 @@ section.info {
 
       .cardBox {
         text-align: left;
-        background-color: white;
-        min-width: 320px;
-        max-width: 450px;
-        width: 45%;
-        padding:20px;
+        background-color: rgba(255,255,255,0.75);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(0,0,0,0.04);
+        box-sizing: border-box;
+        min-width: 0;
+        max-width: 460px;
+        width: 44%;
+        padding: 30px 38px 26px 38px;
         z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        &.sheboost-hero-card {
+          --hero-number-width: clamp(60px, 11vw, 72px);
+          --hero-gap: 14px;
+
+          .sheboost-hero-title {
+            display: grid;
+            grid-template-columns: minmax(0, var(--hero-number-width)) minmax(0, 1fr);
+            column-gap: var(--hero-gap);
+            row-gap: 8px;
+            margin: 0;
+            padding: 0;
+            font-family: $font-primary;
+            font-weight: 900;
+            letter-spacing: -0.01em;
+            line-height: 1.05;
+            font-size: clamp(2.8rem, 4.8vw, 4.0rem);
+            background: none;
+            text-shadow: none;
+            word-break: normal;
+            hyphens: none;
+            overflow-wrap: normal;
+          }
+
+          .hero-count-number {
+            color: $color-ambient-mint;
+            font-style: italic;
+            font-weight: 900;
+          }
+
+          .hero-count-text {
+            color: #333;
+            font-weight: 900;
+            &.-full {
+              grid-column: 2;
+            }
+          }
+
+          .sheboost-hero-sub {
+            margin: 10px 0 0;
+            display: grid;
+            gap: 10px;
+            margin-left: calc(var(--hero-number-width) + var(--hero-gap));
+            align-content: start;
+            font-style: italic;
+          }
+
+          .hero-subline {
+            display: block;
+            font-weight: 800;
+            line-height: 1.2;
+            font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+            color: #2d2d2d;
+          }
+
+          .hero-accent {
+            color: $color-ambient-mint;
+            font-style: italic;
+          }
+
+          .sheboost-hero-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            margin-top: 8px;
+            margin-left: calc(var(--hero-number-width) + var(--hero-gap));
+            min-width: 220px;
+            width: auto;
+            max-width: 380px;
+            box-sizing: border-box;
+          }
+        }
+
+        @include respond-to("<large") {
+          &.sheboost-hero-card {
+            --hero-number-width: 52px;
+            --hero-gap: 12px;
+            .sheboost-hero-title {
+              font-size: clamp(2.4rem, 3.8vw, 3.2rem);
+              line-height: 1.08;
+            }
+            .sheboost-hero-sub {
+              margin-left: calc(var(--hero-number-width) + var(--hero-gap));
+            }
+          }
+          width: 50%;
+        }
+
         @include respond-to("<=medium") {
           position: static;
-          width: calc(100% - 40px);
+          width: 90%;
           margin: 20px auto 20px auto;
-          padding: 20px;
-          max-width: 100%;
+          padding: 20px 18px 18px 20px;
+          max-width: 520px;
           margin-top:-50px;
-        }
 
-        h1 {
-          margin:auto;
-          font-family: $font-primary;
-          line-height: 1.1;
-          background: none;
-          text-shadow: none;
-          font-weight:900;
-          font-size: 4.6rem;
-          padding:0;
-          padding-bottom:10px;
-          hyphens: auto;
-          word-break: break-word;
-          color: #333;
-          span {
-            font-size: 3.5rem;
-            display: block;
-            margin-top:20px;
-            margin-bottom:20px;
-          }
-          @include respond-to("<large") {
-            font-size: 3.6rem;
-            span {
-              font-size: 3.0rem;
+          &.sheboost-hero-card {
+            --hero-number-width: 46px;
+            --hero-gap: 12px;
+            .sheboost-hero-title {
+              row-gap: 6px;
+              column-gap: var(--hero-gap);
+              font-size: clamp(2.5rem, 5vw, 3.4rem);
+            }
+            .sheboost-hero-sub {
+              margin-left: 0;
+              display: inline-flex;
+              flex-wrap: wrap;
+              gap: 6px;
+            }
+            .hero-subline {
+              display: inline;
+              font-size: clamp(1.8rem, 4.4vw, 2.3rem);
+            }
+            .sheboost-hero-cta {
+              margin-left: 0;
+              margin-right: 0;
+              align-self: stretch;
+              min-width: 0;
+              width: 100%;
+              max-width: 100%;
+              box-sizing: border-box;
+              padding-left: 18px;
+              padding-right: 18px;
+              min-height: 52px;
             }
           }
-          @include respond-to("<=medium") {
-            font-size: 3rem;
-            span {
-              font-size: 2.5rem;
-            }
-          }
-        }
-
-        h3 {
-          text-align: center;
-          color: $color-ambient-rosa;
-          font-size: 3.8rem;
-          font-family: $font-tertiary;
-          font-weight: bold;
-          padding-bottom: 0px;
         }
       }
 
@@ -99,7 +184,7 @@ section.info {
 
         .cardBox {
           position: absolute;
-          top: 50%;
+          top: 44%;
           left: 50px;
           transform: translateY(-50%);
         }
