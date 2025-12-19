@@ -398,6 +398,9 @@ section.info {
   img {
     width: 100%;
     height: auto;
+    @include respond-to("<=large") {
+      margin-top:20px;
+    }
   }
 
 }
@@ -410,6 +413,7 @@ section.info {
   .sheboost-logo {
     height:50px;
     width: auto;
+    margin-bottom:20px;
   }
   .logos {
     display: flex;
