@@ -38,7 +38,7 @@ section.info {
         border: 1px solid rgba(0,0,0,0.04);
         box-sizing: border-box;
         min-width: 0;
-        max-width: 460px;
+        max-width: 440px;
         width: 44%;
         padding: 30px 38px 26px 38px;
         z-index: 2;
@@ -132,6 +132,7 @@ section.info {
             }
           }
           width: 50%;
+          max-width: 420px;
         }
 
         @include respond-to("<=medium") {
@@ -185,13 +186,17 @@ section.info {
         .cardBox {
           position: absolute;
           top: 44%;
-          left: 50px;
+          left: 30px;
           transform: translateY(-50%);
         }
       }
       
       @include respond-to(">=large") {
         height: 700px;
+
+        .cardBox {
+          left: 60px;
+        }
       }
 
     }
@@ -393,6 +398,9 @@ section.info {
   img {
     width: 100%;
     height: auto;
+    @include respond-to("<=large") {
+      margin-top:20px;
+    }
   }
 
 }
@@ -405,6 +413,7 @@ section.info {
   .sheboost-logo {
     height:50px;
     width: auto;
+    margin-bottom:20px;
   }
   .logos {
     display: flex;
