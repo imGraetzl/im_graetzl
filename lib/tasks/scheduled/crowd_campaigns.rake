@@ -51,9 +51,9 @@ namespace :scheduled do
 
   end
 
-  desc 'Manual Follow-up digest for failed pledges 6 days after campaign end'
+  desc 'Manual Follow-up digest for failed pledges 5 days after campaign end'
   task crowd_pledges_failed_manual_followups: :environment do
-    manual_followup_campaigns = CrowdCampaign.completed.successful.where(enddate: 6.days.ago)
+    manual_followup_campaigns = CrowdCampaign.completed.successful.where(enddate: 5.days.ago)
     manual_followup_pledge_ids = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns).pluck(:id)
 
     if manual_followup_pledge_ids.any?
