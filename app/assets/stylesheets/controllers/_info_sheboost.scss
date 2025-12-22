@@ -86,7 +86,7 @@ section.info {
           .sheboost-hero-sub {
             margin: 10px 0 0;
             display: grid;
-            gap: 10px;
+            row-gap: 0;
             margin-left: calc(var(--hero-number-width) + var(--hero-gap));
             align-content: start;
             font-style: italic;
@@ -155,7 +155,8 @@ section.info {
               margin-left: 0;
               display: inline-flex;
               flex-wrap: wrap;
-              gap: 6px;
+              column-gap: 6px;
+              row-gap: 0;
             }
             .hero-subline {
               display: inline;
@@ -223,7 +224,10 @@ section.info {
   }
 
   .hl-subtext {
-    margin-bottom: 60px;
+    @include respond-to(">=medium") {
+      margin-bottom: 60px;
+    }
+    
   }
   
 }
@@ -246,6 +250,12 @@ section.info {
       @include font-size-primaryFont('largest');
       font-weight: 700;
     }
+  }
+
+  .hl-subtext {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .nomination-criteria {
@@ -363,13 +373,15 @@ section.info {
     color: $color-ambient-rosa;
     font-family: Merriweather,serif;
     font-style: italic;
-    font-size: 5rem;
+    font-size: 3.5rem;
     text-align: center;
     font-weight: 700;
     margin: auto;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     line-height: 1.1;
     @include respond-to(">=medium") {
+      font-size: 4.5rem;
+      margin-bottom: 60px;
       width:50%;
     }
   }
@@ -406,9 +418,9 @@ section.info {
 }
 
 .sheboost-footer-block {
-  background: #333333;
-  border-top: #69807d 8px solid;
-  color: rgb(188, 188, 188);
+  background: #eaf2f4;
+  border-top: #024e54 8px solid;
+  color: #565759;
 
   .sheboost-logo {
     height:50px;
@@ -417,14 +429,15 @@ section.info {
   }
   .logos {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    gap: 40px;
     margin-top: 20px;
     margin-bottom: 20px;
   }
   .partner-logo {
-    height:50px;
+    height:30px;
     width: auto;
+    margin-bottom: 20px;
   }
 }
