@@ -45,6 +45,8 @@ class CrowdCampaignService
   end
 
   def close(campaign)
+    return unless campaign.payout_waiting?
+
     invoice_number = "#{Date.current.year}_Crowdfunding-#{campaign.id}_Nr-#{CrowdCampaign.next_invoice_number}"
     campaign.update(invoice_number: invoice_number, transfer_status: 'payout_ready')
     generate_invoice(campaign)
