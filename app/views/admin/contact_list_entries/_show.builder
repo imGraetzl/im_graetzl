@@ -3,6 +3,7 @@ context.instance_eval do
     column do
       attributes_table do
         row :id
+        row(:status){|r| status_tag(r.status)}
         row :via_path
         row :region_id
         row :title

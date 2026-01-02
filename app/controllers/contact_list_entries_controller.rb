@@ -1,8 +1,12 @@
 class ContactListEntriesController < ApplicationController
   layout :set_layout
+  rate_limit to: 25, within: 5.minutes, only: [:submit_sheboost]
+  SHEBOOST_SLIDER_LIMIT = 2
 
   def sheboost
     @contact_list_entry = ContactListEntry.new
+    @sheboost_entries_limit = SHEBOOST_SLIDER_LIMIT
+    @sheboost_entries = sheboost_entries_scope('/sheboost').limit(SHEBOOST_SLIDER_LIMIT)
   end
 
   def submit_sheboost
@@ -15,8 +19,20 @@ class ContactListEntriesController < ApplicationController
       #MarketingMailer.contact_list_entry(@contact_list_entry).deliver_later
       AdminMailer.new_contact_list_entry(@contact_list_entry).deliver_later
     else
+      @sheboost_entries_limit = SHEBOOST_SLIDER_LIMIT
+      @sheboost_entries = sheboost_entries_scope('/sheboost').limit(SHEBOOST_SLIDER_LIMIT)
       render 'sheboost'
     end
+  end
+
+  def sheboost_entries
+    page = params[:page].to_i
+    page = 0 if page.negative?
+    via_path = params[:via_path].presence || '/sheboost'
+    @sheboost_entries = sheboost_entries_scope(via_path)
+      .offset(page * SHEBOOST_SLIDER_LIMIT)
+      .limit(SHEBOOST_SLIDER_LIMIT)
+    render partial: 'contact_list_entries/sheboost_entry', collection: @sheboost_entries, as: :entry
   end
 
   private
@@ -30,6 +46,10 @@ class ContactListEntriesController < ApplicationController
       :url,
       :message,
     )
+  end
+
+  def sheboost_entries_scope(via_path)
+    ContactListEntry.enabled.where(via_path: via_path).order(created_at: :desc)
   end
 
   def set_layout

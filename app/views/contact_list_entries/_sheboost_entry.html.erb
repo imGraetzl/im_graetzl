@@ -1,0 +1,14 @@
+<div class="cardBox sheboost-nomination-card">
+  <div>
+    <h3 class="nomination-title"><%= entry.title.presence || "Nominierung" %></h3>
+    <% if entry.message.present? %>
+      <div class="nomination-message"><%= simple_format(h(truncate(entry.message, length: 500, omission: '...'))) %></div>
+    <% end %>
+  </div>
+  <% if entry.name.present? %>
+    <div class="nomination-from">
+      <strong>Nominiert von <%= entry.name %></strong><br>
+      <small>vor <%= time_ago_in_words(entry.created_at) %></small>
+    </div>
+  <% end %>
+</div>

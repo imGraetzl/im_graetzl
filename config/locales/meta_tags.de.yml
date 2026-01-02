@@ -692,6 +692,9 @@ de:
     crowd2raum_graz:
       title: 'Raum gesucht? Hier ist deine Chance!'
       description: 'Drei spannende Geschäftslokale im Erdgeschoss rund um den Jakominiplatz – einem der zentralsten und belebtesten Orte in Graz – warten darauf, mit Leben gefüllt zu werden!'
+    sheboost:
+      title: 'sheBOOST – 100 Frauen, 100 Vorhaben & 100 Umsetzungen in Wien!'
+      description: 'sheBOOST ist das neue Umsetzungsprogramm für lokale Macherinnen in Wien. Es richtet sich an selbstständig tätige Frauen, Kunst- und Kulturschaffende, Gründerinnen sowie Vereine und Initiativen, die von Frauen getragen werden. Das Ziel: finanzielle Hürden senken und Netzwerke öffnen, damit aus Ideen konkrete Umsetzungen werden.'
 
   region_calls:
     call:
