@@ -48,7 +48,7 @@ section.info {
 
         &.sheboost-hero-card {
           --hero-number-width: clamp(60px, 11vw, 72px);
-          --hero-gap: 14px;
+          --hero-gap: 10px;
 
           .sheboost-hero-title {
             display: grid;
@@ -122,7 +122,7 @@ section.info {
         @include respond-to("<large") {
           &.sheboost-hero-card {
             --hero-number-width: 52px;
-            --hero-gap: 12px;
+            --hero-gap: 10px;
             .sheboost-hero-title {
               font-size: clamp(2.4rem, 3.8vw, 3.2rem);
               line-height: 1.08;
@@ -336,6 +336,51 @@ section.info {
       }
     }
 
+  }
+}
+
+.sheboost-slider-block {
+
+  background: #fff;
+  margin-bottom: 0px !important;
+
+  .card-slider-container {
+    margin-bottom: 0px !important;
+  }
+
+  .sheboost-card-slider {
+    height: auto !important;
+    min-height: 250px;
+    display: flex;
+  }
+
+  .sheboost-nomination-card {
+    background-color: rgba(234, 242, 244, 1.0);
+    padding:30px 40px 15px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto !important;
+  }
+
+  .nomination-title {
+    padding-bottom:5px;
+    font-style: italic;
+    color: $color-ambient-mint-dark;
+  }
+
+  .nomination-message {
+    font-style: italic;
+  }
+
+  .nomination-from {
+    border-top: 1px dashed $color-ambient-mint-dark;
+    padding-top: 10px;
+    margin-top: 15px;
+    font-style: italic;
+    small {
+      color: $color-ambient-grey;
+    }
   }
 }
 

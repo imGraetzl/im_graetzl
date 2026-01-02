@@ -1,3 +1,13 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url("info/sheboost/header-desk.jpg")
+  )
+%>
+
 <!-- TOP HEADER -->
 <section class="info sheboost-page">
   <div class="imgHeader -fullwidth">
@@ -56,7 +66,7 @@
               <%= f.label :message do %>
                 <span>Warum Sie? <em>(1 - 2 Sätze)</em></span>
               <% end %>
-              <%= f.text_area :message, placeholder: 'Sie inspiriert mich, weil...', required: true %>
+              <%= f.text_area :message, placeholder: 'Sie inspiriert mich, weil...', required: true, maxlength: 500 %>
             </div>
             <div class="input-field">
               <%= f.label :name, "Dein Name" %>
@@ -74,6 +84,28 @@
   </div>
 
 </section>
+
+<% if @sheboost_entries.any? %>
+<!-- NOMINATION SLIDER SECTION -->
+<section class="content-wide sheboost-slider-block">
+  <div class="wrp-inner">
+    <div class="hl-subtext">
+      <h1>Kürzlich nominiert</h1>
+      <p>Ein Auszug aus den letzten Nominierungen.</p>
+    </div>
+    <div class="lightSliderWrapper card-slider-container">
+      <div
+        class="card-slider sheboost-card-slider"
+        data-entries-url="<%= sheboost_entries_path %>"
+        data-via-path="<%= request.path %>"
+        data-per-page="<%= @sheboost_entries_limit %>"
+      >
+        <%= render partial: 'contact_list_entries/sheboost_entry', collection: @sheboost_entries, as: :entry %>
+      </div>
+    </div>
+  </div>
+</section>
+<% end %>
 
 <!-- ABOUT SHEBOOST SECTION -->
 <section class="content-wide sheboost-about-block">

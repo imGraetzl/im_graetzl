@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   # SheBoost
   get  '/sheboost', to: 'contact_list_entries#sheboost', as: :sheboost
   post '/sheboost', to: 'contact_list_entries#submit_sheboost'
+  get  '/sheboost/entries', to: 'contact_list_entries#sheboost_entries', as: :sheboost_entries
 
   # Region Andocken
   get 'andocken' => redirect('/') #=> 'region_calls#call'
