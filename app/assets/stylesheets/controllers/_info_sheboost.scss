@@ -5,211 +5,26 @@ section.info {
     padding-bottom: 0px;
 
     .imgHeader {
-      background: none;
-      display: block;
-      text-align: left;
-      height: auto;
-      padding: 0;
-      max-height: none;
-
-      .header-media {
-        width: 100%;
-        background-image: image-url("info/sheboost/header-mob.jpg");
-        background-position: center -20px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: clamp(320px, 90vw, 560px);
-
-        @include respond-to(">=medium") {
-          background-image: image-url("info/sheboost/header-desk.jpg");
-          background-position: 30% 20%;
-          height: 100%;
-        }
-
-        @include respond-to(">=large") {
-          background-position: 50% 20%;
-        }
-      }
-
-      .cardBox {
-        text-align: left;
-        background-color: rgba(255,255,255,0.75);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(0,0,0,0.04);
-        box-sizing: border-box;
-        min-width: 0;
-        max-width: 440px;
-        width: 44%;
-        padding: 30px 38px 26px 38px;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-
-        &.sheboost-hero-card {
-          --hero-number-width: clamp(60px, 11vw, 72px);
-          --hero-gap: 10px;
-
-          .sheboost-hero-title {
-            display: grid;
-            grid-template-columns: minmax(0, var(--hero-number-width)) minmax(0, 1fr);
-            column-gap: var(--hero-gap);
-            row-gap: 8px;
-            margin: 0;
-            padding: 0;
-            font-family: $font-primary;
-            font-weight: 900;
-            letter-spacing: -0.01em;
-            line-height: 1.05;
-            font-size: clamp(2.8rem, 4.8vw, 4.0rem);
-            background: none;
-            text-shadow: none;
-            word-break: normal;
-            hyphens: none;
-            overflow-wrap: normal;
-          }
-
-          .hero-count-number {
-            color: $color-ambient-rosa;
-            font-style: italic;
-            font-weight: 900;
-          }
-
-          .hero-count-text {
-            color: #333;
-            font-weight: 900;
-            &.-full {
-              grid-column: 2;
-            }
-          }
-
-          .sheboost-hero-sub {
-            margin: 10px 0 0;
-            display: grid;
-            row-gap: 0;
-            margin-left: calc(var(--hero-number-width) + var(--hero-gap));
-            align-content: start;
-            font-style: italic;
-          }
-
-          .hero-subline {
-            display: block;
-            font-weight: 800;
-            line-height: 1.2;
-            font-size: clamp(1.9rem, 3.6vw, 2.6rem);
-            color: #2d2d2d;
-          }
-
-          .hero-accent {
-            color: $color-ambient-rosa;
-            font-style: italic;
-          }
-
-          .sheboost-hero-cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            align-self: flex-start;
-            margin-top: 8px;
-            margin-left: calc(var(--hero-number-width) + var(--hero-gap));
-            min-width: 220px;
-            width: auto;
-            max-width: 380px;
-            box-sizing: border-box;
-          }
-        }
-
-        @include respond-to("<large") {
-          &.sheboost-hero-card {
-            --hero-number-width: 52px;
-            --hero-gap: 10px;
-            .sheboost-hero-title {
-              font-size: clamp(2.4rem, 3.8vw, 3.2rem);
-              line-height: 1.08;
-            }
-            .sheboost-hero-sub {
-              margin-left: calc(var(--hero-number-width) + var(--hero-gap));
-            }
-          }
-          width: 50%;
-          max-width: 420px;
-        }
-
-        @include respond-to("<=medium") {
-          position: static;
-          width: 90%;
-          margin: 20px auto 20px auto;
-          padding: 20px 18px 18px 20px;
-          max-width: 520px;
-          margin-top:-50px;
-
-          &.sheboost-hero-card {
-            --hero-number-width: 46px;
-            --hero-gap: 12px;
-            .sheboost-hero-title {
-              row-gap: 6px;
-              column-gap: var(--hero-gap);
-              font-size: clamp(2.5rem, 5vw, 3.4rem);
-            }
-            .sheboost-hero-sub {
-              margin-left: 0;
-              display: inline-flex;
-              flex-wrap: wrap;
-              column-gap: 6px;
-              row-gap: 0;
-            }
-            .hero-subline {
-              display: inline;
-              font-size: clamp(1.8rem, 4.4vw, 2.3rem);
-            }
-            .sheboost-hero-cta {
-              margin-left: 0;
-              margin-right: 0;
-              align-self: stretch;
-              min-width: 0;
-              width: 100%;
-              max-width: 100%;
-              box-sizing: border-box;
-              padding-left: 18px;
-              padding-right: 18px;
-              min-height: 52px;
-            }
-          }
-        }
-      }
-
+      background-image: image-url("info/sheboost/header-mob.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center -40px;
+      height: 500px;
       @include respond-to(">=medium") {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        height: 600px;
-
-        .cardBox {
-          position: absolute;
-          top: 44%;
-          left: 30px;
-          transform: translateY(-50%);
-        }
+        background-image: image-url("info/sheboost/header-desk-1.jpg");
+        background-position: center -20px;
+        height: 680px;
       }
-      
-      @include respond-to(">=large") {
-        height: 700px;
-
-        .cardBox {
-          left: 60px;
-        }
-      }
-
     }
     .imgHeader::after {
-      background-image: none;
-      content: none;
-    } 
+      background-image: linear-gradient(to bottom, rgba(252,252,252,0), rgba(252,252,252,1));
+      top: 60%;
+    }
 
   }
 }
 
-// Sheboost wide content wrapper
+// Sheboost wide content wrapper generel styles
 .content-wide[class*="sheboost-"] {
   .wrp-inner {
     margin: 0 auto;
@@ -217,19 +32,57 @@ section.info {
       max-width: 1200px;
     }
   }
-
-  // Only the last sheboost block should pull up the following section
   &:last-of-type {
     margin-bottom: -80px;
   }
-
   .hl-subtext {
     @include respond-to(">=medium") {
       margin-bottom: 60px;
     }
-    
   }
-  
+}
+
+// Hero block (outside main hero scope)
+.sheboost-hero-block {
+  background: none;
+  margin-top: -80px;
+  margin-bottom:0px;
+  padding-bottom:0px;
+  @include respond-to(">=medium") {
+    margin-top: -150px;
+  }
+  h1 {
+    @include font-size-secondaryFont('larger');
+    line-height: 1.3;
+    em {
+      background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-mint.svg'));
+      text-shadow: #615454 2px 2px;
+      @include respond-to("<=medium") {
+        padding: 5px 10px 5px 10px;
+      }
+    }
+    span {
+      color: #615454;
+      text-decoration:wavy underline;
+      text-decoration-thickness: 0.10em;
+      text-underline-offset: 0.20em;
+      text-decoration-color: $color-ambient-mint;
+    }
+  }
+  p {
+      font-style: italic;
+      @include font-size-primaryFont('largest');
+      font-weight: bold;
+      span {
+        color: $color-ambient-mint-dark;
+      }
+  }
+  .btn-primary {
+    display: flex;;
+    width:fit-content;
+    margin:auto;
+    margin-top: 15px;
+  }
 }
 
 // Nomination block (outside main hero scope)
@@ -367,6 +220,7 @@ section.info {
     padding-bottom:5px;
     font-style: italic;
     color: $color-ambient-mint-dark;
+    @include font-size-primaryFont('larger');
   }
 
   .nomination-message {
