@@ -66,7 +66,7 @@
               <%= f.label :email, "Deine E-Mail" %>
               <%= f.text_field :email, placeholder: 'Deine E-Mail Adresse', required: true %>
             </div>
-            <%= submit_tag "Vorschlag absenden", class: 'btn-primary -mint -large -shadow' %>
+            <%= submit_tag "Nominierung absenden", class: 'btn-primary -rose -large -shadow' %>
           </div>
         <% end %>
       </div>
@@ -148,17 +148,21 @@
         <p>An der Entwicklung und Umsetzung von sheBOOST arbeiten Elisabeth Siencnik, Iris Litschauer, Victoria Reiter und Sigrid Koloo, außerdem Lena, Mirjam und Michael von imGrätzl.at Team (Projektleitung) </p>
         <p>
           ️<br>
-          <strong>Kooperationspartner*innen: </strong><br>
-          Sorority<br>
-          fase<br>
-          Frau in der Wirtschaft Wien<br>
-          Impact Hub<br>
-          Ig Kultur Wien<br>
-          Frauenservice Stadt Wien
+          <strong>Kooperationspartner*innen: </strong><br><br>
+          <ul class="list-basic">
+            <li><%= link_to 'IG KULTUR WIEN', 'https://www.igkulturwien.net/', target: '_blank' %></li>
+            <li><%= link_to 'Sorority', 'https://sorority.at/', target: '_blank' %></li>
+            <li><%= link_to 'Impact HUB Vienna', 'https://vienna.impacthub.net/', target: '_blank' %></li>
+            <li><%= link_to 'MA 57 - Frauenservice Wien', 'https://www.wien.gv.at/kontakt/ma57', target: '_blank' %></li>
+            <li><%= link_to 'Frau in der Wirtschaft - Wirtschaftskammer Wien', 'https://www.wko.at/wien/netzwerke/start', target: '_blank' %></li>
+            <li><%= link_to 'FASE', 'https://fa-se.de/', target: '_blank' %></li>
+            <li><%= link_to 'WOMENTOR', 'https://womentor.at', target: '_blank' %></li>
+            <li><%= link_to 'Commonroom', 'https://commonroom.at/', target: '_blank' %></li>
+          </ul>
         </p>
       </div>
       <div>
-        <%= image_tag 'info/about-us.jpg', alt: 'sheBOOST Teamfoto', class: 'team-photo' %>
+        <%= image_tag 'info/sheboost/team-small.jpg', alt: 'sheBOOST Teamfoto', class: 'team-photo' %>
       </div>
     </div>
   </div>

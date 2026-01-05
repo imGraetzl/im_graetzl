@@ -1,4 +1,5 @@
 section.info {
+
   // Add styles for sheboost page here
   &.sheboost-page {
 
@@ -13,34 +14,34 @@ section.info {
       @include respond-to(">=medium") {
         background-image: image-url("info/sheboost/header-desk-1.jpg");
         background-position: center -20px;
-        height: 680px;
+        height: 600px;
       }
     }
     .imgHeader::after {
       background-image: linear-gradient(to bottom, rgba(252,252,252,0), rgba(252,252,252,1));
-      top: 60%;
+      top: 50%;
     }
 
   }
 }
 
 // Sheboost wide content wrapper generel styles
-.content-wide[class*="sheboost-"] {
-  .wrp-inner {
-    margin: 0 auto;
-    @media (min-width: 1200px) {
-      max-width: 1200px;
+    .content-wide[class*="sheboost-"] {
+      .wrp-inner {
+        margin: 0 auto;
+        @media (min-width: 1200px) {
+          max-width: 1200px;
+        }
+      }
+      &:last-of-type {
+        margin-bottom: -80px;
+      }
+      .hl-subtext {
+        @include respond-to(">=medium") {
+          margin-bottom: 60px;
+        }
+      }
     }
-  }
-  &:last-of-type {
-    margin-bottom: -80px;
-  }
-  .hl-subtext {
-    @include respond-to(">=medium") {
-      margin-bottom: 60px;
-    }
-  }
-}
 
 // Hero block (outside main hero scope)
 .sheboost-hero-block {
@@ -49,7 +50,7 @@ section.info {
   margin-bottom:0px;
   padding-bottom:0px;
   @include respond-to(">=medium") {
-    margin-top: -150px;
+    margin-top: -120px;
   }
   h1 {
     @include font-size-secondaryFont('larger');
@@ -232,7 +233,7 @@ section.info {
     padding-top: 10px;
     margin-top: 15px;
     font-style: italic;
-    small {
+    span {
       color: $color-ambient-grey;
     }
   }
@@ -300,7 +301,6 @@ section.info {
       @include font-size-primaryFont('large');
   }
   a {
-    font-weight: 700;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -312,6 +312,7 @@ section.info {
     @include respond-to("<=large") {
       margin-top:20px;
     }
+    border-radius: 10px;
   }
 
 }
