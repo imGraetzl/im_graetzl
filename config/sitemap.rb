@@ -156,6 +156,7 @@ Region.all.each do |region|
 
     # Static Vienna Pages
     if region.id == 'wien'
+      add sheboost_path, changefreq: 'daily', priority: 1.0
       add good_morning_dates_path, changefreq: 'daily', priority: 0.9
       add leerstand_path, changefreq: 'daily', priority: 1.0
     end

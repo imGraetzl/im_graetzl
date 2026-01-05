@@ -44,6 +44,7 @@ class ContactListEntriesController < ApplicationController
       :email,
       :title,
       :url,
+      :status,
       :message,
     )
   end
