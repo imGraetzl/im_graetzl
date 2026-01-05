@@ -1,0 +1,347 @@
+section.info {
+
+  // Add styles for sheboost page here
+  &.sheboost-page {
+
+    padding-bottom: 0px;
+
+    .imgHeader {
+      background-image: image-url("info/sheboost/header-mob.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center -40px;
+      height: 420px;
+      @include respond-to(">=medium") {
+        background-image: image-url("info/sheboost/header-desk-1.jpg");
+        background-position: center -20px;
+        height: 600px;
+      }
+      @media (min-width: 1900px) {
+        height: 850px;
+      }
+    }
+    .imgHeader::after {
+      background-image: linear-gradient(to bottom, rgba(252,252,252,0), rgba(252,252,252,1));
+      top: 50%;
+    }
+
+  }
+}
+
+// Sheboost wide content wrapper generel styles
+    .content-wide[class*="sheboost-"] {
+      .wrp-inner {
+        margin: 0 auto;
+        @media (min-width: 1200px) {
+          max-width: 1200px;
+        }
+      }
+      &:last-of-type {
+        margin-bottom: -80px;
+      }
+      .hl-subtext {
+        @include respond-to(">=medium") {
+          margin-bottom: 60px;
+        }
+      }
+    }
+
+// Hero block (outside main hero scope)
+.sheboost-hero-block {
+  background: none;
+  margin-top: -80px;
+  margin-bottom:0px;
+  padding-bottom:0px;
+  @include respond-to(">=medium") {
+    margin-top: -120px;
+  }
+  h1 {
+    @include font-size-secondaryFont('larger');
+    line-height: 1.0;
+    em {
+      background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-mint.svg'));
+      text-shadow: #615454 2px 2px;
+      @include respond-to("<=medium") {
+        padding: 5px 10px 5px 10px;
+      }
+    }
+    span {
+      color: #615454;
+      text-decoration: none;
+      text-decoration-thickness: 0.10em;
+      text-underline-offset: 0.20em;
+      text-decoration-color: $color-ambient-mint;
+    }
+  }
+  p {
+      font-style: italic;
+      @include font-size-primaryFont('largest');
+      font-weight: bold;
+      span {
+        color: $color-ambient-mint-dark;
+      }
+  }
+  .btn-primary {
+    display: flex;;
+    width:fit-content;
+    margin:auto;
+    margin-top: 15px;
+  }
+}
+
+// Nomination block (outside main hero scope)
+.sheboost-nomination-block {
+  background: #f9f7f3;
+
+  .nomination-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    @include respond-to(">=medium") {
+      grid-template-columns: 1.1fr 1fr;
+      align-items: start;
+    }
+
+    h3 {
+      margin: 0 0 20px 0;
+      @include font-size-primaryFont('largest');
+      font-weight: 700;
+    }
+  }
+
+  .hl-subtext {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .nomination-criteria {
+    background: #fff;
+    border-radius: 16px;
+    padding: 26px;
+    position: relative;
+    overflow: hidden;
+    ul {
+      list-style: none !important;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+      li {
+        position: relative;
+        padding-left: 48px;
+        color: #333;
+        line-height: 1.5;
+        @include font-size-primaryFont('medium');
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 4px;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background: #fbe8e2;
+          box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+        }
+        &::after {
+          content: '✓';
+          position: absolute;
+          left: 7px;
+          top: 8px;
+          color: #e78670;
+          font-weight: 700;
+          font-size: 1.35rem;
+        }
+      }
+    }
+  }
+  
+  .nomination-form {
+    background: #fcfcfc;
+    border: 2px dashed #d6d6d6;
+    border-radius: 16px;
+    padding: 22px;
+
+    .btn-primary {
+      width: 100%;
+    }
+
+    .form-block {
+      margin:0;
+    }
+
+    label {
+      min-width: 125px;
+      em {
+        @include respond-to(">=medium") {
+          display: block;
+        }
+      }
+    }
+
+  }
+
+  .input-checkbox {
+    margin-bottom: 20px;
+  }
+
+  .hint {
+    margin-top:20px;
+    font-style: italic;
+    color: $color-ambient-grey;
+    @include font-size-primaryFont('small');
+  }
+
+}
+
+.sheboost-slider-block {
+
+  background: #fff;
+  margin-bottom: 0px !important;
+
+  .card-slider-container {
+    margin-bottom: 0px !important;
+  }
+
+  .sheboost-card-slider {
+    height: auto !important;
+    min-height: 250px;
+    display: flex;
+  }
+
+  .sheboost-nomination-card {
+    background-color: rgba(234, 242, 244, 1.0);
+    padding:30px 40px 15px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto !important;
+  }
+
+  .nomination-title {
+    padding-bottom:5px;
+    font-style: italic;
+    color: $color-ambient-mint-dark;
+    @include font-size-primaryFont('larger');
+  }
+
+  .nomination-message {
+    font-style: italic;
+  }
+
+  .nomination-from {
+    border-top: 1px dashed $color-ambient-mint-dark;
+    padding-top: 10px;
+    margin-top: 15px;
+    font-style: italic;
+    span {
+      color: $color-ambient-grey;
+    }
+  }
+}
+
+// About block (outside main hero scope)
+.sheboost-about-block {
+  background: #eaf2f4;
+  clip-path: polygon(0% 0%,100% 0%,100% calc(100% - 10px),95% 100%,90% calc(100% - 10px),85% 100%,80% calc(100% - 10px),75% 100%,70% calc(100% - 10px),65% 100%,60% calc(100% - 10px),55% 100%,50% calc(100% - 10px),45% 100%,40% calc(100% - 10px),35% 100%,30% calc(100% - 10px),25% 100%,20% calc(100% - 10px),15% 100%,10% calc(100% - 10px),5% 100%,0% calc(100% - 10px));
+
+  .icon {
+    margin-left:10px;
+    float:right;
+    color: $color-ambient-rosa;
+    width:40px;
+    height:40px;
+  }
+
+  h3 {
+    padding-top:10px;
+    padding-bottom:20px;
+    @include font-size-primaryFont('larger');
+  }
+
+  .cardBox {
+    padding:20px;
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+}
+
+.sheboost-why-block {
+  background: #ffffff;
+
+  blockquote {
+    color: $color-ambient-rosa;
+    font-family: Merriweather,serif;
+    font-style: italic;
+    font-size: 3.5rem;
+    text-align: center;
+    font-weight: 700;
+    margin: auto;
+    margin-bottom: 40px;
+    line-height: 1.1;
+    @include respond-to(">=medium") {
+      font-size: 4.5rem;
+      margin-bottom: 60px;
+      width:50%;
+    }
+  }
+  p {
+      @include font-size-primaryFont('larger');
+      text-align: center;
+  }
+}
+
+.sheboost-team-block {
+  background: #f9f7f3;
+  h3 {
+    padding-bottom:20px;
+    @include font-size-primaryFont('larger');
+  }
+  p {
+      @include font-size-primaryFont('large');
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  img {
+    width: 100%;
+    height: auto;
+    @include respond-to("<=large") {
+      margin-top:20px;
+    }
+    border-radius: 10px;
+  }
+
+}
+
+.sheboost-footer-block {
+  background: #eaf2f4;
+  border-top: #024e54 8px solid;
+  color: #565759;
+
+  .sheboost-logo {
+    height:50px;
+    width: auto;
+    margin-bottom:20px;
+  }
+  .logos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .partner-logo {
+    height:30px;
+    width: auto;
+    margin-bottom: 20px;
+  }
+}

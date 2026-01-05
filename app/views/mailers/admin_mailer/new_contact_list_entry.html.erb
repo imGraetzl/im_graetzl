@@ -51,6 +51,14 @@
        <td class="mcnTextContent"><%= @contact_list_entry.via_path %></td>
      </tr>
      <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">Title:</td>
+       <td class="mcnTextContent"><%= @contact_list_entry.title %></td>
+     </tr>
+      <tr>
+       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic;">Link:</td>
+       <td class="mcnTextContent"><%= @contact_list_entry.url %></td>
+     </tr>
+     <tr>
       <td class="mcnTextContent" style="white-space:nowrap; padding-left:18px; font-style:italic; vertical-align:top;">Nachicht:</td>
       <td class="mcnTextContent"><%= @contact_list_entry.message.truncate(10000, separator: ' ').gsub("\r\n", "<br/>").html_safe %></td>
      </tr>

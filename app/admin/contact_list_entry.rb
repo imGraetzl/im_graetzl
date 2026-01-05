@@ -3,7 +3,7 @@ ActiveAdmin.register ContactListEntry do
 
   remove_filter :user
 
-  permit_params :name, :region_id, :email, :phone, :via_path, :message, :user_id
+  permit_params :name, :region_id, :email, :phone, :via_path, :message, :user_id, :status
 
   controller do
     def apply_pagination(chain)
@@ -13,5 +13,7 @@ ActiveAdmin.register ContactListEntry do
   end
 
   index { render 'index', context: self }
+  show { render 'show', context: self }
+  form partial: 'form'
 
 end
