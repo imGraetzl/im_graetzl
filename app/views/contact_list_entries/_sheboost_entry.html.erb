@@ -8,7 +8,7 @@
   <% if entry.name.present? %>
     <div class="nomination-from">
       <strong>Nominiert von <%= entry.name %></strong><br>
-      <small>vor <%= time_ago_in_words(entry.created_at) %></small>
+      <span>vor <%= time_ago_in_words(entry.created_at) %></span>
     </div>
   <% end %>
 </div>
