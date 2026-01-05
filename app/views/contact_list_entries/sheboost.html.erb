@@ -66,6 +66,10 @@
               <%= f.label :email, "Deine E-Mail" %>
               <%= f.text_field :email, placeholder: 'Deine E-Mail Adresse', required: true %>
             </div>
+            <div class="input-checkbox">
+              <%= f.check_box :status, {}, 'disabled', 'enabled' %>
+              <%= f.label :status, 'Nominierung nicht anzeigen (anonym)' %>
+            </div>
             <%= submit_tag "Nominierung absenden", class: 'btn-primary -rose -large -shadow' %>
           </div>
         <% end %>
