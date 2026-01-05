@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
-    og_image: image_url("info/sheboost/header-desk.jpg")
+    og_image: image_url("info/sheboost/header-desk-1.jpg")
   )
 %>
 
@@ -16,8 +16,8 @@
 
 <section class="content-wide sheboost-hero-block">
   <div class="hl-subtext">
-    <h1 class="-mint"><em>100</em> <span>Frauen</span>, <em>100</em> <span>Vorhaben</span> & <em>100</em> <span>Umsetzungen</span> in Wien!</h1>
-    <p>Dafür suchen wir DIE <span>sheBOOST</span> Botschafterinnen.</p>
+    <h1 class="-mint"><em>100</em> <span>Frauen</span> <em>100</em> <span>Vorhaben</span> <em>100</em> <span>Umsetzungen</span></h1>
+    <p>Dafür suchen wir DIE <span>sheBOOST</span> Botschafterin</p>
     <%= link_to 'Nominiere sie jetzt!', '#sheboost-nomination', class: 'btn-primary -rose -large -shadow' %>
   </div>
 </section>
@@ -69,6 +69,9 @@
             <%= submit_tag "Nominierung absenden", class: 'btn-primary -rose -large -shadow' %>
           </div>
         <% end %>
+        <div class="hint">
+          Wir verwenden deine Angaben und E-Mail-Adresse ausschließlich für diese Nominierung. Keine Werbung, keine Weitergabe deiner Daten.
+        </div>
       </div>
     </div>
   </div>
@@ -80,8 +83,7 @@
 <section class="content-wide sheboost-slider-block">
   <div class="wrp-inner">
     <div class="hl-subtext">
-      <h1>Kürzlich nominiert</h1>
-      <p>Ein Auszug aus den letzten Nominierungen.</p>
+      <h1>Letzte Nominierungen</h1>
     </div>
     <div class="lightSliderWrapper card-slider-container">
       <div
@@ -163,6 +165,7 @@
       </div>
       <div>
         <%= image_tag 'info/sheboost/team-small.jpg', alt: 'sheBOOST Teamfoto', class: 'team-photo' %>
+        <small>Copyright - Laurent Ziegler</small>
       </div>
     </div>
   </div>

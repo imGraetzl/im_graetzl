@@ -10,11 +10,14 @@ section.info {
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center -40px;
-      height: 500px;
+      height: 420px;
       @include respond-to(">=medium") {
         background-image: image-url("info/sheboost/header-desk-1.jpg");
         background-position: center -20px;
         height: 600px;
+      }
+      @media (min-width: 1900px) {
+        height: 850px;
       }
     }
     .imgHeader::after {
@@ -54,7 +57,7 @@ section.info {
   }
   h1 {
     @include font-size-secondaryFont('larger');
-    line-height: 1.3;
+    line-height: 1.0;
     em {
       background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-mint.svg'));
       text-shadow: #615454 2px 2px;
@@ -64,7 +67,7 @@ section.info {
     }
     span {
       color: #615454;
-      text-decoration:wavy underline;
+      text-decoration: none;
       text-decoration-thickness: 0.10em;
       text-underline-offset: 0.20em;
       text-decoration-color: $color-ambient-mint;
@@ -116,18 +119,8 @@ section.info {
     background: #fff;
     border-radius: 16px;
     padding: 26px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
     position: relative;
     overflow: hidden;
-    &::after {
-      content: '';
-      position: absolute;
-      top: -40px;
-      right: -80px;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle at center, #e8f4f0 0%, rgba(232,244,240,0) 60%);
-    }
     ul {
       list-style: none !important;
       padding: 0;
@@ -170,7 +163,6 @@ section.info {
     background: #fcfcfc;
     border: 2px dashed #d6d6d6;
     border-radius: 16px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.1);
     padding: 22px;
 
     .btn-primary {
@@ -191,6 +183,14 @@ section.info {
     }
 
   }
+
+  .hint {
+    margin-top:20px;
+    font-style: italic;
+    color: $color-ambient-grey;
+    @include font-size-primaryFont('small');
+  }
+
 }
 
 .sheboost-slider-block {
