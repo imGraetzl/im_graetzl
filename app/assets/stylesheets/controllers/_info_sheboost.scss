@@ -49,7 +49,7 @@ section.info {
 // Hero block (outside main hero scope)
 .sheboost-hero-block {
   background: none;
-  margin-top: -80px;
+  margin-top: -100px;
   margin-bottom:0px;
   padding-bottom:0px;
   @include respond-to(">=medium") {
@@ -58,11 +58,20 @@ section.info {
   h1 {
     @include font-size-secondaryFont('larger');
     line-height: 1.0;
+    @include respond-to("<=medium") {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      margin: auto;
+      text-align: left;
+      line-height: 1.5;
+    }
     em {
-      background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-mint.svg'));
+      background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-rosa.svg'));
       text-shadow: #615454 2px 2px;
+      padding: 10px 20px 10px 20px;
       @include respond-to("<=medium") {
-        padding: 5px 10px 5px 10px;
+        padding: 7px 13px 7px 13px;
       }
     }
     span {
@@ -70,6 +79,7 @@ section.info {
     }
   }
   p {
+      margin-top:5px;
       font-style: italic;
       @include font-size-primaryFont('largest');
       font-weight: bold;
@@ -77,7 +87,7 @@ section.info {
         color: $color-ambient-mint-dark;
       }
   }
-  .btn-primary {
+  .btn-primary, .btn-secondary {
     display: flex;;
     width:fit-content;
     margin:auto;
@@ -97,7 +107,6 @@ section.info {
       grid-template-columns: 1.1fr 1fr;
       align-items: start;
     }
-
     h3 {
       margin: 0 0 20px 0;
       @include font-size-primaryFont('largest');
@@ -299,6 +308,9 @@ section.info {
   }
   p {
       @include font-size-primaryFont('large');
+      a {
+        font-weight: bold;
+      }
   }
   a {
     text-decoration: none;
