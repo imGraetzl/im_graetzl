@@ -61,6 +61,19 @@ namespace :scheduled do
     end
   end
 
+  desc 'Follow-up for authorized pledges from last 24 hours with full boost charge'
+  task crowd_pledges_full_boost_followups: :environment do
+    pledge_ids = CrowdPledge.authorized
+                         .where("created_at >= ?", 24.hours.ago)
+                         .where("crowd_boost_charge_amount = total_price")
+                         .pluck(:id)
+
+    if pledge_ids.any?
+      Sentry.logger.info("[CrowdPledge Full Boost Follow-up] Found #{pledge_ids.count} pledges")
+      AdminMailer.crowd_pledge_full_boost_followups(pledge_ids).deliver_later
+    end
+  end
+
   # Send Crowdfunding Guest Newsletter
   task crowd_campaigns_guest_newsletter: :environment do
     

@@ -111,4 +111,17 @@ class AdminMailer < ApplicationMailer
     )
   end
 
+  def crowd_pledge_full_boost_followups(pledges)
+    @region = Region.get('wien')
+    pledge_ids = Array.wrap(pledges).compact.map { |pledge| pledge.respond_to?(:id) ? pledge.id : pledge }
+    @pledges = CrowdPledge.includes(:crowd_campaign).where(id: pledge_ids).order(:email)
+    @unique_emails_count = @pledges.map(&:email).uniq.size
+
+    mail(
+      subject: "[#{@region.host_domain_name}] #{@pledges.size} Follow-ups für autorisierte CrowdPledges mit voller Boost-Aufladung",
+      from: platform_email("no-reply"),
+      to: platform_admin_email('michael@imgraetzl.at'),
+    )
+  end
+
 end
