@@ -1,7 +1,7 @@
 ActiveAdmin.register RoomBooster do
   menu parent: 'Raumteiler'
   includes :room_offer, :user
-  actions :all, except: [:new, :create, :destroy, :edit]
+  actions :all, except: [:new, :create, :destroy]
 
   scope :initialized, default: true
   scope :pending
@@ -30,6 +30,7 @@ ActiveAdmin.register RoomBooster do
 
 
   index { render 'index', context: self }
+  form partial: 'form'
 
   controller do
     def apply_pagination(chain)
@@ -52,5 +53,7 @@ ActiveAdmin.register RoomBooster do
     column(:amount) { |i| number_to_currency(i.amount, precision: 2 ,unit: "") }
     column :region_id
   end
+
+  permit_params :starts_at_date
 
 end
