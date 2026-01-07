@@ -4,7 +4,14 @@
     <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    <%= render @activity_sample.rooms %>
+
+    <% if current_region.is?('wien') && Date.current >= Date.new(2026, 1, 8) %>
+      <%= render @activity_sample.rooms.first %>
+      <%= render "shared/featured_cards/sheboost_nominierung" %>
+    <% else %>
+      <%= render @activity_sample.rooms.first(2) %>
+    <% end %>
+
     <%= render 'rooms/action_card', view_all: true %>
   </div>
 </div>

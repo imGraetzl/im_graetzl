@@ -18,7 +18,13 @@
         Der RaumBooster unterstützt dein Raumvorhaben in Wien mit einem Crowdfunding-Zuschuss. Reiche jetzt dein Vorhaben <strong>bis zum 15. Januar 2026</strong> ein und starte dein Crowdfunding.
       </p>
     </div>
-    <%= link_to 'Zuschuss sichern', leerstand_path, class: 'btn-primary' %>
+    <% deadline = Date.new(2026, 1, 15) %>
+    <% days_left = (deadline - Date.current).to_i + 1 %>
+    <% if days_left > 0 %>
+      <%= link_to "Noch #{days_left} #{days_left == 1 ? 'Tag' : 'Tage'} - Jetzt einreichen", leerstand_path, class: 'btn-primary' %>
+    <% else %>
+      <%= link_to 'Jetzt einreichen', leerstand_path, class: 'btn-primary' %>
+    <% end %>
   </div>
 
 </div>

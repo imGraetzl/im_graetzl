@@ -46,7 +46,9 @@
       <div class="card-grid" data-behavior="activities-card-container"></div>
       
       <!-- Insert Featured Card -->
-      <% if current_region.is?('wien') %>
+      <% if current_region.is?('wien') && Date.current >= Date.new(2026, 1, 8) %>
+        <%= render "shared/featured_cards/sheboost_nominierung" %>
+      <% elsif current_region.is?('wien') %>
         <%= render "shared/featured_cards/raumbooster_wien" %>
       <% elsif current_region.use_subscription? %>
         <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).includes(:user).active.sample if Subscription.in(current_region).active.any? %>
