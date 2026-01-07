@@ -1,6 +1,8 @@
 class RoomBooster < ApplicationRecord
   include ActionView::Helpers
 
+  MAX_WEEKLY_BOOSTERS = 2
+
   belongs_to :user
   belongs_to :room_offer
   belongs_to :crowd_boost, optional: true
@@ -14,7 +16,8 @@ class RoomBooster < ApplicationRecord
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :active_or_pending, -> { where(status: [:active, :pending]) }
 
-  before_create :set_booster_dates
+  before_validation :set_booster_dates, on: :create
+  before_validation :sync_booster_dates, if: -> { will_save_change_to_starts_at_date? }
   after_update :update_room_offer, if: -> { saved_change_to_status? }
   after_update :update_crowd_boost_charge, if: -> { crowd_boost_charge.present? && saved_change_to_payment_status? }
 
@@ -79,13 +82,39 @@ class RoomBooster < ApplicationRecord
     end
   end
 
-  def next_available_boost_date?(room_booster)
-    if RoomBooster.in(room_booster.region).active_or_pending.count < 2
-      Date.tomorrow
-    else
-      newest_boosters = RoomBooster.in(room_booster.region).active_or_pending.sort_by(&:ends_at_date).last(2)
-      newest_boosters.first.ends_at_date + 1.day
+  def self.next_available_start_date(region, start_date: Date.tomorrow)
+    base_date = start_date.to_date
+    ranges = RoomBooster.in(region).active_or_pending.where.not(starts_at_date: nil, ends_at_date: nil).pluck(:starts_at_date, :ends_at_date)
+
+    return base_date if ranges.empty?
+
+    # Build per-day occupancy from existing boosters, starting at base_date.
+    last_end_date = [ranges.map(&:last).compact.max, base_date].max
+    daily_counts = Hash.new(0)
+
+    ranges.each do |range_start, range_end|
+      next if range_start.nil? || range_end.nil? || range_end < base_date
+
+      start_day = [range_start, base_date].max
+      (start_day..range_end).each { |date| daily_counts[date] += 1 }
     end
+
+    candidate = base_date
+    last_candidate = last_end_date + 1.day
+
+    # Slide a 7-day window; the first with no day at capacity (2) is valid.
+    while candidate <= last_candidate
+      window_full = (candidate..candidate + 6.days).any? { |date| daily_counts[date] >= MAX_WEEKLY_BOOSTERS }
+      return candidate unless window_full
+
+      candidate += 1.day
+    end
+
+    last_end_date + 1.day
+  end
+
+  def next_available_boost_date?(room_booster)
+    self.class.next_available_start_date(room_booster.region, start_date: Date.tomorrow)
   end
 
   def paused?
@@ -96,10 +125,16 @@ class RoomBooster < ApplicationRecord
   private
 
   def set_booster_dates
-    next_start_date = next_available_boost_date?(self)
-    self.starts_at_date = next_start_date
-    self.send_at_date = (next_start_date - 1.day).next_occurring(:tuesday)
-    self.ends_at_date = next_start_date + 6.days
+    return if starts_at_date.present?
+
+    self.starts_at_date = next_available_boost_date?(self)
+  end
+
+  def sync_booster_dates
+    return if starts_at_date.blank?
+
+    self.send_at_date = (starts_at_date - 1.day).next_occurring(:tuesday)
+    self.ends_at_date = starts_at_date + 6.days
   end
 
   def update_crowd_boost_charge
