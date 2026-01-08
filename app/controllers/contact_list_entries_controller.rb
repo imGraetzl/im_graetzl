@@ -50,7 +50,7 @@ class ContactListEntriesController < ApplicationController
   end
 
   def sheboost_entries_scope(via_path)
-    ContactListEntry.enabled.where(via_path: via_path).order(created_at: :desc)
+    ContactListEntry.where(via_path: via_path).order(created_at: :desc)
   end
 
   def set_layout

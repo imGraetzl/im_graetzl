@@ -233,8 +233,9 @@ section.info {
     @include font-size-primaryFont('larger');
   }
 
-  .nomination-message {
+  .nomination-message p {
     font-style: italic;
+    @include font-size-primaryFont('base');
   }
 
   .nomination-from {
