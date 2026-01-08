@@ -236,6 +236,8 @@ section.info {
   .nomination-message p {
     font-style: italic;
     @include font-size-primaryFont('base');
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
   }
 
   .nomination-from {
