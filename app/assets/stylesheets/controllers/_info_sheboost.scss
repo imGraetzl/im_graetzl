@@ -224,6 +224,8 @@ section.info {
     flex-direction: column;
     justify-content: space-between;
     height: auto !important;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
   }
 
   .nomination-title {
@@ -235,9 +237,7 @@ section.info {
 
   .nomination-message p {
     font-style: italic;
-    @include font-size-primaryFont('base');
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none;
+    @include font-size-primaryFont('large');
   }
 
   .nomination-from {
