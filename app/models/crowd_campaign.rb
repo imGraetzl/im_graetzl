@@ -124,7 +124,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def boostable?
-    boost_approved? || boost_authorized? || boost_debited? || boost_cancelled?
+    (boost_waitlist? && boost_waitlisted_at.present?) || boost_approved? || boost_authorized? || boost_debited? || boost_cancelled?
   end
 
   def owned_by?(a_user)
@@ -277,12 +277,20 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def check_boosting
-    if boost_approved? && crowd_boost_slot &&
-      crowd_pledges.initialized.count >= crowd_boost_slot.threshold_pledge_count &&
-      funding_percentage >= (crowd_boost_slot.threshold_funding_percentage || 0) &&
-      !crowd_boost_slot.amount_limit_reached?(self)
-      return :boost_authorized
+    return unless crowd_boost_slot
+
+    if boost_waitlist? && boost_waitlisted_at.present?
+      return :boost_authorized unless crowd_boost_slot.amount_limit_reached?(self)
+      return :boost_waitlist
     end
+
+    return unless boost_approved?
+    return unless crowd_pledges.initialized.count >= crowd_boost_slot.threshold_pledge_count
+    return unless funding_percentage >= (crowd_boost_slot.threshold_funding_percentage || 0)
+
+    return :boost_waitlist if crowd_boost_slot.amount_limit_reached?(self)
+
+    :boost_authorized
   end
 
   def funding_1?
