@@ -145,6 +145,7 @@ class CrowdCampaignService
   def promote_boost_waitlist(crowd_boost_slot)
     return unless crowd_boost_slot
 
+    # Walk the waitlist in timestamp order and authorize any campaign that fits the remaining budget.
     waitlisted_campaigns(crowd_boost_slot).each do |campaign|
       next if crowd_boost_slot.amount_limit_reached?(campaign)
 

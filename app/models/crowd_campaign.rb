@@ -124,6 +124,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def boostable?
+    # Only system waitlist entries (timestamp set) are considered boostable.
     (boost_waitlist? && boost_waitlisted_at.present?) || boost_approved? || boost_authorized? || boost_debited? || boost_cancelled?
   end
 
@@ -277,6 +278,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def check_boosting
+    # Auto-promote only for waitlist entries with a timestamp; manual waitlist stays passive.
     return unless crowd_boost_slot
 
     if boost_waitlist? && boost_waitlisted_at.present?
