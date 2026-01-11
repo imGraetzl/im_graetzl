@@ -10,7 +10,7 @@ class RoomBooster < ApplicationRecord
 
   validates :amount, presence: true, on: :create
 
-  enum :status, { incomplete: "incomplete", pending: "pending", active: "active", expired: "expired", storno: "storno" }
+  enum :status, { incomplete: "incomplete", pending: "pending", active: "active", expired: "expired", storno: "storno", deleted: "deleted" }
   enum :payment_status, { free: "free", authorized: "authorized", processing: "processing", debited: "debited", failed: "failed", refunded: "refunded" }
 
   scope :initialized, -> { where.not(status: :incomplete) }
