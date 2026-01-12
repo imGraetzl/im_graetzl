@@ -378,6 +378,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_100952) do
     t.integer "importance", default: 1, null: false
     t.datetime "goal_1_reached_at", precision: nil
     t.datetime "goal_2_reached_at", precision: nil
+    t.datetime "boost_waitlisted_at", precision: nil
     t.index ["crowd_boost_slot_id"], name: "index_crowd_campaigns_on_crowd_boost_slot_id"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_crowd_campaigns_on_last_activity_at"

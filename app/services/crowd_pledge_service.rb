@@ -90,7 +90,11 @@ class CrowdPledgeService
         ActionProcessor.track(crowd_boost_pledge, :create)
         CrowdCampaignMailer.boost_authorized(crowd_boost_pledge.crowd_campaign, crowd_boost_pledge).deliver_later
       end
-      
+
+    when :boost_waitlist
+      if crowd_pledge.crowd_campaign.boost_waitlisted_at.blank?
+        crowd_pledge.crowd_campaign.update(boost_status: 'boost_waitlist', boost_waitlisted_at: Time.current)
+      end
     end
 
     case crowd_pledge.crowd_campaign.check_funding

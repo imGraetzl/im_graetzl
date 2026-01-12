@@ -25,10 +25,12 @@ class CrowdCampaignService
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else
       campaign.crowd_pledges.authorized.update_all(status: 'canceled')
-      if campaign.boost_authorized? || campaign.boost_approved?
+      boost_was_authorized = campaign.boost_authorized?
+      if boost_was_authorized || campaign.boost_approved? || campaign.boost_waitlist?
         campaign.crowd_boost_pledges.authorized.update_all(status: 'canceled')
         campaign.update(boost_status: 'boost_cancelled')
       end
+      promote_boost_waitlist(campaign.crowd_boost_slot) if boost_was_authorized
       CrowdCampaignMailer.completed_unsuccessful(campaign).deliver_later
     end
 
@@ -131,7 +133,46 @@ class CrowdCampaignService
         campaign.update(boost_status: 'boost_authorized')
         ActionProcessor.track(crowd_boost_pledge, :create)
       end
+    when :boost_waitlist
+      if campaign.boost_waitlisted_at.blank?
+        campaign.update(boost_status: 'boost_waitlist', boost_waitlisted_at: Time.current)
+      end
     end
+  end
+
+  private
+
+  def promote_boost_waitlist(crowd_boost_slot)
+    return unless crowd_boost_slot
+
+    # Walk the waitlist in timestamp order and authorize any campaign that fits the remaining budget.
+    waitlisted_campaigns(crowd_boost_slot).each do |campaign|
+      next if crowd_boost_slot.amount_limit_reached?(campaign)
+
+      boost_amount = crowd_boost_slot.calculate_boost(campaign)
+      crowd_boost_pledge = CrowdBoostPledge.create(
+        amount: boost_amount,
+        status: "authorized",
+        crowd_campaign_id: campaign.id,
+        crowd_boost_id: campaign.crowd_boost.id,
+        crowd_boost_slot_id: crowd_boost_slot.id,
+        region_id: campaign.region_id
+      )
+
+      next unless crowd_boost_pledge
+
+      campaign.update(boost_status: 'boost_authorized')
+      ActionProcessor.track(crowd_boost_pledge, :create)
+      CrowdCampaignMailer.boost_authorized(campaign, crowd_boost_pledge).deliver_later
+    end
+  end
+
+  def waitlisted_campaigns(crowd_boost_slot)
+    crowd_boost_slot.crowd_campaigns
+      .where(boost_status: 'boost_waitlist')
+      .where.not(boost_waitlisted_at: nil)
+      .where(status: CrowdCampaign.statuses[:funding])
+      .order(:boost_waitlisted_at)
   end
 
 end
