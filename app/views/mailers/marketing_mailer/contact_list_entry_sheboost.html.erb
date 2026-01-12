@@ -1,0 +1,44 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Hallo <%= @contact_list_entry.name %>,
+        </p>
+        <p>
+          Danke, dass du eine Frau als sheBOOST Botschafterin nominiert hast. Wenn du magst, teile deine Nominierung gern auch auf deinen Kanälen. So werden hoffentlich viele inspirierende Frauen noch sichtbarer und gleichzeitig werden andere zur Nominierung eingeladen. 
+        </p>
+        <p>
+          <strong>So geht's:</strong>
+        </p>
+        <ul>
+          <li>
+            Screenshot von deiner Nominierung auf der Seite machen (sie erscheint unten bei „Letzte Nominierungen“). <%= link_to 'www.imgraetzl.at/sheboost', 'https://www.imgraetzl.at/sheboost', target:'_blank', style: "color:#ec776a;" %>
+          </li>
+          <li>
+            Oder verwende diese Textvorlage:
+          </li>
+        </ul>
+        ---
+        <p>
+          <em><strong>Ich nominiere "<%= @contact_list_entry.title %>" zur sheBOOST Botschafterin, weil...</strong></em>
+        </p>
+        <p>
+          <em><%= simple_format(h(truncate(@contact_list_entry.message, length: 500, omission: '...'))) %></em>
+        </p>
+        <p>
+          <em><strong>Wen nominierst du? Welche Frau inspiriert dich? Nominiere sie hier:</strong> <%= link_to 'www.imgraetzl.at/sheboost', 'https://www.imgraetzl.at/sheboost', target:'_blank', style: "color:#ec776a; font-weight:bold;" %></em>
+        </p>
+        ---
+        <p>
+          Wenn du uns markieren willst: @imgraetzl und gern mit #sheBOOST
+        </p>
+        <p>
+          Danke dir!<br>
+          Liebe Grüße<br>
+          dein sheBOOST Team<br>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

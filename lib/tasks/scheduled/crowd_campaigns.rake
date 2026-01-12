@@ -25,7 +25,7 @@ namespace :scheduled do
     end
 
     # Close and generate Invoice after 14 Days
-    CrowdCampaign.completed.successful.where(enddate: 13.days.ago).find_each do |campaign|
+    CrowdCampaign.completed.successful.where(enddate: 14.days.ago, transfer_status: :payout_waiting).find_each do |campaign|
       CrowdCampaignService.new.close(campaign)
     end
 
@@ -50,14 +50,27 @@ namespace :scheduled do
 
   end
 
-  desc 'Manual Follow-up digest for failed pledges 6 days after campaign end'
+  desc 'Manual Follow-up digest for failed pledges 5 days after campaign end'
   task crowd_pledges_failed_manual_followups: :environment do
-    manual_followup_campaigns = CrowdCampaign.completed.successful.where(enddate: 6.days.ago)
+    manual_followup_campaigns = CrowdCampaign.completed.successful.where(enddate: 5.days.ago)
     manual_followup_pledge_ids = CrowdPledge.failed.where(crowd_campaign: manual_followup_campaigns).pluck(:id)
 
     if manual_followup_pledge_ids.any?
-      Rails.logger.info("[CrowdCampaigns Manual Follow-up] Sende manuelles Follow-up Digest für #{manual_followup_pledge_ids.count} Pledges")
+      Sentry.logger.info("[CrowdCampaigns Manual Follow-up] Sende manuelles Follow-up Digest für #{manual_followup_pledge_ids.count} Pledges")
       AdminMailer.crowd_pledge_manual_followups(manual_followup_pledge_ids).deliver_later
+    end
+  end
+
+  desc 'Follow-up for authorized pledges from last 24 hours with full boost charge'
+  task crowd_pledges_full_boost_followups: :environment do
+    pledge_ids = CrowdPledge.authorized
+                         .where("created_at >= ?", 24.hours.ago)
+                         .where("crowd_boost_charge_amount = total_price")
+                         .pluck(:id)
+
+    if pledge_ids.any?
+      Sentry.logger.info("[CrowdPledge Full Boost Follow-up] Found #{pledge_ids.count} pledges")
+      AdminMailer.crowd_pledge_full_boost_followups(pledge_ids).deliver_later
     end
   end
 
@@ -65,7 +78,7 @@ namespace :scheduled do
   task crowd_campaigns_guest_newsletter: :environment do
     
     scheduled_sending_dates = [
-      '2025-12-06', '2026-01-03', '2026-01-31', '2026-02-28'
+      '2026-01-16', '2026-02-13'
     ]
 
     send_date_today = nil

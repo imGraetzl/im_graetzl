@@ -57,6 +57,7 @@ class RoomOffer < ApplicationRecord
   LIFETIME_MONTHS = 6
 
   after_update :destroy_activity_and_notifications, if: -> { disabled? && saved_change_to_status? }
+  before_destroy :mark_room_boosters_deleted
 
   generates_token_for :activation, expires_in: 7.days do
     created_at
@@ -106,5 +107,9 @@ class RoomOffer < ApplicationRecord
     if room_categories.empty?
       errors.add(:room_categories, "braucht mindestens eine Kategorie")
     end
+  end
+
+  def mark_room_boosters_deleted
+    room_boosters.active_or_pending.update_all(status: "deleted")
   end
 end

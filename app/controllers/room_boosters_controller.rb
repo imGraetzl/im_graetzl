@@ -15,12 +15,12 @@ class RoomBoostersController < ApplicationController
     if @room_booster.paused?
       @next_start_date = Date.new(2024,8,1)
       flash.now[:notice] = "Der Raumteiler-Pusher ist aktuell pausiert. Ab dem 01. August können wieder Pusher erstellt werden."
-    elsif RoomBooster.in(@room_offer.region).active_or_pending.count < 2
-      @next_start_date = Date.tomorrow
     else
-      newest_boosters = RoomBooster.in(@room_offer.region).active_or_pending.sort_by(&:ends_at_date).last(2)
-      @next_start_date = newest_boosters.first.ends_at_date + 1.day
-      flash.now[:notice] = "Der nächste freie Pusher Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Pusher zu aktivieren."  
+      @next_start_date = RoomBooster.next_available_start_date(@room_offer.region)
+
+      if @next_start_date > Date.tomorrow
+        flash.now[:notice] = "Der nächste freie Pusher Start ist am #{I18n.localize(@next_start_date, format:'%A, den %d.%m.%Y')}. Fahre jetzt fort um deinen Pusher zu aktivieren."
+      end
     end
 
     @room_booster.starts_at_date = @next_start_date

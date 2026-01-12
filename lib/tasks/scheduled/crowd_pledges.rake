@@ -79,4 +79,37 @@ namespace :stripe do
 
     Sentry.logger.info("[Stripe Backfill] abgeschlossen – #{fees_set} Fees gesetzt, #{errors} Fehler")
   end
+
+  desc "Check Stripe SetupIntent status for yesterday's incomplete CrowdPledges"
+  task check_incomplete_crowdpledge_setup_intents: :environment do
+    require "stripe"
+
+    scope = CrowdPledge.incomplete.where("created_at >= ?", 24.hours.ago)
+    total = scope.count
+
+    Sentry.logger.info("[Stripe Incomplete Pledge Check] Start for #{total} CrowdPledges (last 24h, incomplete)")
+
+    scope.find_each(batch_size: 50) do |cp|
+      if cp.stripe_setup_intent_id.blank?
+        Sentry.logger.warn("[Stripe Incomplete Pledge Check] CP #{cp.id} ohne stripe_setup_intent_id")
+        next
+      end
+
+      begin
+        setup_intent = Stripe::SetupIntent.retrieve(cp.stripe_setup_intent_id)
+        status = setup_intent["status"]
+        message = "[Stripe Incomplete Pledge Check] CP #{cp.id} setup_intent status=#{status}"
+
+        if status == "succeeded"
+          Sentry.logger.warn(message)
+        else
+          Sentry.logger.info(message)
+        end
+      rescue Stripe::StripeError => e
+        Sentry.logger.warn("[Stripe Incomplete Pledge Check] CP #{cp.id} setup_intent=#{cp.stripe_setup_intent_id} error=#{e.class}: #{e.message}")
+      rescue => e
+        Sentry.logger.warn("[Stripe Incomplete Pledge Check] CP #{cp.id} setup_intent=#{cp.stripe_setup_intent_id} error=#{e.class}: #{e.message}")
+      end
+    end
+  end
 end

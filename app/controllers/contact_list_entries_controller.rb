@@ -16,7 +16,7 @@ class ContactListEntriesController < ApplicationController
     if @contact_list_entry.save
       redirect_to params[:redirect_path]
       flash[:notice] = "Vielen Dank für deine Nominierung! Wenn du noch eine weitere inspirierende Frau kennst, nur zu..."
-      #MarketingMailer.contact_list_entry(@contact_list_entry).deliver_later
+      MarketingMailer.contact_list_entry_sheboost(@contact_list_entry).deliver_later
       AdminMailer.new_contact_list_entry(@contact_list_entry).deliver_later
     else
       @sheboost_entries_limit = SHEBOOST_SLIDER_LIMIT
@@ -50,7 +50,7 @@ class ContactListEntriesController < ApplicationController
   end
 
   def sheboost_entries_scope(via_path)
-    ContactListEntry.enabled.where(via_path: via_path).order(created_at: :desc)
+    ContactListEntry.where(via_path: via_path).order(created_at: :desc)
   end
 
   def set_layout

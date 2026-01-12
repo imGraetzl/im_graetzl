@@ -1,0 +1,7 @@
+active_admin_form_for [:admin, resource] do |f|
+  f.semantic_errors
+
+  input :starts_at_date, as: :datepicker
+
+  actions
+end

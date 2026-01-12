@@ -13,6 +13,19 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
+  def contact_list_entry_sheboost(contact_list_entry)
+    @contact_list_entry = contact_list_entry
+    @region = contact_list_entry.region || Region.get('wien')
+
+    headers("X-MC-Tags" => "contact-list-entry")
+
+    mail(
+      subject: "Lieben Dank für deine sheBOOST Nominierung!",
+      from: platform_email("wir"),
+      to: @contact_list_entry.email,
+    )
+  end
+
   def agb_change_and_crowdfunding(user)
     @user = user
     @region = @user.region

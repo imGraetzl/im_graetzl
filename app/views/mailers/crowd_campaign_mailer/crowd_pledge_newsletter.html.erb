@@ -19,7 +19,7 @@
   <%= render 'mailers/crowd_campaign_mailer/new_crowd_campaign', crowd_campaign: crowd_campaign, index: i %>
 <% end %>
 
-<%= render 'mailers/notification_mailer/featured/crowdfunding_call_wien' if @region.is?('wien') %>
+<%# render 'mailers/notification_mailer/featured/crowdfunding_call_wien' if @region.is?('wien') %>
 
 <%= render 'mailers/notification_mailer/summary/block_header', title: 'Du möchtest selbst ein Projekt starten?' %>
 

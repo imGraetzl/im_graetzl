@@ -24,4 +24,8 @@ class AdminMailerPreview < ActionMailer::Preview
   def crowd_pledge_manual_followups
     AdminMailer.crowd_pledge_manual_followups(CrowdPledge.failed.limit(5))
   end
+
+  def crowd_pledge_full_boost_followups
+    AdminMailer.crowd_pledge_full_boost_followups(CrowdPledge.authorized.where("created_at >= ?", 24.hours.ago).where("crowd_boost_charge_amount = total_price"))
+  end
 end
