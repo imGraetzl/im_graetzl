@@ -5,7 +5,7 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
 
-    <% if current_region.is?('wien') && Date.current >= Date.new(2026, 1, 8) %>
+    <% if current_region.is?('wien') %>
       <%= render @activity_sample.rooms.first %>
       <%= render "shared/featured_cards/sheboost_nominierung" %>
     <% else %>
