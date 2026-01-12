@@ -93,6 +93,7 @@ context.instance_eval do
           attributes_table_for crowd_campaign do
             row(:crowd_boost_slot){|c|c.crowd_boost_slot}
             row(:boost_status){|c| status_tag(c.boost_status)}
+            row :boost_waitlisted_at
             row :crowd_boost_pledges_sum
             row :crowd_boost_pledges_netto
             row :crowd_boost_pledges_tax
