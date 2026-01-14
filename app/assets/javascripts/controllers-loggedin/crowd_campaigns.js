@@ -100,8 +100,10 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         $('.-toggle input').on("focus", function(event) {
           nestedOpener($(this));
         });
-        $('.-toggle.disabled').on("click", function(event) {
+        $('.-toggle').on("click", function(event) {
+          if ($(event.target).is('input') && !$(event.target).is(':disabled')) return;
           nestedOpener($(this));
+          $(this).find('input').focus();
         });
       }
 
