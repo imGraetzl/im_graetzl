@@ -137,6 +137,13 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
 
       }).trigger('cocoon:after-insert');
 
+      $('.crowdfunding-form').on('cocoon:before-remove', function(e, removedItem) {
+        var $removed = $(removedItem);
+        $removed.find('[required]').prop('required', false);
+        $removed.find(':input').removeClass('-invalid');
+        $removed.find('label').removeClass('-invalid').find('span.error_msg').remove();
+      });
+
       // max categories
       $(".crowd-categories input").on("change", function() {
         APP.components.formHelper.maxCategories($(this).parents(".cb-columns"), 3); // init on Change
