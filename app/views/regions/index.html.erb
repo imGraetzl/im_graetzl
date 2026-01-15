@@ -8,21 +8,13 @@
   )
 %>
 
-<% if current_region.is?('wien') %>
-  <div id="betaflash">
-    Crowdfunding-Zuschuss <%= link_to 'RaumBooster', leerstand_path %><br>Reiche jetzt dein Vorhaben ein!
-    <%= link_to 'javascript:', class: 'close-ico' do %>
-      <%= icon_tag "cross" %>
-    <% end %>
-  </div>
-  <!--
+<% if current_region.use_subscription? %>
   <div id="betaflash">
     Uns gibt's nur durch eure <%= link_to 'Unterstützung', subscription_plans_path %>!
     <%= link_to 'javascript:', class: 'close-ico' do %>
       <%= icon_tag "cross" %>
     <% end %>
   </div>
-  -->
 <% else %>
   <div id="betaflash">
     Jeden Mittwoch - <%= link_to 'Crowdfunding Sprechstunde!', '/crowdfunding' %>
