@@ -73,11 +73,7 @@
         </p>
       </div>
       <div class="introSide">
-        <% if current_region.is?('wien') %>
-          <%= render "shared/featured_cards/raumbooster_wien" %>
-        <% else %>
-          <%= render 'crowd_boosts/crowd_boost_info', crowd_boost: @crowd_boost %>
-        <% end %>
+        <%= render 'crowd_boosts/crowd_boost_info', crowd_boost: @crowd_boost %>
       </div>
     </div>
   <% end %>

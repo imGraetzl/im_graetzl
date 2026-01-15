@@ -4,14 +4,7 @@
     <p>Setze deine Vorhaben mit der Kraft der Gemeinschaft um.</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    
-    <% if current_region.is?('wien') %>
-      <%= render @activity_sample.crowd_campaigns.first %>
-      <%= render "shared/featured_cards/raumbooster_wien" %>
-    <% else %>
-      <%= render @activity_sample.crowd_campaigns.first(2) %>
-    <% end %>
-
+    <%= render @activity_sample.crowd_campaigns.first(2) %>
     <%= render 'crowd_campaigns/action_card', view_all: true %>
   </div>
 </div>
