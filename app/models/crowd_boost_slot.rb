@@ -17,6 +17,10 @@ class CrowdBoostSlot < ApplicationRecord
     Date.today >= starts_at && Date.today <= ends_at
   end
 
+  def expired?
+    Date.today > ends_at
+  end
+
   def closed?
     !open?
   end
