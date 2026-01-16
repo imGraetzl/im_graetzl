@@ -32,8 +32,12 @@
     </div>
     <div class="introSide">
 
-      <%= render 'crowd_boosts/crowd_boost_info', crowd_boost: @crowd_boost, crowd_boost_page: true %>
-      <%#= image_tag'info/crowd2raum/graz-call.png', class: 'map-img' %>
+      <% if @next_slot && @next_slot.open? %>
+        <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true %>
+      <% else %>
+        <%= render 'crowd_boosts/crowd_boost', crowd_boost: @crowd_boost %>
+      <% end %>
+      
       <div class="logo-side">
         <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
           <%= image_tag 'logo-graz.png', width:363, height:100 %>
@@ -132,18 +136,6 @@
       </div>
     </div>
   </div>
-
-  <!--
-  <div id="tabs-container" class="content-wide -grey">
-    <div class="hl-subtext">
-      <h1>Unterstützte Projekte</h1>
-    </div>
-    <div id="tab-campaigns" class="wrp-inner card-grid-container">
-      <%= form_tag campaigns_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'cards-filter' do %><% end %>
-      <div class="card-grid" data-behavior="campaigns-card-container"></div>
-    </div>
-  </div>
-  -->
 
   <div class="tabs-ctrl -plain">
     <ul class="tabs-nav">
