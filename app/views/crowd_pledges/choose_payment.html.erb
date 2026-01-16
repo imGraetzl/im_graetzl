@@ -8,7 +8,15 @@
 
   <div class="col-content">
     <%= render "crowd_pledges/new/tabs_nav" %>
-    <%= render 'crowd_pledges/new/payment' %>
+    <% if @setup_intent.present? %>
+      <%= render 'crowd_pledges/new/payment' %>
+    <% else %>
+      <div class="hl-subtext">
+        <h1>Zahlung aktuell nicht verfügbar</h1>
+        <p>Bitte versuche es in ein paar Minuten erneut.</p>
+      </div>
+      <%= link_to "Erneut versuchen", choose_payment_crowd_pledge_path(@crowd_pledge), class: "btn-primary" %>
+    <% end %>
   </div>
 
   <div class="col-sidebar">
@@ -17,7 +25,9 @@
 
 </section>
 
-<%= javascript_include_tag "https://js.stripe.com/v3/" %>
-<script>
-  window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
-</script>
+<% if @setup_intent.present? %>
+  <%= javascript_include_tag "https://js.stripe.com/v3/" %>
+  <script>
+    window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
+  </script>
+<% end %>

@@ -21,6 +21,10 @@ class CrowdPledgeService
     crowd_pledge.update_column(:stripe_setup_intent_id, setup_intent.id)
 
     setup_intent
+  rescue Stripe::StripeError => e
+    Rails.logger.warn "[stripe] SetupIntent create failed for CrowdPledge #{crowd_pledge.id}: #{e.class} - #{e.message}"
+    Sentry.capture_exception(e, extra: { crowd_pledge_id: crowd_pledge.id, stripe_customer_id: crowd_pledge.stripe_customer_id }) rescue nil
+    nil
   end
 
   def payment_authorized(crowd_pledge, setup_intent_id, simulate_processing: false)
@@ -30,6 +34,14 @@ class CrowdPledgeService
       Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
     rescue Stripe::InvalidRequestError => e
       Rails.logger.warn "[stripe] SetupIntent #{setup_intent_id} konnte nicht geladen werden: #{e.message}"
+      return [:error, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
+    rescue Stripe::APIConnectionError, Stripe::APIError, Stripe::RateLimitError => e
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent_id} temporär nicht erreichbar: #{e.class} - #{e.message}"
+      Sentry.capture_exception(e, extra: { crowd_pledge_id: crowd_pledge.id, setup_intent_id: setup_intent_id }) rescue nil
+      return [:processing, "Deine Zahlung wird noch geprüft. Bitte warte kurz."]
+    rescue Stripe::StripeError => e
+      Rails.logger.warn "[stripe] SetupIntent #{setup_intent_id} Fehler: #{e.class} - #{e.message}"
+      Sentry.capture_exception(e, extra: { crowd_pledge_id: crowd_pledge.id, setup_intent_id: setup_intent_id }) rescue nil
       return [:error, "Ein technischer Fehler ist aufgetreten. Bitte versuche es später erneut."]
     end
 
