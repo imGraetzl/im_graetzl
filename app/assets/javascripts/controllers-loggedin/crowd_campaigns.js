@@ -100,8 +100,10 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         $('.-toggle input').on("focus", function(event) {
           nestedOpener($(this));
         });
-        $('.-toggle.disabled').on("click", function(event) {
+        $('.-toggle').on("click", function(event) {
+          if ($(event.target).is('input') && !$(event.target).is(':disabled')) return;
           nestedOpener($(this));
+          $(this).find('input').focus();
         });
       }
 
@@ -136,6 +138,13 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         $(insertedItem).find('.-toggle input').focus();
 
       }).trigger('cocoon:after-insert');
+
+      $('.crowdfunding-form').on('cocoon:before-remove', function(e, removedItem) {
+        var $removed = $(removedItem);
+        $removed.find('[required]').prop('required', false);
+        $removed.find(':input').removeClass('-invalid');
+        $removed.find('label').removeClass('-invalid').find('span.error_msg').remove();
+      });
 
       // max categories
       $(".crowd-categories input").on("change", function() {

@@ -80,6 +80,10 @@ class CrowdPledgesController < ApplicationController
 
     @crowd_pledge.calculate_price
     @setup_intent = CrowdPledgeService.new.create_setup_intent(@crowd_pledge)
+    if @setup_intent.nil?
+      flash.now[:error] = "Zahlung derzeit nicht möglich – bitte versuche es in ein paar Minuten erneut."
+      log_processing_event(:warn, :setup_intent_create_failed)
+    end
   end
 
   def processing
