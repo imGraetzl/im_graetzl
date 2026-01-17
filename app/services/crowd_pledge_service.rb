@@ -106,6 +106,7 @@ class CrowdPledgeService
     when :boost_waitlist
       if crowd_pledge.crowd_campaign.boost_waitlisted_at.blank?
         crowd_pledge.crowd_campaign.update(boost_status: 'boost_waitlist', boost_waitlisted_at: Time.current)
+        CrowdCampaignMailer.boost_waitlisted(crowd_pledge.crowd_campaign).deliver_later
       end
     end
 
