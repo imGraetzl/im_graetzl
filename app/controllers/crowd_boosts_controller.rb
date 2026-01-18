@@ -27,7 +27,7 @@ class CrowdBoostsController < ApplicationController
       return redirect_to leerstand_path
     end
     
-    @next_slot = @crowd_boost.next_slot(current_region)
+    @next_slot = @crowd_boost.next_slot(current_region) || @crowd_boost.prev_slot(current_region)
     @campaign_count = @crowd_boost.crowd_campaigns.boost_initialized.count
     @charge_count = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count
 
@@ -41,9 +41,11 @@ class CrowdBoostsController < ApplicationController
     # show crowd_boost of region under /leerstand
     if leerstand_id
       @crowd_boost = CrowdBoost.find_by(id: leerstand_id)
-      @next_slot = @crowd_boost.next_slot(current_region)
+      @next_slot = @crowd_boost.next_slot(current_region) || @crowd_boost.prev_slot(current_region)
       @campaign_count = @crowd_boost.crowd_campaigns.boost_initialized.count
       @charge_count = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count
+
+      flash.now[:alert] = "Einreichzeitraum beendet (#{@next_slot.timerange}) - Nächste Runde ist bereits in Vorbereitung." if @next_slot&.expired?
 
       case region_id
       when 'graz'
@@ -84,7 +86,7 @@ class CrowdBoostsController < ApplicationController
     region_id = current_region&.id
     leerstand_id = leerstand_ids[region_id]
     @crowd_boost = CrowdBoost.find_by(id: leerstand_id)
-    @next_slot = @crowd_boost.next_slot(current_region)
+    @next_slot = @crowd_boost.next_slot(current_region) || @crowd_boost.prev_slot(current_region)
     @campaign_count = @crowd_boost.crowd_campaigns.boost_initialized.count
     @charge_count = @crowd_boost.crowd_boost_charges.debited_without_crowd_pledges.count
 

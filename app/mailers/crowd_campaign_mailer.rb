@@ -110,6 +110,19 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def boost_waitlisted(crowd_campaign)
+    @crowd_campaign = crowd_campaign
+    @crowd_boost = crowd_campaign.crowd_boost
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-campaign-boost-waitlisted")
+    mail(
+      subject: "Information zum #{@crowd_boost.title}-Zuschuss (Wartelistenplatz)",
+      from: platform_email('no-reply'),
+      to: @crowd_campaign.user.email,
+      bcc: platform_admin_email,
+    )
+  end
+
   def completed_successful(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region

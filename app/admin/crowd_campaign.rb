@@ -153,7 +153,7 @@ ActiveAdmin.register CrowdCampaign do
     :crowd_boost_slot_id, :boost_status,
     crowd_category_ids: [],
     images_attributes: [:id, :file, :_destroy],
-    crowd_rewards_attributes: [:id, :title, :description, :question, :limit],
+    crowd_rewards_attributes: [:id, :title, :description, :question, :limit, :avatar, :remove_avatar],
     crowd_donations_attributes: [:id, :title, :description, :question]
 
   # Within app/admin/resource_name.rb

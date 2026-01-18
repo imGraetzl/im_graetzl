@@ -83,6 +83,8 @@ active_admin_form_for [:admin, resource] do |f|
           o.input :description
           o.input :question
           o.input :limit
+          o.input :avatar, as: :file, hint: o.object.avatar && image_tag(o.object.avatar_url(:thumb))
+          o.input :remove_avatar, as: :boolean if o.object.avatar
         end
       end
       inputs 'Material- Zeit- Raumspenden' do

@@ -32,8 +32,12 @@
     </div>
     <div class="introSide">
 
-      <%= render 'crowd_boosts/crowd_boost_info', crowd_boost: @crowd_boost, crowd_boost_page: true %>
-      <%#= image_tag'info/crowd2raum/graz-call.png', class: 'map-img' %>
+      <% if @next_slot && @next_slot.open? %>
+        <%= render 'crowd_boosts/crowd_boost_open', crowd_boost: @crowd_boost, hide_facts: true %>
+      <% else %>
+        <%= render 'crowd_boosts/crowd_boost', crowd_boost: @crowd_boost %>
+      <% end %>
+      
       <div class="logo-side">
         <a href="https://www.graz.at/cms/beitrag/10068425/7769305/bezirksvertretung_jakomini.html" target="_blank">
           <%= image_tag 'logo-graz.png', width:363, height:100 %>
@@ -51,69 +55,59 @@
     </div>
   </div>
 
-  <div class="content-wide">
-    <div class="wrp-inner">
-      <div class="hl-subtext">
-        <h1>Die neue Runde ist gestartet!</h1>
-        <p>Bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen. <br>Mach mit, so funktionierts:</p>
-      </div>
-      <div class="content-wide-text">
+  <% if @next_slot&.open? %>
 
-        <!--
-        <ul class="list-num">
-          <li>Erstelle <strong>deinen Account</strong> auf WeLocally - <strong><%= link_to 'Hier gehts zur Registrierung.', new_registration_path, target: '_blank' %></strong></li>
-          <li>Erstelle anschließend eingeloggt eine neue Crowdfunding Kampagne und wähle innerhalb des Formulars deine <strong>Teilnahme am "Viertelfonds"</strong> aus. Beschreibe dein Vorhaben und fülle alle Kampagnenfelder bis zur letzten Seite vollständig aus und schicke deine Kampagne zur Freigabe ab. <strong><%= link_to 'Hier gehts zum Kampagnen-Start.', start_crowd_campaigns_path %></strong></li>
-          <li><strong>Wir melden uns zeitnah</strong> und laden euch zu einer individuellen Crowdfunding-Beratung ein, damit euer Projekt die bestmöglichen Chancen auf ein erfolgreiches Crowdfunding erhält.</li>
-        </ul>
-        <% if current_user %>
-          <%= link_to "Los geht's - Kampagne starten", start_crowd_campaigns_path, class: 'btn-primary -large -rose -shadow' %>
-        <% else %>
-          <%= link_to "Los geht's - Zur Registrierung", new_registration_path, class: 'btn-primary -large -rose -shadow' %>
-        <% end %>
-        -->
+    <div class="content-wide">
+      <div class="wrp-inner">
+        <div class="hl-subtext">
+          <h1>Die neue Runde ist gestartet!</h1>
+          <p>Bis zum 30. November 2025 könnt ihr eure Raumvorhaben beim ViertelFonds einreichen. <br>Mach mit, so funktionierts:</p>
+        </div>
+        <div class="content-wide-text">
 
-        <ul class="list-num">
-          <li><strong>Erzähl uns in 1–2 Sätzen von deinem Vorhaben</strong> und fülle dazu bitte das anschließende Formular aus.</li>
-          <li><strong>Wir melden uns zeitnah</strong> und laden euch zu einer individuellen Crowdfunding-Beratung ein, damit euer Projekt die bestmöglichen Chancen auf ein erfolgreiches Crowdfunding erhält.</li>
-        </ul>
+          <ul class="list-num">
+            <li><strong>Erzähl uns in 1–2 Sätzen von deinem Vorhaben</strong> und fülle dazu bitte das anschließende Formular aus.</li>
+            <li><strong>Wir melden uns zeitnah</strong> und laden euch zu einer individuellen Crowdfunding-Beratung ein, damit euer Projekt die bestmöglichen Chancen auf ein erfolgreiches Crowdfunding erhält.</li>
+          </ul>
 
-        <%= form_for @contact_list_entry, url: url_for do |f| %>
-          <%= form_errors_for @contact_list_entry if @contact_list_entry %>
-          <%= hidden_field_tag :redirect_path, '/leerstand' %>
-          <%= hidden_field_tag :fallback_view, 'crowd_boosts/call_graz' %>
+          <%= form_for @contact_list_entry, url: url_for do |f| %>
+            <%= form_errors_for @contact_list_entry if @contact_list_entry %>
+            <%= hidden_field_tag :redirect_path, '/leerstand' %>
+            <%= hidden_field_tag :fallback_view, 'crowd_boosts/call_graz' %>
 
-          <div class="form-block cardBox">
-            <div class="input-field">
-              <%= f.label :name do %>
-                <%= icon_tag "user-avatar" %>
-                <span>Name</span>
-              <% end %>
-              <%= f.text_field :name, placeholder: 'Vorname Nachname', required: true %>
+            <div class="form-block cardBox">
+              <div class="input-field">
+                <%= f.label :name do %>
+                  <%= icon_tag "user-avatar" %>
+                  <span>Name</span>
+                <% end %>
+                <%= f.text_field :name, placeholder: 'Vorname Nachname', required: true %>
+              </div>
+              <div class="input-field">
+                <%= f.label :email do %>
+                  <%= icon_tag "at-symbol" %>
+                  <span>E-Mail</span>
+                <% end %>
+                <%= f.text_field :email, placeholder: 'E-Mail Adresse', required: true %>
+              </div>
+              <div class="input-textarea">
+                <%= f.label :message do %>
+                  <%= icon_tag "layout-document" %>
+                  <span>Dein Vohaben</span>
+                <% end %>
+                <%= f.text_area :message, placeholder: 'Beschreibe kurz dein Vorhaben in 2-3 Sätzen ...', required: true %>
+              </div>
+              <%= submit_tag "Mein Vorhaben absenden", class: 'btn-primary -rose -large -shadow' %>
+              <p class="hint">
+                Wir verwenden die E-Mail-Adresse ausschließlich zur Vorbereitung der Fördereinreichung. Deine E-Mail-Adresse wird nicht an Dritte weitergegeben und ausschließlich im Rahmen dieses Prozesses genutzt.
+              </p>
             </div>
-            <div class="input-field">
-              <%= f.label :email do %>
-                <%= icon_tag "at-symbol" %>
-                <span>E-Mail</span>
-              <% end %>
-              <%= f.text_field :email, placeholder: 'E-Mail Adresse', required: true %>
-            </div>
-            <div class="input-textarea">
-              <%= f.label :message do %>
-                <%= icon_tag "layout-document" %>
-                <span>Dein Vohaben</span>
-              <% end %>
-              <%= f.text_area :message, placeholder: 'Beschreibe kurz dein Vorhaben in 2-3 Sätzen ...', required: true %>
-            </div>
-            <%= submit_tag "Mein Vorhaben absenden", class: 'btn-primary -rose -large -shadow' %>
-            <p class="hint">
-              Wir verwenden die E-Mail-Adresse ausschließlich zur Vorbereitung der Fördereinreichung. Deine E-Mail-Adresse wird nicht an Dritte weitergegeben und ausschließlich im Rahmen dieses Prozesses genutzt.
-            </p>
-          </div>
-        <% end %>
+          <% end %>
 
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="toggle-container">
     <div class="content-block -toggable">
@@ -143,17 +137,40 @@
     </div>
   </div>
 
-  <!--
+  <div class="tabs-ctrl -plain">
+    <ul class="tabs-nav">
+      <li class="active">
+        <a href="#tab-campaigns">
+          <h3>Bisher unterstützte Projekte</h3>
+          <% if @campaign_count.to_i.positive? %><small><%= @campaign_count %></small><% end %>
+        </a>
+      </li>
+      <% if @crowd_boost.chargeable? %>
+        <li class="<%= @campaign_count == 0 ? 'active' : '' %>">
+          <a href="#tab-charges">
+            <h3>Topf Einzahlungen</h3>
+            <% if @charge_count.to_i.positive? %><small><%= @charge_count %></small><% end %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
   <div id="tabs-container" class="content-wide -grey">
-    <div class="hl-subtext">
-      <h1>Unterstützte Projekte</h1>
-    </div>
     <div id="tab-campaigns" class="wrp-inner card-grid-container">
       <%= form_tag campaigns_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'cards-filter' do %><% end %>
       <div class="card-grid" data-behavior="campaigns-card-container"></div>
     </div>
+    <% if @crowd_boost.chargeable? %>
+      <div id="tab-charges" class="wrp-inner charges">
+        <%= form_tag charges_crowd_boost_path(@crowd_boost), method: :get, remote: true, class: 'form-charges' do %><% end %>
+        <%= link_to "In den Topf einzahlen", new_crowd_boost_crowd_boost_charge_path(@crowd_boost), class: "btn-primary -mint -small -shadow btn-charge" %>
+        <div class="charges-container">
+          <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+        </div>
+      </div>
+    <% end %>
   </div>
-  -->
 
   <div class="content-wide -end logo-footer">
     <div class="wrp-inner">
