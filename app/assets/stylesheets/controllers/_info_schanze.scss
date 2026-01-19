@@ -1,0 +1,98 @@
+section.info {
+
+  //TODO: move to html - dort einbinden nur auf seite schanze
+  @import url("https://use.typekit.net/mww3lgw.css");
+  // Add styles for sheboost page here
+  &.-sChanze {
+
+    .imgHeader {
+      //background-color: #bdb4e3;
+      background-color: unset;
+      height:500px;
+    }
+
+    .imgHeader::after {
+      background-image: url(image_path('info/schanze/sChanze_header.jpg'));
+      background-position: center center;
+      @media only screen and (min-width:1450px){
+        background-size: 70%;
+        //background-size: contain;
+      }
+    }
+
+    .header-logo {
+      width:250px;
+      height:auto;
+      display: block;
+      position: relative;
+      margin-left: auto;
+      top:-20px;
+      @include respond-to(">=medium") {
+        width:300px;
+        margin-right: -50px;
+      }
+    }
+
+    .paperCard {
+      margin:auto;
+      margin-top: -30px;
+      max-width: 700px;
+      .card {
+        background-color: #f7f7f7;
+      }
+      .hl-subtext {
+        margin-top:-155px;
+        margin-bottom:0px;
+        h1 em {
+          font-family: "duper", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+          padding-top:10px;
+          padding-left:10px;
+          padding-right:10px;
+          padding-bottom: 5px;;
+        }
+        h1:first-of-type {
+          z-index: 2;
+          position: relative;
+          margin-bottom: -11px;
+        }
+        h1:last-of-type{
+          z-index: 1;
+        }
+        p {
+          font-weight:bold;
+        }
+      }
+    }
+    
+  }
+}
+
+section.sChanze[class*="modell-"] {
+  
+  position: relative;
+  border-top: 1px solid #c0d3d1;
+  padding: 60px 20px 50px 20px;
+
+  .sideflag {
+    font-size: 3.4rem;
+    max-width: 300px;
+    font-family: "duper", sans-serif;
+    text-shadow: 0 1px 0 #2d4142, 0 2px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  &.modell-1 { 
+    margin-top:20px;
+    background-color: #f2f6f7;
+  }
+
+  &.modell-2 { 
+    background-color: unset;
+  }
+
+  &.modell-3 { 
+    background-color: #d2ebe8;
+  }
+
+}
