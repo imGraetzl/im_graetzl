@@ -23,10 +23,10 @@
   <%= render "summary/new_zuckerl", zuckerls: zuckerls.last(2) if current_position == zuckerl_position && @period == 'weekly' %>
 
   <!-- Insert Feature Boxes -->
-  <%= render 'featured/sheboost' if @region.is?('wien') && @period == 'weekly' && current_position == 1 %>
-  <%= render 'featured/crowdfunding_call_wien' if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
-  <%# render 'featured/crowdfunding_sprechstunde' if !@region.is?('wien') && @period == 'weekly' && current_position == 2 %>
+  <%= render 'featured/good_morning_date_call' if @region.is?('wien') && @period == 'weekly' && current_position == 2 %>
   <%= render 'featured/subscription' if !@region.is?('wien') && @region.use_subscription? && @period == 'weekly' && current_position == 2 %>
+  <%# render 'featured/sheboost' if @region.is?('wien') && @period == 'weekly' && current_position == 1 %>
+  <%# render 'featured/crowdfunding_sprechstunde' if !@region.is?('wien') && @period == 'weekly' && current_position == 2 %>
   <%# render 'summary/new_good_morning_dates', meetings: @good_morning_dates if @region.is?('wien') && @period == 'weekly' && current_position == 3 %>
 
   <%= render 'summary/block_header', title: block_title %>
