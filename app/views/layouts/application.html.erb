@@ -49,6 +49,7 @@
   <%= favicon_link_tag 'favicon.ico' %>
   <%= schema_org_tag(@schema_org_object) if @schema_org_object.present? %>
   <%= Sentry.get_trace_propagation_meta.html_safe %>
+  <%= yield :head %>
 </head>
 
 <body

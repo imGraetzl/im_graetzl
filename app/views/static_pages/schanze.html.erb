@@ -8,6 +8,10 @@
   )
 %>
 
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://use.typekit.net/mww3lgw.css">
+<% end %>
+
 <section class="info -sChanze">
 
   <div class="imgHeader -fullwidth">
@@ -30,9 +34,19 @@
         </p>
       </div>
 
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis neque ut erat fringilla maximus.
-      </p>
+      <div class="map-wrp">
+        <div>
+          <strong>Ein neuer Stadtteil entsteht</strong><br>
+          Im Quartier “An der Schanze”, gleich hinter der alten Donau im 21. Bezirk ziehen bald 5000 Bewohner*innen ein. 
+          Jetzt braucht es dein Angebot für noch mehr Lebensqualität.
+        </div>
+        <div>
+          <%= image_tag("info/schanze/map.png") %>
+        </div>
+      </div>
+
+      
+
     </div>
     <div class="card"></div>
   </div>
@@ -40,22 +54,167 @@
 </section>
 
 <section class="sChanze modell-1">
-  <div class='sideflag -T'>MODELL 1</div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis neque ut erat fringilla maximus.
-  </p>
+  <div class='sideflag -T'>sChanze Flex</div>
+  <div class="hl-subtext">
+    <h2><span>Räume für dein Tun - Flexibel & Stundenweise</span></h2>
+    <p>
+      <strong>Buche ganz nach Bedarf, ohne Bindung. Keine Mindestabnahme, kein Risiko, abgerechnet wird erst im darauffolgenden Monat. Ab 8 € netto pro Stunde!</strong>
+    </p>
+  </div>
+  <div class="cardBoxes">
+    <div class="cardBox">
+      <div>
+        <%= image_tag("info/schanze/flex_einzel.jpg") %>
+        <p>
+          <strong>Raum für Einzelsessions</strong><br><br>
+          Geeignet u.a. für Coaching, Shiatsu, Massage, Therapie, Beratungsangebote
+        </p>
+      </div>
+      <div>
+        <div class="cardBox -price">
+          <h3>8 € <small>/ Stunde</small></h3>
+          <small>Bei +8 Std./ Monat 8 € netto/ Stunde, sonst 10 € netto/Stunde</small>
+        </div>
+      </div>
+    </div>
+    <div class="cardBox">
+      <div>
+        <%= image_tag("info/schanze/flex_gruppen.jpg") %>
+        <p>
+          <strong>Raum für Gruppensessions</strong><br><br>
+          Geeignet u.a. für Yoga, Tanz, Fitness, Eltern-Kind Turnen und andere Bewegungssessions
+        </p>
+      </div>
+      <div>
+        <div class="cardBox -price">
+          <h3>15 € <small>/ Stunde</small></h3>
+          <small>Bei +8 Std./ Monat 15 € netto/ Stunde, sonst 20 € netto/Stunde</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cardBoxes -infos">
+    <div>
+      <h3>Besonders geeignet für</h3>
+      <ul class="list-arrow">
+        <li>Gesundheit & Wohlbefinden</li>
+        <li>Bildung & Beratung</li>
+        <li>Fitness & Yoga</li>
+        <li>Eltern & Kind- Angebote</li>
+        <li>Kunst & Kultur</li>
+        <li>Dienstleistungen & Handwerk</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Raum-Features</h3>
+      <ul class="list-arrow">
+        <li>4 Meter Raumhöhe</li>
+        <li>Lagermöglichkeit</li>
+        <li>Gemeinschaftsflächen</li>
+        <li>Parkettboden in Gruppenräumen</li>
+        <li>Spiegelwand in Bewegungsraum</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cardBox zuckerl">
+    <div class="img"><%= image_tag("info/schanze/zuckerl.png") %></div>
+    <div class="content">
+      <h3>Sichtbarkeit für dich und dein Angebot.<br>Dein Starter*innen Bonus.</h3>
+      <ul class="list-arrow">
+        <li>Vorstellung deines Angebots im Welcome Flyer für die Bewohner*innen</li>
+        <li>2 x Bezirks-Grätzlzuckerl im ersten Jahr: Sichtbarkeit in 8 x Newslettern und auf imGrätzl.at</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="howitworks content-wide">
+    <div class="wrp-inner">
+      <h3>So funktioniert’s</h3>
+      <div class="wrp">
+        <div class="step">
+          <%= image_tag("num-1.svg", class: 'num') %>
+          <strong>Anmeldung Call</strong>
+          <p>
+            Bildung des Starter*innen Teams
+          </p>
+        </div>
+        <div class="step">
+          <%= image_tag("num-2.svg", class: 'num') %>
+          <strong>Vernetzung</strong>
+          <p>
+            Treffen & Kennenlernen der sChanze Macher*innen für Synergien und eine gute Gemeinschaft
+          </p>
+        </div>
+        <div class="step">
+          <%= image_tag("num-3.svg", class: 'num') %>
+          <strong>Raumnutzung</strong>
+          <p>
+            Synergien und eine gute Gemeinschaft
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actionbox -illu">
+    <h3>Die Plätze im Starter*innen Team sind begrenzt</h3>
+    <p>Wenn du dabei sein willst, melde dich jetzt.</p>
+    <%= link_to 'Starter*innen Platz anfragen', '#', class: 'btn-primary -large -rose -shadow' %>
+  </div>
 </section>
 
 <section class="sChanze modell-2">
-  <div class='sideflag -T'>MODELL 2</div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis neque ut erat fringilla maximus.
-  </p>
+  <div class='sideflag -T'>sChanze Fix</div>
+  <div class="hl-subtext">
+    <h2><span>Dein fixer Platz in der sChanze</span></h2>
+    <p>
+      <strong>Dein Platz rund um die Uhr - allein oder geteilt.</strong>
+    </p>
+  </div>
+  <div class="cardBoxes">
+    <div class="cardBox">
+      <div>
+        <%= image_tag("info/schanze/fix-shared.jpg") %>
+        <p>
+          <strong>Geteilte Nutzung</strong><br><br>
+          Gemeinsam mehr erreichen: Teile Raum und Kosten und wachse mit deinen Raumpartner*innen.
+        </p>
+      </div>
+      <div>
+        <div class="cardBox -price">
+          <h3>200 € <small>netto / Monat</small></h3>
+        </div>
+      </div>
+    </div>
+    <div class="cardBox">
+      <div>
+        <%= image_tag("info/schanze/fix-alone.jpg") %>
+        <p>
+          <strong>Alleinnutzung</strong><br><br>
+          Dein Raum. Deine Idee und volle Freiheit den Raum nach deinen Vorstellungen zu nutzen.
+        </p>
+      </div>
+      <div>
+        <div class="cardBox -price">
+          <h3><small>Ab</small> 600 € <small>netto / Monat</small></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actionbox">
+    <%= link_to 'Fixplatz anfragen', '#', class: 'btn-primary -large -rose -shadow' %>
+  </div>
 </section>
 
 <section class="sChanze modell-3">
-  <div class='sideflag -T'>MODELL 3</div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis neque ut erat fringilla maximus.
-  </p>
+  <div class='sideflag -T'>Supergreissler*in</div>
+  <div class="hl-subtext">
+    <h2><span>Supergreissler*in für die sChanze gesucht!</span></h2>
+    <p>
+      <strong>Dein Business PLUS ein bezahlter Job</strong>
+    </p>
+  </div>
+  <div class="supergreissler-img">
+    <%= image_tag("info/schanze/visual-supergreissler.png") %>
+  </div>
 </section>
