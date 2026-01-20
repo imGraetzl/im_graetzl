@@ -684,6 +684,9 @@ de:
     balkonsolar:
       title: 'Balkon-Solar Workshops in %{region}'
       description: 'Kosten senken – Strom selber produzieren! Entdecke mit uns die Mini-PV Anlagen für den Balkon! Du interessierst dich für Balkon-Solar und möchtest wissen, wie es funktioniert? Dann bist du bei unserem Balkon-Solar Workshop genau richtig, in zwei Stunden lernst du von Michael Puttinger alles über Balkonkraftwerke.'
+    schanze:
+      title: 'sCHANZE - Dein neues Standbein in der sCHANZE'
+      description: 'Leistbare und flexible Räume. Sichtbarkeit für dein Angebot. Die Bewohner*innen freuen sich auf dich!'
 
   contact_list_entries:
     crowd2raum:
