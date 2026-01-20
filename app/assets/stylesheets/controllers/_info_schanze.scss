@@ -1,0 +1,295 @@
+section.info {
+
+  // Add styles for sheboost page here
+  &.-sChanze {
+
+    .imgHeader {
+      //background-color: #bdb4e3;
+      background-color: unset;
+      height:300px;
+      @media only screen and (min-width:500px){
+        height:500px;
+      }
+    }
+
+    .imgHeader::after {
+      background-image: url(image_path('info/schanze/sChanze_header.jpg'));
+      background-position: center center;
+      @media only screen and (min-width:1450px){
+        background-size: 70%;
+        //background-size: contain;
+      }
+    }
+
+    .header-logo {
+      width:250px;
+      height:auto;
+      display: block;
+      position: relative;
+      margin-left: auto;
+      top:-20px;
+      @include respond-to(">=medium") {
+        width:300px;
+        margin-right: -50px;
+      }
+    }
+
+    .paperCard {
+      margin:auto;
+      max-width: 700px;
+      margin-top: -30px;
+      @include respond-to("<=medium") {
+        margin-bottom:40px;
+      }
+      .wrp {
+        padding: 35px 50px 35px 50px;
+      }
+      .card {
+        background-color: #f7f7f7;
+      }
+      .hl-subtext {
+        margin-top:-155px;
+        margin-bottom:0px;
+        h1 em {
+          font-family: "duper", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+          padding-top:10px;
+          padding-left:10px;
+          padding-right:10px;
+          padding-bottom: 5px;;
+        }
+        h1:first-of-type {
+          z-index: 2;
+          position: relative;
+          margin-bottom: -11px;
+        }
+        h1:last-of-type{
+          z-index: 1;
+        }
+        p {
+          font-weight:bold;
+        }
+      }
+    }
+
+    .map-wrp {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap-reverse;
+      @include respond-to(">=medium") {
+        flex-wrap: nowrap;
+      }
+      > div {
+        width:100%;
+        align-content: center;
+        @include respond-to(">=medium") {
+          width:48%;
+        }
+      }
+      img {
+        width:100%;
+        height:auto;
+        margin-bottom: 20px;
+      }
+    }
+    
+  }
+}
+
+section.sChanze[class*="modell-"] {
+
+  h1, h2 {
+    font-family: "duper", sans-serif;
+  }
+  h2 {
+    @include font-size-secondaryFont('medium');
+    font-family: "duper", sans-serif;
+  }
+  @include font-size-primaryFont('large');
+  
+  position: relative;
+  border-top: 1px solid #c0d3d1;
+  padding: 60px 20px 50px 20px;
+
+  .center {
+    text-align: center;
+  }
+
+  .sideflag {
+    font-size: 3.4rem;
+    max-width: 300px;
+    font-family: "duper", sans-serif;
+    text-shadow: 0 1px 0 #2d4142, 0 2px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  &.modell-1 { 
+    margin-top:20px;
+    background-color: #f2f6f7;
+  }
+
+  &.modell-2 { 
+    background-color: unset;
+  }
+
+  &.modell-3 { 
+    background-color: #d2ebe8;
+  }
+
+  .cardBoxes {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    > .cardBox {
+      display: flex;
+      flex-direction: row;
+      width:100%;
+      @include respond-to(">=medium") {
+        width:49%;
+      }
+    }
+    > .cardBox {
+      background-color: #dbeeec;
+      border-color: #c0dcd8;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom:20px;
+    }
+    p {
+      margin-bottom:20px;
+    }
+    img {
+      width:100%;
+      height:auto;
+      margin-bottom: 20px;
+    }
+    .cardBox.-price {
+      background-color: #68a9a8;
+      color: #ffffff;
+      border:none;
+      h3 {
+        @include font-size-primaryFont('largest');
+      }
+      small {
+        font-weight:normal;
+      }
+    }
+    &.-infos {
+      h3 {
+        margin-bottom:20px;
+      }
+      > * {
+          padding-left:50px;
+          padding-right:20px;
+          margin-bottom:20px;
+          @include respond-to(">=medium") {
+            width:50%;
+            &:first-of-type {
+              border-right:1px dotted #69a9a9;
+            }
+        }
+      }
+    }
+  }
+
+  .howitworks {
+    margin-top:20px;
+    padding-top:30px;
+    padding-bottom:30px;
+    background-color: #ffffff;
+    @include bg-url(
+      image_path('texture-alpha-stoff1.png'),
+      $webp1x: image_path('texture-alpha-stoff1.webp'),
+    );
+    h3 {
+      text-align: center;
+      margin-bottom:10px;
+    }
+    .num {
+      display: block;
+      width:75px;
+      height:auto;
+      margin:auto
+    }
+    .wrp {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+        > .step {
+        text-align: center;
+        width:100%;
+        margin-bottom:20px;
+        @include respond-to(">=medium") {
+          width:30%;
+        }
+      }
+    }
+  }
+  .zuckerl {
+    @include font-size-primaryFont('base');
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background:none;
+    border-color: #f08e81;
+    ul {
+      margin-top:10px;
+    }
+    img {
+      transform: rotate(45deg);
+      width:50%;
+      height:auto;
+      @include respond-to(">=medium") {
+        width:100%;
+        transform: rotate(0deg);
+      }
+    }
+    > div {
+      width:100%;
+    }
+    .img {
+      text-align: center;
+    }
+    @include respond-to(">=medium") {
+      .img {
+        width:25%;
+      }
+      .content {
+        width:72%;
+      }
+    }
+  }
+  .actionbox {
+    &.-illu {
+      background-image: url(image_path('info/schanze/illu-jury.png'));
+      background-position: right bottom;
+      background-repeat: no-repeat;
+      background-size: 100px 100px;
+      padding-top:30px;
+      padding-bottom:10px;
+      padding-left:50px;
+      padding-right:50px;
+      @include respond-to(">=medium") {
+        background-size: 150px 150px;
+      }
+    }
+    text-align: center;
+    .btn-primary {
+      width: fit-content;
+      margin:auto;
+      margin-top:20px;
+    }
+  }
+
+  .supergreissler-img {
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    img {
+      width:100%;
+      height:auto;
+    }
+  }
+
+}
