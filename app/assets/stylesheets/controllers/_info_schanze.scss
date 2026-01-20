@@ -415,6 +415,7 @@ section.modell-3 {
     display: flex;
     justify-content: center;
     padding:10px;
+    flex-wrap: wrap;
     span {
       color: $color-ambient-mint-dark;
       font-size: 2.5rem;
@@ -422,7 +423,6 @@ section.modell-3 {
     > div {
       text-align: center;
       padding:10px;
-      width:25%;
     }
     img {
       height:60px;
@@ -437,6 +437,11 @@ section.modell-3 {
         margin: auto;
       }
     }
+    .zwischen {
+      @include respond-to("<=medium") {
+        display: none;
+      }
+    }
   }
   .-conditions {
     padding-top:20px;
@@ -446,16 +451,15 @@ section.modell-3 {
     margin-right:-20px;
   }
   .-super-btn {
-    background-image: url(image_path('illu/illu-macher-in@2x.png'));
-    background-position: 10% bottom;
-    background-repeat: no-repeat;
-    background-size: 100px;
-    padding-top:30px;
-    padding-bottom:10px;
-    padding-left:200px;
-    padding-right:200px;
-    @include respond-to(">=medium") {
-      background-size: 150px 150px;
+    @include respond-to(">=large") {
+      background-image: url(image_path('illu/illu-macher-in@2x.png'));
+      background-position: 10% bottom;
+      background-repeat: no-repeat;
+      background-size: 150px;
+      padding-top:30px;
+      padding-bottom:10px;
+      padding-left:200px;
+      padding-right:200px;
     }
   }
 }
@@ -464,6 +468,7 @@ section.modell-3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   img {
     margin:20px;
     height:70px;
