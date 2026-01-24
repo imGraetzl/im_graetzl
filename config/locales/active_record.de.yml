@@ -397,12 +397,10 @@ de:
         aasm_state/pending: Pending
         aasm_state/expired: Expired
         aasm_state/cancelled: Deleted
-        created_at: Erstellt am
         title: Titel
         description: Beschreibung
         cover_photo: Bild
         image: Bild
-        debited_at: Bezahlt am
         payment_reference: Zahlungsreferenz
         visibility: Sichtbarkeit
         invoice_number: Rechnungsnummer

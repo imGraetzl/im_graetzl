@@ -3,7 +3,10 @@
     <% if crowd_reward.avatar.nil? %>
       <div class="reward-img"><%= icon_tag "label-tag" %></div>
     <% else %>
-      <%= avatar_image crowd_reward, size: :large, class: 'reward-img' %>
+      <%= avatar_image crowd_reward,
+          size: :large,
+          class: 'reward-img js-reward-image',
+          data: { full_src: crowd_reward.avatar_url, reward_gallery: "crowd-reward-#{crowd_reward.id}" } %>
     <% end %>
   </div>
   <div class="right">

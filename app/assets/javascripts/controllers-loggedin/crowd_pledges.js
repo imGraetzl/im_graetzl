@@ -13,10 +13,15 @@ APP.controllers_loggedin.crowd_pledges = (function() {
     function initAmountScreen() {
       APP.components.tabs.setTab('step1');
       initAmount();
+      initRewardImageModal();
       $('.-crowdRewardBox').on("click", function(event) {
         const $rewardBox = $(this);
         const $morelink = $rewardBox.find(".more-link");
         const $rewardDesc = $rewardBox.find(".description");
+
+        if ($(event.target).closest(".js-reward-image").length) {
+          return;
+        }
 
         if ($(event.target).is("a[target='_blank']")) {
           event.stopPropagation();
@@ -36,6 +41,17 @@ APP.controllers_loggedin.crowd_pledges = (function() {
             $(this).replaceWith(text);
           });
         }
+      });
+    }
+
+    function initRewardImageModal() {
+      if (!$(".js-reward-image[data-full-src]").exists()) return;
+
+      new jBox('Image', {
+        attach: '.js-reward-image[data-full-src]',
+        src: 'data-full-src',
+        gallery: 'data-reward-gallery',
+        closeOnClick: true
       });
     }
 
