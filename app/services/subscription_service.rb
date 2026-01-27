@@ -206,7 +206,10 @@ class SubscriptionService
 
   def invoice_paid(subscription, object)
     user = subscription.user
-    return if user.nil?
+    if user.nil?
+      Sentry.logger.warn("[stripe webhook] invoice_paid: subscription #{subscription&.id} ohne user, keine Invoice Record erstellt! (stripe_id=#{subscription&.stripe_id})")
+      return
+    end
 
     coupon = nil
 
