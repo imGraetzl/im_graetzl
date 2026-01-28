@@ -52,4 +52,17 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
+  def crowd_campaign_special(user)
+    @user = user
+    @region = @user.region
+
+    headers("X-MC-Tags" => "marketing-mail-crowdfunding")
+
+    mail(
+      subject: "Psst... DAS Margareten öffnet seine Türen. Nur für euch!",
+      from: platform_email("wir"),
+      to: @user.email,
+    )
+  end
+
 end

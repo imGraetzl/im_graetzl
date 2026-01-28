@@ -12,16 +12,12 @@ class MarketingMailerPreview < ActionMailer::Preview
     MarketingMailer.agb_change_and_crowdfunding(User.last)
   end
 
-  def agb_change_and_crowdfunding
-    MarketingMailer.agb_change_and_crowdfunding(User.last)
-  end
-
-  def crowdfunding_280
-    MarketingMailer.crowdfunding_280(User.last)
-  end
-
   def supporters_2025
     MarketingMailer.supporters_2025(User.last)
+  end
+
+  def crowd_campaign_special
+    MarketingMailer.crowd_campaign_special(User.last)
   end
 
 end
