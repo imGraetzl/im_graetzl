@@ -20,7 +20,7 @@
             <em>Betrag: <%= number_to_currency(@crowd_pledge.total_overall_price, unit: "EUR") %><br>
             Verwendungszweck: <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
           </p>
-        <% elsif @crowd_pledge.payment_method == 'sofort' %>
+        <% elsif @crowd_pledge.payment_method == 'eps' %>
           <p>
             Deine Unterstützung wird nun vom Zahlungsdienstleister Stripe von deinem Bankkonto eingezogen.
           </p>

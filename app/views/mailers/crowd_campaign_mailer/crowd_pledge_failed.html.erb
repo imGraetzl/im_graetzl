@@ -11,6 +11,11 @@
         <p>
           <strong>Leider gab es beim Einzug deiner Crowdfunding-Unterstützung Probleme, da deine ausgewählte Zahlungsmethode nicht belastet werden konnte.</strong> Das passiert hin und wieder und kann verschiedene Ursachen haben.
         </p>
+        <% if @crowd_pledge.total_price >= 1000 && @crowd_pledge.payment_method == "card" %>
+          <p>
+            Bei höheren Beträgen kann es zum Beispiel auch an einem zu niedrig gesetzten Tages- oder Online-Limit deiner Karte liegen.
+          </p>
+        <% end %>
         <p>
           <strong>Bitte aktualisiere jetzt deine Zahlungsmethode, um deine Unterstützung aufrecht zu erhalten:</strong>
         </p>

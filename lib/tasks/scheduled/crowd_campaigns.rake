@@ -78,7 +78,7 @@ namespace :scheduled do
   task crowd_campaigns_guest_newsletter: :environment do
     
     scheduled_sending_dates = [
-      '2026-01-23', '2026-02-20'
+      '2026-02-20', '2026-03-21'
     ]
 
     send_date_today = nil
