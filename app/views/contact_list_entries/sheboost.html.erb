@@ -29,6 +29,11 @@
     <div class="hl-subtext">
       <h1>Welche Frau inspiriert dich?</h1>
       <p>sheBOOST braucht eine Botschafterin, die das Programm nach außen trägt. Eine Frau, die motiviert, Türen öffnet und zeigt: Groß denken geht. </p>
+      <% if @sheboost_nominations_closed %>
+        <p class="cardBox alert">
+          Die Nominierungsphase ist beendet. Die sheBOOST Jury tagt nun..
+        </p>
+      <% end %>
     </div>
 
     <div class="nomination-grid">
@@ -70,7 +75,7 @@
               <%= f.check_box :status, {}, 'disabled', 'enabled' %>
               <%= f.label :status, 'Anonym nominieren (meinen Namen nicht anzeigen)' %>
             </div>
-            <%= submit_tag "Nominierung absenden", class: 'btn-primary -rose -large -shadow' %>
+            <%= submit_tag "Nominierung absenden", class: 'btn-primary -rose -large -shadow', disabled: @sheboost_nominations_closed %>
           </div>
         <% end %>
         <div class="hint">
