@@ -354,7 +354,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def notification_time_range
-    [startdate, enddate]
+    [Time.current, enddate]
   end
 
   def to_s
