@@ -21,25 +21,26 @@ module Admin
 
     def autocomplete_users(terms)
       sql_conditions = terms.map {
-        "LOWER(users.first_name || ' ' || users.last_name || ' ' || users.username || ' ' || users.email) LIKE ?"
+        "LOWER(COALESCE(users.first_name, '') || ' ' || COALESCE(users.last_name, '') || ' ' || COALESCE(users.username, '') || ' ' || COALESCE(users.email, '')) LIKE ?"
       }.join(" AND ")
       sql_params = terms.map { |term| "%#{term}%" }
 
+      base_scope = include_guests? ? User.all : User.registered
       scope = case params[:scope]
               when 'with_locations'
-                User.registered.joins(:locations).distinct
+                base_scope.joins(:locations).distinct
               when 'with_meetings'
-                User.registered.where(
+                base_scope.where(
                   "EXISTS (SELECT 1 FROM meetings WHERE meetings.user_id = users.id)"
                 )
               when 'with_room_demands'
-                User.registered.joins(:room_demands).distinct
+                base_scope.joins(:room_demands).distinct
               when 'with_room_offers'
-                User.registered.joins(:room_offers).distinct
+                base_scope.joins(:room_offers).distinct
               when 'with_coupon_histories'
-                User.registered.joins(:coupon_histories).distinct
+                base_scope.joins(:coupon_histories).distinct
               else
-                User.registered
+                base_scope
               end
 
       scope
@@ -47,13 +48,15 @@ module Admin
         .order(:first_name, :last_name)
         .limit(10)
         .map do |u|
+          display_name = u.guest? ? "#{u.full_name} (Guest)" : u.full_name_with_username
           {
             id: u.id,
-            region: u.region.name,
+            region: u.region&.name,
             image_url: u.avatar_url(:thumb).presence || ActionController::Base.helpers.asset_path('fallbacks/user_avatar.png'),
             username: u.username,
             full_name: u.full_name,
-            autocomplete_display_name: u.full_name_with_username,
+            autocomplete_display_name: display_name,
+            guest: u.guest?,
             email: u.email
           }
         end
@@ -78,6 +81,10 @@ module Admin
                   autocomplete_display_name: l.user&.full_name_with_username
                 }
               end
+    end
+
+    def include_guests?
+      params[:include_guests].to_s == 'true' || params[:include_guests].to_s == '1'
     end
   end
 end

@@ -21,7 +21,7 @@ ActiveAdmin.register CrowdPledge do
   filter :user_id_eq, label: "User Suche", as: :string, input_html: {
     class: 'admin-autocomplete-component',
     placeholder: 'Name, Username oder E-Mail ...',
-    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]' }
+    data: { autocomplete_url: '/admin/autocomplete/users', target_input: 'q[user_id_eq]', include_guests: true }
   }
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_campaign, collection: proc { CrowdCampaign.scope_public.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}

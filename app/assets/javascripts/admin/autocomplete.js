@@ -38,8 +38,9 @@ function initAdminAutocompleteInput(input) {
 
     const scope = input.dataset.scope;
     const resource = input.dataset.resource || 'users';
+    const includeGuests = input.dataset.includeGuests === 'true' || input.dataset.includeGuests === '1';
     const joiner = url.includes('?') ? '&' : '?';
-    const finalUrl = `${url}${joiner}q=${encodeURIComponent(q)}&resource=${resource}${scope ? `&scope=${encodeURIComponent(scope)}` : ''}`;
+    const finalUrl = `${url}${joiner}q=${encodeURIComponent(q)}&resource=${resource}${scope ? `&scope=${encodeURIComponent(scope)}` : ''}${includeGuests ? '&include_guests=1' : ''}`;
 
     fetch(finalUrl)
       .then(res => res.json())
@@ -48,13 +49,15 @@ function initAdminAutocompleteInput(input) {
         
         const renderItem = (item) => {
           if (resource === 'users') {
+            const name = item.full_name || item.email || '';
+            const suffix = item.guest ? 'Guest' : item.username;
             return `
               <div class="eac-item">
                 <div class="item User">
                   <img src="${item.image_url}">
                   <div class="txt">
                     <span>${item.region}</span><br>
-                    <strong>${item.full_name}</strong> (${item.username})<br>
+                    <strong>${name}</strong>${suffix ? ` (${suffix})` : ''}<br>
                     <span>${item.email}</span>
                   </div>
                 </div>
