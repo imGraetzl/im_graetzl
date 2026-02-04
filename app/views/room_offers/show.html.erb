@@ -10,7 +10,16 @@
 
 <section class="offerDetail -roomOffer">
   <div class="imgHeader -line">
-    <%= cover_header_image(@room_offer, class: 'titleImg', fetchpriority: 'high') %>
+    <div class="titleCarousel" data-behavior="room-offer-header-carousel">
+      <div class="titleSlide">
+        <%= cover_header_image(@room_offer, class: 'titleImg', fetchpriority: 'high') %>
+      </div>
+      <% @room_offer.images.first(7).each do |image| %>
+        <div class="titleSlide">
+          <%= gallery_header_image(image, class: 'titleImg') %>
+        </div>
+      <% end %>
+    </div>
 
     <div class="headContent">
       <div class="introtxt">
