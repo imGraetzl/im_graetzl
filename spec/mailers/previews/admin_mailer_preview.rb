@@ -5,6 +5,10 @@ class AdminMailerPreview < ActionMailer::Preview
     AdminMailer.daily_mail
   end
 
+  def monthly_mail
+    AdminMailer.monthly_mail
+  end
+
   def new_zuckerl
     AdminMailer.new_zuckerl(Zuckerl.last)
   end

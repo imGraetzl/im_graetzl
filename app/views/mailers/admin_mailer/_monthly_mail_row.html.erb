@@ -1,0 +1,86 @@
+<% periods = local_assigns[:periods] || [] %>
+<% tax = 1.2 %>
+
+<%
+  def calc_pledges(pledges, boost_pledges = CrowdBoostPledge.none)
+    crowd_pledges_fee = pledges.sum do |pledge|
+      (pledge.total_price / 100) * pledge.crowd_campaign.service_fee_percentage
+    end
+
+    crowd_boost_pledges_fee = boost_pledges.sum do |pledge|
+      (pledge.amount / 100) * pledge.crowd_campaign.service_fee_percentage
+    end
+
+    stripe_fee = pledges.sum do |pledge|
+      (pledge.total_price / 100) * pledge.crowd_campaign.stripe_fee_percentage
+    end
+
+    stripe_fee += boost_pledges.sum do |pledge|
+      (pledge.amount / 100) * pledge.crowd_campaign.stripe_fee_percentage
+    end
+
+    crowd_pledges_fee_netto = (crowd_pledges_fee + crowd_boost_pledges_fee) / 1.2
+    platform_fee_netto = crowd_pledges_fee_netto - stripe_fee
+    platform_fee_netto
+  end
+
+  def calc_funding_sum(collection)
+    funding_sum = 0
+    collection.all.each do |campaign|
+      funding_sum += campaign.funding_sum
+    end
+    funding_sum
+  end
+%>
+
+<% if local_assigns[:thead] %>
+  <thead>
+    <tr style="background-color: #96D4D4; font-size:0.8rem; text-align:right;">
+      <th style="width: 40%; font-size:1.0rem; text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></th>
+      <% periods.each do |period| %>
+        <th style="width: 10%; border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= period[:label] %></th>
+      <% end %>
+    </tr>
+  </thead>
+<% elsif local_assigns[:pledge] %>
+  <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
+    <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+    <% periods.each do |period| %>
+      <% boost_scope = boost_collection ? boost_collection.where(debited_at: period[:range]) : CrowdBoostPledge.none %>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: period[:range]), boost_scope), precision: 0 ,unit: "€") %></td>
+    <% end %>
+  </tr>
+<% elsif local_assigns[:funding_sum] %>
+  <tr style="font-size:0.8rem; text-align:right;">
+    <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+    <% periods.each do |period| %>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: period[:range])), precision: 0 ,unit: "€") %></td>
+    <% end %>
+  </tr>
+<% elsif local_assigns[:amount] %>
+  <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
+    <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+    <% periods.each do |period| %>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: period[:range]).sum(local_assigns[:amount]) / tax, precision: 0 ,unit: "€") %></td>
+    <% end %>
+  </tr>
+<% elsif local_assigns[:sum] %>
+  <tr style="font-size:0.8rem; text-align:right;">
+    <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;" colspan="<%= periods.size %>"><%= title %></td>
+    <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.all.size %></td>
+  </tr>
+<% elsif local_assigns[:startdate] %>
+  <tr style="font-size:0.8rem; text-align:right;">
+    <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+    <% periods.each do |period| %>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(startdate: period[:range]).size %></td>
+    <% end %>
+  </tr>
+<% else %>
+  <tr style="font-size:0.8rem; text-align:right;">
+    <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+    <% periods.each do |period| %>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(created_at: period[:range]).size %></td>
+    <% end %>
+  </tr>
+<% end %>

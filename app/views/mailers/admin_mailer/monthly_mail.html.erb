@@ -1,0 +1,172 @@
+<% content_for(:above_title, "imGrätzl Monthly Mail") %>
+<% content_for(:title, "#{I18n.localize(Time.current.last_month.to_date, format:'%B %Y')}") %>
+
+<%
+  month_periods = (0..5).map do |i|
+    month = Time.current.last_month - i.months
+    {
+      label: I18n.localize(month.to_date, format: '%b %y'),
+      range: month.beginning_of_month..month.end_of_month
+    }
+  end
+
+  year_periods = (0..5).map do |i|
+    year = Time.current - i.years
+    range = if i.zero?
+      year.beginning_of_year..Time.current.end_of_day
+    else
+      year.beginning_of_year..year.end_of_year
+    end
+    {
+      label: I18n.localize(year.to_date, format: '%Y'),
+      range: range
+    }
+  end
+
+  def success_rate_for(range)
+    completed_count = CrowdCampaign.completed.enabled.where(enddate: range).count
+    return 0 if completed_count.zero?
+
+    (100 * CrowdCampaign.completed.successful.enabled.where(enddate: range).count) / completed_count
+  end
+
+  def avg_stripe_fee_percentage_for(range)
+    pledges = CrowdPledge.debited.where.not(stripe_fee: nil).where(debited_at: range)
+    total_amount = pledges.sum(:total_price)
+    total_stripe_fee = pledges.sum(:stripe_fee)
+    total_amount.zero? ? 0.0 : ((total_stripe_fee / total_amount) * 100).round(2)
+  end
+
+  def avg_service_fee_percentage_for(range)
+    CrowdCampaign.scope_public.where(enddate: range).average(:service_fee_percentage).to_f
+  end
+%>
+
+
+<%= render 'mailers/notification_mailer/summary/block_header', title: 'Registrierungen' %>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Registrierungen (Monate)", thead: true, periods: month_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Gesamt (Registriert)", collection: User.registered, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Gesamt (Guests)", collection: User.guests, periods: month_periods %>
+    <% Region.all.each do |region| %>
+      <%= render 'mailers/admin_mailer/monthly_mail_row', title: region, collection: User.registered.in(region), periods: month_periods %>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Registrierungen (Jahre)", thead: true, periods: year_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Gesamt (Registriert)", collection: User.registered, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Gesamt (Guests)", collection: User.guests, periods: year_periods %>
+    <% Region.all.each do |region| %>
+      <%= render 'mailers/admin_mailer/monthly_mail_row', title: region, collection: User.registered.in(region), periods: year_periods %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render 'mailers/notification_mailer/summary/block_header', title: 'Fördermitgliedschaft' %>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Fördermitgliedschaft (Monate)", thead: true, periods: month_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Bezahlte Rechnungen", collection: SubscriptionInvoice.paid, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.paid, amount: :amount, periods: month_periods %>
+  </tbody>
+</table>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Fördermitgliedschaft (Jahre)", thead: true, periods: year_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Bezahlte Rechnungen", collection: SubscriptionInvoice.paid, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.paid, amount: :amount, periods: year_periods %>
+  </tbody>
+</table>
+
+<%= render 'mailers/notification_mailer/summary/block_header', title: 'Buchungen' %>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Buchungen (Monate)", thead: true, periods: month_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Großes Zuckerl", collection: Zuckerl.where(payment_status: [:processing, :debited]).entire_region, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.where(payment_status: [:processing, :debited]).graetzl, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.where(payment_status: [:processing, :debited]), amount: :amount, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Raumteiler Pusher", collection: RoomBooster.where(payment_status: [:processing, :debited]), periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Pusher Einnahmen", collection: RoomBooster.where(payment_status: [:processing, :debited]), amount: :amount, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Raumteiler Buchung", collection: RoomRental.where(payment_status: [:processing, :debited]), periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Buchungs Fee", collection: RoomRental.where(payment_status: [:processing, :debited]), amount: :service_fee, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Crowdfunding Fee", collection: CrowdPledge.where(status: :debited).includes(:crowd_campaign), boost_collection: CrowdBoostPledge.where(status: :debited).includes(:crowd_campaign), pledge: true, periods: month_periods %>
+  </tbody>
+</table>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Buchungen (Jahre)", thead: true, periods: year_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Großes Zuckerl", collection: Zuckerl.where(payment_status: [:processing, :debited]).entire_region, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kleines Zuckerl", collection: Zuckerl.where(payment_status: [:processing, :debited]).graetzl, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Zuckerl Einnahmen", collection: Zuckerl.where(payment_status: [:processing, :debited]), amount: :amount, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Raumteiler Pusher", collection: RoomBooster.where(payment_status: [:processing, :debited]), periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Pusher Einnahmen", collection: RoomBooster.where(payment_status: [:processing, :debited]), amount: :amount, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Raumteiler Buchung", collection: RoomRental.where(payment_status: [:processing, :debited]), periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Buchungs Fee", collection: RoomRental.where(payment_status: [:processing, :debited]), amount: :service_fee, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Crowdfunding Fee", collection: CrowdPledge.where(status: :debited).includes(:crowd_campaign), boost_collection: CrowdBoostPledge.where(status: :debited).includes(:crowd_campaign), pledge: true, periods: year_periods %>
+  </tbody>
+</table>
+
+<%= render 'mailers/notification_mailer/summary/block_header', title: 'Crowdfunding' %>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Crowdfunding (Monate)", thead: true, periods: month_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Funding Volumen", collection: CrowdCampaign.successful, funding_sum: true, periods: month_periods %>
+    <tr style="font-size:0.8rem; text-align:right;">
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Erfolgsquote</td>
+      <% month_periods.each do |period| %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= success_rate_for(period[:range]) %> %</td>
+      <% end %>
+    </tr>
+    <tr style="font-size:0.8rem; text-align:right;">
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Stripe Fee (avg)</td>
+      <% month_periods.each do |period| %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_stripe_fee_percentage_for(period[:range]), precision: 2) %></td>
+      <% end %>
+    </tr>
+    <tr style="font-size:0.8rem; text-align:right;">
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Service Fee Gesamt (avg)</td>
+      <% month_periods.each do |period| %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_service_fee_percentage_for(period[:range]), precision: 1) %></td>
+      <% end %>
+    </tr>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized, periods: month_periods %>
+  </tbody>
+</table>
+
+<table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Crowdfunding (Jahre)", thead: true, periods: year_periods %>
+  <tbody>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Funding Volumen", collection: CrowdCampaign.successful, funding_sum: true, periods: year_periods %>
+    <tr style="font-size:0.8rem; text-align:right;">
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Erfolgsquote</td>
+      <% year_periods.each do |period| %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= success_rate_for(period[:range]) %> %</td>
+      <% end %>
+    </tr>
+    <tr style="font-size:0.8rem; text-align:right;">
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Stripe Fee (avg)</td>
+      <% year_periods.each do |period| %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_stripe_fee_percentage_for(period[:range]), precision: 2) %></td>
+      <% end %>
+    </tr>
+    <tr style="font-size:0.8rem; text-align:right;">
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Service Fee Gesamt (avg)</td>
+      <% year_periods.each do |period| %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_service_fee_percentage_for(period[:range]), precision: 1) %></td>
+      <% end %>
+    </tr>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized, periods: year_periods %>
+  </tbody>
+</table>

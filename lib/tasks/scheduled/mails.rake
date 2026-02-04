@@ -5,6 +5,13 @@ namespace :scheduled do
     AdminMailer.daily_mail.deliver_now
   end
 
+  desc 'Send monthly Admin Mail'
+  task monthly_mail: :environment do
+    return unless Date.today.day == 1
+
+    AdminMailer.monthly_mail.deliver_now
+  end
+
   desc 'Send messenger notifications'
   task unseen_messages: :environment do
     time_range = 1.day.ago..10.minutes.ago

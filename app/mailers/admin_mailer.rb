@@ -15,6 +15,21 @@ class AdminMailer < ApplicationMailer
     mail(mail_params)
   end
 
+  def monthly_mail(to: nil, cc: nil)
+    @region = Region.get('wien')
+
+    to ||= platform_admin_email
+
+    mail_params = {
+      subject: "[#{@region.host_domain_name}] Monthly Mail",
+      from: platform_email("no-reply"),
+      to: to
+    }
+    mail_params[:cc] = cc if cc.present?
+
+    mail(mail_params)
+  end
+
   def task_info(task_name, execution, task_starts_at = nil, task_ends_at = nil)
     if Rails.env.production?
       @region = Region.get('wien')
