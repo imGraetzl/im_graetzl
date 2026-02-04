@@ -111,6 +111,15 @@ module ImageHelper
     end
   end
 
+  def gallery_header_image(object, **options)
+    options[:loading] ||= 'lazy'
+    options[:alt] ||= 'Gallery Foto'
+    image_tag(object.file_url(:cardbox, :small), srcset: {
+      object.file_url(:cardbox, :small) => '1x',
+      object.file_url(:cardbox, :large) => '2x',
+    }, sizes: "100vw", **options)
+  end
+
   def gallery_photo_image(object, fallback: 'cover_photo.png', **options)
     if object&.file.nil?
       image_tag("fallbacks/#{fallback}", loading: 'lazy', **options)

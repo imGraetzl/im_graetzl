@@ -15,6 +15,13 @@
       <%= icon_tag "cross" %>
     <% end %>
   </div>
+<% else %>
+  <div id="betaflash">
+    Jeden Mittwoch - <%= link_to 'Crowdfunding Sprechstunde!', '/crowdfunding' %>
+    <%= link_to 'javascript:', class: 'close-ico' do %>
+      <%= icon_tag "cross" %>
+    <% end %>
+  </div>
 <% end %>
 
 <section class="graetzls">
@@ -47,7 +54,7 @@
       
       <!-- Insert Featured Card -->
       <% if current_region.is?('wien') %>
-        <%= render "shared/featured_cards/sheboost_nominierung" %>
+        <%= render "shared/featured_cards/good_morning_date_call" %>
       <% elsif current_region.use_subscription? %>
         <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).includes(:user).active.sample if Subscription.in(current_region).active.any? %>
       <% end %>

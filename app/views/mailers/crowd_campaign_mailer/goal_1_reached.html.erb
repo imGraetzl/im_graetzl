@@ -6,13 +6,10 @@
           Servus <%= @crowd_campaign.user.first_name %>,
         </p>
         <p>
-          <strong>deine Kampagne "<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a; font-weight:bold;" %>" hat das erste Ziel erreicht,</strong> d.h. der Betrag und andere Ressourcen,
-          die innerhalb der Kampagne gesammelt werden, kommen damit auf jeden Fall zur Ausschüttung. Gratulation!
+          <strong>deine Kampagne "<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a; font-weight:bold;" %>" hat das erste Ziel erreicht,</strong> d.h. der Betrag und andere Ressourcen, die innerhalb der Kampagne gesammelt werden, kommen damit auf jeden Fall zur Ausschüttung. Gratulation!
         </p>
         <p>
-          <strong>Bleib weiter dran. Verbreite die gute Nachricht,</strong> dass dein Vorhaben in einer ersten Ausbaustufe realisiert werden kann und du dich über weitere Unterstützung freust.
-          Die bisherigen Unterstützer*innen kannst du ebenfalls eine Nachricht schicken und erzählen, dass dein Vorhaben dank ihrer Unterstützung auf einem guten Weg ist.
-          Bitte sie auch noch einmal dein Vorhaben und die Kampagne weiter zu verbreiten:<br>
+          <strong>Bleib weiter dran. Verbreite die gute Nachricht,</strong> dass ein wichtiger erster Meilenstein erreicht wurde und kommuniziere dabei das nächste Ziel. Den bisherigen Unterstützer*innen kannst du ebenfalls eine Nachricht schicken und erzählen, dass dein Vorhaben dank ihrer Unterstützung auf einem guten Weg ist. Bitte sie auch noch einmal dein Vorhaben und die Kampagne weiter zu verbreiten:<br>
           <%= link_to crowd_campaign_url(@crowd_campaign), crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %>
         </p>
         <% if @crowd_campaign.funding_2_amount.present? %>

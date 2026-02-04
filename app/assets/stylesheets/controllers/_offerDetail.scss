@@ -86,6 +86,41 @@ section.offerDetail {
         margin-bottom: 0px;
       }
 
+      .titleCarousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .titleSlide {
+        flex: 0 0 100%;
+        width: 100%;
+        scroll-snap-align: start;
+      }
+
+      .titleSlide > * {
+        display: block;
+        width: 100%;
+      }
+
+      @include respond-to(">=medium") {
+        .titleCarousel {
+          overflow: hidden;
+          scroll-snap-type: none;
+        }
+
+        .titleSlide:not(:first-child) {
+          display: none;
+        }
+      }
+
       .dropdown-container {
         z-index: 600;
         transform: translate(-20px, 0);

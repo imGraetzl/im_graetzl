@@ -45,9 +45,7 @@
       <%= render 'regions/action_card' if !user_signed_in? %>
     </div>
     <!-- Insert Featured Card -->
-    <% if current_region.is?('wien') %>
-      <%= render "shared/featured_cards/sheboost_nominierung" %>
-    <% elsif current_region.use_subscription? %>
+    <% if current_region.use_subscription? %>
       <%= render 'shared/featured_cards/subscription', subscription: Subscription.in(current_region).includes(:user).active.sample if Subscription.in(current_region).active.any? %>
     <% end %>
 

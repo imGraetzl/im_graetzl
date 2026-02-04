@@ -3,7 +3,7 @@ context.instance_eval do
     attributes_table_for room_rental do
       row :room_offer
       row(:owner) { |r| r.owner }
-      row(:iban) { |r| r.room_offer.user.iban }
+      row(:iban) { |r| r.room_offer&.user&.iban }
     end
   end
 

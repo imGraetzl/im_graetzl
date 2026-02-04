@@ -16,9 +16,12 @@ section.info {
       background-image: url(image_path('info/schanze/sChanze_header.jpg'));
       background-position: center center;
       @media only screen and (min-width:1450px){
-        background-size: 70%;
+        //background-size: 70%;
         //background-size: contain;
       }
+      margin: auto;
+      max-width: 1440px;
+
     }
 
     .header-logo {
@@ -99,6 +102,19 @@ section.info {
 
 section.sChanze[class*="modell-"] {
 
+  position: relative;
+  border-top: 1px solid #c0d3d1;
+  border-bottom: 1px solid #c0d3d1;
+  margin-top:80px;
+  padding: 60px 20px 35px 20px;
+
+  > div {
+    //max-width: 1200px;
+    //margin-left: auto;
+    //margin-right: auto;
+  }
+
+
   ul.-icons {
     margin-bottom:20px;
     li {
@@ -148,10 +164,6 @@ section.sChanze[class*="modell-"] {
     font-family: "duper", sans-serif;
   }
   @include font-size-primaryFont('large');
-  
-  position: relative;
-  border-top: 1px solid #c0d3d1;
-  padding: 60px 20px 80px 20px;
 
   .center {
     text-align: center;
@@ -165,16 +177,21 @@ section.sChanze[class*="modell-"] {
   }
 
   &.modell-1 { 
-    margin-top:20px;
+    margin-top:40px;
     background-color: #f2f6f7;
   }
 
-  &.modell-2 { 
-    background-color: unset;
+  &.modell-2 {
+    background-color: #f2f6f7;
   }
 
-  &.modell-3 { 
+  &.modell-3 {
     background-color: #d2ebe8;
+  }
+
+  &.modell-4 {
+    margin-top:0px;
+    border: none;
   }
 
   .cardBoxes {
@@ -231,13 +248,14 @@ section.sChanze[class*="modell-"] {
 
   .howitworks {
     margin-top:20px;
-    padding-top:30px;
+    padding-top:0px;
     padding-bottom:30px;
-    background-color: #ffffff;
-    @include bg-url(
-      image_path('texture-alpha-stoff1.png'),
-      $webp1x: image_path('texture-alpha-stoff1.webp'),
-    );
+    border-bottom: 1px dotted #69a9a9;
+    //background-color: #ffffff;
+    //@include bg-url(
+    //  image_path('texture-alpha-stoff1.png'),
+    //  $webp1x: image_path('texture-alpha-stoff1.webp'),
+    //);
     //background:none !important;
     //background-image: none !important;
     h3 {
@@ -268,11 +286,13 @@ section.sChanze[class*="modell-"] {
     @include font-size-primaryFont('base');
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
     background:none;
     border-color: #f08e81;
     ul {
       margin-top:10px;
+      margin-bottom:0px;
     }
     img {
       transform: rotate(45deg);
@@ -390,7 +410,10 @@ section.modell-3 {
       border-top-left-radius: 0px;
       border-top-right-radius: 0px;
       h2 {
-        @include font-size-secondaryFont('base');
+        font-size: 3.0rem;
+        @include respond-to(">=medium") {
+          font-size: 3.3rem;
+        }
         font-family: "duper", sans-serif;
         color: #f37b70;
         background-repeat: no-repeat;
@@ -415,6 +438,7 @@ section.modell-3 {
     display: flex;
     justify-content: center;
     padding:10px;
+    flex-wrap: wrap;
     span {
       color: $color-ambient-mint-dark;
       font-size: 2.5rem;
@@ -422,7 +446,6 @@ section.modell-3 {
     > div {
       text-align: center;
       padding:10px;
-      width:25%;
     }
     img {
       height:60px;
@@ -437,6 +460,11 @@ section.modell-3 {
         margin: auto;
       }
     }
+    .zwischen {
+      @include respond-to("<=medium") {
+        display: none;
+      }
+    }
   }
   .-conditions {
     padding-top:20px;
@@ -446,16 +474,15 @@ section.modell-3 {
     margin-right:-20px;
   }
   .-super-btn {
-    background-image: url(image_path('illu/illu-macher-in@2x.png'));
-    background-position: 10% bottom;
-    background-repeat: no-repeat;
-    background-size: 100px;
-    padding-top:30px;
-    padding-bottom:10px;
-    padding-left:200px;
-    padding-right:200px;
-    @include respond-to(">=medium") {
-      background-size: 150px 150px;
+    @include respond-to(">=large") {
+      background-image: url(image_path('illu/illu-macher-in@2x.png'));
+      background-position: 10% bottom;
+      background-repeat: no-repeat;
+      background-size: 150px;
+      padding-top:30px;
+      padding-bottom:10px;
+      padding-left:200px;
+      padding-right:200px;
     }
   }
 }
@@ -464,6 +491,7 @@ section.modell-3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   img {
     margin:20px;
     height:70px;

@@ -225,17 +225,17 @@ class WebhooksController < ApplicationController
     subscription_id = extractor.subscription_id
 
     if subscription_id.blank?
-      Rails.logger.warn "[stripe webhook] invoice_paid: no subscription found – ignoring"
+      Sentry.logger.warn "[stripe webhook] invoice_paid: no subscription found – ignoring"
       return
     end
   
     subscription = Subscription.find_by(stripe_id: subscription_id)
     if subscription
-      Rails.logger.info "[stripe webhook] invoice_paid: subscription: #{subscription&.id}"
+      Sentry.logger.info "[stripe webhook] invoice_paid: subscription: #{subscription&.id}"
       SubscriptionService.new.invoice_paid(subscription, object)
       SubscriptionMailer.invoice(subscription).deliver_later
     else
-      Rails.logger.warn "[stripe webhook] invoice_paid: no subscription found with stripe_id #{subscription_id}"
+      Sentry.logger.warn "[stripe webhook] invoice_paid: no subscription found with stripe_id #{subscription_id}"
     end
   end
 
