@@ -12,11 +12,7 @@
 
   year_periods = (0..5).map do |i|
     year = Time.current - i.years
-    range = if i.zero?
-      year.beginning_of_year..Time.current.end_of_day
-    else
-      year.beginning_of_year..year.end_of_year
-    end
+    range = year.beginning_of_year..year.end_of_year
     {
       label: I18n.localize(year.to_date, format: '%Y'),
       range: range
@@ -25,7 +21,7 @@
 
   def success_rate_for(range)
     completed_count = CrowdCampaign.completed.enabled.where(enddate: range).count
-    return 0 if completed_count.zero?
+    return nil if completed_count.zero?
 
     (100 * CrowdCampaign.completed.successful.enabled.where(enddate: range).count) / completed_count
   end
@@ -34,11 +30,12 @@
     pledges = CrowdPledge.debited.where.not(stripe_fee: nil).where(debited_at: range)
     total_amount = pledges.sum(:total_price)
     total_stripe_fee = pledges.sum(:stripe_fee)
-    total_amount.zero? ? 0.0 : ((total_stripe_fee / total_amount) * 100).round(2)
+    total_amount.zero? ? nil : ((total_stripe_fee / total_amount) * 100).round(2)
   end
 
   def avg_service_fee_percentage_for(range)
-    CrowdCampaign.scope_public.where(enddate: range).average(:service_fee_percentage).to_f
+    avg_value = CrowdCampaign.scope_public.where(enddate: range).average(:service_fee_percentage)
+    avg_value.nil? ? nil : avg_value.to_f
   end
 %>
 
@@ -70,7 +67,7 @@
 <%= render 'mailers/notification_mailer/summary/block_header', title: 'Fördermitgliedschaft' %>
 
 <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Fördermitgliedschaft (Monate)", thead: true, periods: month_periods %>
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Mitgliedschaft (Monate)", thead: true, periods: month_periods %>
   <tbody>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Bezahlte Rechnungen", collection: SubscriptionInvoice.paid, periods: month_periods %>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.paid, amount: :amount, periods: month_periods %>
@@ -78,7 +75,7 @@
 </table>
 
 <table class="mcnTextContent statisticTable" style="width:100%; margin-bottom:20px;">
-  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Fördermitgliedschaft (Jahre)", thead: true, periods: year_periods %>
+  <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Mitgliedschaft (Jahre)", thead: true, periods: year_periods %>
   <tbody>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Bezahlte Rechnungen", collection: SubscriptionInvoice.paid, periods: year_periods %>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Mitgliedschaft Einnahmen", collection: SubscriptionInvoice.paid, amount: :amount, periods: year_periods %>
@@ -124,19 +121,22 @@
     <tr style="font-size:0.8rem; text-align:right;">
       <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Erfolgsquote</td>
       <% month_periods.each do |period| %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= success_rate_for(period[:range]) %> %</td>
+        <% success_rate = success_rate_for(period[:range]) %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= success_rate.nil? ? "—" : "#{success_rate} %" %></td>
       <% end %>
     </tr>
     <tr style="font-size:0.8rem; text-align:right;">
       <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Stripe Fee (avg)</td>
       <% month_periods.each do |period| %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_stripe_fee_percentage_for(period[:range]), precision: 2) %></td>
+        <% avg_stripe_fee = avg_stripe_fee_percentage_for(period[:range]) %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_stripe_fee.nil? ? "—" : number_to_percentage(avg_stripe_fee, precision: 2) %></td>
       <% end %>
     </tr>
     <tr style="font-size:0.8rem; text-align:right;">
       <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Service Fee Gesamt (avg)</td>
       <% month_periods.each do |period| %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_service_fee_percentage_for(period[:range]), precision: 1) %></td>
+        <% avg_service_fee = avg_service_fee_percentage_for(period[:range]) %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_service_fee.nil? ? "—" : number_to_percentage(avg_service_fee, precision: 1) %></td>
       <% end %>
     </tr>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true, periods: month_periods %>
@@ -151,19 +151,22 @@
     <tr style="font-size:0.8rem; text-align:right;">
       <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Erfolgsquote</td>
       <% year_periods.each do |period| %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= success_rate_for(period[:range]) %> %</td>
+        <% success_rate = success_rate_for(period[:range]) %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= success_rate.nil? ? "—" : "#{success_rate} %" %></td>
       <% end %>
     </tr>
     <tr style="font-size:0.8rem; text-align:right;">
       <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Stripe Fee (avg)</td>
       <% year_periods.each do |period| %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_stripe_fee_percentage_for(period[:range]), precision: 2) %></td>
+        <% avg_stripe_fee = avg_stripe_fee_percentage_for(period[:range]) %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_stripe_fee.nil? ? "—" : number_to_percentage(avg_stripe_fee, precision: 2) %></td>
       <% end %>
     </tr>
     <tr style="font-size:0.8rem; text-align:right;">
       <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Service Fee Gesamt (avg)</td>
       <% year_periods.each do |period| %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_service_fee_percentage_for(period[:range]), precision: 1) %></td>
+        <% avg_service_fee = avg_service_fee_percentage_for(period[:range]) %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_service_fee.nil? ? "—" : number_to_percentage(avg_service_fee, precision: 1) %></td>
       <% end %>
     </tr>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true, periods: year_periods %>
