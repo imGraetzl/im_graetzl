@@ -9,9 +9,8 @@
       range: month.beginning_of_month..month.end_of_month
     }
   end
-  month_periods << { label: 'All', range: nil, all: true }
 
-  year_periods = (0..5).map do |i|
+  year_periods = (0..4).map do |i|
     year = Time.current - i.years
     range = year.beginning_of_year..year.end_of_year
     {
