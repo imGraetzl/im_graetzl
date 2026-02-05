@@ -94,6 +94,16 @@
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(startdate: last_year).size %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.all.size %></td>
     </tr>
+<% elsif local_assigns[:enddate] %>
+    <tr style="font-size:0.8rem; text-align:right;">
+        <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(enddate: yesterday).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(enddate: this_month).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(enddate: last_month).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(enddate: this_year).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(enddate: last_year).size %></td>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.all.size %></td>
+    </tr>
 <% else %>
     <tr style="font-size:0.8rem; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>

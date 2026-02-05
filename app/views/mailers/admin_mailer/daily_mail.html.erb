@@ -93,7 +93,7 @@
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_fee_last_year, precision: 1) %></td>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_percentage(avg_fee_all, precision: 1) %></td>
       </tr>
-      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true %>
+      <%= render 'mailers/admin_mailer/daily_mail_row', title: "Endende Kampagnen", collection: CrowdCampaign.scope_public, enddate: true %>
       <%= render 'mailers/admin_mailer/daily_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized %> 
     </tbody>
   </table>

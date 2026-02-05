@@ -118,28 +118,7 @@
   <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Crowdfunding (Monate)", thead: true, periods: month_periods %>
   <tbody>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Funding Volumen", collection: CrowdCampaign.successful, funding_sum: true, periods: month_periods %>
-    <tr style="font-size:0.8rem; text-align:right;">
-      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Erfolgsquote</td>
-      <% month_periods.each do |period| %>
-        <% success_rate = success_rate_for(period[:range]) %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= success_rate.nil? ? "—" : "#{success_rate} %" %></td>
-      <% end %>
-    </tr>
-    <tr style="font-size:0.8rem; text-align:right;">
-      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Stripe Fee (avg)</td>
-      <% month_periods.each do |period| %>
-        <% avg_stripe_fee = avg_stripe_fee_percentage_for(period[:range]) %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_stripe_fee.nil? ? "—" : number_to_percentage(avg_stripe_fee, precision: 2) %></td>
-      <% end %>
-    </tr>
-    <tr style="font-size:0.8rem; text-align:right;">
-      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Service Fee Gesamt (avg)</td>
-      <% month_periods.each do |period| %>
-        <% avg_service_fee = avg_service_fee_percentage_for(period[:range]) %>
-        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_service_fee.nil? ? "—" : number_to_percentage(avg_service_fee, precision: 1) %></td>
-      <% end %>
-    </tr>
-    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true, periods: month_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Endende Kampagnen", collection: CrowdCampaign.scope_public, enddate: true, periods: month_periods %>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized, periods: month_periods %>
   </tbody>
 </table>
@@ -156,20 +135,20 @@
       <% end %>
     </tr>
     <tr style="font-size:0.8rem; text-align:right;">
-      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Stripe Fee (avg)</td>
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Stripe Fee (⌀)</td>
       <% year_periods.each do |period| %>
         <% avg_stripe_fee = avg_stripe_fee_percentage_for(period[:range]) %>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_stripe_fee.nil? ? "—" : number_to_percentage(avg_stripe_fee, precision: 2) %></td>
       <% end %>
     </tr>
     <tr style="font-size:0.8rem; text-align:right;">
-      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Service Fee Gesamt (avg)</td>
+      <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;">Service Fee Gesamt (⌀)</td>
       <% year_periods.each do |period| %>
         <% avg_service_fee = avg_service_fee_percentage_for(period[:range]) %>
         <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= avg_service_fee.nil? ? "—" : number_to_percentage(avg_service_fee, precision: 1) %></td>
       <% end %>
     </tr>
-    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Kampagnen", collection: CrowdCampaign.scope_public, startdate: true, periods: year_periods %>
+    <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Endende Kampagnen", collection: CrowdCampaign.scope_public, enddate: true, periods: year_periods %>
     <%= render 'mailers/admin_mailer/monthly_mail_row', title: "Unterstützungen", collection: CrowdPledge.initialized, periods: year_periods %>
   </tbody>
 </table>

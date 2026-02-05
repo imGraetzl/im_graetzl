@@ -70,12 +70,19 @@
     <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.all.size %></td>
   </tr>
 <% elsif local_assigns[:startdate] %>
-  <tr style="font-size:0.8rem; text-align:right;">
-    <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
-    <% periods.each do |period| %>
-      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(startdate: period[:range]).size %></td>
-    <% end %>
-  </tr>
+    <tr style="font-size:0.8rem; text-align:right;">
+        <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+        <% periods.each do |period| %>
+          <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(startdate: period[:range]).size %></td>
+        <% end %>
+    </tr>
+<% elsif local_assigns[:enddate] %>
+    <tr style="font-size:0.8rem; text-align:right;">
+        <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
+        <% periods.each do |period| %>
+          <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(enddate: period[:range]).size %></td>
+        <% end %>
+    </tr>
 <% else %>
   <tr style="font-size:0.8rem; text-align:right;">
     <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
