@@ -31,6 +31,12 @@
     end
     funding_sum
   end
+
+  def range_scope(scope, period, column)
+    return scope if period[:all]
+
+    scope.where(column => period[:range])
+  end
 %>
 
 <% if local_assigns[:thead] %>
@@ -46,22 +52,28 @@
   <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
     <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
     <% periods.each do |period| %>
-      <% boost_scope = boost_collection ? boost_collection.where(debited_at: period[:range]) : CrowdBoostPledge.none %>
-      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: period[:range]), boost_scope), precision: 0 ,unit: "€") %></td>
+      <% if period[:all] %>
+        <% boost_scope = boost_collection || CrowdBoostPledge.none %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection, boost_scope), precision: 0 ,unit: "€") %></td>
+      <% else %>
+        <% boost_scope = boost_collection ? boost_collection.where(debited_at: period[:range]) : CrowdBoostPledge.none %>
+        <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_pledges(collection.where(debited_at: period[:range]), boost_scope), precision: 0 ,unit: "€") %></td>
+      <% end %>
     <% end %>
   </tr>
 <% elsif local_assigns[:funding_sum] %>
   <tr style="font-size:0.8rem; text-align:right;">
     <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
     <% periods.each do |period| %>
-      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(collection.where(enddate: period[:range])), precision: 0 ,unit: "€") %></td>
+      <% funding_scope = period[:all] ? collection : collection.where(enddate: period[:range]) %>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(calc_funding_sum(funding_scope), precision: 0 ,unit: "€") %></td>
     <% end %>
   </tr>
 <% elsif local_assigns[:amount] %>
   <tr style="font-size:0.8rem; font-weight:bold; text-align:right;">
     <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
     <% periods.each do |period| %>
-      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(collection.where(created_at: period[:range]).sum(local_assigns[:amount]) / tax, precision: 0 ,unit: "€") %></td>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px; white-space: nowrap;"><%= number_to_currency(range_scope(collection, period, :created_at).sum(local_assigns[:amount]) / tax, precision: 0 ,unit: "€") %></td>
     <% end %>
   </tr>
 <% elsif local_assigns[:sum] %>
@@ -73,21 +85,21 @@
     <tr style="font-size:0.8rem; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
         <% periods.each do |period| %>
-          <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(startdate: period[:range]).size %></td>
+          <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= range_scope(collection, period, :startdate).size %></td>
         <% end %>
     </tr>
 <% elsif local_assigns[:enddate] %>
     <tr style="font-size:0.8rem; text-align:right;">
         <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
         <% periods.each do |period| %>
-          <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(enddate: period[:range]).size %></td>
+          <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= range_scope(collection, period, :enddate).size %></td>
         <% end %>
     </tr>
 <% else %>
   <tr style="font-size:0.8rem; text-align:right;">
     <td style="text-align:left; border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= title %></td>
     <% periods.each do |period| %>
-      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= collection.where(created_at: period[:range]).size %></td>
+      <td style="border: 1px solid white; border-collapse: collapse; padding:2px 5px;"><%= range_scope(collection, period, :created_at).size %></td>
     <% end %>
   </tr>
 <% end %>

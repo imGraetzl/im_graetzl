@@ -9,6 +9,7 @@
       range: month.beginning_of_month..month.end_of_month
     }
   end
+  month_periods << { label: 'All', range: nil, all: true }
 
   year_periods = (0..5).map do |i|
     year = Time.current - i.years
@@ -18,23 +19,31 @@
       range: range
     }
   end
+  year_periods << { label: 'All', range: nil, all: true }
 
-  def success_rate_for(range)
-    completed_count = CrowdCampaign.completed.enabled.where(enddate: range).count
+  def success_rate_for(range = nil)
+    completed_scope = CrowdCampaign.completed.enabled
+    completed_scope = completed_scope.where(enddate: range) if range
+    completed_count = completed_scope.count
     return nil if completed_count.zero?
 
-    (100 * CrowdCampaign.completed.successful.enabled.where(enddate: range).count) / completed_count
+    success_scope = CrowdCampaign.completed.successful.enabled
+    success_scope = success_scope.where(enddate: range) if range
+    (100 * success_scope.count) / completed_count
   end
 
-  def avg_stripe_fee_percentage_for(range)
-    pledges = CrowdPledge.debited.where.not(stripe_fee: nil).where(debited_at: range)
+  def avg_stripe_fee_percentage_for(range = nil)
+    pledges = CrowdPledge.debited.where.not(stripe_fee: nil)
+    pledges = pledges.where(debited_at: range) if range
     total_amount = pledges.sum(:total_price)
     total_stripe_fee = pledges.sum(:stripe_fee)
     total_amount.zero? ? nil : ((total_stripe_fee / total_amount) * 100).round(2)
   end
 
-  def avg_service_fee_percentage_for(range)
-    avg_value = CrowdCampaign.scope_public.where(enddate: range).average(:service_fee_percentage)
+  def avg_service_fee_percentage_for(range = nil)
+    scope = CrowdCampaign.scope_public
+    scope = scope.where(enddate: range) if range
+    avg_value = scope.average(:service_fee_percentage)
     avg_value.nil? ? nil : avg_value.to_f
   end
 %>
