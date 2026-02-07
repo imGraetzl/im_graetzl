@@ -7,9 +7,9 @@ namespace :scheduled do
 
   desc 'Send monthly Admin Mail'
   task monthly_mail: :environment do
-    return unless Date.today.day == 1
-
-    AdminMailer.monthly_mail.deliver_now
+    if Date.current.day == 1
+      AdminMailer.monthly_mail.deliver_now
+    end
   end
 
   desc 'Send messenger notifications'
